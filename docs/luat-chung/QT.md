@@ -34,7 +34,7 @@ Booking sale tự ghi cho căn tự nhập chỉ chặn trùng trong chính căn
 
 ## QT1.4 · Yêu cầu đặt phòng gặp đêm đã kín
 Rủi ro: cao
-Sale gửi yêu cầu cho đêm đã thuộc một booking của căn đó thì server không tạo yêu cầu, báo "Căn này đã được đặt rồi" (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 3a). Chủ nhà chấp nhận một yêu cầu, hoặc tự ghi booking, thì mọi yêu cầu đang chờ có đêm trùng thành Bị từ chối (mục "Yêu cầu trùng ngày" (US15), (giả định GD11) cho trường hợp chủ tự ghi).
+Sale gửi yêu cầu cho đêm đã thuộc một booking của căn đó thì server không tạo yêu cầu, báo "Căn này đã được đặt rồi" (YC9.1 bước 3a). Chủ nhà chấp nhận một yêu cầu, hoặc tự ghi booking, thì mọi yêu cầu đang chờ có đêm trùng thành Bị từ chối (YC9.3, (giả định GD11) cho trường hợp chủ tự ghi).
 
 | Mã | Đang có | Việc xảy ra | Phải ra |
 |---|---|---|---|
@@ -69,17 +69,17 @@ Các ví dụ dùng số trong `Du_lieu_mau.md`.
 
 # QT3 · Tiền chênh của sale
 
-Chỉ sale đó thấy (nhóm Nguồn phòng và căn tự nhập, nhóm Thống kê bảng Ai thấy gì).
+Chỉ sale đó thấy (PQ15.SALE).
 
 ## QT3.1 · Tính tiền chênh
 Rủi ro: cao
-Tiền chênh của một booking bằng tiền sale thu khách trừ tiền trả chủ nhà (giá chủ nhà). Chỉ tính booking đã chốt: booking thành từ yêu cầu đã chốt, booking chủ nhà ghi chọn sale làm người đặt (mục "Booking chủ nhà ghi cho sale" (US3), coi như booking của sale), và booking sale tự ghi cho căn tự nhập. Yêu cầu đang chờ, bị từ chối, hết hạn, đã hủy không tính.
+Tiền chênh của một booking bằng tiền sale thu khách trừ tiền trả chủ nhà (giá chủ nhà). Chỉ tính booking đã chốt: booking thành từ yêu cầu đã chốt, booking chủ nhà ghi chọn sale làm người đặt (YC5.4, coi như booking của sale), và booking sale tự ghi cho căn tự nhập. Yêu cầu đang chờ, bị từ chối, hết hạn, đã hủy không tính.
 
 | Mã | Booking | Thu khách | Trả chủ | Phải ra |
 |---|---|---|---|---|
 | QT3.1-VD1 | B1 (1509, 2 đêm) | 2.600.000đ | 2.200.000đ | 400.000đ |
 | QT3.1-VD2 | V2 (Villa Tuần Châu, căn tự nhập, 1 đêm) | 1.600.000đ | 1.400.000đ | 200.000đ |
-| QT3.1-VD3 | Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng, mức cộng +200k mỗi đêm (US3-NT25) | 2.600.000đ | 2.200.000đ | 400.000đ |
+| QT3.1-VD3 | Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng, mức cộng +200k mỗi đêm (YC5.4-NT1) | 2.600.000đ | 2.200.000đ | 400.000đ |
 
 ## QT3.2 · Tiền chênh thuộc tháng nào
 Rủi ro: tb
@@ -95,11 +95,11 @@ Các ví dụ dùng số trong `Du_lieu_mau.md`.
 
 # QT4 · Tiền phòng của booking và cách chia theo đêm
 
-Một luật cho ô "Tiền phòng" khi chủ nhà ghi booking (mục "Người đặt, tiền phòng và tiền cọc" (US3)) và cho số tiền của từng đêm mà doanh thu theo tháng (QD-010, QT2.2, nhóm Thống kê) và tiền chênh theo tháng (QT3.2) dùng. Bảng giá chỉ để điền sẵn, booking giữ số của riêng nó (nhóm Căn và giá quy tắc Booking giữ giá riêng).
+Một luật cho ô "Tiền phòng" khi chủ nhà ghi booking (YC5.2) và cho số tiền của từng đêm mà doanh thu theo tháng (QD-010, QT2.2, YC11) và tiền chênh theo tháng (QT3.2) dùng. Bảng giá chỉ để điền sẵn, booking giữ số của riêng nó (YC3, YC4 quy tắc Booking giữ giá riêng).
 
 ## QT4.1 · Tiền phòng điền sẵn và số chủ nhà gõ
 Rủi ro: cao
-Tiền phòng điền sẵn bằng tổng giá chủ nhà của các đêm theo bảng giá lúc ghi (giá dịp thay giá tháng, đêm cuối tuần theo mục "Ngày tính giá cuối tuần" (US4)). Chủ nhà sửa được; số chủ nhà gõ là tiền phòng của booking. Tiền phòng bắt buộc: còn trống thì chưa lưu được.
+Tiền phòng điền sẵn bằng tổng giá chủ nhà của các đêm theo bảng giá lúc ghi (giá dịp thay giá tháng, đêm cuối tuần theo YC4.6). Chủ nhà sửa được; số chủ nhà gõ là tiền phòng của booking. Tiền phòng bắt buộc: còn trống thì chưa lưu được.
 
 | Mã | Booking | Bảng giá các đêm | Chủ nhà gõ | Phải ra |
 |---|---|---|---|---|

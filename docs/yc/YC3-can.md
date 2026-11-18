@@ -42,7 +42,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Ảnh căn | Tối đa 12 ảnh. Ảnh đầu tiên là ảnh đại diện. Nên có ít nhất 6 ảnh vì sale cần. Còn ảnh đang tải hay tải lỗi thì chưa lưu căn được | 12 ảnh, 6 ảnh |
 | Xóa căn là ẩn căn | Xóa chỉ ẩn căn khỏi mọi màn; đặt phòng, tiền, thống kê còn nguyên. Không xóa được khi còn đặt phòng chưa hủy có ngày trả sau hôm nay hoặc còn yêu cầu đang chờ. Sale không còn thấy căn. Bản đầu không hiện lại được | Không |
 
-Quy tắc dùng chung ở `docs/luat-chung/Nghiep_vu.md`: Tòa nhà dùng chung, Lỗi (mục 1.6), Ảnh căn lưu ở đâu (mục 1.8).
+Quy tắc dùng chung ở `docs/luat-chung/Nghiep_vu.md`: Tòa nhà dùng chung, Lỗi (mục 1.5), Ảnh (mục 1.7).
 
 ## Ai được làm gì
 
@@ -119,7 +119,7 @@ Bấm lại sau mất mạng có thể tạo căn hai lần nếu lần trước
 
 Còn ảnh đang tải hay tải lỗi thì không bấm được "Thêm căn" (mục Ảnh căn).
 
-Luật kiểm (dùng cả ở YC3.4 và YC3.5). Database là chỗ chặn thật; app chặn trước để người dùng thấy sớm. Câu lỗi trả theo `docs/luat-chung/Nghiep_vu.md` mục 1.6.
+Luật kiểm (dùng cả ở YC3.4 và YC3.5). Database là chỗ chặn thật; app chặn trước để người dùng thấy sớm. Câu lỗi trả theo `docs/luat-chung/Nghiep_vu.md` mục 1.5.
 
 | Ô | Bắt buộc | Luật | Câu lỗi khi sai |
 |---|---|---|---|

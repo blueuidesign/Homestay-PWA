@@ -68,7 +68,7 @@ Mô hình chung: `docs/Thiet_ke_DB.md`. YC này cần database bảo đảm:
 - Một lệnh trả lịch giá một tháng của căn: mỗi đêm có giá, loại đêm (ngày thường, cuối tuần, ngày lễ, dịp), có khách hay không. Chỉ người giữ căn gọi được.
 - Đặt giá nhiều căn và sao chép giá: một giao dịch cho mọi căn đích; có một căn không hợp lệ thì không ghi căn nào. Sao chép trả về danh sách tháng và dịp đã giữ của từng căn đích, cho popup.
 - Mọi lệnh đổi giá cập nhật lúc lịch đổi của căn (độ tươi ở YC7). Không lệnh nào đổi đặt phòng đã có.
-- Lỗi theo `docs/luat-chung/Nghiep_vu.md` mục 1.6.
+- Lỗi theo `docs/luat-chung/Nghiep_vu.md` mục 1.5.
 
 ## Trạng thái màn (mọi mục)
 

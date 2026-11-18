@@ -183,7 +183,7 @@ Hai máy cùng ghi một đêm của một căn trong cùng một lúc: một l�
 
 Luật kiểm khi ghi (dùng cả ở YC5.4, YC5.6):
 
-Database là chỗ chặn thật; app chặn trước cho người dùng thấy sớm. Mọi câu lỗi dưới đây database trả bằng mã P0001 để app hiện nguyên câu (`docs/luat-chung/Nghiep_vu.md` mục 1.6).
+Database là chỗ chặn thật; app chặn trước cho người dùng thấy sớm. Mọi câu lỗi dưới đây database trả bằng mã P0001 để app hiện nguyên câu (`docs/luat-chung/Nghiep_vu.md` mục 1.5).
 
 | Ô | Bắt buộc | Luật | Câu lỗi khi sai |
 |---|---|---|---|

@@ -1,137 +1,123 @@
-<!-- Luật chung, sống. Hành vi mọi màn phải theo. Tiêu chí nghiệm thu của các luật này nằm ở story US36. -->
+# HV · Hành vi chung của mọi màn
 
-# HV · Hành vi hệ thống dùng chung
+Những trạng thái màn nào cũng gặp: đang tải, mất mạng, quay lại từ nền, xin quyền của trình duyệt, không còn quyền xem, trình duyệt thiếu tính năng, phiên hết hạn, toast. Mục "Trạng thái màn" của YC trỏ mã HV ở đây thay cho việc mỗi màn tự làm một kiểu. Màn nào cần khác thì YC của màn đó ghi rõ phần khác.
 
-Các trạng thái mọi màn đều gặp: đang tải, mất mạng, quay lại từ nền, đã từ chối quyền Zalo, không còn quyền xem, Zalo cũ, phiên hết hạn, và kiểu toast dùng chung (HV8). Mục "Trạng thái màn" của YC trỏ mã HV ở đây thay cho việc mỗi màn tự vẽ một kiểu. Màn nào cần khác HV thì YC của màn đó ghi rõ phần khác. Tất cả nội dung dưới đây ở trạng thái đề xuất.
+Toàn bộ HV đang ở trạng thái đề xuất, chưa có hình riêng; Tùng chưa duyệt từng câu. Cách làm của bản Zalo cho cùng hành vi: `PWA.md`.
 
 ## HV1 · Đang tải
-Rủi ro: thap
-Mục đích: người dùng biết app đang làm việc, không bấm lại hai lần, không tưởng app treo.
-Khi nào xảy ra: mở màn cần dữ liệu từ server; bấm nút gửi dữ liệu lên server.
+Rủi ro: thấp. Người dùng biết app đang làm việc, không bấm lại hai lần, không tưởng app treo.
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Mở màn lần đầu, máy chưa có dữ liệu | Hiện khung xám đúng bố cục của màn (skeleton), không hiện vòng quay giữa màn trống | Trả dữ liệu | | |
-| 2 | Mở màn đã từng xem | Hiện ngay dữ liệu lần trước, kèm dòng nhỏ "Đang cập nhật…" ở đầu màn. Có dữ liệu mới thì thay vào | Trả dữ liệu | | |
-| 3 | Bấm nút gửi (Lưu, Gửi yêu cầu, Chấp nhận...) | Nút đổi chữ thành "Đang lưu…" hoặc "Đang gửi…", không bấm lại được tới khi có kết quả | Xử lý | | |
-| 4 | Chờ quá lâu | Hết thời gian chờ thì chuyển sang HV2 | | | |
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Mở màn lần đầu, máy chưa có dữ liệu | Khung xám đúng bố cục của màn (skeleton), không có vòng quay giữa màn trống |
+| 2 | Mở màn đã từng xem | Hiện ngay dữ liệu lần trước, dòng nhỏ "Đang cập nhật…" ở đầu màn; có dữ liệu mới thì thay vào |
+| 3 | Bấm nút ghi (Lưu, Gửi yêu cầu, Chấp nhận…) | Nút đổi chữ thành "Đang lưu…" hay "Đang gửi…", không bấm lại được tới khi có kết quả |
+| 4 | Chờ quá lâu | Sang HV2 bước 5. Bao lâu là quá lâu: [MỞ: HV-H1] |
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Tiêu chí:
+- **HV1-NT1** Khi người dùng bấm "Đặt phòng" ở S6-05 rồi bấm thêm lần nữa trong lúc đang lưu, thì database chỉ có một đặt phòng. · unit, database
+- **HV1-NT2** Khi mở lại tab Lịch đã xem, thì lịch cũ hiện ngay, không có màn trống. · unit
 
 ## HV2 · Mất mạng, lỗi kết nối
-> **Bản PWA:** mất mạng biết qua sự kiện `offline`, `online` của trình duyệt và lỗi khi gọi Supabase.
-Rủi ro: tb
-Mục đích: người dùng ở đảo, trên tàu, sóng yếu vẫn xem được dữ liệu đã có, và không bao giờ tưởng đã lưu khi chưa lưu.
-Khi nào xảy ra: Zalo báo mất mạng (`NetworkChanged`), hoặc gọi server không được, hoặc hết thời gian chờ.
+Rủi ro: tb. Người dùng ở đảo, trên tàu, sóng yếu vẫn xem được dữ liệu đã có, và không bao giờ tưởng đã lưu khi chưa lưu. App biết mất mạng qua sự kiện `offline`, `online` của trình duyệt và lỗi khi gọi database.
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Đang xem màn thì mất mạng | Dải màu warning ở đầu màn: "Mất kết nối. Lịch có thể chưa mới nhất." Dữ liệu đã có vẫn hiện, vẫn cuộn, vẫn chạm xem được | | `NetworkChanged` | |
-| 2 | Mở màn chưa từng xem khi mất mạng | Giữa màn: "Chưa tải được. Kiểm tra mạng rồi bấm Thử lại", nút "Thử lại" | | | |
-| 3 | Bấm nút gửi khi mất mạng | Báo "Chưa lưu được, bấm lại khi có mạng". Nội dung đang nhập giữ nguyên | | | |
-| 4 | Có mạng lại | Dải cảnh báo tự mất, màn tải lại dữ liệu. Không tự gửi lại việc đã báo chưa lưu | | `NetworkChanged` | |
-| 5 | Server báo lỗi khác | "Có lỗi, chưa làm được. Bấm Thử lại", nút "Thử lại". Không hiện mã lỗi kỹ thuật | | | |
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Đang xem thì mất mạng | Dải cảnh báo ở đầu màn "Mất kết nối. Lịch có thể chưa mới nhất."; dữ liệu đã có vẫn hiện, vẫn cuộn, vẫn chạm xem được |
+| 2 | Mở màn chưa từng xem khi mất mạng | Giữa màn "Chưa tải được. Kiểm tra mạng rồi bấm Thử lại", nút "Thử lại" |
+| 3 | Bấm nút ghi khi mất mạng | "Chưa lưu được, bấm lại khi có mạng". Nội dung đang nhập giữ nguyên |
+| 4 | Có mạng lại | Dải cảnh báo tự mất, màn tải lại. Không tự gửi lại việc đã báo chưa lưu |
+| 5 | Database báo lỗi không lường trước | "Có lỗi, chưa làm được. Bấm Thử lại", nút "Thử lại". Không hiện mã lỗi kỹ thuật. Lỗi database trả câu cho người dùng thì hiện câu đó (`Nghiep_vu.md` mục 1.5) |
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Tiêu chí:
+- **HV2-NT1** Khi mất mạng và người dùng bấm "Đặt phòng" ở S6-05, thì app báo "Chưa lưu được, bấm lại khi có mạng", form giữ nguyên, database không có đặt phòng mới. · unit
+- **HV2-NT2** Khi có mạng lại, thì app không tự gửi đặt phòng đã báo chưa lưu. · unit
+- **HV2-NT3** Khi mất mạng lúc đang xem lịch, thì lịch đã tải vẫn hiện, kèm dải "Mất kết nối". · unit
 
 ## HV3 · Quay lại từ nền
-> **Bản PWA:** nháp lưu bằng IndexedDB hoặc localStorage của trình duyệt, bọc try/catch; vẫn chỉ chứa thứ mất cũng được. "Quay lại từ nền" là sự kiện `visibilitychange`.
-Rủi ro: cao
-Mục đích: người dùng rời app để gọi điện, chat, chia sẻ rồi quay lại, không mất nội dung đang nhập và thấy dữ liệu mới nhất.
-Khi nào xảy ra: app ra nền (`AppPaused`) rồi quay lại (`AppResumed`); hoặc hệ điều hành đã giải phóng app và người dùng mở lại; hoặc người dùng bấm một link khác của app khi app đang chạy nền (`OpenApp`).
+Rủi ro: cao. Người dùng rời app để gọi điện, chat, chia sẻ rồi quay lại, không mất nội dung đang nhập và thấy dữ liệu mới nhất. "Quay lại từ nền" là sự kiện `visibilitychange`.
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Sửa một ô trong form (booking, căn, giá, yêu cầu đặt phòng) | Lưu nháp của form vào Native Storage mỗi lần sửa | | | Nháp trên máy |
-| 2 | Rời app rồi quay lại | Vẫn ở đúng màn cũ, form giữ nguyên. Tải lại dữ liệu có thể đã đổi: lịch, yêu cầu đang chờ, thông báo | Trả dữ liệu | `AppResumed` | |
-| 3 | Mở lại app sau khi app bị giải phóng | Mở lại đúng form đó, điền lại nháp, báo "Đã khôi phục nội dung bạn đang nhập" | | | |
-| 4 | Bấm lưu sau khi quay lại, mà dữ liệu đã đổi (ví dụ đêm vừa bị đặt) | Server kiểm lại và báo lỗi theo YC của màn đó. Form giữ nguyên để sửa | Kiểm lại | | |
-| 5 | Lưu xong, hoặc bấm Hủy, hoặc bỏ form | Xóa nháp | | | Xóa nháp |
-| 6 | Bấm link khác của app khi app đang chạy nền | Chuyển tới màn của link mới. Nháp form cũ vẫn giữ | | `OpenApp` | |
-| 7 | Chọn ảnh | Tải ảnh lên server ngay khi chọn, không giữ ở máy tới lúc bấm lưu | Lưu ảnh | | Ảnh |
-
-Nháp chỉ chứa thứ mất cũng được (theo `docs/zalo/rang-buoc.md`: Native Storage không phải nơi lưu dữ liệu thật). Nháp booking được chứa tên, số khách (QD-011), xóa khi lưu xong hoặc hủy.
-
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
-
-## HV4 · Người dùng đã từ chối quyền
-> **Bản PWA:** không có hộp thoại quyền của Zalo. Chọn ảnh dùng ô chọn file, không cần quyền. Số điện thoại theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) và CH-001. Thông báo đẩy (khi làm) xin bằng hộp thoại của trình duyệt, có thẻ giải thích trước; từ chối thì chỉ còn thông báo trong app và thẻ chỉ cách bật lại trong cài đặt trình duyệt. Các NT nói "hộp thoại Zalo" đọc là hộp thoại tương ứng của trình duyệt, nếu có.
-Rủi ro: tb
-Mục đích: người dùng đã bấm từ chối trong hộp thoại của Zalo vẫn biết cách bật lại, và không gặp nút bấm không phản hồi.
-Khi nào xảy ra: người dùng bấm việc cần quyền (số điện thoại, chọn ảnh, tên và ảnh Zalo, nhận thông báo) mà `getSetting` báo quyền đã bị từ chối.
-
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Bấm việc cần quyền lần đầu | Màn hoặc thẻ giải thích của app trước, rồi mới gọi hộp thoại Zalo (với số điện thoại: mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)). Tên và số điện thoại xin trong cùng một lần: một thẻ giải thích, người dùng bấm đồng ý một lần thì app xin cả tên và ảnh (`scope.userInfo`) và số (`getPhoneNumber`), không bắt bấm lại việc gốc (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | | Hộp thoại xin quyền. Tên và số ra một hộp thoại hay hai, thứ tự nào: cần kiểm tra trên máy thật | |
-| 2 | Từ chối trong hộp thoại Zalo | Không lỗi. Quay về màn cũ, việc không cần quyền vẫn làm tiếp được | | Trả `-201`. Số điện thoại: không nhớ, gọi lại thì hộp thoại hiện lại. Tên và ảnh (`-1401`), và từ chối một trong hai khi xin cùng lúc: chưa thử. Quyền khác: chưa thử, tài liệu ghi là nhớ | |
-| 3a | Bấm lại việc cần tên và số điện thoại | Hiện lại thẻ giải thích (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), người dùng bấm đồng ý thì gọi lại hộp thoại Zalo. Thẻ có thêm nút "Mở cài đặt quyền" | | Hộp thoại xin quyền | |
-| 3b | Bấm lại việc cần quyền khác | Không xin lại. Thẻ: câu nói vì sao cần quyền, nút "Mở cài đặt quyền" | | | |
-| 4 | Bấm "Mở cài đặt quyền" | | | `openPermissionSetting` | |
-| 5 | Bật quyền rồi quay lại | Làm tiếp việc đang dở | | | |
-
-Câu trên thẻ theo từng quyền:
-| Quyền | Câu | Khi từ chối thì app làm gì |
+| Bước | Người dùng | App |
 |---|---|---|
-| Tên và số điện thoại (xin cùng lúc, mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | "Cần tên và số điện thoại để kết nối với chủ nhà" | Theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5). Từ chối tên: người dùng tự gõ tên ở P2, ảnh hiện chữ cái đầu (mục "Hồ sơ (Thông tin cá nhân)" (US21)). Từ chối số: bên kia chỉ thấy tên (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) bước 3) |
-| Chọn ảnh | "Cần quyền chọn ảnh để thêm ảnh căn" | Căn vẫn lưu được khi chưa có ảnh |
-| Nhận thông báo | "Bật thông báo để biết khi có yêu cầu đặt phòng" | Thông báo vẫn có trong app (mục "Cài đặt thông báo" (US21)) |
+| 1 | Sửa một ô trong form (đặt phòng, căn, giá, yêu cầu) | Lưu nháp của form trên máy (PWA.md P10) mỗi lần sửa |
+| 2 | Rời app rồi quay lại | Vẫn ở đúng màn, form giữ nguyên. Tải lại dữ liệu có thể đã đổi: lịch, yêu cầu đang chờ, thông báo (YC12.1) |
+| 3 | Mở lại app sau khi trình duyệt đã đóng trang | Mở lại đúng form đó, điền lại nháp, báo "Đã khôi phục nội dung bạn đang nhập" |
+| 4 | Bấm lưu sau khi quay lại mà dữ liệu đã đổi (ví dụ đêm vừa bị đặt) | Database kiểm lại và báo lỗi theo YC của màn; form giữ nguyên để sửa |
+| 5 | Lưu xong, bấm Hủy hay bỏ form | Xóa nháp |
+| 6 | Mở một link khác của app khi app đang mở | Chuyển tới màn của link mới; nháp form cũ vẫn giữ |
+| 7 | Chọn ảnh | Tải ảnh lên ngay khi chọn, không giữ ở máy tới lúc bấm lưu |
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Nháp chỉ chứa thứ mất cũng được. Nháp đặt phòng được chứa tên, số khách (QD-011), xóa khi lưu xong hay hủy. Nháp giữ bao lâu: [MỞ: HV-H3].
+
+Tiêu chí:
+- **HV3-NT1** Khi chủ nhà đang nhập đặt phòng ở CN4, rời app 5 phút rồi quay lại, thì form còn đủ căn, ngày, số tiền đã nhập. · unit
+- **HV3-NT2** Khi trang bị đóng hẳn lúc form CN5-A1 đang nhập dở và người dùng mở lại, thì form được điền lại và có dòng "Đã khôi phục nội dung bạn đang nhập". · e2e
+- **HV3-NT3** Khi sale quay lại app sau khi chủ nhà vừa chấp nhận yêu cầu, thì yêu cầu hiện trạng thái mới mà sale không phải tải lại. · unit
+- **HV3-NT4** Khi lưu đặt phòng thành công, thì mở lại form CN4 không còn nháp cũ. · unit
+
+## HV4 · Xin quyền của trình duyệt
+Rủi ro: tb. Không xin quyền gì khi vừa mở app. Bản 1 không cần quyền nào: chọn ảnh dùng ô chọn file (PWA.md P6), số điện thoại theo YC6.1, thông báo chỉ trong app. Khi sau này cần quyền (thông báo đẩy, vị trí), làm theo bảng dưới.
+
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Bấm việc cần quyền lần đầu | Thẻ giải thích của app trước ("Bật thông báo để biết khi có yêu cầu đặt phòng"), rồi mới gọi hộp thoại của trình duyệt |
+| 2 | Từ chối | Không lỗi. Về màn cũ, việc không cần quyền vẫn làm tiếp |
+| 3 | Bấm lại việc cần quyền đã từ chối | Thẻ nói vì sao cần quyền và chỉ cách bật lại trong cài đặt trình duyệt; không gọi lại hộp thoại |
+
+Tiêu chí:
+- **HV4-NT5** Khi người dùng mở app lần đầu và đi hết luồng vào app (YC1.1), thì không có hộp thoại quyền nào của trình duyệt. · e2e
+- **HV4-NT6** Khi người dùng bấm "Thêm ảnh", thì mở ô chọn file, không có hộp thoại xin quyền. · unit
 
 ## HV5 · Không còn quyền xem
-Rủi ro: tb
-Mục đích: người dùng mở thứ họ không còn được xem thì biết vì sao, và không thấy dữ liệu đó dù chỉ thoáng qua.
-Khi nào xảy ra: chủ nhà đã ngừng chia sẻ lịch với sale, căn hoặc booking đã bị xóa, link đã hết hạn, người dùng mở màn không thuộc vai của mình, hoặc chủ nhà đã xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22), QD-013) mà sale mở căn, lịch của chủ nhà đó từ thông báo cũ hay màn cũ. Căn, lịch, giá vẫn còn ở server nhưng không gửi cho sale. Lý do khi chủ nhà đã xóa tài khoản: "Chủ nhà đã xóa tài khoản". Đặt phòng đã thành giao dịch với người đã xóa tài khoản thì không dùng HV5: vẫn mở được, tên người đó kèm ghi chú đỏ "Đã xoá tài khoản", không có số điện thoại (mục "Khi người dùng xóa tài khoản" (US22) bước 5). Sale bấm gửi yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản từ màn mở trước đó thì không sang màn HV5 mà app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." (QD-013).
+Rủi ro: tb. Người dùng mở thứ không còn được xem thì biết vì sao, và không thấy dữ liệu đó dù chỉ thoáng qua. Xảy ra khi chủ nhà đã ngừng cho sale xem, căn hay đặt phòng đã bị xóa, link đã hết hạn, người dùng mở màn không thuộc vai mình, hay chủ nhà đã xóa tài khoản.
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Mở màn, link hoặc thông báo trỏ tới thứ không còn quyền | Màn: "Bạn không còn xem được mục này", một dòng lý do nếu server cho biết (ví dụ "Chủ nhà đã ngừng chia sẻ lịch"), nút "Về Lịch" | Không gửi dữ liệu của mục đó, chỉ gửi lý do | | |
-| 2 | Đang xem thì bị thu hồi quyền | Lần tải lại kế tiếp (HV1, HV3) đổi sang màn ở bước 1 | | | |
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Mở màn, link hay thông báo trỏ tới thứ không còn quyền | "Bạn không còn xem được mục này", một dòng lý do nếu database cho biết ("Chủ nhà đã ngừng chia sẻ lịch", "Chủ nhà đã xóa tài khoản"), nút "Về Lịch". Database không trả dữ liệu của mục đó, chỉ trả lý do |
+| 2 | Đang xem thì bị thu hồi quyền | Lần tải lại kế tiếp (HV1, HV3) đổi sang màn ở bước 1 |
 
-Không dùng HV5 cho việc chủ nhà tắt "hiện giá cho sale". Trường hợp đó theo CH-068.
+Tiêu chí:
+- **HV5-NT1** Khi Chị Hoa đã ngừng cho Sale Hùng xem và Hùng mở 1509 từ thông báo cũ, thì thấy "Bạn không còn xem được mục này" với lý do, và dữ liệu trả về không có giá, lịch, ảnh. · database, unit
+- **HV5-NT2** Khi Chị Hoa đã xóa tài khoản và Hùng mở 1509 từ thông báo cũ, thì lý do là "Chủ nhà đã xóa tài khoản". · database, unit
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+## HV6 · Trình duyệt thiếu tính năng
+Rủi ro: thấp. Người dùng trên trình duyệt cũ hay trình duyệt trong Zalo vẫn làm được việc, chỉ bằng cách khác.
 
-## HV6 · Nền tảng thiếu tính năng (Zalo cũ, trình duyệt cũ)
-> **Bản PWA:** "Zalo cũ" thành "trình duyệt thiếu tính năng" (ví dụ không có bảng chia sẻ): nút vẫn làm được việc bằng cách khác, như sao chép chữ rồi báo "Đã sao chép, dán vào Zalo để gửi". Không có nút "Cập nhật Zalo".
-Rủi ro: thap
-Mục đích: người dùng lớn tuổi hay không cập nhật Zalo vẫn biết vì sao nút không chạy.
-Khi nào xảy ra: bấm việc cần tính năng mà phiên bản Zalo trên máy chưa có (`getSystemInfo`).
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Bấm việc cần tính năng trình duyệt không có (bảng chia sẻ, chia sẻ file, sao chép) | Làm bằng cách khác: không có bảng chia sẻ thì sao chép chữ rồi báo "Đã sao chép, dán vào Zalo để gửi"; không chia sẻ được file thì tải ảnh về máy (YC8.1) |
+| 2 | Không có cách khác | Báo "Trình duyệt này chưa làm được việc này. Mở app bằng Chrome hay Safari." Không đứng im |
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Bấm việc cần tính năng mới | "Zalo của bạn cần cập nhật để dùng tính năng này", nút "Cập nhật Zalo" | | | |
-| 2 | Bấm "Cập nhật Zalo" | | | `requestUpdateZalo` | |
-
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Tiêu chí:
+- **HV6-NT2** Khi trình duyệt không có bảng chia sẻ và người dùng bấm "Gửi chữ", thì chữ được sao chép và có toast "Đã sao chép, dán vào Zalo để gửi". · unit
 
 ## HV7 · Phiên đăng nhập hết hạn
-> **Bản PWA:** Supabase tự làm mới phiên. Làm mới không được thì giữ nội dung theo HV3 rồi mới đưa về đăng nhập; đăng nhập xong quay lại đúng màn cũ.
-Rủi ro: tb
-Mục đích: người dùng không bao giờ phải đăng nhập lại giữa chừng.
-Khi nào xảy ra: server báo phiên của app đã hết hạn.
+Rủi ro: tb. Người dùng không phải đăng nhập lại giữa chừng.
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Đang dùng app | Lấy phiên mới ngầm bằng tài khoản Zalo, gửi lại đúng yêu cầu vừa bị từ chối một lần | Cấp phiên mới | Định danh người dùng | |
-| 2 | Lấy phiên mới không được | Theo HV2 bước 5. Nội dung đang nhập giữ theo HV3 | | | |
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Đang dùng app khi phiên sắp hết | App tự làm mới phiên; việc vừa bị từ chối vì hết phiên được gửi lại một lần |
+| 2 | Làm mới không được | Giữ nội dung đang nhập (HV3), đưa về đăng nhập (YC1.2); đăng nhập xong quay lại đúng màn cũ |
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Tiêu chí:
+- **HV7-NT1** Khi phiên hết hạn lúc chủ nhà bấm "Thêm đặt phòng" ở CN4, thì đặt phòng vẫn được lưu và chủ nhà không thấy màn đăng nhập. · unit
+- **HV7-NT2** Khi làm mới phiên không được, thì sau khi đăng nhập lại, form CN4 còn nội dung đã nhập. · e2e
 
 ## HV8 · Toast
-> **Bản PWA:** không có cụm "··· ✕" của Zalo; toast ở đầu màn, ngay dưới thanh tiêu đề của app.
+Rủi ro: thấp. Người dùng lớn tuổi luôn thấy thông báo ngắn ở cùng một chỗ, cùng một kiểu.
 
-Rủi ro: thap
-Mục đích: người dùng lớn tuổi luôn thấy thông báo ngắn ở cùng một chỗ, cùng một kiểu, trên mọi màn.
-Khi nào xảy ra: app báo ngắn kết quả một việc vừa xong (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở CN4-03 (mục "Chủ nhà ghi booking mới" (US3)), "Đã gửi lịch thành công" ở CN10-02, chủ nhà đồng ý cho xem lịch ở A9) mà không chuyển màn.
+| Bước | Người dùng | App |
+|---|---|---|
+| 1 | Làm xong một việc có toast (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở YC5.3) | Toast ở đầu màn, ngay dưới thanh tiêu đề, cách mép trái phải 12 px, nổi trên nội dung, nền tối, chữ trắng 14 px đậm, dấu ✓, không có nút ✕ |
+| 2 | Không làm gì | Toast tự tắt sau 3 giây |
+| 3 | Đang ở màn xoay giả (S1-05) | Toast đọc theo chiều ngang cùng bảng, vị trí chung tính trên khung ngang |
 
-| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
-|---|---|---|---|---|---|
-| 1 | Làm xong một việc có toast | Hiện toast theo một kiểu dùng chung cho mọi màn, ở vị trí chung: đầu màn, ngay dưới thanh tiêu đề và cụm ··· ✕ của Zalo, nổi trên nội dung. Kiểu và vị trí cụ thể theo mô tả màn (ví dụ A9) | | | |
-| 2 | Không làm gì | Toast tự tắt sau 3 giây | | | |
-| 3 | Đang ở màn xoay giả (S1-05) | Dùng toast tự vẽ của app, cùng kiểu và vị trí chung tính trên khung ngang. Không dùng `showToast` của Zalo vì toast Zalo vẫn hiện chiều dọc (`docs/zalo/hanh-vi.md` mục 7.1) | | | |
+Tiêu chí:
+- **HV8-NT1** Khi hai màn khác nhau hiện toast, thì hai toast cùng kiểu, cùng chỗ. · unit
+- **HV8-NT2** Khi toast hiện và người dùng không chạm gì, thì toast tự tắt sau 3 giây. · unit
+- **HV8-NT3** Khi đang xoay giả ở S1-05 và có toast, thì toast đọc theo chiều ngang. · unit
 
-Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
+Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoại quyền, cập nhật Zalo), không dùng ở bản PWA và không cấp lại.
 
 ## Câu hỏi còn mở
-Ở `docs/Cau_hoi_mo.md`: HV-H1 (chờ bao lâu thì coi là lỗi), HV-H3 (nháp giữ bao lâu). Các câu về hộp thoại quyền và thời gian giữ app ở nền thuộc bản Zalo, ghi ở `docs/zalo/hanh-vi.md`.
+Ở `docs/Cau_hoi_mo.md`: HV-H1 (chờ bao lâu thì coi là lỗi), HV-H3 (nháp giữ bao lâu).
