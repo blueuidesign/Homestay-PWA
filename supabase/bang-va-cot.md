@@ -1,4 +1,4 @@
-# Bảng và cột · [tự sinh] bởi scripts/bang-cot.sh từ supabase/migrations. Không sửa tay.
+# Bảng và cột · máy sinh bằng scripts/bang-cot.sh từ supabase/migrations. Không sửa tay.
 
 ## admins
 

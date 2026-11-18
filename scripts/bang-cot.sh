@@ -10,7 +10,7 @@ RA="$GOC/supabase/bang-va-cot.md"
 Q() { psql -X -q -At --no-psqlrc -d "$DB" -F $'\t' -c "$1"; }
 
 {
-  echo "# Bảng và cột · [tự sinh] bởi scripts/bang-cot.sh từ supabase/migrations. Không sửa tay."
+  echo "# Bảng và cột · máy sinh bằng scripts/bang-cot.sh từ supabase/migrations. Không sửa tay."
   echo
   for t in $(Q "select tablename from pg_tables where schemaname='public' order by 1"); do
     rls=$(Q "select case when relrowsecurity then 'bật' else 'TẮT' end from pg_class where oid='public.$t'::regclass")
