@@ -1,0 +1,308 @@
+/* CSS nền của Home247, chép từ canvas (docs/design/canvas, styles.css) theo QD22. Token trong :root và lớp hh-* dùng chung cho mọi màn. Không sửa token ở đây khi chưa đổi canvas. */
+
+/* HalongHomestay — colors (từ tokens.css gốc). Palette Tailwind. */
+:root {
+  /* Surfaces */
+  --surface-page: #f9fafb;   /* gray-50 */
+  --surface: #ffffff;
+  --border: #e5e7eb;         /* gray-200 */
+  --border-subtle: #f3f4f6;  /* gray-100 */
+  --border-input: #d1d5db;   /* gray-300 */
+  /* Ink */
+  --ink: #1f2937;            /* gray-800 */
+  --ink-body: #374151;       /* gray-700 */
+  --ink-secondary: #4b5563;  /* gray-600 */
+  --ink-muted: #6b7280;      /* gray-500 */
+  --ink-faint: #9ca3af;      /* gray-400 */
+  /* Action (emerald) — màu hành động duy nhất */
+  --action: #059669;
+  --on-action: #ffffff;
+  --action-bright: #10b981;
+  --action-ring: #34d399;
+  --action-tint: #ecfdf5;
+  --action-soft: #d1fae5;
+  --action-ink: #047857;
+  --chart-muted: #a7f3d0;
+  /* Rooms — chỉ dùng để chỉ phòng */
+  --room-1509: #0ea5e9;
+  --room-1509-tint: #e0f2fe;
+  --room-1509-border: #7dd3fc;
+  --room-1509-ink: #0369a1;
+  --room-3402: #f97316;
+  --room-3402-tint: #ffedd5;
+  --room-3402-border: #fdba74;
+  --room-3402-ink: #c2410c;
+  /* Semantic */
+  --link: #2563eb;
+  --danger: #dc2626;
+  --danger-tint: #fef2f2;
+  --danger-border: #fecaca;
+  --warning-tint: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-ink: #92400e;
+  --scrim: rgba(0, 0, 0, 0.4);
+}
+
+/* HalongHomestay — spacing, radii, sizes */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --size-touch: 44px;
+  --size-cell: 52px;
+  --size-room-bar: 6px;
+  --sheet-max-height: 75dvh; /* @kind other */
+}
+
+/* HalongHomestay — typography. Font hệ thống (San Francisco trên iPhone); không tải webfont. */
+:root {
+  --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-stat-xl: 700 24px/32px var(--font-sans);
+  --text-stat-lg: 700 20px/28px var(--font-sans);
+  --text-stat-md: 700 18px/28px var(--font-sans);
+  --text-title: 700 18px/28px var(--font-sans);
+  --text-nav: 700 16px/24px var(--font-sans);
+  --text-input: 400 16px/24px var(--font-sans);
+  --text-body: 400 14px/20px var(--font-sans);
+  --text-body-strong: 600 14px/20px var(--font-sans);
+  --text-label: 600 14px/20px var(--font-sans);
+  --text-caption: 400 14px/20px var(--font-sans);
+  --text-micro: 500 14px/18px var(--font-sans);
+}
+.stat-xl { font-family: var(--font-sans); font-size: 24px; line-height: 32px; font-weight: 700; }
+.stat-lg { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 700; }
+.stat-md { font-family: var(--font-sans); font-size: 18px; line-height: 28px; font-weight: 700; }
+.title { font-family: var(--font-sans); font-size: 18px; line-height: 28px; font-weight: 700; }
+.nav { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 700; }
+.input { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.body-strong { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 600; }
+.label { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 600; text-transform: uppercase; }
+.caption { font-family: var(--font-sans); font-size: 14px; line-height: 20px; font-weight: 400; }
+.micro { font-family: var(--font-sans); font-size: 14px; line-height: 18px; font-weight: 500; }
+
+/* HalongHomestay — component styles. Mọi giá trị lấy từ tokens.css. */
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--surface-page);
+  -webkit-text-size-adjust: 100%;
+}
+
+.hh-icon { display: inline-block; flex: none; vertical-align: middle; }
+.hh-spin { animation: hh-spin 0.8s linear infinite; }
+@keyframes hh-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .hh-spin { animation: none; } }
+
+/* ---- Button ---- */
+.hh-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  font: inherit; font-weight: 700; font-size: 14px; line-height: 20px;
+  border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.hh-btn:active { transform: scale(0.95); }
+.hh-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hh-btn--block { width: 100%; border-radius: var(--radius-md); padding: 14px var(--space-4); font-size: 16px; line-height: 24px; }
+.hh-btn--pill { flex: none; border-radius: var(--radius-full); padding: var(--space-2) var(--space-4); }
+.hh-btn--inline { padding: 0; background: none; }
+.hh-btn--primary { background: var(--action); color: var(--on-action); }
+.hh-btn--secondary { background: var(--surface); color: var(--ink-secondary); border-color: var(--border-input); font-weight: 600; }
+.hh-btn--secondary:active { background: var(--border-subtle); }
+.hh-btn--danger { background: var(--danger); color: var(--on-action); }
+.hh-btn--text { background: none; color: var(--action); font-weight: 600; }
+
+/* ---- IconButton ---- */
+.hh-iconbtn {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: var(--surface); color: var(--ink-body); cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.hh-iconbtn:active { background: var(--border-subtle); }
+.hh-iconbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hh-iconbtn--round { border-radius: var(--radius-full); color: var(--ink-muted); }
+.hh-iconbtn--danger { color: var(--danger); }
+
+/* ---- FilterChip ---- */
+.hh-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; box-sizing: border-box;
+  padding: 6px var(--space-3); border-radius: var(--radius-full);
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink-secondary);
+  font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; flex: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.hh-chip:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hh-chip__dot { width: 10px; height: 10px; border-radius: var(--radius-full); flex: none; }
+.hh-chip--r1509 .hh-chip__dot { background: var(--room-1509); }
+.hh-chip--r3402 .hh-chip__dot { background: var(--room-3402); }
+.hh-chip--on .hh-chip__dot { background: var(--surface); }
+.hh-chip--neutral.hh-chip--on { background: var(--ink); border-color: var(--ink); color: var(--on-action); }
+.hh-chip--r1509.hh-chip--on { background: var(--room-1509); border-color: transparent; color: var(--on-action); }
+.hh-chip--r3402.hh-chip--on { background: var(--room-3402); border-color: transparent; color: var(--on-action); }
+.hh-chip--sale { background: var(--surface-page); color: var(--ink-body); font-weight: 500; }
+.hh-chip--sale.hh-chip--on { background: var(--action); border-color: var(--action); color: var(--on-action); }
+
+/* ---- CalendarCell ---- */
+.hh-cell {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-1);
+  width: 100%; min-height: var(--size-cell); padding: var(--space-1); box-sizing: border-box;
+  border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface);
+  font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.hh-cell:active { background: var(--border-subtle); }
+.hh-cell:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.hh-cell__day { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.hh-cell--today { border-color: var(--action-ring); }
+.hh-cell--today .hh-cell__day { font-weight: 700; color: var(--action); }
+.hh-cell--selected { border-color: var(--action-bright); background: var(--action-tint); }
+.hh-cell__bars { display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 0 2px; box-sizing: border-box; }
+.hh-cell__bar { display: block; height: var(--size-room-bar); border-radius: var(--radius-full); }
+.hh-bar--empty { background: transparent; }
+.hh-bar--r1509 { background: var(--room-1509); }
+.hh-bar--r3402 { background: var(--room-3402); }
+
+/* ---- RoomCard ---- */
+.hh-room {
+  border: 1px solid var(--border); background: var(--surface-page);
+  border-radius: var(--radius-md); padding: var(--space-3);
+}
+.hh-room--r1509 { background: var(--room-1509-tint); border-color: var(--room-1509-border); }
+.hh-room--r3402 { background: var(--room-3402-tint); border-color: var(--room-3402-border); }
+.hh-room__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 32px; }
+.hh-room__title { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); }
+.hh-room--r1509 .hh-room__title { color: var(--room-1509-ink); }
+.hh-room--r3402 .hh-room__title { color: var(--room-3402-ink); }
+.hh-room__free { font-size: 14px; font-weight: 400; color: var(--action); }
+.hh-room__booked { font-size: 14px; font-weight: 400; }
+.hh-room__actions { display: flex; gap: var(--space-2); }
+.hh-room__rows { margin-top: var(--space-2); display: grid; gap: var(--space-1); font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.hh-room__row { display: flex; align-items: flex-start; gap: var(--space-2); }
+.hh-room__row .hh-icon { color: var(--ink-faint); margin-top: 3px; }
+.hh-room__guest { font-weight: 600; }
+.hh-room__note { color: var(--ink-secondary); }
+.hh-link { color: var(--link); text-decoration: underline; }
+.hh-confirm {
+  font: inherit; font-size: 14px; line-height: 20px; font-weight: 600;
+  padding: 6px var(--space-2); border: 0; border-radius: var(--radius-sm);
+  background: var(--danger); color: var(--on-action); cursor: pointer;
+}
+
+/* ---- StatCard ---- */
+.hh-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-4); }
+.hh-stat--wide { grid-column: 1 / -1; }
+.hh-stat__label { font-size: 14px; line-height: 20px; font-weight: 600; text-transform: uppercase; color: var(--ink-muted); }
+.hh-stat--1509 .hh-stat__label { color: var(--room-1509-ink); }
+.hh-stat--3402 .hh-stat__label { color: var(--room-3402-ink); }
+.hh-stat__value { margin-top: var(--space-1); font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.hh-stat--sm .hh-stat__value { font-size: 18px; line-height: 28px; }
+.hh-stat--lg .hh-stat__value { font-size: 24px; line-height: 32px; }
+.hh-stat--action .hh-stat__value { color: var(--action); }
+.hh-stat__hint { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+
+/* ---- MonthBars ---- */
+.hh-bars { display: flex; align-items: flex-end; gap: var(--space-2); height: 120px; }
+.hh-bars__col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
+.hh-bars__val { font-size: 14px; line-height: 18px; color: var(--ink-muted); margin-bottom: var(--space-1); white-space: nowrap; }
+.hh-bars__bar { width: 100%; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: var(--chart-muted); }
+.hh-bars__bar--current { background: var(--action-bright); }
+.hh-bars__label { margin-top: var(--space-1); font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink-secondary); }
+
+/* ---- Badge ---- */
+.hh-badge {
+  display: inline-block; vertical-align: middle;
+  font-size: 14px; line-height: 18px; font-weight: 500;
+  padding: 2px 6px; border-radius: var(--radius-full);
+  background: var(--action-soft); color: var(--action-ink);
+}
+
+/* ---- Banner ---- */
+.hh-banner { display: flex; align-items: flex-start; gap: var(--space-2); font-size: 14px; line-height: 20px; }
+.hh-banner__icon { margin-top: 2px; }
+.hh-banner--warning { background: var(--warning-tint); color: var(--warning-ink); border-bottom: 1px solid var(--warning-border); padding: 10px var(--space-4); }
+.hh-banner--danger { background: var(--danger-tint); color: var(--danger); border: 1px solid var(--danger-border); border-radius: var(--radius-md); padding: var(--space-2) var(--space-3); }
+
+/* ---- TextField ---- */
+.hh-field { display: grid; gap: var(--space-1); }
+.hh-field__label { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); }
+.hh-field__hint { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.hh-input {
+  width: 100%; box-sizing: border-box;
+  border: 1px solid var(--border-input); border-radius: var(--radius-md);
+  padding: 10px var(--space-3); background: var(--surface);
+  font: inherit; font-size: 16px; line-height: 24px; color: var(--ink);
+}
+.hh-input::placeholder { color: var(--ink-faint); }
+.hh-input:focus { outline: 2px solid var(--action); outline-offset: -1px; }
+.hh-input:disabled { background: var(--border-subtle); color: var(--ink-faint); }
+textarea.hh-input { resize: vertical; }
+
+/* ---- Checkbox ---- */
+.hh-check {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: 0; border: 0; background: none; text-align: left; cursor: pointer;
+  font: inherit; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink-body);
+}
+.hh-check:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.hh-check__box {
+  width: 20px; height: 20px; flex: none; box-sizing: border-box;
+  display: grid; place-items: center; border-radius: 4px;
+  border: 2px solid var(--border-input); background: var(--surface); color: var(--on-action);
+}
+.hh-check--on .hh-check__box { background: var(--action); border-color: var(--action); }
+
+/* ---- BottomSheet ---- */
+.hh-scrim { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; background: var(--scrim); }
+.hh-scrim--contained { position: absolute; }
+.hh-sheet {
+  width: 100%; max-width: 512px; background: var(--surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  max-height: 75vh; max-height: var(--sheet-max-height); overflow-y: auto;
+}
+.hh-sheet__head {
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-4) var(--space-5) var(--space-3);
+  background: var(--surface); border-bottom: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+.hh-sheet__title { margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.hh-sheet__close { border: 0; color: var(--ink-muted); }
+.hh-sheet__body { display: grid; gap: var(--space-3); padding: var(--space-4) var(--space-5) calc(2.5rem + env(safe-area-inset-bottom)); }
+
+/* ---- TabBar ---- */
+.hh-tabbar { display: flex; background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom); }
+.hh-tabbar--fixed { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; }
+.hh-tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: var(--space-3) 0; border: 0; background: none; cursor: pointer;
+  font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-faint);
+}
+.hh-tab--on { color: var(--action); }
+.hh-tab:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
+/* ---- Vùng chạm 44px (TK20) ---- */
+.hh-btn--pill, .hh-btn--inline, .hh-btn--text { min-height: 44px; }
+.hh-check { min-height: 44px; }
+.hh-btn { min-width: 44px; }
+.hh-chip { min-width: 44px; justify-content: center; }
+
+/* ---- Link chữ trong câu: vùng chạm 44px, không đổi dòng chữ (TK20) ---- */
+p a, span a, .hh-link { padding-block: 12px; }
+
+
+/* ---- Phần canvas ghi đè cuối styles.css ---- */
+*{box-sizing:border-box}
+.hh-btn--secondary.hh-btn--block{border:2px solid var(--ink-secondary);color:var(--ink)}
+.hh-field input{min-width:0;width:100%}

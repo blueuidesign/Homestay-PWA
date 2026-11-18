@@ -1,0 +1,5 @@
+# Đổi tên file thành CODEOWNERS khi dự án có nhiều người code.
+# Mỗi dòng: đường dẫn → người phải duyệt khi có thay đổi ở đó.
+# /supabase/migrations/   @<tai-khoan-github-cua-chu-du-an>
+# /docs/phan-tich/        @<tai-khoan>
+# /src/                   @<tai-khoan>
