@@ -20,11 +20,11 @@
 | YC3.2-NT4 | US1-NT17 |
 | YC2.1-NT1 | US2-NT1 |
 | YC2.1-NT2 | US2-NT2 |
-| YC2.1-NT5 | US2-NT3 |
-| YC2.4-NT1 | US2-NT4 |
-| YC2.1-NT3 | US2-NT5 |
-| YC2.1-NT4 | US2-NT6 |
-| YC2.4-NT3 | US2-NT7 |
+| YC2.1-NT5 | US2-NT6 |
+| YC2.4-NT1 | US2-NT7 |
+| YC2.1-NT3 | US2-NT4 |
+| YC2.1-NT4 | US2-NT3 |
+| YC2.4-NT3 | US2-NT8 |
 | YC4.1-NT1 | US3-NT1 |
 | YC4.1.1-NT1 | US3-NT2 |
 | YC4.1.1-NT2 | US3-NT3 |
@@ -83,14 +83,14 @@
 | YC3.5-NT6 | US8-NT6 |
 | YC3.5-NT7 | US8-NT7 |
 | YC3.5-NT8 | US8-NT8 |
-| YC2.2-NT1 | US9-NT1 |
-| YC2.2-NT2 | US9-NT2 |
-| YC2.3-NT1 | US9-NT3 |
-| YC2.3-NT2 | US9-NT4 |
-| YC2.5-NT1 | US9-NT5 |
-| YC2.5-NT2 | US9-NT6 |
-| YC2.5-NT3 | US9-NT7 |
-| YC2.5-NT4 | US9-NT8 |
+| YC2.2-NT1 | US2-NT10 |
+| YC2.2-NT2 | US2-NT11 |
+| YC2.3-NT1 | US2-NT12 |
+| YC2.3-NT2 | US2-NT13 |
+| YC2.5-NT1 | US2-NT15 |
+| YC2.5-NT2 | US2-NT16 |
+| YC2.5-NT3 | US2-NT17 |
+| YC2.5-NT4 | US2-NT18 |
 | YC4.1.2-NT6 | US10-NT1 |
 | YC4.2-NT1 | US10-NT2 |
 | YC4.2-NT2 | US10-NT3 |
@@ -491,10 +491,10 @@
 | YC1.12 | Căn mới của chủ nhà tự hiện cho sale | US6 |
 | YC1.13 | Popup thông báo mới | US30 |
 | YC2.1 | Lịch tháng và lọc theo căn | US2 |
-| YC2.2 | Tóm tắt tháng | US9 |
-| YC2.3 | Booking sắp tới | US9 |
+| YC2.2 | Tóm tắt tháng | US2 |
+| YC2.3 | Booking sắp tới | US2 |
 | YC2.4 | Chi tiết một ngày | US2 |
-| YC2.5 | Lịch tuần khi có nhiều căn | US9 |
+| YC2.5 | Lịch tuần khi có nhiều căn | US2 |
 | YC3.1 | Danh sách căn | US1 |
 | YC3.2 | Thêm căn | US1 |
 | YC3.2.1 | Ảnh khi thêm căn | US1 |

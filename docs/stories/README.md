@@ -14,14 +14,13 @@ Làm từ trên xuống. Một story chỉ bắt đầu khi các story ở cột
 | [US41](US41-viet-lai-dac-ta-tho.md) | Viết lại đặc tả thô của các story theo khuôn | kỹ thuật | 1 | chờ code |  |
 | [US37](US37-dang-nhap.md) | Đăng nhập bản PWA | kỹ thuật | 1 | chờ code | US38 |
 | [US1](US1-vao-app-va-can.md) | Chủ nhà vào app và quản lý căn: thêm, ảnh, sửa, xóa | tính năng | 1 | chờ code | US37 |
-| [US2](US2-lich-thang-chu-nha.md) | Chủ nhà xem lịch tháng và chi tiết ngày | tính năng | 1 | chờ code | US1 |
+| [US2](US2-lich-chu-nha.md) | Chủ nhà xem lịch: tháng, chi tiết ngày, doanh thu tháng, đặt phòng sắp tới, lịch tuần | tính năng | 1 | chờ code | US1 |
 | [US3](US3-ghi-booking.md) | Chủ nhà ghi đặt phòng khách lẻ, chặn trùng ở database | tính năng | 1 | chờ code | US2, US4 |
 | [US4](US4-gia-thang-gon.md) | Chủ nhà đặt giá theo tháng, ngày thường và cuối tuần | tính năng | 1 | chờ code | US1 |
 | [US5](US5-gui-link-duyet-sale.md) | Chủ nhà mời sale bằng link, quản lý sale và cho số điện thoại | tính năng | 1 | chờ code | US1, US3 |
 | [US6](US6-sale-xem-lich.md) | Sale mở link, thêm lịch, xem 7 ngày và giá | tính năng | 1 | chờ code | US4, US5, US1 |
 | [US7](US7-gia-day-du.md) | Chủ nhà đặt giá nhiều căn và sao chép giá | tính năng | 1 | chờ code | US4 |
 | [US8](US8-gia-ngay-le.md) | Chủ nhà đặt giá ngày lễ và dịp đặc biệt | tính năng | 1 | chờ code | US7 |
-| [US9](US9-lich-tuan-tom-tat.md) | Chủ nhà xem tóm tắt tháng, đặt phòng sắp tới và lịch tuần nhiều căn | tính năng | 1 | chờ code | US2 |
 | [US10](US10-sua-xoa-thu-tien.md) | Chủ nhà xem chi tiết, sửa, xóa đặt phòng và ghi đã thu đủ | tính năng | 1 | chờ code | US3 |
 | [US12](US12-tim-phong-trong.md) | Sale tìm phòng trống theo ngày | tính năng | 1 | chờ code | US6, US1 |
 | [US13](US13-gia-ban-muc-cong.md) | Chi tiết căn, giá bán và mức cộng của sale | tính năng | 1 | chờ code | US12 |

@@ -27,9 +27,9 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | CH-012 | Tài khoản chọn vai chủ nhà mở link xin lịch của sale, hay vai sale bấm đồng ý ở A8: xử lý thế nào? | US6 |
 | CH-013 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US22 |
 | CH-014 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-015 | Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn. | US9 |
-| CH-016 | Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem? | US9 |
-| CH-017 | Chạm một ngày đã qua ở lịch tháng thì mở gì? | US9 |
+| CH-015 | Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn. | US2 |
+| CH-016 | Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem? | US2 |
+| CH-017 | Chạm một ngày đã qua ở lịch tháng thì mở gì? | US2 |
 | CH-018 | Chọn được nhiều loại view cho một căn không? | US1 |
 | CH-019 | Chạm thẻ căn ở CN5 mở gì; "Lưu thay đổi" ở CN5-02, "Lưu giá" ở CN6-02 về màn nào? | US7, US8 |
 | CH-020 | Bỏ trống tên khi bật "Là ngày lễ" thì tên tự đặt là gì? | US8 |
@@ -72,10 +72,9 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US6-H2 | `LINK_KHONG_DUNG_DUOC` / Link sai, thu hồi, quá hạn bước 4 kiểm lại link), hoặc link loại `xin_lich`. Người tạo đã xóa tài khoản: | US6 |
 | US7-H1 | Cách "thay" giá có sẵn khi sao chép (phạm vi năm, tháng nguồn chưa đặt, dải chồng ngày của căn đích): . Các kịch bản dưới đây chỉ chạm ca không phụ thuộc phần này. | US7 |
 | US8-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US8 |
-| US9-H1 | mục "Tóm tắt tháng" (US9) bước 2 đổi chip lọc hoặc đổi tháng thì số tiền và số đêm có đổi theo không, chưa vẽ | US9 |
-| US9-H2 | mục "Lịch tuần khi có nhiều căn" (US9) ô trống chưa đặt giá (`gia_dem` là `null`) hiện gì trên bảng tuần | US9 |
-| US9-H3 | mục "Booking sắp tới" (US9) danh sách sắp tới có hiện đặt phòng "Đã hủy" không và có giới hạn trong tháng đang xem không | US9 |
-| US9-H4 | mục "Tóm tắt tháng" (US9) doanh thu có tính đặt phòng của căn đã ẩn không | US9 |
+| US2-H1 | Ở tab Lịch, đổi chip lọc căn thì khối doanh thu tháng có đổi theo căn không? Tới khi có câu trả lời, khối luôn là tổng mọi căn. | US2 |
+| US2-H2 | Ở lịch tuần, ô trống của đêm chưa đặt giá hiện gì? Tới khi có câu trả lời, ô để trống. | US2 |
+| US2-H3 | Danh sách đặt phòng sắp tới có hiện đặt phòng đã hủy (nhãn "Đã hủy") không? Tới khi có câu trả lời, không hiện. | US2 |
 | US10-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US10 |
 | US10-H2 | mục "Sửa booking" (US10) nói "sửa người đặt", không nói hệ quả | US10 |
 | US10-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US10 |

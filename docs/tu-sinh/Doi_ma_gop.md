@@ -111,3 +111,40 @@
 | US11-KB23 | US4-KB21 | US4 Giá (tạm, chuyển P6 từ nhóm Căn) |
 | US11-KB25 | US4-KB22 | US4 Giá (tạm, chuyển P6 từ nhóm Căn) |
 | US11-KB26 | US4-KB23 | US4 Giá (tạm, chuyển P6 từ nhóm Căn) |
+| US2-NT3 | US2-NT6 | US2 Lịch chủ nhà |
+| US2-NT4 | US2-NT7 | US2 Lịch chủ nhà |
+| US2-NT5 | US2-NT4 | US2 Lịch chủ nhà |
+| US2-NT6 | US2-NT3 | US2 Lịch chủ nhà |
+| US2-NT7 | US2-NT8 | US2 Lịch chủ nhà |
+| US9-NT1 | US2-NT10 | US2 Lịch chủ nhà |
+| US9-NT2 | US2-NT11 | US2 Lịch chủ nhà |
+| US9-NT3 | US2-NT12 | US2 Lịch chủ nhà |
+| US9-NT4 | US2-NT13 | US2 Lịch chủ nhà |
+| US9-NT5 | US2-NT15 | US2 Lịch chủ nhà |
+| US9-NT6 | US2-NT16 | US2 Lịch chủ nhà |
+| US9-NT7 | US2-NT17 | US2 Lịch chủ nhà |
+| US9-NT8 | US2-NT18 | US2 Lịch chủ nhà |
+| US9-H1 | US2-H1 | US2 Lịch chủ nhà |
+| US9-H2 | US2-H2 | US2 Lịch chủ nhà |
+| US9-H3 | US2-H3 | US2 Lịch chủ nhà |
+| US9-H4 | bỏ: Tùng 03/11 xóa căn thì thống kê vẫn còn | US2 Lịch chủ nhà |
+| US9 | US2 | US2 Lịch chủ nhà |
+| US9-KB1 | US2-KB13 | US2 Lịch chủ nhà |
+| US9-KB2 | US2-KB14 | US2 Lịch chủ nhà |
+| US9-KB3 | US2-KB15 | US2 Lịch chủ nhà |
+| US9-KB4 | US2-KB16 | US2 Lịch chủ nhà |
+| US9-KB5 | US2-KB17 | US2 Lịch chủ nhà |
+| US9-KB6 | US2-KB18 | US2 Lịch chủ nhà |
+| US9-KB7 | US2-KB19 | US2 Lịch chủ nhà |
+| US9-KB8 | US2-KB20 | US2 Lịch chủ nhà |
+| US9-KB9 | US2-KB21 | US2 Lịch chủ nhà |
+| US9-KB10 | US2-KB22 | US2 Lịch chủ nhà |
+| US9-KB11 | US2-KB23 | US2 Lịch chủ nhà |
+| US9-KB12 | US2-KB24 | US2 Lịch chủ nhà |
+| US9-KB13 | US2-KB25 | US2 Lịch chủ nhà |
+| US9-KB14 | US2-KB26 | US2 Lịch chủ nhà |
+| US9-KB15 | US2-KB27 | US2 Lịch chủ nhà |
+| US9-KB16 | US2-KB28 | US2 Lịch chủ nhà |
+| US9-KB17 | US2-KB29 | US2 Lịch chủ nhà |
+| US9-KB18 | US2-KB30 | US2 Lịch chủ nhà |
+| US9-KB19 | US2-KB31 | US2 Lịch chủ nhà |

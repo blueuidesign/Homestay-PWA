@@ -6,7 +6,7 @@ import type { CanLichSale, ChiTietCanSale, DieuKienTim, KetQuaTim, LichNgay, Lic
 
 const thangDaXem = new Map<string, LichThang>();
 const ngayDaXem = new Map<string, LichNgay>();
-// US9: doanh thu tháng, đặt phòng sắp tới (dưới lưới tháng), lịch tuần (khóa "tu|loc")
+// US2: doanh thu tháng, đặt phòng sắp tới (dưới lưới tháng), lịch tuần (khóa "tu|loc")
 const tomTatDaXem = new Map<string, TomTatThang>();
 let sapToiDaXem: SapToi | undefined;
 const tuanChuDaXem = new Map<string, LichTuan>();

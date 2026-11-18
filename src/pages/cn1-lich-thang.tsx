@@ -129,7 +129,7 @@ export const LuoiLichThang = ({ lich, homNay, ngayChon, canChon, onChonNgay, onD
   );
 };
 
-// CN1-00 (mục "Lịch tháng và lọc theo căn" (US2) trạng thái rỗng, US2-NT3)
+// CN1-00 (mục "Lịch tháng và lọc theo căn" (US2) trạng thái rỗng, US2-NT6)
 export const ChuaCoDatPhong = ({ onDatPhong }: { onDatPhong: () => void }) => (
   <>
     <div className="khoi">
@@ -157,17 +157,17 @@ export const ChuaCoDatPhong = ({ onDatPhong }: { onDatPhong: () => void }) => (
   </>
 );
 
-// Người đặt trên thẻ có khách (US2-NT7): tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ"
+// Người đặt trên thẻ có khách (US2-NT8): tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ"
 export const chuNguoiDat = (dp: DatPhongTrongNgay) => dp.nguoi_dat.ten ?? (dp.nguoi_dat.loai === "sale" ? "Sale" : "Khách lẻ");
 
-// Số tiền trên thẻ: "2.200.000đ · Cọc: 1.000.000đ" khi đã cọc còn thu (US2-NT7, US3-KB10)
+// Số tiền trên thẻ: "2.200.000đ · Cọc: 1.000.000đ" khi đã cọc còn thu (US2-NT8, US3-KB10)
 export const chuTienDatPhong = (dp: DatPhongTrongNgay) =>
   `${chuTien(dp.tien_phong)}đ` +
   (dp.trang_thai_tien === "da_coc_con_thu" && dp.tien_coc !== null ? ` · Cọc: ${chuTien(dp.tien_coc)}đ` : "");
 
 // CN3 · Chi tiết một ngày (mục "Chi tiết một ngày" (US2)). Tiêu đề hiện ngay khi chạm, khối từng căn hiện khi có kết quả GET /lich/ngay.
 // Căn trống có nút "Đặt phòng" mở CN4 với căn và ngày điền sẵn (US3-NT10, QD12); căn có khách hiện người đặt,
-// ngày, số đêm, số tiền (US2-NT7).
+// ngày, số đêm, số tiền (US2-NT8).
 export const ChiTietNgay = ({
   ngay,
   lich,

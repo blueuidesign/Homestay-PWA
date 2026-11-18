@@ -227,7 +227,7 @@ Trạng thái riêng:
 - `fn_thong_ke_chu`: test ở t_10_thong_ke.sql
 
 ## Ngoài phạm vi
-- Doanh thu tháng, ba số tóm tắt ở tab Lịch (mục "Tóm tắt tháng" (US9)): US9.
+- Doanh thu tháng, ba số tóm tắt ở tab Lịch (mục "Tóm tắt tháng" (US2)): US2.
 - Xóa đặt phòng, đánh dấu đã thu đủ (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Xóa booking" (US10)): US10. Ở đây chỉ kiểm hiệu ứng của chúng lên thống kê (KB14, KB17).
 - Thống kê của sale (mục "Thống kê của sale" (US19)), danh sách đặt phòng của sale (mục "Trạng thái booking của sale" (US19)): US19.
 - Tên người bán hay sale đã xóa tài khoản trong doanh thu theo người bán (mục "Doanh thu theo người bán" kèm QD-013): US22 (US22-KB31).

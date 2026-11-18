@@ -95,7 +95,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Tiền phòng điền sẵn 1.900.000, dòng tách "10/10: 1.100.000đ" (T7), "11/10: 800.000đ" (CN).
   - Toast "Đã thêm đặt phòng Khách lẻ · 3402".
   - Chạm ngày 10/10: 1509 có B1 Sale Hùng, 3402 có đặt phòng Khách lẻ "10/10 → 12/10 (2 đêm)", "1.900.000đ".
-- **Nguồn:** US3-NT1, US2-NT7, QT1.1-VD3
+- **Nguồn:** US3-NT1, US2-NT8, QT1.1-VD3
 
 ### US3-KB7 · Đặt phòng 3 đêm có hai đêm cuối tuần, lịch tô đúng `[Chính]`
 - **Mục đích:** lịch tô các đêm từ ngày nhận tới trước ngày trả, giá đúng theo hai loại đêm.
@@ -111,7 +111,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Dòng "✓ 09/10 → 12/10 (3 đêm) · không trùng lịch".
   - Tiền phòng 3.000.000: "09/10: 1.100.000đ" (T6), "10/10: 1.100.000đ" (T7), "11/10: 800.000đ" (CN).
   - Sau bước 6: 09/10, 10/10, 11/10 có vạch màu 3402; 12/10 không.
-- **Nguồn:** US2-NT6, QT2.1
+- **Nguồn:** US2-NT3, QT2.1
 
 ### US3-KB8 · Đặt phòng qua hai tháng `[Biên]`
 - **Mục đích:** đêm cuối tháng 10 và đêm đầu tháng 11 tô đúng tháng, giá điền đúng.
@@ -127,7 +127,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Ngày trả 02/11. Tiền phòng 2.200.000: "31/10: 1.300.000đ" (T7), "01/11: 900.000đ" (CN).
   - Lịch tháng 10: 31/10 có vạch màu 1509.
   - Lịch tháng 11: 01/11 có vạch màu 1509; 02/11 không.
-- **Nguồn:** US2-NT6, QT2.1, QT2.2
+- **Nguồn:** US2-NT3, QT2.1, QT2.2
 
 ### US3-KB9 · Đặt phòng từ căn trống ở chi tiết ngày `[Chính]`
 - **Mục đích:** bấm "Đặt phòng" ở căn trống thì form mở với căn và ngày điền sẵn.
@@ -156,7 +156,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - 10/10: 1509 "Sale Hùng", "10/10 → 12/10 (2 đêm)", "2.200.000đ · Cọc: 1.000.000đ"; 3402 "Trống".
   - 14/10: 1509 "Khách lẻ", "13/10 → 15/10 (2 đêm)", "1.800.000đ"; 3402 "Khách lẻ", "14/10 → 15/10 (1 đêm)", "800.000đ".
   - 12/10: 1509 và 3402 đều "Trống", có nút "Đặt phòng".
-- **Nguồn:** US2-NT7, US3-NT10, QT2.1-VD1, QT2.1-VD2
+- **Nguồn:** US2-NT8, US3-NT10, QT2.1-VD1, QT2.1-VD2
 
 ### US3-KB11 · Lọc lịch theo căn `[Chính]`
 - **Mục đích:** chạm chip một căn thì lịch chỉ còn ngày có khách của căn đó.
@@ -169,7 +169,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Bước 1: chỉ 04, 05, 10, 11, 13, 14, 19/10 có vạch màu.
   - Bước 2: chỉ 05, 06, 14, 17, 18, 21/10 có vạch màu.
   - Bước 3: vạch của cả hai căn hiện lại.
-- **Nguồn:** US2-NT5, QT2.1
+- **Nguồn:** US2-NT4, QT2.1
 
 ### US3-KB12 · Trạng thái tiền và ô tiền cọc `[Chính]`
 - **Mục đích:** ô "Số tiền cọc (đ)" chỉ hiện khi chọn "Đã cọc · còn thu"; cọc lưu đúng.

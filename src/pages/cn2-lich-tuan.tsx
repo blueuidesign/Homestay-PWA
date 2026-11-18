@@ -6,10 +6,10 @@ import type { CanLichTuan, DatPhongLichTuan, LichTuan, OLichTuan, TrangThaiTien 
 import { chuNgayNgan, chuThanhTuan, chuThu } from "../services/ngay";
 import { chuTenNguoiDat } from "./cn1-tom-tat";
 
-// CN2 · Lịch tuần nhiều căn (mục "Lịch tuần khi có nhiều căn" (US9)), CN2-00 khi tuần chưa có đặt phòng. Phần vẽ, không gọi server. Phần tải ở cn2-man.tsx.
+// CN2 · Lịch tuần nhiều căn (mục "Lịch tuần khi có nhiều căn" (US2)), CN2-00 khi tuần chưa có đặt phòng. Phần vẽ, không gọi server. Phần tải ở cn2-man.tsx.
 // Giá trên bảng là giá chủ nhà (màn của chủ nhà). Chữ tạm (canvas chưa vẽ, ghi trong PR):
 // ba ô tóm tắt "Đêm có khách", "Đêm trống" (canvas ghi "Có khách hôm nay 1/6", "Trống tối T7 3 căn", [MỞ: CH-016]),
-// ô chưa đặt giá ghi "—" [MỞ: DC53 mục "Lịch tuần khi có nhiều căn" (US9) ô chưa đặt giá].
+// ô chưa đặt giá ghi "—" [MỞ: DC53 mục "Lịch tuần khi có nhiều căn" (US2) ô chưa đặt giá].
 
 // Chip lọc: "" là Tất cả, "toa:<id>" là một tòa, "pn:<số>" là số phòng ngủ
 export type LocTuan = string;

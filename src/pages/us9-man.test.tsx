@@ -6,7 +6,7 @@ import { LoiApi, type LichTuan, type SapToi, type TomTatThang } from "../service
 import { MucSapToi, PhanDuoiLichThang, KhoiDoanhThu } from "./cn1-tom-tat";
 import { cacChipLoc, locTuanRaThamSo, NoiDungCN2, type LocTuan } from "./cn2-lich-tuan";
 
-// US9 · Test màn lịch (CN1 khối doanh thu và đặt phòng sắp tới, CN2 lịch tuần) trên server giả với dữ liệu DLM.
+// US2 · Test màn lịch (CN1 khối doanh thu và đặt phòng sắp tới, CN2 lịch tuần) trên server giả với dữ liệu DLM.
 // Mỗi test lấy số từ server giả (getLichTomTat, getBookingSapToi, getLichTuan) rồi vẽ phần giao diện và đọc chữ ra.
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);

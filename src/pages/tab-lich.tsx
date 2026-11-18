@@ -68,7 +68,7 @@ export const TabLich = () => {
     }
   }, []);
 
-  // Doanh thu tháng (mục "Tóm tắt tháng" (US9)) và đặt phòng sắp tới (mục "Booking sắp tới" (US9)): hai lời gọi riêng, hỏng thì chỉ hai khối đó báo lỗi
+  // Doanh thu tháng (mục "Tóm tắt tháng" (US2)) và đặt phòng sắp tới (mục "Booking sắp tới" (US2)): hai lời gọi riêng, hỏng thì chỉ hai khối đó báo lỗi
   const taiTom = useCallback(async (t: string) => {
     const lan = ++lanTom.current;
     try {
@@ -168,7 +168,7 @@ export const TabLich = () => {
   // CN4: nút ở đầu lịch mở form trống; nút ở căn trống của chi tiết ngày điền sẵn căn và ngày (US3-NT10)
   const datPhong = () => dieuHuong(DUONG.DAT_PHONG);
   const datPhongTu = (can_id: string, ngay: string) => dieuHuong(DUONG.DAT_PHONG, { state: { can_id, ngay } });
-  // Chạm một dòng sắp tới (mục "Booking sắp tới" (US9) bước 2) hay nút "Sửa" trên thẻ phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): chi tiết đặt phòng CN3-02 (US10)
+  // Chạm một dòng sắp tới (mục "Booking sắp tới" (US2) bước 2) hay nút "Sửa" trên thẻ phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): chi tiết đặt phòng CN3-02 (US10)
   const moChiTiet = (id: string) => dieuHuong(DUONG.CHI_TIET_DAT_PHONG, { state: { id } });
   const chamDong = (dp: DatPhongSapToi) => moChiTiet(dp.id);
   const coCan = !!lich && lich.can.length > 0;

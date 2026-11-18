@@ -4,7 +4,7 @@ import type { DatPhongSapToi, NguoiDat, SapToi, TomTatThang, TrangThaiTien } fro
 import { chuNgayNgan, chuTien, congThang } from "../services/ngay";
 import { ChuaCoDatPhong, ChuaTaiDuoc } from "./cn1-lich-thang";
 
-// CN1, CN1-02: khối "DOANH THU THÁNG" (mục "Tóm tắt tháng" (US9)) và mục "ĐẶT PHÒNG SẮP TỚI" (mục "Booking sắp tới" (US9)), CN1-01 khi chưa có đặt phòng sắp tới.
+// CN1, CN1-02: khối "DOANH THU THÁNG" (mục "Tóm tắt tháng" (US2)) và mục "ĐẶT PHÒNG SẮP TỚI" (mục "Booking sắp tới" (US2)), CN1-01 khi chưa có đặt phòng sắp tới.
 // Phần vẽ, không gọi server, để test render được. Phần tải dữ liệu ở tab-lich.tsx. Màn này là của chủ nhà, tiền là giá chủ nhà.
 
 export const chuTienDong = (n: number) => `${chuTien(n)}đ`;
@@ -20,7 +20,7 @@ export const chuDongNhoDoanhThu = (t: TomTatThang) => {
   return dem;
 };
 
-// Khối doanh thu (US9-NT1). Không vẽ khi chủ nhà chưa có đặt phòng nào (US9-NT2, CN1-00): chỗ gọi quyết định.
+// Khối doanh thu (US2-NT10). Không vẽ khi chủ nhà chưa có đặt phòng nào (US2-NT11, CN1-00): chỗ gọi quyết định.
 export const KhoiDoanhThu = ({ tom }: { tom: TomTatThang }) => (
   <div className="khoi" style={{ gap: 4 }}>
     <span className="nhan-muc">DOANH THU THÁNG {Number(tom.thang.slice(5, 7))}</span>
@@ -29,7 +29,7 @@ export const KhoiDoanhThu = ({ tom }: { tom: TomTatThang }) => (
   </div>
 );
 
-// Người đặt: tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ" (US2-NT7)
+// Người đặt: tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ" (US2-NT8)
 export const chuTenNguoiDat = (n: NguoiDat) => n.ten ?? (n.loai === "sale" ? "Sale" : "Khách lẻ");
 
 // Trạng thái tiền (nhóm Lịch chủ nhà quy tắc Trạng thái tiền booking): "Chưa cọc", "Cọc 1.000.000đ", "Đã cọc · còn thu", "Đã thanh toán"
@@ -43,7 +43,7 @@ export const chuTrangThaiTien = (trang_thai_tien: TrangThaiTien | null, tien_coc
 export const chuDongPhong = (dp: Pick<DatPhongSapToi, "ma_can" | "ngay_nhan" | "ngay_tra" | "so_dem">) =>
   `Phòng ${dp.ma_can} · ${chuNgayNgan(dp.ngay_nhan)} → ${chuNgayNgan(dp.ngay_tra)} (${dp.so_dem} đêm)`;
 
-// Mục "ĐẶT PHÒNG SẮP TỚI" (US9-NT3, US9-NT2). Chưa có dòng nào thì CN1-01. Chạm một dòng mở chi tiết đặt phòng
+// Mục "ĐẶT PHÒNG SẮP TỚI" (US2-NT12, US2-NT11). Chưa có dòng nào thì CN1-01. Chạm một dòng mở chi tiết đặt phòng
 // (CN3-02, US10): chỗ gọi quyết định.
 export const MucSapToi = ({
   muc,
@@ -84,7 +84,7 @@ export const MucSapToi = ({
   </div>
 );
 
-// Phần dưới lưới tháng. Chưa có đặt phòng nào thì CN1-00, không có khối doanh thu và không có mục sắp tới (US9-NT2, mục "Booking sắp tới" (US9)).
+// Phần dưới lưới tháng. Chưa có đặt phòng nào thì CN1-00, không có khối doanh thu và không có mục sắp tới (US2-NT11, mục "Booking sắp tới" (US2)).
 // Chưa có số thì khung xám (HV1); hỏng mà chưa có số thì báo lỗi, có nút Thử lại (HV2).
 export const PhanDuoiLichThang = ({
   coDatPhong,

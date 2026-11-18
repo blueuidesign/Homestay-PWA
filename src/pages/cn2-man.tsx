@@ -13,7 +13,7 @@ import { TheGuiLich } from "./cn10-man";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { cacChipLoc, KhungLichTuanDangTai, locTuanRaThamSo, NoiDungCN2, type LocTuan } from "./cn2-lich-tuan";
 
-// CN2 · Lịch tuần (mục "Lịch tuần khi có nhiều căn" (US9)). Tải GET /lich/tuan, giữ tuần đã xem để mở lại là hiện ngay (HV1) và mất mạng vẫn xem được (HV2).
+// CN2 · Lịch tuần (mục "Lịch tuần khi có nhiều căn" (US2)). Tải GET /lich/tuan, giữ tuần đã xem để mở lại là hiện ngay (HV1) và mất mạng vẫn xem được (HV2).
 export const CN2LichTuan = () => {
   const dieuHuong = useNavigate();
   const matMang = useMatMang();

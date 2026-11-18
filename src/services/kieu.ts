@@ -152,7 +152,7 @@ export type NguoiDat = {
 
 export type TrangThaiTien = "chua_coc" | "da_coc_con_thu" | "da_thanh_toan";
 
-// GET /lich/ngay: mỗi căn một khối (api/lich-dat-phong.md, US2-NT7)
+// GET /lich/ngay: mỗi căn một khối (api/lich-dat-phong.md, US2-NT8)
 export type DatPhongTrongNgay = {
   id: string;
   nguoi_dat: NguoiDat;
@@ -170,7 +170,7 @@ export type LichNgay = {
   can: (CanTrenLich & { trong: boolean; dat_phong: DatPhongTrongNgay | null })[];
 };
 
-// GET /lich/tom-tat (api/lich-dat-phong.md, mục "Tóm tắt tháng" (US9)): doanh thu theo đêm của tháng (QD14, QT2.2), số đêm có khách
+// GET /lich/tom-tat (api/lich-dat-phong.md, mục "Tóm tắt tháng" (US2)): doanh thu theo đêm của tháng (QD14, QT2.2), số đêm có khách
 export type TomTatThang = {
   thang: string;
   doanh_thu: number;
@@ -197,7 +197,7 @@ export type ThongKeChu = {
   chuoi_thang: { thang: string; doanh_thu: number }[];
 };
 
-// GET /booking/sap-toi (mục "Booking sắp tới" (US9)): ngày trả sau hôm nay, xếp theo ngày nhận. Không có giá bán, không khách của sale (PQ9, PQ11).
+// GET /booking/sap-toi (mục "Booking sắp tới" (US2)): ngày trả sau hôm nay, xếp theo ngày nhận. Không có giá bán, không khách của sale (PQ9, PQ11).
 export type DatPhongSapToi = {
   id: string;
   can_id: string;
@@ -213,7 +213,7 @@ export type DatPhongSapToi = {
 };
 export type SapToi = { muc: DatPhongSapToi[]; truoc_tiep: string | null };
 
-// GET /lich/tuan (mục "Lịch tuần khi có nhiều căn" (US9)): bảng căn x 7 ngày từ thứ hai
+// GET /lich/tuan (mục "Lịch tuần khi có nhiều căn" (US2)): bảng căn x 7 ngày từ thứ hai
 export type OLichTuan = { ngay: string; booking_id: string | null; gia_dem: number | null };
 export type CanLichTuan = {
   can_id: string;

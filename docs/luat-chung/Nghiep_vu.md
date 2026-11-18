@@ -104,11 +104,11 @@ Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
 
 | Tên ngắn | Nội dung quy tắc | Yêu cầu dùng | Ví dụ số |
 |---|---|---|---|
-| Đêm có khách | Đã viết thành QT2 (`QT.md`). Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không tính là đêm có khách | mục "Lịch tháng và lọc theo căn" (US2), mục "Tóm tắt tháng" (US9), mục "Chi tiết một ngày" (US2), mục "Lịch tuần khi có nhiều căn" (US9) | 09/10 → 12/10 là 3 đêm: 09, 10, 11 |
+| Đêm có khách | Đã viết thành QT2 (`QT.md`). Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không tính là đêm có khách | mục "Lịch tháng và lọc theo căn" (US2), mục "Tóm tắt tháng" (US2), mục "Chi tiết một ngày" (US2), mục "Lịch tuần khi có nhiều căn" (US2) | 09/10 → 12/10 là 3 đêm: 09, 10, 11 |
 | Màu theo căn | Mỗi căn một màu trên lịch. Từ 4 căn trở lên, tên căn trong danh sách căn (CN5) không tô màu | mục "Lịch tháng và lọc theo căn" (US2) | Không |
-| Trạng thái tiền booking | Mỗi booking mang một nhãn: "Chưa cọc", "Cọc <số tiền>", "Đã cọc · còn thu" hoặc "Đã thanh toán" | mục "Booking sắp tới" (US9), mục "Chi tiết một ngày" (US2), mục "Lịch tuần khi có nhiều căn" (US9) | "Cọc 1.000.000đ" |
-| Tuần bắt đầu thứ hai | Lưới tháng và bảng tuần đều bắt đầu từ T2 và kết thúc ở CN | mục "Lịch tháng và lọc theo căn" (US2), mục "Lịch tuần khi có nhiều căn" (US9) | Không |
-| Giá rút gọn | Giá trên bảng tuần hiện rút gọn: dưới một triệu ghi "k", từ một triệu ghi "tr" kèm dấu phẩy | mục "Lịch tuần khi có nhiều căn" (US9) | 900k, 1,1tr, 1,15tr |
+| Trạng thái tiền booking | Mỗi booking mang một nhãn: "Chưa cọc", "Cọc <số tiền>", "Đã cọc · còn thu" hoặc "Đã thanh toán" | mục "Booking sắp tới" (US2), mục "Chi tiết một ngày" (US2), mục "Lịch tuần khi có nhiều căn" (US2) | "Cọc 1.000.000đ" |
+| Tuần bắt đầu thứ hai | Lưới tháng và bảng tuần đều bắt đầu từ T2 và kết thúc ở CN | mục "Lịch tháng và lọc theo căn" (US2), mục "Lịch tuần khi có nhiều căn" (US2) | Không |
+| Giá rút gọn | Giá trên bảng tuần hiện rút gọn: dưới một triệu ghi "k", từ một triệu ghi "tr" kèm dấu phẩy | mục "Lịch tuần khi có nhiều căn" (US2) | 900k, 1,1tr, 1,15tr |
 
 Ai thấy gì trong nhóm này:
 

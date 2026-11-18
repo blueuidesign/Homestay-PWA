@@ -109,5 +109,5 @@ export const BOOKING_MAU: BookingMau[] = [
 ];
 
 // DLM.5: tháng 9 của Chị Hoa chỉ có tổng 9.600.000đ, không có đặt phòng nào (server dlm.sql cũng không có, nên API thật trả 0).
-// Server giả cộng tổng này vào "tháng trước" của dữ liệu mẫu để khớp US9-KB1; chờ Tùng quyết (PR US9).
+// Server giả cộng tổng này vào "tháng trước" của dữ liệu mẫu để khớp US2-KB13; chờ Tùng quyết (PR US2).
 export const DOANH_THU_CU_MAU: Record<string, number> = { "2026-09": 9600000 };

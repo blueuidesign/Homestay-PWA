@@ -21,7 +21,7 @@ export const DUONG = {
   GHI_DAT_PHONG: "/can-sale/tu-nhap/dat-phong", // S6-05, S6-06 (US16), state { can_id }
   LINK: "/mo-link", // A1-link, A1-link-01, A10, A10-01 khi mở app từ link mời (US6)
   LICH: "/lich",
-  LICH_TUAN: "/lich/tuan", // CN2, CN2-00 (US9); lối vào tạm từ tab Lịch [MỞ: CH-015]
+  LICH_TUAN: "/lich/tuan", // CN2, CN2-00 (US2); lối vào tạm từ tab Lịch [MỞ: CH-015]
   GUI_LICH: "/lich/gui-cho-sale", // CN10, CN10-00, CN10-01 (US26)
   CAN: "/can",
   THEM_CAN: "/can/them", // CN5-A1
