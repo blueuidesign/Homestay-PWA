@@ -11,7 +11,7 @@
 Là người làm dự án, tôi muốn một repo mà mở ra là làm tiếp được: tài liệu đủ, database có test, app chạy được, CI kiểm mỗi PR, để các story sau chỉ còn là làm tính năng.
 
 ## Đã có trong repo (dựng ngày 18/11/2026)
-- Tài liệu theo QD-015: quy trình, quyết định, câu hỏi mở, luật chung, 39 story, kịch bản kiểm tay, canvas thiết kế.
+- Tài liệu theo QD-015: quy trình, quyết định, câu hỏi mở, luật chung, 39 story (35 story ở dạng đặc tả thô, viết lại ở US41), kịch bản kiểm tay, canvas thiết kế.
 - Database: 5 file migration, 11 file test (`tests/db/`), 28 phép thử làm hỏng (`scripts/thu-lam-hong.sh`). Tất cả chạy xanh trên Postgres 16 trần có giả lập phần của Supabase.
 - App: giao diện chuyển từ bản Zalo, chạy ở chế độ thử; kiểm kiểu sạch (trừ file test), 602 unit test xanh, build được, 5 E2E chế độ thử xanh trên Chromium.
 - CI: `.github/workflows/test.yml` (app, database), `.github/workflows/e2e.yml` (trên bản xem thử Vercel), `.github/workflows/backup.yml` (chỉ chạy khi đã bật cho production).

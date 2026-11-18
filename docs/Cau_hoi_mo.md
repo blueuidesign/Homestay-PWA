@@ -90,8 +90,8 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US11-H2 | Khu vực của tòa người dùng thêm:  (CH-065 đã trả lời). Loại view chọn nhiều loại: , kịch bản chỉ chọn một loại. | US11 |
 | US11-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US11 |
 | US11-H4 | Bước 3 danh sách có "Green Hạ Long Test" cùng ICON40, À La Carte, Sapphire. | kich-ban/US11 |
-| US12-H1 | ngay_nhan / query / ngay / Có / Ngày trong quá khứ: | US12 |
-| US12-H2 | toa_nha_id / query / danh sách id / Không / Chip "Khác": | US12 |
+| US12-H1 | ngay_nhan / query / ngay / Có / Ngày trong quá khứ:. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US12 |
+| US12-H2 | toa_nha_id / query / danh sách id / Không / Chip "Khác":. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US12 |
 | US12-H3 | sap_xep / query / chuỗi / Không / Chỉ `ten` (S2 "Theo tên"). Các cách khác ở S2: | US12 |
 | US12-H4 | Lọc "Giá mỗi đêm" (mục "Tìm phòng trống theo ngày" (US12) bước 3) chưa quyết: . | US12 |
 | US12-H5 | tu / query / ngay / Không / Ngày đầu của 7 ngày. Mặc định `ngay_nhan`. | US12 |
@@ -104,7 +104,7 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US14-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US14 |
 | US15-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
 | US15-H2 | nguồn không nói, `gia_chu` của Thiet_ke_DB không có giá trị trống | US15 |
-| US15-H3 | PQ10.SALE "yêu cầu đang chờ | US15 |
+| US15-H3 | PQ10.SALE "yêu cầu đang chờ. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US15 |
 | US15-H4 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
 | US15-H5 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
 | US15-H6 | Chấp nhận khi sale đã bị ngừng hoặc đã bỏ nguồn sau lúc gửi: . Chấp nhận khi ngày nhận đã qua: . | US15 |
@@ -113,7 +113,7 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US15-H9 | Chọn "Lý do khác" có ô nhập chữ, bắt buộc chọn lý do:  (CH-067). Chỉ làm ba chip. | US15 |
 | US16-H1 | PQ14.CHU: chủ nhà gọi hay với căn tự nhập của sale thì bị từ chối; chủ nhà gọi với `loai: "tu_nhap"` thì bị từ chối (mã lỗi: ). | US16 |
 | US16-H2 | chưa có, mục "Danh sách căn và nguồn phòng" (US16) bước 4, mục "Chi tiết căn tự nhập" (US16) bước 5 | US16 |
-| US17-H1 | nguồn không nói có đếm lần gửi link đã hết hạn không | US17 |
+| US17-H1 | nguồn không nói có đếm lần gửi link đã hết hạn không. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US17 |
 | US17-H2 | `LINK_KHONG_DUNG_DUOC` / Link sai, quá hạn (khi đặt hạn), link không phải loại `xin_lich` (sale đã xóa tài khoản: ), hoặc người gọi đã ngừng sale đó, US22-NT2) | US17 |
 | US17-H3 | `TRANG_THAI_DA_DOI` / Dòng không còn `da_ket_noi` (sale đã bỏ nguồn, đã bị ngừng). Sale đã xóa tài khoản thì đổi quyền được không: . Đổi quyền của dòng thêm tay `chua_ket_noi`: ; tới khi có quyết định | US17 |
 | US18-H1 | Thêm hoặc ẩn căn giữa tháng ảnh hưởng công suất: chờ  ở trên. | US18 |
@@ -125,7 +125,7 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US19-H5 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | kich-ban/US19 |
 | US19-H6 | **Mục đích:** đặt phòng đã chốt có nhãn "Đã chốt" và đúng tiền chênh từng dòng. Chỉ kiểm 5 dòng của yêu cầu; V2 (căn tự nhập) có trong danh sách hay không:  (US19-Q1). | kich-ban/US19 |
 | US20-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US20 |
-| US21-H1 | `ten` có sửa được trong app không | US21 |
+| US21-H1 | `ten` có sửa được trong app không. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US21 |
 | US21-H2 | mục "Ngày tính giá cuối tuần" (US11) không nói chủ nhà được bỏ chọn hết các thứ không | US21 |
 | US21-H3 | `chu_nha` (P3) / Đặt phòng chưa cọc / `dat_phong_chua_coc` / Mã đặt mới Thiet_ke_DB). Không có trong mục "Cài đặt thông báo" (US21): | US21 |
 | US21-H4 | PQ11.CHU chỉ nói chủ nhà không thấy, không nói gửi lên thì báo lỗi hay bỏ qua | US21 |
@@ -138,13 +138,13 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US22-H5 | Bước 1: nhóm "ĐÃ KẾT NỐI" giảm 1 so với trước (4 thành 3). Dòng "Sale Hùng" kèm ghi chú đỏ "Đã xoá tài khoản", "Đặt phòng đã nhận từ sale này vẫn giữ trong lịch" (màn CN7 chưa vẽ,  (US22-Q4)). Không c | kich-ban/US22 |
 | US22-H6 | **Mục đích:** link xin lịch của sale đã xóa không mở được, không lộ số của sale, không tạo kết nối. Chưa chạy tới khi trả lời: A8-01 ở mục "Khi người dùng xóa tài khoản" (US22) bản 3 ghi , tên cũ có hiện không chưa chốt. Mong đợi dưới l | kich-ban/US22 |
 | US22-H7 | **Mục đích:** link mời của chủ nhà đã xóa không hiện căn, ảnh, không tạo kết nối. Chưa chạy tới khi trả lời: A1-link-01 ở mục "Khi người dùng xóa tài khoản" (US22) bản 3 ghi . Mong đợi dưới là của bản cũ. | kich-ban/US22 |
-| US23-H1 | nguồn không nói; Thiet_ke_DB `ngay_le` không có ràng buộc | US23 |
+| US23-H1 | nguồn không nói; Thiet_ke_DB `ngay_le` không có ràng buộc. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
 | US24-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US24 |
 | US26-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
 | US26-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
 | US26-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
 | US27-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US27 |
-| US28-H1 | QT3.1 không nói tiền chênh âm | US28 |
+| US28-H1 | QT3.1 không nói tiền chênh âm. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US28 |
 | US28-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US28 |
 | US28-H3 | mục "Booking chủ nhà ghi cho sale" (US28) màn phía sale chưa vẽ | US28 |
 | US28-H4 | US28-NT4 chủ nhà ghi tên và số khách cho đặt phòng của sale, nhưngvà API chỉ nhận `sale_id` hoặc `ten_khach`, và CN4 chưa có ô số khách | US28 |
@@ -155,7 +155,7 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | US30-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
 | US30-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
 | US30-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
-| US34-H1 | hỏi thêm hàng PQ, xem  dưới | US34 |
+| US34-H1 | hỏi thêm hàng PQ, xem  dưới. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US34 |
 | US34-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US34 |
 | US35-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US35 |
 | US35-H2 | Xin hủy đặt phòng đã qua ngày trả được không: . Xin hủy hết hạn sau bao lâu và hết hạn thì thành gì: . | US35 |
@@ -198,59 +198,59 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | CH-096 | Chủ nhà có xem lại và xóa được dòng kết nối đã dừng (sale thêm tay chưa kết nối, sale đã bị ngừng) không? | US5, US16 |
 | CH-097 | Xuất file đặt phòng: bản PWA lưu file vào máy bằng tải xuống của trình duyệt, hay chia sẻ qua bảng chia sẻ của điện thoại? | US22 |
 | US10-H10 | PQ14.SALE cho sale sửa;chỉ cho chủ nhà; mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 6 màn sửa chưa thiết kế | US10 |
-| US10-H11 | mục "Sửa booking" (US10) bước 4 nói mọi lần lưu | US10 |
-| US10-H12 | PQ14.SALE cho xóa;chỉ cho `chu_tu_ghi` | US10 |
+| US10-H11 | mục "Sửa booking" (US10) bước 4 nói mọi lần lưu. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US10 |
+| US10-H12 | PQ14.SALE cho xóa;chỉ cho `chu_tu_ghi`. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US10 |
 | US10-H13 | Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), US3-NT17, NT2): US3. US3-NT14, NT5, NT7 chưa có US, đề xuất vào US3. | US10 |
 | US10-H14 | mục "Sửa booking" "sửa người đặt": đổi sang sale khác hay khách lẻ thì giá bán và thông báo ra sao. Server từ chối đổi `sale_id` của đặt phòng đã có sale). | US10 |
 | US10-H15 |. | US10 |
-| US5-H2 | PQ18.SALE không có quyền thu hồi | US5 |
-| US5-H3 | QD-008 chỉ nói link hết hạn | US5 |
+| US5-H2 | PQ18.SALE không có quyền thu hồi. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US5 |
+| US5-H3 | QD-008 chỉ nói link hết hạn. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US5 |
 | US5-H4 | mục "Chủ nhà quản lý danh sách sale" (US5) bước 5 chỉ nói sale đã kết nối | US5 |
-| US19-H7 | mục "Thống kê của sale" (US19) không nói | US19 |
-| US19-H8 | QT3.2; GD12 chỉ nói căn tự nhập | US19 |
+| US19-H7 | mục "Thống kê của sale" (US19) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US19 |
+| US19-H8 | QT3.2; GD12 chỉ nói căn tự nhập. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US19 |
 | US19-H9 | Mục chờ chủ theo tháng đang xem hay mọi yêu cầu đang chờ: tạm mọi yêu cầu đang chờ.  US19-Q5 | US19 |
 | US21-H7 | bước 4 nói mất phiên thì app tự gọi lại mà không hỏi; mục "Tài khoản đăng nhập và đăng xuất" (US21) nói "Lần sau đăng nhập lại bằng Zalo". Hai câu cho hai kết quả khác nhau sau đăng xuất | US21 |
 | US21-H8 | cập nhật cột này khi đổi giá tháng, không nói khi đổi đêm cuối tuần | US21 |
-| US21-H9 | mục "Cài đặt thông báo" (US21) không nói | US21 |
+| US21-H9 | mục "Cài đặt thông báo" (US21) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US21 |
 | US13-H5 | chạm căn của tôi hay căn tự nhập ở S1 mở S3 (mục "Lịch phòng 7 ngày" (US16) bước 8) hay S6-07, S6-03 (mục "Danh sách căn và nguồn phòng" (US16) bước 9, mục "Chi tiết căn tự nhập" (US16)) | US13 |
 | US13-H6 | **Ai gọi:** sale có vai `nguon_phong` với căn (PQ11.SALE), hoặc CHU của căn `tu_nhap` (giá bán căn tự nhập dùng mức cộng này, Thiet_ke_DB `muc_cong`, PQ14.SALE). Căn `cua_toi`: ; tới khi có câu trả lời, `KHONG_TIM_THAY`. Chủ nhà với căn của mình: `KHONG_TIM_THAY` (PQ11.CHU: chủ nhà không có mức cộng | US13 |
-| US22-H8 | PQ20.SALE và PQ13.CHU | US22 |
-| US22-H9 | mục "Xuất file Excel (CSV)" (US22) không nói | US22 |
-| US22-H10 | mục "Xuất file Excel (CSV)" (US22), QD-012 | US22 |
+| US22-H8 | PQ20.SALE và PQ13.CHU. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
+| US22-H9 | mục "Xuất file Excel (CSV)" (US22) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
+| US22-H10 | mục "Xuất file Excel (CSV)" (US22), QD-012. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
 | US22-H11 | mục "Xuất file Excel (CSV)" (US22) bước 3 chỉ có chip căn chưa ẩn | US22 |
-| US11-H5 | thêm hàng PQ cho danh sách tòa | US11 |
-| US11-H6 | PQ chưa có hàng cho tòa | US11 |
+| US11-H5 | thêm hàng PQ cho danh sách tòa. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US11 |
+| US11-H6 | PQ chưa có hàng cho tòa. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US11 |
 | US29-H1 | Nếu web quản trị chưa có thì danh sách đặt sẵn nạp bằng script, như dải ngày lễ . Web quản trị dùng chung nền đăng nhập ADMIN với US23 (US23 có trong truoc, Tùng giao 04/11). | US29 |
 | US29-H2 | Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ3.ADMIN (xem; mục "Quản trị danh sách tòa nhà" cho thêm và sửa tòa, nhưng PQ3.ADMIN mới ghi "xem", PQ chưa có hàng riêng cho danh sách tòa: ), PQ3.CHU, PQ3.SALE (xem mọi tòa, thêm tòa mới ở), PQ3.LINK (không thấy). | US29 |
-| US29-H3 | Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản trị để thêm hay sửa tòa: từ chối, `toa_nha` không đổi; sale Hùng gọi như vậy: từ chối; gọi không có phiên: từ chối; Chị Hoa gọi không sửa được tòa có sẵn và không đặt được `tao_boi` trống (tòa người dùng thêm không thành tòa đặt sẵn). Mã  | US29 |
+| US29-H3 | Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản trị để thêm hay sửa tòa: từ chối, `toa_nha` không đổi; sale Hùng gọi như vậy: từ chối; gọi không có phiên: từ chối; Chị Hoa gọi không sửa được tòa có sẵn và không đặt được `tao_boi` trống (tòa người dùng thêm không thành tòa đặt sẵn). Mã | US29 |
 | US29-H4 | Xóa hoặc gộp tòa trùng, căn đang gắn tòa bị xóa (mục "Quản trị danh sách tòa nhà" bước 4): , chưa có NT, chưa US nào nhận. | US29 |
 | US29-H5 | Sửa tên hoặc khu vực một tòa (mục "Quản trị danh sách tòa nhà" bước 3) và có áp cho tòa người dùng thêm không: mục "Quản trị danh sách tòa nhà" không có NT cho bước này . Chưa có kịch bản. | US29 |
-| US18-H3 | nhóm Thống kê không nói | US18 |
-| US23-H2 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . | US23 |
-| US23-H3 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . | US23 |
-| US23-H4 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . | US23 |
-| US23-H5 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . | US23 |
+| US18-H3 | nhóm Thống kê không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US18 |
+| US23-H2 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
+| US23-H3 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
+| US23-H4 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
+| US23-H5 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
 | US23-H6 | Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ ; đã trả lời ở mục "Thêm người đồng quản t | US23 |
 | US23-H7 | Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ ; đã trả lời ở mục "Thêm người đồng quản t | US23 |
 | US23-H8 | PQ21.SALE ghi "?", nhóm Quản trị Home247 trên web Ai thấy gì | US23 |
 | US23-H9 | Test vi phạm phải có (US23-NT4): Chị Hoa (CHU) gọi,,: từ chối, `ngay_le` không đổi; sale Hùng gọi cùng bốn API: từ chối; gọi không có phiên: từ chối. Mã lỗi . | US23 |
 | US23-H10 | Duyệt hai bước, ghi ai sửa dải nào, dịp cố định hay thêm được dịp mới, giới hạn 10 ngày cho dải quản trị nhập, sửa hay xóa dải sau khi chủ nhà đã đặt giá theo dải, năm chưa có dải: . | US23 |
-| US28-H9 | QD-007 chỉ nói xem lại được | US28 |
+| US28-H9 | QD-007 chỉ nói xem lại được. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US28 |
 | US28-H10 | mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 6 màn sửa chưa thiết kế | US28 |
-| US35-H4 | PQ7.SALE, QD-012 | US35 |
-| US35-H5 | QD-012 không nói | US35 |
-| US16-H3 | PQ17.SALE | US16 |
+| US35-H4 | PQ7.SALE, QD-012. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US35 |
+| US35-H5 | QD-012 không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US35 |
+| US16-H3 | PQ17.SALE. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US16 |
 | US16-H4 | **Việc kéo theo:** Không có thông báo cho chủ nhà khi sale bỏ nguồn (mục "Cài đặt thông báo" (US21) không có loại này). Sau khi bỏ, API lịch của sale không còn căn của chủ nhà đó (US16-NT15). Sale đã bỏ nguồn còn xem lại đặt phòng cũ với chủ nhà đó không:  (QD-007 chỉ nói sale bị ngừng). Yêu cầu đặt | US16 |
 | US16-H5 | **Việc kéo theo:** Không có thông báo cho chủ nhà khi sale bỏ nguồn (mục "Cài đặt thông báo" (US21) không có loại này). Sau khi bỏ, API lịch của sale không còn căn của chủ nhà đó (US16-NT15). Sale đã bỏ nguồn còn xem lại đặt phòng cũ với chủ nhà đó không:  (QD-007 chỉ nói sale bị ngừng). Yêu cầu đặt | US16 |
 | US12-H7 | **Chống bấm hai lần:** không cần (đọc). Gọi hai lần cùng điều kiện tạo hai dòng `tim_gan_day` cho tới khi có câu trả lời. | US12 |
-| US6-H3 | QD-005 trong mục "Mở app từ link mời của chủ nhà" (US6) | US6 |
+| US6-H3 | QD-005 trong mục "Mở app từ link mời của chủ nhà" (US6). Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US6 |
 | US6-H4 | mục "Cài đặt thông báo" (US21) có áp khi sale tự bấm Thêm lịch không | US6 |
 | US1-H2 | Thiet_ke_DB ghi `vai_chon` chỉ để chọn giao diện, mâu thuẫn với việc dùng nó để kiểm quyền ở đây | US1 |
-| US1-H3 | không có mã cho tạo sai vai | US1 |
+| US1-H3 | không có mã cho tạo sai vai. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US1 |
 | US1-H4 | mục "Căn mới của chủ nhà tự hiện cho sale" (US6) ghi "chưa thiết kế" | US1 |
 | US15-H10 | mục "Cài đặt thông báo" (US21) không có loại "sale hủy yêu cầu"; thông báo `sale_gui_yeu_cau` đã ghi cho chủ nhà giữ hay bỏ. | US15 |
 | US14-H3 | App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (mục "Gửi thông tin cho khách qua Zalo" bước 5, 6).. | US14 |
-| US14-H4 | giá trong chữ là giá nào | US14 |
+| US14-H4 | giá trong chữ là giá nào. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US14 |
 | US29-H6 | **Chuẩn bị:** tài khoản chủ nhà mới, chưa có căn, chưa thêm tòa nào (ngoài DLM ). Ba tòa ICON40, À La Carte, Sapphire đã được đặt sẵn. | tests/kich-ban/US29.md |
 | US11-H7 | Bước 3 danh sách có "Green Hạ Long Test" cùng ICON40, À La Carte, Sapphire. | tests/kich-ban/US11.md |
 | LC-H1 | Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. Booking đã xóa không chiếm đêm. | docs/luat-chung/QT.md |
