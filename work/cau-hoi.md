@@ -548,6 +548,12 @@ Gắn ở: YC15.
 Đặt phòng đã hủy (xóa) có còn chiếm đêm không, hay QT2.1 chỉ tính đặt phòng chưa hủy?
 Gắn ở: QT.
 
+## QT5
+
+### QT5-H1 · mo
+Viết số tiền rút gọn ("900k", "1,1tr", "1,15tr") làm tròn thế nào khi số không chẵn? Ví dụ 950.500đ ghi "950k" hay "951k"; 1.125.000đ ghi "1,12tr", "1,13tr" hay "1,125tr"; 999.999đ ghi "999k" hay "1tr"; 1.000.000đ ghi "1tr" hay "1,0tr".
+Gắn ở: glossary.md mục Viết số tiền (QT5.2). Chặn: hàm viết rút gọn dùng chung, cần cho YC2.5, YC4.1, YC4.2, YC7.1. EN1 chỉ làm cách viết đầy đủ. Hỏi ngày 18/11/2026.
+
 ## HV1
 
 ### HV1-H1 · mo

@@ -2,7 +2,7 @@
 id: EN1
 tieu_de: "Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview"
 loai: EN
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: []
 truoc: []
 lien_quan: []
@@ -38,13 +38,16 @@ Code phần đặc tả chưa quyết (câu hỏi đang mở). Ghi bí mật, em
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [ ] EN1-TA1 Code · Claude Code (opus, CL14.6a): khung Vite, React, TypeScript, manifest và service worker của PWA; cấu trúc src/ (ghi vào docs/dev/chay-va-test.md); hàm dùng chung cho ngày giờ Việt Nam và tiền số nguyên đồng (QT5.1, QT5.2) kèm test unit
-- [ ] EN1-TA2 Code · Claude Code (sonnet, CL14.6a): công cụ test unit và e2e (Playwright, khung 390×844), job app trong .github/workflows/kiem.yml (typecheck, test, build), điền docs/dev/chay-va-test.md mục Cài, Test, Build
+- [x] EN1-TA1 Code · khung PWA, cấu trúc src/, hàm ngày và tiền (QT5.1, QT5.2). Viết rút gọn chờ QT5-H1 · PR EN1-dung-nen-app
+- [x] EN1-TA2 Code · Vitest, Playwright 390×844, job app trong kiem.yml, phần app của chay-va-test.md · PR EN1-dung-nen-app
 - [ ] EN1-TA3 Môi trường · Đức: nối repo vào Vercel, bản Preview theo nhánh (VIEC_TAY_CUA_TUNG.md bước 5); mở bản Preview trên iPhone và Android, cài lên màn hình chính, ghi một dòng biên bản
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
+- 2026-11-18 · Claude (Tùng giao) · TA1, TA2 · PR EN1-dung-nen-app · nhánh đặt trên QD21 vì PR #5 chưa gộp; hỏi QT5-H1 · ~1 giờ
 
 ## Bằng chứng
+- `npx vitest run` lần đầu đỏ 2 file (chưa có ngay.ts, tien.ts), viết code 1 vòng, xanh 20/20.
+- `npm run typecheck`, `npm run build` (JS 69 KB gzip) xanh. `npx playwright test` 3/3 xanh (390×844, manifest, mở lại khi mất mạng).
