@@ -1,0 +1,23 @@
+/* Nền trình duyệt cho bản PWA. Thay phần toàn cục mà zaui.css của bản Zalo từng đặt, để các màn chuyển sang giữ nguyên bố cục.
+   Kiểu dáng của app nằm ở nen.css (token, lớp hh-*) và khung.css (khung màn). Không đặt màu hay cỡ chữ của thành phần ở đây. */
+:root {
+  --zaui-safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --zaui-safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --zaui-safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --zaui-safe-area-inset-right: env(safe-area-inset-right, 0px);
+}
+* { box-sizing: border-box; }
+html { height: 100%; overflow: hidden; position: relative; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+body {
+  height: 100%; overflow: auto; position: relative; margin: 0; padding: 0; width: 100%;
+  -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased;
+  font-size: 15px; font-weight: 400; line-height: 20px;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.pwa-app { height: 100%; }
+.zaui-page { overflow: auto; -webkit-overflow-scrolling: touch; min-height: 100vh; min-height: 100dvh; height: 100%; width: 100%; }
+/* Trên màn rộng (máy tính), giữ app ở bề ngang điện thoại để bố cục một tay không bị kéo giãn. */
+@media (min-width: 560px) {
+  body { background: #e5e7eb; }
+  #app { max-width: 480px; margin: 0 auto; background: var(--surface-page); box-shadow: 0 0 0 1px var(--border); position: relative; }
+}

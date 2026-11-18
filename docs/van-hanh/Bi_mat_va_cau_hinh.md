@@ -1,0 +1,25 @@
+# Bí mật và cấu hình · Home247
+
+<!-- CHỈ ghi tên và nơi cất. KHÔNG BAO GIỜ ghi giá trị vào file này, repo, chat hay log. -->
+
+## Luật
+1. Bí mật chỉ nằm ở: GitHub Secrets, biến môi trường Vercel, kho bí mật Supabase, trình quản lý mật khẩu của chủ dự án.
+2. Lỡ lộ (dán vào chat, đẩy lên repo, hiện trong log) thì **thu hồi và tạo mới ngay**, ghi vào bảng "Lần thay" bên dưới.
+3. Claude không giữ, không nhập, không dùng bí mật của người dùng.
+
+## Danh sách
+
+| Tên | Dùng để | Cất ở | Ai tạo lại được | Lần thay gần nhất |
+| --- | --- | --- | --- | --- |
+| `SUPABASE_DB_URL` | Sao lưu đêm production (chuỗi Session pooler) | GitHub Secrets | Tùng | <ngày> |
+| `RCLONE_CONF` | Đẩy bản sao lưu lên Drive, có mục `crypt` để mã hóa (docs/QUY_TRINH.md mục 12) | GitHub Secrets | Tùng | <ngày> |
+| `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | Giao diện gọi Supabase (khóa công khai). Preview dùng của staging, Production dùng của production | Vercel → Environment Variables, tách theo môi trường | Tùng | <ngày> |
+| `E2E_CHU_EMAIL`, `E2E_CHU_MAT_KHAU`, `E2E_SALE_EMAIL`, `E2E_SALE_MAT_KHAU` | Tài khoản thử cho Playwright, **chỉ có trên staging** | GitHub Secrets | Tùng | <ngày> |
+| `E2E_SUPABASE_URL`, `E2E_SUPABASE_ANON_KEY` | E2E đăng nhập vào staging | GitHub Secrets | Tùng | <ngày> |
+| Mật khẩu database staging, production | Chạy migration bằng Supabase CLI | Trình quản lý mật khẩu của Tùng | Tùng | <ngày> |
+| `service_role` của staging, production | Không dùng ở app. Chỉ Edge Function đọc từ kho bí mật Supabase | Supabase | Tùng | |
+| <khóa SMS hoặc Zalo> | Đăng nhập (CH-001) | Kho bí mật Supabase | Tùng | |
+
+## Lần thay do lộ
+| Ngày | Bí mật | Lộ ở đâu | Đã thu hồi | Đã tạo mới |
+| --- | --- | --- | --- | --- |
