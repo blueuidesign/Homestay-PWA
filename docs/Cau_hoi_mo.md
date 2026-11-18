@@ -1,6 +1,8 @@
 # Câu hỏi mở
 
-<!-- Tài liệu sống. Chỗ nào trong story hay luật chung gắn thẻ MỞ kèm một mã thì chưa được code theo. Hỏi Tùng, ghi câu trả lời nguyên văn xuống mục "Đã trả lời", sửa chỗ gắn thẻ, xóa dòng ở đây. scripts/kiem-tai-lieu.py báo đỏ nếu một thẻ MỞ trỏ tới mã không có ở file này. -->
+<!-- Tài liệu sống. Chỗ nào trong YC hay luật chung gắn thẻ [MỞ: mã] thì chưa được code theo. Hỏi Tùng, ghi câu trả lời nguyên văn xuống mục "Đã trả lời", sửa chỗ gắn thẻ, xóa dòng ở mục trên. -->
+
+Mã `CH-<số>` là câu hỏi chung, `YC<n>-H<số>` là câu hỏi riêng của một YC, `HV-H`, `LC-H` thuộc `docs/luat-chung/`. Cột "Gắn ở" là mục đang chờ câu trả lời. Dựng lại theo QD-021 ngày 18/11/2026: câu hỏi cũ mã `US<n>-H` đã đổi sang `YC<n>-H` hay gộp vào `CH`; câu chỉ có chữ "câu đứng cạnh thẻ" đã viết lại từ chỗ gắn thẻ.
 
 ## Đang chờ, chặn việc
 
@@ -8,7 +10,7 @@
 | --- | --- | --- | --- | --- | --- |
 | CH-001 | 18/11/2026 | Tùng | Người dùng đăng nhập bản PWA bằng gì: (a) mã OTP qua SMS (cần nhà cung cấp SMS, có phí, có thể vướng quy định tin nhắn thương hiệu), (b) đăng nhập Zalo trên web (cần đăng ký ứng dụng Zalo, kiểm Zalo có cho lấy số điện thoại trên web không), (c) tạm dùng email magic link cho vài người dùng đầu? Nguyên tắc của Home247 là không bắt đăng ký bằng email (`docs/Mo_ta_du_an.md`). | Màn đăng nhập, test E2E chạy bằng tài khoản thật | Database không phụ thuộc cách đăng nhập. E2E tạm đăng nhập bằng tài khoản thử trên staging |
 | CH-002 | 18/11/2026 | Tùng | Dữ liệu người dùng đặt ở đâu? Supabase không có vùng Việt Nam, gần nhất là Singapore. Thỏa thuận nhà phát triển của Zalo (§5.3.3(b)) bắt dữ liệu ở Việt Nam khi lên Zalo. Luật Bảo vệ dữ liệu cá nhân 2025 và Nghị định 356/2025 (hiệu lực 01/01/2026) có thủ tục khi chuyển dữ liệu ra nước ngoài. (a) Singapore cho giai đoạn PWA, dời trước khi lên Zalo; (b) PostgreSQL ở nhà cung cấp tại Việt Nam ngay từ đầu. Nên hỏi người có chuyên môn luật trước khi có người dùng thật. | Tạo project production, người dùng thật | Staging tạo ở Singapore, chỉ dữ liệu giả |
-| CH-003 | 18/11/2026 | Tùng | Sale gửi căn cho khách thế nào trên PWA? Bản Zalo dùng cửa sổ chia sẻ của Zalo (mục "Gửi thông tin cho khách qua Zalo" (US14)). Đề xuất: nút "Gửi cho khách" mở bảng chia sẻ của điện thoại (Web Share API) với chữ và ảnh; sale chọn Zalo trong bảng đó. Điện thoại không hỗ trợ chia sẻ ảnh thì chép chữ và tải ảnh về. | Màn gửi khách | Chưa làm |
+| CH-003 | 18/11/2026 | Tùng | Sale gửi căn cho khách thế nào trên PWA? Bản Zalo dùng cửa sổ chia sẻ của Zalo (YC8.1). Đề xuất: nút "Gửi cho khách" mở bảng chia sẻ của điện thoại (Web Share API) với chữ và ảnh; sale chọn Zalo trong bảng đó. Điện thoại không hỗ trợ chia sẻ ảnh thì chép chữ và tải ảnh về. | Màn gửi khách | Chưa làm |
 | CH-004 | 18/11/2026 | Tùng | Xin hủy hết hạn sau bao lâu, và hết hạn thì đặt phòng thành gì? | Việc nền tự hết hạn xin hủy | Xin hủy không hết hạn |
 | CH-005 | 18/11/2026 | Tùng | Chủ nhà thu hồi link mời ở màn nào; người mở link đã hết hạn hay đã thu hồi thấy gì? | Màn Thêm lịch khi link hỏng | Hiện "Link mời không còn dùng được" hoặc "Link mời đã hết hạn" |
 | CH-006 | 18/11/2026 | Tùng | Số booking trong thống kê tháng đếm theo tháng của ngày nhận, hay đếm ở mọi tháng có đêm của booking? | Màn thống kê | Chưa làm thống kê |
@@ -17,219 +19,142 @@
 
 ## Chưa rõ, hỏi khi làm tới
 
-Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n>-H<số>` là chỗ chưa rõ nằm ngay trong story hoặc kịch bản kiểm tay của story đó, mã `LC-H<số>` nằm trong `docs/luat-chung/`: câu hỏi là câu đứng cạnh thẻ. Cột "Gắn ở" cho biết thẻ nằm ở file nào.
-
-| Mã | Câu hỏi | Gắn ở |
-|---|---|---|
-| CH-009 | Sale chủ nhà thêm tay bằng tên và số (CN7-05) ghép với tài khoản thật của sale thế nào? (a) ghép khi số điện thoại trùng; (b) chỉ ghép qua link; (c) chủ gộp tay. | US17, US5 |
-| CH-010 | Chủ nhà từ chối lời xin xem lịch ở A8 thì sale có được báo không? | US17 |
-| CH-011 | Nút "Nhắc lại" ở CN7 và "Gửi link cho chủ nhà khác" ở A7 làm gì? | US5 |
-| CH-012 | Tài khoản chọn vai chủ nhà mở link xin lịch của sale, hay vai sale bấm đồng ý ở A8: xử lý thế nào? | US6 |
-| CH-013 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US22 |
-| CH-014 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-015 | Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn. | US2 |
-| CH-016 | Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem? | US2 |
-| CH-017 | Chạm một ngày đã qua ở lịch tháng thì mở gì? | US2 |
-| CH-018 | Chọn được nhiều loại view cho một căn không? | US1 |
-| CH-019 | Chạm thẻ căn ở CN5 mở gì; "Lưu thay đổi" ở CN5-02, "Lưu giá" ở CN6-02 về màn nào? | US7, US8 |
-| CH-020 | Bỏ trống tên khi bật "Là ngày lễ" thì tên tự đặt là gì? | US8 |
-| CH-021 | Xóa căn có hỏi lại một lần không? Gợi ý: có, như xóa đặt phòng. | US1 |
-| CH-022 | "Đã bán 12 đặt phòng của bạn" ở CN9 đếm những đặt phòng nào? | US15 |
-| CH-024 | Tiền cọc lớn hơn tiền phòng thì báo gì? Đang tạm làm theo GD20. | US3, US3 |
-| CH-025 | Chọn "Đã cọc · còn thu" thì số tiền cọc có bắt buộc không? | US3 |
-| CH-026 | Lần gửi khách tính khi bấm gửi chữ, gửi ảnh, hay cả khi bấm sao chép? | US14 |
-| CH-027 | Chủ căn tự nhập sau này dùng app thì căn tự nhập và đặt phòng cũ làm gì: ghép, giữ riêng hay xóa? | US16 |
-| CH-028 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US16 |
-| CH-029 | Giữa tháng thêm hay xóa căn thì mẫu số công suất tính thế nào? | US18, US1 |
-| CH-030 | Thống kê của sale có chọn tháng khác không? | US19 |
-| CH-031 | "Chưa thu tiền" gồm chỉ đặt phòng chưa cọc, hay cả phần còn thu của đặt phòng đã cọc? | US18 |
-| CH-032 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US22 |
-| CH-033 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US22 |
-| CH-034 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-035 | Sửa hoặc xóa một dải sau khi chủ nhà đã đặt giá theo dải đó: giá chủ nhà đã lưu giữ theo dải cũ hay đổi theo dải mới, có báo chủ nhà không. | US23 |
-| CH-036 | Giới hạn "một dải tối đa 10 ngày" (quy tắc Dải ngày lễ do Home247 đặt) có áp cho dải người quản trị nhập không, hay chỉ cho dải chủ nhà sửa. | US23 |
-| CH-037 | Bản đầu chưa có web quản trị: danh sách tòa đặt sẵn nạp bằng script như, hay để trống cho người dùng tự thêm. | US29 |
-| CH-038 | Hai người thêm cùng một tòa với tên khác nhau ("ICON 40", "Icon40"): người quản trị gộp hay xóa thế nào, căn đang gắn tòa bị xóa thì sao. Người dùng thêm thoải mái nên chuyện này sẽ xảy ra. | US29 |
-| CH-039 | Ai gỡ: đã trả lời bởi mục "Thêm người đồng quản trị" (US34) (chỉ quản trị viên đầu tiên, người này không bị gỡ). Còn mở: người bị gỡ đang đăng nhập thì mất quyền ngay không. Đề xuất: mất ngay, server kiểm danh sách ở mỗi lần gọi. | US34 |
-| CH-040 | Mã đăng nhập: mấy chữ số, có hạn bao lâu, nhập sai mấy lần thì khóa, phiên quản trị giữ bao lâu. Gửi email cần dịch vụ gửi thư (việc tài khoản). | US34 |
-| CH-041 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US34 |
-| CH-042 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-043 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-044 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-045 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-046 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-047 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-048 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | luat-chung/PQ.md |
-| CH-049 | QD-007 chỉ nói đã cọc hay chưa | luat-chung/PQ.md |
-| CH-050 | PQ10.SALE: gửi yêu cầu cho căn được chia sẻ, đêm còn trống (mục "Sale gửi yêu cầu đặt phòng" (US15)); xem, hủy yêu cầu của mình; thấy lý do từ chối (mục "Sale nhận kết quả yêu cầu" (US15)). Không thấy yêu cầu của sale khác (nhóm Booking Ai thấy gì). Bị ngừng: không gửi yêu cầ | luat-chung/PQ.md |
-| CH-051 | Nhóm này cho người quản trị của Home247 (vai ADMIN) làm việc vận hành trên trang quản trị riêng, không nằm trong các tab của chủ nhà và sale. Mục đầu tiên là dải ngày lễ hằng năm mà chủ nhà chọn nhanh | luat-chung/Nghiep_vu.md |
-| US3-H1 | Chủ nhà nhập tên một khách mới (chưa có trên hàng chip "Khách / Sale") ở đâu? Gợi ý: chạm "Khách lẻ" thì hiện ô "Tên khách (không bắt buộc)". | US3 |
-| US3-H2 | Form đặt phòng có ô số điện thoại khách không? Database đã có chỗ lưu, canvas CN4 chưa có ô. | US3 |
-| US3-H3 | Tiền phòng 0 đồng (cho người quen ở miễn phí) có được ghi không? Tạm thời database chặn. | US3 |
-| US5-H1 | `TRANG_THAI_DA_DOI` / Dòng không phải `da_ket_noi` và không phải `chu_ngung` (ví dụ sale vừa bỏ nguồn, hoặc dòng thêm tay). Ngừng sale đã xóa tài khoản: . Dòng đã `chu_ngung`: trả kết quả như lần đầu, | US5 |
-| US6-H1 | `LINK_KHONG_DUNG_DUOC` / Mã không có hoặc sai định dạng; link đã thu hồi; link quá hạn. Người tạo đã xóa tài khoản (US22-NT1, US22-NT2): . Thêm với `xin_lich`: người gọi đã ngừng sale đó (`ket_noi` | US6 |
-| US6-H2 | `LINK_KHONG_DUNG_DUOC` / Link sai, thu hồi, quá hạn bước 4 kiểm lại link), hoặc link loại `xin_lich`. Người tạo đã xóa tài khoản: | US6 |
-| US7-H1 | Cách "thay" giá có sẵn khi sao chép (phạm vi năm, tháng nguồn chưa đặt, dải chồng ngày của căn đích): . Các kịch bản dưới đây chỉ chạm ca không phụ thuộc phần này. | US7 |
-| US8-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US8 |
-| US2-H1 | Ở tab Lịch, đổi chip lọc căn thì khối doanh thu tháng có đổi theo căn không? Tới khi có câu trả lời, khối luôn là tổng mọi căn. | US2 |
-| US2-H2 | Ở lịch tuần, ô trống của đêm chưa đặt giá hiện gì? Tới khi có câu trả lời, ô để trống. | US2 |
-| US2-H3 | Danh sách đặt phòng sắp tới có hiện đặt phòng đã hủy (nhãn "Đã hủy") không? Tới khi có câu trả lời, không hiện. | US2 |
-| US3-H4 | Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không? | US3 |
-| US3-H5 | Ở form sửa đặt phòng, đổi người đặt (giữa khách lẻ và sale, hay sang sale khác) được không, và giá bán, thông báo của sale cũ, sale mới ra sao? Tới khi có câu trả lời, ô người đặt khóa ở form sửa. | US3 |
-| US3-H6 | Đổi trạng thái tiền ở form sửa thì nút "Hoàn tác: chưa thu đủ" còn không? Tới khi có câu trả lời, đổi ở form thì không còn hoàn tác. | US3 |
-| US3-H7 | Sửa, ghi đã thu đủ, sửa giá bán khi đặt phòng đang chờ hủy hay đã hủy có được không? Database đang cho sửa khi chờ hủy, chặn khi đã hủy. | US3 |
-| US3-H8 | Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia theo bảng giá lúc ghi hay bảng giá hiện tại (QT4.2)? | US3 |
-| US3-H9 | Chủ nhà chỉ sửa ghi chú hay khách của đặt phòng có sale thì sale có được báo không? Database đang không báo. | US3 |
-| US1-H5 | Người dùng thêm tòa mới thì khu vực của tòa nhập thế nào (ô chữ, chọn từ danh sách, hay để quản trị điền sau)? Tới khi có câu trả lời, tòa mới không có khu vực. | US1 |
-| US1-H3 | Nút xóa căn đặt ở đâu (màn sửa căn CN5-02 hay thẻ căn), và sau khi xóa app hiện gì? | US1 |
-| US1-H4 | Bỏ một ảnh ở màn sửa căn có hỏi lại không? Tới khi có câu trả lời, không hỏi (ảnh chỉ bị bỏ khi bấm "Lưu thay đổi"). | US1 |
-| US1-H6 | Tạo căn có cần chống gửi trùng bằng mã lần gửi như ghi đặt phòng không, hay luật mã căn không trùng là đủ? | US1 |
-| US1-H2 | Kịch bản kiểm tay phần tòa nhà dùng tòa "Green Hạ Long Test": thêm tòa này vào dữ liệu mẫu hay đổi kịch bản sang "Green Bay"? | US1, tests/kich-ban/US1.md |
-| US12-H1 | ngay_nhan / query / ngay / Có / Ngày trong quá khứ:. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US12 |
-| US12-H2 | toa_nha_id / query / danh sách id / Không / Chip "Khác":. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US12 |
-| US12-H3 | sap_xep / query / chuỗi / Không / Chỉ `ten` (S2 "Theo tên"). Các cách khác ở S2: | US12 |
-| US12-H4 | Lọc "Giá mỗi đêm" (mục "Tìm phòng trống theo ngày" (US12) bước 3) chưa quyết: . | US12 |
-| US12-H5 | tu / query / ngay / Không / Ngày đầu của 7 ngày. Mặc định `ngay_nhan`. | US12 |
-| US12-H6 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US12 |
-| US13-H1 | ngay_nhan / query / ngay / Không / Đi cùng `ngay_tra`. Mở từ S1 không có ngày: | US13 |
-| US13-H2 | `so_tien` 0 lưu thành dòng `muc_cong` với 0, không xóa dòng. Cách quay về mức mặc định: . | US13 |
-| US13-H3 | Mở S3 từ lịch 7 ngày S1 (mục "Lịch phòng 7 ngày" (US16) bước 8): US6; ngày ở khi không có ngày khách hỏi chưa chốt . | US13 |
-| US13-H4 | S3 của căn của tôi và căn tự nhập, giá bán có cộng cho căn của chính sale: chưa chốt . US này chỉ làm căn trong nguồn phòng. | US13 |
-| US14-H1 | can_ids / thân / id[] / Có / 1 đến 20 căn, không trùng (giới hạn kỹ thuật; số tối đa theo nghiệp vụ: ). Thứ tự giữ như app gửi | US14 |
-| US14-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US14 |
-| US15-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
-| US15-H2 | nguồn không nói, `gia_chu` của Thiet_ke_DB không có giá trị trống | US15 |
-| US15-H3 | PQ10.SALE "yêu cầu đang chờ. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US15 |
-| US15-H4 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
-| US15-H5 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US15 |
-| US15-H6 | Chấp nhận khi sale đã bị ngừng hoặc đã bỏ nguồn sau lúc gửi: . Chấp nhận khi ngày nhận đã qua: . | US15 |
-| US15-H7 | ly_do / `da_co_khach`, `dang_sua_phong`, `ly_do_khac` /  / Ba chip của CN9 (mục "Chủ nhà nhận và trả lời yêu cầu" (US15) bước 5). Giá trị khác, kể cả `chu_nhan_dat_khac`, thì `DU_LIEU_SAI`: lý do đó chỉ server đặt | US15 |
-| US15-H8 | "Lý do khác" có ô nhập chữ không: . Chưa có trường chữ cho lý do khác. | US15 |
-| US15-H9 | Chọn "Lý do khác" có ô nhập chữ, bắt buộc chọn lý do:  (CH-067). Chỉ làm ba chip. | US15 |
-| US16-H1 | PQ14.CHU: chủ nhà gọi hay với căn tự nhập của sale thì bị từ chối; chủ nhà gọi với `loai: "tu_nhap"` thì bị từ chối (mã lỗi: ). | US16 |
-| US16-H2 | chưa có, mục "Danh sách căn và nguồn phòng" (US16) bước 4, mục "Chi tiết căn tự nhập" (US16) bước 5 | US16 |
-| US17-H1 | nguồn không nói có đếm lần gửi link đã hết hạn không. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US17 |
-| US17-H2 | `LINK_KHONG_DUNG_DUOC` / Link sai, quá hạn (khi đặt hạn), link không phải loại `xin_lich` (sale đã xóa tài khoản: ), hoặc người gọi đã ngừng sale đó, US22-NT2) | US17 |
-| US17-H3 | `TRANG_THAI_DA_DOI` / Dòng không còn `da_ket_noi` (sale đã bỏ nguồn, đã bị ngừng). Sale đã xóa tài khoản thì đổi quyền được không: . Đổi quyền của dòng thêm tay `chua_ket_noi`: ; tới khi có quyết định | US17 |
-| US18-H1 | Thêm hoặc ẩn căn giữa tháng ảnh hưởng công suất: chờ  ở trên. | US18 |
-| US18-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US18 |
-| US19-H1 | Có gồm booking `sale_tu_ghi` của căn tự nhập và booking căn của tôi không: . Tới khi có câu trả lời, chỉ gồm `nguon` `tu_yeu_cau` và `chu_tu_ghi`. | US19 |
-| US19-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US19 |
-| US19-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US19 |
-| US19-H4 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | kich-ban/US19 |
-| US19-H5 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | kich-ban/US19 |
-| US19-H6 | **Mục đích:** đặt phòng đã chốt có nhãn "Đã chốt" và đúng tiền chênh từng dòng. Chỉ kiểm 5 dòng của yêu cầu; V2 (căn tự nhập) có trong danh sách hay không:  (US19-Q1). | kich-ban/US19 |
-| US20-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US20 |
-| US21-H1 | `ten` có sửa được trong app không. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US21 |
-| US21-H2 | mục "Ngày tính giá cuối tuần" (US4) không nói chủ nhà được bỏ chọn hết các thứ không | US21 |
-| US21-H3 | `chu_nha` (P3) / Đặt phòng chưa cọc / `dat_phong_chua_coc` / Mã đặt mới Thiet_ke_DB). Không có trong mục "Cài đặt thông báo" (US21): | US21 |
-| US21-H4 | PQ11.CHU chỉ nói chủ nhà không thấy, không nói gửi lên thì báo lỗi hay bỏ qua | US21 |
-| US21-H5 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US21 |
-| US21-H6 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | kich-ban/US21 |
-| US22-H1 | **mục "Khi người dùng xóa tài khoản" (US22) bản 3 đã gộp (PR #117, 04/11).** QD-013, r7, r8 đã trả lời các câu trước đây còn mở (sale có thấy căn, lịch không: không; tên hiện ra sao: tên cũ kèm ghi chú đỏ; mở lại app: thấy lại dữ liệu c | US22 |
-| US22-H2 | PQ23.LINK, PQ18.LINK: link mời cũ của chủ nhà đã xóa tài khoản không trả tên căn, ảnh; link xin lịch của sale đã xóa tài khoản không trả số điện thoại; cả hai không tạo kết nối. Có trả tên cũ hay khôn | US22 |
-| US22-H3 | Thẻ báo "Chị Hoa đã xóa tài khoản ngày 07/10" và câu "Đặt phòng này vẫn giữ để bạn đối chiếu với khách. …" (chữ theo canvas cũ, soát theo bản 3 ). | kich-ban/US22 |
-| US22-H4 | Câu "Sale Hùng đã xóa tài khoản. Đặt phòng vẫn giữ trong lịch của bạn; app không còn số điện thoại của sale này." (chữ theo canvas cũ, soát theo bản 3 ). | kich-ban/US22 |
-| US22-H5 | Bước 1: nhóm "ĐÃ KẾT NỐI" giảm 1 so với trước (4 thành 3). Dòng "Sale Hùng" kèm ghi chú đỏ "Đã xoá tài khoản", "Đặt phòng đã nhận từ sale này vẫn giữ trong lịch" (màn CN7 chưa vẽ,  (US22-Q4)). Không c | kich-ban/US22 |
-| US22-H6 | **Mục đích:** link xin lịch của sale đã xóa không mở được, không lộ số của sale, không tạo kết nối. Chưa chạy tới khi trả lời: A8-01 ở mục "Khi người dùng xóa tài khoản" (US22) bản 3 ghi , tên cũ có hiện không chưa chốt. Mong đợi dưới l | kich-ban/US22 |
-| US22-H7 | **Mục đích:** link mời của chủ nhà đã xóa không hiện căn, ảnh, không tạo kết nối. Chưa chạy tới khi trả lời: A1-link-01 ở mục "Khi người dùng xóa tài khoản" (US22) bản 3 ghi . Mong đợi dưới là của bản cũ. | kich-ban/US22 |
-| US23-H1 | nguồn không nói; Thiet_ke_DB `ngay_le` không có ràng buộc. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
-| US24-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US24 |
-| US26-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
-| US26-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
-| US26-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US26 |
-| US3-H10 | Sale sửa giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không? Sale đã bị ngừng cho xem có sửa giá bán đặt phòng cũ không? | US3 |
-| US3-H11 | Màn phía sale của đặt phòng chủ nhà ghi giúp (thông báo, chi tiết, sửa giá bán) trông thế nào? | US3 |
-| US3-H12 | Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu trên form? Tới khi có câu trả lời, chọn sale thì không nhập được tên khách. | US3 |
-| US3-H13 | Giá bán điền sẵn khi chủ nhà ghi giúp sale có làm tròn lên 50.000đ khi sale bật làm tròn không? Database đang làm tròn. | US3 |
-| US30-H1 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
-| US30-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
-| US30-H3 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US30 |
-| US34-H1 | hỏi thêm hàng PQ, xem  dưới. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US34 |
-| US34-H2 | Câu hỏi là câu đứng cạnh thẻ ở file bên phải. | US34 |
-| US3-H14 | Xin hủy đặt phòng đã qua ngày trả được không? Database đang cho. | US3 |
-| CH-052 | CN10-02 hiện "Đã gửi lịch thành công", nhưng A7 nói app không biết đã gửi. Hai câu mâu thuẫn. Phương án: đổi chữ thành "Đã mở Zalo để gửi"; bỏ toast; hoặc dựa vào sự kiện quay lại app và nói rõ giới hạn. | US26, src/components/sale-hien-thi.ts |
-| CH-053 | Chủ nhà đổi quyền cho sale ở đâu? A8 ghi "Đổi được trong mục Sale", nhưng CN7-04 không có công tắc quyền. Phương án: thêm khối quyền vào CN7-04; hoặc sửa chữ ở A8. | src/pages/a8-man.tsx, src/pages/cn7-chi-tiet-sale.tsx, src/pages/cn7-man-chi-tiet.tsx, src/pages/us17-man.test.tsx |
-| CH-054 | Gửi cho nhiều sale ở CN10: Zalo mở sẵn tin cho từng sale (CN10 ghi vậy) nhưng chưa nói chủ nhà gửi lần lượt hay một lần. Chưa có thiết kế chọn sale từ danh sách bạn bè Zalo khi sale chưa lưu. | src/pages/cn10-man.tsx, src/services/gui-lich.ts |
-| CH-055 | "Gần nhau" của quy tắc Gom thông báo chưa có ngưỡng thời gian. Phương án: theo phút; theo mỗi lần mở app; theo ngày. | docs/Cau_hoi_mo.md |
-| CH-056 | Điều khoản và Chính sách quyền riêng tư: có link ở A1 nhưng chưa có màn nội dung. | US39, docs/phap-ly/chinh-sach-quyen-rieng-tu.md, docs/phap-ly/dieu-khoan-su-dung.md |
-| CH-057 | Người tạo link tự bấm link của mình (chủ nhà mở link mời sale của chính họ, sale mở link xin kết nối của chính họ): chặn, bỏ qua, hay coi như thường? Nguồn chưa nói. Thêm ngày 2026-11-04. | src/services/mo-link.ts |
-| CH-058 | Chủ nhà chưa có tài khoản bấm "Đồng ý cho xem lịch" ở A8: có tính là đồng ý Điều khoản và Chính sách quyền riêng tư không? A1 và A1-link có dòng "Bằng việc tiếp tục, bạn đồng ý với…", A8 không có dòng nào, mà server cần `dong_y_dieu_khoan_luc` để tạo tài khoản chủ nhà. Sau khi đồng ý, chủ nhà mới đi A4-01 (mục "Màn đầu tiên khi chưa có dữ liệu" (US1)), chủ nhà đã có tài khoản đi CN7-06 (đã trả lời ở bản Zalo). Phương án: a) thêm dòng chữ nhỏ "Bằng việc tiếp tục…" dưới nút ở A8 cho người chưa có tài  | src/services/mo-link.ts |
-| CH-059 | Tab Lịch của sale chưa có nguồn phòng nhưng đã gửi link xin lịch: hiện A5 hay A7? US6-NT9 nói A5 khi chưa có nguồn phòng; A7 và A7-00 ghi "Vào từ: tab Lịch của sale chưa có nguồn", A7-00 ghi "gần giống A5, có thể gộp". Thêm: hai nút "Gửi link cho chủ nhà khác", "Thêm căn tự nhập" ở A7 chưa nối màn nào trong A7, còn A7-01 vẽ nút "Gửi link cho chủ nhà khác" mở A6 (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 5 ghi chưa vẽ). Phương án: a) chưa gửi lần nào thì A5, đã gửi thì A7 (bả | src/pages/s1-lich-sale.tsx |
-| CH-060 | P13 (Thông báo) mới vẽ dòng cho các loại của sale: đồng ý, sửa đặt phòng, chấp nhận, từ chối, hết hạn, căn đã gửi có người đặt, chủ nhà xóa tài khoản, chủ nhà ngừng. Chưa vẽ chữ và màn đích cho loại: `chu_them_can`, `chu_ghi_booking_cho_sale`, `sale_gui_yeu_cau`, `sale_xin_xem_lich`, `xin_huy_booking`, `tra_loi_huy_booking`, cũng như cả P13 phía chủ nhà (P13 ghi "chủ nhà thấy loại của mình"). Dòng đồng ý ở P13 ghi "Anh Tuấn đồng ý cho bạn xem lịc | src/components/thong-bao-hien-thi.ts |
-| CH-061 | Toast A9 khi chủ nhà đồng ý mà chưa có căn nào (chủ nhà mới đồng ý trước khi thêm căn): dòng phụ "ICON40 1509 và 3402 đã vào Nguồn phòng" không dùng được. Bản tạm: "Căn của chủ nhà sẽ vào Nguồn phòng khi chủ nhà thêm căn". Thêm: toast có nút "Xem" tự tắt sau 3 giây (HV8) quá ngắn cho người lớn tuổi dùng một tay bấm nút; đề xuất toast có nút ở lại 6 giây hoặc tới khi bấm. Câu bị ảnh hưởng: A9, A9-02, HV8, mục "Thông báo kết quả kết nối cho sale" (US17). Thêm ngày 2026-11-04 (US17). | src/components/thong-bao-hien-thi.ts |
-| CH-068 | Đã trả lời một phần bởi QD-007: tắt giá thì server không gửi giá chủ nhà, sale không có giá bán cho các đêm đó, chỉ còn thấy tiền của đặt phòng đã thành. Còn mở: S1, S2, S3 vẽ thế nào khi không có giá. `[r17 · sửa]` | docs/luat-chung/HV.md, src/pages/s1-man.tsx, tests/kich-ban/US12.md, tests/kich-ban/US13.md, tests/kich-ban/US14.md, tests/kich-ban/US17.md |
-| CH-069 | Mẫu tin mặc định (P11) ghi "Anh chị ưng căn nào báo em giữ phòng nhé", trong khi luồng đặt phòng đã bỏ bước giữ phòng (nhóm Booking). Phương án: sửa câu chữ mẫu; hoặc giữ nếu sale vẫn hứa giữ ngoài app. | src/services/kieu.ts |
-| CH-070 | Số ảnh gửi mỗi lần. Căn có thể có tới 12 ảnh (nhóm Căn và giá), còn S5 ghi "Gửi 6 ảnh qua Zalo". Cửa sổ chia sẻ của Zalo nhận tối đa 10 ảnh một lần. Căn có 12 ảnh thì sale gửi sao: chọn ảnh, chia hai lần, hay chỉ gửi 10 ảnh đầu. Thiết kế chưa vẽ chọn ảnh. | US14, src/services/gui-khach.ts |
-| CH-071 | "Bán nhiều nhất" (sắp xếp) đếm theo gì: booking đã chấp nhận, doanh số hay số lần gửi khách. | US12 |
-| CH-072 | Đã trả lời một phần bởi mục "Cài đặt thông báo" (US21): app ghi lần gửi khi sale gửi chữ hoặc ảnh của một căn (mục "Gửi thông tin cho khách qua Zalo" (US14) bước 7), dùng để báo căn đã gửi có người đặt. Còn mở: nhãn "Đã gửi" trên màn và đếm cho thống kê (nhóm Thống kê). `[r12 · sửa]` Câu hỏi cũ: Sau khi sale gửi khách xong thì app có ghi nhận không (ví dụ nhãn "Đã gửi") và có đếm cho thống kê (nhóm Thống kê) không. app không biết sale đã gửi thật hay chưa. | US14 |
-| CH-074 | Đã trả lời một phần bởi QD-007: tắt giá thì không có giá chủ nhà, không có giá bán. Còn mở: S6-04 vẽ thế nào. `[r18 · sửa]` | US16, src/pages/s6-chu-nha.tsx, src/services/api.ts, src/services/kieu.ts |
-| CH-075 | "BẠN ĐÃ BÁN: 12 đặt phòng" và "TIỀN CHÊNH" tính từ đâu: booking đã chấp nhận (nhóm Booking), booking sale tự ghi, hay cả hai. Và tính theo tháng nào. Cần thống nhất với nhóm Thống kê. `[r17 · sửa]` | src/pages/s6-chu-nha.tsx, src/services/kieu.ts |
-| CH-076 | Sửa thông tin căn tự nhập và sửa booking đã ghi chưa có màn. Xóa booking sale đã ghi cũng chưa có màn. | US16, src/components/can-sale-hien-thi.ts, src/pages/s6-can-tu-nhap.tsx |
-| CH-077 | "Gửi lời mời qua Zalo": nội dung tin mời và link mời lấy theo quy tắc nào (mục "Mở app từ link mời của chủ nhà" (US6)). Hiện chỉ vẽ nút. | src/components/can-sale-hien-thi.ts |
-| CH-078 | "Gửi cho khách" ở S6-03 (căn tự nhập) và S6-07 (căn của tôi) cần ngày khách hỏi. mục "Chi tiết căn tự nhập" (US16) bước 3 chỉ nói "Sang gửi khách (mục "Gửi thông tin cho khách qua Zalo" (US14)) với căn này", mà màn gửi khách S5 luôn cần ngày nhận và ngày trả (tin nhắn ghi "Villa Tuần Châu, 10/10 → 12/10, 2 đêm, 1.800.000đ"). Server giả của US13, US14 còn trả "không còn xem được" cho căn của tôi và căn tự nhập), server thật đã nhận. Bản này: bấm nút thì hiện thông báo "Chọn ngày khách hỏi ở Tìm phòng trố | src/components/can-sale-hien-thi.ts, src/pages/s6-can-cua-toi.tsx, src/pages/s6-can-tu-nhap.tsx |
-| CH-079 | Phần trăm so với tháng trước khi tháng trước bằng 0 (chia cho 0). Chưa thiết kế. Phương án: ẩn dòng phần trăm; hoặc ghi "Tháng đầu tiên". | src/pages/cn8-man.tsx, src/services/thong-ke.ts, src/services/us18.test.ts |
-| CH-081 | Chia sẻ nguồn phòng cho nhóm có bỏ qua quyền xem của chủ nhà không. nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale quy định chủ nhà đồng ý từng sale mới cho xem lịch và giá. S8-01 cho trưởng nhóm chia sẻ, thành viên "tìm được các căn này". Một sale chưa được chủ nhà đồng ý thì xem lịch và giá của chủ đó qua nhóm sao? Phương án: chủ nhà phải bật chia sẻ cho nhóm trước khi thành viên thấy (thay vì chỉ "được báo"); hoặc thành viên chỉ thấy khi chính chủ nhà đã đồng ý cho họ; hoặc nhóm chỉ ch | US20, docs/luat-chung/Nghiep_vu.md |
-| CH-082 | Căn tự nhập (S8-01 liệt kê "Chú Bình · tự nhập") đang chia sẻ cho nhóm, trái quy tắc "Căn tự nhập chỉ sale đó thấy" ở nhóm Nguồn phòng và căn tự nhập. Chủ căn cũng chưa biết mình bị chia sẻ cho người lạ. Phương án: không cho chia sẻ căn tự nhập; hoặc cho nhưng gỡ thông tin chủ căn. | docs/luat-chung/Nghiep_vu.md |
-| CH-083 | Một sale ở nhiều nhóm được không. Chưa thiết kế. Phương án: một nhóm một sale để đơn giản; hoặc nhiều nhóm nhưng nguồn chung nào cũng cộng vào Nguồn phòng. | US20 |
-| CH-084 | Chưa có màn: giải tán nhóm, đổi trưởng nhóm, trưởng nhóm rời nhóm, đổi tên nhóm, thêm hoặc bớt nguồn chung sau khi tạo, link hết hạn hoặc nhóm đầy, số thành viên tối đa. | US20 |
-| CH-085 | Cộng tác viên: canvas không có vai trò này. Phương án: coi cộng tác viên là thành viên nhóm; hoặc là vai trò riêng (không có quyền xem giá, chỉ gửi khách) cần đặc tả thêm; hoặc bỏ khỏi tên nhóm nhóm Đội nhóm, cộng tác viên. | US20, docs/luat-chung/Nghiep_vu.md |
-| CH-086 | Tạo nhóm khi sale chưa có nguồn phòng nào. S8-01 không nói. Phương án: cho tạo nhóm trống; hoặc báo cần có ít nhất một nguồn. | US20 |
-| CH-087 | Xóa khỏi nhóm (S8-04) và Rời nhóm (S8-05) chưa vẽ bước xác nhận lần hai, trong khi quy tắc chung là bấm hai lần. | tests/kich-ban/US20.md |
-| CH-088 | File xuất CSV (P8) có cột "Khách" và "SĐT", và file sao lưu (P7) lưu "48 đặt phòng" `[r17 · sửa]`. CLAUDE.md cấm lưu thông tin khách. Nếu app không lưu tên và số khách thì cột đó rỗng hoặc phải bỏ. Phương án: bỏ hai cột khỏi CSV và sao lưu; hoặc giữ nhưng chỉ khi chủ nhà tự nhập tên khách vào booking của mình và báo cáo rõ với Tùng đây là ngoại lệ cần một QD. | US22 |
-| CH-089 | "Khôi phục từ file sao lưu" thay toàn bộ dữ liệu. Nguy cơ cao: ghi đè dữ liệu thật, qua mặt chặn trùng booking ở database, và người có file cũ làm mất booking mới. Phương án: bỏ chức năng, chỉ khôi phục qua hỗ trợ; hoặc chỉ cho xem trước và yêu cầu bấm hai lần; hoặc khôi phục kiểu thêm vào, không thay. | US40 |
-| CH-090 | P4 có "Hướng dẫn sử dụng" nhưng P9 chỉ có phần "CHỦ NHÀ". Sale chưa có hướng dẫn. | US22, tests/kich-ban/US22.md |
-| CH-091 | Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn). | US21 |
-| CH-092 | Có sinh thông báo "sale xin xem lịch" cho chủ nhà không? App không biết sale đã gửi link xin lịch cho ai, nên chỉ báo được khi chủ nhà mở link. Database hiện chưa sinh loại này. | supabase/migrations/20261118000300_thong_bao_gui_khach.sql |
-| CH-095 | Người quản trị có sửa được tên, khu vực của tòa do người dùng thêm không (ví dụ sửa lỗi chính tả). `[r2 · thêm]` | US29 |
-| CH-096 | Chủ nhà có xem lại và xóa được dòng kết nối đã dừng (sale thêm tay chưa kết nối, sale đã bị ngừng) không? | US5, US16 |
-| CH-097 | Xuất file đặt phòng: bản PWA lưu file vào máy bằng tải xuống của trình duyệt, hay chia sẻ qua bảng chia sẻ của điện thoại? | US22 |
-| US5-H2 | PQ18.SALE không có quyền thu hồi. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US5 |
-| US5-H3 | QD-008 chỉ nói link hết hạn. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US5 |
-| US5-H4 | mục "Chủ nhà quản lý danh sách sale" (US5) bước 5 chỉ nói sale đã kết nối | US5 |
-| US19-H7 | mục "Thống kê của sale" (US19) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US19 |
-| US19-H8 | QT3.2; GD12 chỉ nói căn tự nhập. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US19 |
-| US19-H9 | Mục chờ chủ theo tháng đang xem hay mọi yêu cầu đang chờ: tạm mọi yêu cầu đang chờ.  US19-Q5 | US19 |
-| US21-H7 | bước 4 nói mất phiên thì app tự gọi lại mà không hỏi; mục "Tài khoản đăng nhập và đăng xuất" (US21) nói "Lần sau đăng nhập lại bằng Zalo". Hai câu cho hai kết quả khác nhau sau đăng xuất | US21 |
-| US21-H8 | cập nhật cột này khi đổi giá tháng, không nói khi đổi đêm cuối tuần | US21 |
-| US21-H9 | mục "Cài đặt thông báo" (US21) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US21 |
-| US13-H5 | chạm căn của tôi hay căn tự nhập ở S1 mở S3 (mục "Lịch phòng 7 ngày" (US16) bước 8) hay S6-07, S6-03 (mục "Danh sách căn và nguồn phòng" (US16) bước 9, mục "Chi tiết căn tự nhập" (US16)) | US13 |
-| US13-H6 | **Ai gọi:** sale có vai `nguon_phong` với căn (PQ11.SALE), hoặc CHU của căn `tu_nhap` (giá bán căn tự nhập dùng mức cộng này, Thiet_ke_DB `muc_cong`, PQ14.SALE). Căn `cua_toi`: ; tới khi có câu trả lời, `KHONG_TIM_THAY`. Chủ nhà với căn của mình: `KHONG_TIM_THAY` (PQ11.CHU: chủ nhà không có mức cộng | US13 |
-| US22-H8 | PQ20.SALE và PQ13.CHU. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
-| US22-H9 | mục "Xuất file Excel (CSV)" (US22) không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
-| US22-H10 | mục "Xuất file Excel (CSV)" (US22), QD-012. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US22 |
-| US22-H11 | mục "Xuất file Excel (CSV)" (US22) bước 3 chỉ có chip căn chưa ẩn | US22 |
-| US29-H1 | Nếu web quản trị chưa có thì danh sách đặt sẵn nạp bằng script, như dải ngày lễ . Web quản trị dùng chung nền đăng nhập ADMIN với US23 (US23 có trong truoc, Tùng giao 04/11). | US29 |
-| US29-H2 | Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ3.ADMIN (xem; mục "Quản trị danh sách tòa nhà" cho thêm và sửa tòa, nhưng PQ3.ADMIN mới ghi "xem", PQ chưa có hàng riêng cho danh sách tòa: ), PQ3.CHU, PQ3.SALE (xem mọi tòa, thêm tòa mới ở), PQ3.LINK (không thấy). | US29 |
-| US29-H3 | Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản trị để thêm hay sửa tòa: từ chối, `toa_nha` không đổi; sale Hùng gọi như vậy: từ chối; gọi không có phiên: từ chối; Chị Hoa gọi không sửa được tòa có sẵn và không đặt được `tao_boi` trống (tòa người dùng thêm không thành tòa đặt sẵn). Mã | US29 |
-| US29-H4 | Xóa hoặc gộp tòa trùng, căn đang gắn tòa bị xóa (mục "Quản trị danh sách tòa nhà" bước 4): , chưa có NT, chưa US nào nhận. | US29 |
-| US29-H5 | Sửa tên hoặc khu vực một tòa (mục "Quản trị danh sách tòa nhà" bước 3) và có áp cho tòa người dùng thêm không: mục "Quản trị danh sách tòa nhà" không có NT cho bước này . Chưa có kịch bản. | US29 |
-| US18-H3 | nhóm Thống kê không nói. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US18 |
-| US23-H2 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
-| US23-H3 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
-| US23-H4 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
-| US23-H5 | **Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối . Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US23 |
-| US23-H6 | Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ ; đã trả lời ở mục "Thêm người đồng quản t | US23 |
-| US23-H7 | Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ ; đã trả lời ở mục "Thêm người đồng quản t | US23 |
-| US23-H8 | PQ21.SALE ghi "?", nhóm Quản trị Home247 trên web Ai thấy gì | US23 |
-| US23-H9 | Test vi phạm phải có (US23-NT4): Chị Hoa (CHU) gọi,,: từ chối, `ngay_le` không đổi; sale Hùng gọi cùng bốn API: từ chối; gọi không có phiên: từ chối. Mã lỗi . | US23 |
-| US23-H10 | Duyệt hai bước, ghi ai sửa dải nào, dịp cố định hay thêm được dịp mới, giới hạn 10 ngày cho dải quản trị nhập, sửa hay xóa dải sau khi chủ nhà đã đặt giá theo dải, năm chưa có dải: . | US23 |
-| US3-H15 | Sale đã bị ngừng cho xem có xin hủy đặt phòng cũ được không? Database đang cho (QD-007 giữ đặt phòng cũ của sale). | US3 |
-| US3-H16 | Bên kia đã xóa tài khoản thì xin hủy đặt phòng thế nào? | US3 |
-| US3-H17 | Nút "Xin hủy" và khối trả lời xin hủy đặt ở đâu, chữ thế nào, ở cả chủ nhà và sale? | US3 |
-| US16-H3 | PQ17.SALE. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US16 |
-| US16-H4 | **Việc kéo theo:** Không có thông báo cho chủ nhà khi sale bỏ nguồn (mục "Cài đặt thông báo" (US21) không có loại này). Sau khi bỏ, API lịch của sale không còn căn của chủ nhà đó (US16-NT15). Sale đã bỏ nguồn còn xem lại đặt phòng cũ với chủ nhà đó không:  (QD-007 chỉ nói sale bị ngừng). Yêu cầu đặt | US16 |
-| US16-H5 | **Việc kéo theo:** Không có thông báo cho chủ nhà khi sale bỏ nguồn (mục "Cài đặt thông báo" (US21) không có loại này). Sau khi bỏ, API lịch của sale không còn căn của chủ nhà đó (US16-NT15). Sale đã bỏ nguồn còn xem lại đặt phòng cũ với chủ nhà đó không:  (QD-007 chỉ nói sale bị ngừng). Yêu cầu đặt | US16 |
-| US12-H7 | **Chống bấm hai lần:** không cần (đọc). Gọi hai lần cùng điều kiện tạo hai dòng `tim_gan_day` cho tới khi có câu trả lời. | US12 |
-| US6-H3 | QD-005 trong mục "Mở app từ link mời của chủ nhà" (US6). Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US6 |
-| US6-H4 | mục "Cài đặt thông báo" (US21) có áp khi sale tự bấm Thêm lịch không | US6 |
-| US1-H1 | Sale được chia sẻ "tất cả căn" có được báo khi chủ nhà thêm căn mới không? Database đang ghi thông báo `chu_them_can` (trigger `tb_can_moi`). | US1 |
-| US15-H10 | mục "Cài đặt thông báo" (US21) không có loại "sale hủy yêu cầu"; thông báo `sale_gui_yeu_cau` đã ghi cho chủ nhà giữ hay bỏ. | US15 |
-| US14-H3 | App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (mục "Gửi thông tin cho khách qua Zalo" bước 5, 6).. | US14 |
-| US14-H4 | giá trong chữ là giá nào. Câu hỏi đầy đủ là câu đứng cạnh thẻ ở file bên phải; viết lại câu hỏi ở đây khi viết lại story. | US14 |
-| US29-H6 | **Chuẩn bị:** tài khoản chủ nhà mới, chưa có căn, chưa thêm tòa nào (ngoài DLM ). Ba tòa ICON40, À La Carte, Sapphire đã được đặt sẵn. | tests/kich-ban/US29.md |
-| LC-H1 | Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. Booking đã xóa không chiếm đêm. | docs/luat-chung/QT.md |
-| CH-098 | Sale đã bỏ nguồn của một chủ nhà: có còn xem lại đặt phòng cũ với chủ nhà đó không, và yêu cầu đặt phòng đang chờ giữa hai bên xử lý thế nào? | US16 |
+| Mã | Câu hỏi | Gắn ở | Tạm làm |
+|---|---|---|---|
+| CH-009 | Sale chủ nhà thêm tay bằng tên và số (CN7-05) ghép với tài khoản thật của sale thế nào? (a) ghép khi số điện thoại trùng; (b) chỉ ghép qua link; (c) chủ gộp tay. | YC6.2 | không ghép, không chặn số trùng |
+| CH-010 | Chủ nhà từ chối lời xin xem lịch ở A8 thì sale có được báo không? | YC6.5 |  |
+| CH-011 | Nút "Nhắc lại" ở CN7 và "Gửi link cho chủ nhà khác" ở A7 làm gì? | YC6.2, YC6.4 | mở lại A6 |
+| CH-012 | Tài khoản chọn vai chủ nhà mở link xin lịch của sale, hay vai sale bấm đồng ý ở A8: xử lý thế nào? | YC6.3 |  |
+| CH-014 | Link xin lịch của sale có hạn không? | PQ18 |  |
+| CH-015 | Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn. | YC2.5 |  |
+| CH-016 | Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem? | YC2.5 | "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem |
+| CH-017 | Chạm một ngày đã qua ở lịch tháng thì mở gì? | YC2.2 | mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có (ghi bù được, YC5) |
+| CH-018 | Chọn được nhiều loại view cho một căn không? | YC3.4 |  |
+| CH-019 | Sau khi lưu giá ở tab Giá của căn, ở lại tab Giá hay quay về màn trước? | YC4.2 | ở lại tab Giá |
+| CH-020 | Bỏ trống tên khi bật "Là ngày lễ" thì tên tự đặt là gì? | YC4.3 |  |
+| CH-021 | Xóa căn có hỏi lại một lần không? Gợi ý: có, như xóa đặt phòng. | YC3.6 |  |
+| CH-022 | "Đã bán 12 đặt phòng của bạn" ở CN9 đếm những đặt phòng nào? | YC9, YC9.4 |  |
+| CH-025 | Chọn "Đã cọc · còn thu" thì số tiền cọc có bắt buộc không? | YC5.2 | ô để trống vẫn lưu được |
+| CH-027 | Chủ căn tự nhập sau này dùng app thì căn tự nhập và đặt phòng cũ làm gì: ghép, giữ riêng hay xóa? | YC10 |  |
+| CH-028 | Đã bỏ dòng ở bước 10 rồi thì có nối lại không? | YC10.1 |  |
+| CH-029 | Giữa tháng thêm hay xóa căn thì mẫu số công suất tính thế nào? | YC11, YC3.6 |  |
+| CH-030 | Thống kê của sale có chọn tháng khác không? | YC11.2 | chỉ tháng hiện tại |
+| CH-031 | "Chưa thu tiền" gồm chỉ đặt phòng chưa cọc, hay cả phần còn thu của đặt phòng đã cọc? | YC11 |  |
+| CH-032 | Chính sách quyền riêng tư nói giữ gì, bao lâu? | YC1.8 |  |
+| CH-033 | Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không? | YC1.8 |  |
+| CH-034 | Quản trị viên còn xem được số điện thoại của người đã xóa tài khoản ở đâu không (ngoài bản sao lưu tự động)? | PQ23 |  |
+| CH-035 | Sửa hoặc xóa một dải sau khi chủ nhà đã đặt giá theo dải đó: giá chủ nhà đã lưu giữ theo dải cũ hay đổi theo dải mới, có báo chủ nhà không. | YC13.2 | giá dịp của chủ nhà không đổi |
+| CH-036 | Giới hạn "một dải tối đa 10 ngày" (quy tắc Dải ngày lễ do Home247 đặt) có áp cho dải người quản trị nhập không, hay chỉ cho dải chủ nhà sửa. | YC13.2 |  |
+| CH-038 | Hai người thêm cùng một tòa với tên khác nhau ("ICON 40", "Icon40"): người quản trị gộp hay xóa thế nào, căn đang gắn tòa bị xóa thì sao. Người dùng thêm thoải mái nên chuyện này sẽ xảy ra. | YC13.3 |  |
+| CH-039 | Người đồng quản trị bị gỡ khi đang đăng nhập thì phiên đó còn dùng được không? | YC13.1 |  |
+| CH-042 | Sale bị ngừng còn thấy số điện thoại của chủ nhà không? | PQ2 |  |
+| CH-043 | Quản trị viên có sửa hồ sơ người dùng được không? | PQ1 |  |
+| CH-044 | Sale có thấy ngày tính giá cuối tuần của chủ nhà không? | PQ6 |  |
+| CH-045 | Quản trị viên có xuất được dữ liệu của người dùng không? | PQ20 |  |
+| CH-046 | Sale có quyền gì ở trang quản trị (dải ngày lễ, tòa nhà) không? | PQ21 |  |
+| CH-047 | Sale bị ngừng: chủ nhà đó còn hiện ở Nguồn phòng của sale không? | PQ17 |  |
+| CH-048 | Sale bị ngừng còn xin hủy đặt phòng cũ với chủ nhà đó được không? | PQ7 |  |
+| CH-049 | Sale thấy nhãn "Đã thanh toán", "còn thu" của đặt phòng của mình không, hay chỉ đã cọc hay chưa? | PQ8 |  |
+| CH-050 | Sale bị ngừng thì yêu cầu đang chờ của sale với chủ nhà đó xử lý thế nào? | PQ10 |  |
+| CH-056 | Điều khoản và Chính sách quyền riêng tư: có link ở A1 nhưng chưa có màn nội dung. | YC15 |  |
+| CH-057 | Người tạo link tự bấm link của mình (chủ nhà mở link mời sale của chính họ, sale mở link xin kết nối của chính họ): chặn, bỏ qua, hay coi như thường? Nguồn chưa nói. Thêm ngày 2026-11-04. | YC6.3 |  |
+| CH-059 | Tab Lịch của sale chưa có nguồn phòng nhưng đã gửi link xin lịch: hiện A5 hay A7? YC7.1-NT1 nói A5 khi chưa có nguồn phòng; A7 và A7-00 ghi "Vào từ: tab Lịch của sale chưa có nguồn", A7-00 ghi "gần giống A5, có thể gộp". Thêm: hai nút "Gửi link cho chủ nhà khác", "Thêm căn tự nhập" ở A7 chưa nối màn nào trong A7, còn A7-01 vẽ nút "Gửi link cho chủ nhà khác" mở A6 (YC6.4 bước 5 ghi chưa vẽ). Phương án: a) chưa gửi lần nào thì A5, đã gửi thì A7 (bả | YC7.1 | A5 |
+| CH-070 | Số ảnh gửi mỗi lần. Căn có thể có tới 12 ảnh (YC3, YC4), còn S5 ghi "Gửi 6 ảnh qua Zalo". Cửa sổ chia sẻ của Zalo nhận tối đa 10 ảnh một lần. Căn có 12 ảnh thì sale gửi sao: chọn ảnh, chia hai lần, hay chỉ gửi 10 ảnh đầu. Thiết kế chưa vẽ chọn ảnh. | YC8.1 | gửi 10 ảnh đầu |
+| CH-071 | "Bán nhiều nhất" (sắp xếp) đếm theo gì: booking đã chấp nhận, doanh số hay số lần gửi khách. | YC7 |  |
+| CH-072 | Có hiện nhãn "Đã gửi" trên căn đã gửi khách, và có đếm lần gửi cho thống kê không? | YC8 |  |
+| CH-074 | Màn chi tiết chủ nhà (S6-04) khi sale không còn quyền xem chủ nhà đó trông thế nào? | YC10.2 |  |
+| CH-076 | Sửa thông tin căn tự nhập và sửa booking đã ghi chưa có màn. Xóa booking sale đã ghi cũng chưa có màn. | YC10, YC10.3 |  |
+| CH-081 | Chia sẻ nguồn phòng cho nhóm có bỏ qua việc chủ nhà đồng ý từng sale (QD-008) không? | YC14 |  |
+| CH-082 | Căn tự nhập có chia cho nhóm được không (S8-01 liệt kê "Chú Bình · tự nhập"), khi quy tắc là căn tự nhập chỉ sale đó thấy? | YC14 |  |
+| CH-083 | Một sale ở nhiều nhóm được không. Chưa thiết kế. Phương án: một nhóm một sale để đơn giản; hoặc nhiều nhóm nhưng nguồn chung nào cũng cộng vào Nguồn phòng. | YC14 |  |
+| CH-084 | Chưa có màn: giải tán nhóm, đổi trưởng nhóm, trưởng nhóm rời nhóm, đổi tên nhóm, thêm hoặc bớt nguồn chung sau khi tạo, link hết hạn hoặc nhóm đầy, số thành viên tối đa. | YC14 |  |
+| CH-085 | Cộng tác viên: canvas không có vai trò này. Phương án: coi cộng tác viên là thành viên nhóm; hoặc là vai trò riêng (không có quyền xem giá, chỉ gửi khách) cần đặc tả thêm; hoặc bỏ khỏi tên nhóm YC14. | YC14 |  |
+| CH-086 | Tạo nhóm khi sale chưa có nguồn phòng nào. S8-01 không nói. Phương án: cho tạo nhóm trống; hoặc báo cần có ít nhất một nguồn. | YC14.1 |  |
+| CH-087 | Xóa khỏi nhóm (S8-04) và Rời nhóm (S8-05) chưa vẽ bước xác nhận lần hai, trong khi quy tắc chung là bấm hai lần. | YC14.2 |  |
+| CH-088 | File xuất CSV có cột "Khách", "SĐT" (chỉ khách chủ nhà tự nhập, QD-011): giữ hai cột này hay bỏ? | YC1.6 |  |
+| CH-090 | P4 có "Hướng dẫn sử dụng" nhưng P9 chỉ có phần "CHỦ NHÀ". Sale chưa có hướng dẫn. | YC1.7 |  |
+| CH-091 | Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn). | YC1 |  |
+| CH-095 | Người quản trị có sửa được tên, khu vực của tòa do người dùng thêm không (ví dụ sửa lỗi chính tả). | YC13.3 |  |
+| CH-096 | Chủ nhà có xem lại và xóa được dòng kết nối đã dừng (sale thêm tay chưa kết nối, sale đã bị ngừng) không? | YC6.2 |  |
+| CH-098 | Sale đã bỏ nguồn của một chủ nhà: có còn xem lại đặt phòng cũ với chủ nhà đó không, và yêu cầu đặt phòng đang chờ giữa hai bên xử lý thế nào? | YC10.2 |  |
+| HV-H1 | Sang HV2 bước 5. Bao lâu là quá lâu? | HV1 |  |
+| HV-H3 | Nháp đặt phòng được chứa tên, số khách (QD-011), xóa khi lưu xong hay hủy. Nháp giữ bao lâu? | HV3 |  |
+| LC-H1 | Đặt phòng đã hủy (xóa) có còn chiếm đêm không, hay QT2.1 chỉ tính đặt phòng chưa hủy? | QT |  |
+| YC1-H1 | Ô "Họ và tên" sửa được không? | YC1.4 | chỉ xem |
+| YC1-H2 | Đặt phòng thuộc khoảng theo ngày nhận hay theo đêm? | YC1.6 | theo ngày nhận (khớp DLM |
+| YC1-H3 | Có đặt phòng đã hủy không? | YC1.6 |  |
+| YC1-H4 | Căn đã xóa có trong "Tất cả" không? | YC1.6 |  |
+| YC1-H5 | Sale có căn của tôi xuất được không? | YC1.6 |  |
+| YC10-H1 | Sale bỏ dòng của chủ nhà đã ngừng mình được không? | YC10.2 |  |
+| YC10-H2 | Dòng chủ nhà ở Nguồn phòng ghi "Cập nhật … trước" tính theo mốc nào (lần đổi lịch hay giá gần nhất của bất kỳ căn nào của chủ nhà đó)? | YC10.1, YC10.4 |  |
+| YC10-H3 | Mã căn tự nhập trùng thì trùng với căn nào (căn tự nhập khác của chính sale, hay mọi căn của sale)? | YC10.3 |  |
+| YC11-H1 | Sale có căn của tôi (QD-005) xem thống kê căn đó ở đâu, và đặt phòng ở căn đó có tính vào thống kê sale không? | YC11.1, YC11.2 |  |
+| YC11-H2 | Đặt phòng vắt qua hai tháng chia giá bán cho các đêm thế nào? | YC11.2 |  |
+| YC11-H3 | Đặt phòng sale tự ghi cho căn tự nhập có trong danh sách không? | YC11.3 | không có |
+| YC11-H5 | S7 mở danh sách S7-03 bằng cách nào; chạm dòng chờ chủ ở S7 mở S7-03 (hình) hay S3-03 (story cũ); chạm dòng yêu cầu ở S7-03 mở đâu? | YC11.2, YC11.3 |  |
+| YC12-H2 | Báo chủ nhà khi sale gửi link xin xem lịch thế nào, khi link đi ngoài app và database chưa biết gì cho tới khi chủ nhà mở link? Công tắc "Sale xin xem lịch" ở P3 làm gì? | YC12, YC12.4 |  |
+| YC12-H3 | Đặt phòng tạo khi đã còn dưới 3 ngày tới ngày nhận thì có nhắc không? | YC12.3 |  |
+| YC12-H4 | Tắt một loại thì thông báo loại đó đã ghi trước còn ở P13 không? | YC12.4 | còn (giả định GD29) |
+| YC13-H1 | Trang quản trị hiện gì khi đang tải, mất mạng, không có quyền? | YC13 |  |
+| YC13-H2 | Hai dải ngày lễ cùng năm chồng ngày được không? | YC13.2 |  |
+| YC14-H1 | Mâu thuẫn chặn cả YC: PQ15.SALE (tiền chênh, doanh số chỉ của mình) và PQ10.SALE (không thấy yêu cầu của sale khác) trái với quy tắc Trưởng nhóm thấy đặt phòng và tiền chênh, Thấy ai đang chờ chủ? | YC14, YC14.1 |  |
+| YC2-H1 | Đổi chip lọc căn thì số tiền và số đêm có đổi theo căn không? | YC2.3 | khối luôn là tổng mọi căn |
+| YC2-H2 | Ô trống của đêm chưa đặt giá hiện gì? | YC2.5 | ô để trống |
+| YC2-H3 | Đặt phòng đã hủy có hiện với nhãn "Đã hủy" không? | YC2.4 | không hiện |
+| YC3-H1 | Có báo cho sale khi có căn mới không? | YC12, YC3, YC6.7 |  |
+| YC3-H3 | Nút xóa căn đặt ở đâu, xóa xong về màn nào? | YC3.6 |  |
+| YC3-H4 | Bỏ một ảnh ở CN5-02 có hỏi lại không? | YC3.5 | không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi") |
+| YC3-H5 | Khu vực của tòa người dùng thêm? | YC3.4 | tòa mới không có khu vực |
+| YC3-H6 | Tạo căn có dùng mã lần gửi để chống gửi trùng không (hiện chỉ dựa vào luật mã căn không trùng)? | YC3.2 |  |
+| YC4-H1 | Sao chép chép năm nào (năm đang xem hay mọi năm có giá)? | YC4.5 | chép năm đang xem ở tab Giá |
+| YC4-H2 | Sửa, xóa một dải đã lưu? | YC4.3 |  |
+| YC4-H3 | Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn: chưa có màn? | YC4.4 |  |
+| YC4-H4 | Lưu ngày tính giá cuối tuần xong thì về Cá nhân với toast "Đã lưu ngày tính giá cuối tuần" phải không (chưa có hình)? | YC4.6 |  |
+| YC5-H1 | Cách nhập một tên khách mới chưa có trên hàng chip? | YC5.2 |  |
+| YC5-H2 | Form đặt phòng chưa có ô số điện thoại khách: có thêm ô không? | YC5.3 |  |
+| YC5-H3 | Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không? | YC5.6 | database chặn |
+| YC5-H4 | Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không? | YC5.6 |  |
+| YC5-H5 | Đổi người đặt (giữa khách lẻ và sale, hay sang sale khác)? | YC5.6 | ô người đặt khóa ở form sửa |
+| YC5-H6 | Đổi trạng thái tiền bằng tay thì bỏ trạng thái nhớ để hoàn tác, hay giữ nút "Hoàn tác"? | YC5, YC5.6 |  |
+| YC5-H7 | Sửa, ghi đã thu đủ khi đặt phòng đang chờ hủy hay đã hủy? | YC5.8 |  |
+| YC5-H8 | Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia lại theo bảng giá lúc nào? | YC5.6 |  |
+| YC5-H9 | Chỉ sửa ghi chú hay khách thì sale có được báo không? | YC5.6 |  |
+| YC5-H10 | Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không? | YC5.9 |  |
+| YC5-H11 | Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình? | YC5.9 |  |
+| YC5-H12 | Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu? | YC5.2 | chọn sale thì không nhập được tên khách |
+| YC5-H13 | Giá bán điền sẵn khi chủ nhà ghi giúp sale có làm tròn lên 50.000đ khi sale bật làm tròn không? | YC5, YC5.4 |  |
+| YC5-H14 | Xin hủy đặt phòng đã qua ngày trả? | YC5.8 |  |
+| YC5-H15 | Sale đã bị ngừng cho xem xin hủy được không? | YC5.8 |  |
+| YC5-H16 | Bên kia đã xóa tài khoản thì xin hủy thế nào? | YC5.8 |  |
+| YC5-H17 | Vị trí nút "Xin hủy" và khối trả lời ở chi tiết đặt phòng của chủ nhà (CN3-02) và của sale: chưa có hình? | YC5.8 |  |
+| YC6-H1 | Chủ nhà ngừng được sale đã xóa tài khoản không? | YC6.2 |  |
+| YC6-H2 | Sale thu hồi link xin lịch của mình? | YC6.4 |  |
+| YC6-H3 | Kết nối đã tạo từ link đã thu hồi còn dùng không? | YC6.3 |  |
+| YC6-H4 | Chủ nhà mở dòng chưa kết nối, đã ngừng thì thấy gì? | YC6.2 | mở được với những gì có |
+| YC6-H5 | Người tạo link đã xóa tài khoản? | YC6.3 | coi như link không dùng được |
+| YC6-H6 | Có thông báo khi sale tự bấm "Thêm lịch" không (cho sale, cho chủ nhà)? | YC6.3 | không |
+| YC6-H7 | Sale đã kết nối nhận thêm link gửi lịch thì phạm vi có đổi không? | YC6.6 | giữ phạm vi cũ |
+| YC6-H8 | Chưa chọn căn nào thì nút gửi không bấm được? | YC6.6 |  |
+| YC6-H9 | Thu hồi link gửi lịch? | YC6.6 |  |
+| YC7-H1 | Tìm với ngày nhận trước hôm nay? | YC7.2 | không chọn được ngày trước hôm nay |
+| YC7-H2 | Chip tòa "Khác" ở màn tìm phòng làm gì? | YC7.2 |  |
+| YC7-H3 | Lọc "Giá mỗi đêm" ở màn tìm phòng làm gì? | YC7.2 |  |
+| YC7-H4 | Lịch tuần S4 bắt đầu từ ngày nào? | YC7.3 | từ ngày nhận |
+| YC7-H5 | Tìm hai lần cùng điều kiện? | YC7.2 | lần tìm trùng đưa lên đầu, không thêm dòng |
+| YC7-H6 | Mở S3 từ lịch 7 ngày (không có ngày khách hỏi) thì ngày ở là gì? | YC7.4 | hôm nay, 1 đêm |
+| YC7-H7 | Quay về mức cộng mặc định cho một căn? | YC7.4 | chip "Mặc định" đầu hàng |
+| YC8-H1 | Mỗi lần gửi tối đa bao nhiêu căn? | YC8.1 | 10 căn |
+| YC8-H2 | Chủ nhà đổi ngày một đặt phòng (YC5.6) sang đêm của lần gửi có tính là "vừa có người đặt" để báo sale không? | YC8 |  |
+| YC8-H3 | Sao chép chữ (không qua bảng chia sẻ) có ghi lần gửi để báo khi căn có người đặt không? | YC8.1 |  |
+| YC8-H4 | Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì? | YC8.1 | ghi "Giá: hỏi lại" |
+| YC9-H1 | Sale gửi yêu cầu với ngày nhận trước hôm nay thì sao? | YC9.1 |  |
+| YC9-H2 | Có đêm chủ nhà chưa đặt giá thì sale gửi yêu cầu được không, giá ghi gì? | YC9.1 |  |
+| YC9-H3 | Sale bị ngừng còn đọc được yêu cầu cũ của mình với chủ nhà đó không? | YC9.4 |  |
+| YC9-H4 | Chấp nhận khi sale đã bị ngừng hay đã bỏ nguồn sau lúc gửi? | YC9.2 |  |
+| YC9-H5 | Chấp nhận khi ngày nhận đã qua? | YC9.2 |  |
+| YC9-H6 | Thông báo cho chủ nhà khi sale hủy yêu cầu, và thông báo yêu cầu cũ chủ nhà đã nhận còn giữ không? | YC12, YC9.4 |  |
+| YC9-H7 | Tiêu đề màn S3-02 ("Đặt phòng" trùng chữ nút của chủ nhà)? | YC9.1, YC9.4 |  |
+| YC9-H8 | Chủ nhà chưa cho số thì hai nút "Nhắn chủ nhà qua Zalo", "Gọi chủ nhà" làm gì? | YC9.1 |  |
 
 ## Giả định đang dùng
 
@@ -237,31 +162,40 @@ Chỗ ghi "(giả định GD<số>)" là lựa chọn tạm để làm tiếp đ
 
 | Mã | Giả định |
 |---|---|
-| GD2 | Bản đầu chỉ cần báo trong app, chưa cần OA (mục "Cài đặt thông báo" (US21)) |
+| GD2 | Bản đầu chỉ cần báo trong app, chưa cần OA (YC12.4) |
 | GD11 | Chủ nhà tự ghi booking trùng đêm với yêu cầu đang chờ thì yêu cầu đó cũng thành Bị từ chối, như khi chủ chấp nhận yêu cầu khác |
 | GD12 | Booking chỉ có tổng tiền (căn tự nhập) thì tiền chênh chia đều cho các đêm khi chia theo tháng (QT3.2) |
-| GD13 | Làm tròn giá bán lên 50.000đ từng đêm, rồi cộng các đêm (mục "Mức cộng giá mặc định" (US13), |
-| GD14 | Nhãn "Mới thêm" ở thẻ căn hiện trong 24 giờ sau khi thêm (US1-NT17) |
+| GD13 | Làm tròn giá bán lên 50.000đ từng đêm, rồi cộng các đêm (YC7.5) |
+| GD14 | Nhãn "Mới thêm" ở thẻ căn hiện trong 24 giờ sau khi thêm (YC3.2-NT6) |
 | GD15 | "Gần nhau" của quy tắc Gom thông báo là trong 10 phút (CH-055) |
-| GD16 | Ô ngày ở lịch của sale hiện giá bán đã cộng mức cộng (mục "Lịch phòng 7 ngày" (US16), |
-| GD17 | "Tìm gần đây" lưu ở server, mỗi sale 5 lần (mục "Tìm phòng trống theo ngày" (US12), |
-| GD18 | [chưa có nội dung, hỏi Tùng] |
-| GD19 | Mở form ghi đặt phòng thì chip "Chưa cọc" chọn sẵn (US3) |
-| GD20 | Tiền cọc không được lớn hơn tiền phòng; vượt thì không lưu, báo "Tiền cọc không được lớn hơn tiền phòng" (US3, CH-024) |
-| GD21 | Thêm tòa có tên trùng một tòa đã có (không phân biệt hoa thường) thì dùng tòa đã có, không tạo tòa thứ hai. Tùng 04/11 (bản Zalo): "Gõ một toà đã có thì gợi ý toà đã có sẵn để chọn, người dùng vẫn tự ý thêm mới được": hiểu là tên khác cách viết vẫn thêm được, tên giống hệt thì dùng tòa đã có (US1) |
+| GD16 | Ô ngày ở lịch của sale hiện giá bán đã cộng mức cộng (YC7.1) |
+| GD17 | "Tìm gần đây" lưu ở server, mỗi sale 5 lần (YC7.2) |
+| GD18 | (không dùng) |
+| GD19 | Mở form ghi đặt phòng thì chip "Chưa cọc" chọn sẵn (YC5) |
+| GD20 | Tiền cọc không được lớn hơn tiền phòng; vượt thì không lưu, báo "Tiền cọc không được lớn hơn tiền phòng" (YC5, CH-024) |
+| GD21 | Thêm tòa có tên trùng một tòa đã có (không phân biệt hoa thường) thì dùng tòa đã có, không tạo tòa thứ hai. Tùng 04/11 (bản Zalo): "Gõ một toà đã có thì gợi ý toà đã có sẵn để chọn, người dùng vẫn tự ý thêm mới được": hiểu là tên khác cách viết vẫn thêm được, tên giống hệt thì dùng tòa đã có (YC3) |
+| GD22 | Điểm 11 của Tùng (04/11/2026, bản Zalo) ghi "S6-02" nhưng S6-02 là màn Thêm căn tự nhập; hiểu ý là chi tiết căn của sale: S6-07 cho căn của tôi, S6-03 cho căn tự nhập (YC7.3) |
+| GD23 | Màn chưa thiết kế ở YC10: sau bỏ nguồn và sau xóa căn tự nhập thì về S6; sửa căn tự nhập dùng lại S6-02 điền sẵn, nút "Lưu thay đổi" |
+| GD24 | (không dùng) |
+| GD25 | Câu trạng thái của đặt phòng chủ nhà ghi giúp ở S7-03: "Chị Hoa đã ghi giúp bạn" (YC11.3) |
+| GD26 | Mục "CHỜ CHỦ NHÀ CHẤP NHẬN" ở thống kê sale gồm mọi yêu cầu đang chờ, không theo tháng (YC11.2) |
+| GD27 | Chữ của các loại thông báo chưa có trên hình theo bảng ở YC12 |
+| GD28 | Nhắc đặt phòng chưa cọc ghi lúc 08:00 giờ Việt Nam (YC12.3) |
+| GD29 | Tắt một loại thông báo không xóa thông báo cũ loại đó (YC12.4) |
+| GD30 | Tên file CSV "home247-dat-phong-<từ ngày>-<đến ngày>.csv" (YC1.6) |
 
 ## Đã trả lời
 
 | Mã | Ngày trả lời | Câu trả lời (nguyên văn) | Đã áp dụng ở |
 | --- | --- | --- | --- |
-| CH-023 | 04/11/2026 (bản Zalo) | Tùng chốt điểm 2 trong 13 điểm ngày 04/11/2026: lưu sửa hoặc xóa đặt phòng xong thì quay về màn đã mở chức năng đó. | US3 (bước 26, 31, US3-NT41) |
-| CH-066 | trước 18/11/2026 (bản Zalo) | Tùng 03/11: "tạo ra một thư mục lưu ảnh trên production. Sau này production sẽ chạy ở server Việt nam." Ở PR #88 bản Zalo Tùng trả lời bốn câu về ảnh: "Đồng ý hết, ko cần Đức xem" (giữ HEIC, ngưỡng 40 triệu điểm ảnh, ảnh tạm không gắn quá 24 giờ thì xóa). Bản PWA: ảnh ở Storage của Supabase (nơi đặt: CH-002); nhận JPEG, PNG, HEIC tới 15 MB, thu về JPEG cạnh dài 1600 px. | US1 |
+| CH-023 | 04/11/2026 (bản Zalo) | Tùng chốt điểm 2 trong 13 điểm ngày 04/11/2026: lưu sửa hoặc xóa đặt phòng xong thì quay về màn đã mở chức năng đó. | YC5 (bước 26, 31, YC5.6-NT7) |
+| CH-066 | trước 18/11/2026 (bản Zalo) | Tùng 03/11: "tạo ra một thư mục lưu ảnh trên production. Sau này production sẽ chạy ở server Việt nam." Ở PR #88 bản Zalo Tùng trả lời bốn câu về ảnh: "Đồng ý hết, ko cần Đức xem" (giữ HEIC, ngưỡng 40 triệu điểm ảnh, ảnh tạm không gắn quá 24 giờ thì xóa). Bản PWA: ảnh ở Storage của Supabase (nơi đặt: CH-002); nhận JPEG, PNG, HEIC tới 15 MB, thu về JPEG cạnh dài 1600 px. | YC3 |
 | CH-062 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi du-lieu-mau.md (DLM.3): sau khi áp dụng, Tháng 11 và Tháng 12 ghi "800k–1,1tr"; "Giá 7 tháng" là T6 đến T12. Sửa canvas CN6-04, CN6-08. `[r4 · sửa]` Câu hỏi cũ: Toast "Đã áp dụng giá cho Tháng 11 – 12" (CN6-04, CN6-08) nhưng cùng màn Tháng 11 và Tháng 12 còn ghi "Chưa đặt", và CN6-07 ghi "Giá 7 tháng". Phương án: sửa dữ liệu minh họa của CN6-04 và CN6-08; hoặc toast ghi sai. | docs/luat-chung/Nghiep_vu.md |
-| CH-063 | trước 18/11/2026 (bản Zalo) | Đã trả lời: hai dải ngày lễ hoặc dịp đặc biệt của cùng căn không được chồng ngày, lưu thì báo lỗi (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 8, quy tắc Giá dịp không chồng ngày). Dịp và giá tháng: dịp thay giá tháng (quy tắc Giá dịp thay giá tháng). Tùng 03/11: "Giá chồng ngày không thể được, lúc setting giá đã chặn rồi." `[r13 · sửa]` Câu hỏi cũ: Thứ tự ưu tiên khi ngày lễ, dịp đặc biệt và giá tháng chồng nhau, hoặc hai dịp trùng ngày. Phương án: dịp ghi sau cùng thắng; ngày  | src/services/api.ts |
-| CH-064 | trước 18/11/2026 (bản Zalo) | Đã trả lời: xóa căn là ẩn căn (mục "Xóa căn" (US1)). Tùng 03/11: "thêm chức năng xoá căn, thực chất là chỉ ẩn căn đó đi khỏi màn hình. Các data khác về thống kê vẫn còn." Còn đặt phòng sắp tới hoặc yêu cầu chờ thì không xóa được, sale không còn thấy căn, mã dùng lại được, bản đầu không hiện lại: Tùng chọn theo đề xuất ("Theo đề xuất"). Màn:. `[r13 · sửa]` Câu hỏi cũ: Xóa hoặc ẩn một căn chưa có màn. Căn đang có booking thì xử lý ra sao. | US1 |
-| CH-065 | trước 18/11/2026 (bản Zalo) | Đã trả lời: một danh sách chung, người quản trị đặt sẵn (mục "Quản trị danh sách tòa nhà" (US29)), người dùng thêm tòa mới không cần duyệt và tòa đó hiện cho mọi người (quy tắc Tòa nhà dùng chung). Tùng 03/11: "Danh sách toà nhà có thể seting bởi admin, ngoài ra thêm thoải mái." và chọn theo đề xuất cho phần tòa người dùng thêm. Còn mở: khu vực của tòa người dùng thêm nhập thế nào. `[r13 · sửa]` Câu hỏi cũ: Danh sách tòa nhà chung cho mọi chủ nhà hay riêng từng chủ nhà, ai duyệt | US1, docs/Cau_hoi_mo.md |
-| CH-067 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi (Tùng duyệt ngày 02/11, giữ chip): CN9 có chip lý do Đã có khách đặt, Đang sửa phòng, Lý do khác (mục "Chủ nhà nhận và trả lời yêu cầu" (US15) bước 5). Chọn "Lý do khác" có ô nhập chữ không, và có bắt buộc chọn lý do không: chưa rõ. `[r8 · sửa]` | US15, docs/Cau_hoi_mo.md, src/components/yeu-cau-hien-thi.ts |
-| CH-073 | trước 18/11/2026 (bản Zalo) | Đã trả lời: tạm thời không lọc, không ghi số khách; S4 bỏ "· 4 khách" (mục "Kết quả tìm phòng" (US12) bước 5). Tùng 03/11: "Tạm thời chưa lọc theo số khách". `[r11 · thêm]` `[r13 · sửa]` | US12, src/pages/s1-tim-man.tsx |
-| CH-080 | trước 18/11/2026 (bản Zalo) | Đã trả lời (Tùng, 28/10): booking đã xóa không tính vào doanh thu, đêm có khách và chưa thu. | tests/kich-ban/US18.md |
-| CH-093 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi mục "Thêm người đồng quản trị" (US34): đăng nhập bằng mã gửi tới email. `[r6 · sửa]` | docs/bao-mat.md |
-| CH-094 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi mục "Thêm người đồng quản trị" (US34): quản trị viên đầu tiên là email ghi trong `bootstrap_admins` (không ghi vào repo), thêm người đồng quản trị trên web (mục "Thêm người đồng quản trị" (US34)). Phần cấp và gỡ còn lại ở câu 12, 13. | docs/bao-mat.md |
+| CH-063 | trước 18/11/2026 (bản Zalo) | Đã trả lời: hai dải ngày lễ hoặc dịp đặc biệt của cùng căn không được chồng ngày, lưu thì báo lỗi (YC4.3 bước 8, quy tắc Giá dịp không chồng ngày). Dịp và giá tháng: dịp thay giá tháng (quy tắc Giá dịp thay giá tháng). Tùng 03/11: "Giá chồng ngày không thể được, lúc setting giá đã chặn rồi." `[r13 · sửa]` Câu hỏi cũ: Thứ tự ưu tiên khi ngày lễ, dịp đặc biệt và giá tháng chồng nhau, hoặc hai dịp trùng ngày. Phương án: dịp ghi sau cùng thắng; ngày  | src/services/api.ts |
+| CH-064 | trước 18/11/2026 (bản Zalo) | Đã trả lời: xóa căn là ẩn căn (YC3.6). Tùng 03/11: "thêm chức năng xoá căn, thực chất là chỉ ẩn căn đó đi khỏi màn hình. Các data khác về thống kê vẫn còn." Còn đặt phòng sắp tới hoặc yêu cầu chờ thì không xóa được, sale không còn thấy căn, mã dùng lại được, bản đầu không hiện lại: Tùng chọn theo đề xuất ("Theo đề xuất"). Màn:. `[r13 · sửa]` Câu hỏi cũ: Xóa hoặc ẩn một căn chưa có màn. Căn đang có booking thì xử lý ra sao. | YC3 |
+| CH-065 | trước 18/11/2026 (bản Zalo) | Đã trả lời: một danh sách chung, người quản trị đặt sẵn (YC13.3), người dùng thêm tòa mới không cần duyệt và tòa đó hiện cho mọi người (quy tắc Tòa nhà dùng chung). Tùng 03/11: "Danh sách toà nhà có thể seting bởi admin, ngoài ra thêm thoải mái." và chọn theo đề xuất cho phần tòa người dùng thêm. Còn mở: khu vực của tòa người dùng thêm nhập thế nào. `[r13 · sửa]` Câu hỏi cũ: Danh sách tòa nhà chung cho mọi chủ nhà hay riêng từng chủ nhà, ai duyệt | YC3, docs/Cau_hoi_mo.md |
+| CH-073 | trước 18/11/2026 (bản Zalo) | Đã trả lời: tạm thời không lọc, không ghi số khách; S4 bỏ "· 4 khách" (YC7.3 bước 5). Tùng 03/11: "Tạm thời chưa lọc theo số khách". `[r11 · thêm]` `[r13 · sửa]` | YC7, src/pages/s1-tim-man.tsx |
+| CH-080 | trước 18/11/2026 (bản Zalo) | Đã trả lời (Tùng, 28/10): booking đã xóa không tính vào doanh thu, đêm có khách và chưa thu. | tests/kich-ban/YC11.md |
+| CH-093 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi YC13.1: đăng nhập bằng mã gửi tới email. `[r6 · sửa]` | docs/bao-mat.md |
+| CH-094 | trước 18/11/2026 (bản Zalo) | Đã trả lời bởi YC13.1: quản trị viên đầu tiên là email ghi trong `bootstrap_admins` (không ghi vào repo), thêm người đồng quản trị trên web (YC13.1). Phần cấp và gỡ còn lại ở câu 12, 13. | docs/bao-mat.md |
+| CH-037 | 18/11/2026 | Bản 1 nạp dải ngày lễ và tòa nhà bằng seed; trang quản trị làm sau (PWA.md P11, YC13). | YC13, YC15 |
