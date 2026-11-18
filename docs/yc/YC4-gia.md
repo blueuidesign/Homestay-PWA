@@ -48,7 +48,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Đặt phòng giữ giá riêng | Bảng giá chỉ dùng để điền sẵn tiền phòng khi tạo đặt phòng (QT4.1). Đổi bảng giá không đổi đặt phòng đã có | B1 giữ 2.200.000đ khi đổi giá tháng 10 |
 | Luôn có giá cuối tuần | Phải chọn ít nhất một đêm cuối tuần (Tùng, bản Zalo, 04/11/2026, điểm 5: "Không bao giờ có chuyện không có giá cuối tuần. Người dùng nếu muốn setup giá chung thì cứ gõ lại giá giống ngày thường, nhưng nhất định có giá cuối tuần.") | Không |
 
-Quy tắc dùng chung: Giá chủ nhà của một đêm (`docs/luat-chung/Nghiep_vu.md` mục 1.3), Giá rút gọn (YC2), QT4.1.
+Quy tắc dùng chung: Giá chủ nhà của một đêm (`docs/luat-chung/Nghiep_vu.md` mục 1.3), Viết số tiền rút gọn (`docs/luat-chung/Tu_dien.md`), QT4.1.
 
 ## Ai được làm gì
 
@@ -95,7 +95,7 @@ Bản 1 · rủi ro: cao · Màn: CN6, CN6-00, CN6-04, CN6-09
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Mở tab "Giá" của căn (từ CN5-02 hay nút ở YC4.1) | Tiêu đề "Phòng 3402", tab "Thông tin" / "Giá". Mục "Giá theo tháng" với "Năm 2026" và 12 ô tháng; mỗi ô ghi khoảng giá ("800k–1,3tr", theo Giá rút gọn) hoặc "Chưa đặt". Dưới là mục "Giá ngày lễ", "Dịp đặc biệt", "Lịch giá tháng 10", nút "Sao chép giá sang căn khác" | Đọc giá tháng của năm và các dải giá dịp của căn |
+| 1 | Mở tab "Giá" của căn (từ CN5-02 hay nút ở YC4.1) | Tiêu đề "Phòng 3402", tab "Thông tin" / "Giá". Mục "Giá theo tháng" với "Năm 2026" và 12 ô tháng; mỗi ô ghi khoảng giá ("800k–1,3tr", viết rút gọn theo Tu_dien) hoặc "Chưa đặt". Dưới là mục "Giá ngày lễ", "Dịp đặc biệt", "Lịch giá tháng 10", nút "Sao chép giá sang căn khác" | Đọc giá tháng của năm và các dải giá dịp của căn |
 | 2 | Chạm một hay nhiều ô tháng | Ô được chọn đổi màu. Dòng "Đang chọn: Tháng 11 – 12 (2 tháng)". Chưa chọn ô nào: "Chưa chọn tháng nào. Chọn một tháng bên trên sau đó nhập giá." | Không |
 | 3 | Nhập giá | Hai ô "Ngày thường (CN–T5)" và "Cuối tuần (T6, T7)". Tên trong ngoặc theo các đêm cuối tuần đã chọn ở YC4.6 | Không |
 | 4 | Bấm "Áp dụng cho Tháng 11 – 12" | Nút đang lưu. Lưu được: toast "Đã áp dụng giá cho Tháng 11 – 12", ô tháng đổi theo (CN6-04) | Ghi đè giá các tháng đã chọn trong một giao dịch; cập nhật lúc lịch đổi của căn |

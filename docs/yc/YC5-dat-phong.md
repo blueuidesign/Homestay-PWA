@@ -99,7 +99,7 @@ Bản 1 · rủi ro: cao · Màn: CN4, CN3
 
 Chữ trên nút ở dòng căn trống: "Đặt phòng" (theo `docs/luat-chung/Tu_dien.md`). Canvas CN3 còn ghi "Thêm khách": làm theo story.
 
-Chủ nhà chưa có căn nào thì không có nút "Đặt phòng" (màn trống của tab Lịch thuộc US1).
+Chủ nhà chưa có căn nào thì không có nút "Đặt phòng" (màn trống của tab Lịch thuộc YC3).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -126,14 +126,14 @@ Bản 1 · rủi ro: cao · Màn: CN4, CN4-01
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 5 | Xem hàng chip "Khách / Sale" | Thứ tự chip: "+ Sale mới", "Khách lẻ", các sale đang kết nối (US5), rồi các tên khách lẻ chủ nhà đã nhập trước đây (mới nhất trước, tối đa 10). Chưa chip nào được chọn | Đọc tên khách chủ nhà đã nhập trong phần riêng của chính chủ nhà |
+| 5 | Xem hàng chip "Khách / Sale" | Thứ tự chip: "+ Sale mới", "Khách lẻ", các sale đang kết nối (YC6), rồi các tên khách lẻ chủ nhà đã nhập trước đây (mới nhất trước, tối đa 10). Chưa chip nào được chọn | Đọc tên khách chủ nhà đã nhập trong phần riêng của chính chủ nhà |
 | 6 | Chạm "Khách lẻ" | Chọn khách lẻ không tên | Không |
 | 6b | Chạm một tên khách đã dùng (ví dụ "Dung Đỗ") | Chọn khách lẻ có tên đó | Không |
 | 6c | Chạm một chip sale (ví dụ "Sale Hùng") | Chọn sale đó làm người đặt. Dòng nhỏ dưới hàng chip: "Đặt phòng của Sale Hùng: Hùng được báo và thấy đặt phòng này như của mình." | Không |
 
-Chưa chọn người đặt thì nút "Thêm đặt phòng" không bấm được. Cách nhập một tên khách mới chưa có trên hàng chip: [MỞ: US3-H1].
+Chưa chọn người đặt thì nút "Thêm đặt phòng" không bấm được. Cách nhập một tên khách mới chưa có trên hàng chip: [MỞ: YC5-H1].
 
-Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu: [MỞ: US3-H12]. Tới khi có câu trả lời, chọn sale thì không nhập được tên khách. Chip "+ Sale mới": US5.
+Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu: [MỞ: YC5-H12]. Tới khi có câu trả lời, chọn sale thì không nhập được tên khách. Chip "+ Sale mới": YC6.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -191,7 +191,7 @@ Database là chỗ chặn thật; app chặn trước cho người dùng thấy 
 | Ngày nhận, ngày trả | có | Ngày trả sau ngày nhận; tối đa 365 đêm. Ngày nhận trong quá khứ được phép (ghi bù) | "Ngày trả phải sau ngày nhận" · "Một đặt phòng dài tối đa 365 đêm" |
 | Người đặt | có | Khách lẻ (tên có hoặc không), hoặc sale đang kết nối và được chia sẻ căn này | (app chặn; database coi thiếu sale là khách lẻ) · "Sale này không đang kết nối với bạn" · "Sale này không được xem căn này" |
 | Tên khách | không | Tối đa 100 ký tự, bỏ khoảng trắng đầu cuối | "Tên khách dài tối đa 100 ký tự" |
-| Số điện thoại khách | không | Form chưa có ô (xem [MỞ: US3-H2]) | |
+| Số điện thoại khách | không | Form chưa có ô (xem [MỞ: YC5-H2]) | |
 | Tiền phòng | có | Số nguyên đồng, lớn hơn 0 | "Cần nhập tiền phòng" · "Tiền phòng phải lớn hơn 0" |
 | Trạng thái tiền | có | "chua_coc", "da_coc_con_thu", "da_thanh_toan" | "Trạng thái tiền không hợp lệ" |
 | Tiền cọc | không | Chỉ khi "Đã cọc · còn thu"; số nguyên lớn hơn 0; không lớn hơn tiền phòng (GD20) | "Tiền cọc không được lớn hơn tiền phòng" |
@@ -222,12 +222,12 @@ Chủ nhà ghi giúp một đặt phòng cho sale đã kết nối, ví dụ khi
 | 14 | Chọn chip "Sale Hùng" (bước 6c) và bấm "Thêm đặt phòng" | Như bước 9 đến 13. Toast "Đã thêm đặt phòng Sale Hùng · 1509" | Như bước 9, thêm: kiểm Sale Hùng đang kết nối với chủ nhà và được chia sẻ căn này; phần riêng của Sale Hùng có giá bán điền sẵn = tiền phòng + mức cộng của Hùng cho căn đó × số đêm (`docs/luat-chung/Nghiep_vu.md` mục 1.4, QT3.1); trigger ghi thông báo "chủ ghi đặt phòng cho bạn" cho Hùng |
 | 15 | (Sale không còn kết nối, hay không được chia sẻ căn này) | Ở lại form, toast đỏ là câu database trả về | Từ chối với câu "Sale này không đang kết nối với bạn" hoặc "Sale này không được xem căn này" |
 
-Giá bán điền sẵn có làm tròn lên 50.000đ khi sale bật làm tròn không: [MỞ: US3-H13]. Database đang làm tròn.
+Giá bán điền sẵn có làm tròn lên 50.000đ khi sale bật làm tròn không: [MỞ: YC5-H13]. Database đang làm tròn.
 
 Tiêu chí:
 - **YC5.4-NT1** Khi Chị Hoa ghi 1509 từ 20/10 tới 22/10, tiền phòng 1.800.000đ, người đặt Sale Hùng, và mức cộng của Hùng cho 1509 là +200k (DLM.3), thì Hùng có đặt phòng đó với giá bán 2.200.000đ và tiền chênh 400.000đ (QT3.1). · database
-- **YC5.4-NT2** Khi Chị Hoa lưu đặt phòng ở US3-NT25, thì Sale Hùng có thông báo "chủ ghi đặt phòng cho bạn" kèm căn và ngày ở. · database
-- **YC5.4-NT3** Khi Chị Hoa đã ghi tên và số khách cho đặt phòng ở US3-NT25, thì Sale Hùng đọc đặt phòng đó không thấy tên và số này (QD-011). · database
+- **YC5.4-NT2** Khi Chị Hoa lưu đặt phòng ở YC5.4-NT1, thì Sale Hùng có thông báo "chủ ghi đặt phòng cho bạn" kèm căn và ngày ở. · database
+- **YC5.4-NT3** Khi Chị Hoa đã ghi tên và số khách cho đặt phòng ở YC5.4-NT1, thì Sale Hùng đọc đặt phòng đó không thấy tên và số này (QD-011). · database
 - **YC5.4-NT4** Khi Chị Hoa ghi đặt phòng với người đặt "Khách lẻ", thì không sale nào có thông báo và đặt phòng không vào thống kê của sale nào. · database
 - **YC5.4-NT5** Khi Chị Hoa ghi đặt phòng cho một sale không kết nối với chị, thì database từ chối "Sale này không đang kết nối với bạn"; khi sale chỉ được chia sẻ 3402 mà chị ghi 1509 cho sale đó, thì từ chối "Sale này không được xem căn này". · database
 
@@ -235,7 +235,7 @@ Tiêu chí:
 
 Bản 1 · rủi ro: cao · Màn: CN3-02, CN3-02-01
 
-Mở từ dòng căn có khách ở chi tiết ngày, từ danh sách đặt phòng sắp tới (US2), từ thanh ở lịch tuần (US2).
+Mở từ dòng căn có khách ở chi tiết ngày, từ danh sách đặt phòng sắp tới (YC2), từ thanh ở lịch tuần (YC2).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -273,7 +273,7 @@ Bản 1 · rủi ro: cao · Màn: CN4-02, S3-10
 
 Tên khách, số khách chủ nhà nhập lưu vào phần riêng của chủ nhà, cùng lúc với lưu đặt phòng.
 
-Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không: [MỞ: US3-H4]. Đổi người đặt (giữa khách lẻ và sale, hay sang sale khác): [MỞ: US3-H5]; tới khi có câu trả lời, ô người đặt khóa ở form sửa. Đổi trạng thái tiền ở form sửa thì nút "Hoàn tác" còn không: [MỞ: US3-H6]. Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia lại theo bảng giá lúc nào: [MỞ: US3-H8]. Chỉ sửa ghi chú hay khách thì sale có được báo không: [MỞ: US3-H9]; database đang không báo.
+Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không: [MỞ: YC5-H4]. Đổi người đặt (giữa khách lẻ và sale, hay sang sale khác): [MỞ: YC5-H5]; tới khi có câu trả lời, ô người đặt khóa ở form sửa. Đổi trạng thái tiền ở form sửa thì nút "Hoàn tác" còn không: [MỞ: YC5-H6]. Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia lại theo bảng giá lúc nào: [MỞ: YC5-H8]. Chỉ sửa ghi chú hay khách thì sale có được báo không: [MỞ: YC5-H9]; database đang không báo.
 
 Luật kiểm khi sửa, xóa, thu tiền, hủy (dùng cả ở YC5.5, YC5.7, YC5.8, YC5.9):
 
@@ -287,7 +287,7 @@ Luật kiểm khi sửa, xóa, thu tiền, hủy (dùng cả ở YC5.5, YC5.7, Y
 | Trả lời xin hủy | Bên không phải bên xin; đặt phòng đang chờ hủy | "Không có lời xin hủy nào chờ bạn" · "Người kia phải trả lời lời xin hủy của bạn" |
 | Giá bán của sale | Số nguyên đồng lớn hơn 0 | "Giá bán phải lớn hơn 0" |
 
-Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không: [MỞ: US3-H3]. Tới khi có câu trả lời, database chặn.
+Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không: [MỞ: YC5-H3]. Tới khi có câu trả lời, database chặn.
 
 Tiêu chí:
 - **YC5.6-NT1** Khi Chị Hoa mở sửa B1, thì mọi ô hiện đúng giá trị của B1 (1509, 10/10 → 12/10, Sale Hùng, 2.200.000đ, đã cọc 1.000.000đ). · unit
@@ -314,13 +314,13 @@ Tiêu chí:
 - **YC5.7-NT2** Khi Chị Hoa xác nhận xóa B5, thì đêm 13/10 và 14/10 của 1509 trống lại và ghi được đặt phòng mới vào đó. · database, E2E
 - **YC5.7-NT3** Khi Chị Hoa mở B1 (thành từ yêu cầu của Sale Hùng), thì không có nút "Xóa đặt phòng", vẫn có "Sửa" và "Xin hủy". · unit
 - **YC5.7-NT4** Khi lệnh xóa B1 gửi thẳng tới database, thì bị từ chối, B1 còn nguyên và đêm 10/10, 11/10 của 1509 vẫn kín. · database
-- **YC5.7-NT5** Khi Chị Hoa mở đặt phòng chị ghi giúp Sale Hùng (US3-NT25), thì không có nút "Xóa đặt phòng"; lệnh xóa gửi thẳng tới database bị từ chối. · unit, database
+- **YC5.7-NT5** Khi Chị Hoa mở đặt phòng chị ghi giúp Sale Hùng (YC5.4-NT1), thì không có nút "Xóa đặt phòng"; lệnh xóa gửi thẳng tới database bị từ chối. · unit, database
 
 ## YC5.8 · Hủy đặt phòng có sale
 
 Bản 1 · rủi ro: cao · Màn: chưa có hình
 
-Đặt phòng có sale đứng tên (thành từ yêu cầu của sale, hay chủ nhà ghi giúp sale) không ai tự bỏ được: một bên xin hủy, bên kia đồng ý (QD-012). Vị trí nút "Xin hủy" và khối trả lời ở chi tiết đặt phòng của chủ nhà (CN3-02) và của sale: chưa có hình ([MỞ: US3-H17]).
+Đặt phòng có sale đứng tên (thành từ yêu cầu của sale, hay chủ nhà ghi giúp sale) không ai tự bỏ được: một bên xin hủy, bên kia đồng ý (QD-012). Vị trí nút "Xin hủy" và khối trả lời ở chi tiết đặt phòng của chủ nhà (CN3-02) và của sale: chưa có hình ([MỞ: YC5-H17]).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -330,7 +330,7 @@ Bản 1 · rủi ro: cao · Màn: chưa có hình
 | 36 | Bấm "Không đồng ý" | Đặt phòng như cũ, dòng "Bị từ chối hủy" ở cả hai bên; không còn nút "Xin hủy" | Lệnh trả lời xin hủy (không đồng ý): về hiệu lực, ghi lúc từ chối; không cho xin hủy lại. Ngoài app hai bên tự làm việc với nhau (Tùng, bản Zalo 03/11/2026) |
 | 37 | Không ai trả lời | Nhãn "Chờ đồng ý hủy" giữ nguyên | [MỞ: CH-004] Xin hủy có hết hạn không. Tới khi có câu trả lời, không hết hạn |
 
-Đặt phòng khách lẻ không có nút "Xin hủy"; chủ nhà xóa theo mục trên. Xin hủy đặt phòng đã qua ngày trả: [MỞ: US3-H14], database đang cho. Sale đã bị ngừng cho xem xin hủy được không: [MỞ: US3-H15], database đang cho (QD-007 giữ đặt phòng cũ của sale). Bên kia đã xóa tài khoản thì xin hủy thế nào: [MỞ: US3-H16]. Sửa, ghi đã thu đủ khi đặt phòng đang chờ hủy hay đã hủy: [MỞ: US3-H7]; database đang cho sửa khi chờ hủy, chặn khi đã hủy.
+Đặt phòng khách lẻ không có nút "Xin hủy"; chủ nhà xóa theo mục trên. Xin hủy đặt phòng đã qua ngày trả: [MỞ: YC5-H14], database đang cho. Sale đã bị ngừng cho xem xin hủy được không: [MỞ: YC5-H15], database đang cho (QD-007 giữ đặt phòng cũ của sale). Bên kia đã xóa tài khoản thì xin hủy thế nào: [MỞ: YC5-H16]. Sửa, ghi đã thu đủ khi đặt phòng đang chờ hủy hay đã hủy: [MỞ: YC5-H7]; database đang cho sửa khi chờ hủy, chặn khi đã hủy.
 
 Tiêu chí:
 - **YC5.8-NT1** Khi Sale Hùng xin hủy B1 và xác nhận, thì B1 có nhãn "Chờ đồng ý hủy" ở cả Chị Hoa và Hùng, đêm 10/10, 11/10 của 1509 vẫn kín, và Chị Hoa có thông báo xin hủy. · database, unit
@@ -344,17 +344,17 @@ Tiêu chí:
 
 Bản 1 · rủi ro: cao · Màn: chưa có hình
 
-Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình: [MỞ: US3-H11]. Phần database làm được ngay.
+Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình: [MỞ: YC5-H11]. Phần database làm được ngay.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 38 | Sale Hùng mở thông báo "Chị Hoa ghi đặt phòng cho bạn" | Mở chi tiết đặt phòng phía sale: căn, ngày ở, giá chủ nhà, giá bán cho khách, tiền chênh, tình trạng cọc (nếu chủ nhà bật) | Sale đọc phần đặt phòng dành cho sale, không có tiền cọc, không có khách chủ nhà nhập |
 | 39 | Sale Hùng sửa giá bán rồi lưu | Giá bán và tiền chênh đổi theo | Lệnh ghi giá bán: chỉ sale của đặt phòng ghi được giá bán của mình. Chủ nhà không thấy giá bán |
 
-Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không: [MỞ: US3-H10].
+Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không: [MỞ: YC5-H10].
 
 Tiêu chí:
-- **YC5.9-NT1** Khi Sale Hùng sửa giá bán của đặt phòng ở US3-NT25 thành 2.400.000đ, thì tiền chênh là 600.000đ, và Chị Hoa vẫn chỉ thấy tiền phòng 1.800.000đ, không thấy giá bán. · database
+- **YC5.9-NT1** Khi Sale Hùng sửa giá bán của đặt phòng ở YC5.4-NT1 thành 2.400.000đ, thì tiền chênh là 600.000đ, và Chị Hoa vẫn chỉ thấy tiền phòng 1.800.000đ, không thấy giá bán. · database
 - **YC5.9-NT2** Khi Sale Lan gửi lệnh sửa giá bán của đặt phòng của Sale Hùng, hoặc Chị Hoa gửi lệnh ghi giá bán, thì giá bán của Hùng không đổi. · database
 
 ## Màn hình
@@ -364,12 +364,12 @@ Hình: `python3 docs/thiet-ke/trich-man.py <mã>`. Chữ và số trên hình l�
 - **CN4 · Thêm đặt phòng.** Hình đúng bố cục. Lệch với story: hàng "Phòng" trên hình có chip "2501" (bộ mẫu chỉ có 1509, 3402); dòng kiểm ngày trên hình là ví dụ 09/10.
 - **CN4-01 · Tiền phòng bỏ trống.** Như CN4, ô tiền phòng viền đỏ, dòng "Nhập tiền phòng trước khi lưu".
 - **CN4-03 · Đã lưu.** Tab Lịch sau khi lưu, chi tiết ngày mở sẵn, toast. Vị trí toast trên hình là của bản Zalo (dưới cụm "··· ✕"); bản PWA đặt ngay dưới thanh tiêu đề của app (HV8).
-- **CN3 · Chi tiết một ngày.** Chỉ phần nút trên dòng căn trống (bước 1b); phần còn lại thuộc US2. Chữ trên nút: "Đặt phòng", không phải "Thêm khách" như hình.
+- **CN3 · Chi tiết một ngày.** Chỉ phần nút trên dòng căn trống (bước 1b); phần còn lại thuộc YC2. Chữ trên nút: "Đặt phòng", không phải "Thêm khách" như hình.
 - Màn báo trùng (dòng đỏ ở bước 4, 11) chưa có hình: dùng kiểu dòng lỗi của CN4-01 tại vị trí dòng kiểm ngày.
-- **CN3-02 · Chi tiết đặt phòng.** Đúng bố cục. Hình chưa có nút "Sửa", "Xóa đặt phòng", "Xin hủy" (chỗ đặt theo bố cục chung, US3-H17).
+- **CN3-02 · Chi tiết đặt phòng.** Đúng bố cục. Hình chưa có nút "Sửa", "Xóa đặt phòng", "Xin hủy" (chỗ đặt theo bố cục chung, YC5-H17).
 - **CN3-02-01 · Đặt phòng của sale đã xóa tài khoản.** Đúng.
 - **CN4-02 · Sửa đặt phòng.** Hình dùng ví dụ 09/10 → 10/10 và chip "2501": dữ liệu thật theo đặt phòng đang sửa.
-- **S3-10 · Sale xem đặt phòng chủ nhà vừa sửa.** Thẻ vàng trên hình ghi "Giá bán tính lại theo mức cộng": sai, giá bán giữ nguyên (Tùng, bản Zalo 04/11/2026 điểm 1). Màn phía sale khác: chưa có hình (US3-H11).
+- **S3-10 · Sale xem đặt phòng chủ nhà vừa sửa.** Thẻ vàng trên hình ghi "Giá bán tính lại theo mức cộng": sai, giá bán giữ nguyên (Tùng, bản Zalo 04/11/2026 điểm 1). Màn phía sale khác: chưa có hình (YC5-H11).
 
 ## Lịch sử bản
 

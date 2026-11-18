@@ -39,7 +39,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Giờ nhận trả mặc định | Một giờ nhận và một giờ trả cho mọi căn của chủ nhà, mặc định 14:00 và 12:00. Đổi giờ không đổi đặt phòng đã có ([MỞ: CH-091] với sale đã gửi khách) | "Khách nhận phòng từ 14:00, trả phòng trước 12:00 hôm sau." |
 | File của chủ nhà | File xuất chỉ có đặt phòng ở căn của chủ nhà, tiền là số nguyên đồng không dấu chấm, khách chỉ do chính chủ nhà nhập (QD-011), không có giá bán, tiền chênh; UTF-8 có BOM để Excel đọc đúng tiếng Việt | 2200000 |
 
-Quy tắc dùng chung: Người đã xóa tài khoản, Xin số điện thoại đúng lúc (`docs/luat-chung/Nghiep_vu.md`); HV4, HV5; PWA.md P1, P2, P5, P8.
+Quy tắc dùng chung: Người đã xóa tài khoản (`docs/luat-chung/Nghiep_vu.md`), Xin số điện thoại đúng lúc (YC6); HV4, HV5; PWA.md P1, P2, P5, P8.
 
 ## Ai được làm gì
 

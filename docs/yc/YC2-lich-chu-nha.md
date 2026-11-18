@@ -37,9 +37,8 @@ Không thuộc YC này (dễ tưởng là có):
 |---|---|---|
 | Màu theo căn | Mỗi căn một màu trên lịch, dùng cho ô ngày, chú thích, thanh ở lịch tuần. Từ 4 căn trở lên, tên căn ở danh sách căn (CN5) không tô màu | Không |
 | Tuần bắt đầu thứ hai | Lưới tháng và bảng tuần bắt đầu từ T2, kết thúc ở CN | Không |
-| Giá rút gọn | Ô giá ở lịch tuần ghi rút gọn: dưới một triệu ghi "k", từ một triệu ghi "tr" kèm dấu phẩy | 900k, 1,1tr, 1,15tr |
 
-Quy tắc dùng chung: QT2 (đêm có khách) ở `docs/luat-chung/QT.md`; Trạng thái tiền đặt phòng ở `docs/luat-chung/Nghiep_vu.md`; QD-010 (doanh thu chia theo đêm), QD-012 (đặt phòng đã hủy không tính).
+Quy tắc dùng chung: QT2 (đêm có khách) ở `docs/luat-chung/QT.md`; Viết số tiền rút gọn ở `docs/luat-chung/Tu_dien.md`; Trạng thái tiền đặt phòng ở `docs/luat-chung/Nghiep_vu.md`; QD-010 (doanh thu chia theo đêm), QD-012 (đặt phòng đã hủy không tính).
 
 ## Ai được làm gì
 
@@ -71,7 +70,7 @@ Bản 1 · rủi ro: tb · Màn: CN1, CN1-00, CN1-02
 | 2 | Xem lưới | Mỗi đêm có khách tô màu của căn đó (quy tắc "Màu theo căn"). Ngày trả phòng không tô nếu không có khách khác nhận đêm đó (QT2). Một ngày có khách ở hai căn thì ô có hai màu | Không |
 | 3 | Chạm một chip căn | Lưới chỉ còn tô đêm có khách của căn đó. Chip đầu: "Cả 2 phòng" khi có 2 căn, "Tất cả" khi có từ 3 căn. Chủ nhà có 1 căn thì không có hàng chip | Không gọi thêm |
 | 4 | Bấm "T09" hoặc "T11" | Chuyển sang tháng trước, tháng sau; tiêu đề thành "Tháng 11/2026", chip đang chọn giữ nguyên | Đọc đặt phòng của tháng mới |
-| 5 | Bấm "Đặt phòng" | Mở form ghi đặt phòng (US3) | Không |
+| 5 | Bấm "Đặt phòng" | Mở form ghi đặt phòng (YC5) | Không |
 | 6 | Chạm một ngày | Mở chi tiết ngày ngay dưới lưới (mục Chi tiết một ngày), ô ngày đó viền đậm | Không |
 
 Chủ nhà có căn nhưng chưa có đặt phòng nào (ở mọi tháng): CN1-00, thay cho chú thích và các khối dưới lưới: "Chưa có đặt phòng nào", "Bấm "Đặt phòng" để thêm khách đầu tiên. Ngày có khách sẽ tô màu theo phòng.", nút "Đặt phòng", gợi ý "💡 Mời sale xem lịch để sale tự biết ngày trống, không phải gọi hỏi. Vào tab Sale.".
@@ -92,15 +91,15 @@ Bản 1 · rủi ro: tb · Màn: CN3
 |---|---|---|---|
 | 7 | (sau bước 6) | Tiêu đề "Ngày 10/10/2026". Mỗi căn (theo chip đang chọn) một dòng | Dùng dữ liệu đã đọc ở bước 1 và phần riêng của chủ nhà |
 | 8 | Căn có khách đêm đó | "Phòng 1509", người đặt (tên sale, hoặc tên khách chủ nhà đã nhập, hoặc "Khách lẻ"), số điện thoại của sale nếu có, "10/10 → 12/10 (2 đêm)", "2.200.000đ · Cọc: 1.000.000đ" (hoặc "Chưa cọc", "Đã thanh toán"), ghi chú nếu có | Đọc đặt phòng và khách chính chủ nhà nhập (tên khách, số khách); số điện thoại sale của sale đang kết nối |
-| 9 | Chạm dòng căn có khách | Mở chi tiết đặt phòng CN3-02 (US3) | Không |
-| 10 | Căn trống đêm đó | "Phòng 3402 · Trống ✓" và nút "Đặt phòng" (bấm: US3) | Không |
+| 9 | Chạm dòng căn có khách | Mở chi tiết đặt phòng CN3-02 (YC5) | Không |
+| 10 | Căn trống đêm đó | "Phòng 3402 · Trống ✓" và nút "Đặt phòng" (bấm: YC5) | Không |
 
-Chạm một ngày đã qua thì mở gì: [MỞ: CH-017]. Tới khi có câu trả lời, mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có (ghi bù được, US3).
+Chạm một ngày đã qua thì mở gì: [MỞ: CH-017]. Tới khi có câu trả lời, mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có (ghi bù được, YC5).
 
 Tiêu chí:
 - **YC2.2-NT1** Khi chủ nhà chạm ô 10/10, thì phần chi tiết mở ngay dưới lưới với tiêu đề "Ngày 10/10/2026". · E2E
 - **YC2.2-NT2** Khi chủ nhà xem chi tiết ngày 10/10, thì dòng 1509 ghi "Sale Hùng", "10/10 → 12/10 (2 đêm)", "2.200.000đ · Cọc: 1.000.000đ", còn dòng 3402 ghi "Trống ✓". · unit
-- **YC2.2-NT3** Khi Anh Tuấn hay Sale Hùng đọc trực tiếp đặt phòng, tiền từng đêm, khách, thì không thấy dòng nào của đặt phòng của Chị Hoa (Sale Hùng chỉ thấy đêm kín qua lịch của sale, US6). · database
+- **YC2.2-NT3** Khi Anh Tuấn hay Sale Hùng đọc trực tiếp đặt phòng, tiền từng đêm, khách, thì không thấy dòng nào của đặt phòng của Chị Hoa (Sale Hùng chỉ thấy đêm kín qua lịch của sale, YC7). · database
 
 ## YC2.3 · Doanh thu tháng
 
@@ -112,7 +111,7 @@ Bản 1 · rủi ro: cao · Màn: CN1, CN1-02
 | 12 | Đổi tháng | Khối đổi theo tháng mới | Gọi lại với tháng mới |
 | 13 | Tháng đang xem không có đặt phòng nào | Không hiện khối | Không |
 
-Đổi chip lọc căn thì số tiền và số đêm có đổi theo căn không: [MỞ: US2-H1]. Tới khi có câu trả lời, khối luôn là tổng mọi căn.
+Đổi chip lọc căn thì số tiền và số đêm có đổi theo căn không: [MỞ: YC2-H1]. Tới khi có câu trả lời, khối luôn là tổng mọi căn.
 
 Số tháng 9 của bộ mẫu: Tùng (bản Zalo, 04/11/2026) "chưa cần thêm dữ liệu mẫu, cái đó xem sau"; test dùng dữ liệu riêng cho tháng 9.
 
@@ -127,10 +126,10 @@ Bản 1 · rủi ro: tb · Màn: CN1, CN1-01
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 14 | Kéo xuống | Danh sách "Đặt phòng sắp tới": đặt phòng chưa hủy có ngày trả sau hôm nay và ngày nhận trong tháng đang xem trở về trước, xếp theo ngày nhận. Mỗi dòng: người đặt, "Phòng 1509 · 10/10 → 12/10 (2 đêm)", tiền phòng, trạng thái tiền ("Cọc 1.000.000đ", "Chưa cọc", "Đã thanh toán") | Đọc như bước 1. Hôm nay theo giờ Việt Nam |
-| 15 | Chạm một dòng | Mở chi tiết đặt phòng CN3-02 (US3) | Không |
+| 15 | Chạm một dòng | Mở chi tiết đặt phòng CN3-02 (YC5) | Không |
 | 16 | Không có đặt phòng sắp tới | CN1-01: "Chưa có đặt phòng sắp tới. Bấm "+ Đặt phòng" để ghi khách đầu tiên." | Không |
 
-Với bộ mẫu, tháng 10, hôm nay 07/10, danh sách là B1, B5, B6, B2, B7, B8 (DLM.5). B4 trả phòng hôm nay nên không có; B9 nhận 30/11 nên không có ở tháng 10. Đặt phòng đã hủy có hiện với nhãn "Đã hủy" không: [MỞ: US2-H3]. Tới khi có câu trả lời, không hiện.
+Với bộ mẫu, tháng 10, hôm nay 07/10, danh sách là B1, B5, B6, B2, B7, B8 (DLM.5). B4 trả phòng hôm nay nên không có; B9 nhận 30/11 nên không có ở tháng 10. Đặt phòng đã hủy có hiện với nhãn "Đã hủy" không: [MỞ: YC2-H3]. Tới khi có câu trả lời, không hiện.
 
 Tiêu chí:
 - **YC2.4-NT1** Khi chủ nhà xem danh sách đặt phòng sắp tới, thì mỗi dòng có người đặt, mã căn, ngày nhận, ngày trả, số đêm, tiền phòng, trạng thái tiền. · unit
@@ -151,11 +150,11 @@ Cách vào lịch tuần từ lịch tháng: [MỞ: CH-015]. Phần này code đ
 | 20 | Xem ba ô tóm tắt | tuần 05 – 11/10 của bộ mẫu: "Có khách hôm nay 0/2", "Trống tối T7 1 căn", "Chưa cọc 0 đặt phòng" | Không |
 | 21 | Chạm chip lọc | Chip "Tất cả", một chip cho mỗi tòa có căn, và một chip cho mỗi số phòng ngủ ("3 phòng ngủ") khi các căn có từ hai số phòng ngủ khác nhau. Chạm chip thì bảng chỉ còn căn khớp | Không |
 | 22 | Bấm "Trước", "Sau" | Sang tuần trước, tuần sau | Đọc tuần mới |
-| 23 | Chạm một ô hay một thanh | Ô trống: form ghi đặt phòng với căn và ngày đó (US3). Thanh: chi tiết đặt phòng (US3) | Không |
+| 23 | Chạm một ô hay một thanh | Ô trống: form ghi đặt phòng với căn và ngày đó (YC5). Thanh: chi tiết đặt phòng (YC5) | Không |
 
 Tuần chưa có đặt phòng nào: CN2-00, bảng vẫn hiện đủ giá, thêm dòng "Tuần này chưa có đặt phòng nào. Mọi căn đều trống.".
 
-Ô trống của đêm chưa đặt giá hiện gì: [MỞ: US2-H2]. Tới khi có câu trả lời, ô để trống. Ba ô tóm tắt tính cho hôm nay hay cho tuần đang xem: [MỞ: CH-016]. Tới khi có câu trả lời, "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem.
+Ô trống của đêm chưa đặt giá hiện gì: [MỞ: YC2-H2]. Tới khi có câu trả lời, ô để trống. Ba ô tóm tắt tính cho hôm nay hay cho tuần đang xem: [MỞ: CH-016]. Tới khi có câu trả lời, "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem.
 
 Chip lọc sinh theo căn thật: Tùng (bản Zalo, 04/11/2026) "bạn tự quyết nhé, đúng logic là ok".
 
@@ -170,7 +169,7 @@ Tiêu chí:
 
 Hình: `python3 docs/thiet-ke/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
-- **CN1 · Lịch tháng.** Đúng bố cục. Danh sách sắp tới trên hình có 4 dòng; đủ 6 dòng khi kéo xuống. Nút "Gửi lịch cho sale" thuộc US5.
+- **CN1 · Lịch tháng.** Đúng bố cục. Danh sách sắp tới trên hình có 4 dòng; đủ 6 dòng khi kéo xuống. Nút "Gửi lịch cho sale" thuộc YC6.
 - **CN1-00 · Chưa có đặt phòng.** Đúng.
 - **CN1-01 · Chưa có đặt phòng sắp tới.** Đúng.
 - **CN1-02 · Ba căn.** Dòng nhỏ ghi "20 đêm có khách · 3 căn": theo YC2.3, không ghi số căn.

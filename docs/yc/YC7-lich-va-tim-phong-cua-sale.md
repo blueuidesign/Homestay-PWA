@@ -37,7 +37,7 @@ Không thuộc YC này (dễ tưởng là có):
 |---|---|---|
 | Căn của tôi đứng đầu | Căn của chính sale luôn ở nhóm đầu, dù sắp xếp thế nào | "CĂN CỦA TÔI · 2" trên "NGUỒN PHÒNG · 5" |
 | Nhóm tự nhập riêng ở kết quả tìm | Kết quả tìm tách căn tự nhập thành nhóm riêng "TỰ NHẬP · chưa biết lịch", không chung với "CỦA TÔI", không tính vào số căn trống (Tùng, bản Zalo, 04/11/2026, điểm 7: "Phương án tách") | Không |
-| Ô ngày ghi giá bán | Ô ngày trống ở lịch của sale ghi giá bán một đêm (giá chủ nhà + mức cộng, giả định GD16), rút gọn như Giá rút gọn (YC2) | "1,5tr" |
+| Ô ngày ghi giá bán | Ô ngày trống ở lịch của sale ghi giá bán một đêm (giá chủ nhà + mức cộng, giả định GD16), viết rút gọn theo `docs/luat-chung/Tu_dien.md` | "1,5tr" |
 | Độ tươi lịch | Mỗi căn của chủ nhà ghi lần lịch hay giá đổi gần nhất; căn của chính sale ghi "Lịch của bạn, luôn đúng" | "Lịch cập nhật 2 giờ trước" |
 | Sắp xếp | "Theo tên", "Giá tăng dần" (theo giá đêm đầu, căn không có giá xếp cuối), "Bán nhiều nhất" ([MỞ: CH-071]). Căn của tôi vẫn ở trên | Không |
 | Chạm căn mở đâu | Chạm căn của chủ nhà mở S3; chạm căn của tôi mở S6-07, căn tự nhập mở S6-03 (YC10) (Tùng, bản Zalo, 04/11/2026, điểm 11; giả định GD22) | Không |

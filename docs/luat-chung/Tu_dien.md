@@ -40,4 +40,4 @@ Dùng đúng các từ dưới đây trong màn, tài liệu và tên trong code
 
 **Lý do từ chối yêu cầu:** Đã có khách đặt, Đang sửa phòng, Lý do khác.
 
-**Viết số tiền:** đầy đủ "1.300.000đ". Rút gọn trên lưới và biểu đồ: dưới một triệu "900k", từ một triệu "1,1tr", "13.4tr" trên biểu đồ (theo thiết kế).
+**Viết số tiền:** đầy đủ "1.300.000đ". Rút gọn trên lưới lịch, ô giá: dưới một triệu ghi "k" ("900k"), từ một triệu ghi "tr" kèm dấu phẩy ("1,1tr", "1,15tr"). Trên biểu đồ thống kê ghi một số lẻ với dấu chấm ("13.4tr"), theo thiết kế.

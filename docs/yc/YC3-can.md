@@ -81,7 +81,7 @@ Bản 1 · rủi ro: tb · Màn: A4, A4-01, CN5
 | 7 | Chủ nhà chưa có căn mở tab Lịch hay tab Căn | A4: "Chưa có căn nào", câu "Thêm căn đầu tiên để bắt đầu ghi lịch và mời sale xem phòng trống.", nút "Thêm căn đầu tiên", khối "3 BƯỚC ĐỂ BẮT ĐẦU" (1 "Thêm căn và ảnh", 2 "Đặt giá", 3 "Mời sale xem lịch"), mẹo "💡 Có sổ lịch cũ? Thêm căn trước, sau đó nhập các đặt phòng sắp tới." | Đọc căn chưa ẩn của mình: không có dòng nào |
 | 8 | Bấm "Thêm căn đầu tiên" hay dòng "Thêm căn và ảnh" | Mở form Thêm căn (CN5-A1) | Không |
 
-Chủ nhà vừa đồng ý cho một sale xem lịch ở A8 mà chưa có căn: A4-01, như A4 có thêm dải xanh "✓ Bạn đã cho Sale Hùng xem lịch. Thêm căn để Sale Hùng thấy phòng trống." (đường tới màn này: US5).
+Chủ nhà vừa đồng ý cho một sale xem lịch ở A8 mà chưa có căn: A4-01, như A4 có thêm dải xanh "✓ Bạn đã cho Sale Hùng xem lịch. Thêm căn để Sale Hùng thấy phòng trống." (đường tới màn này: YC6).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -110,12 +110,12 @@ Bản 1 · rủi ro: cao · Màn: CN5-A1, CN5-A3, CN5-A4, CN5-A4b
 | 15 | Mở form | CN5-A1, tiêu đề "Thêm căn": ô "Mã căn (tên căn hộ) *", hàng chip "Số phòng ngủ *" ("Studio", "1PN", "2PN", "3PN", "4PN+"), mục "ẢNH" ("Bạn có thể thêm sau"), dòng "Thêm tòa nhà, mô tả gửi khách, view..." đang thu gọn, nút "Thêm căn" ở thanh dưới | Không |
 | 16 | Chưa có mã căn hay số phòng ngủ | Nút "Thêm căn" không bấm được, dòng "Còn thiếu: mã căn, số phòng ngủ" (chỉ nêu ô còn thiếu) | Không |
 | 17 | Đã có mã căn và số phòng ngủ | Dòng "Đủ thông tin. Ảnh, giá thêm sau cũng được.", nút sáng | Không |
-| 18 | Bấm "Thêm căn" | Nút chuyển trạng thái đang lưu, không bấm lại được | Lệnh tạo căn: kiểm dữ liệu (mục Luật kiểm), ghi căn với người giữ là người gọi; có ảnh thì gắn theo thứ tự ; mã trùng căn chưa ẩn của chính người gọi thì từ chối. Trigger ghi thông báo "chủ nhà thêm căn" cho sale được chia sẻ "tất cả căn" (hiển thị: US21) |
+| 18 | Bấm "Thêm căn" | Nút chuyển trạng thái đang lưu, không bấm lại được | Lệnh tạo căn: kiểm dữ liệu (mục Luật kiểm), ghi căn với người giữ là người gọi; có ảnh thì gắn theo thứ tự ; mã trùng căn chưa ẩn của chính người gọi thì từ chối. Trigger ghi thông báo "chủ nhà thêm căn" cho sale được chia sẻ "tất cả căn" (hiển thị: YC1) |
 | 19 | (lưu được) | Về CN5 (CN5-A4 khi đây là căn đầu tiên, CN5-A4b khi đã có căn khác). Toast "Đã thêm phòng 1509". Thẻ căn mới đứng đầu, có nhãn "Mới thêm" | Không |
 | 20 | (database từ chối) | CN5-A3: ở lại form, giữ mọi ô, dòng đầu "Chưa thêm được căn. Sửa <số> chỗ bên dưới.", câu lỗi ngay dưới ô sai (ví dụ "Đã có căn 1509. Kiểm tra lại mã căn.") | Trả lỗi P0001 kèm câu |
 | 21 | (mất mạng hay quá 15 giây không có trả lời) | Ở lại form, giữ dữ liệu, toast "Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại." | Xem dòng dưới bảng |
 
-Bấm lại sau mất mạng có thể tạo căn hai lần nếu lần trước thực ra đã lưu. Lần thứ hai bị chặn bởi luật mã căn không trùng và báo "Đã có căn 1509". Chống gửi trùng bằng mã lần gửi cho tạo căn: [MỞ: US1-H6].
+Bấm lại sau mất mạng có thể tạo căn hai lần nếu lần trước thực ra đã lưu. Lần thứ hai bị chặn bởi luật mã căn không trùng và báo "Đã có căn 1509". Chống gửi trùng bằng mã lần gửi cho tạo căn: [MỞ: YC3-H6].
 
 Còn ảnh đang tải hay tải lỗi thì không bấm được "Thêm căn" (mục Ảnh căn).
 
@@ -187,7 +187,7 @@ Bản 1 · rủi ro: thấp · Màn: CN5-A1 (phần mở rộng), CN5-A1b
 | 33 | Chạm "+ Thêm tòa mới …" | Tòa mới được chọn cho căn | Lệnh thêm tòa: thêm tòa vào danh sách chung, không cần duyệt. Tên trùng một tòa đã có (không phân biệt hoa thường) thì trả tòa đã có (giả định GD21) |
 | 34 | Bấm "Thu gọn" | Ẩn phần thêm, giữ giá trị đã nhập | Không |
 
-Phần này không bắt buộc. Số giường không vào dòng "Còn thiếu". Chọn được một loại view cho một căn ([MỞ: CH-018]). Khu vực của tòa người dùng thêm: [MỞ: US1-H5]; tới khi có câu trả lời, tòa mới không có khu vực.
+Phần này không bắt buộc. Số giường không vào dòng "Còn thiếu". Chọn được một loại view cho một căn ([MỞ: CH-018]). Khu vực của tòa người dùng thêm: [MỞ: YC3-H5]; tới khi có câu trả lời, tòa mới không có khu vực.
 
 Tiêu chí:
 - **YC3.4-NT1** Khi chủ nhà gõ "green" vào ô tên tòa ở CN5-A1b, thì danh sách chỉ còn "Green Bay" và có dòng "+ Thêm tòa mới "green"". · unit
@@ -201,7 +201,7 @@ Bản 1 · rủi ro: cao · Màn: CN5-02
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 35 | Chạm một thẻ ở CN5 | CN5-02, tiêu đề "Sửa phòng 1509", hai tab "Thông tin" và "Giá" (tab Giá: US4). Tab Thông tin điền sẵn mọi ô của căn: mã căn, số phòng ngủ, ảnh theo thứ tự, tòa, loại view, số giường, mô tả | Đọc căn và ảnh |
+| 35 | Chạm một thẻ ở CN5 | CN5-02, tiêu đề "Sửa phòng 1509", hai tab "Thông tin" và "Giá" (tab Giá: YC4). Tab Thông tin điền sẵn mọi ô của căn: mã căn, số phòng ngủ, ảnh theo thứ tự, tòa, loại view, số giường, mô tả | Đọc căn và ảnh |
 | 36 | Bấm "Đổi thứ tự" ở mục ảnh | Mỗi ảnh có nút đưa lên trước, ra sau. Ảnh số 1 là ảnh đại diện | Không |
 | 37 | Thêm, bỏ ảnh | Như mục Ảnh căn | Như mục Ảnh căn |
 | 38 | Sửa các ô khác | Như form thêm. Xóa trống ô số giường là bỏ số giường | Không |
@@ -209,7 +209,7 @@ Bản 1 · rủi ro: cao · Màn: CN5-02
 | 40 | (database từ chối) | Ở lại, giữ dữ liệu, câu lỗi dưới ô sai như bước 20 | Trả lỗi P0001 kèm câu |
 | 41 | Bấm quay lại khi đã sửa mà chưa lưu | Hỏi "Bỏ thay đổi chưa lưu?" với hai nút "Bỏ thay đổi" và "Ở lại" | Không |
 
-Bỏ một ảnh ở CN5-02 có hỏi lại không: [MỞ: US1-H4]. Tới khi có câu trả lời, không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi").
+Bỏ một ảnh ở CN5-02 có hỏi lại không: [MỞ: YC3-H4]. Tới khi có câu trả lời, không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi").
 
 Tiêu chí:
 - **YC3.5-NT1** Khi chủ nhà mở sửa căn 1509, thì các ô hiện đúng mã căn, số phòng ngủ, ảnh theo thứ tự, tòa, loại view, số giường, mô tả hiện có. · unit
@@ -222,7 +222,7 @@ Tiêu chí:
 
 Bản 1 · rủi ro: cao · Màn: chưa có hình
 
-Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). Vị trí nút, màn sau khi xóa: [MỞ: US1-H3]. Có hỏi lại trước khi xóa không: [MỞ: CH-021]. Hai câu này chỉ chặn phần giao diện; phần database làm được ngay.
+Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). Vị trí nút, màn sau khi xóa: [MỞ: YC3-H3]. Có hỏi lại trước khi xóa không: [MỞ: CH-021]. Hai câu này chỉ chặn phần giao diện; phần database làm được ngay.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -231,7 +231,7 @@ Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). Vị trí nút, m
 | 44 | (không còn) | Căn biến khỏi CN5, lịch CN1 và CN2, chip "Phòng" ở form đặt phòng (CN4), danh sách chọn căn khi đặt giá nhiều căn và sao chép giá (CN6-05, CN6-07) | Lệnh xóa căn ghi lúc ẩn. Đặt phòng, tiền từng đêm, thống kê giữ nguyên. Từ lúc đó căn không còn trong danh sách căn sale được xem (PQ17) nên sale không còn thấy căn ở lịch, tìm phòng, chi tiết căn |
 | 45 | Thêm căn mới cùng mã với căn đã xóa | Thêm được | Mã của căn đã ẩn không tính khi kiểm trùng |
 
-Không báo cho sale khi căn bị xóa. Bản đầu không có cách hiện lại căn đã xóa. Đặt phòng cũ của sale với căn đã xóa vẫn ở danh sách và thống kê của sale (US18). Căn đã xóa có tính vào mẫu số công suất không: [MỞ: CH-029] (US18).
+Không báo cho sale khi căn bị xóa. Bản đầu không có cách hiện lại căn đã xóa. Đặt phòng cũ của sale với căn đã xóa vẫn ở danh sách và thống kê của sale (YC11). Căn đã xóa có tính vào mẫu số công suất không: [MỞ: CH-029] (YC11).
 
 Xóa căn: "Căn còn đặt phòng sắp tới". Căn không có, đã xóa, hay của người khác: lỗi quyền (mã 42501), app hiện "Có lỗi xảy ra. Bạn thử lại sau ít phút." để không lộ căn có tồn tại hay không.
 

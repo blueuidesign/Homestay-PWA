@@ -39,7 +39,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Chưa thu tiền | Đặt phòng chưa hủy, trạng thái tiền "Chưa cọc". Số tiền là tiền phòng ([MỞ: CH-031] có gồm phần còn lại của đặt phòng đã cọc không) | 1.900.000đ + 1.800.000đ = 3.700.000đ |
 | Đặt phòng của sale | Đặt phòng có sale đứng tên: thành từ yêu cầu, chủ nhà ghi cho sale (YC5.2), sale tự ghi cho căn tự nhập (YC10.4). Yêu cầu chưa được chấp nhận không tính (QT3.1) | 6 đặt phòng |
 
-Quy tắc dùng chung: QT2.1, QT2.2, QT3.1, QT3.2, QT4.2; Trạng thái tiền đặt phòng (`docs/luat-chung/Nghiep_vu.md`); Giá rút gọn (`docs/luat-chung/Tu_dien.md`).
+Quy tắc dùng chung: QT2.1, QT2.2, QT3.1, QT3.2, QT4.2; Trạng thái tiền đặt phòng (`docs/luat-chung/Nghiep_vu.md`); Viết số tiền rút gọn (`docs/luat-chung/Tu_dien.md`).
 
 ## Ai được làm gì
 
