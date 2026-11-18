@@ -1,7 +1,7 @@
 # US39 · Phát hành: production, tên miền, sao lưu, theo dõi lỗi
 
 - Loại: kỹ thuật
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao

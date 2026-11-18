@@ -1,7 +1,7 @@
 # US41 · Viết lại đặc tả thô của các story theo khuôn
 
 - Loại: kỹ thuật
-- Trạng thái: đang làm
+- Trạng thái: chờ code
 - Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao (story sai thì code sai theo)

@@ -1,7 +1,7 @@
 # US33 · Chọn tỉnh lúc onboarding, danh sách tòa nhà lọc theo tỉnh và xếp theo chữ cái
 
 - Loại: tính năng
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: tb

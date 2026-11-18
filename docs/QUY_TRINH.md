@@ -34,7 +34,7 @@ Mỗi loại thông tin có một chỗ ở duy nhất. Chỗ khác cần nhắc
 
 | Thông tin | Chỗ ở duy nhất | Sống hay đóng băng |
 |---|---|---|
-| Một tính năng phải làm gì: bảng bước, chữ trên màn, tiêu chí nghiệm thu, luật kiểm, quyền | Story của tính năng đó, `docs/stories/US<n>-….md` | Sống tới khi merge, rồi đóng băng |
+| Một nhóm chức năng phải làm gì: bảng bước, chữ trên màn, tiêu chí nghiệm thu, luật kiểm, quyền | Story của nhóm chức năng đó, `docs/stories/US<n>-….md` | Sống suốt dự án (mục 5) |
 | Thứ tự làm, trạng thái từng story, story nào thay story nào | `docs/stories/README.md` | Sống |
 | Luật dùng ở nhiều story: tính giá, chặn trùng (QT), quyền (PQ), hành vi mọi màn (HV), luật chung của database, từ ngữ, dữ liệu mẫu, khác biệt PWA và Zalo | `docs/luat-chung/` | Sống |
 | Lý do: vì sao chọn cách này, đã cân phương án nào | `docs/Quyet_dinh.md` | Sống, chỉ thêm |
@@ -47,9 +47,9 @@ Mỗi loại thông tin có một chỗ ở duy nhất. Chỗ khác cần nhắc
 | Kịch bản kiểm tay | `tests/kich-ban/US<n>.md` | Sống |
 | Tài liệu tham khảo cho bản Zalo, pháp lý, bảo mật | `docs/zalo/`, `docs/phap-ly/`, `docs/bao-mat.md` | Đóng băng, đọc khi cần |
 
-Không có loại ở giữa. Một tài liệu hoặc được sửa trong cùng PR với code, hoặc đã đóng băng và thua test.
+Không có loại ở giữa. Một tài liệu hoặc sống (luôn đúng với hiện tại, phần chưa làm được đánh dấu rõ), hoặc đã đóng băng và thua test.
 
-**Thứ tự tin khi hai nguồn lệch nhau:** `Quyet_dinh.md` (mục mới nhất) → `docs/luat-chung/` → story → thiết kế → code. Thấy lệch thì dừng phần đó, hỏi Tùng, không tự chọn bên nào. Riêng với tính năng đã merge: test là sự thật, story đã đóng băng chỉ còn là lịch sử.
+**Thứ tự tin khi hai nguồn lệch nhau:** `Quyet_dinh.md` (mục mới nhất) → `docs/luat-chung/` → story → thiết kế → code. Thấy lệch thì dừng phần đó, hỏi Tùng, không tự chọn bên nào. Story và test lệch nhau ở phần không ghi "chờ code": đó là lỗi, CI phải đã báo (mục 5.2); dừng, hỏi Tùng bên nào đúng.
 
 **Lý do ghi ở đâu:**
 - Lý do đổi hướng sản phẩm hay kỹ thuật: một mục trong `Quyet_dinh.md` (bối cảnh, phương án, chọn gì, vì sao, hệ quả). Tiêu chí để biết có đáng ghi không: sau này một người hợp lý có thể muốn sửa ngược lại.
@@ -71,8 +71,8 @@ Không có loại ở giữa. Một tài liệu hoặc được sửa trong cùn
 | C5 | Không trỏ ra ngoài repo (thư mục máy, file tạm, repo cũ) |
 | C6 | Mỗi tiêu chí định nghĩa đúng một lần; không tiêu chí nào trong bảng đổi mã bị mất |
 | C7 | Mỗi thẻ MỞ có mã và có dòng trong `Cau_hoi_mo.md`; dòng câu hỏi không còn chỗ dùng thì báo |
-| C8 | Trạng thái story trong file khớp `docs/stories/README.md` |
-| C9 | Story có dòng "Đặc tả"; đặc tả thô không ở trạng thái đang làm hay xong; story đã viết lại không còn mục nguyên liệu thô |
+| C8 | Trạng thái story trong file khớp `docs/stories/README.md`; khớp mục "Thay đổi chưa xong" và đuôi tiêu chí; story chờ test hay xong thì mọi tiêu chí có test (mục 5.2) |
+| C9 | Story có dòng "Đặc tả"; đặc tả thô chỉ ở trạng thái chờ code; story đã viết lại không còn mục nguyên liệu thô |
 | C11 | Không có email, số điện thoại thật |
 
 Kiểm code (C12): CI chạy kiểm kiểu, unit test, build, E2E chế độ thử, test database, thử làm hỏng, và so `docs/tu-sinh/Bang_va_cot.md` với migration.
@@ -92,7 +92,15 @@ Mọi việc đều là story, phân biệt bằng dòng "Loại":
 | lỗi | App chạy sai so với một tiêu chí đã có | Đêm thứ Bảy tính giá ngày thường |
 | kỹ thuật | Không đổi hành vi người dùng thấy | Đăng nhập, dựng nền, phát hành |
 
-Ba trạng thái: **chưa làm**, **đang làm**, **xong**. "Xong" nghĩa là: mọi tiêu chí có test xanh, PR đã merge, đã kiểm tay luồng chính trên điện thoại thật. Chưa code, chưa test, test đỏ đều là chưa xong.
+Ba trạng thái (QD-019):
+
+| Trạng thái | Nghĩa |
+|---|---|
+| **chờ code** | Story có phần chưa code, hoặc code chưa có đủ test tự động. Story chưa từng được code thì cả story ở trạng thái này |
+| **chờ test** | Mọi phần đã code, có test tự động xanh, đã merge; chưa kiểm tay trên điện thoại thật |
+| **xong** | Mọi phần đã code, có test tự động xanh, đã kiểm tay luồng chính trên điện thoại thật |
+
+Chưa code, chưa test, test đỏ đều là chưa xong. Story sửa thêm sau khi đã "xong" thì về lại "chờ code" (mục 5).
 
 Không chạy sprint. Làm theo thứ tự ở `docs/stories/README.md`.
 
@@ -104,13 +112,14 @@ Mẫu đã duyệt: `docs/stories/US3-ghi-booking.md` (Tùng duyệt 18/11/2026)
 # US<n> · <Tên: ai làm được gì>
 
 - Loại: tính năng | thiết kế | lỗi | kỹ thuật
-- Trạng thái: chưa làm | đang làm | xong
+- Trạng thái: chờ code | chờ test | xong
 - Đặc tả: đã viết lại | thô (…)
 - Bản: 1 | sau
 - Rủi ro: cao | tb | thap      (cao: chạm tiền, quyền, chặn trùng, dữ liệu người dùng)
 - Làm sau khi xong: US…
 - Kiểm tay: tests/kich-ban/US<n>.md
 
+## Thay đổi chưa xong  (chỉ có khi story đã từng được code) Mỗi lần sửa một dòng: ngày · đổi gì · tiêu chí mới, đổi, bỏ · chờ code | chờ test. Xem mục 5.
 ## Mục tiêu            Là <ai>, tôi muốn <gì>, để <được gì>. Thêm một đoạn: vì sao việc này quan trọng.
 ## Luồng chính         Văn xuôi, kể một lần dùng từ đầu tới cuối với số của bộ mẫu (hôm nay 07/10/2026). Cả nhánh lỗi quan trọng nhất.
 ## Phạm vi             "Story này làm" và "Không làm (dễ tưởng thuộc story này)", mỗi dòng ghi story nào làm.
@@ -145,38 +154,45 @@ Luật viết:
 - Viết lại không đổi nghĩa tiêu chí. Mã tiêu chí giữ nguyên; tiêu chí thêm mới thì cấp số tiếp theo. Tiêu chí chuyển sang story khác thì giữ mã cũ và ghi rõ trong commit.
 - Thấy nguyên liệu mâu thuẫn nhau hay mâu thuẫn với `Quyet_dinh.md`: dừng phần đó, hỏi Tùng.
 
-### 4.3 Story đóng băng sau khi merge
+## 5. Story sống suốt dự án (QD-019)
 
-Story đã merge không sửa nữa, kể cả khi tính năng đổi về sau. Lý do: nó là bản ghi của việc đã làm; sửa nó thì không còn biết lúc đó đã làm theo cái gì. Sự thật của tính năng đã merge là test và code.
+Mỗi nhóm chức năng có một story, giữ suốt quá trình làm. Story luôn mô tả hành vi **mong muốn hiện tại** của nhóm chức năng đó. Đọc story là biết tính năng phải chạy thế nào, không phải ghép nhiều mảnh.
 
-Ngoại lệ duy nhất: sửa dòng Trạng thái, và sửa lỗi chính tả không đổi nghĩa.
+Lý do không đóng băng: yêu cầu của Home247 đổi thường xuyên sau khi kiểm tay và dùng thử. Đóng băng thì mỗi lần đổi sinh một story mới, mô tả một tính năng rải qua nhiều file. Lỗi mà đóng băng định chặn (story nói một đằng, code làm một nẻo) được chặn bằng hai cách dưới đây.
 
-## 5. Đổi một tính năng đã xong
+### 5.1 Sửa story
 
-Viết story mới, không sửa story cũ. Story mới phải tự đủ: phiên code chỉ đọc story mới, không phải đọc lại story cũ.
+Story sửa được bất cứ lúc nào, kể cả trước khi code. Story **chưa từng được code** (trạng thái "chờ code", chưa có mục "Thay đổi chưa xong"): sửa thẳng, không cần ghi chú.
 
-```markdown
-# US<n> · <Đổi gì>
+Story **đã từng được code** (đã qua "chờ test" hoặc "xong"): sửa thẳng nội dung, và cùng lúc:
+1. Thêm một dòng vào mục **"Thay đổi chưa xong"** ở đầu story:
+   `- 25/11/2026 · Đổi cách tính ngày trả khi chọn "Tùy chọn" · mới: US3-NT25 · đổi: US3-NT8 → US3-NT26 · bỏ: US3-NT9 · chờ code`
+2. Tiêu chí bị đổi nghĩa thì **xóa dòng cũ, thêm dòng mới với mã mới**. Mã cũ không bao giờ quay lại với nghĩa khác. Tiêu chí mới hay vừa đổi thì thêm đuôi ` · chờ code` vào dòng đó.
+3. Chuyển Trạng thái về **"chờ code"** ở story và ở `docs/stories/README.md`.
+4. Lý do đổi lớn (một người hợp lý sau này có thể muốn đổi ngược lại): ghi thêm một mục ở `docs/Quyet_dinh.md`.
 
-## Hiện tại          Tính năng đang chạy thế nào. Lấy từ code và test, không lấy từ story cũ. Ghi tên test đang kiểm nó.
-## Đổi thành         Hành vi mới, viết đủ như một story thường (bảng bước, chữ trên màn).
-## Tiêu chí nghiệm thu   Tiêu chí mới, mã mới.
-## Test bị đổi        Từng test cũ sẽ sửa hoặc xóa, kèm mã tiêu chí cũ và lý do.
-```
+Code xong phần đó (test tự động xanh, merge): đổi đuôi thành ` · chờ test`, đổi chữ cuối dòng trong "Thay đổi chưa xong" thành "chờ test", Trạng thái thành "chờ test". Kiểm tay xong: xóa đuôi, xóa dòng trong "Thay đổi chưa xong" (lịch sử nằm trong git), Trạng thái thành "xong" nếu không còn dòng nào.
 
-Luật với test khi đổi tính năng:
+Phiên code đọc mục "Thay đổi chưa xong" để biết lần này làm gì; đọc phần còn lại của story để biết phần nào không được làm hỏng.
+
+### 5.2 Máy giữ story và test khớp nhau
+
+`scripts/kiem-tai-lieu.py` kiểm:
+- Trạng thái khớp với mục "Thay đổi chưa xong" và đuôi của các tiêu chí.
+- Story ở "chờ test" hay "xong": mọi tiêu chí không mang đuôi "chờ code" đều có test mang mã đó trong `tests/` hoặc `src/`.
+- Test mang mã tiêu chí mà tiêu chí đó không còn ở story nào: lỗi. Sửa story mà quên sửa test (hoặc ngược lại) thì CI đỏ.
+
+### 5.3 Test khi sửa story
 
 | Tình huống | Làm gì với test |
 |---|---|
 | Hành vi không đổi | Test cũ giữ nguyên và phải xanh. Đây là lưới bắt lỗi lan |
-| Hành vi mới thêm | Viết test mới |
-| Hành vi đổi | Sửa kỳ vọng của test cũ trong cùng PR, sửa test trước rồi mới sửa code. Chỉ được sửa test mà story nêu tên ở mục "Test bị đổi" |
-| Luật bị bỏ | Xóa test, ghi mã QD trong PR |
+| Hành vi mới thêm | Viết test mới, mã mới |
+| Hành vi đổi | Đổi tên test sang mã mới và sửa kỳ vọng trong cùng PR, sửa test trước rồi mới sửa code |
+| Luật bị bỏ | Xóa test cùng PR với việc xóa tiêu chí khỏi story |
 
 - Không bao giờ tắt hay bỏ qua test (`skip`, chú thích lại, xóa lệnh kiểm) để cho qua.
-- Tiêu chí đổi nghĩa thì cấp mã mới. Mã cũ không bao giờ đổi nghĩa và không dùng lại.
-- Người merge xem phần thay đổi dưới `tests/` trước tiên. Test bị sửa mà story không nêu tên thì không merge.
-- Ghi vào `docs/stories/README.md` mục "Story nào thay story nào".
+- Người merge xem diff của story và diff dưới `tests/` cùng lúc: hai bên phải nói cùng một thay đổi.
 
 ## 6. Test
 
@@ -205,7 +221,7 @@ Thiết kế là một file canvas HTML ở `docs/thiet-ke/canvas/`. Không có 
 - Mỗi mã màn có đúng một hình trên canvas. Xem một màn: `python3 docs/thiet-ke/trich-man.py <mã>`. Không mở cả file canvas.
 - Màn chưa code: sửa thẳng hình đó.
 - Màn đã code, chỉnh nhỏ (khoảng cách, màu, cỡ chữ): sửa code, không cần sửa canvas.
-- Màn đã code, vẽ lại lớn: thay hình cũ bằng hình mới, giữ mã màn, kèm một story mới.
+- Màn đã code, vẽ lại lớn: thay hình cũ bằng hình mới, giữ mã màn, ghi một dòng "Thay đổi chưa xong" ở story của màn đó.
 - Trạng thái hay biến thể mới: mã màn mới (`S2-00`, `S2-01`).
 - Hai phương án để chọn: vẽ tạm cả hai, Tùng chọn xong thì xóa phương án thua. Lịch sử nằm trong git.
 - Vẽ màn của một tính năng là một việc trong story tính năng đó. Chỉ mở story loại "thiết kế" khi hình vẽ trải trên nhiều story.
@@ -225,21 +241,21 @@ Thiết kế là một file canvas HTML ở `docs/thiet-ke/canvas/`. Không có 
 
 1. Đọc `CLAUDE.md`, rồi story. Chỉ đọc thêm những gì story trỏ tới bằng mã.
 2. Kiểm điều kiện: các story ở "Làm sau khi xong" đã xong; không còn thẻ `[MỞ]` chặn phần định làm. Còn thì hỏi Tùng trước.
-3. Tạo nhánh `US<n>-<tên-ngắn>`. Đổi Trạng thái thành "đang làm".
+3. Tạo nhánh `US<n>-<tên-ngắn>`. Story chưa từng được code thì làm cả story; đã từng được code thì làm đúng các dòng ở "Thay đổi chưa xong".
 4. Viết test cho từng tiêu chí, chạy thấy đỏ.
 5. Code cho tới khi test xanh. Database trước, giao diện sau.
 6. Chạy đủ: `scripts/test-db.sh`, `scripts/thu-lam-hong.sh`, `npm run typecheck`, `npm test`, `npm run build`.
 7. Mở PR theo mẫu ở phụ lục A. Vercel tạo bản xem thử cho PR, trỏ vào staging.
 8. Tùng mở bản xem thử trên điện thoại, kiểm luồng chính. Tùng bảo merge thì Claude soát điều kiện ở mục 10 rồi merge; hoặc Tùng tự bấm merge.
 9. Đức kiểm tay theo `tests/kich-ban/US<n>.md`. Lỗi thì mở story loại "lỗi".
-10. Đổi Trạng thái thành "xong" ở story và ở `docs/stories/README.md`.
+10. Đổi Trạng thái (mục 4.1, 5.1) ở story và ở `docs/stories/README.md`.
 
-Gặp việc ngoài phạm vi story: không làm luôn. Ghi thành story mới (chưa làm) hoặc một dòng trong `Cau_hoi_mo.md`.
+Gặp việc ngoài phạm vi story: không làm luôn. Sửa story của nhóm chức năng đó (mục 5.1), hoặc ghi một dòng trong `Cau_hoi_mo.md`.
 
 ## 10. Git và pull request
 
 - Code luôn trên nhánh và PR, kể cả sửa nhỏ. Một PR một story.
-- Tài liệu sống không kèm code (story mới, câu hỏi, quyết định, kết quả kiểm tay) được đẩy thẳng `main`.
+- Tài liệu sống không kèm code (sửa story trước khi code, câu hỏi, quyết định, kết quả kiểm tay) được đẩy thẳng `main`.
 - Commit tiếng Việt, mở đầu bằng mã story: `US12: tìm phòng trả căn trống theo ngày`.
 - Không đẩy ép. Không tắt hay sửa test để cho qua.
 
@@ -247,7 +263,7 @@ Gặp việc ngoài phạm vi story: không làm luôn. Ghi thành story mới (
 
 Trước khi merge, Claude soát và chỉ merge khi đủ cả:
 1. CI xanh trên commit mới nhất của PR, không xung đột với `main`.
-2. Thay đổi dưới `tests/`: không test nào bị tắt hay nới; test bị sửa hoặc xóa đều có tên ở mục "Test bị đổi" của story.
+2. Thay đổi dưới `tests/`: không test nào bị tắt hay nới; mỗi test sửa hoặc xóa ứng với một tiêu chí đổi hoặc bỏ trong story của PR.
 3. PR đổi phân quyền (policy, view hay hàm trả dữ liệu cho sale, ô trong `PQ.md`): Tùng đã duyệt bằng lời nói rõ cái được đổi.
 4. PR có migration: đã chạy được trên staging.
 
@@ -294,7 +310,7 @@ Tiếng Việt, ngắn như nói chuyện, kết luận trước. Câu đầu t�
 
 - [ ] CI xanh.
 - [ ] Đã mở bản xem thử trên điện thoại, đi hết luồng chính.
-- [ ] Đã xem thay đổi dưới `tests/`: không có test bị tắt; test bị sửa đều có tên trong story.
+- [ ] Đã xem diff của story và diff dưới `tests/` cùng lúc: không có test bị tắt; mỗi test đổi hay xóa ứng với một tiêu chí đổi hay xóa trong story.
 - [ ] Có migration: đã chạy trên staging, `docs/tu-sinh/Bang_va_cot.md` đã sinh lại.
 - [ ] Đổi phân quyền: Tùng đã duyệt bằng lời nói rõ.
 - [ ] Story và `docs/stories/README.md` đã đổi trạng thái.

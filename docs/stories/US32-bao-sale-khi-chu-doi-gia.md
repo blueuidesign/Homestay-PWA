@@ -1,7 +1,7 @@
 # US32 · Báo sale khi chủ nhà đổi giá căn sale đã gửi khách, ghi chú giá mới đổi trong 2 tuần
 
 - Loại: tính năng
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: cao

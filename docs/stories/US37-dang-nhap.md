@@ -1,7 +1,7 @@
 # US37 · Đăng nhập bản PWA
 
 - Loại: kỹ thuật
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao

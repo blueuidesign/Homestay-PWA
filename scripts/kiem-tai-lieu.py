@@ -22,6 +22,9 @@ stories = sorted(glob.glob('docs/stories/US*.md'), key=lambda p: int(re.search(r
 US = {os.path.basename(p).split('-')[0] for p in stories}
 
 # ---- Các tập mã có thật ----
+CO_TEST = set()
+for _p in CODE:
+    CO_TEST |= set(re.findall(r'\b(?:US\d+|HV\d+)-NT\d+\b', open(_p, encoding='utf-8').read()))
 nt = {}
 for p in stories:
     for m in re.finditer(r'(?m)^- \*\*((?:US\d+|HV\d+)-NT\d+)\*\*', doc(p)):
@@ -62,7 +65,7 @@ for p in SONG:
             canh_bao.append(f'C2 {p}: mã màn {c} không có trong docs/thiet-ke/README.md')
 for p in CODE:
     for c in set(re.findall(r'\b(?:US\d+|HV\d+)-NT\d+\b', doc(p))) - set(nt):
-        canh_bao.append(f'C2 {p}: test nhắc tiêu chí {c} không có ở story nào')
+        loi.append(f'C2 {p}: test hay code nhắc tiêu chí {c} không còn ở story nào (sửa story thì sửa test cùng PR, QUY_TRINH 5.3)')
 
 # C3. Đường dẫn tồn tại
 for p in SONG:
@@ -125,7 +128,18 @@ for p in stories:
     if not m: loi.append(f'C8 {ten} không có dòng trong docs/stories/README.md'); continue
     tt = re.search(r'(?m)^- Trạng thái: (.+)$', doc(p))
     if not tt: loi.append(f'C8 {ten} thiếu dòng "- Trạng thái:"'); continue
-    if tt.group(1).strip() not in ('chưa làm', 'đang làm', 'xong'): loi.append(f'C8 {ten}: trạng thái "{tt.group(1)}" không thuộc ba trạng thái')
+    tth = tt.group(1).strip()
+    if tth not in ('chờ code', 'chờ test', 'xong'): loi.append(f'C8 {ten}: trạng thái "{tth}" không thuộc ba trạng thái chờ code, chờ test, xong')
+    s_ = doc(p)
+    dong_td = re.findall(r'(?m)^- .*· (chờ code|chờ test)\s*$', (re.search(r'(?ms)^## Thay đổi chưa xong\n(.*?)(?=^## |\Z)', s_) or [None, ''])[1] if re.search(r'(?m)^## Thay đổi chưa xong', s_) else '')
+    duoi = re.findall(r'(?m)^- \*\*(?:US\d+|HV\d+)-NT\d+\*\*.*· (chờ code|chờ test)\s*$', s_)
+    can = 'chờ code' if 'chờ code' in dong_td + duoi else ('chờ test' if 'chờ test' in dong_td + duoi else None)
+    if can and tth != can: loi.append(f'C8 {ten}: có phần "{can}" (mục Thay đổi chưa xong hay đuôi tiêu chí) mà trạng thái là "{tth}"')
+    if duoi and not dong_td: loi.append(f'C8 {ten}: có tiêu chí mang đuôi chờ mà không có dòng nào ở "Thay đổi chưa xong"')
+    if tth in ('chờ test', 'xong'):
+        for m2 in re.finditer(r'(?m)^- \*\*((?:US\d+|HV\d+)-NT\d+)\*\*(.*)$', s_):
+            if 'chờ code' in m2.group(2): continue
+            if m2.group(1) not in CO_TEST: loi.append(f'C8 {ten}: trạng thái "{tth}" mà tiêu chí {m2.group(1)} chưa có test mang mã đó')
     if f'| {tt.group(1).strip()} |' not in m.group(1): loi.append(f'C8 {ten}: trạng thái trong file ({tt.group(1).strip()}) khác trong README')
 
 # C9. Đặc tả thô được đánh dấu và không được làm
@@ -135,7 +149,7 @@ for p in stories:
     if not dt: loi.append(f'C9 {p}: thiếu dòng "- Đặc tả:"'); continue
     if dt.group(1).startswith('thô'):
         tho.append(os.path.basename(p).split('-')[0])
-        if re.search(r'(?m)^- Trạng thái: (đang làm|xong)', s): loi.append(f'C9 {p}: đặc tả thô mà trạng thái đã đang làm hay xong (QUY_TRINH 4.2b)')
+        if re.search(r'(?m)^- Trạng thái: (chờ test|xong)', s): loi.append(f'C9 {p}: đặc tả thô mà trạng thái đã chờ test hay xong (QUY_TRINH 4.2b)')
     else:
         for c in (r'(?m)^## Ai được làm và việc kéo theo', r'(?m)^## Phần của story khác'):
             if re.search(c, s): loi.append(f'C9 {p}: đã viết lại mà còn mục nguyên liệu thô')

@@ -1,7 +1,7 @@
 # US38 · Dựng nền: repo, database, app chạy bằng dữ liệu mẫu, CI
 
 - Loại: kỹ thuật
-- Trạng thái: đang làm
+- Trạng thái: chờ code
 - Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao
@@ -23,7 +23,7 @@ Là người làm dự án, tôi muốn một repo mà mở ra là làm tiếp �
 - **US38-NT4** Khi nạp `supabase/staging/du_lieu_mau.sql` vào staging, thì có đủ 5 tài khoản mẫu với căn, giá, kết nối như `docs/luat-chung/Du_lieu_mau.md`.
 - **US38-NT5** Khi Sale Hùng tải một ảnh lên Storage ở staging, thì Sale Lan (không được chia sẻ căn đó) không đọc được ảnh, và người chưa đăng nhập không đọc được ảnh.
 
-## Vì sao còn "đang làm"
+## Vì sao còn "chờ code"
 US38-NT2 đến NT5 cần tài khoản GitHub, Vercel, Supabase của Tùng (`VIEC_TAY_CUA_TUNG.md`). US38-NT1 cần CI chạy lần đầu trên GitHub. Phần giả lập Supabase trong test không chứng minh được policy của Storage và `pg_cron` chạy thật: US38-NT2 và NT5 là để kiểm điều đó.
 
 ## Ngoài phạm vi

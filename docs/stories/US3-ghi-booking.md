@@ -1,7 +1,7 @@
 # US3 · Chủ nhà ghi đặt phòng khách lẻ, chặn trùng ở database
 
 - Loại: tính năng
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao (chặn trùng, tiền)

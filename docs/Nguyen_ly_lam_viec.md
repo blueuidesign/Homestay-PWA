@@ -55,8 +55,10 @@ Vậy nên: đọc nhiều thứ nhất quán thì không sao; đọc một th�
 
 Mỗi tài liệu thuộc một trong hai loại:
 
-- **Sống:** được sửa ngay trong cùng lần đổi code. Chỉ nên có rất ít: test, quyết định, danh sách việc.
-- **Đóng băng:** dùng một lần làm nguyên liệu, sau đó không ai sửa và cũng không còn được tin hơn test. Story thuộc loại này: trước khi tính năng được làm thì story đúng; làm xong thì test và code là sự thật.
+- **Sống:** luôn đúng với hiện tại. Được sửa trong cùng lần đổi code, hoặc sửa trước khi code nhưng ghi rõ phần nào chưa làm. Ví dụ: test, quyết định, story (QD-019).
+- **Đóng băng:** dùng một lần làm nguyên liệu, sau đó không ai sửa và cũng không còn được tin hơn test. Ví dụ: tài liệu chép từ bản Zalo, bảng đổi mã cũ.
+
+Story sống được mà không thành loại ở giữa nhờ hai điều: phần chưa code được đánh dấu "chờ code" ngay trong story, và máy kiểm story với test khớp nhau ở mọi PR.
 
 Loại nguy hiểm là loại ở giữa: trông như còn sống nhưng không ai cập nhật. Người đọc và AI đều tin nó, và nó sai.
 
@@ -83,7 +85,7 @@ Bảng đầy đủ cho repo này: `docs/QUY_TRINH.md` mục 3. Tóm tắt:
 | Quy tắc quyền, giá, tiền, chặn trùng | Test, và luật trong database | Sống |
 | Cấu trúc database | File migration trong repo | Sống |
 | Lý do | File quyết định | Sống |
-| Một tính năng phải làm gì | Story của tính năng đó | Sống tới khi merge, rồi đóng băng |
+| Một nhóm chức năng phải làm gì | Story của nhóm chức năng đó | Sống suốt dự án, phần chưa làm ghi "chờ code" |
 | Luật dùng chung cho nhiều story | `docs/luat-chung/` | Sống |
 | Màn trông thế nào | Canvas thiết kế | Sống |
 | Hệ thống đang chạy thế nào | Code | Sống |

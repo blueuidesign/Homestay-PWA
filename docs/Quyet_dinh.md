@@ -21,6 +21,17 @@ Trạng thái "Đề xuất, chờ Tùng chốt" nghĩa là Claude đã làm the
 
 ---
 
+## QD-019 · 18/11/2026 · Story sống suốt dự án, mỗi nhóm chức năng một story
+- Bối cảnh: QD-015 cho story đóng băng sau khi merge, đổi tính năng thì viết story mới. Tùng thấy yêu cầu sẽ đổi khá thường xuyên sau khi kiểm tay và dùng thử; đóng băng thì một tính năng bị rải qua nhiều story, agent đọc story cũ không biết nó đã bị thay.
+- Các phương án: (A) đóng băng hẳn, chuyển story xong vào thư mục lưu trữ, sự thật là test; (B) đánh dấu "bị thay" vào story cũ; (C) story sống, sửa thẳng, ghi rõ phần chưa code, chưa test.
+- Chọn: C. Người chốt: Tùng ("cũng có thể sửa stories mà chưa code hoặc sinh test ngay. Như vậy trong US phải giữ được trạng thái là đã xong code và test hoàn toàn chưa, hay chờ code, hay chờ test. Trong US cũng cần có ghi note những phần nào mới được sửa lần này mà chưa được code hay viết test. vậy là đủ. Còn giữ US xuyên suốt quá trình làm việc cho nhóm chức năng đó", 18/11/2026). Lý do bỏ B: đánh dấu vào story cũ tạo loại tài liệu nửa sống nửa đóng băng.
+  - Ba trạng thái: chờ code, chờ test, xong.
+  - Story đã từng được code mà sửa thêm: dòng "Thay đổi chưa xong" ở đầu story, đuôi "chờ code" ở tiêu chí mới hay vừa đổi.
+  - Tiêu chí đổi nghĩa thì đổi mã. Máy kiểm story và test khớp nhau.
+- Hệ quả: `docs/QUY_TRINH.md` mục 3, 4.1, 4.2, 5 (viết lại), 7, 9, 10; `CLAUDE.md`; `docs/Nguyen_ly_lam_viec.md` nguyên lý 4; `docs/stories/README.md`; `scripts/kiem-tai-lieu.py`. Bộ story được rà lại để mỗi nhóm chức năng một story.
+- Thay cho: điểm "story đóng băng sau khi merge; đổi tính năng đã xong thì viết story mới" của QD-015
+- Trạng thái: Đang hiệu lực
+
 ## QD-018 · 18/11/2026 · Bỏ mã YC của bản Zalo khỏi repo
 - Bối cảnh: lúc dựng repo, tiêu chí và câu hỏi giữ mã cũ của bản Zalo (`YC4.1-NT1`, `YC4-H13`) để test và kịch bản không phải đổi tên. Nhưng repo không còn file YC nào, nên mã đó trỏ tới thứ không tồn tại. Tùng hỏi: "tại sao trong US3 vẫn ghi các YC, trong repo mới làm gì còn YC nữa".
 - Các phương án: (A) giữ mã YC làm tên, giải thích ở QUY_TRINH; (B) đổi hết sang mã của repo mới.

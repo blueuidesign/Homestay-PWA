@@ -1,7 +1,7 @@
 # US5 · Chủ nhà mời sale bằng link, quản lý sale và cho số điện thoại
 
 - Loại: tính năng
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao

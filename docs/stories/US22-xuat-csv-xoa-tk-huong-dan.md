@@ -1,7 +1,7 @@
 # US22 · Xuất file đặt phòng, xóa tài khoản, hướng dẫn sử dụng
 
 - Loại: tính năng
-- Trạng thái: chưa làm
+- Trạng thái: chờ code
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
