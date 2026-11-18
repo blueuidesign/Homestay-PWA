@@ -151,6 +151,7 @@ Luật viết:
 35 story chuyển từ bản Zalo được lắp bằng máy ngày 18/11/2026: đủ nguyên liệu (bảng bước, chữ trên màn, tiêu chí, luật kiểm, ai được làm, việc kéo theo, màn, quyền) nhưng chưa viết theo khuôn, còn chữ của bản Zalo và chưa đối chiếu với database. Các story này ghi `- Đặc tả: thô`.
 
 - **Không code theo story có đặc tả thô.** Viết lại trước (story US41), rồi mới làm.
+- Story thô **chưa có** nhiều quyết định Tùng đã chốt ở bản Zalo (13 điểm ngày 04/11/2026 và khoảng 150 câu nói, câu trả lời khác). Chúng nằm ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; viết lại story nào thì áp phần của story đó.
 - Viết lại không đổi nghĩa tiêu chí. Mã tiêu chí giữ nguyên; tiêu chí thêm mới thì cấp số tiếp theo. Tiêu chí chuyển sang story khác thì giữ mã cũ và ghi rõ trong commit.
 - Thấy nguyên liệu mâu thuẫn nhau hay mâu thuẫn với `Quyet_dinh.md`: dừng phần đó, hỏi Tùng.
 

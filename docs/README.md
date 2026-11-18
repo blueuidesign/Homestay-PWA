@@ -19,6 +19,7 @@ Mỗi thông tin chỉ nằm một chỗ. Bảng "cái gì ở đâu" và luật
 | `thiet-ke/` | Canvas thiết kế và công cụ xem từng màn | Khi làm giao diện |
 | `van-hanh/` | Bí mật để ở đâu, sao lưu, xử lý sự cố | Khi phát hành, khi có sự cố |
 | `bao-mat.md`, `phap-ly/`, `zalo/` | Tài liệu đóng băng chép từ bản Zalo | Khi cần; không sửa theo code |
+| `tham-khao/Loi_Tung_ban_Zalo.md` | Quyết định và câu trả lời của Tùng ở bản Zalo chưa có trong story thô. Tạm thời, xóa khi US41 xong | Khi viết lại một story (US41) |
 
 Tìm theo mã:
 
