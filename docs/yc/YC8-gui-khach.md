@@ -16,7 +16,7 @@ Vì sao quan trọng: gửi khách là việc sale làm nhiều lần mỗi ngà
 
 Ngày 06/10/2026, Sale Hùng đã tích 3 căn ở kết quả tìm 10/10 → 12/10 (YC7.3) và bấm "Gửi cho khách". Màn "Gửi cho khách" ghi "3 căn · 10/10 → 12/10". Khối 1: "ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy / 10/10 → 12/10 (2 đêm): 2.600.000đ", nút "Gửi chữ" và "Gửi 6 ảnh". Hùng bấm "Gửi chữ": bảng chia sẻ của điện thoại mở với đoạn chữ; Hùng chọn Zalo, chọn khách, gửi. Rồi bấm "Gửi 6 ảnh". Làm tiếp với Sapphire 1103 (1.600.000đ) và À La Carte 2208 (3.600.000đ).
 
-Chiều hôm đó Chị Hoa chấp nhận một yêu cầu của Sale Lan cho 1509 đêm 10/10. Hùng có thông báo "ICON40 1509 · 10/10 → 12/10 vừa có người đặt", không có tên người đặt và giá.
+Lúc 14:20 Hùng gửi yêu cầu đặt 1509 (YC9), Chị Hoa chấp nhận lúc 15:05. Hùng không có thông báo "vừa có người đặt" cho 1509, vì chính Hùng đặt. Nếu Anh Tuấn ghi một đặt phòng cho Sapphire 1103 đêm 11/10, Hùng có thông báo "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt", không có tên người đặt và giá.
 
 ## Phạm vi
 
@@ -35,7 +35,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Chỉ giá bán trong tin | Chữ gửi khách chỉ có giá bán của sale (giá chủ nhà + mức cộng), không bao giờ có giá chủ nhà | 2.600.000đ |
 | Chữ và ảnh gửi riêng | Mỗi căn gửi chữ một lần, ảnh một lần (bảng chia sẻ không chắc gửi được chữ và ảnh cùng tin) | 6 ảnh, 4 ảnh |
 | Mẫu tin gửi khách | Tin tạo từ mẫu của sale với các ô điền sẵn: [Ngày], [Số đêm], [Số căn], [Danh sách căn], [Tên sale] | "Em gửi anh chị 3 căn còn trống 10/10 → 12/10 (2 đêm)" |
-| Báo căn đã gửi có người đặt | Gửi chữ hay ảnh của một căn thì database ghi lần gửi (căn, các đêm, lúc gửi). Đặt phòng mới của người khác chiếm ít nhất một đêm đó thì báo sale một lần cho mỗi căn của mỗi lần gửi. Không báo khi chính sale đặt. Ngừng báo sau ngày nhận phòng của lần gửi. Chỉ ghi căn và ngày (QD-011) | "ICON40 1509 · 10/10 → 12/10 vừa có người đặt" |
+| Báo căn đã gửi có người đặt | Gửi chữ hay ảnh của một căn thì database ghi lần gửi (căn, các đêm, lúc gửi). Đặt phòng mới của người khác chiếm ít nhất một đêm đó thì báo sale một lần cho mỗi căn của mỗi lần gửi. Không báo khi chính sale đặt. Ngừng báo sau ngày nhận phòng của lần gửi. Chỉ ghi căn và ngày (QD-011) | "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt" |
 
 Quy tắc dùng chung: Phòng ngủ và số giường (`docs/luat-chung/Tu_dien.md`), chia sẻ trên PWA (`docs/luat-chung/PWA.md` mục P3).
 
@@ -83,7 +83,7 @@ Tiêu chí:
 - **YC8.1-NT5** Khi căn có số giường, thì chữ ghi "2PN · 3 giường"; chữ không có "x khách" và không có tiện ích. · unit
 - **YC8.1-NT6** Khi Sale Lan gửi lệnh soạn tin có Villa Tuần Châu của Hùng hay một căn đã xóa, thì database từ chối cả lệnh. · database
 - **YC8.1-NT7** Khi Chị Hoa đọc lần gửi khách của Hùng, thì không được. · database
-- **YC8.1-NT8** Khi Hùng đã gửi 1509 cho 10/10 → 12/10 và Chị Hoa chấp nhận yêu cầu của Sale Lan cho 1509 đêm 10/10, thì Hùng có đúng một thông báo "ICON40 1509 · 10/10 → 12/10 vừa có người đặt", không có tên người đặt, không có giá; Chị Hoa không có thông báo này. · database
+- **YC8.1-NT8** Khi Hùng đã gửi Sapphire 1103 cho 10/10 → 12/10 và Anh Tuấn ghi một đặt phòng cho 1103 đêm 11/10, thì Hùng có đúng một thông báo "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt", không có tên người đặt, không có giá; Anh Tuấn không có thông báo này. · database
 - **YC8.1-NT9** Khi chính Hùng là người có đặt phòng mới đó, thì Hùng không có thông báo. · database
 - **YC8.1-NT10** Khi đặt phòng mới được tạo sau ngày nhận của lần gửi, thì không có thông báo cho lần gửi đó. · database
 - **YC8.1-NT11** Khi hai đặt phòng mới cùng chiếm đêm của một lần gửi, thì chỉ có một thông báo cho căn đó của lần gửi đó. · database
