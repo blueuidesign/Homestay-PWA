@@ -7,7 +7,7 @@
 - Mỗi việc là một story trong `docs/stories/`. Không có việc nào làm mà không có story.
 - Story chứa đủ để làm. Luật dùng chung nằm một chỗ ở `docs/luat-chung/`, story trỏ tới bằng mã.
 - Mỗi tiêu chí nghiệm thu (mã `…-NT<số>`) có một test tự động mang đúng mã đó. Test viết trước code.
-- Code luôn trên nhánh và pull request. Người merge, Claude không tự merge.
+- Code luôn trên nhánh và pull request. Claude merge khi Tùng bảo và PR đủ điều kiện (mục 10).
 - Mỗi thông tin chỉ nằm ở một chỗ. Thấy hai chỗ nói khác nhau thì dừng và hỏi, không tự chọn.
 - Chỗ gắn thẻ `[MỞ: <mã>]` thì chưa được code. Hỏi Tùng.
 - Lý do của quyết định ghi ở `docs/Quyet_dinh.md`.
@@ -191,7 +191,7 @@ Thiết kế là một file canvas HTML ở `docs/thiet-ke/canvas/`. Không có 
 5. Code cho tới khi test xanh. Database trước, giao diện sau.
 6. Chạy đủ: `scripts/test-db.sh`, `scripts/thu-lam-hong.sh`, `npm run typecheck`, `npm test`, `npm run build`.
 7. Mở PR theo mẫu ở phụ lục A. Vercel tạo bản xem thử cho PR, trỏ vào staging.
-8. Người merge mở bản xem thử trên điện thoại, kiểm luồng chính, xem thay đổi dưới `tests/`, rồi merge.
+8. Tùng mở bản xem thử trên điện thoại, kiểm luồng chính. Tùng bảo merge thì Claude soát điều kiện ở mục 10 rồi merge; hoặc Tùng tự bấm merge.
 9. Đức kiểm tay theo `tests/kich-ban/US<n>.md`. Lỗi thì mở story loại "lỗi".
 10. Đổi Trạng thái thành "xong" ở story và ở `docs/stories/README.md`.
 
@@ -202,7 +202,17 @@ Gặp việc ngoài phạm vi story: không làm luôn. Ghi thành story mới (
 - Code luôn trên nhánh và PR, kể cả sửa nhỏ. Một PR một story.
 - Tài liệu sống không kèm code (story mới, câu hỏi, quyết định, kết quả kiểm tay) được đẩy thẳng `main`.
 - Commit tiếng Việt, mở đầu bằng mã story: `US12: tìm phòng trả căn trống theo ngày`.
-- Không đẩy ép. Không tự merge. Không tắt hay sửa test để cho qua.
+- Không đẩy ép. Không tắt hay sửa test để cho qua.
+
+**Ai merge (QD-017).** Tùng tự bấm, hoặc bảo Claude merge ngay trong phiên ("merge PR #12", "merge đi" ngay sau báo cáo của một PR). Lời của Đức không đủ. Claude không tự merge khi không ai bảo, kể cả khi CI xanh.
+
+Trước khi merge, Claude soát và chỉ merge khi đủ cả:
+1. CI xanh trên commit mới nhất của PR, không xung đột với `main`.
+2. Thay đổi dưới `tests/`: không test nào bị tắt hay nới; test bị sửa hoặc xóa đều có tên ở mục "Test bị đổi" của story.
+3. PR đổi phân quyền (policy, view hay hàm trả dữ liệu cho sale, ô trong `PQ.md`): Tùng đã duyệt bằng lời nói rõ cái được đổi.
+4. PR có migration: đã chạy được trên staging.
+
+Thiếu điều nào thì không merge, báo Tùng thiếu gì. Merge xong: xóa nhánh, đổi trạng thái story nếu cần, báo một dòng.
 - Không có bí mật trong repo, chat hay log. Repo này công khai: không ghi email, số điện thoại, tên người dùng thật.
 
 ## 11. Môi trường và phát hành
@@ -241,7 +251,7 @@ Tiếng Việt, ngắn như nói chuyện, kết luận trước. Câu đầu t�
 ## Giả định và câu hỏi   <mã GD, mã câu hỏi>
 ```
 
-## Phụ lục B · Trước khi merge
+## Phụ lục B · Trước khi merge (người bấm merge, dù là Tùng hay Claude)
 
 - [ ] CI xanh.
 - [ ] Đã mở bản xem thử trên điện thoại, đi hết luồng chính.

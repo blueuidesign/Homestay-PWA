@@ -40,7 +40,7 @@ Mục lục tài liệu và cách tìm theo mã: `docs/README.md`.
 - **Mỗi tiêu chí (`…-NT<số>`) một test mang mã đó, viết trước code.** Quyền và tiền kiểm ở lớp database.
 - **Không tắt, không xóa, không nới test để cho qua.** Chỉ sửa test khi story nêu tên test đó ở mục "Test bị đổi".
 - **Story đã merge không sửa.** Đổi tính năng đã xong thì viết story mới (`docs/QUY_TRINH.md` mục 5).
-- **Code trên nhánh `US<n>-<tên>` và PR. Người merge, Claude không tự merge.** Không đẩy ép. Tài liệu sống không kèm code được đẩy thẳng `main`.
+- **Code trên nhánh `US<n>-<tên>` và PR. Claude chỉ merge khi Tùng bảo**, và chỉ khi đủ điều kiện ở `docs/QUY_TRINH.md` mục 10 (QD-017). Không tự merge khi không ai bảo. Không đẩy ép. Tài liệu sống không kèm code được đẩy thẳng `main`.
 - **Hỏi Tùng trước:** migration lên production, xóa dữ liệu, đổi phân quyền, việc không đảo ngược. Chữ "đồng ý" chung chung không tính.
 - **Không đọc dữ liệu production. Không đọc `.env`. Không có bí mật trong repo, chat, log.** Repo công khai: không ghi email, số điện thoại, tên người dùng thật.
 - **Chưa code, chưa test, test đỏ là chưa xong.** Không báo là xong.

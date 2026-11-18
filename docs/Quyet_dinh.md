@@ -21,6 +21,14 @@ Trạng thái "Đề xuất, chờ Tùng chốt" nghĩa là Claude đã làm the
 
 ---
 
+## QD-017 · 18/11/2026 · Claude được merge PR khi Tùng bảo
+- Bối cảnh: luật cũ (QD-001, giữ lại ở QD-015) cấm Claude merge, kèm lớp chặn `gh pr merge` trong `.claude/settings.json`. Tùng thấy mỗi lần phải tự vào GitHub bấm là chậm, và lời bảo trong phiên đã đủ rõ.
+- Các phương án: (A) giữ cấm, Tùng luôn tự bấm; (B) Claude merge khi Tùng bảo, có danh sách điều kiện Claude phải soát; (C) Claude tự merge mọi PR khi CI xanh.
+- Chọn: B. Người chốt: Tùng ("sửa lại luật cho phép bạn merge nhé", 18/11/2026, ngay sau khi bảo "merge đi" với PR #1). Lý do chọn B chứ không C: Claude đã chọn cách đọc hẹp hơn, vì CI xanh chỉ chứng minh những gì đã có test; bước Tùng xem bản xem thử trên điện thoại và bảo merge vẫn là chỗ người đối chiếu. Tùng muốn C thì nói, sửa mục này.
+- Hệ quả: `CLAUDE.md`, `docs/QUY_TRINH.md` mục 1, 9, 10, phụ lục B; bỏ dòng chặn `gh pr merge` trong `.claude/settings.json`; `VIEC_TAY_CUA_TUNG.md` bước 6. Lời của Đức không đủ để Claude merge.
+- Thay cho: điểm "người merge chứ Claude không tự merge" của QD-001
+- Trạng thái: Đang hiệu lực
+
 ## QD-016 · 18/11/2026 · Database bản PWA: các lựa chọn khi chuyển từ server Node sang Supabase
 - Bối cảnh: server Node của bản Zalo có khoảng 100 việc đọc ghi. Chuyển sang Supabase (QD-004) phải chọn cách làm cho từng nhóm việc. Các lựa chọn dưới đây Claude làm lúc dựng repo, có test, nhưng Tùng chưa duyệt từng điểm.
 - Chọn:
@@ -154,4 +162,4 @@ Trạng thái "Đề xuất, chờ Tùng chốt" nghĩa là Claude đã làm the
 - Chọn: bộ khởi tạo và `QUY_TRINH.md` của Kho BaBa, cộng mục 15: E2E bằng Playwright là bắt buộc từ ngày đầu; staging từ ngày đầu; người merge, Claude không tự merge; Claude không đọc dữ liệu production; mỗi luật quyền có một phép thử làm hỏng trong `scripts/thu-lam-hong.sh`. Người chốt: Tùng chọn dùng quy trình này (18/11/2026); các điểm của mục 15 là Claude đề xuất, chờ Tùng chốt.
 - Hệ quả: toàn bộ repo.
 - Thay cho: quy trình cũ của bản Zalo
-- Trạng thái: Bị thay bởi QD-015. Các điểm còn giữ: E2E Playwright và staging từ ngày đầu, người merge chứ Claude không tự merge, Claude không đọc dữ liệu production, mỗi luật quyền có một phép thử làm hỏng (nay ở `docs/QUY_TRINH.md`)
+- Trạng thái: Bị thay bởi QD-015. Các điểm còn giữ: E2E Playwright và staging từ ngày đầu, Claude không đọc dữ liệu production, mỗi luật quyền có một phép thử làm hỏng (nay ở `docs/QUY_TRINH.md`)

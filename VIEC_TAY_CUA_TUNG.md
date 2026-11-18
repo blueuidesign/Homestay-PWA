@@ -43,7 +43,7 @@ Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đ�
 
 ### Bước 6 · Bảo vệ nhánh main
 GitHub → Settings → Branches (hoặc Rules → Rulesets) → thêm luật cho `main`: bắt buộc qua pull request, bắt buộc hai check "App" và "Database" xanh, không cho force push.
-Repo riêng tư trên gói miễn phí có thể không bật được luật này. Không bật được thì chỉ còn lớp chặn mềm: `.claude/settings.json` cấm Claude đẩy ép và tự merge bằng `gh pr merge`, còn luật "không đẩy thẳng main" nằm trong `CLAUDE.md` và chỉ là lời dặn. Khi đó Tùng nên xem tab Commits của `main` mỗi tuần. Báo Claude biết đã bật được hay không.
+Repo riêng tư trên gói miễn phí có thể không bật được luật này. Không bật được thì chỉ còn lớp chặn mềm: `.claude/settings.json` cấm Claude đẩy ép (Claude được merge khi Tùng bảo, QD-017), còn luật "không đẩy thẳng main" nằm trong `CLAUDE.md` và chỉ là lời dặn. Khi đó Tùng nên xem tab Commits của `main` mỗi tuần. Báo Claude biết đã bật được hay không.
 
 ### Bước 7 · Tài khoản thử và GitHub Secrets
 Tạo 5 tài khoản thử và nạp dữ liệu mẫu theo `supabase/staging/README.md`. Rồi:
