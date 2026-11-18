@@ -1,0 +1,41 @@
+# Tự chạy migration mới lên Supabase STAGING mỗi khi supabase/migrations hoặc supabase/seed đổi trên main.
+# Vì sao: chạy migration qua công cụ Supabase của Claude cần chủ tài khoản bấm xác nhận từng lần; GitHub chạy thì không ai phải làm tay.
+# Cần 1 secret của repo: STAGING_DB_URL (chuỗi Session pooler cổng 5432 của home247-staging, có mật khẩu database).
+# Không chạy lên production. Production: Tùng duyệt từng lần (docs/QUY_TRINH.md).
+# Chạy tay: tab Actions → "Migration staging" → Run workflow.
+name: Migration staging
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+      - 'supabase/seed/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: migration-staging
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    name: Chạy migration lên staging
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Kiểm có secret
+        env:
+          DB_URL: ${{ secrets.STAGING_DB_URL }}
+        run: |
+          if [ -z "$DB_URL" ]; then
+            echo "::error::Chưa có secret STAGING_DB_URL. Xem docs/van-hanh/Bi_mat_va_cau_hinh.md."
+            exit 1
+          fi
+      - name: Chạy migration chưa chạy và seed
+        env:
+          DB_URL: ${{ secrets.STAGING_DB_URL }}
+        run: scripts/day-migration.sh

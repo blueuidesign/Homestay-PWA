@@ -24,6 +24,12 @@ Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đ�
 1. Trong claude.ai → Settings → Connectors: kết nối **Supabase**, cho phép truy cập project `home247-staging` (Claude dùng để chạy migration lên staging và đọc cảnh báo).
 2. Kết nối **GitHub** cho repo `blueuidesign/Homestay-PWA`, quyền đọc ghi (Claude đẩy nhánh, mở PR).
 
+### Bước 3b · Cho GitHub tự chạy migration lên staging (làm một lần)
+Từ khi có bước này, migration mới merge vào `main` tự chạy lên staging, không ai phải dán SQL hay bấm xác nhận.
+1. Supabase → project `home247-staging` → nút **Connect** (đầu trang) → **Session pooler** → chép chuỗi kết nối dạng `postgresql://postgres.<mã>:[YOUR-PASSWORD]@...pooler.supabase.com:5432/postgres`. Thay `[YOUR-PASSWORD]` bằng mật khẩu database staging. Quên mật khẩu thì Project Settings → Database → Reset database password (staging chỉ có dữ liệu giả, đặt lại không sao).
+2. GitHub → repo → Settings → Secrets and variables → Actions → New repository secret. Tên `STAGING_DB_URL`, giá trị là chuỗi ở bước 1. Không dán chuỗi này vào chat.
+3. GitHub → tab Actions → "Migration staging" → Run workflow. Thấy dấu xanh là xong.
+
 ### Bước 4 · Project mới trên claude.ai
 1. claude.ai → Projects → Create project, ví dụ tên `Home247 PWA`.
 2. Phần Project knowledge: chỉ thêm nguồn GitHub là repo `Homestay-PWA`. **Không** chép tài liệu của Project "Homestay" cũ và **không** gắn repo `zalo-miniapp`: các tài liệu đó ghi cả quyết định đã bị thay, Claude dễ đọc nhầm.

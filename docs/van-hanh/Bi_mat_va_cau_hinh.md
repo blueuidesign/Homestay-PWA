@@ -12,6 +12,7 @@
 | Tên | Dùng để | Cất ở | Ai tạo lại được | Lần thay gần nhất |
 | --- | --- | --- | --- | --- |
 | `SUPABASE_DB_URL` | Sao lưu đêm production (chuỗi Session pooler) | GitHub Secrets | Tùng | <ngày> |
+| `STAGING_DB_URL` | Workflow `migration-staging.yml` tự chạy migration mới lên staging khi merge vào `main` (chuỗi Session pooler cổng 5432, có mật khẩu database staging) | GitHub Secrets | Tùng | <ngày> |
 | `RCLONE_CONF` | Đẩy bản sao lưu lên Drive, có mục `crypt` để mã hóa (docs/QUY_TRINH.md mục 12) | GitHub Secrets | Tùng | <ngày> |
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | Giao diện gọi Supabase (khóa công khai). Preview dùng của staging, Production dùng của production | Vercel → Environment Variables, tách theo môi trường | Tùng | <ngày> |
 | `E2E_CHU_EMAIL`, `E2E_CHU_MAT_KHAU`, `E2E_SALE_EMAIL`, `E2E_SALE_MAT_KHAU` | Tài khoản thử cho Playwright, **chỉ có trên staging** | GitHub Secrets | Tùng | <ngày> |
