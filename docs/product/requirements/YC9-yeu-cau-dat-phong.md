@@ -1,6 +1,8 @@
 ---
 id: YC9
 tieu_de: Yêu cầu đặt phòng
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -184,8 +186,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **CN9, CN9-02, CN9-03 · Trả lời yêu cầu.** Bỏ dòng "đã bán 12 đặt phòng của bạn" ([MỞ: YC9-H9]).
 - Không làm: CN9-00 (tin Zalo), S3-02-P1/P2, CN9-P1/P2 (hộp thoại của Zalo; bản PWA xin số theo YC6.1).
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US15 (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US15 (QD21) | Cả file |

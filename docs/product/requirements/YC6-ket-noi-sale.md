@@ -1,6 +1,8 @@
 ---
 id: YC6
 tieu_de: Kết nối chủ nhà và sale
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -258,8 +260,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **CN10, CN10-00, CN10-01, CN10-02.** Bước chọn sale theo YC8-H5.
 - **A9, A9-02.** Đúng bố cục.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ các story US5, US17, US26 và phần link mời của US6 (QD20, QD21), đổi cách gửi và link sang bản PWA |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US5, US17, US26 và phần link mời của US6 (QD20, QD21), đổi cách gửi và link sang bản PWA | Cả file |

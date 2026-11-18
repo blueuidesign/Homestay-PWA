@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Sinh work/plan/plan.json, work/plan/KE-HOACH.md và work/plan/bang.json từ item backlog, QD và lịch.
 
-bang.json (EN55): mỗi item backlog một dòng, gồm cả done/, cho các lệnh báo cáo và hook đầu phiên.
+bang.json: mỗi item backlog một dòng, gồm cả done/, cho các lệnh báo cáo và hook đầu phiên.
 
 Nguồn (sửa ở đây, không sửa file sinh ra):
   work/backlog/**/*.md        loại, tên, cha, người, trạng thái, truoc (phụ thuộc)
   docs/decisions/QD*.md       quyết định
-  work/plan/giai-doan.csv     giai đoạn, mốc, epic thuộc giai đoạn
-  work/plan/lich.csv          mỗi item làm từ sprint nào tới sprint nào
+  work/plan/giai-doan.csv     giai đoạn, mốc, epic thuộc giai đoạn (không bắt buộc)
+  work/plan/lich.csv          mỗi item làm từ sprint nào tới sprint nào (không bắt buộc)
+Không có hai file csv thì chỉ sinh bang.json (bản PWA không chạy sprint, CL1).
 
 Chạy: python3 scripts/plan.py        (thêm --check để chỉ kiểm, không ghi file)
 """
@@ -122,6 +123,14 @@ def ghi_bang(items):
 
 def main(check_only=False):
     items = load()
+    if not os.path.exists(os.path.join(ROOT, 'work/plan/giai-doan.csv')):
+        # Bản PWA không chạy sprint (CL1): chưa có giai-doan.csv, lich.csv thì chỉ sinh bang.json.
+        if check_only:
+            print(f'plan.py: {len(items)} item, không có work/plan/giai-doan.csv nên bỏ kiểm lịch')
+            return 0
+        os.makedirs(os.path.join(ROOT, 'work/plan'), exist_ok=True)
+        print(f'Đã sinh bang.json: {ghi_bang(items)} item (không có giai-doan.csv, bỏ plan.json và KE-HOACH.md)')
+        return 0
     phases = list(csv.DictReader(open(os.path.join(ROOT, 'work/plan/giai-doan.csv'), encoding='utf-8')))
     sched = {r['id']: r for r in csv.DictReader(open(os.path.join(ROOT, 'work/plan/lich.csv'), encoding='utf-8'))}
     problems = []

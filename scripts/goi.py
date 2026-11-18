@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Soạn gói việc cho agent phụ từ file item (EN64, CL10.6, skill soan-viec-cho-subagent).
+"""Soạn gói việc cho agent phụ từ file item (CL10.6, skill soan-viec-cho-subagent).
 
 Chạy:
   python3 scripts/goi.py US12              in gói ra màn hình
@@ -69,8 +69,7 @@ def khoi(out):
 
 
 def nhom(ma, rel):
-    if ma.endswith('.md') and '/api/' in rel or '#GET ' in ma or '#POST ' in ma or '#PUT ' in ma \
-            or '#PATCH ' in ma or '#DELETE ' in ma:
+    if rel.startswith('docs/architecture/') or rel.startswith('docs/security/'):
         return 'api'
     if ma.startswith('YC'):
         return 'nt'
@@ -80,7 +79,7 @@ def nhom(ma, rel):
         return 'qd'
     if ma.startswith('HV'):
         return 'hv'
-    if rel.startswith('docs/design/screens/'):
+    if rel.startswith('docs/design/canvas/'):
         return 'man'
     return 'khac'
 
@@ -101,7 +100,7 @@ def main(argv=None):
     ap.add_argument('--task', help='chỉ các task này, ví dụ TA1,TA2')
     ap.add_argument('--ghi', action='store_true', help='ghi work/goi/<mã>.md')
     ap.add_argument('--giao-dien', action='store_true',
-                    help='gói cho task chỉ làm màn: API chỉ chép Đầu vào, Đầu ra, Lỗi riêng, Ví dụ (EN66)')
+                    help='gói cho task chỉ làm màn: API chỉ chép Đầu vào, Đầu ra, Lỗi riêng, Ví dụ')
     a = ap.parse_args(argv)
 
     ds = [p for p in glob.glob(os.path.join(ROOT, f'work/backlog/{a.item}-*.md'))]
@@ -124,8 +123,8 @@ def main(argv=None):
     codes += re.findall(r'\bYC\d+(?:\.\d+)*-NT\d+\b', muc(t, 'Làm tiêu chí nào'))
     codes += ma_doc(t)
     codes = list(dict.fromkeys(codes))
-    # Kèm theo một bậc (QT, QD, HV) chỉ từ yêu cầu và quy tắc. API, server.md, tài liệu khác trích đúng mục:
-    # chúng nhắc QD để truy vết, kèm cả các QD đó làm gói phình mà ít giúp viết code (EN66).
+    # Kèm theo một bậc (QT, QD, HV) chỉ từ yêu cầu và quy tắc. thiết kế database, PQ, tài liệu khác trích đúng mục:
+    # chúng nhắc QD để truy vết, kèm cả các QD đó làm gói phình mà ít giúp viết code.
     dac_ta = [c for c in codes if re.match(r'^(YC|QT)\d', c)]
     con_lai = [c for c in codes if c not in dac_ta]
     out1, loi1 = trich(dac_ta) if dac_ta else ('', '')
@@ -179,7 +178,7 @@ def main(argv=None):
         '## Bất biến của Home247',
         muc_claude('Home247 khác app đặt phòng thông thường'),
         '',
-        muc_claude('Ràng buộc Zalo'),
+        muc_claude('Ràng buộc PWA'),
         '',
         '## NT phải đạt',
         o('nt'),
@@ -193,7 +192,7 @@ def main(argv=None):
         '## Hành vi chung',
         o('hv', 'Không kèm (item không có màn, hoặc YC không nhắc HV).'),
         '',
-        '## Hợp đồng API',
+        '## Database và quyền',
         o('api'),
         '',
         '## Màn',
@@ -218,7 +217,7 @@ def main(argv=None):
         pham_vi or TAY + ' item chưa có mục Phạm vi',
         '',
         '## Test ở lớp nào',
-        TAY + ' với từng NT rủi ro cao: db, server, permissions hay ghép (CL14.5). Task test trước thì ghi file test agent sau không được sửa',
+        'Theo lớp ghi sau dấu · ở cuối mỗi NT (database, unit, e2e; CL14.5). ' + TAY + ' task test trước thì ghi file test agent sau không được sửa',
         '',
         '## Lệnh kiểm',
         'Theo docs/dev/chay-va-test.md: test của gói bị đổi, `python3 scripts/kiem.py --diff origin/main`. '
@@ -226,7 +225,7 @@ def main(argv=None):
         '',
         '## Xong khi',
         '- Test mang mã NT xanh ở đúng lớp.',
-        '- Build qua: `npx vite build --outDir www` (Mini App).',
+        '- `npm run typecheck` và `npm run build` qua.',
         '- `python3 scripts/kiem.py --diff origin/main` không có lỗi mới.',
         '- Không sửa file ngoài "Được sửa".',
         '- Báo lại tối đa 10 dòng: PR, lệnh đã chạy, kết quả, việc còn lại.',

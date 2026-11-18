@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ghi log một phiên Claude Code để sau này đánh giá quy trình (EN66, CL10.7).
+"""Ghi log một phiên Claude Code để sau này đánh giá quy trình (CL10.7).
 
 Chạy bởi hook Stop (cuối mỗi lượt) và SessionEnd (khi phiên đóng), đọc JSON từ stdin:
 {"session_id", "transcript_path", "hook_event_name", ...}. Chạy tay: `python3 scripts/hook/ghi-log-phien.py --day`
@@ -37,7 +37,7 @@ def gon(s, n=120):
 
 def rel(p):
     p = str(p or '')
-    for goc in (ROOT + '/', '/home/claude/zalo-miniapp/'):
+    for goc in (ROOT + '/',):
         if p.startswith(goc):
             return p[len(goc):]
     return re.sub(r'^/tmp/claude-[^/]+/[^/]+/[^/]+/scratchpad/', 'scratchpad/', p)
@@ -70,7 +70,7 @@ def phan_loai_bash(cmd):
         return {'loai': 'plan'}
     if re.search(r'\b(pytest|vitest|npm (run )?test|npm\.cmd test|test:ghep|chay-test\.sh|node --test|playwright)\b', c):
         return {'loai': 'test', 'lenh': gon(c, 100)}
-    if re.search(r'\b(vite build|npm run build|zmp deploy|deploy-miniapp\.sh|zmp\.sh deploy)\b', c):
+    if re.search(r'\b(vite build|npm run build|vercel deploy|supabase db push)\b', c):
         return {'loai': 'build-deploy', 'lenh': gon(c, 100)}
     m = re.search(r'\bgit\s+(?:-C\s+\S+\s+)?(-c\s+\S+\s+)*([a-z-]+)', c)
     if m and not c.startswith(('cat', 'sed', 'grep')):

@@ -1,6 +1,6 @@
 ---
 name: review
-description: "Review độc lập một PR hoặc một diff của Home247: NT có test đúng lớp, bất biến, phạm vi, test bị nới. Chỉ chạy khi Tùng bảo (QD26). Không sửa file."
+description: "Review độc lập một PR hoặc một diff của Home247: NT có test đúng lớp, bất biến, phạm vi, test bị nới. Chỉ chạy khi Tùng bảo. Không sửa file."
 tools: Read, Grep, Glob
 model: opus
 ---
@@ -12,8 +12,8 @@ Bạn review một thay đổi code của Home247. Bạn không viết thay đ�
 Tự đọc NT nguyên văn từ YC trong docs/product/requirements/, quy tắc trong docs/product/rules/, quyết định trong docs/decisions/. Không dùng gói việc làm nguồn NT, để gói việc thiếu NT thì bạn vẫn bắt được.
 
 Kiểm theo thứ tự:
-1. Mỗi NT có test mang đúng mã, ở đúng lớp theo bảng CL14.5 (db, server, permissions, ghép; chỉ trạng thái màn mới được test trên server giả), và test đó kiểm đúng điều NT nói.
-2. Không vi phạm bất biến ở CLAUDE.md mục "Home247 khác app đặt phòng thông thường" và "Ràng buộc Zalo".
+1. Mỗi NT có test mang đúng mã, ở đúng lớp theo bảng CL14.5 (database, unit, e2e, thủ công; quyền và tiền phải có test database), và test đó kiểm đúng điều NT nói.
+2. Không vi phạm bất biến ở CLAUDE.md mục "Home247 khác app đặt phòng thông thường" và "Ràng buộc PWA".
 3. Diff không chạm file ngoài mục Phạm vi của item.
 4. Không có test bị tắt, xóa, nới điều kiện.
 5. Ô quyền chạm tới có test cố tình vi phạm.

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""In phần HTML của một màn trong canvas, không phải đọc cả file 2,6 MB (EN55).
+"""In phần HTML của một màn trong canvas, không phải đọc cả file 2,6 MB.
 
 Chạy:
   python3 scripts/trich-man.py CN3-02              in HTML của màn (khối có id="CN3-02": nhãn và khung điện thoại)
   python3 scripts/trich-man.py CN3-02 --chu        chỉ in chữ hiện trên màn, mỗi đoạn một dòng
   python3 scripts/trich-man.py CN3-02 --anh /tmp/CN3-02.png   chụp riêng màn đó bằng Playwright
-Kèm đường dẫn docs/design/screens/<mã>.md nếu có. Mã không có trong canvas: thoát 2.
+Màn phải làm gì nằm ở YC (dòng "Màn:" và mục "Màn hình"). Mã không có trong canvas: thoát 2.
 
 Cách tìm màn: khối có id đúng bằng mã; không có thì khối mang data-screen-label bắt đầu bằng mã.
 Ảnh chụp: mở cả canvas trong Chromium rồi chụp đúng phần tử đó (element screenshot), nên ảnh chỉ
@@ -81,9 +81,8 @@ def main(argv=None):
         print(f'trich-man.py: không có màn {a.ma} trong canvas', file=sys.stderr)
         return 2
     frag = cat_phan_tu(s, start)
-    mo_ta = os.path.join('docs/design/screens', a.ma + '.md')
-    print(f'<!-- màn {a.ma} · tìm theo {cach} · {len(frag):,} ký tự · mô tả: '
-          f'{mo_ta if os.path.exists(os.path.join(ROOT, mo_ta)) else "chưa có " + mo_ta} -->')
+    print(f'<!-- màn {a.ma} · tìm theo {cach} · {len(frag):,} ký tự · màn phải làm gì: YC có "Màn: {a.ma}" '
+          f'(grep -l "{a.ma}" docs/product/requirements) -->')
     print('\n'.join(chu_hien(frag)) if a.chu else frag)
     if a.anh:
         chup(a.ma, a.anh)

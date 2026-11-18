@@ -4,9 +4,6 @@ paths:
 ---
 # Quy ước khi sửa docs/external/
 
-- Đây là điều Zalo quy định và cách Zalo vận hành, không phải điều Home247 muốn. Chỉ ghi điều đã tra hoặc đã thử.
-- Mỗi mục ghi nguồn: link trang chính thức, hoặc "(nguồn phụ)" nếu từ bài viết bên thứ ba, hoặc "(đã thử trên máy thật, SKn)".
-- Điều chưa chắc ghi "cần kiểm tra trên máy thật" và để trong mục tương ứng, không viết như đã biết.
-- Sau khi tra hay thử: cập nhật verified bằng ngày làm, đặt review_by sau 2 tháng.
-- Zalo đổi chính sách thường xuyên. File quá review_by thì báo trong skill can-lam-gi kiểu day-du, không coi là còn đúng.
-- Kết quả của Spike (SK) ghi vào đây, rồi item SK mới được xong.
+- docs/external/pwa.md là bảng đối chiếu: mỗi việc của bản Zalo thì bản PWA làm thế nào (mục P1 đến P13). YC trỏ tới bằng mã P.
+- Ghi điều nền tảng (trình duyệt, PWA, Supabase, Vercel) quy định hay đã thử. Mỗi điều ghi nguồn: link trang chính thức, "(nguồn phụ)", hoặc "(đã thử trên máy thật, ngày)". Điều chưa chắc ghi "cần kiểm tra trên máy thật".
+- Tài liệu Zalo của bản cũ nằm ở docs/_lich-su/zalo/, đóng băng. Khi làm bản Zalo thì chép ra đây và tra lại.

@@ -1,5 +1,5 @@
 ---
-item: <mã item giao việc>   # ví dụ TK1. Tên file: work/thiet-ke/<mã item>.md
+item: <mã item giao việc>   # ví dụ US3. Tên file: work/thiet-ke/<mã item>.md
 ngay: <yyyy-mm-dd>
 nguoi: Tùng (phiên Design)
 canvas: <tên canvas>, bản ngày <yyyy-mm-dd>

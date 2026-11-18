@@ -4,7 +4,7 @@ description: "Nhờ một agent độc lập soát một PR hoặc một nhánh 
 argument-hint: "<số PR hoặc tên nhánh> [mã item]"
 ---
 
-Đối tượng: $ARGUMENTS. Chỉ chạy khi Tùng bảo (QD26).
+Đối tượng: $ARGUMENTS. Chỉ chạy khi Tùng bảo.
 
 1. Lưu diff ra file: `git diff origin/main...<nhánh> > work/goi/review-<mã item>.diff`. Không có mã item thì lấy từ tên nhánh.
 2. Gọi agent `review` (.claude/agents/review.md), đưa: đường dẫn file diff, mã item, danh sách mã NT ở mục "Làm tiêu chí nào" của item. Không đưa nhật ký hay lời giải thích của agent đã viết code.

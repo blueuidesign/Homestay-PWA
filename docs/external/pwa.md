@@ -11,7 +11,7 @@ rev: 1
 
 YC, HV và PQ viết cho bản PWA. Bản Zalo Mini App làm sau trên cùng database (QD3). File này giữ bảng đối chiếu: mỗi việc của Zalo thì bản PWA làm thế nào, để khi làm bản Zalo chỉ cần đổi cột cách làm, giữ kết quả người dùng thấy. YC trỏ tới đây bằng mã P (ví dụ pwa.md P3).
 
-Chỗ ghi CH-xxx là câu hỏi đang chờ Tùng ở `work/cau-hoi.md`. Chưa có trả lời thì không code phần đó.
+Chỗ ghi `[MỞ: mã]` là câu hỏi đang chờ Tùng ở `work/cau-hoi.md`. Chưa có trả lời thì không code phần đó.
 
 | Mục | Bản Zalo | Bản PWA | Áp vào |
 | --- | --- | --- | --- |

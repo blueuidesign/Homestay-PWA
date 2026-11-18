@@ -1,6 +1,8 @@
 ---
 id: YC5
 tieu_de: Đặt phòng
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -371,8 +373,7 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 - **CN4-02 · Sửa đặt phòng.** Hình dùng ví dụ 09/10 → 10/10 và chip "2501": dữ liệu thật theo đặt phòng đang sửa.
 - **S3-10 · Sale xem đặt phòng chủ nhà vừa sửa.** Thẻ vàng trên hình ghi "Giá bán tính lại theo mức cộng": sai, giá bán giữ nguyên (Tùng, bản Zalo 04/11/2026 điểm 1). Màn phía sale khác: chưa có hình (YC5-H11).
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ các story US3, US10, US28, US35 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US3, US10, US28, US35 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |

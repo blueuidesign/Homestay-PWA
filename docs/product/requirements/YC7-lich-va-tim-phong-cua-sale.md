@@ -1,6 +1,8 @@
 ---
 id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -199,8 +201,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **S3.** Nút là "Gửi yêu cầu đặt phòng" (Tùng, bản Zalo, 04/11/2026, điểm 9). Hình có 12 ảnh; bộ mẫu 1509 có 6 ảnh (điểm 10). Hình có mục tiện ích: bỏ.
 - **P10.** Đúng bố cục.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ các story US6, US12, US13 và phần "Lịch phòng 7 ngày" của US16 (QD20, QD21); áp quyết định 7, 9, 10, 11 của Tùng ngày 04/11/2026 ở bản Zalo |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US6, US12, US13 và phần "Lịch phòng 7 ngày" của US16 (QD20, QD21); áp quyết định 7, 9, 10, 11 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |

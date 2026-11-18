@@ -9,7 +9,7 @@ rev: 1
 
 1. Ghi lại: ghi âm hoặc vài gạch đầu dòng, đặt vào work/inbox/.
 2. Soạn: lệnh "họp <file>". AI soạn work/meetings/BB<n>-<ten>.md theo mẫu, xếp mỗi ý vào một loại:
-   D đã chốt (sinh QD) · A việc cần làm (sinh item Mới) · Q câu hỏi (QD cho-chot, hoặc SK) · R rủi ro, giả định (RR, GD) · N ghi chú.
+   D đã chốt (sinh QD) · A việc cần làm (sinh item Mới) · Q câu hỏi (QD cho-chot, hoặc câu hỏi ở work/cau-hoi.md) · R rủi ro, giả định (RR ở work/risks.md, GD ở work/gia-dinh.md) · N ghi chú.
    Không chắc đã chốt thì xếp Q.
 3. Xác nhận: Tùng đọc, sửa cách xếp. Dừng ở đây cho tới khi Tùng xác nhận.
 4. Sinh mục: tạo QD, item, RR với nguon trỏ về BB. Ghi mã mới cạnh từng ý. Xóa file thô trong inbox.
@@ -19,4 +19,4 @@ rev: 1
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
-| r1 | 2026-10-23 | Tùng | c4760bd | Mốc ban đầu khi bắt đầu đánh rev. Thay đổi trước đó xem git log | Cả file |
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Chép từ bản Zalo r1, sửa cho bản PWA (QD21). Lịch sử cũ ở repo zalo-miniapp | Cả file |

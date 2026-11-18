@@ -1,6 +1,8 @@
 ---
 id: YC14
 tieu_de: Đội nhóm sale
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: sau
 ---
@@ -53,7 +55,7 @@ Chưa thiết kế: đang tải, mất mạng, không có quyền, link hỏng.
 
 ## YC14.1 · Tạo nhóm và mời
 
-Bản sau · rủi ro: cao · Màn: S8-00, S8-01, S8-02, S8-03
+Bản 1 · rủi ro: cao · Màn: S8-00, S8-01, S8-02, S8-03
 
 | Bước | Người dùng | App |
 |---|---|---|
@@ -74,7 +76,7 @@ Tiêu chí:
 
 ## YC14.2 · Màn nhóm
 
-Bản sau · rủi ro: cao · Màn: S8, S8-04, S8-05
+Bản 1 · rủi ro: cao · Màn: S8, S8-04, S8-05
 
 | Bước | Người dùng | App |
 |---|---|---|
@@ -95,8 +97,7 @@ Tiêu chí:
 
 S8-00, S8-01, S8-02, S8-03, S8, S8-04, S8-05: nhãn "Đội nhóm · On Hold" trên hình. Vào từ Cá nhân của sale (P4) > "Đội nhóm", không từ tab "Sale" (QD5).
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US20 (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US20 (QD21) | Cả file |

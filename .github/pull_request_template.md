@@ -11,7 +11,7 @@
 <!-- Không có, hoặc liệt kê kèm lý do -->
 
 ## Bằng chứng
-<!-- Test mang mã nào, chạy ở đâu. Ảnh hoặc video trên Zalo nếu chạm giao diện -->
+<!-- Test mang mã nào, chạy ở đâu. Ảnh chụp màn (kiem-luong-chinh) hoặc link bản Preview nếu chạm giao diện. Có giả định GD nào thì ghi ở đây -->
 
 ## Cần duyệt
 <!-- Không, hoặc mã CL4.3.x. Tùng duyệt bằng nút Approve, tự gộp, hoặc ra lệnh gộp trong phiên (CL4.6) -->

@@ -5,7 +5,7 @@ argument-hint: "<file> <nội dung cần sửa>"
 ---
 Làm đúng docs/process/CL12-phien-ban-va-review.md. Yêu cầu: $ARGUMENTS
 
-1. Kiểm file có thuộc CL12.1 không. INDEX.md, templates, chuc-nang thì sửa bình thường, không làm các bước dưới.
+1. Kiểm file có thuộc CL12.1 không. INDEX.md, templates thì sửa bình thường, không làm các bước dưới.
 2. Đọc `rev` ở đầu file. Lần sửa này là rev + 1, trừ khi nhánh hiện tại đã tăng rev cho file này rồi (xem git diff với main). Một PR chỉ tăng một lần.
 3. Sửa nội dung. Với mỗi mục bị đổi, gắn thẻ `[r<mới> · thêm|sửa|bỏ]` theo CL12.4. Thẻ cũ trên mục đó thì thay số, không xếp chồng.
 4. Đổi nghĩa một yêu cầu hay quy tắc có mã thì tăng cả "bản" của mục đó và làm theo CL6. Chỉ sửa chữ thì không tăng bản.

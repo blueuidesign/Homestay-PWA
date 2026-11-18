@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tổng hợp log phiên Claude Code để đánh giá quy trình (EN66, CL10.7).
+"""Tổng hợp log phiên Claude Code để đánh giá quy trình (CL10.7).
 
 Log do hook scripts/hook/ghi-log-phien.py ghi lên nhánh `nhat-ky-phien`, mỗi phiên một file phien/<ngày>-<phiên>.json.
 

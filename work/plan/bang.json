@@ -1,0 +1,2614 @@
+{
+ "tu_sinh": "scripts/plan.py",
+ "ghi_chu": "[tự sinh] File này do scripts/plan.py sinh từ item backlog. Không sửa tay.",
+ "ngay_sinh": "2026-11-18",
+ "item": [
+  {
+   "id": "EN1",
+   "loai": "EN",
+   "tieu_de": "\"Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN1-dung-nen-app-khung-pwa.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "–"
+  },
+  {
+   "id": "EN2",
+   "loai": "EN",
+   "tieu_de": "\"Database nền: bảng, bất biến, quyền đọc ghi, dữ liệu mẫu và test database\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN2-database-nen-bang-bat-bien.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "–"
+  },
+  {
+   "id": "EN3",
+   "loai": "EN",
+   "tieu_de": "\"Đăng nhập tạm trên staging và tài khoản thử\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2"
+   ],
+   "file": "work/backlog/EN3-dang-nhap-tam-tren-staging.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN1, EN2"
+  },
+  {
+   "id": "EN4",
+   "loai": "EN",
+   "tieu_de": "\"Hành vi chung mọi màn: đang tải, mất mạng, quay lại app, quyền, phiên hết hạn, toast\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1"
+   ],
+   "file": "work/backlog/EN4-hanh-vi-chung-moi-man.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN1"
+  },
+  {
+   "id": "EN5",
+   "loai": "EN",
+   "tieu_de": "\"Môi trường và phát hành\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3"
+   ],
+   "file": "work/backlog/EN5-moi-truong-va-phat-hanh.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3"
+  },
+  {
+   "id": "EN6",
+   "loai": "EN",
+   "tieu_de": "\"Sao lưu và khôi phục\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2"
+   ],
+   "file": "work/backlog/EN6-sao-luu-va-khoi-phuc.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": false,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN1, EN2"
+  },
+  {
+   "id": "EN7",
+   "loai": "EN",
+   "tieu_de": "\"Theo dõi lỗi và pháp lý\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2"
+   ],
+   "file": "work/backlog/EN7-theo-doi-loi-va-phap.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN1, EN2"
+  },
+  {
+   "id": "US1",
+   "loai": "US",
+   "tieu_de": "\"Màn đầu và chọn vai\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US1-man-dau-va-chon-vai.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US2",
+   "loai": "US",
+   "tieu_de": "\"Đăng nhập\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US2-dang-nhap.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US3",
+   "loai": "US",
+   "tieu_de": "\"Tab Cá nhân và đăng xuất\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US3-tab-ca-nhan-va-dang.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US4",
+   "loai": "US",
+   "tieu_de": "\"Hồ sơ\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US4-ho-so.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US5",
+   "loai": "US",
+   "tieu_de": "\"Giờ nhận, trả phòng mặc định\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US5-gio-nhan-tra-phong-mac.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US6",
+   "loai": "US",
+   "tieu_de": "\"Xuất file CSV\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US6-xuat-file-csv.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US7",
+   "loai": "US",
+   "tieu_de": "\"Hướng dẫn và nhắn Home247\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US7-huong-dan-va-nhan-home247.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US8",
+   "loai": "US",
+   "tieu_de": "\"Xóa tài khoản\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US8-xoa-tai-khoan.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US9",
+   "loai": "US",
+   "tieu_de": "\"Lịch tháng và lọc theo căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US9-lich-thang-va-loc-theo.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US10",
+   "loai": "US",
+   "tieu_de": "\"Chi tiết một ngày\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US10-chi-tiet-mot-ngay.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US11",
+   "loai": "US",
+   "tieu_de": "\"Doanh thu tháng\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US11-doanh-thu-thang.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US12",
+   "loai": "US",
+   "tieu_de": "\"Đặt phòng sắp tới\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US12-dat-phong-sap-toi.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US13",
+   "loai": "US",
+   "tieu_de": "\"Lịch tuần nhiều căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US13-lich-tuan-nhieu-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US14",
+   "loai": "US",
+   "tieu_de": "\"Màn đầu tiên và danh sách căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US14-man-dau-tien-va-danh.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US15",
+   "loai": "US",
+   "tieu_de": "\"Thêm căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US15-them-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US16",
+   "loai": "US",
+   "tieu_de": "\"Ảnh căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US16-anh-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US17",
+   "loai": "US",
+   "tieu_de": "\"Tòa nhà, loại view, số giường, mô tả\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US17-toa-nha-loai-view-so.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US18",
+   "loai": "US",
+   "tieu_de": "\"Sửa căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US18-sua-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US19",
+   "loai": "US",
+   "tieu_de": "\"Xóa căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US19-xoa-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US20",
+   "loai": "US",
+   "tieu_de": "\"Giá trên thẻ căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US20-gia-tren-the-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US21",
+   "loai": "US",
+   "tieu_de": "\"Giá theo tháng của một căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US21-gia-theo-thang-cua-mot.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US22",
+   "loai": "US",
+   "tieu_de": "\"Giá ngày lễ và dịp đặc biệt\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US22-gia-ngay-le-va-dip.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US23",
+   "loai": "US",
+   "tieu_de": "\"Đặt giá nhiều căn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US23-dat-gia-nhieu-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US24",
+   "loai": "US",
+   "tieu_de": "\"Sao chép giá sang căn khác\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US24-sao-chep-gia-sang-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US25",
+   "loai": "US",
+   "tieu_de": "\"Những đêm tính giá cuối tuần\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US25-nhung-dem-tinh-gia-cuoi.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US26",
+   "loai": "US",
+   "tieu_de": "\"Mở form, chọn căn và ngày, kiểm trùng sớm\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US26-mo-form-chon-can-va.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US27",
+   "loai": "US",
+   "tieu_de": "\"Người đặt, tiền phòng, trạng thái tiền\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US27-nguoi-dat-tien-phong-trang.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US28",
+   "loai": "US",
+   "tieu_de": "\"Lưu và chặn trùng\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US28-luu-va-chan-trung.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US29",
+   "loai": "US",
+   "tieu_de": "\"Ghi đặt phòng cho sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US29-ghi-dat-phong-cho-sale.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US30",
+   "loai": "US",
+   "tieu_de": "\"Chi tiết đặt phòng và thu tiền\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US30-chi-tiet-dat-phong-va.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US31",
+   "loai": "US",
+   "tieu_de": "\"Sửa đặt phòng\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US31-sua-dat-phong.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US32",
+   "loai": "US",
+   "tieu_de": "\"Xóa đặt phòng khách lẻ\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US32-xoa-dat-phong-khach-le.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US33",
+   "loai": "US",
+   "tieu_de": "\"Hủy đặt phòng có sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US33-huy-dat-phong-co-sale.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US34",
+   "loai": "US",
+   "tieu_de": "\"Phía sale: đặt phòng chủ nhà ghi giúp\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US34-phia-sale-dat-phong-chu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US35",
+   "loai": "US",
+   "tieu_de": "\"Xin tên và số điện thoại khi bắt đầu kết nối\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US35-xin-ten-va-so-dien.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US36",
+   "loai": "US",
+   "tieu_de": "\"Danh sách sale của chủ nhà\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US36-danh-sach-sale-cua-chu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US37",
+   "loai": "US",
+   "tieu_de": "\"Link mời của chủ nhà và sale thêm lịch\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US37-link-moi-cua-chu-nha.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US38",
+   "loai": "US",
+   "tieu_de": "\"Sale xin chủ nhà cho xem lịch\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US38-sale-xin-chu-nha-cho.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US39",
+   "loai": "US",
+   "tieu_de": "\"Chủ nhà duyệt lời xin xem lịch\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US39-chu-nha-duyet-loi-xin.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US40",
+   "loai": "US",
+   "tieu_de": "\"Chủ nhà gửi lịch theo căn đã chọn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US40-chu-nha-gui-lich-theo.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US41",
+   "loai": "US",
+   "tieu_de": "\"Phạm vi 'tất cả căn' và căn mới\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US41-pham-vi-tat-ca-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US42",
+   "loai": "US",
+   "tieu_de": "\"Toast báo kết nối cho sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US42-toast-bao-ket-noi-cho.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US43",
+   "loai": "US",
+   "tieu_de": "\"Màn đầu tiên và lịch 7 ngày của sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US43-man-dau-tien-va-lich.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US44",
+   "loai": "US",
+   "tieu_de": "\"Tìm phòng trống theo ngày\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US44-tim-phong-trong-theo-ngay.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US45",
+   "loai": "US",
+   "tieu_de": "\"Kết quả tìm phòng\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US45-ket-qua-tim-phong.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US46",
+   "loai": "US",
+   "tieu_de": "\"Chi tiết căn của chủ nhà và giá bán\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US46-chi-tiet-can-cua-chu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US47",
+   "loai": "US",
+   "tieu_de": "\"Mức cộng giá mặc định\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US47-muc-cong-gia-mac-dinh.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US48",
+   "loai": "US",
+   "tieu_de": "\"Gửi thông tin cho khách\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US48-gui-thong-tin-cho-khach.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US49",
+   "loai": "US",
+   "tieu_de": "\"Mẫu tin gửi khách\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US49-mau-tin-gui-khach.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US50",
+   "loai": "US",
+   "tieu_de": "\"Sale gửi và hủy yêu cầu\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US50-sale-gui-va-huy-yeu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US51",
+   "loai": "US",
+   "tieu_de": "\"Chủ nhà trả lời yêu cầu\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US51-chu-nha-tra-loi-yeu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US52",
+   "loai": "US",
+   "tieu_de": "\"Yêu cầu trùng đêm\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US52-yeu-cau-trung-dem.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US53",
+   "loai": "US",
+   "tieu_de": "\"Sale nhận kết quả\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US53-sale-nhan-ket-qua.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US54",
+   "loai": "US",
+   "tieu_de": "\"Tab Căn của sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US54-tab-can-cua-sale.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US55",
+   "loai": "US",
+   "tieu_de": "\"Chi tiết chủ nhà và bỏ nguồn\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US55-chi-tiet-chu-nha-va.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US56",
+   "loai": "US",
+   "tieu_de": "\"Căn tự nhập\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US56-can-tu-nhap.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US57",
+   "loai": "US",
+   "tieu_de": "\"Ghi đặt phòng cho căn tự nhập\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US57-ghi-dat-phong-cho-can.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US58",
+   "loai": "US",
+   "tieu_de": "\"Thống kê của chủ nhà\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US58-thong-ke-cua-chu-nha.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US59",
+   "loai": "US",
+   "tieu_de": "\"Thống kê của sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US59-thong-ke-cua-sale.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US60",
+   "loai": "US",
+   "tieu_de": "\"Đặt phòng và yêu cầu của sale\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US60-dat-phong-va-yeu-cau.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US61",
+   "loai": "US",
+   "tieu_de": "\"Popup thông báo mới\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US61-popup-thong-bao-moi.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US62",
+   "loai": "US",
+   "tieu_de": "\"Màn Thông báo\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US62-man-thong-bao.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US63",
+   "loai": "US",
+   "tieu_de": "\"Nhắc đặt phòng chưa cọc\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US63-nhac-dat-phong-chua-coc.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  },
+  {
+   "id": "US64",
+   "loai": "US",
+   "tieu_de": "\"Cài đặt thông báo\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN3",
+    "EN4"
+   ],
+   "file": "work/backlog/US64-cai-dat-thong-bao.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 2
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+  }
+ ]
+}

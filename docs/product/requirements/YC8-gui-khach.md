@@ -1,6 +1,8 @@
 ---
 id: YC8
 tieu_de: Gửi khách
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -113,8 +115,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **S5 · Gửi cho khách.** Chữ "Zalo không gửi chữ và ảnh chung một tin" đổi theo bước 2. Bỏ tiện ích căn trên hình.
 - **P11 · Mẫu tin.** Đúng bố cục.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US14 (QD21), đổi cách gửi sang bảng chia sẻ của PWA |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US14 (QD21), đổi cách gửi sang bảng chia sẻ của PWA | Cả file |

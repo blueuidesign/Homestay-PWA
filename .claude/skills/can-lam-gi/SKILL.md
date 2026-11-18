@@ -14,10 +14,10 @@ Người hỏi và kiểu trả lời: $ARGUMENTS. Không có tên thì lấy th
 4. Chỉ mở file item khi cần mục Đọc của item đó.
 
 ## Thứ tự việc
-1. Việc đang chặn người khác nhiều nhất (đếm qua `truoc`), rồi việc phải chờ bên ngoài (Zalo, cơ quan), rồi theo THU-TU.md.
+1. Việc đang chặn người khác nhiều nhất (đếm qua `truoc`), rồi việc phải chờ bên ngoài (Vercel, Supabase, cơ quan), rồi theo THU-TU.md.
 2. Cột đã chạm trần chờ người (CL1.2) thì việc của người ở cột đó lên đầu: Đức test tay các item `cho-test`, Tùng nghiệm thu các US `cho-nghiem-thu`.
 3. Việc của Tùng: QD cho-chot, câu hỏi mở chặn việc, PR chờ gộp thuộc CL4.3, US Tùng đã chọn nghiệm thu, US Đức vừa test đạt để Tùng chọn có nghiệm thu không (CL2.9), CT mới, sắp THU-TU. Việc của Đức: test tay, việc cần máy thật, PR thuộc CL4.2.
-4. TK ở `cho-nghiem-thu` có task kiểm chưa xong: kể là việc của Tùng, "bảo Claude Code kiểm TKn".
+4. Item có task "Claude Code: kiểm thiết kế" chưa xong: kể là việc của Tùng, "bảo Claude Code kiểm thiết kế <mã item>".
 
 ## Kiểu trả lời
 - **Mặc định:** gạch đầu dòng, hai nhóm "Hôm nay" và "Vài ngày tới". Mỗi việc một câu nói chuyện, nói rõ làm gì và vì sao nó đứng ở đó. Mã việc là link tới file trên GitHub. Dưới mỗi việc một gạch con "Đọc:" liệt kê mã có link lấy từ mục Đọc, thuc_hien, nguon. Khoảng 100 đến 150 chữ, không tính dòng Đọc.

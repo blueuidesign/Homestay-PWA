@@ -13,8 +13,8 @@ PR cần gộp: $ARGUMENTS. Mỗi PR làm lần lượt các bước dưới. Hi
 4. **Bình luận** lên PR: ai duyệt, theo cách nào ở CL4.6, ngày. Gộp theo lệnh trong phiên thì ghi "Gộp theo lệnh của Tùng trong phiên Claude Code, ngày ...".
 5. **Đánh dấu task.** Trong file item, đánh dấu các task Code mà PR này làm, ghi số PR cạnh task. Thêm số PR vào trường `pr`.
 6. **Đổi trạng thái theo CL2.9.** Còn task Code chưa đánh dấu thì giữ `dang-lam`. Mọi task Code đã đánh dấu thì:
-   - Item cần test tay (US, BG, EN có màn hoặc chạm Zalo): sang `cho-test`.
-   - Item không cần test tay (EN không có màn, DC, SK): sang `xong`, chuyển file vào work/backlog/done/<yyyy-mm>/, xóa gói việc của item trong work/goi/.
+   - Item cần test tay (US, BG, EN có màn): sang `cho-test`.
+   - Item không cần test tay (EN không có màn): sang `xong`, chuyển file vào work/backlog/done/<yyyy-mm>/, xóa gói việc của item trong work/goi/.
 7. **Rút gọn file item.** Task vừa đánh dấu chỉ giữ một dòng mã và PR. Xóa phần Kế hoạch của các task đó. Bằng chứng dài thì thay bằng lệnh, kết quả ngắn và link PR. Mục đích là file item dưới 7.500 ký tự (rules/work.md).
 8. **Nhật ký** một dòng dưới 200 ký tự: ngày · người · gộp PR #n · trạng thái mới · ghi chú.
 9. **Đẩy** thay đổi file item lên main bằng một commit mở đầu bằng mã item. Chạy `python3 scripts/plan.py` nếu item đổi trạng thái, để bảng tình hình và trần chờ người đếm đúng.

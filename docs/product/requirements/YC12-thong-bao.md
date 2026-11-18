@@ -1,6 +1,8 @@
 ---
 id: YC12
 tieu_de: Thông báo
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -165,8 +167,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **P13-00, P13-01, P13-02.** Đúng bố cục.
 - **P3, P12 · Cài đặt thông báo.** Đúng bố cục.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US30, phần thông báo của US17, US21 (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US30, phần thông báo của US17, US21 (QD21) | Cả file |

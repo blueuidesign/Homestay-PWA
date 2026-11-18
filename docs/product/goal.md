@@ -7,7 +7,7 @@ rev: 1
 ---
 # Mô tả dự án · Home247 · Lịch phòng Hạ Long
 
-18/11/2026. Bản mô tả ở trạng thái cuối, đọc trước khi đọc đặc tả. Chi tiết hành vi: story. Quyết định: `docs/decisions/`.
+18/11/2026. Bản mô tả ở trạng thái cuối, đọc trước khi đọc đặc tả. Chi tiết hành vi: YC ở `docs/product/requirements/`. Quyết định: `docs/decisions/`.
 
 ## Một câu
 
@@ -61,15 +61,11 @@ Nhiều người dùng trung niên, lớn tuổi, dùng một tay, hay vừa ngh
 ## Nền tảng
 
 - **Bây giờ: PWA** (app web cài được lên màn hình điện thoại), chạy trên Vercel và Supabase. Lý do: phát hành nhanh, test tự động được bằng trình duyệt (QD3).
-- **Sau này, khi có nhiều người dùng: Zalo Mini App** dùng chung database. Người dùng chia sẻ qua Zalo hằng ngày nên Mini App sẽ tự nhiên hơn. Thiết kế màn (`thiet-ke/`) vẽ cho Zalo Mini App, dùng lại cho PWA với vài chỗ khác ghi ở `thiet-ke/README.md`.
+- **Sau này, khi có nhiều người dùng: Zalo Mini App** dùng chung database. Người dùng chia sẻ qua Zalo hằng ngày nên Mini App sẽ tự nhiên hơn. Thiết kế màn (`docs/design/`) vẽ cho Zalo Mini App, dùng lại cho PWA với vài chỗ khác ghi ở `docs/design/README.md`.
 
 ## Bản đầu làm gì, để sau gì
 
-Phạm vi chính xác và thứ tự làm nằm ở `docs/stories/README.md`; bảng "Ngoài phạm vi bản 1" ở cuối file đó là danh sách để sau. Tóm lại:
-- **Bản 1:** đăng nhập và hồ sơ, thêm căn và giá theo tháng, lịch và đặt phòng của chủ nhà, kết nối chủ nhà với sale, sale tìm phòng và gửi khách, yêu cầu đặt phòng, căn tự nhập, hủy đặt phòng.
-- **Để sau:** giá ngày lễ và sao chép giá, thống kê, thông báo, xuất file, đội nhóm và cộng tác viên, trang quản trị, quản gia và dọn phòng, thanh toán, bản Zalo Mini App.
-
-story mô tả cả phần để sau, để khi làm không phải viết lại từ đầu.
+YC nào thuộc bản đầu, YC nào làm sau: cột "Bản" ở `docs/product/requirements/INDEX.md`; việc chưa đủ để viết YC: bảng "Bản sau, chưa có đặc tả" ở cùng file. Thứ tự làm: `work/backlog/THU-TU.md`. YC mô tả cả phần để sau, để khi làm không phải viết lại từ đầu.
 
 ## Ý tưởng kinh doanh (chưa làm)
 

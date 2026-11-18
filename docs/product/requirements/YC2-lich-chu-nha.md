@@ -1,6 +1,8 @@
 ---
 id: YC2
 tieu_de: Lịch chủ nhà
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -176,8 +178,7 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 - **CN3 · Chi tiết một ngày.** Chữ trên nút dòng căn trống là "Đặt phòng", không phải "Thêm khách" như hình.
 - **CN2, CN2-00 · Lịch tuần.** Hình có 6 căn và tòa "Tòa A", "Tòa B" là ví dụ; dữ liệu thật theo căn của chủ nhà. Ô tóm tắt trên hình ghi "1/6", bộ mẫu tuần 05 – 11/10 là "0/2".
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ các story US2, US9 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US2, US9 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |

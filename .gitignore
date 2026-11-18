@@ -10,3 +10,6 @@ dev-dist
 .vercel
 test-results
 playwright-report
+__pycache__/
+*.pyc
+work/goi/kiem-*/

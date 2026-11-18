@@ -8,5 +8,5 @@ Yêu cầu: $ARGUMENTS. Làm theo docs/process/CL6-thay-doi.md và docs/process/
 
 1. Đề xuất tăng bản hay "chỉ sửa chữ", nói lý do. Đổi số trong bảng ví dụ luôn là đổi nghĩa. Chỉ sửa chữ thì dừng skill này, chuyển sang sua-tai-lieu.
 2. Sửa tài liệu theo sua-tai-lieu.
-3. Dùng grep tìm mọi chỗ nhắc tới mã trong docs/, work/, src/, tests/. Liệt kê từng chỗ: sửa trong cùng PR, hoặc tạo DC, US, BG trỏ tới (CL6).
+3. Dùng grep tìm mọi chỗ nhắc tới mã trong docs/, work/, src/, tests/. Liệt kê từng chỗ: sửa trong cùng PR, hoặc tạo US, EN, BG trỏ tới (CL6).
 4. Mở PR cho Tùng chốt (CL4.3.1). Không đổi trang_thai sang da-chot, trừ khi Tùng nói rõ trong phiên "Tôi là Tùng" (CLAUDE.md).

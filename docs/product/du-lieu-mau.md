@@ -7,7 +7,7 @@ rev: 1
 ---
 # Bộ dữ liệu mẫu chung (DLM)
 
-Một bộ số cho tiêu chí nghiệm thu, ví dụ trong story, test và dữ liệu thử trên staging. Tên người là tên giả. Số đã tính theo các quy tắc: giá theo đêm, đặt phòng chiếm các đêm từ ngày nhận tới trước ngày trả, đêm cuối tuần là T6 và T7, giá dịp thay giá tháng, doanh thu chia theo đêm (QT2, QT4).
+Một bộ số cho tiêu chí nghiệm thu, ví dụ trong YC, test và dữ liệu thử trên staging. Tên người là tên giả. Số đã tính theo các quy tắc: giá theo đêm, đặt phòng chiếm các đêm từ ngày nhận tới trước ngày trả, đêm cuối tuần là T6 và T7, giá dịp thay giá tháng, doanh thu chia theo đêm (QT2, QT4).
 
 ## DLM.1 · Mốc thời gian
 - Hôm nay là T4 07/10/2026 (S1 "7 ngày tới · 07/10 → 13/10", S6-05 "Hôm nay 07/10").

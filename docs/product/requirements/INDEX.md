@@ -42,7 +42,7 @@ Rồi từng mục `YCn.m`:
 - **Luật kiểm** (nếu có): ô, luật, câu báo khi sai.
 - **Tiêu chí**: `YCn.m-NTk` Khi…, thì… · lớp test.
 
-Cuối file: **Màn hình** (mã màn và chỗ hình lệch YC) và **Lịch sử bản**.
+Cuối file: **Màn hình** (mã màn và chỗ hình lệch YC) và **Lịch sử sửa đổi** (CL12).
 
 ## Quy ước
 
@@ -51,8 +51,9 @@ Cuối file: **Màn hình** (mã màn và chỗ hình lệch YC) và **Lịch s�
 - **`[MỞ: mã]`**: chỗ đó chưa được code. Chữ câu hỏi ở `work/cau-hoi.md`, mã `YCn-Hk` (CL3).
 - **`(giả định GDn)`**: code được theo giả định đó, ghi rõ trong PR. Chữ giả định ở `work/gia-dinh.md`.
 - **Lớp test** sau dấu ·: `unit` (giao diện và hàm thuần, chạy không cần database), `database` (chạy trên Postgres thật, gồm mọi test quyền và tiền), `e2e` (trình duyệt với môi trường thử), `thủ công` (người làm theo danh sách). Tiêu chí ghi hai lớp thì cần test ở cả hai.
-- **Bản**: `1` là bản phát hành đầu, `sau` là chưa làm ở bản đầu. Mỗi mục `YCn.m` ghi bản riêng.
-- **Lịch sử bản**: mỗi lần sửa nghĩa tăng `rev` ở đầu file, thêm một dòng: bản, ngày, mục đổi, đổi gì. Item trỏ tới `YCn.m@r<rev>` để biết code theo bản nào.
+- **Bản phát hành** ở đầu file (`ban: 1` hay `sau`): YC thuộc bản phát hành đầu hay làm sau.
+- **Bản của mục**: dòng ngay dưới tiêu đề mục ghi "Bản <n>". Mục đổi nghĩa thì bản tăng 1 (CL6), tiêu chí đổi nghĩa thì đổi mã. Item trỏ tới `YCn.m@<bản>` (ví dụ `YC5.3@1`) để biết code theo bản nào; mục lên bản mới thì item có cờ "Đặc tả đổi" (CL2.2).
+- **Lịch sử sửa đổi**: mỗi PR sửa file tăng `rev` ở đầu file và thêm một dòng, cột "Mục bị đổi" ghi mục nào đổi, lên bản mấy (CL12).
 - **Chữ trên màn** gọi "đặt phòng"; tài liệu kỹ thuật có thể gọi "booking".
 
 ## Bản sau, chưa có đặc tả

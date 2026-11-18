@@ -6,7 +6,7 @@ argument-hint: "<US12 | BG3> [nhanh | du]"
 
 Item và chế độ: $ARGUMENTS. Không nói chế độ thì: lần đầu test item này chạy `nhanh`, đã đạt `nhanh` rồi thì chạy `du`. BG thì chạy lại bước tái hiện ghi trong BG, cộng kịch bản `nguon` nếu có.
 
-1. **Chuẩn bị.** Đọc phần đầu tests/kb/<item>.md: dữ liệu mẫu cần nạp, tài khoản Zalo thử, ngày giả lập. Hỏi Đức server đang chạy ở đâu (máy cá nhân hay server thử) và bản Mini App nào. Server chưa chạy thì gợi ý skill chay-tren-may.
+1. **Chuẩn bị.** Đọc phần đầu tests/kb/<item>.md: dữ liệu mẫu cần nạp, tài khoản thử, ngày giả lập. Hỏi Đức đang thử ở đâu (máy cá nhân hay bản thử trên Vercel) và bản nào (nhánh, commit). Chưa có chỗ chạy thì gợi ý skill chay-tren-may hoặc deploy-ban-thu.
 2. **Chọn kịch bản.** `nhanh`: chỉ kịch bản gắn `[Chính]`. `du`: mọi kịch bản, `[Chính]` trước rồi `[Biên]`. Rủi ro cao thì `du` chạy trên cả iPhone và Android (CL6.3).
 3. **Đi từng kịch bản.** Đưa Đức mục Làm và Mong đợi của một kịch bản, chờ Đức trả lời đạt hay không đạt. Không đạt thì hỏi thấy gì, máy nào, có ảnh không.
 4. **Ghi kết quả** ngay sau mỗi kịch bản vào dòng Kết quả của kịch bản đó trong tests/kb/<item>.md: ☑ OK hoặc ☑ NG, ngày, Đức, máy. Chạy lại thì thêm dòng Kết quả mới, không xóa dòng cũ. Không đạt thì chạy bao-loi với mã kịch bản. Không tăng rev file kịch bản vì chỉ ghi kết quả.

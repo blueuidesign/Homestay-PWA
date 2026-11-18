@@ -1,6 +1,6 @@
 ---
 name: nghiem-thu
-description: "Giúp Tùng nghiệm thu một US đã được Đức test đạt: đưa danh sách ngắn những gì cần tự thử trên điện thoại theo tiêu chí nghiệm thu, nhận đạt hoặc không đạt, rồi đóng item hoặc mở lỗi. Cũng dùng để Tùng chọn US nào cần nghiệm thu, vì mặc định US không cần (CL2.9). Dùng khi Tùng nói kiểu: \"nghiệm thu US12\", \"tôi muốn tự kiểm US3\", \"US12 đạt\", \"US16 không đạt vì ...\", \"US nào chờ tôi nghiệm thu\", \"đánh dấu US7 cần nghiệm thu\". Không dùng cho EN, DC, BG (không có bước nghiệm thu), cho TK (kiểm bằng kiem-thiet-ke), hoặc khi Đức chưa test xong."
+description: "Giúp Tùng nghiệm thu một US đã được Đức test đạt: đưa danh sách ngắn những gì cần tự thử trên điện thoại theo tiêu chí nghiệm thu, nhận đạt hoặc không đạt, rồi đóng item hoặc mở lỗi. Cũng dùng để Tùng chọn US nào cần nghiệm thu, vì mặc định US không cần (CL2.9). Dùng khi Tùng nói kiểu: \"nghiệm thu US12\", \"tôi muốn tự kiểm US3\", \"US12 đạt\", \"US16 không đạt vì ...\", \"US nào chờ tôi nghiệm thu\", \"đánh dấu US7 cần nghiệm thu\". Không dùng cho EN, BG (không có bước nghiệm thu), cho task Thiết kế (kiểm bằng kiem-thiet-ke), hoặc khi Đức chưa test xong."
 argument-hint: "<US12 [dat | khong-dat <lý do>] | chon US3 US7 | danh-sach>"
 ---
 

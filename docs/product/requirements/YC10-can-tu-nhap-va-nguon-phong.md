@@ -1,6 +1,8 @@
 ---
 id: YC10
 tieu_de: Nguồn phòng và căn tự nhập
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -192,8 +194,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **S6-06 · Đã lưu.** Toast theo HV8.
 - Không làm: S6-P1, S6-P2 (hộp thoại của Zalo; bản PWA xin số theo YC6.1).
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US16 trừ phần "Lịch phòng 7 ngày" (đã vào YC7.1) (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US16 trừ phần "Lịch phòng 7 ngày" (đã vào YC7.1) (QD21) | Cả file |

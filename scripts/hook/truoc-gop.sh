@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# EN55 · Hook PreToolUse trước lệnh gộp PR (gh pr merge, gh api .../merge) (.claude/settings.json).
+# Hook PreToolUse trước lệnh gộp PR (gh pr merge, gh api .../merge) (.claude/settings.json).
 # Đọc check run của commit đầu PR qua gh api. Không có lượt CI thành công thì chặn (exit 2).
 # Không gọi được GitHub thì cũng chặn và nói lý do (thà chặn nhầm còn hơn gộp khi chưa biết CI).
 # Bỏ kiểm: mở Claude Code với biến môi trường HOME247_BO_KIEM_CI=1, chỉ khi Tùng cho phép.

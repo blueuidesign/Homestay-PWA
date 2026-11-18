@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""In đúng các mục được hỏi, không phải đọc cả file (EN55). Chỉ đọc, không sửa file.
+"""In đúng các mục được hỏi, không phải đọc cả file. Chỉ đọc, không sửa file.
 
 Chạy:
   python3 scripts/trich.py YC4.2 YC4.1-NT3 QT1.1 QD21 HV4 DLM.3
-  python3 scripts/trich.py server.md#1.4 "docs/architecture/api/lich-dat-phong.md#GET /booking/:id"
+  python3 scripts/trich.py "thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)"
   python3 scripts/trich.py --khong-theo YC4.2     không kèm các mục mà đoạn trích trỏ tới
 
 Mã nhận được:
@@ -15,12 +15,12 @@ Mã nhận được:
   DLM.3                docs/product/du-lieu-mau.md
   CL2.8, PQ3           mục có mã ở tiêu đề trong docs/
   YC4-H6               câu hỏi mở trong work/cau-hoi.md
-  file#mục             tiêu đề trong file, so theo đầu chuỗi (server.md#1.4)
-  file.md              cả file (api/gia.md), khi item cần mọi mục của file đó
-  CN3-02               mô tả màn docs/design/screens/CN3-02.md
-  EN11, SK2            cả file item trong work/backlog/ (gồm done/)
+  file#mục             tiêu đề trong file, so theo đầu chuỗi (thiet-ke-db.md#3. Bất biến)
+  file.md              cả file (pwa.md), khi item cần mọi mục của file đó
+  CN3-02               chữ của màn trên canvas (scripts/trich-man.py --chu)
+  EN11, US3            cả file item trong work/backlog/ (gồm done/)
   YC4.1-NT3            cũng nhận khi NT nằm ở mục con (YC4.1.1-NT3)
-Mặc định (--theo) in thêm một bậc các QT, QD, HV và đích [MỞ: ...] mà đoạn trích nhắc tới (EN64):
+Mặc định (--theo) in thêm một bậc các QT, QD, HV và đích [MỞ: ...] mà đoạn trích nhắc tới:
   - QT ghi trần (QT1) in cả quy tắc, và các mục con của nó (QT1.1) không in lại lần hai.
   - HV chỉ kèm khi đoạn trích có dòng "Màn hình:" (task không có màn không cần HV).
   - Mục đã nằm trong một khối đã in thì không in lại.
@@ -31,7 +31,7 @@ Mặc định (--theo) in thêm một bậc các QT, QD, HV và đích [MỞ: ..
 Cuối cùng luôn in mục lục (các tiêu đề) của mỗi file nguồn đã dùng.
 Mã không tìm thấy: vẫn in các mã tìm được, cuối cùng báo mã thiếu, thoát 2.
 """
-import argparse, glob, os, re, signal, sys, unicodedata
+import argparse, glob, os, re, signal, subprocess, sys, unicodedata
 signal.signal(signal.SIGPIPE, signal.SIG_DFL)   # cho phép | head
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -215,7 +215,7 @@ def tim_file(ten):
 
 
 def trich_ca_file(arg):
-    """api/gia.md, external/zalo-rang-buoc.md: cả file, khi item cần mọi mục của nó."""
+    """pwa.md, glossary.md: cả file, khi item cần mọi mục của nó."""
     rel = tim_file(arg)
     lines = doc(rel)
     return arg, rel, 0, len(lines), lines
@@ -226,14 +226,18 @@ def trich(arg):
         return trich_file_muc(arg)
     if arg.endswith('.md'):
         return trich_ca_file(arg)
-    if re.match(r'^(EP|US|EN|SK|DC|TK|BG|IM)\d+$', arg):
+    if re.match(r'^(US|EN|BG)\d+$', arg):
         ds = sorted(glob.glob(os.path.join(ROOT, f'work/backlog/**/{arg}-*.md'), recursive=True))
         if not ds:
             raise KhongThay(arg)
         return (arg,) + trich_ca_file(os.path.relpath(ds[0], ROOT))[1:]
-    man = f'docs/design/screens/{arg}.md'
-    if re.match(r'^[A-Z]{1,3}\d+(?:-[A-Za-z0-9]+)*$', arg) and os.path.exists(os.path.join(ROOT, man)):
-        return (arg,) + trich_ca_file(man)[1:]
+    if re.match(r'^(?:A|CN|S|P|HV)\d+(?:-[A-Za-z0-9]+)+$|^(?:A|CN|S|P)\d+$', arg):
+        # Mã màn: bản PWA không có file mô tả màn; chữ của màn lấy từ canvas (scripts/trich-man.py --chu).
+        # Điều màn phải làm nằm ở YC (mục có "Màn: <mã>" và mục "Màn hình" cuối YC).
+        r = subprocess.run([sys.executable, os.path.join(ROOT, 'scripts/trich-man.py'), arg, '--chu'],
+                           capture_output=True, text=True, cwd=ROOT)
+        if r.returncode == 0:
+            return arg, 'docs/design/canvas/home247-canvas.html', 0, 0, r.stdout.rstrip().split('\n')
     return trich_ma(arg)
 
 
@@ -259,7 +263,7 @@ RE_NHAN = re.compile(r'^\*\*([^*]+?):?\*\*:?')
 
 
 def chi_phan(lines):
-    """Khối một API: giữ tiêu đề, đoạn mục đích và các phần được chọn bằng --phan (EN66).
+    """Khối một API: giữ tiêu đề, đoạn mục đích và các phần được chọn bằng --phan.
     Khối không theo khuôn API (không có nhãn Đầu vào) thì giữ nguyên."""
     if not any(RE_NHAN.match(l) and RE_NHAN.match(l).group(1).strip() == 'Đầu vào' for l in lines):
         return lines

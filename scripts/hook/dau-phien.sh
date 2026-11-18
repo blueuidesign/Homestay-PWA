@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# EN55, EN66 · Hook SessionStart (.claude/settings.json). In vài dòng cho Claude đọc đầu phiên:
+# Hook SessionStart (.claude/settings.json). In vài dòng cho Claude đọc đầu phiên:
 # số item theo trạng thái; trần đang làm (2) và chờ người (6); item code đã xong mà chưa đổi trạng thái;
 # lỗi kiem.py MỚI so với main (không in lại số lỗi cũ không đổi); nhánh và item đang làm.
 # Sau khi context bị nén (source = compact) in thêm đường dẫn file item và gói việc để phiên đọc lại đúng chỗ.

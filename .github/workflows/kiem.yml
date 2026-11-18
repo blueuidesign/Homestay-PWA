@@ -1,0 +1,44 @@
+# CI của Home247 bản PWA (QD21).
+# Hiện chỉ có job kiem: kiểm tài liệu và test của scripts. Hook trước gộp (scripts/hook/truoc-gop.sh)
+# cần ít nhất một lượt CI xanh, kể cả PR chỉ sửa tài liệu.
+# EN dựng nền thêm job app (typecheck, unit, build) và database (migration, tests/db) khi có code.
+name: kiem
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: kiem-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  kiem:
+    name: kiem.py
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml==6.0.2
+      - name: Chặn lỗi trên file đổi (luật [MỞ] chỉ áp cho dòng mới)
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE="origin/${{ github.base_ref }}"
+          else
+            BASE="${{ github.event.before }}"
+            git cat-file -e "$BASE^{commit}" 2>/dev/null || BASE="HEAD~1"
+          fi
+          python3 scripts/kiem.py --chan --diff "$BASE"
+      - name: Cả repo, chỉ cảnh báo
+        run: python3 scripts/kiem.py --tom-tat
+      - name: Test của scripts
+        run: python3 -m unittest discover -s scripts/tests -v

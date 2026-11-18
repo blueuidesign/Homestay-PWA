@@ -1,6 +1,8 @@
 ---
 id: YC4
 tieu_de: Giá
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -233,8 +235,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **P6 · Ngày tính giá cuối tuần.** Đúng bố cục. Kết quả sau khi lưu chưa có hình (YC4-H4).
 - **CN5 · thẻ căn.** Dòng giá và nút "Đặt giá cho căn này" theo YC4.1.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ các story US4, US7, US8 và màn P6 của US11 (QD20, QD21); áp quyết định 5, 6, 12, 13 của Tùng ngày 04/11/2026 ở bản Zalo |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US4, US7, US8 và màn P6 của US11 (QD20, QD21); áp quyết định 5, 6, 12, 13 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |

@@ -1,6 +1,8 @@
 ---
 id: YC15
 tieu_de: Vận hành
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -78,8 +80,7 @@ Tiêu chí:
 - **YC15.3-NT1** Khi app gặp lỗi không lường trước ở máy người dùng, thì Tùng biết trong ngày, và bản ghi lỗi không có tên, số điện thoại khách. · thủ công
 - **YC15.3-NT2** Khi người dùng mở "Điều khoản" hay "Chính sách quyền riêng tư" ở A1, thì thấy nội dung Tùng đã duyệt, không phải chữ giữ chỗ. · unit
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US39 và `docs/ha-tang/` (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US39 và `docs/ha-tang/` (QD21) | Cả file |

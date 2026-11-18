@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# EN55 · Hook PreToolUse trước "git push" (.claude/settings.json).
-# - Đẩy lên main mà commit chạm src/, tests/ (trừ tests/kb/), docs/process/, CLAUDE.md, .claude/, .github/,
+# Hook PreToolUse trước "git push" (.claude/settings.json).
+# - Đẩy lên main mà commit chạm src/, supabase/, tests/ (trừ tests/kb/), docs/process/, CLAUDE.md, .claude/, .github/,
 #   hoặc đổi dòng trang_thai: của YC, QT, QD thì chặn (exit 2): dùng nhánh <mã>-<tên-ngắn> và PR (CL4.7).
 # - Luôn chạy scripts/kiem.py (chỉ cảnh báo) trên các file đổi và đưa kết quả cho Claude.
 # Đầu vào: JSON của Claude Code trên stdin (tool_input.command, cwd). Không đọc .env.
@@ -9,7 +9,7 @@ export INPUT
 exec python3 - <<'PY'
 import json, os, re, shlex, subprocess, sys
 
-CHAN = ('src/', 'tests/', 'docs/process/', 'CLAUDE.md', '.claude/', '.github/')
+CHAN = ('src/', 'supabase/', 'tests/', 'docs/process/', 'CLAUDE.md', '.claude/', '.github/')
 # Kết quả test tay (skill test-tay) đẩy thẳng main được (CL4.7 mục 2).
 KHONG_CHAN = ('tests/kb/',)
 TT_DIR = ('docs/product/requirements/', 'docs/product/rules/', 'docs/decisions/')

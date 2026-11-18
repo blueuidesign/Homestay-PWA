@@ -20,5 +20,5 @@ rev: 1
 
 ## 2. Ghi lại
 
-| Ngày giờ | Triệu chứng | Ảnh hưởng (ai, bao lâu) | Nguyên nhân | Đã sửa (PR) | Luật rút ra (thêm vào docs/QUY_TRINH.md mục 14) |
+| Ngày giờ | Triệu chứng | Ảnh hưởng (ai, bao lâu) | Nguyên nhân | Đã sửa (PR) | Luật rút ra (ghi item hoặc đề xuất sửa CL) |
 | --- | --- | --- | --- | --- | --- |

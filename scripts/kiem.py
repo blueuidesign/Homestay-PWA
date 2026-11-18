@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Kiểm repo Home247 theo CL2, CL3, CL12 (EN55). Chỉ đọc, không sửa file nào.
+"""Kiểm repo Home247 theo CL2, CL3, CL12. Chỉ đọc, không sửa file nào.
 
 Chạy:
   python3 scripts/kiem.py                  kiểm cả repo, chỉ cảnh báo (luôn thoát 0)
@@ -26,15 +26,15 @@ import yaml
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Trạng thái item: CL2.2 r7 (QD26) cộng on-hold. EP và TK dùng cùng bộ này (đã quét: EP chỉ có moi,
-# TK có moi, san-sang, dang-lam, cho-nghiem-thu, xong). trong-sprint đã bỏ theo QD26.
+# Trạng thái item: CL2.2 cộng on-hold. Bản PWA chỉ có US, EN, BG (QD21).
+#
 TT_ITEM = {'moi', 'san-sang', 'dang-lam', 'cho-test', 'cho-nghiem-thu', 'xong', 'huy', 'on-hold'}
 # Trạng thái tài liệu docs/: đang dùng de-xuat, da-chot, bo, nhap; khuôn qd.md thêm cho-chot, da-thay;
 # khuôn man.md thêm da-duyet.
 TT_DOCS = {'de-xuat', 'da-chot', 'da-thay', 'bo', 'cho-chot', 'nhap', 'da-duyet'}
 TT_DONG = {'xong', 'huy'}
 
-BO_QUA_DIR = ('handbook/', 'node_modules/', '.git/', 'src/miniapp/hello-world/', 'tools/tien-do/node_modules/',
+BO_QUA_DIR = ('node_modules/', '.git/',
               'docs/_lich-su/')  # bảng lịch sử cũ, không có đầu file (CL12.3)
 # Không thuộc CL12 (CL12.1) và không có đầu file bắt buộc
 DOCS_MIEN = ('docs/process/templates/', 'docs/chuc-nang/')
@@ -52,7 +52,7 @@ RE_CAU_HOI = re.compile(r'^' + MA + r'-H\d+$')
 
 
 CANH_BAO = {'item-dai'}  # luật chỉ nhắc, --chan không chặn
-ITEM_DAI = 7500  # ký tự; mỗi phiên làm item đọc lại cả file item nhiều lần (EN66)
+ITEM_DAI = 7500  # ký tự; mỗi phiên làm item đọc lại cả file item nhiều lần
 
 
 def nfc(s):
@@ -199,7 +199,7 @@ def doc_cau_hoi(text):
     """Đọc work/cau-hoi.md: mã YCn-Hm -> True nếu đang mở (trạng thái mo).
 
     Nhận bốn dạng: dòng bảng `| YC4-H6 | ... | mo |`, dòng gạch đầu `- YC4-H6 ... · mo`,
-    tiêu đề `### YC4-H6 · mo` (dạng EN57 dùng), hoặc tiêu đề `### YC4-H6 · ...` với dòng
+    tiêu đề `### YC4-H6 · mo` , hoặc tiêu đề `### YC4-H6 · ...` với dòng
     `trang_thai: mo` (hoặc `Trạng thái: mo`) trong mục. `mot-phan` tính là còn mở.
     """
     out, cur = {}, None
@@ -278,7 +278,7 @@ _trich = None
 
 
 def ma_trich_duoc(x):
-    """Mã hay file#mục mà scripts/trich.py tìm được (EN64)."""
+    """Mã hay file#mục mà scripts/trich.py tìm được."""
     global _trich
     if _trich is None:
         import importlib.util
@@ -293,7 +293,7 @@ def ma_trich_duoc(x):
 
 
 def kiem_muc_doc(p, t, bao):
-    """Luật doc-ma: mục ## Đọc của US, BG chỉ ghi mã mà trich.py tìm được (CL14.4, EN64)."""
+    """Luật doc-ma: mục ## Đọc của US, BG chỉ ghi mã mà trich.py tìm được (CL14.4)."""
     lines = t.split('\n')
     try:
         i0 = next(i for i, l in enumerate(lines) if re.match(r'^##\s+Đọc\s*$', l))
@@ -309,7 +309,7 @@ def kiem_muc_doc(p, t, bao):
         cac = [l] if '#' in l else [x for x in re.split(r'[\s,·]+', l) if x]
         for x in cac:
             if not ma_trich_duoc(x):
-                bao.them(p, i + 1, 'doc-ma', f'mục Đọc: "{x[:60]}" không phải mã trich.py tìm được. Ghi mã (YC5.2, PQ5, S2, server.md#1.4), mỗi file#mục một dòng')
+                bao.them(p, i + 1, 'doc-ma', f'mục Đọc: "{x[:60]}" không phải mã trich.py tìm được. Ghi mã (YC5.2, PQ5, S2, thiet-ke-db.md), mỗi file#mục một dòng')
 
 
 def kiem_file(repo, p, bao, dong_moi=None, doc_ma=False):
@@ -342,7 +342,7 @@ def kiem_file(repo, p, bao, dong_moi=None, doc_ma=False):
         kiem_muc_doc(p, t, bao)
     if doc_ma and la_item and not p.startswith('work/backlog/done/') and len(t) > ITEM_DAI:
         bao.them(p, 1, 'item-dai', f'file item {len(t):,} ký tự, quá {ITEM_DAI:,} (khoảng 3.000 token). Task xong rút còn một dòng mã và PR, '
-                 'xóa Kế hoạch của task đã xong, Bằng chứng chỉ giữ lệnh và kết quả ngắn (EN66)')
+                 'xóa Kế hoạch của task đã xong, Bằng chứng chỉ giữ lệnh và kết quả ngắn')
     if p.endswith('.md') and not p.startswith(META) and not p.startswith('docs/process/templates/'):
         for i, line in enumerate(bo_code(t), 1):
             if dong_moi is not None and i not in dong_moi:

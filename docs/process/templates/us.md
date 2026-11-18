@@ -3,12 +3,11 @@ id: US0                    # số US lớn nhất + 1 (CL3)
 tieu_de:                   # <vai> <làm gì>, ngắn
 loai: US
 trang_thai: moi            # san-sang chỉ khi mọi mục thuc_hien đã da-chot (CL2.4)
-cha: EP0
-thuc_hien: []              # [YC4.1@2, YC4.1.1@1]: mục YC kèm bản hiện tại
+thuc_hien: []              # [YC5.1@1, YC5.3@1]: mục YC kèm bản hiện tại của mục (dòng "Bản n")
 truoc: []                  # EN, US phải xong trước
 lien_quan: []
 thay_cho: []               # khi tách, gộp US cũ
-nguon:                     # DC đang làm, ví dụ DC15
+nguon:                     # QD, câu hỏi đã trả lời, hay EN viết US
 nguoi:                     # tung | duc
 rui_ro:                    # thap | tb | cao. Lấy mức cao nhất của thuc_hien (CL14.6)
 nghiem_thu: khong          # co | khong. Tùng chọn US cần tự nghiệm thu (CL2.9). khong thì không có task Nghiệm thu
@@ -23,10 +22,10 @@ ngay_tao:
 Là <chủ nhà | sale>, tôi muốn <làm gì>, để <được gì>.
 
 ## Làm tiêu chí nào
-<!-- Chỉ mã NT, ví dụ YC4.1-NT1 đến NT5. NT của thuc_hien mà US khác làm thì ghi ở Ngoài phạm vi -->
+<!-- Chỉ mã NT, ví dụ YC5.3-NT1 đến NT8. NT của thuc_hien mà US khác làm thì ghi ở Ngoài phạm vi -->
 
 ## Quy tắc, hành vi dùng
-<!-- Mã QT, HV, ví dụ QT1.1 đến QT1.3, HV4, HV8 -->
+<!-- Mã QT, HV, ví dụ QT1.1 đến QT1.3, QT6.1, HV3, HV8 -->
 
 ## Màn hình
 <!-- Mã màn trong YC -->
@@ -41,7 +40,7 @@ Là <chủ nhà | sale>, tôi muốn <làm gì>, để <được gì>.
 <!-- Việc dễ tưởng thuộc US này, kèm US làm việc đó -->
 
 ## Đọc
-<!-- Chỉ mã trich.py tìm được, không chú thích (CL14.4): YC4.2 QT1.1 PQ5 DLM.3 S2 EN11 trên một dòng; mỗi mục trong file một dòng: server.md#1.4, api/sale.md#GET /sale/tim. Cả file chỉ khi làm mọi mục của nó -->
+<!-- Chỉ mã trich.py tìm được, không chú thích (CL14.4): YC5.3 QT1.1 PQ7 DLM.4 CN4 EN1 trên một dòng; mỗi mục trong file một dòng: thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm). Cả file chỉ khi làm mọi mục của nó -->
 
 ## Test case
 Kịch bản test tay: tests/kb/US0-<ten-ngan>.md (CL14.5a, khuôn docs/process/templates/kb.md).

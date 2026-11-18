@@ -1,6 +1,6 @@
 ---
 name: lam-mot-item
-description: "Làm trọn một item cụ thể từ đầu tới lúc mở PR: đọc item và đúng phần tài liệu nó trỏ tới, kiểm điều kiện, lập kế hoạch, code và test trên nhánh riêng, ghi nhật ký, mở PR. Dùng khi người dùng bảo làm, code, sửa, viết tiếp, sửa lỗi một item có mã, ví dụ: \"làm US12\", \"code EN54\", \"sửa BG3\", \"làm tiếp US16\", \"bắt tay vào DC40\". Không dùng khi chỉ hỏi item đó tới đâu (dùng xem-tinh-hinh), khi được bảo làm liền nhiều item hoặc làm tự động (dùng lam-tu-dong), hoặc khi việc chưa có item (ghi trước bằng ghi-viec-moi)."
+description: "Làm trọn một item cụ thể từ đầu tới lúc mở PR: đọc item và đúng phần tài liệu nó trỏ tới, kiểm điều kiện, lập kế hoạch, code và test trên nhánh riêng, ghi nhật ký, mở PR. Dùng khi người dùng bảo làm, code, sửa, viết tiếp, sửa lỗi một item có mã, ví dụ: \"làm US12\", \"code EN54\", \"sửa BG3\", \"làm tiếp US16\". Không dùng khi chỉ hỏi item đó tới đâu (dùng xem-tinh-hinh), khi được bảo làm liền nhiều item hoặc làm tự động (dùng lam-tu-dong), hoặc khi việc chưa có item (ghi trước bằng ghi-viec-moi)."
 argument-hint: "<mã item, ví dụ US12>"
 ---
 

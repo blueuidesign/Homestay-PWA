@@ -3,21 +3,21 @@ id: CL1
 tieu_de: Nhịp làm việc theo luồng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 1
 ---
 # CL1 · Nhịp làm việc theo luồng
-`[r2 · sửa]` Theo QD26. Không chạy sprint. Việc đi theo thứ tự trong work/backlog/THU-TU.md, qua các cột trạng thái của CL2.2, mỗi cột chờ người có trần.
+Theo QD21 (lấy lại cách làm theo luồng của bản Zalo). Không chạy sprint. Việc đi theo thứ tự trong work/backlog/THU-TU.md, qua các cột trạng thái của CL2.2, mỗi cột chờ người có trần.
 
 ## CL1.1 · Vai
 | Vai | Người | Trách nhiệm |
 |---|---|---|
-| Product Owner, quản lý dự án | Tùng (kiêm Scrum Master, QD3) | Thứ tự backlog, chốt yêu cầu, trả lời câu hỏi mở, nghiệm thu |
+| Product Owner, quản lý dự án | Tùng (kiêm Scrum Master) | Thứ tự backlog, chốt yêu cầu, trả lời câu hỏi mở, nghiệm thu |
 | Developers | Đức, và Tùng | Test tay, môi trường, việc cần máy thật. Duyệt code theo CL4.2 |
 AI là công cụ, không giữ vai nào. Mọi task Code do Claude Code làm (CL2.8).
 
 ## CL1.2 · Luồng và trần
 Việc chảy qua các cột: `san-sang` → `dang-lam` → `cho-test` → `cho-nghiem-thu` → `xong` (CL2.2).
-- **Trần chờ người:** item có task Code ở `cho-test` cộng `cho-nghiem-thu` tối đa 6. Chạm trần thì không ai nhận item có code mới. Chỉ làm BG, DC, sửa lỗi Đức tìm ra, và việc giảm tải cho người kiểm.
+- **Trần chờ người:** item có task Code ở `cho-test` cộng `cho-nghiem-thu` tối đa 6. Chạm trần thì không ai nhận item có code mới. Chỉ làm BG, EN chỉ có tài liệu, sửa lỗi Đức tìm ra, và việc giảm tải cho người kiểm.
 - **Trần đang làm:** tối đa 2 item có code ở `dang-lam` cùng lúc.
 - **Lỗi trước, việc mới sau:** BG từ test tay đứng đầu hàng đợi.
 - Thứ tự còn lại theo THU-TU.md. Chỉ Tùng sắp (CL4.3.2).
@@ -32,13 +32,12 @@ Mỗi tuần một buổi 30 phút, chiều thứ Sáu:
 Lệnh "xem tuần" (CL5) soạn sẵn ba mục trên.
 
 ## CL1.4 · Phát hành
-Phát hành theo Epic hoặc khi Tùng quyết (CL4.3.5). Mọi yêu cầu trong phạm vi phải Đã test OK (CL6.4 K7).
+Phát hành khi Tùng quyết (CL4.3.5). Phạm vi bản phát hành là các mục YC ghi "Bản 1". Mọi yêu cầu trong phạm vi phải Đã test OK (CL6.4 K7).
 
 ## CL1.5 · Khi bật lại sprint
-Nếu sau này cần sprint, viết QD mới. Lịch sự kiện Scrum cũ xem git log của file này ở r1.
+Nếu sau này cần sprint, viết QD mới.
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
-| r1 | 2026-10-23 | Tùng | 5f43894 | Mốc ban đầu khi bắt đầu đánh rev. Thay đổi trước đó xem git log | Cả file |
-| r2 | 2026-11-04 | Tùng | EN56-quy-trinh-moi | Bỏ sprint, làm theo luồng có trần chờ người, nhịp tuần (QD26) | Cả file |
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Chép từ bản Zalo r2, sửa cho bản PWA (QD21). Lịch sử cũ ở repo zalo-miniapp | Cả file |

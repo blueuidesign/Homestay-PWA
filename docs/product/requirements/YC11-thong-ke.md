@@ -1,6 +1,8 @@
 ---
 id: YC11
 tieu_de: Thống kê
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: 1
 ---
@@ -148,8 +150,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **S7, S7-00 · Thống kê sale.** Số theo DLM.6.
 - **S7-03, S7-03-00 · Đặt phòng của tôi.** Chưa có câu cho đặt phòng chủ nhà ghi giúp (GD25).
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US18 và US19 (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US18 và US19 (QD21) | Cả file |

@@ -1,6 +1,8 @@
 ---
 id: YC13
 tieu_de: Quản trị Home247
+trang_thai: de-xuat
+nguoi_chu: tung
 rev: 1
 ban: sau
 ---
@@ -51,7 +53,7 @@ Trang quản trị chưa có thiết kế; đang tải, mất mạng, không có
 
 ## YC13.1 · Đăng nhập và quản trị viên
 
-Bản sau · rủi ro: cao · Màn: chưa thiết kế
+Bản 1 · rủi ro: cao · Màn: chưa thiết kế
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -72,7 +74,7 @@ Tiêu chí:
 
 ## YC13.2 · Dải ngày lễ
 
-Bản sau · rủi ro: tb · Màn: chưa thiết kế
+Bản 1 · rủi ro: tb · Màn: chưa thiết kế
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -98,7 +100,7 @@ Tiêu chí:
 
 ## YC13.3 · Tòa nhà
 
-Bản sau · rủi ro: tb · Màn: chưa thiết kế
+Bản 1 · rủi ro: tb · Màn: chưa thiết kế
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -119,8 +121,7 @@ Tiêu chí:
 
 Chưa thiết kế.
 
-## Lịch sử bản
-
-| Bản | Ngày | Mục đổi | Đổi gì |
-|---|---|---|---|
-| 1 | 18/11/2026 | Tất cả | Tạo từ story US23, US29, US34 (QD21) |
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US23, US29, US34 (QD21) | Cả file |

@@ -1,30 +1,12 @@
----
-id: TK0
-tieu_de: <động từ + màn, ví dụ "Vẽ màn Thêm lịch của chủ nhà">
-loai: TK
-trang_thai: san-sang
-cha: <EPn>
-truoc: []                  # item phải xong trước, nếu có
-lien_quan: [<QDn>, <YCn.m>, <HVn>, <RVn-Fm>]
-nguon: <RVn-Fm hoặc QDn>
-nguoi: tung
-rui_ro: thap | tb | cao
-uoc_luong:
-ngay_tao: <yyyy-mm-dd>
----
+<!-- Khuôn các mục thêm vào file item (US, EN, BG) khi item có task Thiết kế (CL13.6). Dán dưới mục "Mục tiêu". Không tạo item riêng cho thiết kế (QD21). -->
 ## Vì sao sửa
 <Canvas cũ đang thế nào. Ai phát hiện vấn đề (review, QD). Tùng quyết gì, ngày nào.
-Nếu không sửa thì hỏng gì. Viết đủ để Design hiểu ý, không chỉ biết việc. Mã đều là link.>
-
-## Đọc
-[YCn.m](../../docs/product/requirements/<file YC>.md) · [QDn](../../docs/decisions/<file QD>.md)
+Nếu không sửa thì hỏng gì. Viết đủ để Design hiểu ý, không chỉ biết việc.>
 
 ## Màn phải làm
 | Màn | Loại | Đổi gì | Theo |
 |---|---|---|---|
-| <mã màn> | thêm, sửa, bỏ | <đổi gì, chữ đúng như sẽ hiện> | [YCn.m](../../docs/product/requirements/<file YC>.md) bước k |
+| <mã màn> | thêm, sửa, bỏ | <đổi gì, chữ đúng như sẽ hiện> | <YCn.m bước k hay NT> |
 
-## Task
-- [ ] TK0-TA1 Phiên Design: làm theo CL13. Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3)
-
-## Nhật ký
+<Trong mục Task:>
+- [ ] <mã>-TA1 Thiết kế · Design: làm theo CL13 bảng "Màn phải làm". Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3)
