@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
-- Làm sau khi xong: US3, US10
+- Làm sau khi xong: US3, US3
 - Kiểm tay: `tests/kich-ban/US18.md` (23 kịch bản)
 
 ## Mục tiêu
@@ -129,7 +129,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US18-NT11** Khi chủ nhà xem màn này, thì không dòng nào hiện giá bán của sale hay phần chênh.
 - **US18-NT12** Khi có hai booking chưa cọc 1.900.000đ và 1.800.000đ, thì tổng ghi 3.700.000đ.
 - **US18-NT13** Khi booking nhận phòng trong 3 ngày nữa mà chưa cọc, thì dòng ghi "nhận phòng sau 3 ngày".
-- **US18-NT14** Khi chủ nhà đánh dấu đã thu đủ ở mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), thì khoản đó biến khỏi danh sách.
+- **US18-NT14** Khi chủ nhà đánh dấu đã thu đủ ở mục "Chi tiết booking và đánh dấu đã thu đủ" (US3), thì khoản đó biến khỏi danh sách.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -228,7 +228,7 @@ Trạng thái riêng:
 
 ## Ngoài phạm vi
 - Doanh thu tháng, ba số tóm tắt ở tab Lịch (mục "Tóm tắt tháng" (US2)): US2.
-- Xóa đặt phòng, đánh dấu đã thu đủ (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Xóa booking" (US10)): US10. Ở đây chỉ kiểm hiệu ứng của chúng lên thống kê (KB14, KB17).
+- Xóa đặt phòng, đánh dấu đã thu đủ (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3), mục "Xóa booking" (US3)): US3. Ở đây chỉ kiểm hiệu ứng của chúng lên thống kê (KB14, KB17).
 - Thống kê của sale (mục "Thống kê của sale" (US19)), danh sách đặt phòng của sale (mục "Trạng thái booking của sale" (US19)): US19.
 - Tên người bán hay sale đã xóa tài khoản trong doanh thu theo người bán (mục "Doanh thu theo người bán" kèm QD-013): US22 (US22-KB31).
 - Thêm hoặc ẩn căn giữa tháng ảnh hưởng công suất: chờ [MỞ: US18-H1] ở trên.

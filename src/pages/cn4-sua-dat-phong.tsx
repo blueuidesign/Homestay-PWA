@@ -22,7 +22,7 @@ import { KhongConXem, tenNguoiDat } from "./cn3-man";
 import { docTien, NoiDungCN4, ngayTraTheoChip, type FormCN4 } from "./cn4-dat-phong";
 import { chuToastDaSua, formTuDatPhong, loiKhiSua, thanSua } from "./cn4-sua-man";
 
-// CN4-02 · Sửa đặt phòng (mục "Sửa booking" (US10)): phần tải dữ liệu và gọi server. Điền sẵn và thân PATCH ở cn4-sua-man.ts.
+// CN4-02 · Sửa đặt phòng (mục "Sửa booking" (US3)): phần tải dữ liệu và gọi server. Điền sẵn và thân PATCH ở cn4-sua-man.ts.
 
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
@@ -72,7 +72,7 @@ export const CN4SuaDatPhong = () => {
 
   const tra = form ? ngayTraTheoChip(form.ngayNhan, form.chipDem, form.traTuyChon) : "";
 
-  // Kiểm trùng bỏ qua chính đặt phòng này (mục "Sửa booking" (US10) bước 2, QT1.2)
+  // Kiểm trùng bỏ qua chính đặt phòng này (mục "Sửa booking" (US3) bước 2, QT1.2)
   useEffect(() => {
     if (!form?.canId || !id) return;
     const lan = ++lanKiem.current;
@@ -103,7 +103,7 @@ export const CN4SuaDatPhong = () => {
       await patchBooking(dp.id, thanSua(dp, form), khoa.current);
       boNhoLich.lamMoi();
       toast(chuToastDaSua);
-      // Về đúng màn đã mở chức năng sửa, bỏ qua CN3-02 ở giữa (US10, Tùng quyết 04/11/2026)
+      // Về đúng màn đã mở chức năng sửa, bỏ qua CN3-02 ở giữa (US3, Tùng quyết 04/11/2026)
       quayVeNoiMo(dieuHuong, BUOC_SAU_LUU_SUA);
     } catch (e) {
       setLoiChung(loiKhiSua(e));

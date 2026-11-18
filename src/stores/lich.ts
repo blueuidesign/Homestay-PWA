@@ -37,7 +37,7 @@ export const boNhoLich = {
     dangXem = moi;
   },
   // Vừa ghi hay xóa đặt phòng: bỏ lịch đã xem để lần mở lại tải mới, nhưng giữ tháng và ngày đang xem
-  // để quay về đúng màn đã mở chức năng (US10 quyết định 2, 04/11/2026)
+  // để quay về đúng màn đã mở chức năng (US3 quyết định 2, 04/11/2026)
   lamMoi: () => {
     thangDaXem.clear();
     ngayDaXem.clear();

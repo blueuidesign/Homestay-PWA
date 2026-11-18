@@ -106,7 +106,7 @@ Không chạy sprint. Làm theo thứ tự ở `docs/stories/README.md`.
 
 ### 4.2 Khuôn story (mục nào không có thì bỏ)
 
-Mẫu đã duyệt: `docs/stories/US3-ghi-booking.md` (Tùng duyệt 18/11/2026). Viết story mới thì chép cấu trúc của mẫu.
+Mẫu đã duyệt: `docs/stories/US3-dat-phong.md` (Tùng duyệt 18/11/2026). Viết story mới thì chép cấu trúc của mẫu.
 
 ```markdown
 # US<n> · <Tên: ai làm được gì>

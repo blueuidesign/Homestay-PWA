@@ -26,9 +26,9 @@ export const DUONG = {
   CAN: "/can",
   THEM_CAN: "/can/them", // CN5-A1
   DAT_PHONG: "/dat-phong", // CN4
-  CHI_TIET_DAT_PHONG: "/dat-phong/chi-tiet", // CN3-02 (US10), state { id }
-  SUA_DAT_PHONG: "/dat-phong/sua", // CN4-02 (US10), state { id }
-  DAT_PHONG_SALE: "/dat-phong/sale", // S3-10 (US10), state { id }
+  CHI_TIET_DAT_PHONG: "/dat-phong/chi-tiet", // CN3-02 (US3), state { id }
+  SUA_DAT_PHONG: "/dat-phong/sua", // CN4-02 (US3), state { id }
+  DAT_PHONG_SALE: "/dat-phong/sale", // S3-10 (US3), state { id }
   CHI_TIET_CAN: "/can/chi-tiet", // CN5-02 (tab Thông tin: US1) và CN6 (tab Giá: US4)
   GIA_CHON_CAN: "/can/gia-nhieu-can", // CN6-05, CN6-05-00 (US7)
   GIA_NHIEU_CAN: "/can/gia-nhieu-can/dat-gia", // CN6-06 (US7)

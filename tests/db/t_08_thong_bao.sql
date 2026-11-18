@@ -38,27 +38,27 @@ begin
   perform fn_danh_dau_da_doc();
   perform t.eq(t.dem_dong('select 1 from thong_bao where doc_luc is null'), 0, 'đánh dấu đã đọc');
 
-  -- Chủ sửa đặt phòng của sale: sale được báo ngày cũ, ngày mới, tiền phòng mới (US10-NT8)
+  -- Chủ sửa đặt phòng của sale: sale được báo ngày cũ, ngày mới, tiền phòng mới (US3-NT39)
   perform t.login(hoa);
   perform fn_chu_sua_booking(b, '{"ngay_nhan":"2026-12-18","ngay_tra":"2026-12-20","tien_phong":1800000}');
   perform t.login(hung);
   select du_lieu into v from thong_bao where nguoi_nhan = hung and loai = 'chu_sua_booking';
-  perform t.ok(v->>'ngay_nhan_cu' = '2026-12-17' and v->>'ngay_nhan' = '2026-12-18' and (v->>'tien_phong')::int = 1800000, 'US10-NT8 thông báo có ngày cũ, ngày mới, giá chủ mới');
-  perform t.eq((select tien_thu_khach from v_booking_cua_sale where id = b), 3000000, 'US10-NT9 giá bán sale đã báo khách giữ nguyên khi chủ sửa');
+  perform t.ok(v->>'ngay_nhan_cu' = '2026-12-17' and v->>'ngay_nhan' = '2026-12-18' and (v->>'tien_phong')::int = 1800000, 'US3-NT39 thông báo có ngày cũ, ngày mới, giá chủ mới');
+  perform t.eq((select tien_thu_khach from v_booking_cua_sale where id = b), 3000000, 'US3-NT40 giá bán sale đã báo khách giữ nguyên khi chủ sửa');
 
-  -- Xin hủy và trả lời hủy (mục "Hủy booking đã nhận" (US35))
+  -- Xin hủy và trả lời hủy (mục "Hủy booking đã nhận" (US3))
   perform fn_xin_huy(b);
   perform t.login(hoa);
-  perform t.eq(t.dem_dong($q$select 1 from thong_bao where loai = 'xin_huy_booking'$q$), 1, 'US35-NT1 bên kia được báo xin hủy');
+  perform t.eq(t.dem_dong($q$select 1 from thong_bao where loai = 'xin_huy_booking'$q$), 1, 'US3-NT48 bên kia được báo xin hủy');
   perform fn_tra_loi_huy(b, true);
   perform t.login(hung);
-  perform t.eq((select (du_lieu->>'dong_y')::boolean from thong_bao where nguoi_nhan = hung and loai = 'tra_loi_huy_booking'), true, 'mục "Hủy booking đã nhận" (US35) người xin được báo kết quả');
+  perform t.eq((select (du_lieu->>'dong_y')::boolean from thong_bao where nguoi_nhan = hung and loai = 'tra_loi_huy_booking'), true, 'mục "Hủy booking đã nhận" (US3) người xin được báo kết quả');
 
-  -- Chủ ghi đặt phòng cho sale; sale tắt loại này thì không có thông báo (mục "Booking chủ nhà ghi cho sale" (US28), mục "Cài đặt thông báo" (US21))
+  -- Chủ ghi đặt phòng cho sale; sale tắt loại này thì không có thông báo (mục "Booking chủ nhà ghi cho sale" (US3), mục "Cài đặt thông báo" (US21))
   perform t.login(hoa);
   perform fn_chu_ghi_booking(jsonb_build_object('can_id', c3402, 'ngay_nhan', '2026-12-01', 'ngay_tra', '2026-12-02', 'sale_id', hung));
   perform t.login(hung);
-  perform t.eq(t.dem_dong($q$select 1 from thong_bao where loai = 'chu_ghi_booking_cho_sale'$q$), 1, 'US28-NT2 sale được báo khi chủ ghi đặt phòng cho mình');
+  perform t.eq(t.dem_dong($q$select 1 from thong_bao where loai = 'chu_ghi_booking_cho_sale'$q$), 1, 'US3-NT26 sale được báo khi chủ ghi đặt phòng cho mình');
   perform fn_luu_cai_dat('{"thong_bao_tat":["chu_ghi_booking_cho_sale"]}');
   perform t.login(hoa);
   perform fn_chu_ghi_booking(jsonb_build_object('can_id', c3402, 'ngay_nhan', '2026-12-03', 'ngay_tra', '2026-12-04', 'sale_id', hung));

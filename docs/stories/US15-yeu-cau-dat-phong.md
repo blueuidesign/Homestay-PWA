@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
-- Làm sau khi xong: US13, US10, US17
+- Làm sau khi xong: US13, US3, US17
 - Kiểm tay: `tests/kich-ban/US15.md` (24 kịch bản)
 
 ## Mục tiêu
@@ -575,8 +575,8 @@ Trạng thái riêng:
 ## Ngoài phạm vi
 - Chủ nhà xóa tài khoản: booking đã chấp nhận hiện "đã xóa tài khoản" (US22-NT8, S3-11) và yêu cầu còn chờ khi xóa (mục "Sale nhận kết quả yêu cầu" bước 6): US22.
 - Màn P13 danh sách thông báo (mục "Thông báo kết quả kết nối cho sale" (US17)): US17. Popup thông báo mới (mục "Popup thông báo mới" (US30)): US30. Công tắc bật tắt loại thông báo (mục "Cài đặt thông báo" (US21)): US21.
-- Hủy hoặc đổi đặt phòng đã chấp nhận (QD-012, mục "Xóa booking" (US10)): US10.
-- Chủ nhà ghi đặt phòng chọn sale làm người đặt (mục "Booking chủ nhà ghi cho sale" (US28)): US28.
+- Hủy hoặc đổi đặt phòng đã chấp nhận (QD-012, mục "Xóa booking" (US3)): US3.
+- Chủ nhà ghi đặt phòng chọn sale làm người đặt (mục "Booking chủ nhà ghi cho sale" (US3)): US3.
 - Yêu cầu trong Thống kê sale, S7-03 (mục "Trạng thái booking của sale" (US19)): US19.
 - Chủ nhà ghi đặt phòng tự do (mục "Chủ nhà ghi booking mới" (US3)): US3; US này sửa để yêu cầu chờ trùng đêm thành "Bị từ chối" (US15-NT19).
 - Tin Zalo hay tin OA cho chủ nhà (CN9-00): chưa làm (mục "Cài đặt thông báo" (US21)).

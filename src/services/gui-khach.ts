@@ -4,7 +4,7 @@ import { TOI_DA_ANH_MOI_LAN, zalo, type KetQuaChiaSe } from "./zalo";
 
 // Việc gốc của các nút ở S5 (mục "Gửi thông tin cho khách qua Zalo" (US14) bước 3 đến 6). Tách khỏi màn để test.
 // Chữ và ảnh gửi riêng (nhóm Tìm phòng và gửi khách quy tắc Chữ và ảnh gửi riêng): mỗi nút một cửa sổ Zalo.
-// Chỉ gọi POST /sale/gui-khach/da-gui khi Zalo báo đã chia sẻ (Tùng 04/11/2026, Nhật ký US10: "Đã chia sẻ" là căn cứ biết sale đã gửi).
+// Chỉ gọi POST /sale/gui-khach/da-gui khi Zalo báo đã chia sẻ (Tùng 04/11/2026, Nhật ký US3: "Đã chia sẻ" là căn cứ biết sale đã gửi).
 // Hủy cửa sổ, lỗi Zalo, sao chép: không gọi. Ghi lần gửi lỗi thì thôi, tin đã gửi (như gui-lich.ts).
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;

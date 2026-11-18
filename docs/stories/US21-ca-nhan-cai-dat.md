@@ -122,7 +122,7 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Mở màn | Dòng nói thông báo hiện trong app (chữ theo màn P3), không có chữ "gửi qua Zalo", và nhóm "BÁO CHO TÔI KHI" | cài đặt thông báo (`cai_dat_thong_bao`) | Không | Không |
 | 2 | Xem loại của chủ nhà (P3) | Sale đặt phòng mới ("Tên sale, căn và ngày ở"); Sale xin xem lịch ("Để bạn đồng ý hoặc từ chối"); Đặt phòng chưa cọc ("Khi còn 3 ngày đến ngày nhận phòng"). Không có loại "Khách nhận phòng ngày mai" (mục "Cài đặt thông báo") | Không gọi server (dùng kết quả ở bước 1) | Không | Không |
-| 3 | Xem loại của sale (P12) | Chủ nhà đồng ý cho xem lịch ("Căn mới vào Nguồn phòng"); Căn bạn đã gửi khách vừa có người đặt ("Để báo khách chọn căn khác", cách báo theo mục "Cài đặt thông báo", mục "Gửi thông tin cho khách qua Zalo" (US14)); Chủ nhà xác nhận đặt phòng của bạn ("Kèm ngày ở và tiền cọc"); Chủ nhà ghi đặt phòng cho bạn (mục "Cài đặt thông báo", mục "Booking chủ nhà ghi cho sale" (US28); dòng mô tả chưa vẽ). Không có loại "Khách của bạn nhận phòng ngày mai" (mục "Cài đặt thông báo") | Không gọi server (dùng kết quả ở bước 1) | Không | Không |
+| 3 | Xem loại của sale (P12) | Chủ nhà đồng ý cho xem lịch ("Căn mới vào Nguồn phòng"); Căn bạn đã gửi khách vừa có người đặt ("Để báo khách chọn căn khác", cách báo theo mục "Cài đặt thông báo", mục "Gửi thông tin cho khách qua Zalo" (US14)); Chủ nhà xác nhận đặt phòng của bạn ("Kèm ngày ở và tiền cọc"); Chủ nhà ghi đặt phòng cho bạn (mục "Cài đặt thông báo", mục "Booking chủ nhà ghi cho sale" (US3); dòng mô tả chưa vẽ). Không có loại "Khách của bạn nhận phòng ngày mai" (mục "Cài đặt thông báo") | Không gọi server (dùng kết quả ở bước 1) | Không | Không |
 | 4 | Bật hoặc tắt một loại | Công tắc đổi trạng thái. Không xin quyền Zalo nào (mục "Cài đặt thông báo") | Không gọi server (lưu ở bước 5) | Không | Cài đặt thông báo |
 | 5 | Bấm "Lưu thay đổi" | Lưu | cài đặt thông báo. Loại đã tắt thì server không ghi `thong_bao` loại đó | Không | Cài đặt thông báo |
 
@@ -177,7 +177,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US21-NT10** Khi số điện thoại lấy từ Zalo, thì ô số điện thoại không sửa được.
 - **US21-NT11** Khi người dùng đã từ chối quyền tên và ảnh, thì vẫn dùng được hồ sơ và gõ tên hiển thị.
 - **US21-NT12** Khi người dùng là chủ nhà, thì thấy đúng 3 loại ở P3; khi là sale thì thấy đúng 4 loại ở P12, có loại "Chủ nhà ghi đặt phòng cho bạn". Không màn nào có loại nhắc khách nhận phòng ngày mai (mục "Cài đặt thông báo").
-- **US21-NT13** Khi sale tắt "Chủ nhà ghi đặt phòng cho bạn" và lưu, thì chủ nhà ghi đặt phòng chọn sale đó (mục "Booking chủ nhà ghi cho sale" (US28)) không còn tạo thông báo ở P13 cho sale đó; booking vẫn là của sale.
+- **US21-NT13** Khi sale tắt "Chủ nhà ghi đặt phòng cho bạn" và lưu, thì chủ nhà ghi đặt phòng chọn sale đó (mục "Booking chủ nhà ghi cho sale" (US3)) không còn tạo thông báo ở P13 cho sale đó; booking vẫn là của sale.
 - **US21-NT14** Khi người dùng tắt "Đặt phòng chưa cọc" và lưu, thì không còn nhắc loại đó.
 - **US21-NT15** Khi người dùng bật hoặc tắt một loại ở P3 hay P12, thì không có hộp thoại nào của Zalo hiện ra, và thông báo của loại đang bật chỉ hiện trong app (P13, popup S1-06). (mục "Cài đặt thông báo")
 - **US21-NT16** Khi chủ nhà lưu 14:00 và 12:00, thì dòng trên menu ghi "14:00 · 12:00" và S3 của sale ghi "Nhận phòng 14:00 · Trả phòng 12:00".
@@ -428,7 +428,7 @@ Test vi phạm phải có (theo):
 - Nhóm BÁN PHÒNG của sale: "Đội nhóm" (nhóm Đội nhóm, cộng tác viên, US20 on-hold), "Link xin xem lịch" (mục "Sale xin chủ nhà cho xem lịch" (US17), US17), "Mức cộng giá mặc định" (mục "Mức cộng giá mặc định" (US13), US13), "Mẫu tin gửi khách" (mục "Mẫu tin gửi khách" (US14), US14). US này chỉ hiện các dòng và mở màn của chúng.
 - Sao lưu và khôi phục dữ liệu (mục "Sao lưu và khôi phục dữ liệu" (US40)): On Hold, không làm ở bản đầu.
 - Xóa dữ liệu khi người dùng xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22), QD-013): US22 và. Không có nút "Xóa tài khoản" ở P2.
-- Việc tạo thông báo từ các sự kiện (sale đặt phòng, chủ ghi đặt phòng cho sale, nhắc đặt phòng chưa cọc): US15, US28, US30 và các US sinh sự kiện. US này lưu công tắc và bảo đảm loại đã tắt thì server không ghi (US21-NT14, US21-NT4).
+- Việc tạo thông báo từ các sự kiện (sale đặt phòng, chủ ghi đặt phòng cho sale, nhắc đặt phòng chưa cọc): US15, US3, US30 và các US sinh sự kiện. US này lưu công tắc và bảo đảm loại đã tắt thì server không ghi (US21-NT14, US21-NT4).
 - Ô "Họ và tên" có sửa được trong app không: mục "Hồ sơ (Thông tin cá nhân)" chỉ cho sửa tên hiển thị [MỞ: US21-H5] US21 câu 3.
 
 ## Việc cần làm

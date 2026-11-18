@@ -26,7 +26,7 @@ import { dongKiemTrung, NoiDungCN4 } from "./cn4-dat-phong";
 import { formTuDatPhong, loiKhiSua, thanSua } from "./cn4-sua-man";
 import { chuLucSua, NoiDungS310 } from "./s3-man";
 
-// US10 · Test màn chi tiết (CN3-02), sửa (CN4-02), S3-10 trên server giả với dữ liệu DLM.4, DLM.6.
+// US3 · Test màn chi tiết (CN3-02), sửa (CN4-02), S3-10 trên server giả với dữ liệu DLM.4, DLM.6.
 // Mỗi test lấy số từ server giả rồi vẽ phần giao diện và đọc chữ ra. Server thật đã có test riêng (src/server/api/us10.test.js).
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);
@@ -92,7 +92,7 @@ beforeEach(async () => {
   await dung(HOA);
 });
 
-test("test_YC4_2_NT1_US10_KB1_KB3_chi_tiet_B1_tien_con_lai_1_200_000", async () => {
+test("test_YC4_2_NT1_US3_KB1_KB3_chi_tiet_B1_tien_con_lai_1_200_000", async () => {
   const dp = await getBooking(await B1());
   expect(dp.tien_con_lai).toBe(1200000);
   const s = cn3(dp);
@@ -110,7 +110,7 @@ test("test_YC4_2_NT1_US10_KB1_KB3_chi_tiet_B1_tien_con_lai_1_200_000", async () 
   expect(nut(s)).toEqual(["Gọi sale", "Đã thu đủ 1.200.000đ", "Sửa đặt phòng"]);
 });
 
-test("test_YC4_2_NT2_US10_KB4_thu_du_nhan_Da_thanh_toan_nut_Hoan_tac", async () => {
+test("test_YC4_2_NT2_US3_KB4_thu_du_nhan_Da_thanh_toan_nut_Hoan_tac", async () => {
   const id = await B1();
   const dp = await postBookingThuDu(id, "khoa-thu-du-0001");
   expect(dp.trang_thai_tien).toBe("da_thanh_toan");
@@ -124,7 +124,7 @@ test("test_YC4_2_NT2_US10_KB4_thu_du_nhan_Da_thanh_toan_nut_Hoan_tac", async () 
   expect(sapToi.muc.find((m) => m.id === id)!.trang_thai_tien).toBe("da_thanh_toan");
 });
 
-test("test_YC4_2_NT3_US10_KB5_hoan_tac_ve_Da_coc_con_thu", async () => {
+test("test_YC4_2_NT3_US3_KB5_hoan_tac_ve_Da_coc_con_thu", async () => {
   const id = await B1();
   await postBookingThuDu(id, "khoa-thu-du-0002");
   const dp = await postBookingHoanTacThuDu(id, "khoa-hoan-tac-0002");
@@ -136,7 +136,7 @@ test("test_YC4_2_NT3_US10_KB5_hoan_tac_ve_Da_coc_con_thu", async () => {
   expect(nut(cn3(dp))).toContain("Đã thu đủ 1.200.000đ");
 });
 
-test("test_YC4_2_NT3_US10_KB6_thu_du_hoan_tac_dat_phong_chua_coc_ve_Chua_coc", async () => {
+test("test_YC4_2_NT3_US3_KB6_thu_du_hoan_tac_dat_phong_chua_coc_ve_Chua_coc", async () => {
   const id = await B5();
   const truoc = await getBooking(id);
   expect(van(cn3(truoc))).toContain("Còn lại 1.800.000đ");
@@ -148,7 +148,7 @@ test("test_YC4_2_NT3_US10_KB6_thu_du_hoan_tac_dat_phong_chua_coc_ve_Chua_coc", a
   expect(van(cn3(dp))).not.toContain("Đã cọc");
 });
 
-test("test_HV1_NT1_US10_KB25_bam_thu_du_hai_lan_cung_khoa_chi_ghi_mot_lan_hoan_tac_ve_dung", async () => {
+test("test_HV1_NT1_US3_KB25_bam_thu_du_hai_lan_cung_khoa_chi_ghi_mot_lan_hoan_tac_ve_dung", async () => {
   const id = await B1();
   const [a, b] = await Promise.all([postBookingThuDu(id, "khoa-thu-du-0004"), postBookingThuDu(id, "khoa-thu-du-0004")]);
   expect(a.trang_thai_tien).toBe("da_thanh_toan");
@@ -161,7 +161,7 @@ test("test_HV1_NT1_US10_KB25_bam_thu_du_hai_lan_cung_khoa_chi_ghi_mot_lan_hoan_t
   expect(s).toMatch(/disabled=""[^>]*>Đang lưu…/);
 });
 
-test("test_HV2_NT1_US10_KB7_mat_mang_khi_thu_du_bao_chua_luu_nhan_van_cu", async () => {
+test("test_HV2_NT1_US3_KB7_mat_mang_khi_thu_du_bao_chua_luu_nhan_van_cu", async () => {
   const id = await B1();
   banThu.datMatMang(true);
   let loi: unknown;
@@ -177,7 +177,7 @@ test("test_HV2_NT1_US10_KB7_mat_mang_khi_thu_du_bao_chua_luu_nhan_van_cu", async
   expect(v).toContain("Đã cọc · còn thu");
 });
 
-test("test_YC4_3_NT1_US10_KB8_mo_sua_dien_san_dung_gia_tri", async () => {
+test("test_YC4_3_NT1_US3_KB8_mo_sua_dien_san_dung_gia_tri", async () => {
   const dp = await getBooking(await B1());
   const f = formTuDatPhong(dp);
   expect(f).toMatchObject({ ngayNhan: "2026-10-10", chipDem: 2, tienPhong: "2200000", trangThaiTien: "da_coc_con_thu", tienCoc: "1000000" });
@@ -192,14 +192,14 @@ test("test_YC4_3_NT1_US10_KB8_mo_sua_dien_san_dung_gia_tri", async () => {
   expect(v).toContain("Sale Hùng");
   expect(v).toContain("14:00 → 12:00");
   expect(nut(s)).toContain("Lưu thay đổi");
-  // Chủ nhà không thấy giá bán và khách của sale (US10-KB2)
+  // Chủ nhà không thấy giá bán và khách của sale (US3-KB27)
   expect(v).not.toContain("2.600.000");
   expect(v.toLowerCase()).not.toContain("giá bán");
   expect(van(cn3(dp)).toLowerCase()).not.toContain("giá bán");
   expect(cn3(dp)).not.toContain("2.600.000");
 });
 
-test("test_YC4_3_NT2_US10_KB9_QT1_2_VD2_sua_sang_dem_co_khach_bi_chan", async () => {
+test("test_YC4_3_NT2_US3_KB9_QT1_2_VD2_sua_sang_dem_co_khach_bi_chan", async () => {
   const dp = await getBooking(await B1());
   // Đổi ngày trả thành 14/10: trùng đêm 13/10 của Khách lẻ
   const kt = await getKiemTrung({ can_id: dp.can_id, ngay_nhan: "2026-10-10", ngay_tra: "2026-10-14", bo_qua_id: dp.id });
@@ -221,7 +221,7 @@ test("test_YC4_3_NT2_US10_KB9_QT1_2_VD2_sua_sang_dem_co_khach_bi_chan", async ()
   expect(ngay12.can.find((c) => c.ma_can === "1509")!.trong).toBe(true);
 });
 
-test("test_YC4_3_NT3_US10_KB10_QT1_2_VD1_sua_tien_giu_ngay_khong_bao_trung_voi_chinh_no", async () => {
+test("test_YC4_3_NT3_US3_KB10_QT1_2_VD1_sua_tien_giu_ngay_khong_bao_trung_voi_chinh_no", async () => {
   const dp = await getBooking(await B5());
   const kt = await getKiemTrung({ can_id: dp.can_id, ngay_nhan: dp.ngay_nhan, ngay_tra: dp.ngay_tra, bo_qua_id: dp.id });
   expect(kt.khong_trung).toBe(true);
@@ -240,14 +240,14 @@ test("test_YC4_3_NT3_US10_KB10_QT1_2_VD1_sua_tien_giu_ngay_khong_bao_trung_voi_c
   expect(await getLichTomTat({ thang: "2026-10" })).toMatchObject({ doanh_thu: 11700000, so_dem_co_khach: 13 });
 });
 
-test("test_QT1_1_VD2_US10_KB11_sua_sat_ngay_tra_cua_dat_phong_khac_khong_trung", async () => {
+test("test_QT1_1_VD2_US3_KB11_sua_sat_ngay_tra_cua_dat_phong_khac_khong_trung", async () => {
   const dp = await getBooking(await B5());
   const kt = await getKiemTrung({ can_id: dp.can_id, ngay_nhan: "2026-10-12", ngay_tra: "2026-10-15", bo_qua_id: dp.id });
   expect(kt.khong_trung).toBe(true);
   expect(dongKiemTrung("2026-10-12", "2026-10-15", kt).chu).toContain("không trùng lịch");
 });
 
-test("test_YC4_3_NT5_DLM_6_US10_KB12_sua_B1_sang_11_10_den_13_10_gia_1_800_000", async () => {
+test("test_YC4_3_NT5_DLM_6_US3_KB12_sua_B1_sang_11_10_den_13_10_gia_1_800_000", async () => {
   const dp = await getBooking(await B1());
   const f = { ...formTuDatPhong(dp), ngayNhan: "2026-10-11", tienPhong: "1800000" };
   const than = thanSua(dp, f);
@@ -271,7 +271,7 @@ test("test_YC4_3_NT5_DLM_6_US10_KB12_sua_B1_sang_11_10_den_13_10_gia_1_800_000",
   expect(await getLichTomTat({ thang: "2026-10" })).toMatchObject({ doanh_thu: 11400000, so_dem_co_khach: 13 });
 });
 
-test("test_YC4_3_NT4_NT5_US10_KB13_KB14_sale_Hung_thay_ngay_cu_moi_gia_ban_giu_2_600_000", async () => {
+test("test_YC4_3_NT4_NT5_US3_KB13_KB14_sale_Hung_thay_ngay_cu_moi_gia_ban_giu_2_600_000", async () => {
   const dp = await getBooking(await B1());
   await patchBooking(dp.id, thanSua(dp, { ...formTuDatPhong(dp), ngayNhan: "2026-10-11", tienPhong: "1800000" }), "khoa-sua-0004");
   await dung("zalo-sale-hung");
@@ -307,7 +307,7 @@ test("test_YC4_3_NT4_NT5_US10_KB13_KB14_sale_Hung_thay_ngay_cu_moi_gia_ban_giu_2
   expect(chuLucSua("2026-10-05T03:15:00Z", "2026-10-07")).toBe("10:15 ngày 05/10");
 });
 
-test("test_PQ8_SALE_PQ9_QD11_US10_KB2_sale_khong_thay_tien_coc_trang_thai_tien_khach", async () => {
+test("test_PQ8_SALE_PQ9_QD11_US3_KB2_sale_khong_thay_tien_coc_trang_thai_tien_khach", async () => {
   await dung("zalo-sale-hung");
   const bk = (await getBookingSale(await idHungB1())) as DatPhongSale & Record<string, unknown>;
   for (const khoa of ["tien_coc", "trang_thai_tien", "dem", "nguoi_dat", "ghi_chu", "so_khach"]) expect(khoa in bk).toBe(false);
@@ -321,7 +321,7 @@ const idHungB1 = async () => {
   return id;
 };
 
-test("test_PQ11_CHU_PQ7_US10_chu_nha_khong_co_gia_ban_patch_gia_ban_bi_tu_choi_nguoi_khac_khong_tim_thay", async () => {
+test("test_PQ11_CHU_PQ7_US3_chu_nha_khong_co_gia_ban_patch_gia_ban_bi_tu_choi_nguoi_khac_khong_tim_thay", async () => {
   const id = await B1();
   const dp = (await getBooking(id)) as DatPhong & Record<string, unknown>;
   expect("gia_ban" in dp).toBe(false);
@@ -351,7 +351,7 @@ test("test_PQ11_CHU_PQ7_US10_chu_nha_khong_co_gia_ban_patch_gia_ban_bi_tu_choi_n
   await expect(getBookingSale(id)).rejects.toMatchObject({ loi: "KHONG_TIM_THAY" });
 });
 
-test("test_YC4_3_US10_sua_cap_nhat_luc_cu_bi_TRANG_THAI_DA_DOI", async () => {
+test("test_YC4_3_US3_sua_cap_nhat_luc_cu_bi_TRANG_THAI_DA_DOI", async () => {
   const dp = await getBooking(await B5());
   await patchBooking(dp.id, { cap_nhat_luc: dp.cap_nhat_luc, tien_phong: 1700000 }, "khoa-sua-0006");
   await expect(patchBooking(dp.id, { cap_nhat_luc: dp.cap_nhat_luc, tien_phong: 1600000 }, "khoa-sua-0007")).rejects.toMatchObject({
@@ -360,7 +360,7 @@ test("test_YC4_3_US10_sua_cap_nhat_luc_cu_bi_TRANG_THAI_DA_DOI", async () => {
   expect(loiKhiSua(new LoiApi("TRANG_THAI_DA_DOI"))).toContain("đã đổi ở máy khác");
 });
 
-test("test_HV2_NT1_US10_KB15_mat_mang_khi_luu_sua_form_giu_nguyen_B5_khong_doi", async () => {
+test("test_HV2_NT1_US3_KB15_mat_mang_khi_luu_sua_form_giu_nguyen_B5_khong_doi", async () => {
   const dp = await getBooking(await B5());
   banThu.datMatMang(true);
   let loi: unknown;
@@ -375,14 +375,14 @@ test("test_HV2_NT1_US10_KB15_mat_mang_khi_luu_sua_form_giu_nguyen_B5_khong_doi",
   expect(van(s)).toContain("Chưa lưu được, bấm lại khi có mạng");
 });
 
-test("test_YC4_1_2_NT4_US10_CN4_01_xoa_trong_tien_phong_nut_luu_khong_dung_duoc", async () => {
+test("test_YC4_1_2_NT4_US3_CN4_01_xoa_trong_tien_phong_nut_luu_khong_dung_duoc", async () => {
   const dp = await getBooking(await B5());
   const s = cn402(dp, null, { form: { ...formTuDatPhong(dp), tienPhong: "" }, daSuaTien: true });
   expect(van(s)).toContain("Nhập tiền phòng trước khi lưu");
   expect(s).toMatch(/hh-btn--block"[^>]*disabled=""[^>]*>Lưu thay đổi/);
 });
 
-test("test_YC4_1_2_NT6_US10_KB24_sua_tien_luc_ghi_2_000_000_chia_1_000_000_thang_10_va_11", async () => {
+test("test_YC4_1_2_NT6_US3_KB24_sua_tien_luc_ghi_2_000_000_chia_1_000_000_thang_10_va_11", async () => {
   const [c1509] = (await getCan()).filter((c) => c.ma_can === "1509");
   const kt = await getKiemTrung({ can_id: c1509.id, ngay_nhan: "2026-10-31", ngay_tra: "2026-11-02" });
   expect(kt.tong_gia_chu).toBe(2200000); // NT5, QT4.1-VD1
@@ -404,7 +404,7 @@ test("test_YC4_1_2_NT6_US10_KB24_sua_tien_luc_ghi_2_000_000_chia_1_000_000_thang
   expect(await getLichTomTat({ thang: "2026-11" })).toMatchObject({ doanh_thu: 1000000 + 800000 });
 });
 
-test("test_YC4_4_NT1_US10_KB17_xoa_lan_dau_chi_hoi_lai_chua_xoa", async () => {
+test("test_YC4_4_NT1_US3_KB17_xoa_lan_dau_chi_hoi_lai_chua_xoa", async () => {
   const dp = await getBooking(await B5());
   expect(dp.co_the_xoa).toBe(true);
   expect(nut(cn3(dp))).toContain("Xóa đặt phòng");
@@ -419,7 +419,7 @@ test("test_YC4_4_NT1_US10_KB17_xoa_lan_dau_chi_hoi_lai_chua_xoa", async () => {
   expect(ngay13.can.find((c) => c.ma_can === "1509")!.trong).toBe(false);
 });
 
-test("test_YC4_4_NT2_US10_KB18_KB19_xac_nhan_xoa_dem_trong_lai_doanh_thu_bot", async () => {
+test("test_YC4_4_NT2_US3_KB18_KB19_xac_nhan_xoa_dem_trong_lai_doanh_thu_bot", async () => {
   const dp = await getBooking(await B5());
   expect(await deleteBooking(dp.id, "khoa-xoa-0001")).toEqual({ id: dp.id, da_xoa: true });
   for (const n of ["2026-10-13", "2026-10-14"]) {
@@ -434,7 +434,7 @@ test("test_YC4_4_NT2_US10_KB18_KB19_xac_nhan_xoa_dem_trong_lai_doanh_thu_bot", a
   expect(kt.tong_gia_chu).toBe(1800000);
 });
 
-test("test_HV2_NT1_US10_KB23_mat_mang_khi_xac_nhan_xoa_B5_van_con", async () => {
+test("test_HV2_NT1_US3_KB23_mat_mang_khi_xac_nhan_xoa_B5_van_con", async () => {
   const dp = await getBooking(await B5());
   banThu.datMatMang(true);
   await expect(deleteBooking(dp.id, "khoa-xoa-0002")).rejects.toBeInstanceOf(LoiMang);
@@ -443,7 +443,7 @@ test("test_HV2_NT1_US10_KB23_mat_mang_khi_xac_nhan_xoa_B5_van_con", async () => 
   expect((await getLichNgay({ ngay: "2026-10-13" })).can.find((c) => c.ma_can === "1509")!.trong).toBe(false);
 });
 
-test("test_YC4_4_NT4_NT5_US10_KB20_B1_khong_co_nut_xoa_van_sua_duoc_lenh_xoa_bi_tu_choi", async () => {
+test("test_YC4_4_NT4_NT5_US3_KB20_B1_khong_co_nut_xoa_van_sua_duoc_lenh_xoa_bi_tu_choi", async () => {
   const id = await B1();
   const dp = await getBooking(id);
   expect(dp.co_the_xoa).toBe(false);
@@ -461,7 +461,7 @@ test("test_YC4_4_NT4_NT5_US10_KB20_B1_khong_co_nut_xoa_van_sua_duoc_lenh_xoa_bi_
   }
 });
 
-test("test_YC4_4_NT6_US10_KB21_dat_phong_chu_ghi_cho_sale_khong_co_nut_xoa_van_sua_duoc", async () => {
+test("test_YC4_4_NT6_US3_KB21_dat_phong_chu_ghi_cho_sale_khong_co_nut_xoa_van_sua_duoc", async () => {
   const sale = (await getSaleKetNoi()).find((s) => s.ten === "Sale Hùng")!;
   const can = (await getCan()).find((c) => c.ma_can === "1509")!;
   const dp = await postBooking(
@@ -485,7 +485,7 @@ test("test_YC4_4_NT6_US10_KB21_dat_phong_chu_ghi_cho_sale_khong_co_nut_xoa_van_s
   expect((await getThongBaoChuSua(dp.id))!.du_lieu).toMatchObject({ tien_phong_cu: 900000, tien_phong: 800000 });
 });
 
-test("test_PQ7_CHU_PQ9_CHU_US10_KB27_chu_nha_khac_khong_thay_dat_phong_cua_Chi_Hoa", async () => {
+test("test_PQ7_CHU_PQ9_CHU_US3_KB27_chu_nha_khac_khong_thay_dat_phong_cua_Chi_Hoa", async () => {
   await dung("zalo-anh-tuan");
   const sapToi = await getBookingSapToi();
   expect(sapToi.muc.every((m) => ["1103", "2208"].includes(m.ma_can))).toBe(true);

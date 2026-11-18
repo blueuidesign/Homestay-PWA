@@ -183,7 +183,7 @@ export const ChiTietNgay = ({
   loi: boolean;
   onThuLai: () => void;
   onDatPhong?: (canId: string, ngay: string) => void;
-  onSua?: (bookingId: string) => void; // nút "Sửa" trên thẻ có khách mở CN3-02 (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), US10)
+  onSua?: (bookingId: string) => void; // nút "Sửa" trên thẻ có khách mở CN3-02 (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3), US3)
 }) => {
   const thuTu = (canId: string) => canTheoThuTu.findIndex((c) => c.can_id === canId);
   return (

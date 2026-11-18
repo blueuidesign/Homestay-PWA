@@ -188,7 +188,7 @@ type BookingLuu = {
   gio_tra?: string;
   ghi_chu?: string | null;
   dem?: { ngay: string; gia_chu: number }[];
-  // US10: trạng thái tiền trước khi thu đủ (hoàn tác đúng, kể cả "Chưa cọc"), giá bán của sale (bảng gia_ban_booking,
+  // US3: trạng thái tiền trước khi thu đủ (hoàn tác đúng, kể cả "Chưa cọc"), giá bán của sale (bảng gia_ban_booking,
   // tách riêng: API của chủ nhà không có đường đọc, PQ11.CHU), lần sửa cuối
   trang_thai_tien_truoc?: TrangThaiTien | null;
   gia_ban?: number | null;
@@ -197,7 +197,7 @@ type BookingLuu = {
   // US16: đặt phòng sale tự ghi cho căn tự nhập (mục "Ghi booking đã chốt cho căn tự nhập" (US16)): không sale_id, không trạng thái tiền; tien_phong là tiền trả chủ, gia_ban là tiền thu khách
   nguon?: "sale_tu_ghi";
 };
-// Bảng thong_bao, phần loại chu_sua_booking (mục "Sửa booking" (US10) bước 4). Đọc qua getThongBaoChuSua cho tới khi US17 làm GET /thong-bao.
+// Bảng thong_bao, phần loại chu_sua_booking (mục "Sửa booking" (US3) bước 4). Đọc qua getThongBaoChuSua cho tới khi US17 làm GET /thong-bao.
 type ThongBaoLuu = ThongBaoChuSua & { nguoi_nhan_id: string };
 // Bảng thong_bao, các loại khác (US17): chu_dong_y_ket_noi, chu_ngung_ket_noi. khoa_gom gom các lần đồng ý trong 10 phút [GIẢ ĐỊNH: GD15].
 type ThongBaoMoiLuu = {
@@ -1093,7 +1093,7 @@ export const chiaTienTheoDem = (gia: GiaDem[], tienPhong: number) => {
 };
 
 // GET /booking/kiem-trung (server.md 2.6): chỉ để hiện sớm, lúc lưu vẫn kiểm lại
-// bo_qua_id: id đặt phòng đang sửa, bỏ qua chính nó (QT1.2, mục "Sửa booking" (US10) bước 2). Đặt phòng của người khác thì KHONG_TIM_THAY.
+// bo_qua_id: id đặt phòng đang sửa, bỏ qua chính nó (QT1.2, mục "Sửa booking" (US3) bước 2). Đặt phòng của người khác thì KHONG_TIM_THAY.
 export async function getKiemTrung(q: { can_id: string; ngay_nhan: string; ngay_tra: string; bo_qua_id?: string }): Promise<KiemTrung> {
   await cho();
   kiemNgay(q.ngay_nhan, q.ngay_tra);
@@ -1189,7 +1189,7 @@ const raDatPhong = (b: BookingLuu, c: CanLuu): DatPhong => {
 };
 
 // Giá bán của sale cho đặt phòng (bảng gia_ban_booking): tiền phòng cộng mức cộng mỗi đêm của căn, làm tròn 50k nếu sale bật.
-// Chỉ tính một lần lúc ghi; chủ nhà sửa sau không tính lại (mục "Sửa booking" (US10) bước 5, QT3.1).
+// Chỉ tính một lần lúc ghi; chủ nhà sửa sau không tính lại (mục "Sửa booking" (US3) bước 5, QT3.1).
 const giaBanLucGhi = (sale: TaiKhoanLuu, c: CanLuu, tienPhong: number, soDem: number) => {
   const cong = db.muc_cong.find((m) => m.sale_id === sale.id && m.can_id === c.id)?.so_tien ?? sale.muc_cong_mac_dinh ?? 0;
   const tong = tienPhong + cong * soDem;
@@ -1254,7 +1254,7 @@ export async function getBookingSale(id: string): Promise<DatPhongSale> {
   };
 }
 
-// Thông báo "chủ sửa booking" gần nhất của một đặt phòng cho sale đang gọi (mục "Sửa booking" (US10) bước 4, 5). Tạm cho tới khi US17 làm GET /thong-bao.
+// Thông báo "chủ sửa booking" gần nhất của một đặt phòng cho sale đang gọi (mục "Sửa booking" (US3) bước 4, 5). Tạm cho tới khi US17 làm GET /thong-bao.
 export async function getThongBaoChuSua(bookingId: string): Promise<ThongBaoChuSua | null> {
   await cho();
   const tk = nguoiGoi();
@@ -1264,7 +1264,7 @@ export async function getThongBaoChuSua(bookingId: string): Promise<ThongBaoChuS
   return t;
 }
 
-// POST /booking/:id/thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10) bước 4): giữ trạng thái trước để hoàn tác đúng, giữ tien_coc. Đã thanh toán rồi: TRANG_THAI_DA_DOI.
+// POST /booking/:id/thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3) bước 4): giữ trạng thái trước để hoàn tác đúng, giữ tien_coc. Đã thanh toán rồi: TRANG_THAI_DA_DOI.
 // Cùng Idempotency-Key thì trả kết quả cũ (bấm hai lần chỉ ghi một lần, HV1-NT1).
 export async function postBookingThuDu(id: string, khoa: string): Promise<DatPhong> {
   await cho();
@@ -1279,7 +1279,7 @@ export async function postBookingThuDu(id: string, khoa: string): Promise<DatPho
   });
 }
 
-// POST /booking/:id/hoan-tac-thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10) bước 5): về đúng trạng thái trước khi thu đủ
+// POST /booking/:id/hoan-tac-thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3) bước 5): về đúng trạng thái trước khi thu đủ
 export async function postBookingHoanTacThuDu(id: string, khoa: string): Promise<DatPhong> {
   await cho();
   const tk = nguoiGoi();
@@ -1293,7 +1293,7 @@ export async function postBookingHoanTacThuDu(id: string, khoa: string): Promise
   });
 }
 
-// DELETE /booking/:id (mục "Xóa booking" (US10) bước 2, 3): chỉ đặt phòng chủ nhà tự ghi cho khách lẻ. Đặt phòng có sale: KHONG_DUOC_PHEP
+// DELETE /booking/:id (mục "Xóa booking" (US3) bước 2, 3): chỉ đặt phòng chủ nhà tự ghi cho khách lẻ. Đặt phòng có sale: KHONG_DUOC_PHEP
 // (server chặn, không chỉ ẩn nút; ở server thật còn trigger database). Xóa thật: các đêm trống lại.
 export async function deleteBooking(id: string, khoa: string): Promise<{ id: string; da_xoa: true }> {
   await cho();
@@ -1306,7 +1306,7 @@ export async function deleteBooking(id: string, khoa: string): Promise<{ id: str
   });
 }
 
-// PATCH /booking/:id (mục "Sửa booking" (US10) bước 3 đến 5): chỉ trường gửi lên mới đổi. Kiểm trùng bỏ qua chính nó (QT1.2); tính lại booking_dem
+// PATCH /booking/:id (mục "Sửa booking" (US3) bước 3 đến 5): chỉ trường gửi lên mới đổi. Kiểm trùng bỏ qua chính nó (QT1.2); tính lại booking_dem
 // khi đổi căn, ngày hay tiền phòng, tổng các đêm bằng tiền phòng (QT4.2, theo bảng giá hiện tại [MỞ: api câu hỏi mở 4]);
 // không đổi giá bán (QT3.1); đặt phòng có sale thì ghi thông báo chu_sua_booking cho sale mỗi lần lưu.
 // Chưa làm vì còn [MỞ]: đổi người đặt (sale_id khác thì DU_LIEU_SAI), sửa đặt phòng cho_huy, da_huy (TRANG_THAI_DA_DOI).
@@ -1354,7 +1354,7 @@ export async function patchBooking(id: string, than: ThanSuaDatPhong, khoa: stri
     }
     b.cap_nhat_luc = lucMoi(than.cap_nhat_luc);
     tuChoiYeuCauTrung(c.id, nhan, tra); // GD11: đổi ngày, căn trùng yêu cầu chờ thì yêu cầu bị từ chối
-    // Báo sale của đặt phòng mỗi lần lưu (mục "Sửa booking" (US10) bước 4). Không tên khách, ghi chú, cọc, giá bán (PQ19).
+    // Báo sale của đặt phòng mỗi lần lưu (mục "Sửa booking" (US3) bước 4). Không tên khách, ghi chú, cọc, giá bán (PQ19).
     const sale = laSale ? db.ket_noi.find((k) => k.id === b.sale_id) : undefined;
     if (sale?.sale_id) {
       const chu = db.tai_khoan.find((t) => t.id === tk.id);
@@ -2223,7 +2223,7 @@ export async function postLinkDongY(ma: string, than: { quyen_tinh_trang_coc: bo
   });
 }
 
-// Mục thông báo của người gọi, mới trước. Dòng chu_sua_booking nằm ở bảng riêng của US10 (db.thong_bao), gộp vào đây.
+// Mục thông báo của người gọi, mới trước. Dòng chu_sua_booking nằm ở bảng riêng của US3 (db.thong_bao), gộp vào đây.
 type DongTb = { id: string; loai: string; du_lieu: Record<string, unknown>; khoa_gom: string | null; booking_id: string | null; tao_luc: string; da_doc_luc: string | null };
 const cacDongThongBao = (nguoiId: string): DongTb[] => [
   ...db.thong_bao

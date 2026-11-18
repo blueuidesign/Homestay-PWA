@@ -103,7 +103,7 @@ Chữ hay số trên hình lệch story thì story đúng. Ghi chỗ lệch vào
 | CN6-09 | Chọn năm | nhóm Căn và giá · Căn và giá |
 | P6 | Ngày tính giá cuối tuần | nhóm Căn và giá · Căn và giá |
 | CN3-02 | Chi tiết booking | nhóm Booking · Booking |
-| CN3-02-01 | Chi tiết booking · sale đã xóa tài khoản (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Khi người dùng xóa tài khoản" (US22)) | nhóm Booking · Booking |
+| CN3-02-01 | Chi tiết booking · sale đã xóa tài khoản (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3), mục "Khi người dùng xóa tài khoản" (US22)) | nhóm Booking · Booking |
 | CN4 | Thêm đặt phòng | nhóm Booking · Booking |
 | CN4-01 | Thêm đặt phòng · tiền phòng bỏ trống | nhóm Booking · Booking |
 | CN4-02 | Sửa đặt phòng | nhóm Booking · Booking |
@@ -121,7 +121,7 @@ Chữ hay số trên hình lệch story thì story đúng. Ghi chỗ lệch vào
 | S3-07 | Lỗi khi gửi: căn đã được đặt | nhóm Booking · Booking |
 | S3-08 | Sale đã hủy yêu cầu | nhóm Booking · Booking |
 | S3-09 | Yêu cầu hết hạn | nhóm Booking · Booking |
-| S3-10 | Booking chủ nhà đã sửa (mục "Sửa booking" (US10), mục "Popup thông báo mới" (US30)) | nhóm Booking · Booking |
+| S3-10 | Booking chủ nhà đã sửa (mục "Sửa booking" (US3), mục "Popup thông báo mới" (US30)) | nhóm Booking · Booking |
 | S3-11 | Booking với chủ nhà đã xóa tài khoản (mục "Sale nhận kết quả yêu cầu" (US15), mục "Khi người dùng xóa tài khoản" (US22)) | nhóm Booking · Booking |
 | S1 | Lịch phòng | nhóm Tìm phòng và gửi khách · Tìm phòng và gửi khách |
 | S1-02 | Tìm phòng, ban đầu | nhóm Tìm phòng và gửi khách · Tìm phòng và gửi khách |

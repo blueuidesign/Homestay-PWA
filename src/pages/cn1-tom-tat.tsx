@@ -44,7 +44,7 @@ export const chuDongPhong = (dp: Pick<DatPhongSapToi, "ma_can" | "ngay_nhan" | "
   `Phòng ${dp.ma_can} · ${chuNgayNgan(dp.ngay_nhan)} → ${chuNgayNgan(dp.ngay_tra)} (${dp.so_dem} đêm)`;
 
 // Mục "ĐẶT PHÒNG SẮP TỚI" (US2-NT12, US2-NT11). Chưa có dòng nào thì CN1-01. Chạm một dòng mở chi tiết đặt phòng
-// (CN3-02, US10): chỗ gọi quyết định.
+// (CN3-02, US3): chỗ gọi quyết định.
 export const MucSapToi = ({
   muc,
   onChamDong,

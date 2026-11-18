@@ -26,7 +26,7 @@ import { layVai } from "../stores/vai";
 import { mauCuaCan } from "./cn1-lich-thang";
 
 // CN4 · Thêm đặt phòng (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), mục "Người đặt, tiền phòng và tiền cọc" (US3)), CN4-01 tiền phòng trống, CN4-03 toast (HV8).
-// US5: chọn sale đã kết nối làm người đặt thì đặt phòng tính cho sale đó (US5-NT13, mục "Booking chủ nhà ghi cho sale" (US28)). "+ Sale mới" là US sau.
+// US5: chọn sale đã kết nối làm người đặt thì đặt phòng tính cho sale đó (US5-NT13, mục "Booking chủ nhà ghi cho sale" (US3)). "+ Sale mới" là US sau.
 // Chưa làm: giữ nháp khi app bị đóng hẳn (HV3 bước 3, US3-KB21) vì cần Native Storage.
 
 export type SoDemChip = 1 | 2 | 3 | "tuy_chon";
@@ -107,7 +107,7 @@ type Props = {
   onDoi: (moi: Partial<FormCN4>) => void;
   onLuu: () => void;
   onChuaLam: (chu: string) => void;
-  // CN4-02 (US10): sửa đặt phòng. Người đặt giữ nguyên (đổi người đặt còn [MỞ: DC53]); nút "Lưu thay đổi".
+  // CN4-02 (US3): sửa đặt phòng. Người đặt giữ nguyên (đổi người đặt còn [MỞ: DC53]); nút "Lưu thay đổi".
   sua?: { laSale: boolean; tenNguoiDat: string | null };
 };
 

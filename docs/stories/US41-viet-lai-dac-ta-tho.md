@@ -29,7 +29,7 @@ Ba story chưa có đặc tả nào (US24, US32, US33): không viết lại đư
 
 1. Đọc mục của story đó và mục "Chung" trong `docs/tham-khao/Loi_Tung_ban_Zalo.md`: quyết định và câu trả lời của Tùng ở bản Zalo, nhiều cái **chưa có trong story thô**. Quyết định còn hiệu lực thì áp vào story; quyết định lớn ghi thêm vào `docs/Quyet_dinh.md`; không rõ còn hiệu lực không thì hỏi Tùng.
 2. Đọc story thô. Nó là nguyên liệu: bảng bước, chữ trên màn, tiêu chí, luật kiểm, "Ai được làm và việc kéo theo", màn, quyền, ngoài phạm vi.
-3. Đọc mẫu `docs/stories/US3-ghi-booking.md` và khuôn ở `docs/QUY_TRINH.md` mục 4.2.
+3. Đọc mẫu `docs/stories/US3-dat-phong.md` và khuôn ở `docs/QUY_TRINH.md` mục 4.2.
 4. Đọc hàm database story dùng (`supabase/migrations/`, tên hàm ở mục Database của story) và test của nó (`tests/db/`). Ghi mọi chỗ database làm khác nguyên liệu vào "Database đang lệch story".
 5. Xem màn: `python3 docs/thiet-ke/trich-man.py <mã> --chu`. Chữ trên hình lệch nguyên liệu thì nguyên liệu (story) đúng; ghi chỗ lệch ở mục Màn hình.
 6. Viết lại cả file theo khuôn: luồng chính có số của bộ mẫu; phạm vi; bảng bước bản PWA (không cột Zalo, cách làm theo `docs/luat-chung/PWA.md`); đủ nhánh lỗi; tiêu chí kèm lớp test; bảng luật kiểm với câu lỗi; quyền; database; màn; câu hỏi và giả định; việc cần làm. Bỏ mục "Ai được làm và việc kéo theo" sau khi đã đưa nội dung vào bảng bước và mục Database.

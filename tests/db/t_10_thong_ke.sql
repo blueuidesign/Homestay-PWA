@@ -29,12 +29,12 @@ begin
   perform t.eq((fn_thong_ke_chu('2027-05-01')->>'so_voi_thang_truoc'), null, 'mục "Thống kê tháng của chủ nhà" (US18) tháng trước bằng 0 thì không có dòng so sánh');
   perform t.eq(jsonb_array_length(fn_thong_ke_chu('2026-12-01')->'sau_thang'), 6, 'mục "Doanh thu 6 tháng" (US18) biểu đồ 6 tháng tính tới tháng đang xem');
 
-  -- Thu đủ và hoàn tác (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10))
+  -- Thu đủ và hoàn tác (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3))
   perform fn_chu_sua_booking(b1, '{"trang_thai_tien":"da_coc_con_thu","tien_coc":1000000}');
   perform fn_chu_thu_du(b1);
-  perform t.eq((select trang_thai_tien from booking where id = b1), 'da_thanh_toan', 'US10-NT3 đã thu đủ thì nhãn Đã thanh toán');
+  perform t.eq((select trang_thai_tien from booking where id = b1), 'da_thanh_toan', 'US3-NT31 đã thu đủ thì nhãn Đã thanh toán');
   perform fn_chu_hoan_tac_thu_du(b1);
-  perform t.eq((select trang_thai_tien from booking where id = b1), 'da_coc_con_thu', 'US10-NT4 hoàn tác thì về trạng thái trước');
+  perform t.eq((select trang_thai_tien from booking where id = b1), 'da_coc_con_thu', 'US3-NT32 hoàn tác thì về trạng thái trước');
   perform t.throws(format($q$select fn_chu_sua_booking(%L, '{"tien_coc":9000000}')$q$, b1), 'tiền cọc lớn hơn tiền phòng bị từ chối', null);
 
   -- Sale: tiền chênh (QT3.1-VD3: chủ ghi cho Hùng, mức cộng 200k mỗi đêm: giá bán 2.600.000, chênh 400.000)
@@ -50,14 +50,14 @@ begin
   perform t.login(lan);
   perform t.eq((fn_thong_ke_sale('2026-10-01')->>'so_dat_phong')::int, 0, 'PQ15 sale khác không thấy số của Sale Hùng');
 
-  -- Đã hủy không tính (US35-NT2)
+  -- Đã hủy không tính (US3-NT49)
   perform t.login(hung);
   perform fn_xin_huy(b1);
   perform t.login(hoa);
   perform fn_tra_loi_huy(b1, true);
-  perform t.eq((fn_thong_ke_chu('2026-10-01')->>'doanh_thu')::int, 1000000, 'US35-NT2 đặt phòng đã hủy không tính vào doanh thu');
+  perform t.eq((fn_thong_ke_chu('2026-10-01')->>'doanh_thu')::int, 1000000, 'US3-NT49 đặt phòng đã hủy không tính vào doanh thu');
   perform t.login(hung);
-  perform t.eq((fn_thong_ke_sale('2026-10-01')->>'tien_chenh')::int, 200000, 'US35-NT2 đặt phòng đã hủy không tính vào tiền chênh');
+  perform t.eq((fn_thong_ke_sale('2026-10-01')->>'tien_chenh')::int, 200000, 'US3-NT49 đặt phòng đã hủy không tính vào tiền chênh');
 
   -- Xuất file (mục "Xuất file Excel (CSV)" (US22)): chỉ booking căn của mình, có khách chủ nhà nhập, không có khách hay giá bán của sale
   perform t.login(hoa);

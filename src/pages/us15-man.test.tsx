@@ -578,7 +578,7 @@ test("test_YC4_8_NT3_US15_chu_nha_sua_dat_phong_sang_dem_co_yeu_cau_cho_thi_yeu_
 });
 
 test("test_YC4_6_NT3_US15_gia_ban_giu_nguyen_khi_chu_nha_sua_gia_chu_nha_sau_khi_chap_nhan", async () => {
-  // Quyết định 04/11 (Nhật ký US10): đặt phòng đã có xác nhận của chủ nhà thì giá bán giữ nguyên
+  // Quyết định 04/11 (Nhật ký US3): đặt phòng đã có xác nhận của chủ nhà thì giá bán giữ nguyên
   const yc = await gui(HUNG, "1509", "2026-10-24", "2026-10-26");
   await dung(HOA);
   const kq = await postYeuCauChapNhan(yc.id, khoa());

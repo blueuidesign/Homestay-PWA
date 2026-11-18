@@ -212,7 +212,7 @@ Bảng `lan_gui_khach` (chỉ sale đó đọc).
 - Chi tiết căn S3, giá bán và mức cộng (mục "Chi tiết căn và giá bán" (US13), mục "Mức cộng giá mặc định" (US13)): US13.
 - Hộp thoại xin tên và số điện thoại (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)): phần dùng chung làm ở US5. US này chỉ gọi nó khi hồ sơ chưa có số (mục "Gửi thông tin cho khách qua Zalo" bước 0).
 - Màn P13 danh sách thông báo (mục "Thông báo kết quả kết nối cho sale" (US17)): US17. Popup thông báo mới (mục "Popup thông báo mới" (US30)): US30. Công tắc bật tắt từng loại thông báo (mục "Cài đặt thông báo" (US21)): US21.
-- Gửi yêu cầu đặt phòng, chủ nhà chấp nhận (mục "Sale gửi yêu cầu đặt phòng" (US15), mục "Chủ nhà nhận và trả lời yêu cầu" (US15)): US15. Hàm báo "căn đã gửi có người đặt" làm ở đây, (US3) gọi nó; chỗ gọi từ làm ở US15, từ đổi ngày làm ở US10 [MỞ: US14-H2] bảng phủ không nêu.
+- Gửi yêu cầu đặt phòng, chủ nhà chấp nhận (mục "Sale gửi yêu cầu đặt phòng" (US15), mục "Chủ nhà nhận và trả lời yêu cầu" (US15)): US15. Hàm báo "căn đã gửi có người đặt" làm ở đây, (US3) gọi nó; chỗ gọi từ làm ở US15, từ đổi ngày làm ở US3 [MỞ: US14-H2] bảng phủ không nêu.
 - Nhãn "Đã gửi" trên màn và đếm lần gửi cho thống kê (CH-072): chưa làm.
 - Chọn ảnh khi căn có hơn 10 ảnh, giới hạn số căn mỗi lần gửi (CH-070, 8): chưa chốt.
 

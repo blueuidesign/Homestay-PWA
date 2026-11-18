@@ -79,7 +79,7 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Sale đang dùng app | Hiện toast đầu màn: "Chị Hoa đã đồng ý cho bạn xem lịch / ICON40 1509 và 3402 đã vào Nguồn phòng", nút "Xem" (A9) | App gọi mỗi 60 giây khi đang mở; toast hiện chậm nhất 60 giây sau khi chủ nhà đồng ý | Không | Lịch của chủ nhà vào Nguồn phòng |
 | 2 | Nhiều chủ nhà đồng ý gần nhau | Gom một toast: "3 chủ nhà đã đồng ý cho bạn xem lịch / Chị Hoa, Anh Tuấn và Chú Bình · 7 căn mới trong Nguồn phòng", nút "Xem" (A9-02) | gom các lần đồng ý trong 10 phút thành một dòng theo `khoa_gom` (giả định GD15) | Không | Không |
-| 3 | Sale mở Cá nhân > Thông báo | P13 (bản của sale vẽ ở, có thêm loại "chủ sửa booking", mục "Sửa booking" (US10)): "2 chưa đọc", nút "Đánh dấu đã đọc", nhóm Hôm nay và Trước đó, mỗi sự kiện một dòng (dòng đồng ý nằm trong nhóm này) | mới trước, kèm số chưa đọc; "Đánh dấu đã đọc": | Không | Trạng thái đã đọc |
+| 3 | Sale mở Cá nhân > Thông báo | P13 (bản của sale vẽ ở, có thêm loại "chủ sửa booking", mục "Sửa booking" (US3)): "2 chưa đọc", nút "Đánh dấu đã đọc", nhóm Hôm nay và Trước đó, mỗi sự kiện một dòng (dòng đồng ý nằm trong nhóm này) | mới trước, kèm số chưa đọc; "Đánh dấu đã đọc": | Không | Trạng thái đã đọc |
 
 Theo quy tắc: Gom thông báo.
 

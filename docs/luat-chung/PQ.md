@@ -80,7 +80,7 @@ Ngày tính giá cuối tuần, giờ nhận và trả phòng.
 
 ## PQ7 · Đặt phòng
 Căn, ngày nhận, ngày trả, người đặt.
-- PQ7.CHU: xem mọi đặt phòng của căn mình; tạo (chặn trùng theo QT1), sửa (mục "Sửa booking" (US10)). Xóa đặt phòng mình tự ghi. Không xóa đặt phòng thành từ yêu cầu của sale đã chấp nhận, server chặn (mục "Xóa booking" (US10), mục "Cài đặt thông báo" (US21)). Xin hủy và chấp thuận hay từ chối hủy đặt phòng đã chấp nhận (QD-012). Từ chối thì đặt phòng giữ nguyên, trạng thái "Bị từ chối hủy". Hủy xong thì các đêm tương lai trống lại (QD-012). Đặt phòng chủ nhà tự ghi chọn người đặt là một sale thì tính là đặt phòng của sale đó (mục "Booking chủ nhà ghi cho sale" (US28)).
+- PQ7.CHU: xem mọi đặt phòng của căn mình; tạo (chặn trùng theo QT1), sửa (mục "Sửa booking" (US3)). Xóa đặt phòng mình tự ghi. Không xóa đặt phòng thành từ yêu cầu của sale đã chấp nhận, server chặn (mục "Xóa booking" (US3), mục "Cài đặt thông báo" (US21)). Xin hủy và chấp thuận hay từ chối hủy đặt phòng đã chấp nhận (QD-012). Từ chối thì đặt phòng giữ nguyên, trạng thái "Bị từ chối hủy". Hủy xong thì các đêm tương lai trống lại (QD-012). Đặt phòng chủ nhà tự ghi chọn người đặt là một sale thì tính là đặt phòng của sale đó (mục "Booking chủ nhà ghi cho sale" (US3)).
 - PQ7.SALE: xem chi tiết đặt phòng của mình, gồm đặt phòng chủ nhà ghi chọn sale này. Đặt phòng của người khác chỉ thấy là "đã đặt" (PQ4.SALE). Không tạo thẳng vào lịch chủ nhà, chỉ gửi yêu cầu (PQ10). Không sửa, không xóa. Xin hủy và chấp thuận hay từ chối hủy đặt phòng của mình (QD-012). Bị ngừng: vẫn xem lại đặt phòng cũ của mình với chủ nhà đó (QD-007); xin hủy được không: [MỞ: CH-048] QD-012.
 - PQ7.LINK: không.
 - PQ7.CTV: không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên).

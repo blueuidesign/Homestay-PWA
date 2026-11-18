@@ -21,7 +21,7 @@ create table public.booking (
   tien_phong integer not null check (tien_phong > 0),           -- tổng giá chủ nhà; căn tự nhập là tiền trả chủ
   trang_thai_tien text check (trang_thai_tien in ('chua_coc', 'da_coc_con_thu', 'da_thanh_toan')),
   tien_coc integer check (tien_coc > 0),                        -- sale KHÔNG BAO GIỜ thấy cột này (QD-007)
-  trang_thai_tien_truoc text,                                   -- trạng thái tiền trước khi bấm "Đã thu đủ", để hoàn tác (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10))
+  trang_thai_tien_truoc text,                                   -- trạng thái tiền trước khi bấm "Đã thu đủ", để hoàn tác (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3))
   gio_nhan time,                                                -- chép từ giờ mặc định của chủ lúc ghi; đổi giờ mặc định không đổi booking cũ (mục "Giờ nhận, trả phòng mặc định" (US21))
   gio_tra time,
   ghi_chu text check (char_length(ghi_chu) <= 1000),            -- ghi chú của chủ nhà, sale không thấy
@@ -136,7 +136,7 @@ language sql stable security definer set search_path = public as $$
       or exists (select 1 from yeu_cau_dat_phong where can_id = p_can and trang_thai = 'cho' and het_han_luc > now())
 $$;
 
--- Giá bán điền sẵn khi chủ nhà ghi booking cho một sale (mục "Booking chủ nhà ghi cho sale" (US28)): tiền phòng + mức cộng của sale đó × số đêm.
+-- Giá bán điền sẵn khi chủ nhà ghi booking cho một sale (mục "Booking chủ nhà ghi cho sale" (US3)): tiền phòng + mức cộng của sale đó × số đêm.
 create or replace function public.gia_ban_goi_y(p_sale uuid, p_can uuid, p_tien_phong int, p_so_dem int) returns integer
 language sql stable security definer set search_path = public as $$
   select case when coalesce(cd.lam_tron_50k, false) then (ceil(x.t / 50000.0) * 50000)::int else x.t end
@@ -195,7 +195,7 @@ begin
     insert into booking_rieng (booking_id, nguoi, ten_khach, sdt_khach, so_khach)
     values (v_id, v_me, p->'khach'->>'ten', p->'khach'->>'sdt', (p->'khach'->>'so_khach')::smallint);
   end if;
-  -- Chủ ghi cho một sale: coi như booking của sale đó, giá bán điền sẵn theo mức cộng của sale (mục "Booking chủ nhà ghi cho sale" (US28), QT3.1-VD3).
+  -- Chủ ghi cho một sale: coi như booking của sale đó, giá bán điền sẵn theo mức cộng của sale (mục "Booking chủ nhà ghi cho sale" (US3), QT3.1-VD3).
   -- Khách chủ nhà nhập nằm ở dòng của chủ, sale không thấy.
   if v_sale is not null then
     insert into booking_rieng (booking_id, nguoi, tien_thu_khach)
@@ -236,7 +236,7 @@ begin
   update can set lich_cap_nhat_luc = now() where id = b.can_id;
 end $$;
 
--- "Đã thu đủ" (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): nhãn thành Đã thanh toán, nhớ trạng thái trước để hoàn tác. Tiền cọc giữ nguyên.
+-- "Đã thu đủ" (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3)): nhãn thành Đã thanh toán, nhớ trạng thái trước để hoàn tác. Tiền cọc giữ nguyên.
 create or replace function public.fn_chu_thu_du(p_id uuid) returns void
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap();
@@ -256,7 +256,7 @@ begin
   if not found then raise exception 'Đặt phòng này chưa ghi đã thu đủ' using errcode = 'P0001'; end if;
 end $$;
 
--- Chủ nhà xóa booking khách lẻ mình tự ghi. Booking có sale thì không xóa, phải xin hủy (mục "Xóa booking" (US10), QD-012).
+-- Chủ nhà xóa booking khách lẻ mình tự ghi. Booking có sale thì không xóa, phải xin hủy (mục "Xóa booking" (US3), QD-012).
 create or replace function public.fn_chu_xoa_booking(p_id uuid) returns void
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap(); b booking;

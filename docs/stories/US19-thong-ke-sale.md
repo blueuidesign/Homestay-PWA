@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
-- Làm sau khi xong: US15, US16, US28
+- Làm sau khi xong: US15, US16, US3
 - Kiểm tay: `tests/kich-ban/US19.md` (23 kịch bản)
 
 ## Mục tiêu
@@ -16,7 +16,7 @@ Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc
 
 ### Thống kê của sale
 Rủi ro: cao
-Mục đích: sale thấy tháng này mình lời bao nhiêu, bán qua chủ nhà nào, và còn gì đang chờ. Booking của sale gồm booking thành từ yêu cầu đã chốt, booking chủ nhà ghi cho sale (mục "Booking chủ nhà ghi cho sale" (US28)) và booking sale tự ghi cho căn tự nhập (nhóm Nguồn phòng và căn tự nhập).
+Mục đích: sale thấy tháng này mình lời bao nhiêu, bán qua chủ nhà nào, và còn gì đang chờ. Booking của sale gồm booking thành từ yêu cầu đã chốt, booking chủ nhà ghi cho sale (mục "Booking chủ nhà ghi cho sale" (US3)) và booking sale tự ghi cho căn tự nhập (nhóm Nguồn phòng và căn tự nhập).
 Màn hình: S7, S7-00
 Khi nào xảy ra: sale mở tab Thống kê.
 
@@ -45,7 +45,7 @@ Trạng thái màn:
 
 ### Trạng thái booking của sale
 Rủi ro: tb
-Mục đích: sale biết từng yêu cầu mình đã gửi đang ở bước nào: Chờ chủ, Đã chốt, Bị từ chối, Hết hạn, Đã hủy; và thấy cả booking chủ nhà ghi cho mình (mục "Booking chủ nhà ghi cho sale" (US28)).
+Mục đích: sale biết từng yêu cầu mình đã gửi đang ở bước nào: Chờ chủ, Đã chốt, Bị từ chối, Hết hạn, Đã hủy; và thấy cả booking chủ nhà ghi cho mình (mục "Booking chủ nhà ghi cho sale" (US3)).
 Màn hình: S7-03, S7-03-00, S7-03-01
 Khi nào xảy ra: sale mở danh sách booking của mình từ màn Thống kê.
 
@@ -55,7 +55,7 @@ Hành vi:
 | 1 | Mở danh sách | "ĐẶT PHÒNG CỦA TÔI": mỗi dòng gồm căn và ngày ở, câu trạng thái, nhãn trạng thái | yêu cầu của sale gọi.: đặt phòng của sale, gồm cả đặt phòng chủ nhà ghi cho sale (bước 3a), có tiền chênh | Không | Không |
 | 2 | Xem "Chờ chủ" | "Đã gửi yêu cầu, chờ chủ chấp nhận" (có giờ gửi nếu có) | yêu cầu `cho_chu` | Không | Không |
 | 3 | Xem "Đã chốt" | "Chủ đã chấp nhận · chênh 300.000đ" | yêu cầu `da_chot`, có `gia_chu` và `gia_ban`, QT3.1) | Không | Không |
-| 3a | Xem booking chủ nhà ghi cho mình (mục "Booking chủ nhà ghi cho sale" (US28)) | Nhãn "Đã chốt", có số tiền chênh. Câu trạng thái nói chủ nhà đã ghi giúp; chữ chưa vẽ. Chạm vào mở booking theo mục "Booking chủ nhà ghi cho sale" (US28) bước 3 | Gửi booking có sale_id là sale này | | Không |
+| 3a | Xem booking chủ nhà ghi cho mình (mục "Booking chủ nhà ghi cho sale" (US3)) | Nhãn "Đã chốt", có số tiền chênh. Câu trạng thái nói chủ nhà đã ghi giúp; chữ chưa vẽ. Chạm vào mở booking theo mục "Booking chủ nhà ghi cho sale" (US3) bước 3 | Gửi booking có sale_id là sale này | | Không |
 | 4 | Xem "Bị từ chối" | "Chủ không nhận" hoặc "Chủ đã nhận đặt phòng khác cùng ngày" | yêu cầu `bi_tu_choi` kèm lý do | Không | Không |
 | 4a | Xem "Hết hạn" | "Chủ chưa trả lời trong 2 tuần" | yêu cầu `het_han`; quá hạn coi là hết hạn ngay lúc đọc | Không | Không |
 | 4b | Xem "Đã hủy" | "Bạn đã hủy yêu cầu" | yêu cầu `da_huy` | Không | Không |
@@ -81,14 +81,14 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US19-NT2** Khi tiền chênh theo ba chủ nhà là 800.000đ, 600.000đ, 200.000đ, thì tiền chênh tháng ghi 1.600.000đ.
 - **US19-NT3** Khi booking còn chờ chủ, thì không cộng vào thẻ "Đặt phòng", Doanh số hay Tiền chênh.
 - **US19-NT4** Khi tháng chưa chốt booking nào, thì thấy S7-00 và nút "Tìm phòng" mở tìm phòng.
-- **US19-NT5** Khi Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng (US28-NT1), thì thống kê tháng 10 của Sale Hùng cộng thêm 1 vào thẻ "Đặt phòng", 2.600.000đ vào Doanh số và 400.000đ vào Tiền chênh, ở dòng chủ nhà Chị Hoa.
+- **US19-NT5** Khi Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng (US3-NT25), thì thống kê tháng 10 của Sale Hùng cộng thêm 1 vào thẻ "Đặt phòng", 2.600.000đ vào Doanh số và 400.000đ vào Tiền chênh, ở dòng chủ nhà Chị Hoa.
 - **US19-NT6** Khi Chị Hoa đã xóa căn 1509 (mục "Xóa căn" (US1)), thì booking cũ của Sale Hùng ở 1509 vẫn tính vào thống kê của Sale Hùng.
 - **US19-NT7** Khi yêu cầu còn chờ chủ, thì nhãn là "Chờ chủ" và không có số tiền chênh.
 - **US19-NT8** Khi chủ chấp nhận, thì nhãn là "Đã chốt" và dòng ghi số tiền chênh.
 - **US19-NT9** Khi chủ từ chối hoặc nhận đặt phòng khác cùng ngày, thì nhãn là "Bị từ chối" và dòng ghi lý do.
 - **US19-NT10** Khi yêu cầu quá 2 tuần chưa được trả lời, thì nhãn là "Hết hạn".
 - **US19-NT11** Khi sale tự hủy yêu cầu, thì nhãn là "Đã hủy".
-- **US19-NT12** Khi Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng (US28-NT1), thì S7-03 của Sale Hùng có dòng 1509 · 10/10 → 12/10 nhãn "Đã chốt" với tiền chênh 400.000đ.
+- **US19-NT12** Khi Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng (US3-NT25), thì S7-03 của Sale Hùng có dòng 1509 · 10/10 → 12/10 nhãn "Đã chốt" với tiền chênh 400.000đ.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -129,7 +129,7 @@ Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi t
 **Chống bấm hai lần:** không cần (đọc).
 
 ### Số liệu một tháng của sale
-**Ai gọi:** người đã đăng nhập. Số liệu chỉ gồm đặt phòng có `booking.sale_id` là người gọi: đặt phòng thành từ yêu cầu (`tu_yeu_cau`), đặt phòng chủ nhà ghi chọn sale này (`chu_tu_ghi`, mục "Booking chủ nhà ghi cho sale" (US28)), đặt phòng sale tự ghi cho căn tự nhập (`sale_tu_ghi`) (mục "Thống kê của sale" (US19) Mục đích, QT3.1). Gồm cả đặt phòng với chủ nhà đã ngừng chia sẻ (QD-007), chủ nhà đã xóa tài khoản (QD-013), căn đã ẩn (US19-NT6). Chỉ của mình (PQ15.SALE). Đặt phòng ở căn riêng của sale (QD-005) có tính không: [MỞ: US19-H7] mục "Thống kê của sale" (US19) không nói.
+**Ai gọi:** người đã đăng nhập. Số liệu chỉ gồm đặt phòng có `booking.sale_id` là người gọi: đặt phòng thành từ yêu cầu (`tu_yeu_cau`), đặt phòng chủ nhà ghi chọn sale này (`chu_tu_ghi`, mục "Booking chủ nhà ghi cho sale" (US3)), đặt phòng sale tự ghi cho căn tự nhập (`sale_tu_ghi`) (mục "Thống kê của sale" (US19) Mục đích, QT3.1). Gồm cả đặt phòng với chủ nhà đã ngừng chia sẻ (QD-007), chủ nhà đã xóa tài khoản (QD-013), căn đã ẩn (US19-NT6). Chỉ của mình (PQ15.SALE). Đặt phòng ở căn riêng của sale (QD-005) có tính không: [MỞ: US19-H7] mục "Thống kê của sale" (US19) không nói.
 
 Luật tính:
 - Chỉ đặt phòng chưa hủy (QD-012). Yêu cầu chưa thành đặt phòng không tính (US19-NT3).
@@ -229,7 +229,7 @@ Sale đọc đặt phòng của mình qua view `v_booking_cua_sale` (không có 
 - `fn_thong_ke_sale`: test ở t_10_thong_ke.sql
 
 ## Ngoài phạm vi
-- Chủ nhà ghi đặt phòng chọn sale làm người đặt, thông báo "chủ ghi đặt phòng cho bạn", sale sửa giá bán (mục "Booking chủ nhà ghi cho sale" (US28)): US28. Ở đây chỉ kiểm hiệu ứng lên thống kê và danh sách (KB7, KB9).
+- Chủ nhà ghi đặt phòng chọn sale làm người đặt, thông báo "chủ ghi đặt phòng cho bạn", sale sửa giá bán (mục "Booking chủ nhà ghi cho sale" (US3)): US3. Ở đây chỉ kiểm hiệu ứng lên thống kê và danh sách (KB7, KB9).
 - Gửi yêu cầu, chủ chấp nhận, từ chối, sale hủy (mục "Sale gửi yêu cầu đặt phòng" (US15) đến mục "Yêu cầu trùng ngày" (US15)): US15. KB15, KB16, KB18 dùng các luồng đó để tạo dữ liệu.
 - Căn tự nhập và đặt phòng sale tự ghi (nhóm Nguồn phòng và căn tự nhập): US16. Ở đây chỉ kiểm dòng "Chú Bình" trong thống kê.
 - Dòng chủ nhà đã xóa tài khoản, S7-03-01, yêu cầu tự hủy khi chủ nhà xóa (mục "Trạng thái booking của sale" bước 4c, 4d, NT6): US22.

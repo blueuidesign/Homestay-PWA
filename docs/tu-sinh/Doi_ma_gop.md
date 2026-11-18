@@ -148,3 +148,98 @@
 | US9-KB17 | US2-KB29 | US2 Lịch chủ nhà |
 | US9-KB18 | US2-KB30 | US2 Lịch chủ nhà |
 | US9-KB19 | US2-KB31 | US2 Lịch chủ nhà |
+| US28-NT1 | US3-NT25 | US3 Đặt phòng |
+| US28-NT2 | US3-NT26 | US3 Đặt phòng |
+| US28-NT3 | US3-NT54 | US3 Đặt phòng |
+| US28-NT4 | US3-NT27 | US3 Đặt phòng |
+| US28-NT5 | US3-NT28 | US3 Đặt phòng |
+| US10-NT1 | US3-NT38 | US3 Đặt phòng |
+| US10-NT2 | US3-NT30 | US3 Đặt phòng |
+| US10-NT3 | US3-NT31 | US3 Đặt phòng |
+| US10-NT4 | US3-NT32 | US3 Đặt phòng |
+| US10-NT5 | US3-NT35 | US3 Đặt phòng |
+| US10-NT6 | US3-NT36 | US3 Đặt phòng |
+| US10-NT7 | US3-NT37 | US3 Đặt phòng |
+| US10-NT8 | US3-NT39 | US3 Đặt phòng |
+| US10-NT9 | US3-NT40 | US3 Đặt phòng |
+| US10-NT10 | US3-NT43 | US3 Đặt phòng |
+| US10-NT11 | US3-NT44 | US3 Đặt phòng |
+| US10-NT12 | US3-NT45 | US3 Đặt phòng |
+| US10-NT13 | US3-NT46 | US3 Đặt phòng |
+| US10-NT14 | US3-NT47 | US3 Đặt phòng |
+| US35-NT1 | US3-NT48 | US3 Đặt phòng |
+| US35-NT2 | US3-NT49 | US3 Đặt phòng |
+| US35-NT3 | US3-NT50 | US3 Đặt phòng |
+| US35-NT4 | US3-NT51 | US3 Đặt phòng |
+| US35-NT5 | US3-NT52 | US3 Đặt phòng |
+| US35-NT6 | US3-NT53 | US3 Đặt phòng |
+| US10-H1 | US3-H4 | US3 Đặt phòng |
+| US10-H2 | US3-H5 | US3 Đặt phòng |
+| US10-H5 | US3-H5 | US3 Đặt phòng |
+| US10-H14 | US3-H5 | US3 Đặt phòng |
+| US10-H3 | US3-H6 | US3 Đặt phòng |
+| US10-H4 | US3-H7 | US3 Đặt phòng |
+| US10-H6 | US3-H7 | US3 Đặt phòng |
+| US10-H7 | US3-H8 | US3 Đặt phòng |
+| US10-H8 | US3-H9 | US3 Đặt phòng |
+| US10-H11 | US3-H9 | US3 Đặt phòng |
+| US10-H9 | bỏ: Tùng 04/11 điểm 1 | US3 Đặt phòng |
+| US10-H10 | bỏ: thuộc US16 | US3 Đặt phòng |
+| US10-H12 | bỏ: thuộc US16 | US3 Đặt phòng |
+| US10-H13 | bỏ: không phải câu hỏi | US3 Đặt phòng |
+| US10-H15 | bỏ: không có nội dung | US3 Đặt phòng |
+| US28-H1 | US3-H10 | US3 Đặt phòng |
+| US28-H7 | US3-H10 | US3 Đặt phòng |
+| US28-H9 | US3-H10 | US3 Đặt phòng |
+| US28-H2 | US3-H7 | US3 Đặt phòng |
+| US28-H3 | US3-H11 | US3 Đặt phòng |
+| US28-H5 | US3-H11 | US3 Đặt phòng |
+| US28-H4 | US3-H12 | US3 Đặt phòng |
+| US28-H6 | US3-H13 | US3 Đặt phòng |
+| US28-H8 | bỏ: thuộc US21 | US3 Đặt phòng |
+| US28-H10 | bỏ: thuộc US16 | US3 Đặt phòng |
+| US35-H1 | US3-H14 | US3 Đặt phòng |
+| US35-H2 | CH-004 | US3 Đặt phòng |
+| US35-H3 | CH-004 | US3 Đặt phòng |
+| US35-H4 | US3-H15 | US3 Đặt phòng |
+| US35-H5 | US3-H16 | US3 Đặt phòng |
+| US10 | US3 | US3 Đặt phòng |
+| US28 | US3 | US3 Đặt phòng |
+| US35 | US3 | US3 Đặt phòng |
+| US10-KB1 | US3-KB26 | US3 Đặt phòng |
+| US10-KB2 | US3-KB27 | US3 Đặt phòng |
+| US10-KB3 | US3-KB28 | US3 Đặt phòng |
+| US10-KB4 | US3-KB29 | US3 Đặt phòng |
+| US10-KB5 | US3-KB30 | US3 Đặt phòng |
+| US10-KB6 | US3-KB31 | US3 Đặt phòng |
+| US10-KB7 | US3-KB32 | US3 Đặt phòng |
+| US10-KB8 | US3-KB33 | US3 Đặt phòng |
+| US10-KB9 | US3-KB34 | US3 Đặt phòng |
+| US10-KB10 | US3-KB35 | US3 Đặt phòng |
+| US10-KB11 | US3-KB36 | US3 Đặt phòng |
+| US10-KB12 | US3-KB37 | US3 Đặt phòng |
+| US10-KB13 | US3-KB38 | US3 Đặt phòng |
+| US10-KB14 | US3-KB39 | US3 Đặt phòng |
+| US10-KB15 | US3-KB40 | US3 Đặt phòng |
+| US10-KB16 | US3-KB41 | US3 Đặt phòng |
+| US10-KB17 | US3-KB42 | US3 Đặt phòng |
+| US10-KB18 | US3-KB43 | US3 Đặt phòng |
+| US10-KB19 | US3-KB44 | US3 Đặt phòng |
+| US10-KB20 | US3-KB45 | US3 Đặt phòng |
+| US10-KB21 | US3-KB46 | US3 Đặt phòng |
+| US10-KB22 | US3-KB47 | US3 Đặt phòng |
+| US10-KB23 | US3-KB48 | US3 Đặt phòng |
+| US10-KB24 | US3-KB49 | US3 Đặt phòng |
+| US10-KB25 | US3-KB50 | US3 Đặt phòng |
+| US10-KB26 | US3-KB51 | US3 Đặt phòng |
+| US10-KB27 | US3-KB52 | US3 Đặt phòng |
+| US28-KB1 | US3-KB53 | US3 Đặt phòng |
+| US28-KB2 | US3-KB54 | US3 Đặt phòng |
+| US28-KB3 | US3-KB55 | US3 Đặt phòng |
+| US28-KB4 | US3-KB56 | US3 Đặt phòng |
+| US28-KB5 | US3-KB57 | US3 Đặt phòng |
+| US28-KB6 | US3-KB58 | US3 Đặt phòng |
+| US28-KB7 | US3-KB59 | US3 Đặt phòng |
+| US28-KB8 | US3-KB60 | US3 Đặt phòng |
+| US28-KB9 | US3-KB61 | US3 Đặt phòng |
+| US28-KB10 | US3-KB62 | US3 Đặt phòng |

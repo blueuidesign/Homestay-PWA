@@ -91,20 +91,20 @@
 | YC2.5-NT2 | US2-NT16 |
 | YC2.5-NT3 | US2-NT17 |
 | YC2.5-NT4 | US2-NT18 |
-| YC4.1.2-NT6 | US10-NT1 |
-| YC4.2-NT1 | US10-NT2 |
-| YC4.2-NT2 | US10-NT3 |
-| YC4.2-NT3 | US10-NT4 |
-| YC4.3-NT1 | US10-NT5 |
-| YC4.3-NT2 | US10-NT6 |
-| YC4.3-NT3 | US10-NT7 |
-| YC4.3-NT4 | US10-NT8 |
-| YC4.3-NT5 | US10-NT9 |
-| YC4.4-NT1 | US10-NT10 |
-| YC4.4-NT2 | US10-NT11 |
-| YC4.4-NT4 | US10-NT12 |
-| YC4.4-NT5 | US10-NT13 |
-| YC4.4-NT6 | US10-NT14 |
+| YC4.1.2-NT6 | US3-NT38 |
+| YC4.2-NT1 | US3-NT30 |
+| YC4.2-NT2 | US3-NT31 |
+| YC4.2-NT3 | US3-NT32 |
+| YC4.3-NT1 | US3-NT35 |
+| YC4.3-NT2 | US3-NT36 |
+| YC4.3-NT3 | US3-NT37 |
+| YC4.3-NT4 | US3-NT39 |
+| YC4.3-NT5 | US3-NT40 |
+| YC4.4-NT1 | US3-NT43 |
+| YC4.4-NT2 | US3-NT44 |
+| YC4.4-NT4 | US3-NT45 |
+| YC4.4-NT5 | US3-NT46 |
+| YC4.4-NT6 | US3-NT47 |
 | YC3.1-NT5 | US1-NT9 |
 | YC3.2.2-NT1 | US1-NT13 |
 | YC3.2.2-NT2 | US1-NT26 |
@@ -342,11 +342,11 @@
 | YC3.9-NT6 | US1-NT40 |
 | YC3.9-NT7 | US1-NT41 |
 | YC3.9-NT8 | US1-NT43 |
-| YC4.1.3-NT1 | US28-NT1 |
-| YC4.1.3-NT2 | US28-NT2 |
-| YC4.1.3-NT3 | US28-NT3 |
-| YC4.1.3-NT4 | US28-NT4 |
-| YC4.1.3-NT5 | US28-NT5 |
+| YC4.1.3-NT1 | US3-NT25 |
+| YC4.1.3-NT2 | US3-NT26 |
+| YC4.1.3-NT3 | US3-NT54 |
+| YC4.1.3-NT4 | US3-NT27 |
+| YC4.1.3-NT5 | US3-NT28 |
 | YC3.2.2-NT7 | US29-NT1 |
 | YC10.2-NT1 | US29-NT2 |
 | YC10.2-NT2 | US29-NT3 |
@@ -365,12 +365,12 @@
 | YC10.3-NT4 | US34-NT4 |
 | YC10.3-NT5 | US34-NT5 |
 | YC10.3-NT6 | US34-NT6 |
-| YC4.9-NT1 | US35-NT1 |
-| YC4.9-NT2 | US35-NT2 |
-| YC4.9-NT3 | US35-NT3 |
-| YC4.9-NT4 | US35-NT4 |
-| YC4.9-NT5 | US35-NT5 |
-| YC4.9-NT6 | US35-NT6 |
+| YC4.9-NT1 | US3-NT48 |
+| YC4.9-NT2 | US3-NT49 |
+| YC4.9-NT3 | US3-NT50 |
+| YC4.9-NT4 | US3-NT51 |
+| YC4.9-NT5 | US3-NT52 |
+| YC4.9-NT6 | US3-NT53 |
 | YC9.5-NT1 | US40-NT1 |
 | YC9.5-NT2 | US40-NT2 |
 | YC9.5-NT3 | US40-NT3 |
@@ -509,15 +509,15 @@
 | YC4.1 | Chủ nhà ghi booking mới | US3 |
 | YC4.1.1 | Căn, ngày và kiểm tra trùng lịch | US3 |
 | YC4.1.2 | Người đặt, tiền phòng và tiền cọc | US3 |
-| YC4.1.3 | Booking chủ nhà ghi cho sale | US28 |
-| YC4.2 | Chi tiết booking và đánh dấu đã thu đủ | US10 |
-| YC4.3 | Sửa booking | US10 |
-| YC4.4 | Xóa booking | US10 |
+| YC4.1.3 | Booking chủ nhà ghi cho sale | US3 |
+| YC4.2 | Chi tiết booking và đánh dấu đã thu đủ | US3 |
+| YC4.3 | Sửa booking | US3 |
+| YC4.4 | Xóa booking | US3 |
 | YC4.5 | Sale gửi yêu cầu đặt phòng | US15 |
 | YC4.6 | Chủ nhà nhận và trả lời yêu cầu | US15 |
 | YC4.7 | Sale nhận kết quả yêu cầu | US15 |
 | YC4.8 | Yêu cầu trùng ngày | US15 |
-| YC4.9 | Hủy booking đã nhận | US35 |
+| YC4.9 | Hủy booking đã nhận | US3 |
 | YC5.1 | Lịch phòng 7 ngày | US16 |
 | YC5.2 | Tìm phòng trống theo ngày | US12 |
 | YC5.3 | Kết quả tìm phòng | US12 |

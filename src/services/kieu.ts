@@ -253,7 +253,7 @@ export type KiemTrung = {
 };
 
 // POST /booking: chủ nhà ghi khách lẻ (US3) hoặc ghi cho một sale đã kết nối bằng sale_id (US5, US5-NT13).
-// Có sale_id thì ten_khach phải null: server.md 2.6 ghi sale_id hoặc ten_khach_le, [MỞ: US28-NT4]
+// Có sale_id thì ten_khach phải null: server.md 2.6 ghi sale_id hoặc ten_khach_le, [MỞ: US3-NT27]
 export type ThanDatPhong = {
   can_id: string;
   sale_id?: string | null;

@@ -130,7 +130,7 @@ Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi t
 ### Đặt mức cộng riêng của sale cho một căn
 **Ai gọi:** sale có vai `nguon_phong` với căn (PQ11.SALE), hoặc CHU của căn `tu_nhap` (giá bán căn tự nhập dùng mức cộng này, Thiet_ke_DB `muc_cong`, PQ14.SALE). Căn `cua_toi`: [MỞ: US13-H6]; tới khi có câu trả lời, `KHONG_TIM_THAY`. Chủ nhà với căn của mình: `KHONG_TIM_THAY` (PQ11.CHU: chủ nhà không có mức cộng). Vai khác: lỗi quyền chung.
 
-**Việc kéo theo:** Không. Không đổi `booking_rieng` của đặt phòng đã có (mục "Sửa booking" (US10) bước 5, Thiet_ke_DB `booking_rieng`) và `yeu_cau_dat_phong.gia_ban` đã gửi.
+**Việc kéo theo:** Không. Không đổi `booking_rieng` của đặt phòng đã có (mục "Sửa booking" (US3) bước 5, Thiet_ke_DB `booking_rieng`) và `yeu_cau_dat_phong.gia_ban` đã gửi.
 
 **Chống bấm hai lần:** có (`Idempotency-Key`). PUT ghi đè, gửi lại cũng ra cùng kết quả.
 

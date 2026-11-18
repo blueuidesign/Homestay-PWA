@@ -3,7 +3,7 @@ import { CHU_TIEN, chuSoDienThoai } from "../components/sale-hien-thi";
 import { LoiApi, LoiMang, type DatPhong } from "../services/kieu";
 import { chuNgayNgan, chuTien, chuThu } from "../services/ngay";
 
-// CN3-02 · Chi tiết đặt phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Xóa booking" (US10)). Chủ nhà thấy đủ ngày, giờ, người bán, tiền; ghi đã thu đủ và hoàn tác; sửa; xóa
+// CN3-02 · Chi tiết đặt phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3), mục "Xóa booking" (US3)). Chủ nhà thấy đủ ngày, giờ, người bán, tiền; ghi đã thu đủ và hoàn tác; sửa; xóa
 // đặt phòng mình tự ghi cho khách lẻ (bấm hai lần). Không có giá bán, không có khách của sale (QD11, PQ11.CHU).
 // Chữ tạm (canvas chưa vẽ): nút "Sửa đặt phòng", nút "Hủy" và "Xóa đặt phòng" của hộp hỏi, dòng "Khách: ..." của khách lẻ chủ nhà nhập.
 

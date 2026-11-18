@@ -127,7 +127,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US5-NT10** Khi chủ nhà xác nhận "Ngừng cho xem lịch", thì sale đó không còn thấy lịch và các booking cũ của sale vẫn còn.
 - **US5-NT11** Khi chủ nhà chưa có sale nào, thì tab Sale hiện CN7-00.
 - **US5-NT12** Khi hồ sơ chủ nhà chưa có số điện thoại và chủ nhà bấm "Gửi link mời qua Zalo" ở CN7, thì popup giải thích xin tên và số hiện trước; bấm "Để sau" thì Zalo vẫn mở cửa sổ gửi link. (mục "Xin tên và số điện thoại khi bắt đầu kết nối")
-- **US5-NT13** Khi chủ nhà chọn một sale đã kết nối làm người đặt, thì booking hiện tên sale đó trong lịch và trong danh sách booking của sale (CN7-04). Booking này coi như booking của sale đó (mục "Booking chủ nhà ghi cho sale" (US28)).
+- **US5-NT13** Khi chủ nhà chọn một sale đã kết nối làm người đặt, thì booking hiện tên sale đó trong lịch và trong danh sách booking của sale (CN7-04). Booking này coi như booking của sale đó (mục "Booking chủ nhà ghi cho sale" (US3)).
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).

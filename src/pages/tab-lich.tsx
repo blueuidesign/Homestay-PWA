@@ -157,7 +157,7 @@ export const TabLich = () => {
     taiNgay(vuaGhi);
   }, [viTri.key]);
 
-  // Quay về từ CN3-02 hay CN4-02 sau khi sửa, xóa: giữ tháng và ngày đang xem, tải lại (US10, Tùng quyết 04/11/2026)
+  // Quay về từ CN3-02 hay CN4-02 sau khi sửa, xóa: giữ tháng và ngày đang xem, tải lại (US3, Tùng quyết 04/11/2026)
   const khoaDau = useRef(viTri.key);
   useEffect(() => {
     if (khoaDau.current === viTri.key) return;
@@ -168,7 +168,7 @@ export const TabLich = () => {
   // CN4: nút ở đầu lịch mở form trống; nút ở căn trống của chi tiết ngày điền sẵn căn và ngày (US3-NT10)
   const datPhong = () => dieuHuong(DUONG.DAT_PHONG);
   const datPhongTu = (can_id: string, ngay: string) => dieuHuong(DUONG.DAT_PHONG, { state: { can_id, ngay } });
-  // Chạm một dòng sắp tới (mục "Booking sắp tới" (US2) bước 2) hay nút "Sửa" trên thẻ phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): chi tiết đặt phòng CN3-02 (US10)
+  // Chạm một dòng sắp tới (mục "Booking sắp tới" (US2) bước 2) hay nút "Sửa" trên thẻ phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US3)): chi tiết đặt phòng CN3-02 (US3)
   const moChiTiet = (id: string) => dieuHuong(DUONG.CHI_TIET_DAT_PHONG, { state: { id } });
   const chamDong = (dp: DatPhongSapToi) => moChiTiet(dp.id);
   const coCan = !!lich && lich.can.length > 0;
