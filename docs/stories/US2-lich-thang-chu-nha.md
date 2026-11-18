@@ -53,6 +53,9 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **YC2.1-NT2** Khi chủ nhà có 3 căn và mở tab Lịch, thì thấy chip "Tất cả" cùng một chip cho mỗi căn.
 - **YC2.1-NT5** Khi chủ nhà chưa có booking nào, thì thấy CN1-00 thay cho lịch có booking.
 - **YC2.4-NT1** Khi chủ nhà chạm một ngày, thì phần chi tiết hiện ngay dưới lịch và ghi đúng ngày đã chạm.
+- **YC2.1-NT3** Khi chủ nhà chạm chip của một căn, thì lịch chỉ còn hiện các ngày có khách của căn đó.
+- **YC2.1-NT4** Khi một booking nhận 09/10 và trả 12/10, thì các ngày 09/10, 10/10 và 11/10 được tô, ngày 12/10 không được tô. Theo quy tắc: Đêm có khách (QT2).
+- **YC2.4-NT3** Khi một căn có khách trong ngày đó, thì hiện tên người đặt, ngày nhận, ngày trả, số đêm và số tiền.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).

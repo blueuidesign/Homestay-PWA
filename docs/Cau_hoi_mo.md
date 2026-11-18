@@ -36,7 +36,7 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | YC3-H16 | Xóa căn có hỏi lại một lần không? Gợi ý: có, như xóa đặt phòng. | US27 |
 | YC4-H6 | "Đã bán 12 đặt phòng của bạn" ở CN9 đếm những đặt phòng nào? | US15 |
 | YC4-H8 | Xóa đặt phòng xong về màn nào? | US10 |
-| YC4-H9 | Tiền cọc lớn hơn tiền phòng thì báo gì? | US10, US3 |
+| YC4-H9 | Tiền cọc lớn hơn tiền phòng thì báo gì? Đang tạm làm theo GD20. | US10, US3 |
 | YC4-H13 | Chọn "Đã cọc · còn thu" thì số tiền cọc có bắt buộc không? | US3 |
 | YC5-H15 | Lần gửi khách tính khi bấm gửi chữ, gửi ảnh, hay cả khi bấm sao chép? | US14 |
 | YC6-H2 | Chủ căn tự nhập sau này dùng app thì căn tự nhập và đặt phòng cũ làm gì: ghép, giữ riêng hay xóa? | US16 |
@@ -65,8 +65,9 @@ Mã `YC<n>-H<số>`, `PQ-H<số>`, `HV-H<số>` giữ từ bản Zalo. Mã `US<n
 | LC-H3 | PQ10.SALE: gửi yêu cầu cho căn được chia sẻ, đêm còn trống (YC4.5); xem, hủy yêu cầu của mình; thấy lý do từ chối (YC4.7). Không thấy yêu cầu của sale khác (YC4 Ai thấy gì). Bị ngừng: không gửi yêu cầ | luat-chung/PQ.md |
 | LC-H4 | Nhóm này cho người quản trị của Home247 (vai ADMIN) làm việc vận hành trên trang quản trị riêng, không nằm trong các tab của chủ nhà và sale. Mục đầu tiên là dải ngày lễ hằng năm mà chủ nhà chọn nhanh | luat-chung/Nghiep_vu.md |
 | US1-H1 | bước 2 và 2.3 có gửi `ma_link` nhưng không nói server kiểm hay ghi gì với nó | US1 |
-| US3-H1 | YC4.1.3-NT4 cho chủ nhà ghi tên khách trên đặt phòng của sale;ghi `sale_id \/ ten_khach_le`, tức một trong hai | US3 |
-| US3-H2 | YC4.1.2 không có ô, YC4.1.3-NT4 nhắc "tên và số khách | US3 |
+| US3-H1 | Chủ nhà nhập tên một khách mới (chưa có trên hàng chip "Khách / Sale") ở đâu? Gợi ý: chạm "Khách lẻ" thì hiện ô "Tên khách (không bắt buộc)". | US3 |
+| US3-H2 | Form đặt phòng có ô số điện thoại khách không? Database đã có chỗ lưu, canvas CN4 chưa có ô. | US3 |
+| US3-H3 | Tiền phòng 0 đồng (cho người quen ở miễn phí) có được ghi không? Tạm thời database chặn. | US3 |
 | US5-H1 | `TRANG_THAI_DA_DOI` / Dòng không phải `da_ket_noi` và không phải `chu_ngung` (ví dụ sale vừa bỏ nguồn, hoặc dòng thêm tay). Ngừng sale đã xóa tài khoản: . Dòng đã `chu_ngung`: trả kết quả như lần đầu, | US5 |
 | US6-H1 | `LINK_KHONG_DUNG_DUOC` / Mã không có hoặc sai định dạng; link đã thu hồi; link quá hạn. Người tạo đã xóa tài khoản (YC1.3-NT6, YC1.7-NT4): . Thêm với `xin_lich`: người gọi đã ngừng sale đó (`ket_noi` | US6 |
 | US6-H2 | `LINK_KHONG_DUNG_DUOC` / Link sai, thu hồi, quá hạn bước 4 kiểm lại link), hoặc link loại `xin_lich`. Người tạo đã xóa tài khoản: | US6 |
@@ -175,6 +176,8 @@ Chỗ ghi "(giả định GD<số>)" là lựa chọn tạm để làm tiếp đ
 | GD16 | Ô ngày ở lịch của sale hiện giá bán đã cộng mức cộng (YC5.1, |
 | GD17 | "Tìm gần đây" lưu ở server, mỗi sale 5 lần (YC5.2, |
 | GD18 | [chưa có nội dung, hỏi Tùng] |
+| GD19 | Mở form ghi đặt phòng thì chip "Chưa cọc" chọn sẵn (US3) |
+| GD20 | Tiền cọc không được lớn hơn tiền phòng; vượt thì không lưu, báo "Tiền cọc không được lớn hơn tiền phòng" (US3, YC4-H9) |
 
 ## Đã trả lời
 
