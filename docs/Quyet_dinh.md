@@ -21,6 +21,19 @@ Trạng thái "Đề xuất, chờ Tùng chốt" nghĩa là Claude đã làm the
 
 ---
 
+## QD-021 · 18/11/2026 · Tách đặc tả (YC) và việc (US); xóa code, dựng lại từ tài liệu
+- Bối cảnh: sau QD-020, story vừa là đặc tả vừa là việc. Tùng thấy thiếu chỗ liệt kê việc: sửa điểm nào, đổi yêu cầu nào, việc vừa sửa tài liệu vừa code, việc viết test. Rà lại repo cũ của bản Zalo: ở đó YC giữ đặc tả và tiêu chí, US chỉ là việc trỏ tới tiêu chí. Chỗ đau của bản cũ là một YC bị cắt cho nhiều US, US chép lại một phần đặc tả, và quy trình nặng. Code hiện có là bản chuyển từ Zalo chạy bằng dữ liệu giả, chưa nối database, và database còn nhiều chỗ lệch đặc tả (mục "Database đang lệch" của các story US1, US2, US3).
+- Các phương án: (A) giữ story vừa là đặc tả vừa là việc, thêm bảng việc trong story; (B) tách đặc tả và việc như bản cũ nhưng nhẹ hơn; giữ code hay xóa code làm lại.
+- Chọn: B, xóa code. Người chốt: Tùng, 18/11/2026: "tôi đồng ý với bạn, nhớ là US giữ ít thông tin nhất có thể và tham chiếu đến YC, tham chiếu đến version nào. Trong YC thì có lịch sử version nào sửa mục nào. … Những điểm bạn không khuyên sửa thì tôi đề xuất giữ lại bản cũ, bao gồm cả rule, CL, hook... Sau đó bạn hãy tạo ra toàn bộ dữ liệu nhưng chỉ không có code. … Nhớ là không có phần nào lặp lại mô tả nhé." và "chọn cách xóa hết đi làm lại nhé, repo tổ chức lại YC, mô tả cho đẹp, nhớ đầy đủ như cách viết US3 mới và những thứ khác của YC cũ để đảm bảo YC toàn vẹn, không lặp lại và đủ cho nhóm tính năng."
+  - YC là đặc tả, mỗi nhóm tính năng một file, sống suốt dự án. Mục có mã `YC<n>.<m>`, tiêu chí `YC<n>.<m>-NT<k>`. YC có số bản và lịch sử: bản nào sửa mục nào.
+  - US là việc: chỉ ghi làm mục YC nào ở bản nào, tiêu chí nào, việc phải xong trước, người, trạng thái, task, nhật ký. Không chép đặc tả. Ba loại việc: US (tính năng hay đổi yêu cầu), BG (lỗi), EN (nền).
+  - Không thông tin nào viết hai nơi: câu hỏi mở chỉ ghi mã trong YC; luật dùng ở từ hai nhóm trở lên nằm ở `docs/luat-chung/`, luật chỉ một nhóm dùng nằm trong YC của nhóm đó.
+  - Quy trình lấy lại của bản Zalo (CL, rule, hook, skill, script kiểm), sửa cho bản PWA, trừ những điểm đã đổi ở đây.
+  - Xóa toàn bộ code (app, migration, test tự động, dữ liệu mẫu dạng SQL, cấu hình build). Code viết lại từ đầu theo tài liệu, mỗi chỗ code có chú thích trỏ về mã YC, QT, PQ. Code cũ còn trong lịch sử git (nhánh `QD20-gop-story`).
+- Hệ quả: thay QD-019 và QD-020 ở phần "story vừa là đặc tả vừa là việc"; thay `docs/QUY_TRINH.md` bằng quy trình CL; `docs/stories/` thành `docs/yc/` và `work/backlog/`.
+- Thay cho: QD-019 (story sống), QD-020 (story gộp theo nhóm) ở phần tổ chức tài liệu. Ý "đặc tả sống, mỗi nhóm một file" của hai mục đó giữ nguyên, nay nằm ở YC.
+- Trạng thái: Đang hiệu lực
+
 ## QD-020 · 18/11/2026 · Gộp story theo nhóm chức năng, đánh số lại mã
 - Bối cảnh: sau QD-019 (story sống, mỗi nhóm chức năng một story), bộ story vẫn là các lát cắt của bản Zalo. Một màn nằm rải ở 3 đến 4 story (US5 dùng chung 7 đến 11 màn với mỗi story US15, US16, US17, US26), nên đổi một yêu cầu dễ sửa chỗ này sót chỗ kia.
 - Các phương án: gộp thành khoảng 15 story theo nhóm chức năng, với hai cách xử lý mã tiêu chí: (a) giữ mã cũ trong story mới; (b) đánh số lại, ghi bảng đổi mã.
