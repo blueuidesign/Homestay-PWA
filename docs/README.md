@@ -15,7 +15,7 @@ Mỗi thông tin chỉ nằm một chỗ. Bảng "cái gì ở đâu" và luật
 | `Thiet_ke_DB.md` | Ý định và bất biến của database | Khi đụng tới database |
 | `tu-sinh/Bang_va_cot.md` | Bảng, cột, hàm, policy. Máy sinh | Khi cần tên cột, tham số hàm |
 | `tu-sinh/Doi_ma_YC.md` | Bảng đổi mã YC của bản Zalo sang mã mới. Máy sinh, đóng băng | Khi gặp mã `YC…` trong lịch sử git hay quyết định cũ |
-| `tu-sinh/Doi_ma_gop.md` | Bảng đổi mã khi gộp story theo nhóm chức năng (QD-020). Máy sinh, chỉ thêm | Khi gặp mã story, tiêu chí cũ (US25, US11-NT3…) trong lịch sử git hay quyết định cũ |
+| `tu-sinh/Doi_ma_gop.md` | Bảng đổi mã khi gộp story theo nhóm chức năng (QD-020). Máy sinh, chỉ thêm | Khi gặp mã story, tiêu chí cũ (ví dụ mã story đã gộp) trong lịch sử git hay quyết định cũ |
 | `Ghi_chu_code.md` | Cấu trúc app, cách nối Supabase, việc còn dở | Khi đụng tới `src/` |
 | `thiet-ke/` | Canvas thiết kế và công cụ xem từng màn | Khi làm giao diện |
 | `van-hanh/` | Bí mật để ở đâu, sao lưu, xử lý sự cố | Khi phát hành, khi có sự cố |
