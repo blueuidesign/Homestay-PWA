@@ -12,13 +12,13 @@ Repo là `blueuidesign/Homestay-PWA`, đang **công khai**. Hai điều cần T�
 2. Nếu Vercel không nhận repo của tổ chức `blueuidesign`: chuyển repo sang tài khoản GitHub cá nhân, hoặc nâng gói Vercel.
 
 ### Bước 2 · Supabase staging
-1. supabase.com → New project. Tên `home247-staging`. Vùng **Southeast Asia (Singapore)**. Đây chỉ là staging, chỉ có dữ liệu giả; vùng của production chờ CH-002.
+1. supabase.com → New project. Tên `home247-staging`. Vùng **Southeast Asia (Singapore)**. Đây chỉ là staging, chỉ có dữ liệu giả; vùng của production chờ QD23.
 2. Database password: bấm Generate, cất vào trình quản lý mật khẩu.
 3. Authentication → Sign In / Providers → Email: bật, **tắt** "Confirm email" (để tạo tài khoản thử nhanh). Chỉ làm vậy ở staging.
 4. Database → Extensions: bật `pg_cron` và `btree_gist` nếu chưa bật.
 5. Project Settings → API: ghi lại Project URL và khóa `anon` (publishable). Hai giá trị này công khai được. **Không** chép khóa `service_role`.
 
-Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đặt ở đâu) trong `docs/Cau_hoi_mo.md`.
+Chưa tạo project production. Chờ Tùng trả lời QD23 (dữ liệu đặt ở đâu) trong `work/cau-hoi.md`.
 
 ### Bước 3 · Cho Claude dùng được GitHub và Supabase
 1. Trong claude.ai → Settings → Connectors: kết nối **Supabase**, cho phép truy cập project `home247-staging` (Claude dùng để chạy migration lên staging và đọc cảnh báo).
@@ -43,7 +43,7 @@ Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đ�
 
 ### Bước 6 · Bảo vệ nhánh main
 GitHub → Settings → Branches (hoặc Rules → Rulesets) → thêm luật cho `main`: bắt buộc qua pull request, bắt buộc hai check "App" và "Database" xanh, không cho force push.
-Repo riêng tư trên gói miễn phí có thể không bật được luật này. Không bật được thì chỉ còn lớp chặn mềm: `.claude/settings.json` cấm Claude đẩy ép (Claude được merge khi Tùng bảo, QD-017), còn luật "không đẩy thẳng main" nằm trong `CLAUDE.md` và chỉ là lời dặn. Khi đó Tùng nên xem tab Commits của `main` mỗi tuần. Báo Claude biết đã bật được hay không.
+Repo riêng tư trên gói miễn phí có thể không bật được luật này. Không bật được thì chỉ còn lớp chặn mềm: `.claude/settings.json` cấm Claude đẩy ép (Claude được merge khi Tùng bảo, QD17), còn luật "không đẩy thẳng main" nằm trong `CLAUDE.md` và chỉ là lời dặn. Khi đó Tùng nên xem tab Commits của `main` mỗi tuần. Báo Claude biết đã bật được hay không.
 
 ### Bước 7 · Tài khoản thử và GitHub Secrets
 Tạo 5 tài khoản thử và nạp dữ liệu mẫu theo `supabase/staging/README.md`. Rồi:
@@ -56,9 +56,9 @@ GitHub → Settings → Secrets and variables → Actions → New repository sec
 ## Sau này, khi có production
 
 ### Bước 8 · Production và sao lưu
-1. Trả lời CH-002, ghi QD. Tạo project production theo vùng đã chọn. Không bật đăng nhập email và mật khẩu ở production.
+1. Trả lời QD23, ghi QD. Tạo project production theo vùng đã chọn. Không bật đăng nhập email và mật khẩu ở production.
 1b. Thêm email quản trị viên đầu tiên bằng SQL Editor của production, không ghi email vào repo: `insert into public.bootstrap_admins (email, la_goc) values ('<email quản trị viên đầu tiên>', true);` rồi xóa dòng `admin@example.com`. Làm tương tự ở staging nếu muốn thử màn quản trị.
 1c. Nhập dải ngày lễ của năm ở màn Quản trị (story US23) hoặc bằng `fn_qt_luu_ngay_le`.
 2. Vercel: điền `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` của production cho môi trường Production.
-3. Sao lưu theo `docs/van-hanh/Sao_luu_khoi_phuc.md` (có mã hóa), rồi đặt biến `BACKUP_BAT = co` trong GitHub → Settings → Variables để job sao lưu chạy mỗi đêm.
+3. Sao lưu theo `docs/ha-tang/Sao_luu_khoi_phuc.md` (có mã hóa), rồi đặt biến `BACKUP_BAT = co` trong GitHub → Settings → Variables để job sao lưu chạy mỗi đêm.
 4. Diễn tập khôi phục một lần, ghi vào cùng file.

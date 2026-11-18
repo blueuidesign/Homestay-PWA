@@ -1,0 +1,30 @@
+---
+id: PWA
+tieu_de: Bản PWA làm khác bản Zalo ở đâu
+trang_thai: de-xuat
+nguoi_chu: tung
+rev: 1
+---
+> Luật chung, sống. Bảng đổi từ cách làm của Zalo sang cách làm của PWA.
+
+# Bản PWA làm khác bản Zalo ở đâu
+
+YC, HV và PQ viết cho bản PWA. Bản Zalo Mini App làm sau trên cùng database (QD3). File này giữ bảng đối chiếu: mỗi việc của Zalo thì bản PWA làm thế nào, để khi làm bản Zalo chỉ cần đổi cột cách làm, giữ kết quả người dùng thấy. YC trỏ tới đây bằng mã P (ví dụ pwa.md P3).
+
+Chỗ ghi CH-xxx là câu hỏi đang chờ Tùng ở `work/cau-hoi.md`. Chưa có trả lời thì không code phần đó.
+
+| Mục | Bản Zalo | Bản PWA | Áp vào |
+| --- | --- | --- | --- |
+| P1 · Đăng nhập | Bấm "Bắt đầu ngay", app lấy access token của Zalo, máy chủ đổi ra ID Zalo; không hỏi gì | Theo QD22 (OTP SMS, mã qua email, hay Zalo). Tới khi có trả lời: chỉ staging có đăng nhập email và mật khẩu cho test. Hồ sơ là bảng `profiles`, ID là ID của Supabase Auth. Giữ nguyên: không bắt đăng ký email, không hỏi tên và số lúc vào, A1 hiện được khi chưa đăng nhập, dòng điều khoản ở A1. Dòng "Đăng nhập bằng Zalo · Đã liên kết" ở P1, P2 thay bằng cách đăng nhập đang dùng. "Đăng nhập lại bằng Zalo" đọc là "đăng nhập lại" | YC1.2, YC1.1, YC6.3 bước 2, YC1.3, HV7 |
+| P2 · Tên và số điện thoại | Popup giải thích (YC6.1), rồi hộp thoại của Zalo xin tên, ảnh, số một lần (YC6.1); máy chủ đổi token số trong 2 phút; số chỉ xem (YC1.4) | Thẻ giải thích và "Để sau" giữ nguyên (YC6.1). Phần lấy số đổi theo QD22: đăng nhập bằng OTP SMS thì đã có số từ lúc đăng nhập, popup không cần hiện; đăng nhập bằng email thì popup có ô nhập tên và số. Số có sửa được ở P2 không cũng theo QD22. Không bao giờ nhận số từ app mà không kiểm (định dạng 9 đến 15 chữ số, cho phép dấu + đầu) | YC6.1, YC6.1, YC6.1, YC1.4, PQ2 |
+| P3 · Gửi tin, chia sẻ | Cửa sổ gửi tin hay chia sẻ của Zalo (`openShareSheet`), gửi chữ hoặc ảnh, không cùng lúc; mở tin riêng cho từng người được | Bảng chia sẻ của điện thoại (`navigator.share`), người dùng tự chọn Zalo. Ảnh gửi bằng `navigator.share({ files })` nếu trình duyệt cho; không cho thì gửi chữ, ảnh tải về máy. Không có bảng chia sẻ thì sao chép (HV6). App không biết người nhận và không biết đã gửi thật chưa, như bản Zalo. Không mở tin riêng cho từng sale đã chọn được (US26-NT1): YC8-H5. Chữ nút ("Gửi qua Zalo" hay "Gửi") theo YC8-H5 | YC6.4, YC6.6, YC6.2, YC8.1, YC10.1, YC10.3 |
+| P4 · Link | Link Mini App dạng `zalo.me/s/…`, thẻ tin trong chat Zalo có nút "Mở và trả lời" | Link https của app trên tên miền của Home247 (ví dụ `/l/<mã>` cho link mời, `/x/<mã>` cho link xin lịch). Gửi đi là tin chữ kèm link. Bấm link trong Zalo mở trình duyệt bên trong Zalo; app phải chạy đủ ở đó. Mã link là chuỗi ngẫu nhiên, không chứa số điện thoại, ID người dùng hay giá | YC6.3, YC6.4, YC6.5, YC6.6 |
+| P5 · Gọi, nhắn | `openPhone` mở ứng dụng gọi; `openChat` mở chat với người hay OA | Gọi: link `tel:<số>`. Nhắn Zalo cho một người: link `https://zalo.me/<số>`. Nhắn Zalo cho Home247: link `https://zalo.me/<OA của Home247>`. Bản PWA được mở link ra ngoài | YC6.2, YC9.2, YC9.4, YC7.4, YC10.2, YC10.3, YC1.7 |
+| P6 · Ảnh | `chooseImage`, quyền ảnh do Zalo hỏi | Ô chọn file `accept="image/*"`, không xin quyền. Tải lên ngay khi chọn (HV3), luật ảnh ở QT5.7 | YC3.2, YC3.5, YC10.3, HV4 |
+| P7 · Thông báo | Bản đầu chỉ trong app; sau có thể qua OA Zalo | Chỉ trong app. App lấy thông báo khi mở, khi quay lại từ nền, và mỗi 60 giây khi đang mở (hoặc Supabase Realtime). Thông báo đẩy của trình duyệt: làm sau | YC6.8, YC12.1, YC12.4 |
+| P8 · Xóa tài khoản | Người dùng xóa trong Zalo, Zalo gọi webhook; không có nút trong app | Nút xóa tài khoản trong app (màn: YC1-H6), hàm `fn_xoa_tai_khoan`. Kết quả cho người còn lại theo quy tắc QT6.5 Người đã xóa tài khoản (QT5, QT6) | YC1.8, PQ23 |
+| P9 · "Từ chối quyền" trong Trạng thái màn | Người dùng từ chối hộp thoại quyền Zalo | Đọc theo HV4 bản PWA. Phần lớn màn ghi "không áp dụng" | Mọi YC |
+| P10 · Lưu trên máy | Native Storage, tối đa 5 MB | IndexedDB hoặc localStorage, bọc try/catch, chỉ thứ mất cũng được (nháp, bộ lọc đang chọn) | HV3 |
+| P11 · Trang quản trị | Web riêng ngoài Mini App | Cùng PWA, đường dẫn `/quan-tri`, chỉ tài khoản trong `admins`. Làm sau bản 1; trước đó ngày lễ và tòa nhà nạp bằng seed | YC13 |
+| P12 · Ràng buộc nền tảng | Bản build dưới 10 MB, mỗi file dưới 3 MB, không link ra ngoài Zalo, dữ liệu ở Việt Nam (`docs/_lich-su/zalo/rang-buoc.md`) | Không có giới hạn build của Zalo, nhưng vẫn giữ app nhẹ (người dùng mạng yếu). Nơi đặt dữ liệu: QD23 | Toàn bộ |
+| P13 · Phiên bản trình duyệt | "Zalo cũ" (HV6) | Trình duyệt thiếu tính năng (HV6 bản PWA) | HV6 |
