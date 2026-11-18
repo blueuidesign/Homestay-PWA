@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: cao
 - Làm sau khi xong: không phụ thuộc story nào
@@ -361,7 +362,7 @@ Mâu thuẫn cần Tùng quyết trước khi code: PQ15.SALE ghi tiền chênh,
 - Chủ nhà được báo khi nhóm chia sẻ nguồn của họ, và tắt chia sẻ (mục "Tạo nhóm" bước 4, quy tắc Chia sẻ nguồn phòng cho nhóm): hình thức báo chưa thiết kế, chưa có US.
 - Cộng tác viên (CH-085, nhóm Đội nhóm, cộng tác viên, PQ CTV): không áp dụng ở bản đầu.
 - Thống kê của sale (mục "Thống kê của sale" (US19)): US19. Gửi yêu cầu đặt phòng và chờ chủ (mục "Sale gửi yêu cầu đặt phòng" (US15)): US15. Nguồn phòng của sale (mục "Danh sách căn và nguồn phòng" (US16)): US16.
-- Dữ liệu mẫu cho nhóm chưa có trong DLM (DLM.9); khi mở lại, đưa số của nhóm Đội nhóm, cộng tác viên vào DLM.
+- Dữ liệu mẫu cho nhóm chưa có trong bộ dữ liệu mẫu; khi mở lại, đưa số của nhóm Đội nhóm, cộng tác viên vào DLM.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

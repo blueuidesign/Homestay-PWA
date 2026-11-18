@@ -26,7 +26,7 @@ Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đ�
 
 ### Bước 4 · Project mới trên claude.ai
 1. claude.ai → Projects → Create project, ví dụ tên `Home247 PWA`.
-2. Phần Project knowledge: chỉ thêm nguồn GitHub là repo `Homestay-PWA`. **Không** chép tài liệu của Project "Homestay" cũ và **không** gắn repo `zalo-miniapp`: các tài liệu đó ghi cả quyết định đã bị thay, Claude dễ đọc nhầm.
+2. Phần Project knowledge: chỉ thêm nguồn GitHub là repo `Homestay-PWA`. **Không** chép tài liệu của Project "Homestay" cũ và **không** gắn repo cũ của bản Zalo: các tài liệu đó ghi cả quyết định đã bị thay, Claude dễ đọc nhầm.
 3. Custom instructions của Project: một dòng "Đọc CLAUDE.md của repo Homestay-PWA trước khi làm. Trả lời tiếng Việt, kết luận trước."
 4. Mở phiên Claude Code mới trong Project này, gắn với repo `Homestay-PWA`. Câu đầu tiên: "Tôi là Tùng. Làm tiếp US38."
 

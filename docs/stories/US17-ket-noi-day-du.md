@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US5, US6
@@ -52,7 +53,7 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Mở tin Zalo của sale | (chưa vào app) | Không gọi server | Khung chat Zalo hiện tin và thẻ "Sale Lan xin xem lịch phòng" với nút "Mở và trả lời" (CN7-03) | Không |
 | 2 | Bấm thẻ | Hiện A8: tên và số điện thoại sale, một quyền có công tắc: Tình trạng cọc (đã cọc hay chưa, không có số tiền, mặc định bật); dòng "Luôn thấy ngày đã có người đặt và giá từng đêm" không có công tắc (QD-007), dòng "Không bao giờ thấy tên, số điện thoại khách và doanh thu", ghi chú "Chưa có tài khoản? Bấm Đồng ý để đăng nhập, sau đó thêm căn" | (phiên tạm nếu chưa có tài khoản), rồi: link xin lịch cần phiên; trả tên, số điện thoại sale nếu sale đã cho (PQ2.CHU). Link không dùng được, sale đã xóa tài khoản hoặc đã bị chủ nhà này ngừng: `LINK_KHONG_DUNG_DUOC`, không tên, không số (A8-01) | Mở app từ thẻ | phiên đăng nhập mới khi chưa có phiên |
-| 3 | Bấm "Đồng ý cho xem lịch" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số; kết nối hoàn tất | tạo kết nối, ghi thông báo `chu_dong_y_ket_noi` cho sale (mục "Thông báo kết quả kết nối cho sale"). Chủ nhà chưa có tài khoản: gọi trước | Không, trừ hộp thoại quyền khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) (mục "Hộp thoại cấp quyền của Zalo" (US5)) | Sale được xem lịch theo quyền đã chọn: `profiles` mới vai `chu_nha` khi chưa có; `ket_noi` mới (`da_ket_noi`, `nguon` `sale_xin`, `pham_vi` `tat_ca_can`, `quyen_gia_tung_dem`, `quyen_tinh_trang_coc`); `thong_bao` `chu_dong_y_ket_noi` cho sale |
+| 3 | Bấm "Đồng ý cho xem lịch" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số; kết nối hoàn tất | tạo kết nối, ghi thông báo `chu_dong_y_ket_noi` cho sale (mục "Thông báo kết quả kết nối cho sale"). Chủ nhà chưa có tài khoản: gọi trước | Không, trừ hộp thoại quyền khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) (mục "Hộp thoại cấp quyền của Zalo" (US5)) | Sale được xem lịch theo quyền đã chọn: `profiles` mới vai `chu_nha` khi chưa có; `ket_noi` mới (`da_ket_noi`, `nguon` `sale_xin`, `pham_vi` `tat_ca_can`, `quyen_tinh_trang_coc`; không có quyền giá, QD-007); `thong_bao` `chu_dong_y_ket_noi` cho sale |
 | 4 | Bấm "Từ chối" | Sang CN7. Sale có được báo không: CH-010 | Không gọi server, không ghi gì [MỞ: CH-010] | Không | Không |
 | 5 | Sau khi đồng ý | Sale nhận thông báo (mục "Thông báo kết quả kết nối cho sale"); chủ nhà thấy sale mới trong CN7 | chủ nhà thấy sale ở nhóm Đã kết nối; sale đọc thông báo qua | Không | Sale chuyển sang nhóm Đã kết nối: `ket_noi.trang_thai` `da_ket_noi` ghi ở bước 3 |
 
@@ -198,6 +199,61 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | DU_LIEU_SAI | Thiếu cả hai, có cả hai, `ids` rỗng, quá 100, sai kiểu (`o`: `ids` hoặc `tat_ca`) |
 | KHONG_TIM_THAY | Có id không phải thông báo của người gọi, hoặc không có. Không ghi dòng nào |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Lấy link đang dùng hoặc tạo link mới để gửi qua Zalo
+**Ai gọi:**
+- `loai: "moi_sale"`, `"gui_lich"`: tài khoản vai chọn `chu_nha` (PQ18.CHU). Với `gui_lich`, người gọi phải là CHU của mọi căn trong `can_ids` bước 2). Tài khoản vai chọn `sale` gọi thì `KHONG_TIM_THAY`: bản đầu không có cách chia căn của sale cho sale khác (PQ13.SALE, QD-005).
+- `loai: "xin_lich"`: tài khoản vai chọn `sale` (PQ18.SALE). Vai chọn `chu_nha` gọi thì `KHONG_TIM_THAY`.
+- Phiên tạm (chưa có tài khoản): `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. App mở cửa sổ gửi của Zalo, server không gửi gì ra ngoài.
+
+**Chống bấm hai lần:** có. `gui_lich` bấm hai lần với cùng `Idempotency-Key` trả cùng một link.
+
+### Đếm một lần gửi link qua Zalo, hoặc một lần sao chép
+**Ai gọi:** người tạo link (PQ18.CHU với `moi_sale`, `gui_lich`; PQ18.SALE với `xin_lich`). Người khác: `KHONG_TIM_THAY`. Phiên tạm: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. mục "Cài đặt thông báo" (US21) (chủ nhà được báo khi sale gửi link xin lịch) chưa chốt, server không ghi thông báo.
+
+**Chống bấm hai lần:** có. Cùng `Idempotency-Key` không đếm lần hai.
+
+### Chủ nhà bấm "Đồng ý cho xem lịch" ở A8, kết nối với sale đã gửi link xin lịch
+**Ai gọi:** người có tài khoản mở link xin lịch (PQ18.CHU, PQ17.CHU). Chủ nhà chưa có tài khoản gọi trước; phiên tạm gọi thẳng API này thì `CHUA_DANG_NHAP`. Tài khoản vai chọn `sale` bấm đồng ý: [MỞ: CH-012] (QD-005 đã chốt một tài khoản nhiều vai). Sale tự mở link của mình: [MỞ: CH-057].
+
+**Việc kéo theo:** Thông báo `chu_dong_y_ket_noi` cho sale (mục "Cài đặt thông báo" (US21), mục "Thông báo kết quả kết nối cho sale" (US17)). Sale thấy toast chậm nhất 60 giây qua. Số "chủ nhà đã đồng ý" ở A7 tăng 1 vì đếm từ `ket_noi` `sale_xin` (US17-NT4). "Từ chối" ở A8 không gọi API nào [MỞ: CH-010].
+
+**Chống bấm hai lần:** có.
+
+### Chủ nhà bật tắt quyền Tình trạng cọc, đổi phạm vi chia sẻ cho một sale
+**Ai gọi:** chủ nhà của dòng (PQ17.CHU). Sale của dòng không tự đổi quyền (PQ17.SALE): `KHONG_TIM_THAY`. Người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không có thông báo (mục "Cài đặt thông báo" (US21) không có loại đổi quyền). Có tác dụng ngay ở lần đọc sau của sale, vì server lọc theo quyền lúc đọc bước 4).
+
+**Chống bấm hai lần:** có.
+
+### Số lần sale đã gửi link xin lịch, lần gửi gần nhất, số chủ nhà đã đồng ý
+**Ai gọi:** tài khoản vai chọn `sale` (PQ18.SALE). Chỉ số của chính mình. Vai chọn `chu_nha`: `KHONG_TIM_THAY` (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale Ai thấy gì: chủ nhà không thấy số này).
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Danh sách thông báo của người gọi, mới trước, kèm số chưa đọc
+**Ai gọi:** người đã đăng nhập, mọi vai. Chỉ nhận thông báo có `nguoi_nhan_id` là mình (PQ19.CHU, PQ19.SALE). Phiên tạm: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Đánh dấu đã đọc
+**Ai gọi:** người đã đăng nhập, chỉ thông báo của mình (PQ19.CHU, PQ19.SALE). Phiên tạm: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần `Idempotency-Key`: gọi lại cho cùng kết quả, dòng đã đọc giữ `da_doc_luc` cũ.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

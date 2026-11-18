@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao (chặn trùng, tiền)
 - Làm sau khi xong: US2 (lịch tháng và chi tiết ngày), US4 (bảng giá tháng)

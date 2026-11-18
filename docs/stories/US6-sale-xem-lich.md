@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US4, US5, US25
@@ -106,6 +107,28 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Mã | Khi nào |
 |---|---|
 | `LINK_KHONG_DUNG_DUOC` | Link sai, thu hồi, quá hạn bước 4 kiểm lại link), hoặc link loại `xin_lich`. Người tạo đã xóa tài khoản: [MỞ: US6-H2] |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Xem trước nội dung một link trước khi người mở quyết định
+**Ai gọi:**
+- Link `moi_sale`, `gui_lich`: ai cũng gọi được, không cần phiên bước 1, PQ Luật chung 4, PQ3.LINK, PQ18.LINK). Có phiên thì server tính thêm `da_them` (PQ17.LINK).
+- Link `xin_lich`: cần phiên, kể cả phiên tạm của người chưa có tài khoản. Không có phiên: `CHUA_DANG_NHAP`. Người mở là chủ nhà (PQ18.CHU), thấy tên và số sale theo PQ1.CHU, PQ2.CHU.
+- Giới hạn 30 lần một phút mỗi địa chỉ IP.
+- Người tạo link tự mở link của mình: [MỞ: CH-057].
+- Tài khoản vai chủ nhà mở link mời: server vẫn trả nội dung và trả `vai_nguoi_mo`; app làm gì: [MỞ: US6-H3] QD-005 trong mục "Mở app từ link mời của chủ nhà" (US6).
+
+**Việc kéo theo:** Không. Rời A10 mà không bấm thì không đổi gì (US6-NT4).
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Sale bấm "Thêm lịch của <chủ nhà>" ở A10, kết nối với chủ nhà tạo link
+**Ai gọi:** người có tài khoản (không phải phiên tạm; người mới gọi trước,bước 2). Đây là chỗ LINK thành SALE (PQ17.LINK). Phiên tạm hoặc không phiên: `CHUA_DANG_NHAP`. Tài khoản vai chọn `chu_nha`: [MỞ: CH-012] (QD-005 đã chốt một tài khoản nhiều vai); tới khi có quyết định, server không chặn theo vai chọn. Người tạo link tự bấm: [MỞ: CH-057].
+
+**Việc kéo theo:** Căn mới chủ nhà thêm sau này tự vào phạm vi `tat_ca_can` lúc đọc, không ghi gì thêm (mục "Căn mới của chủ nhà tự hiện cho sale" (US6),. Thông báo:bước 4 ghi `chu_dong_y_ket_noi` cho sale "nếu loại đó áp cho trường hợp này", còn mục "Mở app từ link mời của chủ nhà" (US6) bước 4 không có thông báo và người bấm chính là sale. [MỞ: US6-H4] mục "Cài đặt thông báo" (US21) có áp khi sale tự bấm Thêm lịch không. Tới khi có quyết định: không ghi thông báo. Chủ nhà có được báo khi sale thêm lịch không: mục "Cài đặt thông báo" (US21) không có loại này, nên Không.
+
+**Chống bấm hai lần:** có. Thêm ràng buộc duy nhất ở database.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

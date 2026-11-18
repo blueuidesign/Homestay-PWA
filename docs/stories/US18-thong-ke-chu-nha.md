@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US3, US10
@@ -144,6 +145,21 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Mã | Khi nào |
 |---|---|
 | DU_LIEU_SAI | `thang` thiếu hay sai dạng; `so_thang` ngoài 1 đến 12 |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Số liệu một tháng của chủ nhà
+**Ai gọi:** người đã đăng nhập. Số liệu chỉ gồm đặt phòng mà người gọi là chủ nhà lúc ghi (`booking.chu_nha_id`) ở căn `co_lich` của mình, kể cả căn đã ẩn (PQ16.CHU, Thiet_ke_DB `can.an_luc`). Không có đặt phòng của chủ nhà khác. Không có giá bán, tiền chênh (PQ11.CHU, PQ15.CHU). Sale gọi chỉ thấy căn mình giữ, không bao giờ thấy số của chủ nhà đã kết nối (PQ16.SALE). Tài khoản `vai_chon` sale có căn riêng (QD-005) có dùng màn này không: [MỞ: US18-H3] nhóm Thống kê không nói.
+
+Luật tính:
+- Chỉ đặt phòng chưa hủy: `booking.trang_thai <> 'da_huy'` (QD-012; cột đề xuất ởđiểm 2, chưa có trong Thiet_ke_DB).
+- Theo tháng của đêm: cộng `booking_dem.gia_chu` của các đêm có `ngay` trong tháng (QD-010, QT2.2, QT4.2).
+- Đêm có khách: số dòng `booking_dem` trong tháng (QT2.1, QT2.2).
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

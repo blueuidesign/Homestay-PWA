@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US2, US6, US17
@@ -63,6 +64,18 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 **Lỗi riêng**
 | Mã | Khi nào |
 |---|---|
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### App báo vừa mở app hoặc vừa quay lại từ nền
+**Ai gọi:** người đã đăng nhập, mọi vai, chỉ thông báo của mình (PQ19.CHU, PQ19.SALE). Mốc lần mở app là dữ liệu kỹ thuật của chính người gọi, không API nào trả cho người khác. Phiên tạm: `CHUA_DANG_NHAP`.
+
+App gọi đúng một lần mỗi khi mở app và mỗi lần quay lại từ nền (HV3), không gọi định kỳ. Toast A9 khi đang mở app không dùng API này: app gọi mỗi 60 giây và dựng toast từ mục `chu_dong_y_ket_noi` có `id` app chưa thấy ở lần gọi trước. Gọi định kỳ mà dời mốc thì thông báo tới lúc đang mở app sẽ không vào popup lần mở sau, nên hai việc tách nhau.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** `Idempotency-Key` bắt buộc. Thử lại cùng khóa trả đúng danh sách cũ, không dời mốc lần hai. Không có khóa thì lần thử lại sau lỗi mạng sẽ trả mảng rỗng vì mốc đã dời, popup mất.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

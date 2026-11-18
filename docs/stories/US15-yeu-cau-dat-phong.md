@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US13, US10, US17
@@ -231,6 +232,61 @@ Chấp nhận khi sale đã bị ngừng hoặc đã bỏ nguồn sau lúc gửi
 |---|---|
 | TRANG_THAI_DA_DOI | Yêu cầu không còn `cho_chu`: chủ nhà vừa chấp nhận hay từ chối, đã hết hạn, đã hủy |
 Sale bị ngừng hủy yêu cầu đang chờ: [MỞ: US15-H5] PQ10.SALE.
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Sale gửi yêu cầu đặt phòng cho một căn được chia sẻ
+**Ai gọi:** SALE của căn (PQ10.SALE): có `ket_noi` `da_ket_noi` với chủ căn, căn trong phạm vi, căn chưa ẩn. Vai khác: `KHONG_TIM_THAY`. Sale đã bị ngừng hoặc chủ nhà đã xóa tài khoản: `KHONG_CON_QUYEN` kèm lý do; chủ nhà đã xóa tài khoản thì `ly_do` "Chủ nhà đã xóa tài khoản trên Home247", không tạo yêu cầu, app báo ngay tại S3-02 (QD-013, mục "Khi người dùng xóa tài khoản" (US22) bước 8, mục "Sale gửi yêu cầu đặt phòng" (US15) bước 3b,bước 3, PQ10.SALE "Bị ngừng: không gửi yêu cầu mới"). Người gọi là CHU của căn (căn của chính mình, căn tự nhập): `KHONG_TIM_THAY`, vì không có ô PQ cho CHU gửi yêu cầu.
+
+**Việc kéo theo:** Ghi thông báo `sale_gui_yeu_cau` cho chủ nhà. Không đổi lịch, không đổi `lich_cap_nhat_luc`, vì yêu cầu chưa chiếm đêm nào (US15-NT2).
+
+**Chống bấm hai lần:** có.
+
+### Danh sách yêu cầu theo phía của người gọi
+**Ai gọi:** `phia=nhan`: chủ nhà, trả yêu cầu tới các căn người gọi là CHU (PQ10.CHU). `phia=gui`: sale, trả yêu cầu có `sale_id` là người gọi (PQ10.SALE). Một tài khoản có thể gọi cả hai phía (PQ Luật chung 5). Không có phiên: `CHUA_DANG_NHAP`. Không cần vai riêng, vì kết quả chỉ gồm dòng người gọi có quyền; không có dòng nào thì trả danh sách rỗng.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Chi tiết một yêu cầu
+**Ai gọi:** CHU hoặc SALE của yêu cầu (PQ10.CHU, PQ10.SALE). Vai khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không. Đánh dấu thông báo đã đọc là (nhóm thông báo).
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Chủ nhà chấp nhận yêu cầu; yêu cầu thành đặt phòng `tu_yeu_cau`
+**Ai gọi:** CHU của căn của yêu cầu (PQ10.CHU, PQ7.CHU). Vai khác: `KHONG_TIM_THAY`. Sale của yêu cầu gọi: `KHONG_TIM_THAY` (PQ7.SALE: không tạo thẳng vào lịch chủ nhà).
+
+**Việc kéo theo:**
+- Thông báo `chu_chap_nhan_yeu_cau` cho sale của yêu cầu.
+- Thông báo `chu_tu_choi_yeu_cau` lý do `chu_nhan_dat_khac` cho sale của từng yêu cầu vừa bị từ chối. Không có tên sale được nhận (PQ19.SALE).
+- Báo lần gửi khách: `can_da_gui_co_nguoi_dat` cho sale khác đã gửi căn này cho khách với đêm chồng, mục 2.6 bước 8).
+- Cập nhật `can.lich_cap_nhat_luc` bước 9).
+
+**Chống bấm hai lần:** có. Bấm lại với khóa khác sau khi đã chấp nhận: `TRANG_THAI_DA_DOI`.
+
+### Chủ nhà từ chối yêu cầu kèm lý do
+**Ai gọi:** CHU của căn của yêu cầu (PQ10.CHU). Vai khác: `KHONG_TIM_THAY`. Sale của yêu cầu gọi: `KHONG_TIM_THAY`; sale dùng `huy`.
+
+**Việc kéo theo:** Thông báo `chu_tu_choi_yeu_cau` cho sale kèm `ly_do` (US15-NT11). Căn tương tự ở S3-05 app tự gọi (nhóm sale.md), API này không trả.
+
+**Chống bấm hai lần:** có.
+
+### Sale hủy yêu cầu đang chờ của mình
+**Ai gọi:** SALE của yêu cầu (PQ10.SALE "xem, hủy yêu cầu của mình"). Vai khác: `KHONG_TIM_THAY`. Chủ nhà gọi: `KHONG_TIM_THAY`; chủ nhà dùng `tu-choi`.
+
+**Việc kéo theo:** Không có thông báo cho chủ nhà [MỞ: US15-H10] mục "Cài đặt thông báo" (US21) không có loại "sale hủy yêu cầu"; thông báo `sale_gui_yeu_cau` đã ghi cho chủ nhà giữ hay bỏ.. Yêu cầu biến khỏi khối yêu cầu chờ của chủ nhà vì không còn trả nó ở `cho_chu` (US15-NT5).
+
+**Chống bấm hai lần:** có.
+
+**Ai gọi:** tiến trình nền của server, mỗi 10 phút. Không phải API, không có đường dẫn, không nhận gọi từ app.
+
+**Việc kéo theo:** Mỗi dòng thật sự đổi trạng thái ghi một thông báo `yeu_cau_het_han` cho sale (US15-NT6). Dòng không đổi thì không ghi, nên sale chỉ nhận một lần. Không có thông báo cho chủ nhà (mục "Cài đặt thông báo" (US21) không có loại này).
+
+**Chống bấm hai lần:** không cần. Chạy lại cùng lúc hay chạy hai lần không đổi kết quả, nhờ điều kiện `cho_chu` và `skip locked`.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

@@ -9,7 +9,7 @@ Repo này tự đủ. Không cần và không được dựa vào repo cũ của
 ## Bắt đầu mỗi phiên
 
 1. Câu đầu phiên phải cho biết ai đang làm (Tùng hoặc Đức). Không có thì hỏi. Lời Tùng là quyết định; lời Đức là đề xuất.
-2. Chưa biết làm gì: mở `docs/stories/README.md`, lấy story chưa xong đầu tiên theo thứ tự.
+2. Chưa biết làm gì: mở `docs/stories/README.md`, lấy story chưa xong đầu tiên theo thứ tự. Story đó còn `Đặc tả: thô` thì việc đầu tiên là viết lại nó (US41).
 3. Có mã story: đọc file story đó, rồi chỉ đọc thêm những gì nó trỏ tới bằng mã.
 4. Lần đầu vào repo: đọc `docs/QUY_TRINH.md` (luật làm việc) và `docs/Thiet_ke_DB.md` mục 3 (bất biến).
 
@@ -39,6 +39,7 @@ Mục lục tài liệu và cách tìm theo mã: `docs/README.md`.
 - **Đặc tả không nói thì hỏi**, ghi câu hỏi vào `Cau_hoi_mo.md`. Không lấp bằng cách làm phổ biến.
 - **Mỗi tiêu chí (`…-NT<số>`) một test mang mã đó, viết trước code.** Quyền và tiền kiểm ở lớp database.
 - **Không tắt, không xóa, không nới test để cho qua.** Chỉ sửa test khi story nêu tên test đó ở mục "Test bị đổi".
+- **Không code theo story ghi `Đặc tả: thô`.** Viết lại theo khuôn trước (US41, `docs/QUY_TRINH.md` mục 4.2b).
 - **Story đã merge không sửa.** Đổi tính năng đã xong thì viết story mới (`docs/QUY_TRINH.md` mục 5).
 - **Code trên nhánh `US<n>-<tên>` và PR. Claude chỉ merge khi Tùng bảo**, và chỉ khi đủ điều kiện ở `docs/QUY_TRINH.md` mục 10 (QD-017). Không tự merge khi không ai bảo. Không đẩy ép. Tài liệu sống không kèm code được đẩy thẳng `main`.
 - **Hỏi Tùng trước:** migration lên production, xóa dữ liệu, đổi phân quyền, việc không đảo ngược. Chữ "đồng ý" chung chung không tính.
@@ -70,7 +71,7 @@ App gọi thẳng Supabase (QD-004). Đọc qua RLS; ghi qua hàm `fn_*` tự ki
 
 - App chạy ở **chế độ thử** bằng dữ liệu mẫu trong máy. Chưa nối Supabase, chưa có đăng nhập (`docs/Ghi_chu_code.md`).
 - Database: migration và test đã có, **chưa chạy trên project Supabase nào**. Staging: `<chưa có>`. Production: `<chưa có, chờ CH-002>`.
-- Story đang làm: US38. Đang chặn: CH-001 (đăng nhập), CH-002 (nơi đặt dữ liệu).
+- Story đang làm: US38, US41 (viết lại đặc tả thô). Đang chặn: CH-001 (đăng nhập), CH-002 (nơi đặt dữ liệu).
 
 ## Lệnh
 

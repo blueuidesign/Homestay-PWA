@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US6, US11
@@ -114,6 +115,30 @@ Lọc "Giá mỗi đêm" (mục "Tìm phòng trống theo ngày" bước 3) chư
 | Mã | Khi nào |
 |---|---|
 | DU_LIEU_SAI | Như; `tu` sai định dạng |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Tìm căn trống mọi đêm trong khoảng ngày, kèm tổng giá chủ và tổng giá bán; ghi lần tìm vào Tìm gần đây
+**Ai gọi:** người dùng có tài khoản. Kết quả chỉ gồm căn người gọi có vai (mục Chung). Vai khác: căn không có trong kết quả, không lỗi.
+
+**Việc kéo theo:** ghi Tìm gần đây (bảng trên). Không thông báo.
+
+**Chống bấm hai lần:** không cần (đọc). Gọi hai lần cùng điều kiện tạo hai dòng `tim_gan_day` cho tới khi [MỞ: US12-H7] có câu trả lời.
+
+### Cùng điều kiện tìm, trả bảng căn × 7 ngày cho chế độ "Lịch tuần"
+**Ai gọi:** như.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Đọc 5 lần tìm gần nhất của sale để hiện "TÌM GẦN ĐÂY"
+**Ai gọi:** người dùng có tài khoản. Chỉ đọc dòng của chính người gọi. Không có vai khác.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

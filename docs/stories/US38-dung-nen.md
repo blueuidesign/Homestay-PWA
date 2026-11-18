@@ -2,6 +2,7 @@
 
 - Loại: kỹ thuật
 - Trạng thái: đang làm
+- Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: không phụ thuộc story nào

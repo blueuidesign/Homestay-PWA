@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: tb
 - Làm sau khi xong: US1
@@ -72,6 +73,23 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | DU_LIEU_SAI | `thang` sai định dạng (`o: "thang"`) |
 | KHONG_TIM_THAY | `can_id` không phải căn của người gọi, hoặc căn đã ẩn |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Trả các căn có khách từng đêm của một tháng, cho lưới tháng
+**Ai gọi:** CHU (PQ4.CHU). Chỉ căn người gọi giữ, `loai = 'co_lich'`, chưa ẩn. Căn tự nhập không có trong kết quả, vì căn tự nhập không có lịch trống (CLAUDE.md). `can_id` của người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Trả từng căn của chủ nhà trong một ngày
+**Ai gọi:** CHU (PQ4.CHU, PQ7.CHU, PQ8.CHU, PQ9.CHU). Mọi căn `co_lich` chưa ẩn của người gọi. Vai khác: kết quả chỉ gồm căn người gọi giữ; không có căn thì `can` rỗng.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

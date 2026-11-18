@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US1, US3, US18, US19
@@ -74,6 +75,16 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | KHONG_TIM_THAY | Căn không có, đã ẩn, hoặc người gọi không có quyền |
 | CAN_CON_DAT_PHONG (mã mới, 409) | Căn có lịch còn booking có ngày trả sau hôm nay (giờ Việt Nam), hoặc còn yêu cầu `cho_chu` chưa quá `het_han_luc` (mục "Xóa căn" bước 2, Thiet_ke_DB Cần quyết 8). `ly_do`: "Căn còn đặt phòng sắp tới". Booking `da_huy` không tính vì đêm đã trống lại (QD-012 qua. Mã chưa có trong bảng[MỞ: US27-H1] thêm mã vào |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Căn có lịch
+**Ai gọi:** CHU của căn có lịch, căn chưa ẩn (PQ3.CHU "xóa căn là ẩn căn", PQ13.CHU). Căn tự nhập: sale tạo (PQ14.SALE "tạo, xem, sửa, xóa"). SALE được chia sẻ: không xóa (PQ3.SALE), trả `KHONG_TIM_THAY`. Người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không ghi thông báo (mục "Xóa căn" (US27) không có thông báo cho sale). Từ lúc ẩn, mọi API của sale không gửi căn này (mục "Xóa căn" (US27) bước 4, PQ3.SALE), không hiện căn này, và mã căn dùng lại được (mục "Xóa căn" (US27) bước 5). Không có API hiện lại căn (mục "Xóa căn" (US27) bước 6).
+
+**Chống bấm hai lần:** có. Gửi lại cùng khóa trả kết quả cũ; không có khóa cũ mà căn đã ẩn thì `KHONG_TIM_THAY`.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

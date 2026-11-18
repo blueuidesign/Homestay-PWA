@@ -60,7 +60,7 @@ Giới hạn từng ô (tên, ghi chú, mẫu tin, số điện thoại) là rà
 
 ## 2. Quy tắc và "ai thấy gì" theo nhóm tính năng
 
-### nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale · Đăng nhập, vai trò, kết nối chủ nhà và sale
+### Đăng nhập, vai trò, kết nối chủ nhà và sale
 Nhóm này cho người dùng vào app, chọn vai trò chủ nhà hoặc sale, rồi nối chủ nhà với sale để sale xem được lịch phòng. Kết nối đi qua tin nhắn Zalo và link, không có hộp thư riêng trong app. Số điện thoại chỉ được xin ở lúc bắt đầu kết nối.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -97,7 +97,7 @@ Ai thấy gì trong nhóm này:
 | Số lần đã gửi, số chủ nhà đã đồng ý | Không | Sale tự xem ở A7 | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Thông báo kết nối | Thông báo của chủ nhà: chưa thiết kế trong nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale | Toast và P13 | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Lịch chủ nhà · Lịch chủ nhà
+### Lịch chủ nhà
 Nhóm này cho chủ nhà xem lịch các căn của mình: theo tháng, theo tuần, và chi tiết từng ngày. Chủ nhà thấy căn nào có khách, căn nào trống, booking nào chưa cọc, và doanh thu tóm tắt trong tháng. Việc thêm, sửa, xóa booking thuộc nhóm Booking. Việc gửi lịch cho sale thuộc mục "Chủ nhà chủ động gửi lịch cho sale" (US26).
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -121,7 +121,7 @@ Ai thấy gì trong nhóm này:
 | Doanh thu tháng, số đêm | Thấy | Không | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Giá từng đêm trên lịch tuần | Thấy | Lịch tuần là màn của chủ nhà; sale xem giá ở lịch của sale (mục "Lịch phòng 7 ngày" (US16)) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Căn và giá · Căn và giá
+### Căn và giá
 Nhóm này cho chủ nhà thêm căn, sửa thông tin và ảnh căn, rồi đặt giá cho từng căn hoặc nhiều căn cùng lúc. Giá đặt theo tháng, có giá riêng cho ngày lễ và dịp đặc biệt, và có thể sao chép từ căn này sang căn khác. Đây là giá chủ nhà. Sale chỉ thấy giá sau khi chủ nhà đặt.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -155,7 +155,7 @@ Ai thấy gì trong nhóm này:
 | Giá đêm (tháng, ngày lễ, dịp đặc biệt) | Thấy và sửa | Thấy với căn được chia sẻ, chỉ sau khi chủ nhà đặt giá (QD-007) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không thấy giá chủ nhà |
 | Ngày tính giá cuối tuần | Thấy và sửa | ? | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Booking · Booking
+### Booking
 Nhóm này lo việc một đêm ở trở thành booking. Có hai đường: chủ nhà tự ghi booking vào lịch, hoặc sale gửi yêu cầu đặt phòng và chủ nhà chấp nhận. Chủ nhà chỉ làm việc với sale, không liên hệ khách. Booking chỉ vào lịch khi chủ nhà ghi hoặc chấp nhận, không có bước giữ phòng và báo cọc. Việc sale ghi booking của riêng mình cho căn tự nhập thuộc nhóm Nguồn phòng và căn tự nhập.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -188,7 +188,7 @@ Ai thấy gì trong nhóm này:
 | Yêu cầu đặt phòng | Thấy mọi yêu cầu gửi tới mình | Chỉ yêu cầu của mình | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Lý do từ chối | Chọn chip lý do ở CN9 (mục "Chủ nhà nhận và trả lời yêu cầu" (US15) bước 5) | Thấy ở S3-05 | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Tìm phòng và gửi khách · Tìm phòng và gửi khách
+### Tìm phòng và gửi khách
 Nhóm này cho sale xem lịch phòng của mọi căn mình bán, tìm căn trống theo ngày, xem giá, cộng giá của mình, rồi gửi thông tin và ảnh cho khách qua Zalo. Căn của chính sale luôn đứng đầu. Căn tự nhập không có lịch tự động nên ô ngày hiện "?". Việc đặt phòng với chủ nhà thuộc nhóm Booking, việc quản lý căn tự nhập thuộc nhóm Nguồn phòng và căn tự nhập.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -217,7 +217,7 @@ Ai thấy gì trong nhóm này:
 | Mẫu tin, mức cộng mặc định | Không | Chỉ sale đó | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Lần gửi khách (căn, đêm, lúc gửi) | Không | Chỉ sale đó | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Nguồn phòng và căn tự nhập · Nguồn phòng và căn tự nhập
+### Nguồn phòng và căn tự nhập
 Nhóm này cho sale quản lý các căn mình bán: căn của chính sale, căn của chủ nhà đã kết nối (nguồn phòng), và căn của chủ chưa dùng app (căn tự nhập). Căn tự nhập không có lịch trống, nên sale phải gọi chủ hỏi. Sale chỉ lưu ảnh, giá và ghi lại booking đã chốt để tính thống kê. Việc tìm phòng và gửi khách thuộc nhóm Tìm phòng và gửi khách. Việc kết nối với chủ nhà thuộc nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -242,7 +242,7 @@ Ai thấy gì trong nhóm này:
 | Phần chênh, "Bạn đã bán", "Tiền chênh" | Chủ nhà chỉ thấy một giá | Chỉ sale đó | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Quyền chủ nhà cho sale xem (S6-04) | Chủ nhà đặt | Sale thấy phần được cho | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Thống kê · Thống kê
+### Thống kê
 Nhóm này cho hai người xem số liệu theo tháng. Chủ nhà xem doanh thu, công suất phòng, doanh thu theo người bán và khoản chưa thu. Sale xem tiền chênh, số booking, doanh số theo chủ nhà và các booking đang chờ chủ. Số liệu lấy từ booking ở nhóm Booking và booking sale tự ghi ở nhóm Nguồn phòng và căn tự nhập. Số liệu trong ví dụ là dữ liệu minh họa của canvas.
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -268,7 +268,7 @@ Ai thấy gì trong nhóm này:
 | Booking của tôi và trạng thái | Thấy trong nhóm Booking | Chỉ sale đó | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Số liệu của sale khác trong nhóm | Không | ? (xem nhóm Đội nhóm, cộng tác viên) | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Đội nhóm, cộng tác viên · Đội nhóm, cộng tác viên
+### Đội nhóm, cộng tác viên
 Chưa làm ở bản phát hành đầu (nhóm Đội nhóm, cộng tác viên). Mọi yêu cầu dưới đây giữ nguyên để làm sau; cách chia nguồn sẽ chốt lại khi làm.
 
 Nhóm này cho các sale bán chung theo nhóm. Một sale làm trưởng nhóm, tạo nhóm, chọn nguồn phòng chia sẻ và mời sale khác. Cả nhóm dùng chung nguồn phòng, thấy ai đang gửi yêu cầu căn nào để không gửi trùng khách. Trưởng nhóm thấy booking và tiền chênh của thành viên. Canvas không có màn riêng cho "cộng tác viên": trong nhóm này tôi hiểu cộng tác viên là thành viên nhóm (xem CH-085).
@@ -293,7 +293,7 @@ Ai thấy gì trong nhóm này:
 | Yêu cầu chờ chủ của người khác | Thấy yêu cầu trong nhóm Booking | Thành viên nhóm thấy | Không | ? | Không |
 | Căn tự nhập | Không | Chỉ sale tạo nó (xem CH-082) | Không | ? | Không |
 
-### nhóm Quản trị và dữ liệu · Quản trị và dữ liệu
+### Quản trị và dữ liệu
 Nhóm này là tab Cá nhân: menu tài khoản, hồ sơ, cài đặt, và phần dữ liệu (sao lưu, xuất file). Có hai menu: P1 cho chủ nhà và P4 cho sale. Các dòng liên quan nhóm khác nằm ở nhóm đó và được trỏ tới ở bảng đầu mục "Menu tài khoản (tab Cá nhân)" (US21).
 
 Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
@@ -316,7 +316,7 @@ Ai thấy gì trong nhóm này:
 | Giờ nhận, trả mặc định | Đặt | Thấy khi gửi khách (S3) | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Thấy giờ trong tin sale gửi |
 | Cài đặt thông báo | Của mình | Của mình | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
-### nhóm Quản trị Home247 trên web · Quản trị Home247 trên web
+### Quản trị Home247 trên web
 Nhóm này cho người quản trị của Home247 (vai ADMIN) làm việc vận hành trên trang quản trị riêng, không nằm trong các tab của chủ nhà và sale. Mục đầu tiên là dải ngày lễ hằng năm mà chủ nhà chọn nhanh ở mục "Giá ngày lễ và dịp đặc biệt" (US8). Mục thứ hai là danh sách tòa nhà đặt sẵn mà chủ nhà chọn ở mục "Tòa nhà, loại view, số giường, mô tả" (US11). Mục thứ ba là thêm người đồng quản trị (mục "Thêm người đồng quản trị" (US34)). Người quản trị đăng nhập bằng mã gửi tới email của mình; quản trị viên đầu tiên là <email quản trị viên đầu tiên> (mục "Thêm người đồng quản trị" (US34)). Các mục quản trị khác (hỗ trợ, tra cứu tài khoản) và bản web cho chủ nhà thuộc và, chưa viết ở đây. Chưa có thiết kế. Câu có thẻ [MỞ: CH-051] chờ trả lời ở `docs/Cau_hoi_mo.md`.
 
 Cột "app" trong bảng hành vi ghi việc web quản trị hiện, vì nhóm này không chạy trong app.

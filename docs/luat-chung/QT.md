@@ -49,7 +49,7 @@ Một luật chung cho lịch của chủ nhà (CN1), thống kê (CN8) và lị
 
 ## QT2.1 · Booking chiếm những đêm nào
 Rủi ro: cao
-Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. Booking đã xóa không chiếm đêm (nhóm Thống kê câu hỏi 5).
+Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. Booking đã xóa không chiếm đêm [MỞ: LC-H1].
 
 | Mã | Nhận → trả | Phải ra |
 |---|---|---|

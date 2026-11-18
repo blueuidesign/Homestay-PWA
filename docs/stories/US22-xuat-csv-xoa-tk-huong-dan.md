@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US21, US6, US10, US15, US16, US17, US19, US30
@@ -177,6 +178,31 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | DU_LIEU_SAI | Thiếu `tu`, `den`; `den` trước `tu`; quá 366 ngày; `can_ids` sai dạng hay quá 50 |
 | KHONG_TIM_THAY | Có id trong `can_ids` không phải căn của người gọi |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Số đặt phòng sẽ có trong file, cho dòng "23 đặt phòng" ở P8
+**Ai gọi:** người đã đăng nhập. Chỉ đặt phòng ở căn người gọi là CHU (PQ20.CHU). Sale không xuất được dữ liệu căn của chủ nhà (PQ20.SALE): căn không phải của mình thì `KHONG_TIM_THAY`. Tài khoản `vai_chon` sale có căn riêng có xuất được không: [MỞ: US22-H8] PQ20.SALE và PQ13.CHU.
+
+Lọc chung cho `/xuat/dem` và `/xuat/booking.csv` (hai API phải ra cùng số):
+- Đặt phòng có `booking.chu_nha_id` là người gọi, căn `co_lich`.
+- Thuộc khoảng: theo ngày nhận trong `[tu, den]` hay có đêm trong khoảng: [MỞ: US22-H9] mục "Xuất file Excel (CSV)" (US22) không nói. Tạm theo ngày nhận, khớp DLM.8 (tháng 10: B1 đến B8, không B9).
+- Có đặt phòng đã hủy không: [MỞ: US22-H10] mục "Xuất file Excel (CSV)" (US22), QD-012.
+- Không có `can_ids` là mọi căn của người gọi. Có gồm căn đã ẩn không: [MỞ: US22-H11] mục "Xuất file Excel (CSV)" (US22) bước 3 chỉ có chip căn chưa ẩn.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Tải file CSV danh sách đặt phòng của chủ nhà
+**Ai gọi:** như (PQ20.CHU, PQ20.SALE). Cột khách chỉ có khách do chính chủ nhà nhập, không bao giờ khách do sale nhập (PQ20.CHU, PQ9.CHU, QD-011).
+
+Cách app lưu hay gửi file trong Zalo: [MỞ: CH-097] (mục "Xuất file Excel (CSV)" (US22) bước 6 "chưa thiết kế"). Nếu cách lưu của Zalo không gửi được header `Authorization` thì cần thêm cách khác (ví dụ đường dẫn tải có chữ ký, hết hạn ngắn); chưa đặc tả.
+
+**Việc kéo theo:** Không. Log không ghi thân trả lời (bao-mat BM19).
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

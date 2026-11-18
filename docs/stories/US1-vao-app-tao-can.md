@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: không phụ thuộc story nào
@@ -217,6 +218,40 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | DU_LIEU_SAI | Thiếu `ma_can` hoặc `so_phong_ngu`; thiếu `ten_chu_can` hay `sdt_chu_can` với `tu_nhap`; có trường của căn tự nhập trong căn có lịch; `toa_nha_id` không có; quá 12 `anh_ids`; `anh_id` không phải ảnh tạm của người gọi hoặc đã gắn căn; tài khoản `chu_nha` tạo `tu_nhap`. Kèm `o` |
 | MA_CAN_TRUNG | Đã có căn chưa ẩn cùng `ma_can` của người gọi. `ly_do`: "Đã có căn 1509. Kiểm tra lại mã căn." (mục "Thêm căn" bước 5, US1-NT11) |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Tạo tài khoản với vai đã chọn và gắn tài khoản vào phiên tạm
+**Ai gọi:** người có phiên tạm từ (PQ1.LINK: chưa có hồ sơ cho tới khi vào app). Người đã có tài khoản gọi thì nhận lại tài khoản cũ, không lỗi bước 2). Không có phiên thì `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. Kết nối khi mở từ link do hay làm (file ket-noi-link.md).
+
+**Chống bấm hai lần:** không cần `Idempotency-Key`. API tự trả tài khoản cũ khi gọi lại bước 2). `client_id` cần `tai_khoan_id`, mà phiên tạm chưa có.
+
+### Mở một ảnh bằng đường dẫn có chữ ký mà API khác đã trả
+**Ai gọi:** không cần phiên bước 1). Ai có đường dẫn còn hạn và đúng chữ ký thì mở được. Server chỉ ký đường dẫn cho người có quyền xem căn lúc ký: CHU (PQ3.CHU, PQ13.CHU), sale tạo căn tự nhập (PQ14.SALE), SALE được chia sẻ căn (PQ3.SALE, ký ở API của sale.md), người mở link mời hợp lệ (PQ3.LINK, ký ở), người tải ảnh tạm. Không có chữ ký, chữ ký sai hoặc hết hạn: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không. Đường dẫn đã ký vẫn mở được tới khi hết hạn, kể cả khi sale vừa bị ngừng hay căn vừa ẩn; tối đa 1 giờ.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Danh sách căn người gọi giữ, chưa ẩn, kèm thông tin cho thẻ căn
+**Ai gọi:** mọi người có tài khoản. Chỉ trả căn mà người gọi là CHU (PQ3.CHU; sale với căn của mình theo PQ13.CHU) và căn tự nhập người gọi tạo (PQ14.SALE). Không bao giờ trả căn của người khác, kể cả căn sale được chia sẻ (sale đọc qua API của sale.md). Chưa đăng nhập: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Thêm một căn có lịch (chủ nhà, hoặc sale với căn của mình) hoặc một căn tự nhập (sale)
+**Ai gọi:**
+- `loai` `co_lich`: mọi người có tài khoản. Người gọi thành CHU của căn mới (PQ3.CHU, PQ13.CHU, QD-005).
+- `loai` `tu_nhap`: chỉ sale, PQ14.SALE). Chủ nhà không có căn tự nhập (PQ14.CHU). Server biết "sale" bằng `tai_khoan.vai_chon` = `sale` [MỞ: US1-H2] Thiet_ke_DB ghi `vai_chon` chỉ để chọn giao diện, mâu thuẫn với việc dùng nó để kiểm quyền ở đây. Tài khoản `chu_nha` gửi `tu_nhap`: `DU_LIEU_SAI`, `o`: `loai` [MỞ: US1-H3] không có mã cho tạo sai vai.
+- Chưa đăng nhập, phiên tạm: `CHUA_DANG_NHAP` (Luật chung 4, PQ3.LINK).
+
+**Việc kéo theo:** Không ghi thông báo. Căn có lịch mới tự vào phạm vi mọi `ket_noi` `tat_ca_can` của người gọi, vì phạm vi tính lúc đọc, mục "Căn mới của chủ nhà tự hiện cho sale" (US6) bước 1); không ghi `ket_noi_can`. Báo sale khi có căn mới: [MỞ: US1-H4] mục "Căn mới của chủ nhà tự hiện cho sale" (US6) ghi "chưa thiết kế".
+
+**Chống bấm hai lần:** có. Gửi lại cùng khóa trả đúng căn đã tạo, không tạo căn thứ hai.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

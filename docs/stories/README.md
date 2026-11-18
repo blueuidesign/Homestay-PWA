@@ -11,6 +11,7 @@ Làm từ trên xuống. Một story chỉ bắt đầu khi các story ở cột
 | Story | Tên | Loại | Bản | Trạng thái | Sau |
 |---|---|---|---|---|---|
 | [US38](US38-dung-nen.md) | Dựng nền: repo, database, app chạy bằng dữ liệu mẫu, CI | kỹ thuật | 1 | đang làm |  |
+| [US41](US41-viet-lai-dac-ta-tho.md) | Viết lại đặc tả thô của các story theo khuôn | kỹ thuật | 1 | đang làm |  |
 | [US37](US37-dang-nhap.md) | Đăng nhập bản PWA | kỹ thuật | 1 | chưa làm | US38 |
 | [US1](US1-vao-app-tao-can.md) | Chủ nhà vào app và tạo căn đầu tiên | tính năng | 1 | chưa làm |  |
 | [US2](US2-lich-thang-chu-nha.md) | Chủ nhà xem lịch tháng và chi tiết ngày | tính năng | 1 | chưa làm | US1 |

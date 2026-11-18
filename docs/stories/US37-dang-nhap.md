@@ -2,6 +2,7 @@
 
 - Loại: kỹ thuật
 - Trạng thái: chưa làm
+- Đặc tả: đã viết lại
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US38

@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: tb
 - Làm sau khi xong: US23, US34, US11
@@ -10,7 +11,7 @@
 ## Mục tiêu
 Là quản trị viên Home247, tôi muốn đặt sẵn và xem danh sách tòa nhà ở Hạ Long, để chủ nhà chọn đúng tòa khi thêm căn mà không phải tự gõ.
 
-Nếu web quản trị chưa có thì danh sách đặt sẵn nạp bằng script, như dải ngày lễ `[MỞ: nhóm Quản trị Home247 trên web câu hỏi 9, câu hỏi 6]`. Web quản trị dùng chung nền đăng nhập ADMIN với US23 (US23 có trong truoc, Tùng giao 04/11).
+Nếu web quản trị chưa có thì danh sách đặt sẵn nạp bằng script, như dải ngày lễ [MỞ: US29-H1]. Web quản trị dùng chung nền đăng nhập ADMIN với US23 (US23 có trong truoc, Tùng giao 04/11).
 
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
@@ -66,8 +67,8 @@ app: CN5-A1, CN5-A1b (danh sách tòa có sẵn, US29-NT1). Web quản trị: m�
 ## Quyền
 Ô quyền theo `docs/luat-chung/PQ.md`. Mỗi ô phải có test chứng minh người không có quyền thì không đọc, không ghi được; test ở lớp database (`tests/db/`).
 
-Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ3.ADMIN (xem; mục "Quản trị danh sách tòa nhà" cho thêm và sửa tòa, nhưng PQ3.ADMIN mới ghi "xem", PQ chưa có hàng riêng cho danh sách tòa: `[MỞ: câu hỏi 5]`), PQ3.CHU, PQ3.SALE (xem mọi tòa, thêm tòa mới ở), PQ3.LINK (không thấy).
-Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản trị để thêm hay sửa tòa: từ chối, `toa_nha` không đổi; sale Hùng gọi như vậy: từ chối; gọi không có phiên: từ chối; Chị Hoa gọi không sửa được tòa có sẵn và không đặt được `tao_boi` trống (tòa người dùng thêm không thành tòa đặt sẵn). Mã lỗi `[MỞ: câu hỏi 2]`.
+Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ3.ADMIN (xem; mục "Quản trị danh sách tòa nhà" cho thêm và sửa tòa, nhưng PQ3.ADMIN mới ghi "xem", PQ chưa có hàng riêng cho danh sách tòa: [MỞ: US29-H2]), PQ3.CHU, PQ3.SALE (xem mọi tòa, thêm tòa mới ở), PQ3.LINK (không thấy).
+Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản trị để thêm hay sửa tòa: từ chối, `toa_nha` không đổi; sale Hùng gọi như vậy: từ chối; gọi không có phiên: từ chối; Chị Hoa gọi không sửa được tòa có sẵn và không đặt được `tao_boi` trống (tòa người dùng thêm không thành tòa đặt sẵn). Mã lỗi [MỞ: US29-H3].
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -75,8 +76,8 @@ Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản tr�
 - `fn_qt_luu_toa_nha`: CHƯA có test, viết test trước khi dùng
 
 ## Ngoài phạm vi
-- Xóa hoặc gộp tòa trùng, căn đang gắn tòa bị xóa (mục "Quản trị danh sách tòa nhà" bước 4): `[MỞ: nhóm Quản trị Home247 trên web câu hỏi 11]`, chưa có NT, chưa US nào nhận.
-- Sửa tên hoặc khu vực một tòa (mục "Quản trị danh sách tòa nhà" bước 3) và có áp cho tòa người dùng thêm không: mục "Quản trị danh sách tòa nhà" không có NT cho bước này `[MỞ: nhóm Quản trị Home247 trên web câu hỏi 10, câu hỏi 8]`. Chưa có kịch bản.
+- Xóa hoặc gộp tòa trùng, căn đang gắn tòa bị xóa (mục "Quản trị danh sách tòa nhà" bước 4): [MỞ: US29-H4], chưa có NT, chưa US nào nhận.
+- Sửa tên hoặc khu vực một tòa (mục "Quản trị danh sách tòa nhà" bước 3) và có áp cho tòa người dùng thêm không: mục "Quản trị danh sách tòa nhà" không có NT cho bước này [MỞ: US29-H5]. Chưa có kịch bản.
 - Chủ nhà gõ tìm tòa, thêm tòa mới, gắn tòa vào căn (US11-NT2 đến NT6): US11. và do US11 làm; US này chỉ thêm test với dữ liệu đặt sẵn.
 - Sale lọc phòng theo tòa (mục "Tìm phòng trống theo ngày" (US12)): US12.
 - Cách người quản trị đăng nhập web, đồng quản trị: US34. Dải ngày lễ trên web quản trị: US23.

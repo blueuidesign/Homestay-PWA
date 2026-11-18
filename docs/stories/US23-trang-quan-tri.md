@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: tb
 - Làm sau khi xong: US22, US34
@@ -10,7 +11,7 @@
 ## Mục tiêu
 Là quản trị viên Home247, tôi muốn xem, thêm, sửa, xóa dải ngày lễ từng năm trên web, để chủ nhà chọn nhanh đúng ngày nghỉ (mục "Giá ngày lễ và dịp đặc biệt" (US8)) mà không phải nhờ dev chạy script ([]).
 
-Theo lệnh Tùng ngày 02/11: xếp cuối backlog, sau khi các chức năng app xong giai đoạn code (US22 là US app cuối trước phát hành), và chỉ bắt đầu khi Tùng đã review nhóm Quản trị Home247 trên web ([](done/2026-11/)) và có thiết kế ([]).
+Theo lệnh Tùng ngày 02/11: xếp cuối backlog, sau khi các chức năng app xong giai đoạn code (US22 là US app cuối trước phát hành), và chỉ bắt đầu khi Tùng đã review nhóm Quản trị Home247 trên web và có thiết kế.
 
 Phạm vi thu hẹp ngày 02/11: chỉ dải ngày lễ (mục "Quản trị dải ngày lễ hằng năm"). Tra cứu tài khoản khi người dùng nhờ hỗ trợ chưa có yêu cầu; khi nhóm Quản trị Home247 trên web có mục đó thì tạo US mới.
 
@@ -105,10 +106,41 @@ Dải `gia_dip` chủ nhà đã lưu từ dải này (`ngay_le_id`) giữ ngày 
 |---|---|
 | KHONG_TIM_THAY | Dải không có |
 
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Người quản trị xem mọi dải ngày lễ của một năm
+**Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối [MỞ: US23-H2] mã lỗi.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Người quản trị thêm một dải ngày lễ cho một năm
+**Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối [MỞ: US23-H3] mã lỗi.
+
+**Việc kéo theo:** Không có thông báo. Chủ nhà mở mục "Giá ngày lễ và dịp đặc biệt" (US8) thấy dải mới (US23-NT2).
+
+**Chống bấm hai lần:** có.
+
+### Người quản trị sửa tên hay ngày của một dải
+**Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối [MỞ: US23-H4] mã lỗi.
+
+**Việc kéo theo:** Không có thông báo [MỞ: CH-035].
+
+**Chống bấm hai lần:** có.
+
+### Người quản trị xóa một dải
+**Ai gọi:** ADMIN (PQ21.ADMIN). Vai khác: từ chối [MỞ: US23-H5] mã lỗi.
+
+**Việc kéo theo:** Không có thông báo [MỞ: CH-035].
+
+**Chống bấm hai lần:** có.
+
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ `[MỞ: ]`; nhóm Quản trị Home247 trên web câu hỏi 1, 2 đã trả lời ở mục "Thêm người đồng quản trị" (US34).
+Quy tắc "Dải ngày lễ do Home247 đặt" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV: HV1, HV2 viết cho app, trạng thái đang tải, lỗi mạng, không có quyền của web quản trị chờ [MỞ: US23-H6]; [MỞ: US23-H7] đã trả lời ở mục "Thêm người đồng quản trị" (US34).
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -118,8 +150,8 @@ Chưa thiết kế. Màn bên app để kiểm kết quả: mục "Giá ngày l�
 ## Quyền
 Ô quyền theo `docs/luat-chung/PQ.md`. Mỗi ô phải có test chứng minh người không có quyền thì không đọc, không ghi được; test ở lớp database (`tests/db/`).
 
-Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ21.ADMIN (xem, thêm, sửa, xóa dải). Ô khác của PQ21 cần test vi phạm vì cùng đường API: PQ21.CHU (chỉ xem trong "Chọn nhanh ngày lễ", không sửa dải chung), PQ21.SALE (`[MỞ: PQ21.SALE ghi "?", nhóm Quản trị Home247 trên web Ai thấy gì]`), PQ21.LINK, không có phiên.
-Test vi phạm phải có (US23-NT4): Chị Hoa (CHU) gọi,,: từ chối, `ngay_le` không đổi; sale Hùng gọi cùng bốn API: từ chối; gọi không có phiên: từ chối. Mã lỗi `[MỞ: câu hỏi 2]`.
+Ô PQ chạm tới (ma trận `docs/luat-chung/PQ.md`): PQ21.ADMIN (xem, thêm, sửa, xóa dải). Ô khác của PQ21 cần test vi phạm vì cùng đường API: PQ21.CHU (chỉ xem trong "Chọn nhanh ngày lễ", không sửa dải chung), PQ21.SALE ([MỞ: US23-H8] PQ21.SALE ghi "?", nhóm Quản trị Home247 trên web Ai thấy gì), PQ21.LINK, không có phiên.
+Test vi phạm phải có (US23-NT4): Chị Hoa (CHU) gọi,,: từ chối, `ngay_le` không đổi; sale Hùng gọi cùng bốn API: từ chối; gọi không có phiên: từ chối. Mã lỗi [MỞ: US23-H9].
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -134,7 +166,7 @@ Test vi phạm phải có (US23-NT4): Chị Hoa (CHU) gọi,,: từ chối, `nga
 - Nạp dải ngày lễ bằng script: [].
 - Tra cứu tài khoản khi hỗ trợ: chưa có yêu cầu.
 - Bản web cho chủ nhà: US24.
-- Duyệt hai bước, ghi ai sửa dải nào, dịp cố định hay thêm được dịp mới, giới hạn 10 ngày cho dải quản trị nhập, sửa hay xóa dải sau khi chủ nhà đã đặt giá theo dải, năm chưa có dải: `[MỞ: nhóm Quản trị Home247 trên web câu hỏi 3, 8, 6, 5, 4, 7]`.
+- Duyệt hai bước, ghi ai sửa dải nào, dịp cố định hay thêm được dịp mới, giới hạn 10 ngày cho dải quản trị nhập, sửa hay xóa dải sau khi chủ nhà đã đặt giá theo dải, năm chưa có dải: [MỞ: US23-H10].
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

@@ -7,7 +7,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 DB="${TEST_DB:-home247_test}"
 OUT=docs/tu-sinh/Bang_va_cot.md
-Q=(psql -X -q -A -t -d "$DB")
+Q=(psql -X -q -A -t -d "$DB" -v ON_ERROR_STOP=1)
+# Không kết nối được database thì dừng, không ghi đè file bằng bản rỗng
+"${Q[@]}" -c "select 1" >/dev/null || { echo "Không kết nối được database $DB. Chạy scripts/test-db.sh trước." >&2; exit 1; }
+TMP=$(mktemp)
 {
   echo "# Bảng, cột, view, hàm và policy"
   echo
@@ -32,5 +35,6 @@ Q=(psql -X -q -A -t -d "$DB")
   "${Q[@]}" -c "select '- \`' || p.proname || '(' || pg_get_function_arguments(p.oid) || ')\` trả ' || pg_get_function_result(p.oid) || case when has_function_privilege('anon', p.oid, 'execute') then ' · **khách chưa đăng nhập gọi được**' else '' end from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'fn\_%' and has_function_privilege('authenticated', p.oid, 'execute') order by 1"
   echo; echo "## Hàm nội bộ (app không gọi được)"; echo
   "${Q[@]}" -c "select '- \`' || p.proname || '(' || pg_get_function_arguments(p.oid) || ')\`' from pg_proc p where p.pronamespace = 'public'::regnamespace and p.prokind = 'f' and not (p.proname like 'fn\_%' and has_function_privilege('authenticated', p.oid, 'execute')) and not exists (select 1 from pg_depend d where d.objid = p.oid and d.deptype = 'e') order by 1"
-} > "$OUT"
+} > "$TMP"
+mv "$TMP" "$OUT"
 echo "Đã ghi $OUT ($(wc -l < "$OUT") dòng)"

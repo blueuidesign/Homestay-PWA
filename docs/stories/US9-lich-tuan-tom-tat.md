@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US2
@@ -149,6 +150,41 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Mã | Khi nào |
 |---|---|
 | KHONG_TIM_THAY | Không có đặt phòng, hoặc người gọi không thuộc ba vai trên |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Trả bảng căn × 7 ngày từ thứ hai, giá đêm của ô trống, đặt phòng của ô có khách, và ba số tóm tắt
+**Ai gọi:** CHU (PQ4.CHU, PQ5.CHU, PQ8.CHU). Căn `co_lich` chưa ẩn của người gọi.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Trả doanh thu tháng, doanh thu tháng trước, số đêm có khách, số căn
+**Ai gọi:** CHU (PQ16.CHU). Sale không bao giờ có số này của chủ nhà (PQ16.SALE): mọi căn tính là căn người gọi giữ.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Trả các đặt phòng có ngày trả sau hôm nay, xếp theo ngày nhận
+**Ai gọi:** CHU (PQ7.CHU, PQ8.CHU, PQ9.CHU). Đặt phòng của căn `co_lich` người gọi giữ.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Trả chi tiết một đặt phòng, lọc trường theo vai
+**Ai gọi:**
+- CHU của căn (PQ7.CHU, PQ8.CHU, PQ9.CHU, PQ2.CHU).
+- Sale của đặt phòng: `booking.sale_id` là người gọi, nguồn `tu_yeu_cau` hay `chu_tu_ghi` (PQ7.SALE, PQ8.SALE, PQ9.SALE, PQ11.SALE, PQ2.SALE). Kể cả khi đã bị ngừng (QD-007) và khi chủ nhà đã xóa tài khoản (PQ23.SALE, US22-NT25).
+- Sale giữ căn tự nhập, với đặt phòng `sale_tu_ghi` (PQ14.SALE).
+- Vai khác: sale khác, chủ nhà khác, SALE của căn mà không phải sale của đặt phòng: `KHONG_TIM_THAY` (PQ7.SALE: đặt phòng của người khác chỉ thấy là "đã đặt" ở lịch).
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

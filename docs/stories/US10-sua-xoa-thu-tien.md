@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US3
@@ -174,6 +175,39 @@ Luật kiểm như. Đặt phòng `cho_huy` có sửa được không: [MỞ: US
 | KHONG_TIM_THAY | Không phải CHU của căn |
 | TRANG_THAI_DA_DOI | `trang_thai_tien` không phải `da_thanh_toan`, hoặc `trang_thai_tien_truoc` trống |
 
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Chủ nhà sửa căn, ngày, người đặt, tiền hay chi tiết của một đặt phòng
+**Ai gọi:** CHU của căn (PQ7.CHU, PQ8.CHU, PQ9.CHU). Sửa được cả đặt phòng của sale (mục "Sửa booking" (US10) bước 4). Sale của đặt phòng: `KHONG_TIM_THAY` (PQ7.SALE: không sửa). Sale với đặt phòng căn tự nhập: [MỞ: US10-H10] PQ14.SALE cho sale sửa;chỉ cho chủ nhà; mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 6 màn sửa chưa thiết kế. Bản này trả `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** trong cùng giao dịch:
+- Đặt phòng có sale (`tu_yeu_cau` hay `chu_tu_ghi` có `sale_id`): ghi `thong_bao` loại `chu_sua_booking` cho sale, `du_lieu` gồm căn, ngày cũ và mới, `tien_phong` cũ và mới nếu đổi (mục "Cài đặt thông báo" (US21), mục "Sửa booking" (US10) bước 4, 5). Không có tên khách, không có ghi chú. Chỉ đổi trường sale không thấy (ví dụ `ghi_chu`, khách chủ nhà nhập) có báo không: [MỞ: US10-H11] mục "Sửa booking" (US10) bước 4 nói mọi lần lưu.
+- Đổi ngày hay căn: làm như cho các đêm mới: yêu cầu chờ trùng đêm sang `bi_tu_choi` (giả định GD11), báo lần gửi khách, cập nhật `lich_cap_nhat_luc`.
+
+**Chống bấm hai lần:** có.
+
+### Xóa đặt phòng chủ nhà tự ghi cho khách lẻ
+**Ai gọi:** CHU của căn (PQ7.CHU), chỉ với đặt phòng `nguon = 'chu_tu_ghi'` và `sale_id` trống. Đặt phòng có sale (`tu_yeu_cau`, hoặc `chu_tu_ghi` có `sale_id`): `KHONG_DUOC_PHEP` và trigger database cũng chặn (Thiet_ke_DB `booking`). Sale: `KHONG_TIM_THAY`. Sale xóa đặt phòng căn tự nhập: [MỞ: US10-H12] PQ14.SALE cho xóa;chỉ cho `chu_tu_ghi`. Bản này trả `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** cập nhật `can.lich_cap_nhat_luc`. Không báo ai (mục "Cài đặt thông báo" (US21)).
+
+**Chống bấm hai lần:** có. Lệnh lặp cùng khóa trả lại `{ "id": 105, "da_xoa": true }`. Lệnh mới không khóa cho đặt phòng đã xóa: `KHONG_TIM_THAY`.
+
+### Đánh dấu đặt phòng đã thu đủ tiền
+**Ai gọi:** CHU của căn (PQ8.CHU). Sale: `KHONG_TIM_THAY` (PQ8.SALE không sửa tiền).
+
+**Việc kéo theo:** Không. Không có loại thông báo cho việc này (mục "Cài đặt thông báo" (US21)).
+
+**Chống bấm hai lần:** có.
+
+### Đưa trạng thái tiền về trạng thái trước khi thu đủ
+**Ai gọi:** CHU của căn (PQ8.CHU). Sale: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** có.
+
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
@@ -283,7 +317,7 @@ Trạng thái riêng:
 - `fn_chu_hoan_tac_thu_du`: test ở t_10_thong_ke.sql
 
 ## Ngoài phạm vi
-- Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), US3-NT17, NT2): US3. US3-NT14, NT5, NT7 chưa có US, đề xuất vào US3 (câu hỏi 3).
+- Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), US3-NT17, NT2): US3. US3-NT14, NT5, NT7 chưa có US, đề xuất vào US3 [MỞ: US10-H13].
 - Chủ nhà ghi đặt phòng chọn sale làm người đặt (mục "Booking chủ nhà ghi cho sale" (US28)): US28. US10 chỉ kiểm hai điều về đặt phòng loại này: không có nút "Xóa đặt phòng" (US10-NT14) và sale được báo khi chủ sửa (mục "Sửa booking" bước 4). US10-KB21 và US10-KB26 chạy khi US28 xong.
 - Sale đã xóa tài khoản (US22-NT6, CN3-02-01): US22.
 - Xin hủy, đồng ý hủy, từ chối hủy đặt phòng đã chấp nhận (QD-012): chưa có NT trong nhóm Booking, chờ. API `xin-huy`, `tra-loi-huy` không thuộc US này.
@@ -292,11 +326,11 @@ Trạng thái riêng:
 - Danh sách đặt phòng của sale S7-03 (mục "Trạng thái booking của sale" (US19)): US19. US10-KB22 chạy khi US19 xong.
 - Chưa quyết, không code theo phần này (CLAUDE.md):
   - [MỞ: CH-023] (mục "Sửa booking" bước 3; mục "Xóa booking" bước 2 sau khi lưu hoặc xóa về màn nào; "chưa vẽ (?)"). Kịch bản quay về tab Lịch bằng tay.
-  - [MỞ: US10-H5] mục "Sửa booking" "sửa người đặt": đổi sang sale khác hay khách lẻ thì giá bán và thông báo ra sao. Server từ chối đổi `sale_id` của đặt phòng đã có sale câu hỏi mở 3).
+  - [MỞ: US10-H5] mục "Sửa booking" "sửa người đặt": đổi sang sale khác hay khách lẻ thì giá bán và thông báo ra sao. Server từ chối đổi `sale_id` của đặt phòng đã có sale [MỞ: US10-H14].
   - [MỞ: US10-H6] mục "Chi tiết booking và đánh dấu đã thu đủ", mục "Sửa booking" sửa và thu đủ đặt phòng đang `cho_huy` hoặc đã `da_huy` (QD-012). Bản này chỉ cho sửa khi `hieu_luc`.
   - [MỞ: US10-H7] mục "Sửa booking" chỉ đổi tiền phòng mà giữ ngày thì chia lại tiền các đêm theo bảng giá lúc ghi hay bảng giá hiện tại, QT4.2. Tổng tiền các đêm luôn bằng tiền phòng.
   - [MỞ: US10-H8] mục "Sửa booking" bước 4 chỉ sửa ghi chú hay khách chủ nhà nhập, sale có được báo không.
-  - [MỞ: CH-024] (tiền cọc lớn hơn tiền phòng khi sửa; api câu hỏi mở 1).
+  - [MỞ: CH-024] (tiền cọc lớn hơn tiền phòng khi sửa; [MỞ: US10-H15].
   - [MỞ: US10-H9] S3-10 thẻ vàng ghi "Giá bán tính lại theo mức cộng", trái mục "Sửa booking" bước 5 và NT5 (giá bán giữ như đã báo khách). Làm theo YC, chờ Tùng chọn.
 
 ## Việc cần làm

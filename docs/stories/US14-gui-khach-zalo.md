@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US13, US17
@@ -114,7 +115,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | can_id | thân | id | Có | |
 | ngay_nhan | thân | ngay | Có | |
 | ngay_tra | thân | ngay | Có | Sau `ngay_nhan`, tối đa 30 đêm |
-App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (mục "Gửi thông tin cho khách qua Zalo" bước 5, 6). [MỞ: CH-026] (câu hỏi 19).
+App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (mục "Gửi thông tin cho khách qua Zalo" bước 5, 6). [MỞ: CH-026] [MỞ: US14-H3].
 
 **Lỗi riêng**
 | Mã | Khi nào |
@@ -122,6 +123,23 @@ App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", k
 | DU_LIEU_SAI | Thiếu trường, ngày sai |
 | KHONG_TIM_THAY | Không có vai với căn |
 | KHONG_CON_QUYEN | Chủ nhà đã ngừng người gọi |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Dựng chữ theo mẫu tin của sale và đường dẫn ảnh cho từng căn đã chọn, để hiện S5
+**Ai gọi:** người dùng có tài khoản, có vai `nguon_phong` hoặc `tu_nhap` với mọi căn trong `can_ids`. Căn `cua_toi`: [MỞ: US14-H4] giá trong chữ là giá nào; tới khi có câu trả lời, chữ dùng giá chủ của căn. Một căn không có vai thì cả lệnh lỗi (mục Chung), không trả phần nào.
+
+**Việc kéo theo:** Không. Server không gửi gì ra ngoài; app mở cửa sổ Zalo.
+
+**Chống bấm hai lần:** không cần (không ghi). Không nhận `Idempotency-Key`.
+
+### Ghi một lần sale gửi chữ hoặc ảnh của một căn cho khách, để sau này báo khi căn có người đặt
+**Ai gọi:** người dùng có vai `nguon_phong`, `tu_nhap` hoặc `cua_toi` với căn (PQ12.SALE: chỉ của mình). Vai khác: lỗi quyền chung.
+
+**Việc kéo theo:** Không ở lệnh này. Lúc có đặt phòng mới (đổi ngày), các API đó tìm `lan_gui_khach` theo: cùng căn, chồng ít nhất một đêm, `gui_luc` trước lúc tạo đặt phòng, ngày nhận của lần gửi chưa qua, `da_bao_luc` trống, sale khác sale của đặt phòng. Mỗi dòng ghi một `thong_bao` loại `can_da_gui_co_nguoi_dat` cho sale, không tên người đặt, không giá, rồi đặt `da_bao_luc` (US14-NT6 đến NT10, mục "Cài đặt thông báo" (US21), PQ19.SALE). Căn tự nhập chỉ sale đó ghi đặt phòng, nên không bao giờ báo.
+
+**Chống bấm hai lần:** có (`Idempotency-Key`), thêm chỉ mục duy nhất theo ngày ở trên.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.

@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US1, US3, US4
@@ -168,6 +169,35 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Mã | Khi nào |
 |---|---|
 | DU_LIEU_SAI | Thiếu `ten`, quá dài. Kèm `o` |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Chi tiết một căn của mình, mọi trường và ảnh theo thứ tự
+**Ai gọi:** CHU của căn, căn chưa ẩn (PQ3.CHU, PQ13.CHU,bước 2). Căn tự nhập: chỉ sale tạo (PQ14.SALE). SALE được chia sẻ căn: `KHONG_TIM_THAY`, vì API này chỉ cho người giữ căn; sale đọc chi tiết căn qua. Căn đã ẩn: `KHONG_TIM_THAY` (người gọi không còn là CHU theobước 2). Người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Sửa thông tin căn và thay danh sách ảnh
+**Ai gọi:** CHU của căn, căn chưa ẩn (PQ3.CHU, PQ13.CHU). Căn tự nhập: sale tạo (PQ14.SALE). SALE được chia sẻ: không sửa (PQ3.SALE), trả `KHONG_TIM_THAY`. Người khác: `KHONG_TIM_THAY`.
+
+**Chống bấm hai lần:** có.
+
+### Tìm tòa theo chữ gõ, hoặc lấy danh sách tòa cho hàng chip
+**Ai gọi:** mọi người có tài khoản. Chủ nhà và sale đều thấy mọi tòa (nhóm Căn và giá Ai thấy gì, dòng Danh sách tòa nhà). Danh sách tòa chưa có hàng riêng trong PQ; tòa là một phần thông tin căn của PQ3 [MỞ: US11-H5] thêm hàng PQ cho danh sách tòa. Người mở link chưa kết nối không thấy (nhóm Căn và giá Ai thấy gì): chưa đăng nhập thì `CHUA_DANG_NHAP` (Luật chung 4).
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Thêm một tòa mới vào danh sách chung, không cần duyệt
+**Ai gọi:** mọi người có tài khoản: chủ nhà khi thêm căn, sale khi nhập căn của mình hoặc căn tự nhập (nhóm Căn và giá Ai thấy gì, quy tắc Tòa nhà dùng chung). Ô PQ: như [MỞ: US11-H6] PQ chưa có hàng cho tòa. Chưa đăng nhập: `CHUA_DANG_NHAP`. Sửa, xóa, gộp tòa chỉ ở web quản trị (mục "Quản trị danh sách tòa nhà" (US29)), không có trong nhóm này.
+
+**Việc kéo theo:** Không ghi thông báo. Tòa mới hiện cho mọi người ở có `q` (US11-NT7). API không gắn tòa vào căn; app gửi `toa_nha_id` ở hay.
+
+**Chống bấm hai lần:** có.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

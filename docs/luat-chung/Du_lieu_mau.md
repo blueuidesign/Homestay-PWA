@@ -33,7 +33,7 @@ Một bộ số cho tiêu chí nghiệm thu, ví dụ trong story, test và dữ
 - Giá của Chị Hoa áp cho tháng 10, 11, 12/2026. Căn 3402 có giá 7 tháng (T6 đến T12/2026). Tháng 11 và 12 được đặt bằng thao tác "Áp dụng cho Tháng 11 – 12" lúc 800.000đ / 1.100.000đ (US4-NT3); trước thao tác đó hai tháng này ghi "Chưa đặt" (CN6), sau đó ghi "800k–1,1tr" (CN6-04, CN6-07, CN6-08).
 - Thẻ căn tuần 05/10 – 11/10: 1509 "900.000đ – 1.300.000đ", 3402 "800.000đ – 1.100.000đ".
 - Ô tháng 10 của 3402: "800k–1,3tr".
-- Căn của sale Hùng (S6, S6-07): Green Bay 0812 "2PN · view biển", lịch 7 ngày 07/10 → 13/10 theo giá đêm của Hùng: 750k, Kín, Kín, 900k, 750k, 750k, 750k (S6-07, cùng số với hàng Green Bay 0812 trên S1). Mường Thanh 1605 "1PN · view biển", "Có khách 12/10" (S6). Phần còn thiếu ghi ở DLM.9.
+- Căn của sale Hùng (S6, S6-07): Green Bay 0812 "2PN · view biển", lịch 7 ngày 07/10 → 13/10 theo giá đêm của Hùng: 750k, Kín, Kín, 900k, 750k, 750k, 750k (S6-07, cùng số với hàng Green Bay 0812 trên S1). Mường Thanh 1605 "1PN · view biển", "Có khách 12/10" (S6). Phần còn thiếu ghi ở mục "Còn thiếu trong bộ này".
 - Mức cộng của sale Hùng mỗi đêm: 1509 +200k (sửa riêng ở S3), Sapphire 1103 +100k, À La Carte 2208 +300k, 3402 theo mặc định +400k. Villa: giá bán Hùng lưu 1.600.000đ mỗi đêm.
 
 ## DLM.4 · Booking của Chị Hoa

@@ -170,3 +170,23 @@ Chữ hay số trên hình lệch story thì story đúng. Ghi chỗ lệch vào
 | P8 | Xuất file Excel | nhóm Quản trị và dữ liệu · Quản trị và dữ liệu |
 | P8-00 | Xuất Excel · khoảng chọn không có booking | nhóm Quản trị và dữ liệu · Quản trị và dữ liệu |
 | P9 | Hướng dẫn sử dụng | nhóm Quản trị và dữ liệu · Quản trị và dữ liệu |
+| A10-P1 | Thêm lịch · giải thích xin tên và số | Vào app và kết nối |
+| A10-P2 | Thêm lịch · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |
+| CN3-02-02 | Chi tiết booking chủ nhà tự ghi · xóa | Chủ nhà |
+| CN3-02-03 | Chi tiết đặt phòng · đã thu đủ | Chủ nhà |
+| CN7-06 | Sale của tôi · vừa cho sale xem lịch | Chủ nhà |
+| CN7-P1 | Mời sale · giải thích xin tên và số | Chủ nhà |
+| CN7-P2 | Mời sale · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |
+| CN9-P1 | Chấp nhận · giải thích xin tên và số | Chủ nhà |
+| CN9-P2 | Chấp nhận · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |
+| P13-02 | Thông báo · chủ nhà ngừng cho xem lịch | Cá nhân |
+| S1-07 | Lịch · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD-007). Xóa hình khỏi canvas khi sửa canvas lần tới |
+| S2-01 | Danh sách · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD-007). Xóa hình khỏi canvas khi sửa canvas lần tới |
+| S3-02-P1 | Gửi yêu cầu · giải thích xin tên và số | Sale |
+| S3-02-P2 | Gửi yêu cầu · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |
+| S3-12 | Chi tiết căn · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD-007). Xóa hình khỏi canvas khi sửa canvas lần tới |
+| S5-P1 | Gửi cho khách · giải thích xin tên và số | Sale |
+| S5-P2 | Gửi cho khách · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |
+| S6-04-01 | Chi tiết chủ nhà · đã tắt giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD-007). Xóa hình khỏi canvas khi sửa canvas lần tới |
+| S6-P1 | Mời chủ căn · giải thích xin tên và số | Sale |
+| S6-P2 | Mời chủ căn · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/luat-chung/PWA.md` |

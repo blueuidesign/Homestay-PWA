@@ -58,6 +58,27 @@ Không có loại ở giữa. Một tài liệu hoặc được sửa trong cùn
 
 **Không tạo lại các loại file sau** (đã bỏ theo QD-015): file yêu cầu YC riêng, file mô tả màn bằng chữ, file nhật ký thay đổi, thư mục task riêng. Mọi thứ đó nằm trong story.
 
+## 3b. Checkpoint tài liệu
+
+`python3 scripts/kiem-tai-lieu.py` kiểm các điểm dưới đây ở mọi PR. Có lỗi thì CI đỏ, không merge. Phần trong khối mã và trong dấu `…` là ví dụ, không bị kiểm.
+
+| Mã | Kiểm gì |
+|---|---|
+| C1 | Không còn mã `YC…` của bản Zalo (trừ các mục cũ của `Quyet_dinh.md` và bảng đổi mã) |
+| C2 | Mã được nhắc tới đều có thật: QD, CH, US, tiêu chí, QT, PQ, HV, GD, DLM, mã màn |
+| C3 | Đường dẫn file và link markdown đều tồn tại |
+| C4 | Không còn chữ trỏ tới cấu trúc tài liệu của bản Zalo hay tính năng đã bỏ: tên file, thư mục cũ, công tắc giá, "câu hỏi N" không có mã (danh sách `CU` trong script) |
+| C5 | Không trỏ ra ngoài repo (thư mục máy, file tạm, repo cũ) |
+| C6 | Mỗi tiêu chí định nghĩa đúng một lần; không tiêu chí nào trong bảng đổi mã bị mất |
+| C7 | Mỗi thẻ MỞ có mã và có dòng trong `Cau_hoi_mo.md`; dòng câu hỏi không còn chỗ dùng thì báo |
+| C8 | Trạng thái story trong file khớp `docs/stories/README.md` |
+| C9 | Story có dòng "Đặc tả"; đặc tả thô không ở trạng thái đang làm hay xong; story đã viết lại không còn mục nguyên liệu thô |
+| C11 | Không có email, số điện thoại thật |
+
+Kiểm code (C12): CI chạy kiểm kiểu, unit test, build, E2E chế độ thử, test database, thử làm hỏng, và so `docs/tu-sinh/Bang_va_cot.md` với migration.
+
+Thêm loại tài liệu hay loại mã mới thì thêm phép kiểm vào script trong cùng PR.
+
 ## 4. Story
 
 ### 4.1 Một loại, một khuôn
@@ -77,34 +98,52 @@ Không chạy sprint. Làm theo thứ tự ở `docs/stories/README.md`.
 
 ### 4.2 Khuôn story (mục nào không có thì bỏ)
 
+Mẫu đã duyệt: `docs/stories/US3-ghi-booking.md` (Tùng duyệt 18/11/2026). Viết story mới thì chép cấu trúc của mẫu.
+
 ```markdown
 # US<n> · <Tên: ai làm được gì>
 
 - Loại: tính năng | thiết kế | lỗi | kỹ thuật
 - Trạng thái: chưa làm | đang làm | xong
+- Đặc tả: đã viết lại | thô (…)
 - Bản: 1 | sau
 - Rủi ro: cao | tb | thap      (cao: chạm tiền, quyền, chặn trùng, dữ liệu người dùng)
 - Làm sau khi xong: US…
 - Kiểm tay: tests/kich-ban/US<n>.md
 
-## Mục tiêu            Là <ai>, tôi muốn <gì>, để <được gì>.
-## Hành vi             Bảng bước: người dùng làm gì, app hiện gì (chữ trên màn trong ngoặc kép), database làm gì, dữ liệu nào đổi. Trạng thái màn: rỗng, đang tải, lỗi, không có quyền.
-## Tiêu chí nghiệm thu  - **<mã>-NT<số>** Khi <tình huống có số cụ thể>, thì <kết quả kiểm được>.
-## Luật kiểm dữ liệu và lỗi   Từng ô nhập: bắt buộc không, giới hạn, khi nào từ chối, báo câu gì.
-## Luật chung dùng     Mã QT, HV, tên quy tắc. Không chép nội dung.
-## Màn hình            Mã màn; màn nào vào từ đâu, bấm gì sang đâu.
-## Quyền               Mã ô PQ; test vi phạm phải có.
-## Database            Bảng, hàm dùng tới; đã có hay phải thêm.
-## Ngoài phạm vi       Việc dễ tưởng thuộc story này nhưng không; thuộc story nào.
-## Việc cần làm        - [ ] …
+## Mục tiêu            Là <ai>, tôi muốn <gì>, để <được gì>. Thêm một đoạn: vì sao việc này quan trọng.
+## Luồng chính         Văn xuôi, kể một lần dùng từ đầu tới cuối với số của bộ mẫu (hôm nay 07/10/2026). Cả nhánh lỗi quan trọng nhất.
+## Phạm vi             "Story này làm" và "Không làm (dễ tưởng thuộc story này)", mỗi dòng ghi story nào làm.
+## Hành vi             Chia theo từng phần của màn. Bảng: Bước | Người dùng | App | Database. Chữ trong ngoặc kép là chữ trên màn.
+                       Đủ các nhánh: lỗi dữ liệu, trùng, mất mạng, bấm hai lần, không có quyền. Kết thúc bằng "Trạng thái màn".
+## Tiêu chí nghiệm thu  - **US<n>-NT<k>** Khi <tình huống có số>, thì <kết quả kiểm được>. · <lớp test: database | unit | E2E>
+                       Nhóm theo chủ đề. Có tiêu chí vi phạm quyền.
+## Luật kiểm dữ liệu và lỗi   Bảng: Ô | Bắt buộc | Luật | Câu lỗi khi sai (đúng chữ người dùng thấy).
+## Quyền               Mã ô PQ, mỗi dòng trỏ tới tiêu chí kiểm vi phạm.
+## Database            Bảng và hàm dùng tới, test đã có. Mục "Database đang lệch story, phải sửa trong PR của story này".
+                       Thứ đọc thẳng qua RLS, không cần hàm.
+## Màn hình            Mã màn; chỗ hình lệch story (story đúng).
+## Luật chung dùng     Mã QT, HV, mục của Nghiep_vu. Không chép nội dung.
+## Câu hỏi mở và giả định   [MỞ: …] và GD… dùng trong story.
+## Việc cần làm        - [ ] … (hỏi Tùng; test database; migration; unit; giao diện; E2E; sửa kịch bản kiểm tay; kiểm tay; đổi trạng thái)
 ```
 
 Luật viết:
 - Một story làm được trong vài ngày. To hơn thì tách theo lát dọc (mỗi lát người dùng làm được một việc trọn vẹn).
+- Story tự đủ: phiên code chỉ đọc story này và luật chung nó trỏ tới bằng mã. Không mượn bảng bước của story khác. Một màn dùng chung cho nhiều story thì mỗi story mô tả đúng các bước nó làm.
 - Mỗi tiêu chí nghiệm thu thuộc đúng một story. `scripts/kiem-tai-lieu.py` kiểm điều này.
 - Tiêu chí phải có số cụ thể lấy từ `docs/luat-chung/Du_lieu_mau.md` để viết thành test được. Không viết được ví dụ thì luật chưa đủ rõ để code: hỏi Tùng.
 - Mã tiêu chí: `US<n>-NT<số>`, theo story chứa nó. Mã câu hỏi: `CH-<số>` (hỏi chung) hoặc `US<n>-H<số>` (chỗ chưa rõ trong một story). Không dùng mã `YC…` của bản Zalo (QD-018).
 - Chỗ chưa rõ: gắn thẻ `[MỞ: US<n>-H<số>]` ngay tại câu đó và thêm một dòng vào `Cau_hoi_mo.md`. Không lấp bằng cách làm phổ biến.
+- Viết story phải đọc hàm database liên quan. Chỗ database làm khác story thì ghi vào "Database đang lệch story": story là ý định, database sửa theo, trừ khi Tùng quyết khác.
+
+### 4.2b Đặc tả thô
+
+35 story chuyển từ bản Zalo được lắp bằng máy ngày 18/11/2026: đủ nguyên liệu (bảng bước, chữ trên màn, tiêu chí, luật kiểm, ai được làm, việc kéo theo, màn, quyền) nhưng chưa viết theo khuôn, còn chữ của bản Zalo và chưa đối chiếu với database. Các story này ghi `- Đặc tả: thô`.
+
+- **Không code theo story có đặc tả thô.** Viết lại trước (story US41), rồi mới làm.
+- Viết lại không đổi nghĩa tiêu chí. Mã tiêu chí giữ nguyên; tiêu chí thêm mới thì cấp số tiếp theo. Tiêu chí chuyển sang story khác thì giữ mã cũ và ghi rõ trong commit.
+- Thấy nguyên liệu mâu thuẫn nhau hay mâu thuẫn với `Quyet_dinh.md`: dừng phần đó, hỏi Tùng.
 
 ### 4.3 Story đóng băng sau khi merge
 

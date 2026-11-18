@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US10, US15, US28
@@ -79,6 +80,23 @@ Xin hủy đặt phòng đã qua ngày trả được không: [MỞ: US35-H1] QD
 | DU_LIEU_SAI | Thiếu `dong_y` |
 | KHONG_TIM_THAY | Người gọi là bên đã xin, hoặc không thuộc đặt phòng |
 | TRANG_THAI_DA_DOI | Đặt phòng không còn `cho_huy` (đã trả lời, hoặc hết hạn [MỞ: US35-H3]) |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Một bên của đặt phòng có sale xin hủy
+**Ai gọi:** CHU của căn hoặc sale của đặt phòng (PQ7.CHU, PQ7.SALE). Chỉ đặt phòng có sale: `tu_yeu_cau`, hoặc `chu_tu_ghi` có `sale_id`. Đặt phòng khách lẻ: chủ nhà xóa bằng `DELETE`, không xin hủy. Đặt phòng căn tự nhập: không áp dụng. Sale bị ngừng xin hủy được không: [MỞ: US35-H4] PQ7.SALE, QD-012. Bản này cho phép, vì QD-007 giữ đặt phòng cũ của sale. Bên kia đã xóa tài khoản (tài khoản vẫn còn, QD-013): xin hủy được không [MỞ: US35-H5] QD-012 không nói. Bản này trả `DU_LIEU_SAI`.
+
+**Việc kéo theo:** ghi `thong_bao` cho bên kia, `booking_id` là đặt phòng này (mục "Cài đặt thông báo" (US21), QD-012: hiện ở đặt phòng và P13). Tên loại: `xin_huy_dat_phong` (tên tự đặt, chưa có trong danh sách `thong_bao.loai` của Thiet_ke_DB). `du_lieu`: căn, ngày ở; không tên khách, không giá bán khi bên nhận là chủ nhà.
+
+**Chống bấm hai lần:** có.
+
+### Bên kia đồng ý hay từ chối lời xin hủy
+**Ai gọi:** bên của đặt phòng không phải bên đã xin: CHU của căn khi sale xin, sale của đặt phòng khi chủ nhà xin (PQ7.CHU, PQ7.SALE). Người đã xin gọi: `KHONG_TIM_THAY`. Người ngoài: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** ghi `thong_bao` cho bên đã xin, loại `tra_loi_huy_dat_phong` (tên tự đặt, chưa có trong Thiet_ke_DB), `du_lieu` có `dong_y` (mục "Cài đặt thông báo" (US21)). Đồng ý thì cập nhật `can.lich_cap_nhat_luc` để sale khác thấy lịch mới. Yêu cầu đã bị từ chối vì đặt phòng này không tự mở lại (nguồn không nói, không làm).
+
+**Chống bấm hai lần:** có.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.

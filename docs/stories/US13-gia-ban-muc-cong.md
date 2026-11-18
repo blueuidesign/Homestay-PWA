@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US12
@@ -115,6 +116,23 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | DU_LIEU_SAI | Thiếu `so_tien`; số lẻ, số âm, quá giới hạn; ngày sai như |
 | KHONG_TIM_THAY | Không có vai được phép với căn |
 | KHONG_CON_QUYEN | Chủ nhà đã ngừng người gọi |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Chi tiết một căn của chủ nhà cho sale
+**Ai gọi:** sale có vai `nguon_phong` với căn (PQ3.SALE). Vai khác: lỗi quyền chung. Căn `cua_toi` và `tu_nhap`: [MỞ: US13-H5] chạm căn của tôi hay căn tự nhập ở S1 mở S3 (mục "Lịch phòng 7 ngày" (US16) bước 8) hay S6-07, S6-03 (mục "Danh sách căn và nguồn phòng" (US16) bước 9, mục "Chi tiết căn tự nhập" (US16)). Bản này chỉ đặc tả vai `nguon_phong`; tới khi có câu trả lời, căn `cua_toi`, `tu_nhap` dùng (can-anh.md) và API này trả `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Đặt mức cộng riêng của sale cho một căn
+**Ai gọi:** sale có vai `nguon_phong` với căn (PQ11.SALE), hoặc CHU của căn `tu_nhap` (giá bán căn tự nhập dùng mức cộng này, Thiet_ke_DB `muc_cong`, PQ14.SALE). Căn `cua_toi`: [MỞ: US13-H6]; tới khi có câu trả lời, `KHONG_TIM_THAY`. Chủ nhà với căn của mình: `KHONG_TIM_THAY` (PQ11.CHU: chủ nhà không có mức cộng). Vai khác: lỗi quyền chung.
+
+**Việc kéo theo:** Không. Không đổi `booking_rieng` của đặt phòng đã có (mục "Sửa booking" (US10) bước 5, Thiet_ke_DB `booking_rieng`) và `yeu_cau_dat_phong.gia_ban` đã gửi.
+
+**Chống bấm hai lần:** có (`Idempotency-Key`). PUT ghi đè, gửi lại cũng ra cùng kết quả.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

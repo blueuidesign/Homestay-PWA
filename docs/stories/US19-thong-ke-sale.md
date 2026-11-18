@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US15, US16, US28
@@ -117,6 +118,29 @@ Có gồm booking `sale_tu_ghi` của căn tự nhập và booking căn của t�
 |---|---|
 | DU_LIEU_SAI | `thang` thiếu hay sai dạng; `so_thang` ngoài 1 đến 12 |
 
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Danh sách đặt phòng của sale
+**Ai gọi:** người dùng có tài khoản. Chỉ booking có `sale_id` là người gọi (PQ7.SALE). Không có vai khác.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Số liệu một tháng của sale
+**Ai gọi:** người đã đăng nhập. Số liệu chỉ gồm đặt phòng có `booking.sale_id` là người gọi: đặt phòng thành từ yêu cầu (`tu_yeu_cau`), đặt phòng chủ nhà ghi chọn sale này (`chu_tu_ghi`, mục "Booking chủ nhà ghi cho sale" (US28)), đặt phòng sale tự ghi cho căn tự nhập (`sale_tu_ghi`) (mục "Thống kê của sale" (US19) Mục đích, QT3.1). Gồm cả đặt phòng với chủ nhà đã ngừng chia sẻ (QD-007), chủ nhà đã xóa tài khoản (QD-013), căn đã ẩn (US19-NT6). Chỉ của mình (PQ15.SALE). Đặt phòng ở căn riêng của sale (QD-005) có tính không: [MỞ: US19-H7] mục "Thống kê của sale" (US19) không nói.
+
+Luật tính:
+- Chỉ đặt phòng chưa hủy (QD-012). Yêu cầu chưa thành đặt phòng không tính (US19-NT3).
+- Theo tháng của đêm (QD-010, QT2.2, QT3.2).
+- Tiền chênh của một đêm = giá bán đêm đó trừ giá chủ đêm đó (QT3.2). Data-model chỉ lưu tổng `gia_ban_booking.gia_ban`, không lưu giá bán từng đêm. Chia giá bán cho các đêm thế nào khi đặt phòng qua hai tháng: [MỞ: US19-H8] QT3.2; GD12 chỉ nói căn tự nhập. Đặt phòng nằm trọn trong một tháng thì không phụ thuộc câu này.
+- Doanh số = tổng giá bán các đêm thuộc tháng (mục "Thống kê của sale" (US19) bước 3).
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
@@ -212,7 +236,7 @@ Sale đọc đặt phòng của mình qua view `v_booking_cua_sale` (không có 
 - Thống kê của chủ nhà (mục "Thống kê tháng của chủ nhà" (US18) đến mục "Chưa thu tiền" (US18)): US18.
 - Chọn tháng khác ở S7 (CH-030): chưa quyết, S7 chỉ có nhãn "Tháng 10/2026".
 - Đặt phòng ở căn riêng của sale (QD-005) có vào thống kê của sale không: chưa quyết. [MỞ: US19-H2] US19-Q4
-- Mục chờ chủ theo tháng đang xem hay mọi yêu cầu đang chờ (API, câu hỏi 15): tạm mọi yêu cầu đang chờ. [MỞ: US19-H3] US19-Q5
+- Mục chờ chủ theo tháng đang xem hay mọi yêu cầu đang chờ [MỞ: US19-H9]: tạm mọi yêu cầu đang chờ. [MỞ: US19-H3] US19-Q5
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

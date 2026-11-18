@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: tb
 - Làm sau khi xong: US1
@@ -63,6 +64,16 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | DU_LIEU_SAI | Không có tệp, quá 15 MB, hoặc không phải JPEG, PNG, HEIC. `o`: `tep` |
 | QUA_NHIEU | Người gọi đang giữ quá 50 ảnh tạm chưa gắn (giới hạn kỹ thuật, chống đầy đĩa) |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Tải một ảnh ngay khi người dùng chọn, trả `anh_id` tạm chưa gắn căn
+**Ai gọi:** người có tài khoản (không phải phiên tạm của mục. Ảnh tạm thuộc người tải; chỉ người đó gắn được vào căn của mình (PQ3.CHU, PQ14.SALE). Chưa đăng nhập: `CHUA_DANG_NHAP` (Luật chung 4). Phiên tạm: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. Việc định kỳ xóa ảnh tạm quá 24 giờ chưa gắn:
+
+**Chống bấm hai lần:** có. App giữ nguyên `Idempotency-Key` khi bấm "Thử lại" cho cùng một ảnh (mục "Ảnh khi thêm căn" (US25) bước 4).
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

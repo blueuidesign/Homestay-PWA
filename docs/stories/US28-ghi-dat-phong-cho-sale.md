@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US3, US5, US10
@@ -65,6 +66,16 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | DU_LIEU_SAI | `gia_ban` thiếu, lẻ, âm |
 | KHONG_TIM_THAY | Người gọi không phải `gia_ban_booking.sale_id` |
 | TRANG_THAI_DA_DOI | Đặt phòng `da_huy` [MỞ: US28-H2] QD-012 không nói |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Sale của đặt phòng sửa giá bán của mình
+**Ai gọi:** sale của đặt phòng có dòng `booking_rieng` với `sale_id` là người gọi (PQ11.SALE). Chủ nhà: `KHONG_TIM_THAY` (PQ11.CHU,. Sale khác: `KHONG_TIM_THAY`. Sale bị ngừng có sửa được không: [MỞ: US28-H9] QD-007 chỉ nói xem lại được. Đặt phòng căn tự nhập (sửa "Thu khách"): [MỞ: US28-H10] mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 6 màn sửa chưa thiết kế. Bản này cho cả hai, vì PQ11.SALE và PQ14.SALE cho sửa giá bán của mình.
+
+**Việc kéo theo:** Không. Chủ nhà không được báo, không thấy giá bán (PQ11.CHU).
+
+**Chống bấm hai lần:** có.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

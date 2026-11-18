@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US1, US17
@@ -247,6 +248,41 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | KHONG_TIM_THAY | `anh_id` không có, đã quá 24 giờ và bị xóa, đã gắn vào căn, hoặc do người khác tải |
 | DU_LIEU_SAI | Thiếu `anh_id` hoặc sai kiểu. Kèm `o` |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Đăng xuất
+**Ai gọi:** người có phiên, kể cả phiên tạm. Chỉ đăng xuất đúng phiên gửi kèm; không có cách đăng xuất phiên của máy khác hay của người khác (Luật chung 3). Không có phiên thì `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. Sau khi đăng xuất, mọi API gọi bằng phiên này trả `CHUA_DANG_NHAP`, không trả `PHIEN_HET_HAN`, để app không tự lấy phiên mới theo HV7. App về A1 hay tự gọi lại: [MỞ: US21-H7] bước 4 nói mất phiên thì app tự gọi lại mà không hỏi; mục "Tài khoản đăng nhập và đăng xuất" (US21) nói "Lần sau đăng nhập lại bằng Zalo". Hai câu cho hai kết quả khác nhau sau đăng xuất.
+
+**Chống bấm hai lần:** không cần `Idempotency-Key`. Gọi lại cho cùng kết quả.
+
+### Đọc hồ sơ và cài đặt của chính người gọi
+**Ai gọi:** người có phiên thường, chỉ đọc hồ sơ của mình (PQ1.CHU, PQ1.SALE, PQ2.CHU, PQ2.SALE). Không có tham số chọn người khác. Phiên tạm thì `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Sửa hồ sơ và cài đặt của chính người gọi
+**Ai gọi:** người có phiên thường, chỉ sửa hồ sơ của mình (PQ1.CHU, PQ1.SALE, PQ6.CHU, PQ11.SALE). Ba trường bán phòng chỉ tài khoản `vai_chon` `sale` gửi được (PQ11.CHU). Phiên tạm thì `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:**
+- `ten_hien_thi`: người kia thấy tên mới ở lần đọc sau (US21-NT9). Không ghi thông báo.
+- `dem_cuoi_tuan`: `gia_dem` của mọi căn người gọi giữ đổi theo từ lần đọc sau bước 2), kể cả lịch và giá sale thấy. Có cập nhật `can.lich_cap_nhat_luc` của các căn đó không: [MỞ: US21-H8] cập nhật cột này khi đổi giá tháng, không nói khi đổi đêm cuối tuần.
+- `muc_cong_mac_dinh`, `lam_tron_50k`: giá bán tính lúc đọc đổi theo cho căn không có mức cộng riêng. Không đổi `booking_rieng` hay giá bán của yêu cầu đã gửi.
+- `cai_dat_thong_bao`: loại đã tắt thì từ lúc này server không ghi `thong_bao` loại đó, mục "Cài đặt thông báo" (US21) bước 5, US21-NT13). Thông báo đã ghi trước đó còn hiện ở P13 không: [MỞ: US21-H9] mục "Cài đặt thông báo" (US21) không nói.
+
+**Chống bấm hai lần:** có.
+
+### Gắn một ảnh tạm đã tải bằng làm ảnh đại diện của người gọi
+**Ai gọi:** người có phiên thường, chỉ với ảnh tạm chính mình đã tải (PQ1.CHU, PQ1.SALE). Ảnh tạm của người khác thì `KHONG_TIM_THAY` bước 3). Phiên tạm thì `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không ghi thông báo. Ảnh mới hiện cho người có quyền xem ở lần đọc sau.
+
+**Chống bấm hai lần:** có. Lần hai cùng khóa trả lại đúng kết quả, không báo `KHONG_TIM_THAY` vì ảnh tạm đã dùng.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

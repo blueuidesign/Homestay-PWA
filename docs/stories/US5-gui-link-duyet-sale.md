@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US1, US3
@@ -178,6 +179,46 @@ Cùng chủ nhà đã có dòng với cùng số điện thoại (thêm tay ho�
 |---|---|
 | `KHONG_TIM_THAY` | Không có dòng, hoặc người gọi không phải chủ nhà của dòng |
 | `TRANG_THAI_DA_DOI` | Dòng không phải `da_ket_noi` và không phải `chu_ngung` (ví dụ sale vừa bỏ nguồn, hoặc dòng thêm tay). Ngừng sale đã xóa tài khoản: [MỞ: US5-H1]. Dòng đã `chu_ngung`: trả kết quả như lần đầu, không ghi lần hai |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Chủ nhà thu hồi link mời hoặc link gửi lịch của mình
+**Ai gọi:** người tạo link, loại `moi_sale` hoặc `gui_lich` (PQ18.CHU). Người khác: `KHONG_TIM_THAY`. Sale thu hồi link xin lịch của mình: [MỞ: US5-H2] PQ18.SALE không có quyền thu hồi; tới khi có quyết định, link `xin_lich` trả `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không. Kết nối đã tạo từ link này vẫn giữ: QD-008 nói rõ cho link hết hạn ("Sale đã bấm Thêm lịch trước khi link hết hạn vẫn giữ kết nối"); với link thu hồi: [MỞ: US5-H3] QD-008 chỉ nói link hết hạn. Sau khi thu hồi, tạo link mới.
+
+**Chống bấm hai lần:** có.
+
+### Chủ nhà thêm tay một sale chưa dùng app
+**Ai gọi:** tài khoản vai chọn `chu_nha` (PQ17.CHU). Vai chọn `sale`: `KHONG_TIM_THAY`. Phiên tạm: `CHUA_DANG_NHAP`.
+
+**Việc kéo theo:** Không. Server không gửi gì cho số điện thoại này (QD-011: không lưu thông tin khách; đây là sale, chủ nhà tự gõ).
+
+**Chống bấm hai lần:** có.
+
+### Chi tiết một kết nối
+**Ai gọi:**
+- Chủ nhà của dòng (`chu_nha_id` là người gọi, PQ17.CHU).
+- Sale của dòng (`sale_id` là người gọi) khi `trang_thai` `da_ket_noi` (PQ17.SALE).
+- Người khác: `KHONG_TIM_THAY` (PQ Luật chung 3).
+- Sale của dòng `chu_ngung`: `KHONG_CON_QUYEN`, `ly_do` "Chủ nhà đã ngừng chia sẻ lịch", HV5). Sale của dòng `sale_bo`: `KHONG_CON_QUYEN`. Sale của dòng có chủ nhà đã xóa tài khoản: `KHONG_CON_QUYEN`, `ly_do` "Chủ nhà đã xóa tài khoản" (mục "Danh sách căn và nguồn phòng" (US16) bước 10, PQ23.SALE, QD-013).
+- Chủ nhà của dòng có sale đã xóa tài khoản: `KHONG_CON_QUYEN`, `ly_do` "Sale đã xóa tài khoản" (PQ23.CHU: dòng không mở được, QD-013).
+- Chủ nhà mở dòng `chua_ket_noi`, `chu_ngung`, `sale_bo`: [MỞ: US5-H4] mục "Chủ nhà quản lý danh sách sale" (US5) bước 5 chỉ nói sale đã kết nối; tới khi có quyết định, trả bản của chủ nhà với các trường có được.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
+
+### Chủ nhà ngừng cho một sale xem lịch
+**Ai gọi:** chủ nhà của dòng (PQ17.CHU). Sale, người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:**
+- Thông báo cho sale bị ngừng (mục "Cài đặt thông báo" (US21), QD-007), trừ khi sale đã tắt loại này. Tên loại chưa có trong Thiet_ke_DB: đề xuất `chu_ngung_ket_noi`. `du_lieu`: tên hiển thị chủ nhà. Có vào popup hôm nay không: chờ Tùng (mục "Cài đặt thông báo" (US21)).
+- Từ lúc này mọi API lịch, căn, giá của sale với chủ nhà này trả `KHONG_CON_QUYEN` kèm "Chủ nhà đã ngừng chia sẻ lịch", trừ đọc đặt phòng cũ của chính sale, QD-007). Link xin lịch của sale mở bởi chủ nhà này trả `LINK_KHONG_DUNG_DUOC`.
+- Chủ nhà cho xem lại được không: [MỞ: CH-096].
+
+**Chống bấm hai lần:** có.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.

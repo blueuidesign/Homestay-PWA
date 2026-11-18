@@ -2,6 +2,7 @@
 
 - Loại: tính năng
 - Trạng thái: chưa làm
+- Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
 - Làm sau khi xong: US5, US6, US12
@@ -259,6 +260,29 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | DU_LIEU_SAI | `tu` sai định dạng; `so_ngay` khác 7 và 14; `sap_xep` không thuộc ba giá trị (`o` là tên trường) |
 | KHONG_TIM_THAY | Có `can_id` mà người gọi không có vai với căn đó |
 | KHONG_CON_QUYEN | Có `can_id` của căn mà chủ nhà đã ngừng người gọi (mục Chung) |
+
+## Ai được làm và việc kéo theo
+Nguyên liệu chép từ đặc tả máy chủ của bản Zalo, đã đổi tên bảng và mã. Đối chiếu với hàm database ở mục Database khi viết lại story: chỗ nào lệch thì ghi vào "Database đang lệch story". Tên lỗi viết hoa (`KHONG_TIM_THAY`, `DU_LIEU_SAI`) là tên loại lỗi của bản cũ; bản PWA báo bằng câu tiếng Việt.
+
+### Sale bỏ một nguồn phòng; sale hoặc chủ nhà xóa dòng của người kia đã xóa tài khoản
+**Ai gọi:**
+- Sale của dòng `da_ket_noi`: bỏ nguồn (PQ17.SALE).
+- Sale của dòng có chủ nhà đã xóa tài khoản: xóa dòng (PQ23.SALE).
+- Chủ nhà của dòng có sale đã xóa tài khoản: xóa dòng (PQ23.CHU,.
+- Chủ nhà xóa dòng thêm tay `chua_ket_noi`, hay dòng `chu_ngung`: [MỞ: CH-096]; tới khi có quyết định, `KHONG_TIM_THAY`.
+- Sale bỏ dòng `chu_ngung`: [MỞ: US16-H3] PQ17.SALE; tới khi có quyết định, `KHONG_CON_QUYEN`.
+- Người khác: `KHONG_TIM_THAY`.
+
+**Việc kéo theo:** Không có thông báo cho chủ nhà khi sale bỏ nguồn (mục "Cài đặt thông báo" (US21) không có loại này). Sau khi bỏ, API lịch của sale không còn căn của chủ nhà đó (US16-NT15). Sale đã bỏ nguồn còn xem lại đặt phòng cũ với chủ nhà đó không: [MỞ: US16-H4] CH-098 (QD-007 chỉ nói sale bị ngừng). Yêu cầu đặt phòng đang chờ của sale với chủ nhà đó: [MỞ: US16-H5] CH-098.
+
+**Chống bấm hai lần:** có.
+
+### Lịch theo ngày của mọi căn sale được xem, chia nhóm, kèm giá
+**Ai gọi:** người dùng có tài khoản. Kết quả chỉ gồm căn người gọi có vai `cua_toi`, `tu_nhap`, `nguon_phong` (mục Chung). Không có căn nào thì trả danh sách rỗng, không lỗi (app hiện A5, mục "Lịch phòng 7 ngày" (US16) trạng thái rỗng). Có `can_id` mà không có vai với căn đó: lỗi quyền chung.
+
+**Việc kéo theo:** Không.
+
+**Chống bấm hai lần:** không cần (đọc).
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
