@@ -11,6 +11,8 @@ on:
     paths:
       - 'supabase/migrations/**'
       - 'supabase/seed/**'
+      - 'scripts/day-migration.sh'
+      - '.github/workflows/migration-staging.yml'
   workflow_dispatch:
 
 permissions:

@@ -28,7 +28,7 @@ Chưa tạo project production. Chờ Tùng trả lời CH-002 (dữ liệu đ�
 Từ khi có bước này, migration mới merge vào `main` tự chạy lên staging, không ai phải dán SQL hay bấm xác nhận.
 1. Supabase → project `home247-staging` → nút **Connect** (đầu trang) → **Session pooler** → chép chuỗi kết nối dạng `postgresql://postgres.<mã>:[YOUR-PASSWORD]@...pooler.supabase.com:5432/postgres`. Thay `[YOUR-PASSWORD]` bằng mật khẩu database staging. Quên mật khẩu thì Project Settings → Database → Reset database password (staging chỉ có dữ liệu giả, đặt lại không sao).
 2. GitHub → repo → Settings → Secrets and variables → Actions → New repository secret. Tên `STAGING_DB_URL`, giá trị là chuỗi ở bước 1. Không dán chuỗi này vào chat.
-3. GitHub → tab Actions → "Migration staging" → Run workflow. Thấy dấu xanh là xong.
+3. Lần đầu: merge PR thêm workflow này là nó tự chạy. Muốn chạy lại thì GitHub → tab Actions → "Migration staging" → Run workflow. Thấy dấu xanh là xong.
 
 ### Bước 4 · Project mới trên claude.ai
 1. claude.ai → Projects → Create project, ví dụ tên `Home247 PWA`.
