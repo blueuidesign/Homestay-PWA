@@ -16,7 +16,7 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS3, type TongGiaS3 } from "./s3-can-man";
 
-// S3 · Chi tiết căn (YC5.4). Mở từ thẻ căn ở S2 với state { can_id, ngay_nhan, ngay_tra } (TrangThaiCanSale).
+// S3 · Chi tiết căn (mục "Chi tiết căn và giá bán" (US13)). Mở từ thẻ căn ở S2 với state { can_id, ngay_nhan, ngay_tra } (TrangThaiCanSale).
 // Tải GET /sale/can/:id (giá do server tính), lịch 2 tuần từ GET /sale/lich?so_ngay=14. Chọn chip thì PUT /sale/can/:id/muc-cong
 // và "Giá bán cho khách" lấy từ kết quả server. Lưu không được thì chip về mức đã lưu, báo "Chưa lưu được, bấm lại khi có mạng" (HV2 bước 3).
 // Mở lại căn đã xem thì hiện ngay dữ liệu cũ kèm "Đang cập nhật…" (HV1 bước 2). Mất quyền: "Bạn không còn xem được mục này" (HV5).

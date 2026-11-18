@@ -5,8 +5,8 @@ import { zalo, type KetQuaXinSo } from "../services/zalo";
 import { boNhoHoSo } from "../stores/ho-so";
 import { Icon } from "./icon";
 
-// Popup giải thích và luồng "Để sau" dùng chung (YC1.5.1), gọi hộp thoại Zalo xin tên và số (YC1.5.2).
-// Mọi nút ở danh sách "Khi nào xảy ra" của YC1.5 dùng lại phần này: CN7, CN7-00 (US5), sau này A6, A8, CN10...
+// Popup giải thích và luồng "Để sau" dùng chung (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), gọi hộp thoại Zalo xin tên và số (mục "Hộp thoại cấp quyền của Zalo" (US5)).
+// Mọi nút ở danh sách "Khi nào xảy ra" của mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) dùng lại phần này: CN7, CN7-00 (US5), sau này A6, A8, CN10...
 // Mini App chỉ lấy token và gửi cho server; không đổi token ở app (zalo-rang-buoc 2.4).
 
 export const CHU_LOI_MANG = "Chưa lưu được, bấm lại khi có mạng";
@@ -15,7 +15,7 @@ export const CHU_LOI_CHUNG = "Có lỗi, chưa lưu được. Bấm lại";
 
 export type NguoiKia = "sale" | "chu_nha";
 
-// Tiêu đề theo YC1.5.1 bước 1. Canvas CN7-P1, A8-P1 ghi "tên và số điện thoại": YC và canvas khác nhau, làm theo YC (ghi trong PR).
+// Tiêu đề theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) bước 1. Canvas CN7-P1, A8-P1 ghi "tên và số điện thoại": YC và canvas khác nhau, làm theo YC (ghi trong PR).
 export const tieuDePopup = (nguoiKia: NguoiKia) => `Chia sẻ số điện thoại với ${nguoiKia === "sale" ? "sale" : "chủ nhà"}`;
 export const CHU_LY_DO =
   "Sale nhận ra bạn qua tên và số điện thoại trong Nguồn phòng của họ. Home247 lấy tên, ảnh và số từ Zalo trong một lần, lưu vào hồ sơ của bạn. Khách không bao giờ thấy số này.";
@@ -82,7 +82,7 @@ export const PopupXinSo = ({
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 
-// Cần hỏi không (YC1.5.1-NT1, NT2): chỉ khi hồ sơ chưa có số
+// Cần hỏi không (US5-NT1, NT2): chỉ khi hồ sơ chưa có số
 export async function canXinSo(): Promise<boolean> {
   let h: HoSo | null = boNhoHoSo.lay();
   if (!h || !h.so_dien_thoai) {
@@ -94,7 +94,7 @@ export async function canXinSo(): Promise<boolean> {
 
 export type KetQuaDongY = { loai: "tiep" } | { loai: "o_lai" } | { loai: "loi"; chu: string; giu?: Extract<KetQuaXinSo, { kq: "co" }> };
 
-// Bước bấm "Đồng ý, tiếp tục" (YC1.5.2 bước 1, 2). giu: kết quả Zalo đã có từ lần trước, gửi lại cùng khóa khi mất mạng
+// Bước bấm "Đồng ý, tiếp tục" (mục "Hộp thoại cấp quyền của Zalo" (US5) bước 1, 2). giu: kết quả Zalo đã có từ lần trước, gửi lại cùng khóa khi mất mạng
 // để không xin Zalo lần hai và token một lần không bị dùng hai lần (api/phien-ho-so.md Chống bấm hai lần).
 export async function dongYXinSo(giu: Extract<KetQuaXinSo, { kq: "co" }> | null, khoa: string): Promise<KetQuaDongY> {
   const kq = giu ?? (await zalo.xinTenVaSo());
@@ -143,7 +143,7 @@ export class DieuKhienXinSo {
     this.capNhat();
   }
 
-  // Chạy việc gốc ngay nếu hồ sơ đã có số (YC1.5.1-NT2), không thì hiện popup (NT1)
+  // Chạy việc gốc ngay nếu hồ sơ đã có số (US5-NT2), không thì hiện popup (NT1)
   async chay(viecGoc: () => void | Promise<void>) {
     if (this.dangChay || this.mo) return;
     this.dangChay = true;
@@ -186,7 +186,7 @@ export class DieuKhienXinSo {
     if (tiep) await tiep();
   }
 
-  // "Để sau": việc gốc vẫn hoàn tất, không gọi POST /toi/thong-tin-zalo (YC1.5.1-NT3)
+  // "Để sau": việc gốc vẫn hoàn tất, không gọi POST /toi/thong-tin-zalo (US5-NT3)
   async deSau() {
     if (!this.mo) return;
     const viecGoc = this.mo.viecGoc;

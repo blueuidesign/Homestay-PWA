@@ -55,16 +55,16 @@ Nháp chỉ chứa thứ mất cũng được (theo `docs/zalo/rang-buoc.md`: Na
 Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
 
 ## HV4 · Người dùng đã từ chối quyền
-> **Bản PWA:** không có hộp thoại quyền của Zalo. Chọn ảnh dùng ô chọn file, không cần quyền. Số điện thoại theo YC1.5 và CH-001. Thông báo đẩy (khi làm) xin bằng hộp thoại của trình duyệt, có thẻ giải thích trước; từ chối thì chỉ còn thông báo trong app và thẻ chỉ cách bật lại trong cài đặt trình duyệt. Các NT nói "hộp thoại Zalo" đọc là hộp thoại tương ứng của trình duyệt, nếu có.
+> **Bản PWA:** không có hộp thoại quyền của Zalo. Chọn ảnh dùng ô chọn file, không cần quyền. Số điện thoại theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) và CH-001. Thông báo đẩy (khi làm) xin bằng hộp thoại của trình duyệt, có thẻ giải thích trước; từ chối thì chỉ còn thông báo trong app và thẻ chỉ cách bật lại trong cài đặt trình duyệt. Các NT nói "hộp thoại Zalo" đọc là hộp thoại tương ứng của trình duyệt, nếu có.
 Rủi ro: tb
 Mục đích: người dùng đã bấm từ chối trong hộp thoại của Zalo vẫn biết cách bật lại, và không gặp nút bấm không phản hồi.
 Khi nào xảy ra: người dùng bấm việc cần quyền (số điện thoại, chọn ảnh, tên và ảnh Zalo, nhận thông báo) mà `getSetting` báo quyền đã bị từ chối.
 
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 1 | Bấm việc cần quyền lần đầu | Màn hoặc thẻ giải thích của app trước, rồi mới gọi hộp thoại Zalo (với số điện thoại: YC1.5.1). Tên và số điện thoại xin trong cùng một lần: một thẻ giải thích, người dùng bấm đồng ý một lần thì app xin cả tên và ảnh (`scope.userInfo`) và số (`getPhoneNumber`), không bắt bấm lại việc gốc (YC1.5) | | Hộp thoại xin quyền. Tên và số ra một hộp thoại hay hai, thứ tự nào: cần kiểm tra trên máy thật | |
+| 1 | Bấm việc cần quyền lần đầu | Màn hoặc thẻ giải thích của app trước, rồi mới gọi hộp thoại Zalo (với số điện thoại: mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)). Tên và số điện thoại xin trong cùng một lần: một thẻ giải thích, người dùng bấm đồng ý một lần thì app xin cả tên và ảnh (`scope.userInfo`) và số (`getPhoneNumber`), không bắt bấm lại việc gốc (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | | Hộp thoại xin quyền. Tên và số ra một hộp thoại hay hai, thứ tự nào: cần kiểm tra trên máy thật | |
 | 2 | Từ chối trong hộp thoại Zalo | Không lỗi. Quay về màn cũ, việc không cần quyền vẫn làm tiếp được | | Trả `-201`. Số điện thoại: không nhớ, gọi lại thì hộp thoại hiện lại. Tên và ảnh (`-1401`), và từ chối một trong hai khi xin cùng lúc: chưa thử. Quyền khác: chưa thử, tài liệu ghi là nhớ | |
-| 3a | Bấm lại việc cần tên và số điện thoại | Hiện lại thẻ giải thích (YC1.5.1), người dùng bấm đồng ý thì gọi lại hộp thoại Zalo. Thẻ có thêm nút "Mở cài đặt quyền" | | Hộp thoại xin quyền | |
+| 3a | Bấm lại việc cần tên và số điện thoại | Hiện lại thẻ giải thích (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), người dùng bấm đồng ý thì gọi lại hộp thoại Zalo. Thẻ có thêm nút "Mở cài đặt quyền" | | Hộp thoại xin quyền | |
 | 3b | Bấm lại việc cần quyền khác | Không xin lại. Thẻ: câu nói vì sao cần quyền, nút "Mở cài đặt quyền" | | | |
 | 4 | Bấm "Mở cài đặt quyền" | | | `openPermissionSetting` | |
 | 5 | Bật quyền rồi quay lại | Làm tiếp việc đang dở | | | |
@@ -72,23 +72,23 @@ Khi nào xảy ra: người dùng bấm việc cần quyền (số điện tho�
 Câu trên thẻ theo từng quyền:
 | Quyền | Câu | Khi từ chối thì app làm gì |
 |---|---|---|
-| Tên và số điện thoại (xin cùng lúc, YC1.5) | "Cần tên và số điện thoại để kết nối với chủ nhà" | Theo YC1.5. Từ chối tên: người dùng tự gõ tên ở P2, ảnh hiện chữ cái đầu (YC9.2). Từ chối số: bên kia chỉ thấy tên (YC1.5.1 bước 3) |
+| Tên và số điện thoại (xin cùng lúc, mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | "Cần tên và số điện thoại để kết nối với chủ nhà" | Theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5). Từ chối tên: người dùng tự gõ tên ở P2, ảnh hiện chữ cái đầu (mục "Hồ sơ (Thông tin cá nhân)" (US21)). Từ chối số: bên kia chỉ thấy tên (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) bước 3) |
 | Chọn ảnh | "Cần quyền chọn ảnh để thêm ảnh căn" | Căn vẫn lưu được khi chưa có ảnh |
-| Nhận thông báo | "Bật thông báo để biết khi có yêu cầu đặt phòng" | Thông báo vẫn có trong app (YC9.3) |
+| Nhận thông báo | "Bật thông báo để biết khi có yêu cầu đặt phòng" | Thông báo vẫn có trong app (mục "Cài đặt thông báo" (US21)) |
 
 Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
 
 ## HV5 · Không còn quyền xem
 Rủi ro: tb
 Mục đích: người dùng mở thứ họ không còn được xem thì biết vì sao, và không thấy dữ liệu đó dù chỉ thoáng qua.
-Khi nào xảy ra: chủ nhà đã ngừng chia sẻ lịch với sale, căn hoặc booking đã bị xóa, link đã hết hạn, người dùng mở màn không thuộc vai của mình, hoặc chủ nhà đã xóa tài khoản (YC9.8, QD-013) mà sale mở căn, lịch của chủ nhà đó từ thông báo cũ hay màn cũ. Căn, lịch, giá vẫn còn ở server nhưng không gửi cho sale. Lý do khi chủ nhà đã xóa tài khoản: "Chủ nhà đã xóa tài khoản". Đặt phòng đã thành giao dịch với người đã xóa tài khoản thì không dùng HV5: vẫn mở được, tên người đó kèm ghi chú đỏ "Đã xoá tài khoản", không có số điện thoại (YC9.8 bước 5). Sale bấm gửi yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản từ màn mở trước đó thì không sang màn HV5 mà app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." (QD-013).
+Khi nào xảy ra: chủ nhà đã ngừng chia sẻ lịch với sale, căn hoặc booking đã bị xóa, link đã hết hạn, người dùng mở màn không thuộc vai của mình, hoặc chủ nhà đã xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22), QD-013) mà sale mở căn, lịch của chủ nhà đó từ thông báo cũ hay màn cũ. Căn, lịch, giá vẫn còn ở server nhưng không gửi cho sale. Lý do khi chủ nhà đã xóa tài khoản: "Chủ nhà đã xóa tài khoản". Đặt phòng đã thành giao dịch với người đã xóa tài khoản thì không dùng HV5: vẫn mở được, tên người đó kèm ghi chú đỏ "Đã xoá tài khoản", không có số điện thoại (mục "Khi người dùng xóa tài khoản" (US22) bước 5). Sale bấm gửi yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản từ màn mở trước đó thì không sang màn HV5 mà app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." (QD-013).
 
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở màn, link hoặc thông báo trỏ tới thứ không còn quyền | Màn: "Bạn không còn xem được mục này", một dòng lý do nếu server cho biết (ví dụ "Chủ nhà đã ngừng chia sẻ lịch"), nút "Về Lịch" | Không gửi dữ liệu của mục đó, chỉ gửi lý do | | |
 | 2 | Đang xem thì bị thu hồi quyền | Lần tải lại kế tiếp (HV1, HV3) đổi sang màn ở bước 1 | | | |
 
-Không dùng HV5 cho việc chủ nhà tắt "hiện giá cho sale". Trường hợp đó theo YC5-H3.
+Không dùng HV5 cho việc chủ nhà tắt "hiện giá cho sale". Trường hợp đó theo CH-068.
 
 Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
 
@@ -123,7 +123,7 @@ Tiêu chí nghiệm thu: ở story US36, tìm theo mã HV<số>-NT<số>.
 
 Rủi ro: thap
 Mục đích: người dùng lớn tuổi luôn thấy thông báo ngắn ở cùng một chỗ, cùng một kiểu, trên mọi màn.
-Khi nào xảy ra: app báo ngắn kết quả một việc vừa xong (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở CN4-03 (YC4.1), "Đã gửi lịch thành công" ở CN10-02, chủ nhà đồng ý cho xem lịch ở A9) mà không chuyển màn.
+Khi nào xảy ra: app báo ngắn kết quả một việc vừa xong (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở CN4-03 (mục "Chủ nhà ghi booking mới" (US3)), "Đã gửi lịch thành công" ở CN10-02, chủ nhà đồng ý cho xem lịch ở A9) mà không chuyển màn.
 
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|

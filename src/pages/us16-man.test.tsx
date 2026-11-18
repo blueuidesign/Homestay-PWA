@@ -106,7 +106,7 @@ const manS6 = async (them: Partial<React.ComponentProps<typeof NoiDungS6>> = {})
     />,
   );
 
-// ---------- S6 · YC6.1 ----------
+// ---------- S6 · mục "Danh sách căn và nguồn phòng" (US16) ----------
 
 test("test_YC6_1_NT1_US16_sale_co_2_can_cua_toi_2_chu_nha_va_1_can_tu_nhap_thi_thay_ba_nhom_dem_2_2_1", async () => {
   await themCanCuaToi("0812");
@@ -142,7 +142,7 @@ test("test_YC6_1_NT3_US16_gui_loi_moi_chi_mo_cua_so_chia_se_cua_Zalo_app_khong_t
       return "huy" as const;
     },
   } as unknown as CongZalo);
-  // Hồ sơ Hùng đã có số (DLM) nên không hiện popup xin số, mở cửa sổ chia sẻ ngay (YC6.1 bước 4, QD2)
+  // Hồ sơ Hùng đã có số (DLM) nên không hiện popup xin số, mở cửa sổ chia sẻ ngay (mục "Danh sách căn và nguồn phòng" (US16) bước 4, QD2)
   const dk = new DieuKhienXinSo();
   await dk.chay(async () => void (await zalo.chiaSeChu(tinMoiChuCan("Chú Bình"))));
   expect(dk.mo).toBeNull();
@@ -189,7 +189,7 @@ test("test_YC6_1_NT6_NT7_US16_bo_khoi_danh_sach_thi_dong_bien_ngay_khong_hoi_lai
   const sau = await getNguonPhong();
   expect(sau.nguon_phong.some((d) => d.da_xoa_tai_khoan)).toBe(false);
   expect(sau.nguon_phong).toHaveLength(1);
-  // Đặt phòng đã chốt vẫn ở danh sách đặt phòng của sale (YC7.6, US19): API này không đụng booking, nên Anh Tuấn vẫn còn nguyên
+  // Đặt phòng đã chốt vẫn ở danh sách đặt phòng của sale (mục "Trạng thái booking của sale" (US19), US19): API này không đụng booking, nên Anh Tuấn vẫn còn nguyên
 });
 
 test("test_YC6_1_NT9_NT10_NT11_US16_cham_can_chu_nha_mo_S3_cham_ten_chu_nha_mo_S6_04_cham_can_cua_toi_mo_S6_07_voi_ba_viec", async () => {
@@ -227,7 +227,7 @@ test("test_YC6_1_bao_cao_S6_00_chua_co_can_nao_hien_ba_nut", async () => {
   expect(s).toContain('data-man="S6-00"');
 });
 
-// ---------- S6-04 · YC6.2 ----------
+// ---------- S6-04 · mục "Chi tiết chủ nhà và bỏ nguồn phòng" (US16) ----------
 
 const chiTietHoa = async (): Promise<ChiTietNguonPhong> => {
   const hoa = (await getNguonPhong()).nguon_phong.find((d) => d.ten_hien_thi === "Chị Hoa")!;
@@ -269,7 +269,7 @@ test("test_YC6_2_NT3_US16_xac_nhan_thi_chu_nha_bien_khoi_nguon_phong_va_sale_kho
   await expect(getNguonPhongChiTiet(hoa.id)).rejects.toMatchObject({ loi: "KHONG_CON_QUYEN" });
 });
 
-// ---------- S6-02 · YC6.3 ----------
+// ---------- S6-02 · mục "Thêm căn tự nhập" (US16) ----------
 
 test("test_YC6_3_NT1_US16_con_thieu_mot_trong_bon_o_thi_dong_Con_thieu_liet_ke_dung_o_thieu", () => {
   expect(dongConThieuTuNhap({ ten: "", sdt: "", ma: "", phongNgu: null })).toBe("Còn thiếu: tên chủ nhà, số điện thoại, mã căn, số phòng ngủ");
@@ -331,7 +331,7 @@ test("test_YC6_3_NT7_NT8_US16_so_giuong_ghi_2PN_3_giuong_bo_trong_van_them_duoc_
   expect(dongConThieuTuNhap({ ten: "", sdt: "", ma: "", phongNgu: null })).not.toContain("giường");
 });
 
-// ---------- S6-03 · YC6.4 ----------
+// ---------- S6-03 · mục "Chi tiết căn tự nhập" (US16) ----------
 
 const s603 = (can: CanChiTiet, them: Partial<React.ComponentProps<typeof NoiDungS6CanTuNhap>> = {}) =>
   html(
@@ -382,7 +382,7 @@ test("test_YC6_4_NT2_US16_ngay_khong_co_dat_phong_khong_ghi_trong_va_S6_03_00_kh
   expect(rong).toContain('data-man="S6-03-00"');
   expect(van(rong)).toContain("Đặt phòng bạn đã ghi · 0");
   expect(van(rong)).toContain("Chưa có đặt phòng nào cho căn này");
-  // Phần "Đặt phòng bạn đã ghi" không có chữ "trống" (YC6.4-NT2); câu "không có lịch trống" ở khối chủ căn là lời nhắc, không phải ô ngày
+  // Phần "Đặt phòng bạn đã ghi" không có chữ "trống" (US16-NT25); câu "không có lịch trống" ở khối chủ căn là lời nhắc, không phải ô ngày
   const phan = rong.slice(rong.indexOf('data-khoi="dat-phong-da-ghi"'), rong.indexOf('data-khoi="can-nay"'));
   expect(van(phan)).not.toMatch(/trống/i);
   expect(nut(rong)).toContain("Đặt phòng");
@@ -414,7 +414,7 @@ test("test_YC6_4_NT5_US16_xoa_so_dien_thoai_chu_can_thi_khong_con_giu_so_va_nut_
   expect(chuSdtChe("0904123330")).toBe("0904 *** 330");
 });
 
-// ---------- S6-05, S6-06 · YC6.5 ----------
+// ---------- S6-05, S6-06 · mục "Ghi booking đã chốt cho căn tự nhập" (US16) ----------
 
 const form = (them: Partial<FormGhi> = {}): FormGhi => ({ chip: "hom", ngayNhan: "2026-10-08", soDem: 1, tra: "1.400.000", thu: "1.600.000", ...them });
 const s605 = (ct: CanChiTiet, f: FormGhi, them: Partial<React.ComponentProps<typeof NoiDungS6GhiDatPhong>> = {}) =>
@@ -491,7 +491,7 @@ test("test_HV1_US16_bam_hai_lan_cung_khoa_chi_ghi_mot_dat_phong_mat_mang_khong_g
   expect((await getCanChiTiet(v.id)).dat_phong_da_ghi).toHaveLength(1);
 });
 
-// ---------- S1, S1-04, A5 · YC5.1, YC1.4 ----------
+// ---------- S1, S1-04, A5 · mục "Lịch phòng 7 ngày" (US16), mục "Màn đầu tiên khi chưa có dữ liệu" (US1) ----------
 
 test("test_YC5_1_NT1_US16_nhom_Can_cua_toi_dung_tren_nhom_Nguon_phong", async () => {
   await themCanCuaToi("0812");

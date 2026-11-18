@@ -14,7 +14,7 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungKetQuaSale } from "./s3-yeu-cau-man";
 
-// S3-03 Chờ chủ nhà, S3-04 và S3-04-01 Đã chấp nhận, S3-05 Bị từ chối, S3-09 Hết hạn, S3-08 Đã hủy (YC4.5, YC4.7).
+// S3-03 Chờ chủ nhà, S3-04 và S3-04-01 Đã chấp nhận, S3-05 Bị từ chối, S3-09 Hết hạn, S3-08 Đã hủy (mục "Sale gửi yêu cầu đặt phòng" (US15), mục "Sale nhận kết quả yêu cầu" (US15)).
 // Một màn, mở với state { id } từ S3-02 (sau khi gửi) hoặc từ thông báo; trạng thái của yêu cầu quyết định vẽ gì.
 // Quay lại từ nền (kể cả sau khi nhắn Zalo, gọi điện) thì tải lại ngầm, màn tự đổi sang kết quả mới (HV3 bước 2, HV3-NT3).
 // Căn tương tự (S3-05, S3-09): GET /sale/tim cùng ngày, ghi_lich_su=false, bỏ căn đã gửi; chỉ hiện giá bán.

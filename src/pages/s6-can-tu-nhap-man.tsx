@@ -31,7 +31,7 @@ import type { CanChiTiet } from "../services/kieu";
 import { chuDong } from "../services/mau-tin";
 import { cacDem } from "../services/ngay";
 
-// Phần vẽ của S6-03 và S6-03-00 (YC6.4). Không gọi server. Màn: s6-can-tu-nhap.tsx.
+// Phần vẽ của S6-03 và S6-03-00 (mục "Chi tiết căn tự nhập" (US16)). Không gọi server. Màn: s6-can-tu-nhap.tsx.
 const Hang = ({ ten, phu, viec, onCham }: { ten: string; phu: string; viec: string; onCham: () => void }) => (
   <button type="button" className="dong-sale" data-viec={viec} onClick={onCham}>
     <div style={{ flex: "1 1 0%", minWidth: 0, display: "flex", flexDirection: "column", gap: 2 }}>

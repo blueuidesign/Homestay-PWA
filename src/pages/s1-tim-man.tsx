@@ -15,8 +15,8 @@ import {
 } from "../components/tim-phong-hien-thi";
 import type { MucTimGanDay, ToaNha } from "../services/kieu";
 
-// S1-02, S1-03 · Tìm phòng trống theo ngày (YC5.2 bước 1 đến 4). Phần vẽ, không gọi server.
-// Chưa có lọc "Giá mỗi đêm" [MỞ: api/sale.md câu hỏi 5], chip tòa "Khác" [MỞ: câu hỏi 6], lọc số khách (YC5-H14).
+// S1-02, S1-03 · Tìm phòng trống theo ngày (mục "Tìm phòng trống theo ngày" (US12) bước 1 đến 4). Phần vẽ, không gọi server.
+// Chưa có lọc "Giá mỗi đêm" [MỞ: api/sale.md câu hỏi 5], chip tòa "Khác" [MỞ: câu hỏi 6], lọc số khách (CH-073).
 
 export const CHU_TIM_GAN_DAY = "Tìm gần đây";
 export const CHU_LOC_THEM = "Lọc thêm · Không bắt buộc";

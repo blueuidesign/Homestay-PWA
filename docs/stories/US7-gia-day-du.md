@@ -13,7 +13,7 @@ Là chủ nhà nhiều căn, tôi muốn đặt cùng một giá cho nhiều că
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC3.6 · Đặt giá nhiều căn
+### Đặt giá nhiều căn
 Rủi ro: cao
 Mục đích: chủ nhà đặt cùng một giá cho nhiều căn một lần, thay vì đặt từng căn.
 Màn hình: CN6-05, CN6-06, CN6-05-00
@@ -24,7 +24,7 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Mở màn chọn căn | CN6-05: "CHỌN CĂN · ĐÃ CHỌN 2/4", nút "Chọn tất cả", danh sách căn | | Không | Không |
 | 2 | Chọn các căn | Nút dưới đáy "Đặt giá cho 2 căn" | Không gọi server | Không | Không |
-| 3 | Bấm "Đặt giá cho 2 căn" | CN6-06: tiêu đề "Đặt giá · 2 căn", khối "CĂN ÁP DỤNG" kèm nút "Đổi căn", rồi đặt giá như YC3.4 (12 tháng, ngày thường, cuối tuần, Áp dụng) | Bấm Áp dụng:: như `gia-thang` cho từng căn, trong một giao dịch | Không | Giá của mọi căn đã chọn |
+| 3 | Bấm "Đặt giá cho 2 căn" | CN6-06: tiêu đề "Đặt giá · 2 căn", khối "CĂN ÁP DỤNG" kèm nút "Đổi căn", rồi đặt giá như mục "Đặt giá theo tháng" (US4) (12 tháng, ngày thường, cuối tuần, Áp dụng) | Bấm Áp dụng:: như `gia-thang` cho từng căn, trong một giao dịch | Không | Giá của mọi căn đã chọn |
 | 4 | Bấm "Đặt giá ngày lễ, dịp đặc biệt" | Chưa vẽ cách đặt cho nhiều căn (?) | với `gia_dip`: như `gia-dip` cho từng căn, trong một giao dịch; một căn chồng dải dịp thì không ghi căn nào, trả `DIP_CHONG_NGAY` kèm mã căn | Không | Giá dịp (`gia_dip`) của mọi căn đã chọn |
 
 Theo quy tắc: Giá hai loại đêm; Giá theo tháng và năm.
@@ -38,7 +38,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC3.7 · Sao chép giá sang căn khác
+### Sao chép giá sang căn khác
 Rủi ro: cao
 Mục đích: chủ nhà có nhiều căn giống nhau dùng lại giá đã đặt của một căn.
 Màn hình: CN6-07, CN6-08
@@ -67,23 +67,23 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC3.4 · Đặt giá theo tháng: bảng bước ở US4. Story này làm NT6.
+- mục "Đặt giá theo tháng" (US4) · Đặt giá theo tháng: bảng bước ở US4. Story này làm NT6.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC3.4-NT6** Khi 1509 đã có B1 10/10 → 12/10 tiền phòng 2.200.000đ và chủ nhà đổi giá tháng 10 của 1509, thì B1 vẫn 2.200.000đ, doanh thu tháng 10 (YC7.1) không đổi vì B1. Theo quy tắc: Booking giữ giá riêng.
-- **YC3.6-NT1** Khi chủ nhà chọn 2 trong 4 căn, thì nút dưới đáy ghi "Đặt giá cho 2 căn" và dòng đếm ghi "2/4".
-- **YC3.6-NT2** Khi chủ nhà bấm "Chọn tất cả", thì cả 4 căn được chọn.
-- **YC3.6-NT3** Khi chủ nhà áp dụng giá ở CN6-06, thì mọi căn đã chọn đều nhận giá đó cho các tháng đã chọn.
-- **YC3.7-NT1** Khi chưa chọn căn đích, thì nút sao chép không dùng được và ghi "Chọn căn để sao chép".
-- **YC3.7-NT2** Khi chủ nhà chỉ chọn "Giá theo tháng", thì giá ngày lễ và dịp đặc biệt của căn đích không đổi.
-- **YC3.7-NT3** Khi sao chép xong sang 2 căn, thì thấy toast "Đã sao chép giá sang 2 căn".
+- **US7-NT1** Khi 1509 đã có B1 10/10 → 12/10 tiền phòng 2.200.000đ và chủ nhà đổi giá tháng 10 của 1509, thì B1 vẫn 2.200.000đ, doanh thu tháng 10 (mục "Thống kê tháng của chủ nhà" (US18)) không đổi vì B1. Theo quy tắc: Booking giữ giá riêng.
+- **US7-NT2** Khi chủ nhà chọn 2 trong 4 căn, thì nút dưới đáy ghi "Đặt giá cho 2 căn" và dòng đếm ghi "2/4".
+- **US7-NT3** Khi chủ nhà bấm "Chọn tất cả", thì cả 4 căn được chọn.
+- **US7-NT4** Khi chủ nhà áp dụng giá ở CN6-06, thì mọi căn đã chọn đều nhận giá đó cho các tháng đã chọn.
+- **US7-NT5** Khi chưa chọn căn đích, thì nút sao chép không dùng được và ghi "Chọn căn để sao chép".
+- **US7-NT6** Khi chủ nhà chỉ chọn "Giá theo tháng", thì giá ngày lễ và dịp đặc biệt của căn đích không đổi.
+- **US7-NT7** Khi sao chép xong sang 2 căn, thì thấy toast "Đã sao chép giá sang 2 căn".
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC3: Giá hai loại đêm, Giá theo tháng và năm, Giá dịp thay giá tháng, Sao chép giá thay giá có sẵn, Booking giữ giá riêng. QT4.1 (bảng giá chỉ điền sẵn tiền phòng, không đổi đặt phòng đã có). HV1 đến HV3, HV5, HV8.
+Quy tắc trong nhóm Căn và giá: Giá hai loại đêm, Giá theo tháng và năm, Giá dịp thay giá tháng, Sao chép giá thay giá có sẵn, Booking giữ giá riêng. QT4.1 (bảng giá chỉ điền sẵn tiền phòng, không đổi đặt phòng đã có). HV1 đến HV3, HV5, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -217,13 +217,13 @@ Trạng thái riêng:
 - `fn_sao_chep_gia`: test ở t_07_can_gia_mo_rong.sql
 
 ## Ngoài phạm vi
-- Giá theo tháng của một căn (YC3.4-NT1 đến NT5): US4.
-- Giá ngày lễ, dịp đặc biệt của một căn (YC3.5): US8.
-- Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn (YC3.6 bước 4): chưa có màn (?), chưa US nào nhận. [MỞ: YC3-H13] (YC3.6 bước 4 chưa vẽ)
+- Giá theo tháng của một căn (US4-NT3 đến NT5): US4.
+- Giá ngày lễ, dịp đặc biệt của một căn (mục "Giá ngày lễ và dịp đặc biệt" (US8)): US8.
+- Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn (mục "Đặt giá nhiều căn" bước 4): chưa có màn (?), chưa US nào nhận. [MỞ: CH-019] (mục "Đặt giá nhiều căn" bước 4 chưa vẽ)
 - Cách "thay" giá có sẵn khi sao chép (phạm vi năm, tháng nguồn chưa đặt, dải chồng ngày của căn đích): [MỞ: US7-H1]. Các kịch bản dưới đây chỉ chạm ca không phụ thuộc phần này.
-- Ngày tính giá cuối tuần (YC3.8): US11.
-- Sale thấy giá (YC5.1-NT2): US6.
-- Căn đã xóa không còn trong danh sách chọn căn (YC3.9): US27.
+- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)): US11.
+- Sale thấy giá (US6-NT12): US6.
+- Căn đã xóa không còn trong danh sách chọn căn (mục "Xóa căn" (US27)): US27.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

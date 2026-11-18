@@ -2,7 +2,7 @@ import { tinMoiSale } from "../components/sale-hien-thi";
 import { postLink, postLinkDaGui } from "./api";
 import { zalo } from "./zalo";
 
-// Việc gốc của hai nút ở CN7, CN7-00 (YC1.9 bước 1a). Tách khỏi màn để test.
+// Việc gốc của hai nút ở CN7, CN7-00 (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1a). Tách khỏi màn để test.
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 
@@ -14,7 +14,7 @@ export async function guiLinkQuaZalo(): Promise<"da_gui" | "huy" | "loi"> {
   return kq;
 }
 
-// Lấy link mời rồi sao chép, đếm một lần (YC1.9 bước 1a; sao chép cũng tính một lần, api/ket-noi-link.md da-gui)
+// Lấy link mời rồi sao chép, đếm một lần (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1a; sao chép cũng tính một lần, api/ket-noi-link.md da-gui)
 export async function saoChepLink(): Promise<boolean> {
   const link = await postLink({ loai: "moi_sale" }, khoaMoi());
   const ok = await zalo.saoChep(link.duong_dan);

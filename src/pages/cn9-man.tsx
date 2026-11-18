@@ -24,9 +24,9 @@ import {
 } from "../components/yeu-cau-hien-thi";
 import { CAC_LY_DO_TU_CHOI, type KetQuaChapNhan, type LyDoTuChoi, type YeuCauChu } from "../services/yeu-cau";
 
-// CN9 Yêu cầu đặt phòng (YC4.6 bước 3 đến 5, YC4.8 bước 2), CN9-02 Đã chấp nhận, CN9-03 Đã từ chối. Phần vẽ, không gọi server.
+// CN9 Yêu cầu đặt phòng (mục "Chủ nhà nhận và trả lời yêu cầu" (US15) bước 3 đến 5, mục "Yêu cầu trùng ngày" (US15) bước 2), CN9-02 Đã chấp nhận, CN9-03 Đã từ chối. Phần vẽ, không gọi server.
 // Chủ nhà chỉ thấy "Giá của bạn": YeuCauChu không có gia_ban, tien_chenh (quy tắc Sale thấy hai giá, chủ nhà thấy một giá, PQ11.CHU).
-// Số "đã bán N đặt phòng của bạn": [MỞ: YC4-H6], không vẽ.
+// Số "đã bán N đặt phòng của bạn": [MỞ: CH-022], không vẽ.
 
 const Dong = ({ nhan, gia_tri, dam }: { nhan: string; gia_tri: string; dam?: boolean }) => (
   <div style={{ display: "flex", justifyContent: "space-between", gap: 12, font: "var(--text-body)", color: "var(--ink)" }}>

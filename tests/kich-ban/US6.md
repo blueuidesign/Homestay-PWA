@@ -14,7 +14,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Màn A1-link có thẻ "Anh Tuấn mời bạn xem lịch 2 căn".
   - Thẻ ghi "Bấm Bắt đầu ngay để xem lịch và giá mới nhất". Không có chữ "Đăng nhập" ở đâu trên màn.
   - Có nút "Bắt đầu ngay" và dòng "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách quyền riêng tư".
-- **Nguồn:** YC1.3-NT8, quy tắc Điều khoản khi tiếp tục, PQ18.LINK
+- **Nguồn:** US6-NT8, PQ18.LINK
 
 ### US6-KB2 · Bấm "Bắt đầu ngay" từ link thì vào thẳng A10 `[Chính]`
 - **Mục đích:** người mở link không phải chọn vai, không bị hỏi số.
@@ -24,7 +24,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - App mở màn "Thêm lịch" (A10). Không hiện màn chọn "Tôi là chủ nhà" / "Tôi là sale".
   - Không có popup hay hộp thoại xin tên, số điện thoại.
-- **Nguồn:** YC1.3-NT1, quy tắc Xin số điện thoại đúng lúc
+- **Nguồn:** US6-NT2
 
 ### US6-KB3 · Rời A10 mà không thêm lịch `[Chính]`
 - **Mục đích:** chỉ mở link thì chưa có gì vào lịch của sale, chủ nhà không thấy sale đã kết nối.
@@ -36,7 +36,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 2: Máy 2 thấy màn "Chưa có nguồn phòng". Không có Sapphire 1103, À La Carte 2208.
   - Sau bước 3: nhóm "Đã kết nối" của Anh Tuấn không có Zalo thử B.
-- **Nguồn:** YC1.3-NT3, quy tắc Sale tự thêm lịch
+- **Nguồn:** US6-NT4
 
 ### US6-KB4 · Sale đã có tài khoản mở link, A10 không có giá `[Quyền]`
 - **Mục đích:** A10 cho xem trước căn nhưng không lộ giá.
@@ -49,7 +49,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Hai thẻ căn có ảnh: Sapphire 1103 (3PN, view thành phố), À La Carte 2208 (1PN, view biển).
   - Không có số tiền nào trên màn.
   - Nút dính đáy "Thêm lịch của Anh Tuấn".
-- **Nguồn:** YC1.3-NT2, PQ3.LINK, PQ5.LINK
+- **Nguồn:** US6-NT3, PQ3.LINK, PQ5.LINK
 
 ### US6-KB5 · Thêm lịch khi chưa có số, chọn "Để sau" `[Zalo]`
 - **Mục đích:** popup xin số hiện trước hộp thoại Zalo; "Để sau" vẫn thêm được lịch.
@@ -64,7 +64,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 3: app sang "Lịch phòng", toast "✓ Đã thêm lịch 2 căn của Anh Tuấn" ngay dưới thanh tiêu đề.
   - Lịch có Sapphire 1103 và À La Carte 2208.
   - Sau bước 4: toast tự tắt.
-- **Nguồn:** YC1.3-NT7, YC1.5.1-NT1, YC1.5.1-NT3, HV8-NT2
+- **Nguồn:** US6-NT7, US5-NT1, US5-NT3, HV8-NT2
 
 ### US6-KB6 · Sale vừa thêm lịch vào nhóm "Đã kết nối" `[Chính]`
 - **Mục đích:** chủ nhà thấy sale đã thêm lịch của mình.
@@ -73,7 +73,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   1. Máy 1: bấm tab "Sale".
 - **Mong đợi:**
   - Nhóm "Đã kết nối" có Zalo thử B (tên Zalo của tài khoản này).
-- **Nguồn:** YC1.3-NT4, quy tắc Nhóm kết nối
+- **Nguồn:** US6-NT5
 
 ### US6-KB7 · Mở link lần hai không nhân đôi `[Biên]`
 - **Mục đích:** sale mở lại link đã thêm thì được báo, lịch không có căn lặp.
@@ -84,7 +84,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 1: thẻ "Bạn đã có lịch của Anh Tuấn", nút "Xem lịch". Không có nút "Thêm lịch của Anh Tuấn".
   - Sau bước 2: lịch có đúng một hàng Sapphire 1103 và một hàng À La Carte 2208, nhóm ghi "NGUỒN PHÒNG · 2".
-- **Nguồn:** YC1.3-NT5, PQ17.LINK
+- **Nguồn:** US6-NT6, PQ17.LINK
 
 ### US6-KB8 · Chọn vai sale khi vào app không qua link `[Chính]`
 - **Mục đích:** sale mới thấy hai cách để có lịch, thanh tab không có "Tìm phòng".
@@ -97,7 +97,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Màn "Lịch phòng" ghi "Chưa có nguồn phòng".
   - Có nút "Gửi tin nhắn xin lịch đến chủ nhà" và "Thêm căn thủ công".
   - Thanh tab không có "Tìm phòng".
-- **Nguồn:** YC1.2-NT2, YC1.4-NT2
+- **Nguồn:** US6-NT1, US6-NT9
 
 ### US6-KB9 · Từ chối hộp thoại Zalo khi thêm lịch `[Zalo]`
 - **Mục đích:** từ chối quyền không làm app báo lỗi hay treo.
@@ -109,7 +109,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   4. Ở hộp thoại Zalo, bấm từ chối (hoặc đóng hộp thoại, không bấm "Cho phép").
 - **Mong đợi:**
   - Không có thông báo lỗi. App quay về màn "Thêm lịch", vẫn bấm được nút.
-- **Nguồn:** HV4 bước 2, YC1.5.2 (trạng thái đã từ chối quyền Zalo)
+- **Nguồn:** HV4 bước 2, mục "Hộp thoại cấp quyền của Zalo" (US5) (trạng thái đã từ chối quyền Zalo)
 
 ### US6-KB10 · Bấm lại sau khi từ chối, rồi cho phép `[Zalo]`
 - **Mục đích:** popup hiện lại có cách mở cài đặt; cho phép thì lịch được thêm, có số trong hồ sơ.
@@ -125,7 +125,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 3: hộp thoại Zalo hiện lại.
   - Sau bước 4: app sang "Lịch phòng", toast "✓ Đã thêm lịch 2 căn của Anh Tuấn".
   - Sau bước 5: ô Số điện thoại hiện số của Zalo thử C, nhãn "Từ Zalo ✓".
-- **Nguồn:** HV4-NT2, YC1.5.2-NT1, YC1.3 bước 4
+- **Nguồn:** US5-NT5, HV4-NT2
 
 ### US6-KB11 · Link sai `[Lỗi]`
 - **Mục đích:** link hỏng không lộ tên hay căn của ai, người dùng biết làm gì tiếp.
@@ -136,7 +136,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 1: màn ghi "Link này không mở được", "Chủ nhà đã xóa tài khoản hoặc link không đúng. Xin chủ nhà gửi lại link mới." Không có tên chủ nhà, tên căn hay ảnh căn.
   - Sau bước 2: app mở lịch của sale.
-- **Nguồn:** YC1.3 trạng thái mở từ link (A1-link-01), PQ18.LINK, PQ3.LINK
+- **Nguồn:** mục "Mở app từ link mời của chủ nhà" trạng thái mở từ link (A1-link-01), PQ18.LINK, PQ3.LINK
 
 ### US6-KB12 · Lịch 7 ngày ghi "Kín" đúng đêm `[Chính]`
 - **Mục đích:** sale thấy đêm kín và đêm trống theo booking của chủ nhà.
@@ -149,7 +149,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Ô 10/10, 11/10 (B1) và 13/10 (B5) ghi "Kín".
   - Ô 12/10 (ngày trả của B1) có số giá, không ghi "Kín".
   - Ô 07/10, 08/10, 09/10 có số giá.
-- **Nguồn:** YC5.1-NT2, QT2.1-VD1, PQ5.SALE
+- **Nguồn:** US6-NT12, QT2.1-VD1, PQ5.SALE
 
 ### US6-KB13 · Chủ nhà ghi đặt phòng, sale khác thấy "Kín" `[Chính]`
 - **Mục đích:** booking chủ nhà vừa lưu hiện kín với sale, không lộ người đặt.
@@ -163,7 +163,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Máy 2: ô 3402 ngày 08/10 ghi "Kín". Ô 09/10 vẫn có số giá.
   - Không có chữ "Khách lẻ" hay tên người đặt trên ô.
-- **Nguồn:** YC4.1-NT2, QT2.1, PQ4.SALE
+- **Nguồn:** US6-NT11, QT2.1, PQ4.SALE
 
 ### US6-KB14 · Sale chỉ thấy căn của chủ nhà đã kết nối `[Quyền]`
 - **Mục đích:** lịch sale không có căn của chủ nhà chưa kết nối hay căn của sale khác.
@@ -186,7 +186,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   3. Máy 2: bấm tab "Cá nhân" rồi bấm lại tab "Lịch".
 - **Mong đợi:**
   - Máy 2 thấy đủ 7 căn của Chủ nhà thử, có Căn 7. Không phải mở lại link.
-- **Nguồn:** YC1.12-NT1, quy tắc Căn mới tự hiện, PQ3.SALE
+- **Nguồn:** US6-NT10, PQ3.SALE
 
 ### US6-KB16 · Nghiêng máy và nút "Xoay ngang" `[Biên]`
 - **Mục đích:** app không tự xoay; sale chủ động bấm mới xoay giả.
@@ -201,7 +201,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 2: nút nhỏ "Xoay ngang" nằm cùng hàng với "Theo tên", ngay dưới hàng "7 ngày tới". Nút không che bảng hay chú thích.
   - Sau bước 3: cả bảng quay 90 độ, cột tên căn rộng hơn, không có thanh tab, có nút "Xoay dọc".
   - Sau bước 4: bảng về chiều dọc như trước.
-- **Nguồn:** YC5.1-NT5, YC5.1 bước 7
+- **Nguồn:** US6-NT13
 
 ### US6-KB17 · Mất mạng lúc đang xem lịch `[Mạng]`
 - **Mục đích:** sale ở chỗ sóng yếu vẫn xem được lịch đã tải.

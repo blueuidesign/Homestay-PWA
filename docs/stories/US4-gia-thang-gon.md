@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn đặt giá đêm cho một căn theo tháng, tách 
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC3.4 · Đặt giá theo tháng
+### Đặt giá theo tháng
 Rủi ro: cao
 Mục đích: chủ nhà đặt giá đêm cho một căn theo từng tháng, tách giá ngày thường và giá cuối tuần.
 Màn hình: CN6, CN6-00, CN6-04, CN6-09
@@ -28,8 +28,8 @@ Hành vi:
 | 4 | Bấm nút "Áp dụng cho Tháng 11 – 12" | Lưu giá cho các tháng đã chọn, toast "Đã áp dụng giá cho Tháng 11 – 12" (CN6-04) | ghi đè các tháng đã chọn, không chọn tháng nào thì `DU_LIEU_SAI`, cập nhật `lich_cap_nhat_luc`, không đổi tiền của đặt phòng đã có | Không | Giá ngày thường và cuối tuần của các tháng đã chọn |
 | 5 | Bấm "Năm 2026" | CN6-09: chọn "Đặt giá cho năm" gồm "Năm 2026 · Năm nay" và "Năm 2027 · Năm sau" | Chọn năm thì gọi lại | Không | Không |
 | 6 | Xem "Lịch giá tháng 10" | Lưới tháng, mỗi ngày ghi giá đêm (800k, 1,1tr, 1,3tr). Chú thích: Dịp đặc biệt, Ngày lễ, Có khách. Chuyển tháng bằng T09 / T11 | từng đêm của tháng đang xem: giá theo `gia_dem`, loại đêm (thường, cuối tuần, dịp), cờ có khách | Không | Không |
-| 7 | Chạm một ngày trên lịch giá | Gợi ý "Chạm một ngày để đặt giá ngày lễ, dịp đặc biệt" mở YC3.5 | Không gọi server | Không | Không |
-| 8 | Bấm "Sao chép giá sang căn khác" | Mở CN6-07, xem YC3.7 | Không gọi server | Không | Không |
+| 7 | Chạm một ngày trên lịch giá | Gợi ý "Chạm một ngày để đặt giá ngày lễ, dịp đặc biệt" mở mục "Giá ngày lễ và dịp đặc biệt" (US8) | Không gọi server | Không | Không |
+| 8 | Bấm "Sao chép giá sang căn khác" | Mở CN6-07, xem mục "Sao chép giá sang căn khác" (US7) | Không gọi server | Không | Không |
 
 Theo quy tắc: Giá hai loại đêm; Giá theo tháng và năm; Giá dịp thay giá tháng; Sale chỉ thấy giá sau khi đặt; Booking giữ giá riêng.
 
@@ -45,23 +45,23 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC3.1 · Danh sách căn: bảng bước ở US1. Story này làm NT3, NT4.
+- mục "Danh sách căn" (US1) · Danh sách căn: bảng bước ở US1. Story này làm NT3, NT4.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC3.1-NT3** Khi căn chưa đặt giá, thì thẻ ghi "Chưa đặt giá" và có nút "Đặt giá cho căn này".
-- **YC3.1-NT4** Khi căn đã đặt giá, thì thẻ ghi khoảng giá thấp nhất đến cao nhất của tuần này. Theo quy tắc: Giá tuần này.
-- **YC3.4-NT1** Khi chủ nhà chọn Tháng 11 và Tháng 12, nhập 800.000đ ngày thường và 1.100.000đ cuối tuần rồi bấm Áp dụng, thì cả hai tháng có giá đó cho các đêm tương ứng.
-- **YC3.4-NT2** Khi chưa chọn tháng nào, thì dòng ghi "Chưa chọn tháng nào. Chọn một tháng bên trên sau đó nhập giá." và không áp dụng được.
-- **YC3.4-NT3** Khi căn chưa đặt giá nào, thì thấy CN6-00 và 12 tháng đều ghi "Chưa đặt".
-- **YC3.4-NT4** Khi một đêm thuộc thứ 6 hoặc thứ 7, thì lịch giá hiện giá cuối tuần; các đêm còn lại hiện giá ngày thường. Theo quy tắc: Giá hai loại đêm.
-- **YC3.4-NT5** Khi chủ nhà đổi sang "Năm 2027", thì 12 ô tháng hiện giá của năm 2027.
+- **US4-NT1** Khi căn chưa đặt giá, thì thẻ ghi "Chưa đặt giá" và có nút "Đặt giá cho căn này".
+- **US4-NT2** Khi căn đã đặt giá, thì thẻ ghi khoảng giá thấp nhất đến cao nhất của tuần này. Theo quy tắc: Giá tuần này.
+- **US4-NT3** Khi chủ nhà chọn Tháng 11 và Tháng 12, nhập 800.000đ ngày thường và 1.100.000đ cuối tuần rồi bấm Áp dụng, thì cả hai tháng có giá đó cho các đêm tương ứng.
+- **US4-NT4** Khi chưa chọn tháng nào, thì dòng ghi "Chưa chọn tháng nào. Chọn một tháng bên trên sau đó nhập giá." và không áp dụng được.
+- **US4-NT5** Khi căn chưa đặt giá nào, thì thấy CN6-00 và 12 tháng đều ghi "Chưa đặt".
+- **US4-NT6** Khi một đêm thuộc thứ 6 hoặc thứ 7, thì lịch giá hiện giá cuối tuần; các đêm còn lại hiện giá ngày thường. Theo quy tắc: Giá hai loại đêm.
+- **US4-NT7** Khi chủ nhà đổi sang "Năm 2027", thì 12 ô tháng hiện giá của năm 2027.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC3: Giá hai loại đêm, Giá theo tháng và năm, Giá tuần này, Sale chỉ thấy giá sau khi đặt. Cuối tuần là T6 và T7 mặc định; đổi ngày tính cuối tuần (YC3.8) ở US11. HV1 đến HV3, HV8.
+Quy tắc trong nhóm Căn và giá: Giá hai loại đêm, Giá theo tháng và năm, Giá tuần này, Sale chỉ thấy giá sau khi đặt. Cuối tuần là T6 và T7 mặc định; đổi ngày tính cuối tuần (mục "Ngày tính giá cuối tuần" (US11)) ở US11. HV1 đến HV3, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -239,10 +239,10 @@ Trạng thái riêng:
 - `fn_dat_gia_thang`: test ở t_01_phan_quyen.sql
 
 ## Ngoài phạm vi
-- Giá nhiều căn, sao chép giá (YC3.6, YC3.7): US7.
-- Giá ngày lễ, dịp đặc biệt (YC3.5): US8.
-- Ngày tính giá cuối tuần (YC3.8): US11.
-- Sale thấy giá (YC5.1-NT2): US6.
+- Giá nhiều căn, sao chép giá (mục "Đặt giá nhiều căn" (US7), mục "Sao chép giá sang căn khác" (US7)): US7.
+- Giá ngày lễ, dịp đặc biệt (mục "Giá ngày lễ và dịp đặc biệt" (US8)): US8.
+- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)): US11.
+- Sale thấy giá (US6-NT12): US6.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

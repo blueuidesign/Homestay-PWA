@@ -3,9 +3,9 @@ import { cacDem, chuNgayNgan, chuTien } from "../services/ngay";
 import { chuLoaiView, chuPhongNgu } from "./can-hien-thi";
 import { DUONG } from "./duong-dan";
 
-// Chữ và luật tính của S3 (YC5.4) và P10 (YC5.6). Không gọi server. Giá bán ở S3 lấy từ server; chỗ tính ở đây chỉ để vẽ ví dụ P10.
+// Chữ và luật tính của S3 (mục "Chi tiết căn và giá bán" (US13)) và P10 (mục "Mức cộng giá mặc định" (US13)). Không gọi server. Giá bán ở S3 lấy từ server; chỗ tính ở đây chỉ để vẽ ví dụ P10.
 
-// Bộ chip Mức cộng của sale (glossary · Danh sách lựa chọn dùng chung), một bộ chung cho S3 và P10 (YC5.4-NT4, YC5.6-NT4)
+// Bộ chip Mức cộng của sale (glossary · Danh sách lựa chọn dùng chung), một bộ chung cho S3 và P10 (US13-NT4, US13-NT10)
 export const CHIP_MUC_CONG: { gia_tri: number; chu: string }[] = [
   { gia_tri: 0, chu: "Không cộng" },
   { gia_tri: 100_000, chu: "+100k" },
@@ -40,7 +40,7 @@ export const giaBanMotDem = (giaChu: number, mucCong: number, lamTron: boolean) 
 export const tongGiaBan = (giaChuTungDem: number[], mucCong: number, lamTron: boolean) =>
   giaChuTungDem.reduce((a, g) => a + giaBanMotDem(g, mucCong, lamTron), 0);
 
-// Ví dụ ở P10 (YC5.6 bước 4, DLM.7): phòng 1509, 2 đêm, giá chủ nhà 1.300.000đ + 900.000đ
+// Ví dụ ở P10 (mục "Mức cộng giá mặc định" (US13) bước 4, DLM.7): phòng 1509, 2 đêm, giá chủ nhà 1.300.000đ + 900.000đ
 export const DEM_VI_DU_P10 = [1_300_000, 900_000];
 export const viDuP10 = (mucCong: number, lamTron: boolean) => {
   const chu = DEM_VI_DU_P10.reduce((a, g) => a + g, 0);
@@ -48,10 +48,10 @@ export const viDuP10 = (mucCong: number, lamTron: boolean) => {
   return { gia_chu: chu, gia_khach: khach, ban_duoc: khach - chu };
 };
 
-// Dòng tên căn (YC5.4 bước 1): "ICON40 1509 · 2PN"
+// Dòng tên căn (mục "Chi tiết căn và giá bán" (US13) bước 1): "ICON40 1509 · 2PN"
 export const tenCanS3 = (c: Pick<ChiTietCanSale, "toa_nha" | "ma_can" | "so_phong_ngu">) =>
   [[c.toa_nha?.ten, c.ma_can].filter(Boolean).join(" "), chuPhongNgu(c.so_phong_ngu)].join(" · ");
-// "2PN · 3 giường · view biển · Bãi Cháy" (YC5.4-NT5): có số giường thì ghi, chưa có thì chỉ số phòng ngủ. Không có số khách.
+// "2PN · 3 giường · view biển · Bãi Cháy" (US13-NT5): có số giường thì ghi, chưa có thì chỉ số phòng ngủ. Không có số khách.
 export const dongThongTinS3 = (c: Pick<ChiTietCanSale, "toa_nha" | "so_phong_ngu" | "so_giuong" | "loai_view">) =>
   [chuPhongNgu(c.so_phong_ngu), c.so_giuong ? `${c.so_giuong} giường` : null, chuLoaiView(c.loai_view), c.toa_nha?.khu_vuc ?? null].filter(Boolean).join(" · ");
 
@@ -68,7 +68,7 @@ export const CHU_NUT_GUI_KHACH = "Gửi cho khách";
 export const CHU_KHONG_MO_DUOC_GOI = "Không mở được ứng dụng gọi"; // chữ tạm
 export const CHU_CHUA_LUU = "Chưa lưu được, bấm lại khi có mạng"; // HV2 bước 3
 
-// Nút "Gửi yêu cầu đặt phòng" mở S3-02 (US15) và "Gửi cho khách" mở S5 (US14) với đúng căn và ngày đang xem (YC5.4-NT3, bước 7, 8).
+// Nút "Gửi yêu cầu đặt phòng" mở S3-02 (US15) và "Gửi cho khách" mở S5 (US14) với đúng căn và ngày đang xem (US13-NT3, bước 7, 8).
 // Hai màn đó chưa làm: route là màn tạm, state đã đúng để US14, US15 nhận.
 export const diDenTuS3 = (loai: "yeu_cau" | "gui_khach", canId: string, nhan: string | null, tra: string | null) => ({
   duong: loai === "yeu_cau" ? DUONG.YEU_CAU_DAT_PHONG : DUONG.GUI_KHACH,

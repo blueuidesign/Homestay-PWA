@@ -7,7 +7,7 @@ import { LoiApi, LoiMang } from "./kieu";
 import { batDauTuLink, themLich } from "./mo-link";
 import { datCongZalo, type CongZalo, type KetQuaChiaSe } from "./zalo";
 
-// US26 · Test chức năng trên server giả: chủ nhà gửi lịch theo căn đã chọn (YC1.8), căn mới không vào lịch sale chỉ được vài căn (YC1.12).
+// US26 · Test chức năng trên server giả: chủ nhà gửi lịch theo căn đã chọn (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)), căn mới không vào lịch sale chỉ được vài căn (mục "Căn mới của chủ nhà tự hiện cho sale" (US6)).
 // Dữ liệu DLM: hôm nay 07/10/2026, Chị Hoa có 1509, 3402 và 4 sale; Zalo thử B là sale mới.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 let n = 0;
@@ -78,7 +78,7 @@ test("test_YC1_8_NT1_US26_KB3_chon_2_sale_thi_zalo_mo_tin_co_link_cho_tung_sale_
     expect(zalo.tin[0]).toContain("Gửi Sale Hùng:");
     expect(zalo.tin[1]).toContain("Gửi Sale Lan:");
     expect(zalo.tin.some((t) => /Nga|Minh/.test(t))).toBe(false);
-    // Cùng một link, link dạng zalo.me/s/... không chứa số điện thoại hay id (YC1.6-NT4)
+    // Cùng một link, link dạng zalo.me/s/... không chứa số điện thoại hay id (US17-NT5)
     expect(link(zalo.tin[0])).toBe(link(zalo.tin[1]));
     expect(zalo.tin[0]).toMatch(/https:\/\/zalo\.me\/s\/\d+\/\?ma=/);
     expect(zalo.tin[0]).not.toMatch(/0904|1509|home247\.vn/);
@@ -208,7 +208,7 @@ test("test_YC1_12_NT2_US26_KB12_can_moi_khong_vao_lich_sale_chi_duoc_chia_se_vai
   await postCan({ ma_can: "Căn 7", so_phong_ngu: 2 });
   await dung("zalo-sale-thu");
   expect((await getSaleLich()).can.map((c) => c.ma_can)).toEqual(["1509", "3402"]);
-  // Đối chứng YC1.12-NT1: Sale Hùng được chia sẻ tất cả căn thấy căn mới
+  // Đối chứng US6-NT10: Sale Hùng được chia sẻ tất cả căn thấy căn mới
   await dung("zalo-sale-hung");
   expect((await getSaleLich()).can.map((c) => c.ma_can)).toContain("Căn 7");
 });

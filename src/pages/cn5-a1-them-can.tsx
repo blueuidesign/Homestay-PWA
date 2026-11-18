@@ -13,9 +13,9 @@ import { layVai } from "../stores/vai";
 import { BoAnhForm, chuLoiAnh, demTheo, type AnhForm } from "../stores/anh-form";
 import { LoiApi, LoiMang, type SoPhongNgu } from "../services/kieu";
 
-// CN5-A1 · Thêm căn, bản US1: chỉ mã căn và số phòng ngủ (YC3.2). Ảnh: US25 (YC3.2.1). Tòa nhà, view, số giường, mô tả: US11 (YC3.2.2).
+// CN5-A1 · Thêm căn, bản US1: chỉ mã căn và số phòng ngủ (mục "Thêm căn" (US1)). Ảnh: US25 (mục "Ảnh khi thêm căn" (US25)). Tòa nhà, view, số giường, mô tả: US11 (mục "Tòa nhà, loại view, số giường, mô tả" (US11)).
 
-// Dòng dưới cùng (YC3.2 bước 2, 3)
+// Dòng dưới cùng (mục "Thêm căn" (US1) bước 2, 3)
 export const dongConThieu = (ma: string, phongNgu: SoPhongNgu | null) => {
   const thieu = [!ma.trim() && "mã căn", phongNgu === null && "số phòng ngủ"].filter(Boolean);
   return thieu.length ? `Còn thiếu: ${thieu.join(", ")}` : null;
@@ -23,7 +23,7 @@ export const dongConThieu = (ma: string, phongNgu: SoPhongNgu | null) => {
 
 export type LoiForm = { ma_can?: string; so_phong_ngu?: string; anh?: string; chung?: string; so_giuong?: string };
 
-// Lỗi từ POST /can thành lỗi dưới từng ô (YC3.2 bước 5, CN5-A3)
+// Lỗi từ POST /can thành lỗi dưới từng ô (mục "Thêm căn" (US1) bước 5, CN5-A3)
 export const loiTuApi = (e: unknown, ma: string): LoiForm => {
   if (e instanceof LoiApi && e.loi === "MA_CAN_TRUNG") return { ma_can: `Đã có căn ${ma.trim()}. Kiểm tra lại mã căn.` };
   if (e instanceof LoiApi && e.loi === "DU_LIEU_SAI" && e.o === "ma_can") return { ma_can: "Nhập mã căn" };
@@ -33,7 +33,7 @@ export const loiTuApi = (e: unknown, ma: string): LoiForm => {
   return { chung: "Chưa lưu được, bấm lại khi có mạng" };
 };
 
-// Toast sau khi thêm (YC3.2-NT4)
+// Toast sau khi thêm (US1-NT12)
 export const chuToastThemCan = (ma: string) => `Đã thêm phòng ${ma}`;
 
 // Khóa chống bấm hai lần (server.md 1.6): giữ nguyên khi thử lại vì lỗi mạng, đổi khi server đã trả lỗi.
@@ -67,14 +67,14 @@ export const NoiDungCN5A1 = ({
   onPhongNgu: (v: SoPhongNgu) => void;
   onThem: () => void;
   onChuaLam: (chu: string) => void;
-  // US25 (YC3.2.1)
+  // US25 (mục "Ảnh khi thêm căn" (US25))
   anh?: AnhForm[];
   coTheQuyen?: boolean;
   onThemAnh?: () => void;
   onThuLai?: (khoa: string) => void;
   onXoaAnh?: (khoa: string) => void;
   onMoCaiDat?: () => void;
-  // US11 (YC3.2.2): phần tòa nhà, loại view, số giường, mô tả. Thu gọn mặc định.
+  // US11 (mục "Tòa nhà, loại view, số giường, mô tả" (US11)): phần tòa nhà, loại view, số giường, mô tả. Thu gọn mặc định.
   moRong?: { dangMo: boolean; onMo: () => void; khoi: PropsMoRong };
 }) => {
   const conThieu = dongConThieu(ma, phongNgu);
@@ -175,7 +175,7 @@ export const CN5A1ThemCan = () => {
 
   const them = async () => {
     if (dongConThieu(ma, phongNgu) || dangLuu || demTheo(anh, "dang_tai") > 0) return;
-    // Ảnh tải lỗi: chưa thêm căn cho tới khi thử lại hoặc xóa (YC3.2.1-NT2)
+    // Ảnh tải lỗi: chưa thêm căn cho tới khi thử lại hoặc xóa (US25-NT3)
     const soLoi = demTheo(anh, "loi");
     if (soLoi > 0) {
       setLoi({ anh: chuLoiAnh(soLoi) });

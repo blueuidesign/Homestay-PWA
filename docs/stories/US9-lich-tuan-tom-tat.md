@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn xem doanh thu tháng, các đặt phòng sắp tới
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC2.2 · Tóm tắt tháng
+### Tóm tắt tháng
 Rủi ro: cao
 Mục đích: chủ nhà thấy nhanh tháng này thu được bao nhiêu và có bao nhiêu đêm có khách.
 Màn hình: CN1, CN1-02
@@ -36,7 +36,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC2.3 · Booking sắp tới
+### Booking sắp tới
 Rủi ro: tb
 Mục đích: chủ nhà thấy các booking gần nhất và cái nào chưa cọc mà không phải chạm từng ngày.
 Màn hình: CN1, CN1-02, CN1-01
@@ -46,7 +46,7 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Kéo xuống | Danh sách "ĐẶT PHÒNG SẮP TỚI", mỗi dòng: tên khách hoặc sale, "Phòng <mã> · <nhận> → <trả> (<n> đêm)", số tiền, trạng thái tiền | kiểm quyền CHU, đặt phòng có ngày trả sau hôm nay (giờ Việt Nam, xếp theo ngày nhận | Không | Không |
-| 2 | Chạm một dòng | Mở chi tiết booking (CN3-02, thuộc YC4), như mũi tên trên canvas | chủ nhà thấy đủ tiền, cọc, khách mình nhập (PQ7.CHU, PQ8.CHU, PQ9.CHU), không giá bán | Không | Không |
+| 2 | Chạm một dòng | Mở chi tiết booking (CN3-02, thuộc nhóm Booking), như mũi tên trên canvas | chủ nhà thấy đủ tiền, cọc, khách mình nhập (PQ7.CHU, PQ8.CHU, PQ9.CHU), không giá bán | Không | Không |
 
 Theo quy tắc: Trạng thái tiền booking.
 
@@ -59,7 +59,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC2.5 · Lịch tuần khi có nhiều căn
+### Lịch tuần khi có nhiều căn
 Rủi ro: thap
 Mục đích: chủ nhà nhiều căn xem cả tuần của mọi căn trên một bảng, kèm giá từng đêm.
 Màn hình: CN2, CN2-00
@@ -73,7 +73,7 @@ Hành vi:
 | 3 | Xem bảng | Mỗi hàng một căn: mã, số phòng ngủ, tòa. Mỗi cột một ngày T2 đến CN. Ô trống hiện giá đêm rút gọn (900k, 1,1tr). Ô có khách là thanh nối nhiều ngày, ghi tên người đặt và nhãn tiền | Không gọi server (dùng kết quả: ô trống có `gia_dem` theo, ô có khách có đặt phòng; mỗi căn có mã căn, số phòng ngủ, tòa) | Không | Không |
 | 4 | Xem chú thích | "Đã cọc / đã thanh toán", "Chưa cọc", "800k: trống, giá đêm" | Không gọi server | Không | Không |
 | 5 | Chạm chip lọc | Lọc theo tòa hoặc số phòng ngủ | | Không | Không |
-| 6 | Bấm "Gửi lịch cho sale" | Mở CN10 (thuộc YC1.8) | Không gọi server (CN10 thuộc YC1.8) | Không | Không |
+| 6 | Bấm "Gửi lịch cho sale" | Mở CN10 (thuộc mục "Chủ nhà chủ động gửi lịch cho sale" (US26)) | Không gọi server (CN10 thuộc mục "Chủ nhà chủ động gửi lịch cho sale" (US26)) | Không | Không |
 
 Theo quy tắc: Đêm có khách (QT2); Trạng thái tiền booking; Tuần bắt đầu thứ hai.
 
@@ -89,14 +89,14 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC2.2-NT1** Khi chủ nhà có booking trong tháng, thì khối "DOANH THU THÁNG" hiện số tiền và số đêm có khách.
-- **YC2.2-NT2** Khi chủ nhà chưa có booking nào, thì khối này không hiện.
-- **YC2.3-NT1** Khi chủ nhà có booking, thì mỗi dòng hiện đủ: tên, phòng, ngày nhận, ngày trả, số đêm, số tiền, trạng thái tiền.
-- **YC2.3-NT2** Khi booking chưa cọc, thì dòng đó ghi "Chưa cọc".
-- **YC2.5-NT1** Khi chủ nhà mở lịch tuần, thì mỗi căn có một hàng và mỗi ngày trong tuần có một cột, bắt đầu từ T2.
-- **YC2.5-NT2** Khi một ô không có khách, thì ô đó hiện giá đêm của căn trong ngày đó.
-- **YC2.5-NT3** Khi chủ nhà chạm chip "Tòa A", thì bảng chỉ còn các căn của Tòa A.
-- **YC2.5-NT4** Khi có booking chưa cọc, thì ô tóm tắt "Chưa cọc" ghi đúng số booking chưa cọc.
+- **US9-NT1** Khi chủ nhà có booking trong tháng, thì khối "DOANH THU THÁNG" hiện số tiền và số đêm có khách.
+- **US9-NT2** Khi chủ nhà chưa có booking nào, thì khối này không hiện.
+- **US9-NT3** Khi chủ nhà có booking, thì mỗi dòng hiện đủ: tên, phòng, ngày nhận, ngày trả, số đêm, số tiền, trạng thái tiền.
+- **US9-NT4** Khi booking chưa cọc, thì dòng đó ghi "Chưa cọc".
+- **US9-NT5** Khi chủ nhà mở lịch tuần, thì mỗi căn có một hàng và mỗi ngày trong tuần có một cột, bắt đầu từ T2.
+- **US9-NT6** Khi một ô không có khách, thì ô đó hiện giá đêm của căn trong ngày đó.
+- **US9-NT7** Khi chủ nhà chạm chip "Tòa A", thì bảng chỉ còn các căn của Tòa A.
+- **US9-NT8** Khi có booking chưa cọc, thì ô tóm tắt "Chưa cọc" ghi đúng số booking chưa cọc.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -105,7 +105,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 **Đầu vào**
 | Trường | Kiểu | Bắt buộc | Luật kiểm |
 |---|---|---|---|
-| tu | ngay | có | Phải là thứ hai (YC2 quy tắc Tuần bắt đầu thứ hai) |
+| tu | ngay | có | Phải là thứ hai (nhóm Lịch chủ nhà quy tắc Tuần bắt đầu thứ hai) |
 | toa_nha_id | id | không | Lọc theo tòa (chip "Tòa A") |
 | so_phong_ngu | số nguyên 0 đến 4 | không | Lọc theo số phòng ngủ (chip "3 phòng ngủ") |
 
@@ -153,7 +153,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-QT2.1, QT2.2 (doanh thu và số đêm chia theo đêm, QD-010), QD-012 (đặt phòng đã hủy không tính). Quy tắc trong YC2: Trạng thái tiền booking, Giá rút gọn, Tuần bắt đầu thứ hai. Giá một đêm theo(YC3: Giá hai loại đêm, Giá dịp thay giá tháng). HV1, HV2, HV3, HV5.
+QT2.1, QT2.2 (doanh thu và số đêm chia theo đêm, QD-010), QD-012 (đặt phòng đã hủy không tính). Quy tắc trong nhóm Lịch chủ nhà: Trạng thái tiền booking, Giá rút gọn, Tuần bắt đầu thứ hai. Giá một đêm theo(nhóm Căn và giá: Giá hai loại đêm, Giá dịp thay giá tháng). HV1, HV2, HV3, HV5.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -238,19 +238,19 @@ Trạng thái riêng:
 - `fn_thong_ke_chu`: test ở t_10_thong_ke.sql
 
 ## Ngoài phạm vi
-- Lưới tháng, chip lọc căn, chi tiết ngày (YC2.1, YC2.4): US2 (NT1, NT2, NT5 của YC2.1, NT1 của YC2.4) và US3 (NT3, NT4 của YC2.1, NT2, NT3 của YC2.4). US9 chỉ thêm khối doanh thu và danh sách dưới lưới tháng.
-- Màn chi tiết đặt phòng CN3-02 mở khi chạm một dòng sắp tới (YC2.3 bước 2): US10. US9 chỉ nối dòng tới màn đó.
-- Màn gửi lịch cho sale CN10 mở bởi nút "Gửi lịch cho sale" ở lịch tuần (YC2.5 bước 6): US26. US9 chỉ nối nút.
-- Ghi đặt phòng mới (YC4.1): US3. Doanh thu 6 tháng, công suất, chưa thu (YC7): US18.
+- Lưới tháng, chip lọc căn, chi tiết ngày (mục "Lịch tháng và lọc theo căn" (US2), mục "Chi tiết một ngày" (US2)): US2 (NT1, NT2, NT5 của mục "Lịch tháng và lọc theo căn" (US2), NT1 của mục "Chi tiết một ngày" (US2)) và US3 (NT3, NT4 của mục "Lịch tháng và lọc theo căn" (US2), NT2, NT3 của mục "Chi tiết một ngày" (US2)). US9 chỉ thêm khối doanh thu và danh sách dưới lưới tháng.
+- Màn chi tiết đặt phòng CN3-02 mở khi chạm một dòng sắp tới (mục "Booking sắp tới" bước 2): US10. US9 chỉ nối dòng tới màn đó.
+- Màn gửi lịch cho sale CN10 mở bởi nút "Gửi lịch cho sale" ở lịch tuần (mục "Lịch tuần khi có nhiều căn" bước 6): US26. US9 chỉ nối nút.
+- Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3)): US3. Doanh thu 6 tháng, công suất, chưa thu (nhóm Thống kê): US18.
 - Hủy đặt phòng (QD-012): API chỉ cần bỏ đặt phòng `da_huy` khỏi doanh thu; luồng xin hủy chưa có NT.
 - Chưa quyết, không code theo phần này (CLAUDE.md):
-  - [MỞ: YC2-H4] (YC2.5 cách vào chế độ lịch tuần chưa vẽ). Task màn CN2 làm lối vào tạm cho bản thử, không phải lối vào chính thức.
-  - [MỞ: YC2-H5] (YC2.5 bước 2 ba ô tóm tắt (có khách; trống tối T7; chưa cọc) tính theo tuần đang xem hay theo hôm nay). API đang tính theo tuần đang xem.
-  - [MỞ: US9-H1] YC2.2 bước 2 đổi chip lọc hoặc đổi tháng thì số tiền và số đêm có đổi theo không, chưa vẽ. Không có kịch bản cho phần này; API đã nhận `thang` và `can_id`.
-  - [MỞ: US9-H2] YC2.5 ô trống chưa đặt giá (`gia_dem` là `null`) hiện gì trên bảng tuần.
-  - [MỞ: US9-H3] YC2.3 danh sách sắp tới có hiện đặt phòng "Đã hủy" không và có giới hạn trong tháng đang xem không. Bản này bỏ `da_huy`, không giới hạn tháng.
-  - [MỞ: US9-H4] YC2.2 doanh thu có tính đặt phòng của căn đã ẩn không.
-  - [MỞ: YC2-H6] (YC2.5 chạm một thanh đặt phòng ở lịch tuần mở gì).
+  - [MỞ: CH-015] (mục "Lịch tuần khi có nhiều căn" cách vào chế độ lịch tuần chưa vẽ). Task màn CN2 làm lối vào tạm cho bản thử, không phải lối vào chính thức.
+  - [MỞ: CH-016] (mục "Lịch tuần khi có nhiều căn" bước 2 ba ô tóm tắt (có khách; trống tối T7; chưa cọc) tính theo tuần đang xem hay theo hôm nay). API đang tính theo tuần đang xem.
+  - [MỞ: US9-H1] mục "Tóm tắt tháng" bước 2 đổi chip lọc hoặc đổi tháng thì số tiền và số đêm có đổi theo không, chưa vẽ. Không có kịch bản cho phần này; API đã nhận `thang` và `can_id`.
+  - [MỞ: US9-H2] mục "Lịch tuần khi có nhiều căn" ô trống chưa đặt giá (`gia_dem` là `null`) hiện gì trên bảng tuần.
+  - [MỞ: US9-H3] mục "Booking sắp tới" danh sách sắp tới có hiện đặt phòng "Đã hủy" không và có giới hạn trong tháng đang xem không. Bản này bỏ `da_huy`, không giới hạn tháng.
+  - [MỞ: US9-H4] mục "Tóm tắt tháng" doanh thu có tính đặt phòng của căn đã ẩn không.
+  - [MỞ: CH-017] (mục "Lịch tuần khi có nhiều căn" chạm một thanh đặt phòng ở lịch tuần mở gì).
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

@@ -75,7 +75,7 @@ test("test_YC5_4_NT5_YC5_4_NT6_US13_KB1_S3_cua_1509_co_anh_ten_phong_ngu_giuong_
   expect(c).toContain("24/10 → 26/10 (2 đêm)");
   expect(c).toContain("Giá chủ nhà 2.200.000đ");
   expect(c).toContain("Nhận phòng 14:00 · Trả phòng 12:00");
-  // YC5.4-NT5: không có số khách; YC5.4-NT6: không có tiện ích căn
+  // US13-NT5: không có số khách; US13-NT6: không có tiện ích căn
   expect(c).not.toMatch(/khách ·|người lớn|trẻ em|[0-9] khách/);
   expect(c).not.toMatch(/Tiện ích|Bếp|Máy giặt/);
 });
@@ -97,7 +97,7 @@ test("test_YC5_4_NT4_US13_KB4_S3_va_P10_deu_co_dung_7_chip_theo_thu_tu_glossary"
   expect(a.map((x) => x.chu)).toEqual(dung);
   expect(a.find((x) => x.chon)?.chu).toBe("+200k"); // KB4: S3 của 1509 đang chọn +200k
   const p = chipTrongSach(html(<NoiDungP10 muc={400000} lamTron={false} moTuyChon={false} chuNhap="" dangLuu={false} loiChung={null} onChonMuc={khong} onMoTuyChon={khong} onNhap={khong} onLamTron={khong} onLuu={khong} />));
-  expect(p.map((x) => x.chu)).toEqual(dung); // YC5.6-NT4: cùng bộ với S3
+  expect(p.map((x) => x.chu)).toEqual(dung); // US13-NT10: cùng bộ với S3
   expect(p.find((x) => x.chon)?.chu).toBe("+400k"); // KB4: P10 đang chọn +400k
   expect(CHIP_MUC_CONG.length + 1).toBe(7);
 });

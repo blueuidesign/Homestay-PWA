@@ -55,7 +55,7 @@ Mã BM chỉ là số thứ tự trong file này. Test ghi ở cột cuối là 
 | BM17 | Chèn mã qua chữ người dùng gõ (mã căn, mô tả, tên, mẫu tin, lời nhắn, ghi chú): mã chạy trong app của người khác, hoặc công thức chạy khi chủ nhà mở file CSV bằng Excel | Đọc trộm phiên, sửa dữ liệu, chạy lệnh trên máy chủ nhà | App hiện mọi chữ dạng văn bản thường, không chèn HTML. CSV: ô bắt đầu bằng `=`, `+`, `-`, `@`, tab thì thêm dấu `'` phía trước | (`/xuat/booking.csv`); src/miniapp | Ghi chú `=HYPERLINK(...)`: CSV có `'=HYPERLINK(...)`. Mã căn `<img onerror=...>` hiện đúng chữ, không chạy (test giao diện) |
 | BM18 | Hai lệnh ghi cùng lúc vào cùng đêm của một căn: hai lần chấp nhận, chấp nhận cùng lúc chủ nhà tự ghi, sửa ngày chồng | Trùng phòng, khách tới không có chỗ | Ràng buộc `exclude` trên `booking.dem` (QT1.1), database là chỗ chặn cuối. Đổi trạng thái yêu cầu bằng lệnh có điều kiện `trang_thai = 'cho_chu'`, không đọc rồi ghi. Hai dải giá dịp chồng bị `exclude` của `gia_dip` chặn |bước 4, 2.7, 2.8; Thiet_ke_DB `booking`, `gia_dip`, `yeu_cau_dat_phong` | Hai lệnh cùng đêm chạy song song: đúng một lệnh được lưu, lệnh kia `TRUNG_LICH` (Luật chung 6, US3). Chấp nhận và hủy yêu cầu cùng lúc: một lệnh nhận `TRANG_THAI_DA_DOI` |
 | BM19 | Số điện thoại, tên khách, phiên, token, mã link lọt vào log, thông báo lỗi, hay kết quả lưu của lệnh ghi | Người đọc log biết dữ liệu cá nhân; lộ khi log bị gửi ra ngoài | Theo mục Log và dữ liệu cá nhân. Đường dẫn `/link/:ma` ghi mã đã che. Không ghi thân yêu cầu, thân trả lời. `client_id` tìm theo cặp (tai_khoan_id, khóa) || Chạy bộ test API rồi quét log: không có số điện thoại mẫu DLM, chuỗi phiên, mã link, token. Người B gửi `Idempotency-Key` của người A: không nhận kết quả của A |
-| BM20 | Quản trị viên (ADMIN) xem dữ liệu không vì việc, sửa dữ liệu, xuất hàng loạt; hoặc tài khoản ADMIN bị chiếm | Lộ toàn bộ dữ liệu người dùng | API quản trị tách dưới `/quan-tri`, đăng nhập riêng. Mọi lần ADMIN xem hay sửa dữ liệu người dùng ghi nhật ký (mục Nhật ký thao tác của quản trị). Đề xuất bắt xác thực hai bước. Ai làm ADMIN, cách đăng nhập: [MỞ: ] (YC10-H1, YC10-H2 đã trả lời) |; PQ cột ADMIN | Phiên app gọi `/quan-tri`: từ chối. Mỗi lệnh `/quan-tri` để lại đúng một dòng nhật ký |
+| BM20 | Quản trị viên (ADMIN) xem dữ liệu không vì việc, sửa dữ liệu, xuất hàng loạt; hoặc tài khoản ADMIN bị chiếm | Lộ toàn bộ dữ liệu người dùng | API quản trị tách dưới `/quan-tri`, đăng nhập riêng. Mọi lần ADMIN xem hay sửa dữ liệu người dùng ghi nhật ký (mục Nhật ký thao tác của quản trị). Đề xuất bắt xác thực hai bước. Ai làm ADMIN, cách đăng nhập: [MỞ: ] (CH-093, CH-094 đã trả lời) |; PQ cột ADMIN | Phiên app gọi `/quan-tri`: từ chối. Mỗi lệnh `/quan-tri` để lại đúng một dòng nhật ký |
 | BM21 | Mất dữ liệu: hỏng đĩa, xóa nhầm, lỗi migration, webhook làm sai, nhà cung cấp mất máy | Chủ nhà mất lịch, trùng phòng thật | Theo mục Sao lưu và khôi phục. Webhook chỉ đổi `profiles` của người đó, không xóa căn, lịch, đặt phòng (QD-013), trong một giao dịch, lỗi thì không đổi gì (QD-013). Migration chạy thử trên bản sao trước |; | Diễn tập khôi phục đúng lịch (mục Sao lưu), có biên bản. Webhook lỗi giữa chừng: dữ liệu còn nguyên |
 | BM22 | Gửi thêm trường không được ghi: `sdt`, `vai_chon` trong; `gia_chu`, `gia_ban` trong; `sale_id` của sale chưa kết nối trong; `chu_nha_id` | Tự gắn số, tự đặt giá, gắn đặt phòng cho người lạ | Mỗi API chỉ nhận đúng danh sách trường của api/, trường lạ bỏ qua hoặc `DU_LIEU_SAI`. Giá yêu cầu do server tính. `sale_id` phải `da_ket_noi` bước 1) |; mọi file api/ | có `sdt`: số không đổi. có `gia_chu`: giá lưu theo server tính. với `sale_id` lạ: từ chối |
 | BM23 | Dữ liệu thật hay App Secret lọt vào Develop (Oracle, Singapore), Supabase, GitHub | Vi phạm Thỏa thuận Zalo §5.3.3(b), lộ dữ liệu ra ngoài Việt Nam | Develop chỉ dữ liệu giả, không App Secret, không đổi token số điện thoại. Không chép bản sao lưu production về máy dev. Repo không ghi bí mật (ha-tang/INDEX.md) | Mục Nơi lưu dữ liệu; docs/ha-tang/ | Kiểm khi review PR: không có tệp `.env`, khóa, số điện thoại thật trong diff |
@@ -145,7 +145,7 @@ Còn mở:
 - Nhật ký chỉ được thêm. Tài khoản database của server không có quyền sửa, xóa dòng nhật ký.
 - Nhật ký không chép số điện thoại, tên khách. Chỉ ghi id.
 - Cần bảng mới, ví dụ `nhat_ky_quan_tri`. Chưa có trong Thiet_ke_DB.
-- Ai đọc nhật ký, giữ bao lâu, ai làm ADMIN: [MỞ: ] (YC10-H1, YC10-H2 đã trả lời).
+- Ai đọc nhật ký, giữ bao lâu, ai làm ADMIN: [MỞ: ] (CH-093, CH-094 đã trả lời).
 - Thao tác tay trên database production (không qua `/quan-tri`) cũng cần Tùng duyệt và ghi lại trong item.
 
 ## Khi có sự cố
@@ -164,7 +164,7 @@ Quy trình sự cố: docs/van-hanh/Xu_ly_su_co.md. Tới lúc có:
 5. Bản sao lưu giữ bao lâu. [MỞ: QD-013]
 6. Mất tối đa bao nhiêu giờ dữ liệu, chạy lại trong bao lâu. [MỞ: chưa nguồn nào nói]
 7. Giữ log bao lâu. [MỞ: chưa nguồn nào nói]
-8. Ai làm ADMIN, đăng nhập web quản trị thế nào, ai đọc nhật ký quản trị, giữ nhật ký bao lâu. [MỞ: ] (YC10-H1, YC10-H2 đã trả lời)
+8. Ai làm ADMIN, đăng nhập web quản trị thế nào, ai đọc nhật ký quản trị, giữ nhật ký bao lâu. [MỞ: ] (CH-093, CH-094 đã trả lời)
 9. Đăng xuất mọi máy khi mất điện thoại. [MỞ: chưa YC nào nói]
 10. Sale gửi yêu cầu khi quyền giá tắt. [MỞ: PQ10.SALE]
 11. Thời hạn và nơi báo cơ quan khi lộ dữ liệu. [MỞ: ]

@@ -12,7 +12,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { chonTatCa, chuTomTatGia, chuToastSaoChep, doiChon, HopGiuGiaCu, loiKhiSaoChep, NoiDungSaoChep } from "./cn6-nhieu-can-man";
 
-// US7 · CN6-07 Sao chép giá sang căn khác (YC3.7), vào từ nút cuối tab Giá. Sao chép xong về tab Giá, toast CN6-08.
+// US7 · CN6-07 Sao chép giá sang căn khác (mục "Sao chép giá sang căn khác" (US7)), vào từ nút cuối tab Giá. Sao chép xong về tab Giá, toast CN6-08.
 // Tóm tắt "TỪ CĂN" lấy GET /can/:id/gia?nam= của năm nay. Lưu bằng POST /can/:id/gia/sao-chep.
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;

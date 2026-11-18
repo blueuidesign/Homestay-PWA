@@ -4,10 +4,10 @@ import { chuNgayNgan, chuThu, chuTien, congNgay, laCuoiTuan, soCuaNgay } from ".
 import { OChon } from "./cn10-man";
 import { docTien } from "./cn4-dat-phong";
 
-// Phần vẽ của US8: CN6-02 (giá ngày lễ, dịp đặc biệt), CN6-03 (chọn quá 10 ngày), CN6-03-01 (bỏ trống tên), YC3.5.
+// Phần vẽ của US8: CN6-02 (giá ngày lễ, dịp đặc biệt), CN6-03 (chọn quá 10 ngày), CN6-03-01 (bỏ trống tên), mục "Giá ngày lễ và dịp đặc biệt" (US8).
 // Không gọi server, không dùng zmp-sdk, để test render được. Phần tải và lưu ở cn6-gia-le.tsx.
 // Chữ chưa vẽ (ghi ở PR): lỗi chồng ngày (TK23), dòng báo ngày kết thúc trước ngày bắt đầu, dòng báo dịp chưa có dải,
-// nhắc nhập tên khi bật "Là ngày lễ" ([MỞ: YC3-H15]), toast sau khi lưu, báo sửa dải đã lưu chưa có cách làm.
+// nhắc nhập tên khi bật "Là ngày lễ" ([MỞ: CH-020]), toast sau khi lưu, báo sửa dải đã lưu chưa có cách làm.
 
 export const DIP_TOI_DA_NGAY = 10;
 export const NHAN_NHANH = ["Lễ 30/4 – 1/5", "Quốc khánh 2/9", "Tết Dương lịch", "Tết Âm lịch"];
@@ -28,13 +28,13 @@ export const demNgayDai = (tu: string, den: string) => {
 };
 // "T5 30/4": đầu mỗi ô và hai đầu dòng đếm
 const chuNgayThu = (ngay: string) => `${chuThu(ngay)} ${soCuaNgay(ngay)}/${Number(ngay.slice(5, 7))}`;
-// Dòng đếm ngày (YC3.5 bước 2): "4 ngày · T5 30/4 → CN 3/5"
+// Dòng đếm ngày (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 2): "4 ngày · T5 30/4 → CN 3/5"
 export const chuDemNgay = (tu: string, den: string) => {
   const n = demNgayDai(tu, den);
   return n === 0 ? "" : `${n} ngày · ${chuNgayThu(tu)} → ${chuNgayThu(den)}`;
 };
 export const chuQua10Ngay = (n: number) => `Tối đa ${DIP_TOI_DA_NGAY} ngày. Đang chọn ${n} ngày, hãy rút ngắn ngày kết thúc.`;
-// Tên server đặt khi ô tên trống (YC3.5 bước 4, CN6-03-01)
+// Tên server đặt khi ô tên trống (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 4, CN6-03-01)
 export const tenTuDat = (tu: string, den: string) => (tu && den ? `Dịp đặc biệt ${chuNgayNgan(tu)} – ${chuNgayNgan(den)}` : "");
 export const chuGiaiThichTen = (tu: string, den: string) =>
   tu && den ? `Bỏ trống thì app đặt tên theo ngày: "${tenTuDat(tu, den)}".` : "Bỏ trống thì app đặt tên theo ngày của dịp.";
@@ -53,7 +53,7 @@ export const luoiTuan = (tu: string, den: string): string[] => {
   return o;
 };
 
-// Chạm một ô để nới dải (YC3.5 bước 3): ô ngoài dải kéo đầu hoặc đuôi tới ô đó; ô trong dải thì giữ nguyên.
+// Chạm một ô để nới dải (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 3): ô ngoài dải kéo đầu hoặc đuôi tới ô đó; ô trong dải thì giữ nguyên.
 // Chưa chọn ngày nào thì ô chạm là cả hai đầu.
 export const chamONoiDai = (tu: string, den: string, ngay: string): { tu: string; den: string } => {
   if (!tu || !den || den < tu) return { tu: ngay, den: ngay };
@@ -62,11 +62,11 @@ export const chamONoiDai = (tu: string, den: string, ngay: string): { tu: string
   return { tu, den };
 };
 
-// Chọn nhanh một dịp (YC3.5 bước 2): điền sẵn ngày, tên dịp
+// Chọn nhanh một dịp (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 2): điền sẵn ngày, tên dịp
 export const dienTuNgayLe = (m: MucNgayLe) => ({ tu: m.tu_ngay, den: m.den_ngay, ten: m.ten, ngayLeId: m.id });
 export const timNgayLe = (muc: MucNgayLe[] | null, nhan: string) => muc?.find((m) => m.ten === nhan);
 
-// Điều gì đang chặn nút "Lưu giá" (YC3.5-NT2: quá 10 ngày thì không lưu được). null là lưu được.
+// Điều gì đang chặn nút "Lưu giá" (US8-NT2: quá 10 ngày thì không lưu được). null là lưu được.
 export const kiemDip = (f: { tu: string; den: string; ten: string; gia: string; laLe: boolean }): string | null => {
   if (!f.tu || !f.den) return "ngay";
   if (f.den < f.tu) return "den_truoc_tu";
@@ -76,7 +76,7 @@ export const kiemDip = (f: { tu: string; den: string; ten: string; gia: string; 
   return null;
 };
 
-// Lỗi khi lưu không được: HV2 bước 3, YC3.5-NT2 (server báo DU_LIEU_SAI ở den_ngay), YC3.5 bước 8 (DIP_CHONG_NGAY)
+// Lỗi khi lưu không được: HV2 bước 3, US8-NT2 (server báo DU_LIEU_SAI ở den_ngay), mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 8 (DIP_CHONG_NGAY)
 export const loiKhiLuuDip = (e: unknown) => {
   if (e instanceof LoiMang) return "Chưa lưu được, bấm lại khi có mạng";
   if (e instanceof LoiApi) {

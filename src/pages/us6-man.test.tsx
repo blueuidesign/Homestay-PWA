@@ -214,7 +214,7 @@ test("test_QD22_US6_ban_thu_co_nut_nap_sale_mau_o_man_sale_va_van_khong_nap_du_l
 
 const dangNgangSau = (dau: boolean, ds: SuKienXoay[]) => ds.reduce(suKienXoay, dau);
 
-// YC5.1-NT5 · nút "Xoay ngang" S1-05 (xoay giả theo SK9)
+// US6-NT13 · nút "Xoay ngang" S1-05 (xoay giả theo SK9)
 const s1Xoay = (xoay: boolean) =>
   html(<NoiDungS1 lich={lich} hom="2026-10-07" onDoiTuan={khong} onChuaLam={khong} xoay={xoay} onXoay={khong} />);
 

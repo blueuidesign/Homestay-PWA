@@ -22,7 +22,7 @@ import { LoiApi } from "./kieu";
 import { guiLinkQuaZalo, saoChepLink } from "./link-moi";
 import { datCongZalo, type CongZalo, type KetQuaXinSo } from "./zalo";
 
-// US5 · Test chức năng trên server giả: xin số (YC1.5.x), link mời và danh sách sale (YC1.9), đặt phòng cho sale (YC4.1.2-NT3).
+// US5 · Test chức năng trên server giả: xin số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5).x), link mời và danh sách sale (mục "Chủ nhà quản lý danh sách sale" (US5)), đặt phòng cho sale (US5-NT13).
 // Dữ liệu DLM: Chị Hoa có 1509, 3402, 4 sale đã kết nối, hôm nay 07/10/2026, hồ sơ đã có số 0904 118 772.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 let n = 0;
@@ -72,7 +72,7 @@ beforeEach(async () => {
   [c1509, c3402] = (await getLichThang({ thang: "2026-10" })).can.map((c) => c.can_id);
 });
 
-// ---- Popup giải thích và luồng "Để sau" (YC1.5.1) ----
+// ---- Popup giải thích và luồng "Để sau" (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) ----
 
 test("test_YC1_5_1_NT1_US5_KB2_chua_co_so_bam_gui_link_thi_hien_popup_truoc_zalo", async () => {
   banThu.xoaSoDienThoai();
@@ -105,10 +105,10 @@ test("test_YC1_5_1_NT3_US5_KB2_KB3_de_sau_viec_goc_van_xong_ho_so_van_chua_co_so
   expect(viec).toBe(1);
   expect(dk.mo).toBeNull();
   expect(dem.xin).toBe(0); // không có hộp thoại xin quyền
-  expect((await getToi()).so_dien_thoai).toBeNull(); // P2 ghi "Chưa có" (YC1.5.3-NT2)
+  expect((await getToi()).so_dien_thoai).toBeNull(); // P2 ghi "Chưa có" (US5-NT8)
 });
 
-// ---- Hộp thoại Zalo (YC1.5.2) ----
+// ---- Hộp thoại Zalo (mục "Hộp thoại cấp quyền của Zalo" (US5)) ----
 
 test("test_YC1_5_2_NT1_HV4_NT4_US5_KB8_dong_y_mot_lan_co_ca_ten_va_so_roi_lam_tiep", async () => {
   banThu.xoaSoDienThoai();
@@ -212,7 +212,7 @@ test("test_HV2_US5_mat_mang_khi_gui_token_bao_chua_luu_giu_popup_gui_lai_khong_x
   expect((await getToi()).so_dien_thoai).toBe("0904118772");
 });
 
-// ---- Số điện thoại trong hồ sơ (YC1.5.3) ----
+// ---- Số điện thoại trong hồ sơ (mục "Số điện thoại hiện trong hồ sơ" (US5)) ----
 
 test("test_YC1_5_3_NT1_NT2_ho_so_co_so_va_chua_co_so", async () => {
   expect((await getToi()).so_dien_thoai).toBe("0904118772");
@@ -220,7 +220,7 @@ test("test_YC1_5_3_NT1_NT2_ho_so_co_so_va_chua_co_so", async () => {
   expect((await getToi()).so_dien_thoai).toBeNull();
 });
 
-// ---- Link mời (YC1.9 bước 1a) ----
+// ---- Link mời (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1a) ----
 
 test("test_YC1_9_NT5_US5_KB2_gui_link_de_sau_van_mo_cua_so_zalo_co_link_moi", async () => {
   banThu.xoaSoDienThoai();
@@ -268,7 +268,7 @@ test("test_PQ18_CHU_link_moi_dung_lai_khi_con_han_ma_moi_khi_het_han_va_khong_de
   expect(await maLoi(postLinkDaGui(a.ma, khoa()))).toBe("KHONG_TIM_THAY");
 });
 
-// ---- Danh sách sale (YC1.9) ----
+// ---- Danh sách sale (mục "Chủ nhà quản lý danh sách sale" (US5)) ----
 
 test("test_YC1_9_buoc_1_US5_CN7_hai_nhom_ten_va_so_tien_thang_nay_theo_DLM", async () => {
   const ds = await getKetNoi();
@@ -341,7 +341,7 @@ test("test_PQ17_CHU_sale_goi_danh_sach_sale_va_chu_nha_khac_ngung_sale_cua_chu_n
   expect((await getKetNoi()).da_ket_noi).toHaveLength(4);
 });
 
-// ---- Chi tiết sale và ngừng cho xem (YC1.9 bước 5, 6) ----
+// ---- Chi tiết sale và ngừng cho xem (mục "Chủ nhà quản lý danh sách sale" (US5) bước 5, 6) ----
 
 test("test_YC1_9_buoc_5_US5_CN7_04_chi_tiet_sale_so_dien_thoai_ngay_ket_noi_va_dat_phong", async () => {
   const ds = await getKetNoi();
@@ -380,7 +380,7 @@ test("test_YC1_9_buoc_6_ngung_dong_khong_con_da_ket_noi_thi_trang_thai_da_doi", 
   expect(await maLoi(postKetNoiNgung(k.id, khoa()))).toBe("TRANG_THAI_DA_DOI");
 });
 
-// ---- Đặt phòng chủ nhà ghi cho sale (YC4.1.2-NT3) ----
+// ---- Đặt phòng chủ nhà ghi cho sale (US5-NT13) ----
 
 test("test_YC4_1_2_NT3_US5_KB15_chip_sale_da_ket_noi_va_dat_phong_hien_o_chi_tiet_sale", async () => {
   await postKetNoi({ ten: "Sale Quân", so_dien_thoai: "0987000222" }, khoa());

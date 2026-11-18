@@ -15,8 +15,8 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS302, type OLichCan } from "./s3-yeu-cau-man";
 
-// S3-02 · Đặt phòng (YC4.5 bước 1 đến 3, 3a, 3b), S3-07 khi đêm vừa có người đặt. Mở từ S3 với state { can_id, ngay_nhan, ngay_tra }.
-// Mở màn: GET /sale/can/:id?ngay_nhan&ngay_tra (giá chủ nhà, giá bán do server tính). Gửi: POST /yeu-cau (chạy YC1.5 trước nếu hồ sơ chưa có số,
+// S3-02 · Đặt phòng (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 1 đến 3, 3a, 3b), S3-07 khi đêm vừa có người đặt. Mở từ S3 với state { can_id, ngay_nhan, ngay_tra }.
+// Mở màn: GET /sale/can/:id?ngay_nhan&ngay_tra (giá chủ nhà, giá bán do server tính). Gửi: POST /yeu-cau (chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) trước nếu hồ sơ chưa có số,
 // "Để sau" vẫn gửi). Lời nhắn giữ khi rời app (HV3), không tự gửi lại khi có mạng (HV2 bước 4). Cùng một lần gửi dùng một Idempotency-Key.
 const khoaMoi = () => `yeu-cau-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
 
@@ -105,7 +105,7 @@ export const ManYeuCauDatPhong = () => {
       if (!(e instanceof LoiMang)) khoa.current = khoaMoi();
       if (xuLyLoi(e)) return;
       if (e instanceof LoiApi && e.loi === "TRUNG_LICH") {
-        // YC4.5 bước 3a: không tạo yêu cầu, tải lại lịch của căn để thấy đêm đã kín
+        // mục "Sale gửi yêu cầu đặt phòng" (US15) bước 3a: không tạo yêu cầu, tải lại lịch của căn để thấy đêm đã kín
         setDatRoi({ o: await taiLichSauTrung() });
         void tai();
       } else if (e instanceof LoiApi && e.loi === "KHONG_CON_QUYEN") setLoi(chuLoiKhongGui(e.ly_do || "Bạn không còn gửi được yêu cầu cho căn này"));

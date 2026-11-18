@@ -3,7 +3,7 @@ import type { CanGuiKhach, TrangThaiGuiKhach } from "../services/kieu";
 import { chuKhoangNgay } from "../services/mau-tin";
 import { DUONG } from "./duong-dan";
 
-// Chữ và phép tính hiện của S5 (YC5.5) và P11 (YC5.7). Chữ chưa vẽ ở canvas là chữ tạm, liệt kê ở PR US14.
+// Chữ và phép tính hiện của S5 (mục "Gửi thông tin cho khách qua Zalo" (US14)) và P11 (mục "Mẫu tin gửi khách" (US14)). Chữ chưa vẽ ở canvas là chữ tạm, liệt kê ở PR US14.
 export const TIEU_DE_S5 = "Gửi cho khách";
 export const CHU_GUI_CHU = "Gửi chữ qua Zalo";
 export const CHU_SAO_CHEP = "Sao chép chữ";

@@ -1,7 +1,7 @@
 import React from "react";
 import { CHIP_MUC_CONG, CHU_LOI_MUC_CONG, CHU_TUY_CHON, chipDangChon, docSoTienMucCong } from "./muc-cong-hien-thi";
 
-// Bộ chip Mức cộng của sale, dùng chung cho S3 (YC5.4 bước 4) và P10 (YC5.6 bước 2): đúng 7 chip theo glossary.
+// Bộ chip Mức cộng của sale, dùng chung cho S3 (mục "Chi tiết căn và giá bán" (US13) bước 4) và P10 (mục "Mức cộng giá mặc định" (US13) bước 2): đúng 7 chip theo glossary.
 // moTuyChon: người dùng đã chạm "Tùy chọn" (hoặc mức hiện tại không nằm trong bộ chip). chuNhap: chữ trong ô nhập.
 export const ChipMucCong = ({
   soTien,

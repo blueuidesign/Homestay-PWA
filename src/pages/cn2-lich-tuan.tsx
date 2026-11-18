@@ -6,10 +6,10 @@ import type { CanLichTuan, DatPhongLichTuan, LichTuan, OLichTuan, TrangThaiTien 
 import { chuNgayNgan, chuThanhTuan, chuThu } from "../services/ngay";
 import { chuTenNguoiDat } from "./cn1-tom-tat";
 
-// CN2 · Lịch tuần nhiều căn (YC2.5), CN2-00 khi tuần chưa có đặt phòng. Phần vẽ, không gọi server. Phần tải ở cn2-man.tsx.
+// CN2 · Lịch tuần nhiều căn (mục "Lịch tuần khi có nhiều căn" (US9)), CN2-00 khi tuần chưa có đặt phòng. Phần vẽ, không gọi server. Phần tải ở cn2-man.tsx.
 // Giá trên bảng là giá chủ nhà (màn của chủ nhà). Chữ tạm (canvas chưa vẽ, ghi trong PR):
-// ba ô tóm tắt "Đêm có khách", "Đêm trống" (canvas ghi "Có khách hôm nay 1/6", "Trống tối T7 3 căn", [MỞ: YC2-H5]),
-// ô chưa đặt giá ghi "—" [MỞ: DC53 YC2.5 ô chưa đặt giá].
+// ba ô tóm tắt "Đêm có khách", "Đêm trống" (canvas ghi "Có khách hôm nay 1/6", "Trống tối T7 3 căn", [MỞ: CH-016]),
+// ô chưa đặt giá ghi "—" [MỞ: DC53 mục "Lịch tuần khi có nhiều căn" (US9) ô chưa đặt giá].
 
 // Chip lọc: "" là Tất cả, "toa:<id>" là một tòa, "pn:<số>" là số phòng ngủ
 export type LocTuan = string;
@@ -38,7 +38,7 @@ export const chuNhanTienThanh = (t: TrangThaiTien) => (t === "chua_coc" ? "Chưa
 export const dongPhuCanTuan = (c: Pick<CanLichTuan, "so_phong_ngu" | "toa_nha">) =>
   [chuPhongNgu(c.so_phong_ngu), c.toa_nha?.ten].filter(Boolean).join(" · ");
 
-// Ô trống: giá đêm rút gọn (YC2 quy tắc Giá rút gọn); chưa đặt giá thì "—"
+// Ô trống: giá đêm rút gọn (nhóm Lịch chủ nhà quy tắc Giá rút gọn); chưa đặt giá thì "—"
 export const chuOTrong = (o: OLichTuan) => (o.gia_dem === null ? "—" : chuGiaNgan(o.gia_dem));
 
 type Doan = { tu: number; so: number; bookingId: string | null };
@@ -208,7 +208,7 @@ export const KhungLichTuanDangTai = () => (
   </div>
 );
 
-// Lối vào tạm tới CN2 từ tab Lịch [MỞ: DC53 YC2-H4]; không phải lối vào chính thức
+// Lối vào tạm tới CN2 từ tab Lịch [MỞ: DC53 CH-015]; không phải lối vào chính thức
 export const TheXemLichTuan = ({ onBam }: { onBam: () => void }) => (
   <button
     type="button"

@@ -41,7 +41,7 @@ export type Can = {
   ten_chu_can?: string;
   tinh_trang_hom_nay?: TinhTrangHomNay | null;
 };
-// Tình trạng hôm nay của căn có lịch (api/can-anh.md GET /can). Căn tự nhập luôn null, không bao giờ `trong` (YC6.1-NT2).
+// Tình trạng hôm nay của căn có lịch (api/can-anh.md GET /can). Căn tự nhập luôn null, không bao giờ `trong` (US16-NT5).
 export type TinhTrangHomNay = { loai: "co_khach" | "khach_den" | "trong"; ngay_tra: string | null };
 
 // US11 · Tòa nhà dùng chung (api/can-anh.md GET /toa-nha, POST /toa-nha). da_dung: căn chưa ẩn của người gọi đang gắn tòa này.
@@ -66,9 +66,9 @@ export type CanChiTiet = {
   gia_chu_cuoi_tuan?: number | null;
   dat_phong_da_ghi?: DatPhongDaGhi[];
 };
-// Một đặt phòng sale đã ghi cho căn tự nhập (YC6.4 bước 2). tien_chenh = gia_ban trừ tien_phong (QT3).
+// Một đặt phòng sale đã ghi cho căn tự nhập (mục "Chi tiết căn tự nhập" (US16) bước 2). tien_chenh = gia_ban trừ tien_phong (QT3).
 export type DatPhongDaGhi = { id: string; ngay_nhan: string; ngay_tra: string; tien_phong: number; gia_ban: number; tien_chenh: number };
-// Thân PATCH /can/:id: chỉ gửi trường muốn đổi; so_giuong null là xóa trống (YC3.3-NT4); anh_ids là danh sách đầy đủ theo thứ tự
+// Thân PATCH /can/:id: chỉ gửi trường muốn đổi; so_giuong null là xóa trống (US11-NT11); anh_ids là danh sách đầy đủ theo thứ tự
 export type ThanSuaCan = {
   ma_can?: string;
   so_phong_ngu?: SoPhongNgu;
@@ -77,13 +77,13 @@ export type ThanSuaCan = {
   toa_nha_id?: string | null;
   mo_ta_gui_khach?: string | null;
   anh_ids?: string[];
-  // US16: chỉ căn tự nhập. sdt_chu_can null là xóa số (QD11, YC6.4-NT5)
+  // US16: chỉ căn tự nhập. sdt_chu_can null là xóa số (QD11, US16-NT27)
   ten_chu_can?: string;
   sdt_chu_can?: string | null;
   gia_chu_thuong?: number | null;
   gia_chu_cuoi_tuan?: number | null;
 };
-// Thân POST /can của sale (loai tu_nhap, YC6.3 bước 7) hoặc của chủ nhà, sale với căn của mình
+// Thân POST /can của sale (loai tu_nhap, mục "Thêm căn tự nhập" (US16) bước 7) hoặc của chủ nhà, sale với căn của mình
 export type ThanPostCan = {
   loai?: "co_lich" | "tu_nhap";
   ma_can: string;
@@ -152,7 +152,7 @@ export type NguoiDat = {
 
 export type TrangThaiTien = "chua_coc" | "da_coc_con_thu" | "da_thanh_toan";
 
-// GET /lich/ngay: mỗi căn một khối (api/lich-dat-phong.md, YC2.4-NT3)
+// GET /lich/ngay: mỗi căn một khối (api/lich-dat-phong.md, US2-NT7)
 export type DatPhongTrongNgay = {
   id: string;
   nguoi_dat: NguoiDat;
@@ -170,7 +170,7 @@ export type LichNgay = {
   can: (CanTrenLich & { trong: boolean; dat_phong: DatPhongTrongNgay | null })[];
 };
 
-// GET /lich/tom-tat (api/lich-dat-phong.md, YC2.2): doanh thu theo đêm của tháng (QD14, QT2.2), số đêm có khách
+// GET /lich/tom-tat (api/lich-dat-phong.md, mục "Tóm tắt tháng" (US9)): doanh thu theo đêm của tháng (QD14, QT2.2), số đêm có khách
 export type TomTatThang = {
   thang: string;
   doanh_thu: number;
@@ -179,9 +179,9 @@ export type TomTatThang = {
   so_can: number;
 };
 
-// GET /thong-ke/chu (api/thong-bao-thong-ke-xuat.md, YC7.1 đến YC7.3, CN8): số liệu một tháng của chủ nhà. Giá chủ nhà, không giá bán
+// GET /thong-ke/chu (api/thong-bao-thong-ke-xuat.md, mục "Thống kê tháng của chủ nhà" (US18) đến mục "Doanh thu theo người bán" (US18), CN8): số liệu một tháng của chủ nhà. Giá chủ nhà, không giá bán
 // và tiền chênh (PQ11.CHU, PQ15.CHU). Server trả số gốc; phần trăm, công suất, số rút gọn tính phía app (services/thong-ke.ts).
-// Khối `chua_thu` (YC7.4) chưa có: còn [MỞ: YC7.4 bước 1, DC53 US18-Q1], app không đọc và không vẽ.
+// Khối `chua_thu` (mục "Chưa thu tiền" (US18)) chưa có: còn [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1], app không đọc và không vẽ.
 export type ThongKeTheoCan = { can_id: string; ma_can: string; ten_toa_nha: string | null; doanh_thu: number };
 export type ThongKeTheoNguoiBan = { sale_id: string | null; ten: string; la_khach_le: boolean; da_xoa_tai_khoan: boolean; doanh_thu: number };
 export type ThongKeChu = {
@@ -197,7 +197,7 @@ export type ThongKeChu = {
   chuoi_thang: { thang: string; doanh_thu: number }[];
 };
 
-// GET /booking/sap-toi (YC2.3): ngày trả sau hôm nay, xếp theo ngày nhận. Không có giá bán, không khách của sale (PQ9, PQ11).
+// GET /booking/sap-toi (mục "Booking sắp tới" (US9)): ngày trả sau hôm nay, xếp theo ngày nhận. Không có giá bán, không khách của sale (PQ9, PQ11).
 export type DatPhongSapToi = {
   id: string;
   can_id: string;
@@ -213,7 +213,7 @@ export type DatPhongSapToi = {
 };
 export type SapToi = { muc: DatPhongSapToi[]; truoc_tiep: string | null };
 
-// GET /lich/tuan (YC2.5): bảng căn x 7 ngày từ thứ hai
+// GET /lich/tuan (mục "Lịch tuần khi có nhiều căn" (US9)): bảng căn x 7 ngày từ thứ hai
 export type OLichTuan = { ngay: string; booking_id: string | null; gia_dem: number | null };
 export type CanLichTuan = {
   can_id: string;
@@ -248,12 +248,12 @@ export type KiemTrung = {
   so_dem: number;
   dem: GiaDem[];
   tong_gia_chu: number | null;
-  // Chỉ căn tự nhập của sale (YC6.5 bước 4): tong_gia_chu cộng mức cộng. Không có trong JSON của chủ nhà (PQ11.CHU).
+  // Chỉ căn tự nhập của sale (mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 4): tong_gia_chu cộng mức cộng. Không có trong JSON của chủ nhà (PQ11.CHU).
   tong_gia_ban?: number | null;
 };
 
-// POST /booking: chủ nhà ghi khách lẻ (US3) hoặc ghi cho một sale đã kết nối bằng sale_id (US5, YC4.1.2-NT3).
-// Có sale_id thì ten_khach phải null: server.md 2.6 ghi sale_id hoặc ten_khach_le, [MỞ: YC4.1.3-NT4]
+// POST /booking: chủ nhà ghi khách lẻ (US3) hoặc ghi cho một sale đã kết nối bằng sale_id (US5, US5-NT13).
+// Có sale_id thì ten_khach phải null: server.md 2.6 ghi sale_id hoặc ten_khach_le, [MỞ: US28-NT4]
 export type ThanDatPhong = {
   can_id: string;
   sale_id?: string | null;
@@ -261,14 +261,14 @@ export type ThanDatPhong = {
   ngay_tra: string;
   ten_khach: string | null;
   tien_phong: number;
-  // Căn tự nhập (YC6.5): không có trạng thái tiền, tiền cọc
+  // Căn tự nhập (mục "Ghi booking đã chốt cho căn tự nhập" (US16)): không có trạng thái tiền, tiền cọc
   trang_thai_tien?: TrangThaiTien | null;
   tien_coc?: number | null;
   so_khach: number | null;
   gio_nhan: string | null;
   gio_tra: string | null;
   ghi_chu: string | null;
-  // Chỉ căn tự nhập (YC6.5): tiền thu khách. tien_phong là tiền trả chủ.
+  // Chỉ căn tự nhập (mục "Ghi booking đã chốt cho căn tự nhập" (US16)): tiền thu khách. tien_phong là tiền trả chủ.
   gia_ban?: number;
 };
 
@@ -369,7 +369,7 @@ export type ThongBaoChuSua = {
 export type SaleKetNoi = { sale_id: string; ten: string };
 
 // ---- Giá (US4, api/gia.md) ----
-// Một tháng của GET /can/:id/gia. null là "Chưa đặt" (YC3.4-NT3).
+// Một tháng của GET /can/:id/gia. null là "Chưa đặt" (US4-NT5).
 export type GiaThangCuaCan = {
   thang: string;
   gia_ngay_thuong: number | null;
@@ -406,7 +406,7 @@ export type KetQuaGiaThang = {
 };
 // Đầu ra POST /gia/nhieu-can (US7, api/gia.md). Chưa có màn đặt giá dịp cho nhiều căn nên gia_dip_ids luôn null.
 export type KetQuaGiaNhieuCan = { can_ids: string[]; so_can: number; thang: string[] | null; gia_dip_ids: string[] | null };
-// Thân và đầu ra POST /can/:id/gia/sao-chep (US7, YC3.7)
+// Thân và đầu ra POST /can/:id/gia/sao-chep (US7, mục "Sao chép giá sang căn khác" (US7))
 export type ThanSaoChepGia = { den_can_ids: string[]; gia_thang: boolean; gia_le: boolean; gia_dip_dac_biet: boolean };
 // thang_giu_gia_cu (US7, Tùng quyết 04/11/2026; tên trường do app đặt, EN52 làm server khớp): các tháng căn nguồn chưa có giá mà
 // căn đích đã có giá thì giữ giá đích. Chỉ liệt kê căn đích có tháng giữ lại, tháng dạng YYYY-MM tăng dần. Không có thì mảng rỗng.
@@ -428,7 +428,7 @@ export type KetQuaSaoChepGia = {
 };
 
 // ---- Hồ sơ và xin số điện thoại (US5, api/phien-ho-so.md) ----
-// GET /toi, phần app dùng. so_dien_thoai null là chưa có (YC1.5.3-NT2).
+// GET /toi, phần app dùng. so_dien_thoai null là chưa có (US5-NT8).
 export type HoSo = {
   id: string;
   vai_chon: VaiChon;
@@ -436,12 +436,12 @@ export type HoSo = {
   ten_hien_thi: string | null;
   anh_dai_dien: string | null;
   so_dien_thoai: string | null;
-  // US11 (YC3.8): các thứ tính giá cuối tuần, 1 là T2 đến 7 là CN, tăng dần. Mặc định [5, 6] (T6, T7).
+  // US11 (mục "Ngày tính giá cuối tuần" (US11)): các thứ tính giá cuối tuần, 1 là T2 đến 7 là CN, tăng dần. Mặc định [5, 6] (T6, T7).
   dem_cuoi_tuan?: number[];
-  // US13 (YC5.6): chỉ tài khoản vai sale có hai trường này. Chủ nhà không có (PQ11.CHU).
+  // US13 (mục "Mức cộng giá mặc định" (US13)): chỉ tài khoản vai sale có hai trường này. Chủ nhà không có (PQ11.CHU).
   muc_cong_mac_dinh?: number;
   lam_tron_50k?: boolean;
-  // US14 (YC5.7): mẫu tin gửi khách của sale. null là dùng mẫu mặc định.
+  // US14 (mục "Mẫu tin gửi khách" (US14)): mẫu tin gửi khách của sale. null là dùng mẫu mặc định.
   mau_tin_gui_khach?: string | null;
 };
 // Thân PATCH /toi (api/phien-ho-so.md). Chủ nhà gửi muc_cong_mac_dinh, lam_tron_50k thì DU_LIEU_SAI (PQ11.CHU).
@@ -536,7 +536,7 @@ export type KetQuaDongYXinLich = {
   quyen_tinh_trang_coc: boolean;
   ket_noi_luc: string;
 };
-// GET /xin-lich/thong-ke (A7): hai số và lần gửi gần nhất, không tên chủ nhà nào (YC1.6-NT2, PQ18.SALE)
+// GET /xin-lich/thong-ke (A7): hai số và lần gửi gần nhất, không tên chủ nhà nào (US17-NT3, PQ18.SALE)
 export type ThongKeXinLich = { so_lan_gui: number; gui_cuoi_luc: string | null; so_chu_nha_dong_y: number };
 
 // ---- Thông báo (US17, api/thong-bao-thong-ke-xuat.md): GET /thong-bao, POST /thong-bao/da-doc ----
@@ -578,7 +578,7 @@ export type CanLichSale = {
   lich_cap_nhat_luc?: string | null;
   o: OLichSale[];
 };
-// sap_xep của GET /sale/lich (S1-04, YC5.1 bước 6)
+// sap_xep của GET /sale/lich (S1-04, mục "Lịch phòng 7 ngày" (US16) bước 6)
 export type SapXepLich = "ten" | "gia_tang" | "ban_nhieu";
 export type LichSale = {
   tu: string;
@@ -618,7 +618,7 @@ export type TrangThaiCanSale = { can_id: string; ngay_nhan: string | null; ngay_
 // State mở S5. Từ S2: nhiều căn theo thứ tự tích. Từ S3: một căn, state của S3 (TrangThaiCanSale) dùng được luôn.
 export type TrangThaiGuiKhach = { can_ids?: string[]; can_id?: string; ngay_nhan: string | null; ngay_tra: string | null };
 export type AnhGuiKhach = { thu_tu: number; duong_dan: string; het_han_luc: string };
-// Chữ và JSON không có giá chủ, không có mức cộng (YC5.5-NT4, PQ5.SALE, PQ11.KHACH)
+// Chữ và JSON không có giá chủ, không có mức cộng (US14-NT4, PQ5.SALE, PQ11.KHACH)
 export type CanGuiKhach = {
   id: string;
   ten: string;
@@ -638,7 +638,7 @@ export type KetQuaGuiKhachXem = {
 export type KetQuaDaGui = { id: string; da_ghi_truoc: boolean };
 
 // ---- Tìm phòng trống (US12, api/sale.md: GET /sale/tim, /sale/tim/lich-tuan, /sale/tim-gan-day) ----
-// Điều kiện tìm. Danh sách rỗng là không lọc. so_phong_ngu 4 là 4PN+. Chưa có lọc giá, số khách [MỞ: YC5-H5, 14].
+// Điều kiện tìm. Danh sách rỗng là không lọc. so_phong_ngu 4 là 4PN+. Chưa có lọc giá, số khách [MỞ: CH-069, 14].
 export type DieuKienTim = { ngay_nhan: string; ngay_tra: string; so_phong_ngu: number[]; loai_view: string[]; toa_nha_id: string[] };
 // Căn nguồn phòng luôn có tong_gia_chu, tong_gia_ban (QD20 r2 điểm 3, EN53). Căn của tôi không có tong_gia_ban.
 export type CanTim = {
@@ -690,9 +690,9 @@ export type KetQuaGiaDip = DaiDip & { can_id: string; lich_cap_nhat_luc: string 
 export type DaiChong = { id: string; ten: string; tu_ngay: string; den_ngay: string };
 
 // ---- US16 · Nguồn phòng của sale (api/ket-noi-link.md: GET /ket-noi, GET /ket-noi/:id, DELETE /ket-noi/:id, bản sale) ----
-// Căn trong nguồn phòng: không giá, không số khách (YC6.1-NT4).
+// Căn trong nguồn phòng: không giá, không số khách (US16-NT7).
 export type CanNguonPhong = { id: string; ma_can: string; toa_nha: string | null; so_phong_ngu: SoPhongNgu; so_giuong: number | null; loai_view: string | null };
-// Dòng chủ nhà đã rút quyền: không `can`, không `lich_cap_nhat_luc` (YC6.1 bước 10, PQ23.SALE)
+// Dòng chủ nhà đã rút quyền: không `can`, không `lich_cap_nhat_luc` (mục "Danh sách căn và nguồn phòng" (US16) bước 10, PQ23.SALE)
 export type DongNguonPhong = {
   id: string;
   trang_thai: "da_ket_noi";
@@ -702,7 +702,7 @@ export type DongNguonPhong = {
   can?: CanNguonPhong[];
 };
 export type NguonPhong = { vai: "sale"; nguon_phong: DongNguonPhong[] };
-// Căn ở S6-04. Giá căn ("1.800.000đ/đêm") và "Bạn đã bán", "Tiền chênh" còn [MỞ: YC6-H4, YC6-H5], server chưa gửi: app không hiện.
+// Căn ở S6-04. Giá căn ("1.800.000đ/đêm") và "Bạn đã bán", "Tiền chênh" còn [MỞ: CH-074, CH-075], server chưa gửi: app không hiện.
 export type CanChiTietNguonPhong = CanNguonPhong;
 export type ChiTietNguonPhong = {
   vai: "sale";

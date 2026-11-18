@@ -9,7 +9,7 @@ import { LoiApi, LoiMang } from "../services/kieu";
 import { boNhoHoSo } from "../stores/ho-so";
 import { NoiDungCN705, soHopLe } from "./cn7-man-them";
 
-// CN7-05 · Thêm sale thủ công (YC1.9 bước 4, YC1.9-NT1): ô Tên sale *, Số điện thoại *, nút "Lưu sale".
+// CN7-05 · Thêm sale thủ công (mục "Chủ nhà quản lý danh sách sale" (US5) bước 4, US5-NT9): ô Tên sale *, Số điện thoại *, nút "Lưu sale".
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 

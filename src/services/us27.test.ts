@@ -2,7 +2,7 @@ import { beforeEach, expect, test } from "vitest";
 import { banThu, deleteCan, getBookingSale, getCan, getCanChiTiet, getLichNgay, getLichThang, getSaleCan, getSaleKetNoi, getSaleLich, getSaleTim, postBooking, postCan, postPhien, postYeuCau, putGiaThang } from "./api";
 import { LoiApi, type ThanDatPhong } from "./kieu";
 
-// US27 · Chủ nhà xóa căn (ẩn căn, YC3.9, YC3.2-NT5) trên server giả, máy là Chị Hoa (DLM). Hôm nay 07/10/2026 (DLM.1).
+// US27 · Chủ nhà xóa căn (ẩn căn, mục "Xóa căn" (US27), US27-NT1) trên server giả, máy là Chị Hoa (DLM). Hôm nay 07/10/2026 (DLM.1).
 // DLM: 1509 và 3402 đều còn đặt phòng trả sau 07/10 (không xóa được), nên các ca xóa được dùng căn thêm mới (9001...).
 // Server thật có test riêng (src/server/api/us27-nt.test.js, us27-pq.test.js); test ghép: services/that/us27.ghep.ts.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
@@ -91,7 +91,7 @@ test("test_YC3_9_NT5_YC3_2_NT5_US27_an_xong_can_bien_khoi_danh_sach_lich_va_ma_c
   expect(await maLoi(getLichThang({ thang: "2026-10", can_id: a.id }))).toBe("KHONG_TIM_THAY");
   expect(JSON.stringify(await getLichNgay({ ngay: "2026-10-07" }))).not.toContain("9005");
   expect(await maCan()).toEqual(expect.arrayContaining(["1509", "3402"])); // căn khác không đổi
-  // YC3.2-NT5: thêm lại mã 9005 được, là căn mới
+  // US27-NT1: thêm lại mã 9005 được, là căn mới
   const lai = await postCan({ ma_can: "9005", so_phong_ngu: 2 }, khoa());
   expect(lai.id).not.toBe(a.id);
   expect(await maCan()).toContain("9005");

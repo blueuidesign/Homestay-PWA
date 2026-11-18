@@ -2,7 +2,7 @@ import { beforeEach, expect, test } from "vitest";
 import { banThu, getKetNoi, getSaleTim, getSaleTimGanDay, getSaleTimLichTuan, getToaNha, postKetNoiNgung, postPhien } from "./api";
 import { LoiApi, type CanTim } from "./kieu";
 
-// US12 · Test server giả của tìm phòng trống (YC5.2, YC5.3). Dữ liệu DLM: hôm nay 07/10/2026.
+// US12 · Test server giả của tìm phòng trống (mục "Tìm phòng trống theo ngày" (US12), mục "Kết quả tìm phòng" (US12)). Dữ liệu DLM: hôm nay 07/10/2026.
 // Hùng kết nối Chị Hoa và Anh Tuấn; Lan chỉ Chị Hoa. Lần tìm 24/10 → 26/10 (đêm T7, CN) ra 4 căn (item US12, mục Test case).
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 let n = 0;

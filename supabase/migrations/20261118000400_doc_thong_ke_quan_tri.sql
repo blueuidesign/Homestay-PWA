@@ -91,7 +91,7 @@ end $$;
 -- ---------- Thống kê ----------
 
 -- Thống kê một tháng của chủ nhà (CN8, CN1). p_thang: ngày bất kỳ trong tháng. Chỉ căn có lịch mình giữ, kể cả căn đã xóa
--- (doanh thu cũ không đổi, YC3.9). Booking đã hủy không tính. Doanh thu và đêm có khách chia theo đêm (QT2.2, QT4.2).
+-- (doanh thu cũ không đổi, mục "Xóa căn" (US27)). Booking đã hủy không tính. Doanh thu và đêm có khách chia theo đêm (QT2.2, QT4.2).
 -- Không có giá bán hay tiền chênh của sale (PQ11, PQ15).
 create or replace function public.fn_thong_ke_chu(p_thang date default null) returns jsonb
 language plpgsql stable security definer set search_path = public as $$
@@ -200,7 +200,7 @@ begin
    order by lower(b.dem), c.ma_can;
 end $$;
 
--- ---------- Quản trị (YC10) ----------
+-- ---------- Quản trị (nhóm Quản trị Home247 trên web) ----------
 
 create or replace function public.can_la_admin() returns uuid
 language plpgsql stable security definer set search_path = public as $$
@@ -210,7 +210,7 @@ begin
   return v;
 end $$;
 
--- Thêm hay sửa một dải ngày lễ của một năm (YC10.1). p: id (khi sửa), nam, ten, ngay_dau, ngay_cuoi.
+-- Thêm hay sửa một dải ngày lễ của một năm (mục "Quản trị dải ngày lễ hằng năm" (US23)). p: id (khi sửa), nam, ten, ngay_dau, ngay_cuoi.
 create or replace function public.fn_qt_luu_ngay_le(p jsonb) returns uuid
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_la_admin(); v_id uuid := nullif(p->>'id', '')::uuid;
@@ -238,7 +238,7 @@ begin
   insert into audit_log (actor_id, table_name, row_id, action) values (v_me, 'ngay_le', p_id, 'xoa');
 end $$;
 
--- Thêm hay sửa một tòa nhà trong danh sách chung (YC10.2). p: id (khi sửa), ten, khu_vuc.
+-- Thêm hay sửa một tòa nhà trong danh sách chung (mục "Quản trị danh sách tòa nhà" (US29)). p: id (khi sửa), ten, khu_vuc.
 create or replace function public.fn_qt_luu_toa_nha(p jsonb) returns uuid
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_la_admin(); v_id uuid := nullif(p->>'id', '')::uuid;
@@ -255,7 +255,7 @@ exception when unique_violation then
   raise exception 'Đã có tòa nhà tên này' using errcode = 'P0001';
 end $$;
 
--- Thêm người đồng quản trị bằng email (YC10.3): chỉ quản trị viên đầu tiên. Người đó đã có tài khoản thì thành quản trị ngay,
+-- Thêm người đồng quản trị bằng email (mục "Thêm người đồng quản trị" (US34)): chỉ quản trị viên đầu tiên. Người đó đã có tài khoản thì thành quản trị ngay,
 -- chưa có thì thành quản trị ở lần đăng nhập đầu.
 create or replace function public.fn_qt_them_admin(p_email text) returns void
 language plpgsql security definer set search_path = public as $$

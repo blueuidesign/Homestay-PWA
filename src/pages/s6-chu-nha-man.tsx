@@ -2,7 +2,7 @@ import React from "react";
 import { CHU_BO_NGUON, CHU_GOI, chuCaiDau, chuChoXem, chuKetNoiTu, chuLoiNhacBoNguon, chuXacNhanBoNguon, dongPhuCanSale, tenCanSale } from "../components/can-sale-hien-thi";
 import type { ChiTietNguonPhong } from "../services/kieu";
 
-// Phần vẽ của S6-04 (YC6.2). Không gọi server. Màn: s6-chu-nha.tsx.
+// Phần vẽ của S6-04 (mục "Chi tiết chủ nhà và bỏ nguồn phòng" (US16)). Không gọi server. Màn: s6-chu-nha.tsx.
 export const NoiDungS6ChuNha = ({
   ct,
   xacNhan,

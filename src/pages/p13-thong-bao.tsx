@@ -11,7 +11,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungP13 } from "./p13-man";
 
-// P13 · Thông báo (YC1.10 bước 3). Vào từ Cá nhân, dòng "Thông báo". GET /thong-bao (mới trước, kèm số chưa đọc),
+// P13 · Thông báo (mục "Thông báo kết quả kết nối cho sale" (US17) bước 3). Vào từ Cá nhân, dòng "Thông báo". GET /thong-bao (mới trước, kèm số chưa đọc),
 // "Đánh dấu đã đọc" và chạm một dòng: POST /thong-bao/da-doc. Chạm dòng thì mở màn đích (P13 bảng Hành động).
 export const P13ThongBao = () => {
   const dieuHuong = useNavigate();

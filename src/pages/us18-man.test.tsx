@@ -6,7 +6,7 @@ import type { ThongKeChu } from "../services/kieu";
 import { BieuDo6Thang, chuDemCoKhach, HangChonThang, KhoiNguoiBan, KhungThongKeDangTai, NoiDungThongKe, TheCan, TheDoanhThu, TheKin } from "./cn8-man";
 
 // US18 · Test render màn Thống kê chủ nhà (CN8, CN8-00) với số của server giả theo DLM.5. Hôm nay 07/10/2026 (DLM.1).
-// Mỗi test lấy số từ server giả (getThongKeChu) rồi vẽ phần giao diện và đọc chữ ra. Khối chưa thu (YC7.4) chưa làm: [MỞ: YC7.4 bước 1, DC53 US18-Q1].
+// Mỗi test lấy số từ server giả (getThongKeChu) rồi vẽ phần giao diện và đọc chữ ra. Khối chưa thu (mục "Chưa thu tiền" (US18)) chưa làm: [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1].
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);
 const chu = (s: string) => s.replace(/<[^>]+>/g, "|").replace(/\|+/g, "|").replace(/&quot;/g, '"');
@@ -98,7 +98,7 @@ test("test_YC7_2_NT1_NT2_KB10_bieu_do_6_cot_T5_den_T10_so_rut_gon_va_chi_cot_T10
   expect(v).toContain("11.8tr");
   expect(nhanCot(s)).toEqual(["T5", "T6", "T7", "T8", "T9", "T10"]);
   expect(soTrenCot(s)).toEqual(["", "", "", "", "9.6tr", "11.8tr"]);
-  // Cột T10 là cột đậm duy nhất (YC7.2-NT2)
+  // Cột T10 là cột đậm duy nhất (US18-NT7)
   expect(s.match(/tk-bd__thanh--dam/g)).toHaveLength(1);
   expect(s.match(/tk-bd__nhan--dam/g)).toHaveLength(1);
 });
@@ -126,7 +126,7 @@ test("test_YC7_2_NT1_cot_13_4tr_va_7_2tr_ghi_so_rut_gon_cua_so_dua_vao", () => {
   };
   const s = html(<BieuDo6Thang tk={tk} />);
   expect(soTrenCot(s)).toEqual(["7.2tr", "13.4tr", "", "800k", "9.6tr", "11.8tr"]);
-  // Cột 0đ không có thanh, không có số (YC7.2 trạng thái rỗng): 5 thanh cho 5 cột có tiền
+  // Cột 0đ không có thanh, không có số (mục "Doanh thu 6 tháng" (US18) trạng thái rỗng): 5 thanh cho 5 cột có tiền
   expect(s.match(/class="tk-bd__thanh/g)).toHaveLength(5);
   expect(s).toMatch(/data-cot="2026-07" data-dam="0" data-so="0"><span class="tk-bd__so"><\/span>/);
 });

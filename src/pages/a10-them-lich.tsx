@@ -15,7 +15,7 @@ import { A8DuyetXinLich } from "./a8-duyet";
 import { NoiDungA1Link, NoiDungA1LinkLoi } from "./a1-link";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 
-// Màn mở từ link (YC1.3): chọn A1-link, A1-link-01, A10 hoặc A10-01 theo tài khoản và link. Phần vẽ ở a10-man.tsx.
+// Màn mở từ link (mục "Mở app từ link mời của chủ nhà" (US6)): chọn A1-link, A1-link-01, A10 hoặc A10-01 theo tài khoản và link. Phần vẽ ở a10-man.tsx.
 
 // Khung xám khi tải lần đầu (HV1 bước 1)
 const KhungDangTaiLink = () => (
@@ -29,7 +29,7 @@ const KhungDangTaiLink = () => (
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 
-// Màn mở từ link: chọn A1-link, A1-link-01, A10 hoặc A10-01 theo tài khoản và link (YC1.3)
+// Màn mở từ link: chọn A1-link, A1-link-01, A10 hoặc A10-01 theo tài khoản và link (mục "Mở app từ link mời của chủ nhà" (US6))
 export const ManMoLink = () => {
   const dieuHuong = useNavigate();
   const toast = useToast();

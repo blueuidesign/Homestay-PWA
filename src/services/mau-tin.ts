@@ -1,9 +1,9 @@
-// Chữ gửi khách theo mẫu tin (US14, YC5.5 bước 2, YC5.7). Hàm thuần, không gọi API, không gọi Zalo.
-// Server giả (api.ts) dùng để dựng chữ; màn P11 dùng để dựng bản xem trước ở app (YC5.7 bước 3: app dựng, không gọi server).
+// Chữ gửi khách theo mẫu tin (US14, mục "Gửi thông tin cho khách qua Zalo" (US14) bước 2, mục "Mẫu tin gửi khách" (US14)). Hàm thuần, không gọi API, không gọi Zalo.
+// Server giả (api.ts) dùng để dựng chữ; màn P11 dùng để dựng bản xem trước ở app (mục "Mẫu tin gửi khách" (US14) bước 3: app dựng, không gọi server).
 // Cách dựng chép từ src/server/domain/gui-khach/index.js để chữ ở P11 và chữ ở S5 giống nhau.
-// Chữ gửi khách chỉ có giá bán. Không có giá chủ nhà, mức cộng, số khách, tiện ích (YC5.5-NT4, NT5, NT12).
+// Chữ gửi khách chỉ có giá bán. Không có giá chủ nhà, mức cộng, số khách, tiện ích (US14-NT4, NT5, NT12).
 
-// Các ô chèn của mẫu (YC5 quy tắc Mẫu tin gửi khách), theo thứ tự hàng "Chạm để chèn" ở P11
+// Các ô chèn của mẫu (nhóm Tìm phòng và gửi khách quy tắc Mẫu tin gửi khách), theo thứ tự hàng "Chạm để chèn" ở P11
 export const CAC_O_CHEN = ["[Ngày]", "[Số đêm]", "[Số căn]", "[Danh sách căn]", "[Tên sale]"] as const;
 
 // Mẫu mặc định. Nội dung chưa chốt [MỞ: api/sale.md câu hỏi 14]; chép đúng chuỗi MAU_MAC_DINH của server (src/server/domain/gui-khach).
@@ -12,7 +12,7 @@ export const TOI_DA_KY_TU_MAU = 2000; // api/phien-ho-so.md: mau_tin_gui_khach t
 
 const CHU_VIEW: Record<string, string> = { bien: "biển", thanh_pho: "thành phố", nui: "núi" };
 
-// Hàng chip Số phòng ngủ (YC3.2.2): 0 là Studio, 4 là 4PN+
+// Hàng chip Số phòng ngủ (mục "Tòa nhà, loại view, số giường, mô tả" (US11)): 0 là Studio, 4 là 4PN+
 const chuPhongNgu = (n: number) => (n === 0 ? "Studio" : n >= 4 ? "4PN+" : `${n}PN`);
 
 // 2600000 -> "2.600.000đ". Tiền là số nguyên đồng.
@@ -30,7 +30,7 @@ export type CanDeDungChu = {
   khu_vuc: string | null;
 };
 
-// "ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy". Phòng ngủ và số giường theo glossary, không số khách (YC5.5-NT5).
+// "ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy". Phòng ngủ và số giường theo glossary, không số khách (US14-NT5).
 export function dongMoTa(c: CanDeDungChu): string {
   let s = `${c.ten} · ${chuPhongNgu(c.so_phong_ngu)}`;
   if (c.so_giuong != null) s += ` · ${c.so_giuong} giường`;
@@ -67,16 +67,16 @@ export const CAN_XEM_TRUOC: CanTrongMau[] = [
   { moTa: "À La Carte 2208 · 1PN · 1 giường, view biển", giaBan: 3_600_000 },
 ];
 
-// Bản xem trước "KHÁCH SẼ NHẬN ĐƯỢC" (YC5.7 bước 3): dựng ở app từ mẫu đang gõ và ba căn mẫu
+// Bản xem trước "KHÁCH SẼ NHẬN ĐƯỢC" (mục "Mẫu tin gửi khách" (US14) bước 3): dựng ở app từ mẫu đang gõ và ba căn mẫu
 export const xemTruocMau = (mau: string, tenSale: string | null) =>
   dungChuTheoMau(mau, NGAY_XEM_TRUOC.nhan, NGAY_XEM_TRUOC.tra, NGAY_XEM_TRUOC.soDem, CAN_XEM_TRUOC, tenSale);
 
-// Chèn một ô vào mẫu tại vị trí con trỏ (YC5.7 bước 2). Trả mẫu mới và vị trí con trỏ sau ô vừa chèn.
+// Chèn một ô vào mẫu tại vị trí con trỏ (mục "Mẫu tin gửi khách" (US14) bước 2). Trả mẫu mới và vị trí con trỏ sau ô vừa chèn.
 export function chenO(mau: string, tu: number, den: number, o: string): { mau: string; conTro: number } {
   const a = Math.max(0, Math.min(tu, mau.length));
   const b = Math.max(a, Math.min(den, mau.length));
   return { mau: mau.slice(0, a) + o + mau.slice(b), conTro: a + o.length };
 }
 
-// Lưu: mẫu bằng mẫu mặc định thì gửi null (dùng mẫu mặc định, YC5.7 bước 4)
+// Lưu: mẫu bằng mẫu mặc định thì gửi null (dùng mẫu mặc định, mục "Mẫu tin gửi khách" (US14) bước 4)
 export const mauDeLuu = (mau: string): string | null => (mau === MAU_MAC_DINH ? null : mau);

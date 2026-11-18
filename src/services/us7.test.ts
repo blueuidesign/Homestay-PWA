@@ -3,7 +3,7 @@ import { banThu, getCan, getGiaCan, getLichThang, postCan, postGiaNhieuCan, post
 import { LoiApi, LoiMang, type BangGia } from "./kieu";
 
 // US7 · Server giả của đặt giá nhiều căn và sao chép giá (QD22), cùng đường API với api/gia.md:
-// POST /gia/nhieu-can và POST /can/:id/gia/sao-chep. Số theo ví dụ của YC3: 800.000đ, 1.100.000đ, Tháng 11 – 12.
+// POST /gia/nhieu-can và POST /can/:id/gia/sao-chep. Số theo ví dụ của nhóm Căn và giá: 800.000đ, 1.100.000đ, Tháng 11 – 12.
 
 const maLoi = (p: Promise<unknown>) =>
   p.then(

@@ -45,7 +45,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { NoiDungS6 } from "./s6-man";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 
-// Tab Căn của sale (S6, S6-00, S6-08; YC6.1). Mở màn: GET /can (căn của tôi, căn tự nhập) và GET /ket-noi (nguồn phòng).
+// Tab Căn của sale (S6, S6-00, S6-08; mục "Danh sách căn và nguồn phòng" (US16)). Mở màn: GET /can (căn của tôi, căn tự nhập) và GET /ket-noi (nguồn phòng).
 // Chạm căn của tôi: S6-07. Chạm tên chủ nhà: S6-04. Chạm căn dưới chủ nhà: S3. Chạm căn tự nhập: S6-03.
 // Dòng chủ nhà đã rút quyền (S6-08): không chạm vào mở gì, có nút "Bỏ khỏi danh sách", bỏ ngay không hỏi lại, không tính vào số đếm.
 const khoaMoi = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`);
@@ -104,7 +104,7 @@ export const TabCanSale = () => {
       khoaBo.current = khoaMoi();
       boNhoTabCan.lamMoi();
       boNhoLichSale.lamMoi();
-      // Dòng biến ngay (YC6.1-NT7), không hỏi lại
+      // Dòng biến ngay (US16-NT8), không hỏi lại
       setDu((cu) => (cu ? { ...cu, nguon: { ...cu.nguon, nguon_phong: cu.nguon.nguon_phong.filter((x) => x.id !== d.id) } } : cu));
       toast(chuToastBoDong(d.ten_hien_thi));
     } catch (e) {
@@ -116,7 +116,7 @@ export const TabCanSale = () => {
     }
   };
 
-  // Lời mời: chạy YC1.5 nếu hồ sơ chưa có số (QD2), rồi mở cửa sổ chia sẻ của Zalo; app không tự gửi tin (YC6.1-NT3)
+  // Lời mời: chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số (QD2), rồi mở cửa sổ chia sẻ của Zalo; app không tự gửi tin (US16-NT6)
   const moi = (ten: string) =>
     void xin.chay(async () => {
       setLoiMoi(null);

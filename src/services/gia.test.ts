@@ -87,7 +87,7 @@ test("test_YC3_4_NT4_US4_KB2_lich_gia_thang_10_cua_3402_tach_hai_loai_dem", asyn
   expect(dem(b, "2026-10-30").gia).toBe(1100000);
   expect(dem(b, "2026-10-31").gia).toBe(1100000);
   expect(dem(b, "2026-10-01").gia).toBe(800000);
-  // Dịp đặc biệt thay giá tháng (YC3.5-NT3)
+  // Dịp đặc biệt thay giá tháng (US8-NT3)
   expect(dem(b, "2026-10-24")).toMatchObject({ gia: 1300000, loai_dem: "dip" });
   expect(dem(b, "2026-10-25")).toMatchObject({ gia: 1300000, loai_dem: "dip" });
   expect(b.dai_dip).toEqual([

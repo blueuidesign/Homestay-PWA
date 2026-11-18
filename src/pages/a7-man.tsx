@@ -16,8 +16,8 @@ import {
 } from "../components/xin-lich-hien-thi";
 import type { ThongKeXinLich } from "../services/kieu";
 
-// A7 · Đã gửi, chờ chủ nhà (YC1.6 bước 3), A7-00 khi chưa gửi lần nào, A7-01 khi vừa quay lại từ Zalo (dải xanh, số đã cập nhật).
-// Chỉ hai con số và lần gửi gần nhất, không có tên chủ nhà nào (YC1.6-NT2, quy tắc Không biết gửi cho ai). Phần vẽ, tách khỏi trang để test.
+// A7 · Đã gửi, chờ chủ nhà (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 3), A7-00 khi chưa gửi lần nào, A7-01 khi vừa quay lại từ Zalo (dải xanh, số đã cập nhật).
+// Chỉ hai con số và lần gửi gần nhất, không có tên chủ nhà nào (US17-NT3, quy tắc Không biết gửi cho ai). Phần vẽ, tách khỏi trang để test.
 export type PropsA7 = {
   tk: ThongKeXinLich;
   vuaGui: boolean; // A7-01: vừa gửi xong qua cửa sổ Zalo

@@ -8,7 +8,7 @@ import { useKhiQuayLai } from "./dung-mang";
 import { chonToastMoi, CHU_NUT_XEM, type TrangThaiNghe } from "./thong-bao-hien-thi";
 import { useToast } from "./toast";
 
-// Toast A9, A9-02 (YC1.10 bước 1, 2): khi sale đang mở app, hỏi GET /thong-bao?gioi_han=20 mỗi 60 giây và mỗi lần quay lại từ nền;
+// Toast A9, A9-02 (mục "Thông báo kết quả kết nối cho sale" (US17) bước 1, 2): khi sale đang mở app, hỏi GET /thong-bao?gioi_han=20 mỗi 60 giây và mỗi lần quay lại từ nền;
 // có lần đồng ý mới của chủ nhà thì hiện toast "<tên> đã đồng ý cho bạn xem lịch", nút "Xem" mở Nguồn phòng (S6). Chậm nhất 60 giây sau khi
 // chủ nhà đồng ý (server.md 1.11). Chỉ tài khoản vai sale (toast là của sale). Mất mạng hay lỗi thì bỏ qua, lần hỏi sau thử lại.
 // Chưa biết vai (chưa vào app) hay chưa có lần hỏi đầu thì hỏi lại sau vài giây, để lần hỏi đầu (chỉ ghi nhớ) đến sớm.

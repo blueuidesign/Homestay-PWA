@@ -22,7 +22,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 7: về Lịch, toast "Đã thêm đặt phòng Khách lẻ · 1509" ở đầu màn.
   - Chi tiết ngày 15/10 mở sẵn, có đặt phòng 1509 "15/10 → 17/10 (2 đêm)", "2.200.000đ".
   - Ngày 15/10, 16/10 có vạch màu của 1509; 17/10 không có vạch màu của 1509.
-- **Nguồn:** YC4.1-NT1, YC4.1.1-NT1, YC4.1.1-NT3, YC4.1.2 bước 2, QT2.1, HV8
+- **Nguồn:** US3-NT1, US3-NT2, US3-NT8, QT2.1, HV8
 
 ### US3-KB2 · Chip số đêm đổi ngày trả `[Chính]`
 - **Mục đích:** chọn số đêm thì ngày trả tự tính đúng.
@@ -39,7 +39,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Bước 4: ngày trả 17/10, dòng "(2 đêm)", tiền phòng 2.200.000.
   - Bước 5: ngày trả 18/10, dòng "(3 đêm)", tiền phòng 3.500.000 (900.000 + 1.300.000 + 1.300.000; 17/10 là T7).
   - Bước 6: dòng "15/10 → 19/10 (4 đêm)", tiền phòng 4.400.000 (thêm đêm 18/10 CN 900.000đ). Mọi bước đều "không trùng lịch".
-- **Nguồn:** YC4.1.1-NT3, YC4.1.1 bước 2, 3
+- **Nguồn:** US3-NT8
 
 ### US3-KB3 · Ghi trùng một đêm của đặt phòng có sẵn `[Lỗi]`
 - **Mục đích:** đêm đã có khách thì báo trùng và không lưu được.
@@ -53,7 +53,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 2: dòng báo trùng lịch, không có dấu ✓ và không có chữ "không trùng lịch".
   - Sau bước 4: không có toast "Đã thêm đặt phòng", vẫn ở form, nội dung đã nhập giữ nguyên.
   - Thoát form, chạm ngày 11/10: 1509 chỉ có B1 Sale Hùng "10/10 → 12/10 (2 đêm)". Ngày 12/10: 1509 ghi "Trống".
-- **Nguồn:** YC4.1.1-NT2, QT1.1-VD1
+- **Nguồn:** US3-NT3, QT1.1-VD1
 
 ### US3-KB4 · Trùng ở đêm đầu của đặt phòng có sẵn `[Lỗi]`
 - **Mục đích:** đặt phòng mới chỉ chồng một đêm cuối của nó lên đêm đầu đặt phòng cũ cũng bị chặn.
@@ -66,7 +66,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Ngày trả 11/10. Dòng báo trùng (đêm 10/10 thuộc B1).
   - Không có toast, không có đặt phòng mới ở 08/10, 09/10.
-- **Nguồn:** YC4.1.1-NT2, QT1.1
+- **Nguồn:** US3-NT3, QT1.1
 
 ### US3-KB5 · Nhận phòng đúng ngày trả của khách trước `[Biên]`
 - **Mục đích:** ngày trả của đặt phòng cũ không phải đêm có khách, nên ghi được.
@@ -80,7 +80,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Dòng "✓ 12/10 → 13/10 (1 đêm) · không trùng lịch". Tiền phòng 900.000 (12/10 là T2).
   - Toast "Đã thêm đặt phòng Khách lẻ · 1509".
   - Chạm chip "1509": các ngày 10/10, 11/10, 12/10, 13/10, 14/10 có vạch màu; 15/10 không.
-- **Nguồn:** QT1.1-VD2, QT2.1, YC4.1-NT1
+- **Nguồn:** US3-NT1, QT1.1-VD2, QT2.1
 
 ### US3-KB6 · Cùng ngày nhưng khác căn `[Biên]`
 - **Mục đích:** chặn trùng chỉ tính trong cùng một căn.
@@ -95,7 +95,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Tiền phòng điền sẵn 1.900.000, dòng tách "10/10: 1.100.000đ" (T7), "11/10: 800.000đ" (CN).
   - Toast "Đã thêm đặt phòng Khách lẻ · 3402".
   - Chạm ngày 10/10: 1509 có B1 Sale Hùng, 3402 có đặt phòng Khách lẻ "10/10 → 12/10 (2 đêm)", "1.900.000đ".
-- **Nguồn:** QT1.1-VD3, YC4.1-NT1, YC2.4-NT3
+- **Nguồn:** US3-NT1, US2-NT7, QT1.1-VD3
 
 ### US3-KB7 · Đặt phòng 3 đêm có hai đêm cuối tuần, lịch tô đúng `[Chính]`
 - **Mục đích:** lịch tô các đêm từ ngày nhận tới trước ngày trả, giá đúng theo hai loại đêm.
@@ -111,7 +111,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Dòng "✓ 09/10 → 12/10 (3 đêm) · không trùng lịch".
   - Tiền phòng 3.000.000: "09/10: 1.100.000đ" (T6), "10/10: 1.100.000đ" (T7), "11/10: 800.000đ" (CN).
   - Sau bước 6: 09/10, 10/10, 11/10 có vạch màu 3402; 12/10 không.
-- **Nguồn:** YC2.1-NT4, QT2.1, YC4.1.2 bước 2
+- **Nguồn:** US2-NT6, QT2.1
 
 ### US3-KB8 · Đặt phòng qua hai tháng `[Biên]`
 - **Mục đích:** đêm cuối tháng 10 và đêm đầu tháng 11 tô đúng tháng, giá điền đúng.
@@ -127,7 +127,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Ngày trả 02/11. Tiền phòng 2.200.000: "31/10: 1.300.000đ" (T7), "01/11: 900.000đ" (CN).
   - Lịch tháng 10: 31/10 có vạch màu 1509.
   - Lịch tháng 11: 01/11 có vạch màu 1509; 02/11 không.
-- **Nguồn:** QT2.1, QT2.2, YC2.1-NT4, YC4.1.2 bước 2
+- **Nguồn:** US2-NT6, QT2.1, QT2.2
 
 ### US3-KB9 · Đặt phòng từ căn trống ở chi tiết ngày `[Chính]`
 - **Mục đích:** bấm "Đặt phòng" ở căn trống thì form mở với căn và ngày điền sẵn.
@@ -143,7 +143,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 2: form "Thêm đặt phòng", chip "3402" đã chọn, ngày nhận 10/10.
   - Sau bước 3: tiền phòng 1.100.000 (10/10 là T7).
   - Sau bước 5: toast "Đã thêm đặt phòng Khách lẻ · 3402"; chi tiết ngày 10/10 mở sẵn, 3402 có đặt phòng "10/10 → 11/10 (1 đêm)".
-- **Nguồn:** YC2.4-NT2, YC4.1-NT1
+- **Nguồn:** US3-NT10, US3-NT1
 
 ### US3-KB10 · Chi tiết ngày của căn có khách và ngày trả `[Chính]`
 - **Mục đích:** chi tiết ngày hiện đúng người đặt, ngày, số đêm, số tiền; ngày trả không tính có khách.
@@ -156,7 +156,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - 10/10: 1509 "Sale Hùng", "10/10 → 12/10 (2 đêm)", "2.200.000đ · Cọc: 1.000.000đ"; 3402 "Trống".
   - 14/10: 1509 "Khách lẻ", "13/10 → 15/10 (2 đêm)", "1.800.000đ"; 3402 "Khách lẻ", "14/10 → 15/10 (1 đêm)", "800.000đ".
   - 12/10: 1509 và 3402 đều "Trống", có nút "Đặt phòng".
-- **Nguồn:** YC2.4-NT3, YC2.4-NT2, QT2.1-VD1, QT2.1-VD2
+- **Nguồn:** US2-NT7, US3-NT10, QT2.1-VD1, QT2.1-VD2
 
 ### US3-KB11 · Lọc lịch theo căn `[Chính]`
 - **Mục đích:** chạm chip một căn thì lịch chỉ còn ngày có khách của căn đó.
@@ -169,7 +169,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Bước 1: chỉ 04, 05, 10, 11, 13, 14, 19/10 có vạch màu.
   - Bước 2: chỉ 05, 06, 14, 17, 18, 21/10 có vạch màu.
   - Bước 3: vạch của cả hai căn hiện lại.
-- **Nguồn:** YC2.1-NT3, QT2.1
+- **Nguồn:** US2-NT5, QT2.1
 
 ### US3-KB12 · Trạng thái tiền và ô tiền cọc `[Chính]`
 - **Mục đích:** ô "Số tiền cọc (đ)" chỉ hiện khi chọn "Đã cọc · còn thu"; cọc lưu đúng.
@@ -186,7 +186,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Bước 3: hiện ô "Số tiền cọc (đ)".
   - Bước 4, 5: ô này ẩn.
   - Bước 7: toast "Đã thêm đặt phòng Khách lẻ · 1509"; chi tiết ngày 15/10 ghi "2.200.000đ · Cọc: 1.000.000đ".
-- **Nguồn:** YC4.1.2-NT1, YC2 quy tắc Trạng thái tiền booking, YC4 quy tắc Tiền còn lại
+- **Nguồn:** US3-NT3
 
 ### US3-KB13 · Thêm chi tiết `[Chính]`
 - **Mục đích:** mở "Thêm chi tiết" thấy số khách, giờ mặc định và ghi chú.
@@ -199,7 +199,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 2: thấy số khách có nút − và +, giờ "14:00 → 12:00", ô "Ghi chú".
   - Bước 3: số khách tăng 2. Bước 4: giảm 1.
-- **Nguồn:** YC4.1.2-NT2, YC4 quy tắc Giờ nhận trả mặc định
+- **Nguồn:** US3-NT14
 
 ### US3-KB14 · Hàng chip người đặt `[Chính]`
 - **Mục đích:** form có đủ lựa chọn người đặt.
@@ -210,7 +210,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Có chip "+ Sale mới", "Khách lẻ", "Sale Hùng", "Sale Lan", "Sale Nga", "Sale Minh".
   - Form có các phần: Phòng, ngày và số đêm, Khách / Sale, Tiền phòng, trạng thái tiền, Thêm chi tiết. Tiêu đề "Thêm đặt phòng".
-- **Nguồn:** YC4.1.2 bước 1, YC4.1 bước 1
+- **Nguồn:** mục "Người đặt, tiền phòng và tiền cọc" bước 1, mục "Chủ nhà ghi booking mới" bước 1
 
 ### US3-KB15 · Tiền phòng bỏ trống `[Lỗi]`
 - **Mục đích:** không có tiền phòng thì không lưu được.
@@ -224,7 +224,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Ô "Tiền phòng (đ)" viền đỏ, dòng "Nhập tiền phòng trước khi lưu".
   - Nút "Thêm đặt phòng" không dùng được: bấm vào không lưu, lỗi vẫn hiện.
   - Không có toast. Thoát form, chạm ngày 15/10: 1509 ghi "Trống".
-- **Nguồn:** YC4.1.2-NT4, YC4.1.2 trạng thái rỗng, CN4-01, QT4.1-VD3
+- **Nguồn:** US3-NT14, QT4.1-VD3
 
 ### US3-KB16 · Bấm lưu hai lần liền `[Mạng]`
 - **Mục đích:** đang lưu thì nút khóa, chỉ một đặt phòng được ghi.
@@ -337,7 +337,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 2: ngày trả 02/11, ô "Tiền phòng (đ)" điền sẵn 2.200.000, dòng tách "31/10: 1.300.000đ" (T7) và "01/11: 900.000đ" (CN).
   - Sau bước 3: toast "Đã thêm đặt phòng Khách lẻ · 1509"; đặt phòng "31/10 → 02/11 (2 đêm)", "2.200.000đ".
-- **Nguồn:** YC4.1.2-NT5, QT4.1-VD1, QT4.2-VD3
+- **Nguồn:** US3-NT12, QT4.1-VD1, QT4.2-VD3
 
 ### US3-KB25 · Lệnh tạo đặt phòng không có tiền phòng gửi thẳng tới server `[Quyền]`
 - **Mục đích:** server tự từ chối booking không có tiền phòng, không dựa vào nút bị khóa trên app.
@@ -349,4 +349,4 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 1 và 2: server trả lỗi `DU_LIEU_SAI`, không tạo booking.
   - Bước 3: đêm 15/10, 16/10 của 1509 vẫn trống.
-- **Nguồn:** YC4.1.2-NT7, QT4.1-VD3
+- **Nguồn:** US3-NT1, QT4.1-VD3

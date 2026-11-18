@@ -1,5 +1,5 @@
 <!-- Tài liệu đóng băng, chép từ bản Zalo ngày 18/11/2026. Đọc khi cần, không sửa theo code. Tên file, mã việc cũ trong này (server.md, api/…) là lịch sử: không tìm các file đó. Mâu thuẫn với docs/Quyet_dinh.md hay docs/luat-chung/ thì các file kia đúng. -->
-<!-- Bản nháp, viết cho bản Zalo. Chưa qua luật sư. Phải soát lại cho bản PWA trước khi có người dùng thật (story US39, câu hỏi YC1-H19). -->
+<!-- Bản nháp, viết cho bản Zalo. Chưa qua luật sư. Phải soát lại cho bản PWA trước khi có người dùng thật (story US39, câu hỏi CH-056). -->
 > **Bản nháp do Claude Code soạn ngày 02/11/2026, chưa qua người có chuyên môn pháp lý đọc.** Chưa đưa vào app. Việc đọc lại và điền chỗ trống: [](../../../work/backlog/).
 > Chỗ ghi [MỞ:...] là chưa biết hoặc chưa quyết. Không đoán, không điền thử. Phần nằm trong khung trích dẫn như đoạn này là ghi chú cho người soạn, không đưa vào app.
 > Căn cứ: Thỏa thuận nhà phát triển Zalo app §5.3.3, §6.15.1, §7.5; QD-013 (xóa tài khoản xóa số điện thoại, giữ dữ liệu khác); Chính sách kiểm duyệt mục 4.8 và 7 (docs/external/zalo-rang-buoc.md mục 3); Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15.

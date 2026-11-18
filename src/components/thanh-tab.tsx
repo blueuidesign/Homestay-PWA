@@ -14,7 +14,7 @@ export const CAC_TAB: { ten: string; icon: TenIcon; duong: string }[] = [
   { ten: "Cá nhân", icon: "ca-nhan", duong: DUONG.CA_NHAN },
 ];
 
-// Thanh tab của sale: Lịch, Căn, Thống kê, Cá nhân. Không có "Sale" (TK2) và không có "Tìm phòng" (YC1.4-NT2)
+// Thanh tab của sale: Lịch, Căn, Thống kê, Cá nhân. Không có "Sale" (TK2) và không có "Tìm phòng" (US6-NT9)
 export const CAC_TAB_SALE: { ten: string; icon: TenIcon; duong: string }[] = [
   { ten: "Lịch", icon: "lich", duong: DUONG.LICH_SALE },
   { ten: "Căn", icon: "can", duong: DUONG.CAN_SALE },

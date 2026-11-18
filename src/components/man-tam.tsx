@@ -9,7 +9,7 @@ import { DUONG } from "./duong-dan";
 import { chuMucCong } from "./muc-cong-hien-thi";
 import { ThanhTab } from "./thanh-tab";
 
-// Dòng "Ngày tính giá cuối tuần" (P1 của YC3.8), tạm ở tab Cá nhân tới khi US21 làm P1. Ghi các thứ đang chọn, vd "T6, T7".
+// Dòng "Ngày tính giá cuối tuần" (P1 của mục "Ngày tính giá cuối tuần" (US11)), tạm ở tab Cá nhân tới khi US21 làm P1. Ghi các thứ đang chọn, vd "T6, T7".
 const DongDemCuoiTuan = ({ onCham }: { onCham: () => void }) => {
   const [dem, setDem] = useState<number[] | null>(null);
   useEffect(() => {
@@ -31,7 +31,7 @@ const DongDemCuoiTuan = ({ onCham }: { onCham: () => void }) => {
   );
 };
 
-// Dòng "Mức cộng giá mặc định" (P1 của YC5.6), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này; ghi mức đang dùng, vd "+400k".
+// Dòng "Mức cộng giá mặc định" (P1 của mục "Mức cộng giá mặc định" (US13)), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này; ghi mức đang dùng, vd "+400k".
 const DongMucCong = ({ onCham }: { onCham: () => void }) => {
   const [h, setH] = useState<HoSo | null>(null);
   useEffect(() => {
@@ -54,7 +54,7 @@ const DongMucCong = ({ onCham }: { onCham: () => void }) => {
   );
 };
 
-// Dòng "Mẫu tin gửi khách" (P1 của YC5.7), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này.
+// Dòng "Mẫu tin gửi khách" (P1 của mục "Mẫu tin gửi khách" (US14)), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này.
 const DongMauTin = ({ onCham }: { onCham: () => void }) => {
   const [h, setH] = useState<HoSo | null>(null);
   useEffect(() => {
@@ -74,7 +74,7 @@ const DongMauTin = ({ onCham }: { onCham: () => void }) => {
   );
 };
 
-// Dòng "Thông báo" (P1 của YC1.10), tạm ở tab Cá nhân tới khi US21 làm P1. Có số chưa đọc thì ghi bên phải; hết thì không còn số (US17-KB16).
+// Dòng "Thông báo" (P1 của mục "Thông báo kết quả kết nối cho sale" (US17)), tạm ở tab Cá nhân tới khi US21 làm P1. Có số chưa đọc thì ghi bên phải; hết thì không còn số (US17-KB16).
 const DongThongBao = ({ onCham }: { onCham: () => void }) => {
   const [chua, setChua] = useState(0);
   useEffect(() => {
@@ -98,7 +98,7 @@ const DongThongBao = ({ onCham }: { onCham: () => void }) => {
   );
 };
 
-// Dòng "Link xin xem lịch" (YC1.6), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này (tài khoản vai sale có muc_cong_mac_dinh).
+// Dòng "Link xin xem lịch" (mục "Sale xin chủ nhà cho xem lịch" (US17)), tạm ở tab Cá nhân tới khi US21 làm P1. Chỉ sale có dòng này (tài khoản vai sale có muc_cong_mac_dinh).
 const DongLinkXinLich = ({ onCham }: { onCham: () => void }) => {
   const [h, setH] = useState<HoSo | null>(null);
   useEffect(() => {
@@ -139,12 +139,12 @@ export const ManTam = ({
   coLui?: boolean;
   coBanThu?: boolean;
   vaiSale?: boolean;
-  linkP2?: boolean; // tạm tới khi US21 làm tab Cá nhân: lối vào P2 để xem số điện thoại (YC1.5.3)
-  linkP6?: boolean; // tạm tới khi US21 làm P1: lối vào P6 Ngày tính giá cuối tuần (YC3.8)
-  linkP11?: boolean; // tạm tới khi US21 làm P1: lối vào P11 Mẫu tin gửi khách (YC5.7), chỉ hiện với sale
-  linkP10?: boolean; // tạm tới khi US21 làm P1: lối vào P10 Mức cộng giá mặc định (YC5.6), chỉ hiện với sale
-  linkP13?: boolean; // tạm tới khi US21 làm P1: lối vào P13 Thông báo (YC1.10)
-  linkA6?: boolean; // tạm tới khi US21 làm P1: lối vào A6 "Link xin xem lịch" (YC1.6), chỉ hiện với sale
+  linkP2?: boolean; // tạm tới khi US21 làm tab Cá nhân: lối vào P2 để xem số điện thoại (mục "Số điện thoại hiện trong hồ sơ" (US5))
+  linkP6?: boolean; // tạm tới khi US21 làm P1: lối vào P6 Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11))
+  linkP11?: boolean; // tạm tới khi US21 làm P1: lối vào P11 Mẫu tin gửi khách (mục "Mẫu tin gửi khách" (US14)), chỉ hiện với sale
+  linkP10?: boolean; // tạm tới khi US21 làm P1: lối vào P10 Mức cộng giá mặc định (mục "Mức cộng giá mặc định" (US13)), chỉ hiện với sale
+  linkP13?: boolean; // tạm tới khi US21 làm P1: lối vào P13 Thông báo (mục "Thông báo kết quả kết nối cho sale" (US17))
+  linkA6?: boolean; // tạm tới khi US21 làm P1: lối vào A6 "Link xin xem lịch" (mục "Sale xin chủ nhà cho xem lịch" (US17)), chỉ hiện với sale
 }) => {
   const dieuHuong = useNavigate();
   return (

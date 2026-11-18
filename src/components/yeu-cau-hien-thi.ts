@@ -2,7 +2,7 @@ import type { YeuCauChu, YeuCauSale, YeuCauTrung, LyDoYeuCau, LyDoTuChoi } from 
 import { cacDem, chuNgayNgan, chuTien } from "../services/ngay";
 import { chuTuoi } from "./tim-phong-hien-thi";
 
-// Chữ và phép tính hiện của YC4.5 đến YC4.8 (S3-02, S3-03, S3-04, S3-05, S3-07, S3-08, S3-09, CN1-03, CN9, CN9-02, CN9-03).
+// Chữ và phép tính hiện của mục "Sale gửi yêu cầu đặt phòng" (US15) đến mục "Yêu cầu trùng ngày" (US15) (S3-02, S3-03, S3-04, S3-05, S3-07, S3-08, S3-09, CN1-03, CN9, CN9-02, CN9-03).
 // Chữ chưa vẽ ở canvas là chữ tạm, ghi "chữ tạm" ở bên dưới và liệt kê ở PR US15.
 export const TIEU_DE_S302 = "Đặt phòng";
 export const CHU_NHAN_CHU_NHA = "Nhắn chủ nhà (không bắt buộc)";
@@ -15,7 +15,7 @@ export const CHU_CHUA_CHON_NGAY = "Chọn ngày ở trước khi gửi yêu cầ
 export const CHU_NUT_CHON_NGAY = "Tìm phòng trống theo ngày"; // chữ tạm
 export const CHU_CHUA_GUI_DUOC = "Chưa lưu được, bấm lại khi có mạng"; // HV2 bước 3
 export const CHU_LOI_CHUNG = "Có lỗi, chưa làm được. Bấm lại";
-// YC4.5 bước 3b, QD18 r8: "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247."
+// mục "Sale gửi yêu cầu đặt phòng" (US15) bước 3b, QD18 r8: "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247."
 export const chuLoiKhongGui = (lyDo: string) => `Không gửi được yêu cầu. ${lyDo}${/[.!?]$/.test(lyDo) ? "" : "."}`;
 export const CHU_DA_DAT_ROI = "Căn này đã được đặt rồi";
 export const CHU_NUT_TIM_CAN_KHAC = "Tìm căn khác cùng ngày";
@@ -93,7 +93,7 @@ export const CHU_NUT_TU_CHOI = "Từ chối";
 export const CHU_NUT_GUI_TU_CHOI = "Gửi từ chối cho sale";
 export const CHU_NUT_QUAY_LAI = "Quay lại";
 export const NHAN_SALE_NHAN = "SALE NHẮN";
-export const CHU_CHUA_CHON_LY_DO = "Chọn một lý do rồi gửi từ chối"; // chữ tạm: YC4-H3 chưa nói có bắt buộc chọn
+export const CHU_CHUA_CHON_LY_DO = "Chọn một lý do rồi gửi từ chối"; // chữ tạm: CH-067 chưa nói có bắt buộc chọn
 // Các đêm trùng giữa hai yêu cầu: "18/10" khi một đêm, "17/10 → 19/10" khi nhiều đêm (chữ tạm)
 export const chuDemTrung = (y: Pick<YeuCauChu, "ngay_nhan" | "ngay_tra">, t: Pick<YeuCauTrung, "ngay_nhan" | "ngay_tra">) => {
   const nhan = y.ngay_nhan > t.ngay_nhan ? y.ngay_nhan : t.ngay_nhan;

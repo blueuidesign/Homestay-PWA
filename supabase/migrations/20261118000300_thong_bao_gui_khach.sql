@@ -22,13 +22,13 @@ create table public.thong_bao (
   du_lieu jsonb not null default '{}'::jsonb,
   booking_id uuid,
   yeu_cau_id uuid,
-  khoa_gom text,                          -- gom nhiều thông báo kết nối gần nhau thành một mục (YC1.10, giả định GD15: 10 phút)
+  khoa_gom text,                          -- gom nhiều thông báo kết nối gần nhau thành một mục (mục "Thông báo kết quả kết nối cho sale" (US17), giả định GD15: 10 phút)
   tao_luc timestamptz not null default now(),
   doc_luc timestamptz
 );
 create index thong_bao_nguoi_idx on public.thong_bao (nguoi_nhan, tao_luc desc);
 
--- Lần sale gửi một căn cho khách: để báo khi căn đó có người khác đặt (YC5.5)
+-- Lần sale gửi một căn cho khách: để báo khi căn đó có người khác đặt (mục "Gửi thông tin cho khách qua Zalo" (US14))
 create table public.lan_gui_khach (
   id uuid primary key default gen_random_uuid(),
   sale_id uuid not null references public.profiles(id),
@@ -50,7 +50,7 @@ create index tim_gan_day_sale_idx on public.tim_gan_day (sale_id, tim_luc desc);
 
 -- ---------- Hàm nội bộ ----------
 
--- Ghi một thông báo, trừ khi người nhận đã tắt loại đó (YC9.3)
+-- Ghi một thông báo, trừ khi người nhận đã tắt loại đó (mục "Cài đặt thông báo" (US21))
 create or replace function public.ghi_thong_bao(p_nguoi uuid, p_loai text, p_du_lieu jsonb, p_booking uuid default null, p_yeu_cau uuid default null, p_khoa_gom text default null)
 returns void language plpgsql security definer set search_path = public as $$
 begin
@@ -71,7 +71,7 @@ revoke execute on function public.ghi_thong_bao(uuid, text, jsonb, uuid, uuid, t
 -- ---------- Trigger sinh thông báo ----------
 
 -- Kết nối: sale được chủ nhà đồng ý lời xin xem lịch; sale bị ngừng.
--- Loại 'sale_xin_xem_lich' (báo chủ nhà) chưa sinh: máy chủ không biết sale gửi link cho ai [MỞ: YC9-H18].
+-- Loại 'sale_xin_xem_lich' (báo chủ nhà) chưa sinh: máy chủ không biết sale gửi link cho ai [MỞ: CH-092].
 create or replace function public.tb_ket_noi() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare v_ten_chu text; v_so_can int; v_khoa text;
@@ -123,7 +123,7 @@ end $$;
 create trigger tb_yeu_cau after insert or update of trang_thai on public.yeu_cau_dat_phong for each row execute function public.tb_yeu_cau();
 
 -- Booking: chủ ghi cho sale; chủ sửa ngày hay tiền của booking có sale; xin hủy và trả lời hủy;
--- và báo sale đã gửi căn cho khách khi có người KHÁC đặt trùng đêm của lần gửi (YC5.5).
+-- và báo sale đã gửi căn cho khách khi có người KHÁC đặt trùng đêm của lần gửi (mục "Gửi thông tin cho khách qua Zalo" (US14)).
 create or replace function public.tb_booking() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare v_ten_chu text; v_goc jsonb; v_ben_kia uuid; g record;
@@ -182,7 +182,7 @@ begin
 end $$;
 create trigger tb_xoa_tai_khoan after update of da_xoa_luc on public.profiles for each row execute function public.tb_xoa_tai_khoan();
 
--- Chủ nhà thêm căn có lịch: báo các sale được chia sẻ "tất cả căn" (YC1.12, YC9.3)
+-- Chủ nhà thêm căn có lịch: báo các sale được chia sẻ "tất cả căn" (mục "Căn mới của chủ nhà tự hiện cho sale" (US6), mục "Cài đặt thông báo" (US21))
 create or replace function public.tb_can_moi() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare k record;
@@ -201,7 +201,7 @@ revoke execute on function public.tb_ket_noi(), public.tb_yeu_cau(), public.tb_b
 
 -- ---------- Hàm app gọi ----------
 
--- App gọi đúng một lần mỗi khi mở app hay quay lại từ nền: trả các thông báo mới kể từ lần mở trước cho popup (YC1.13),
+-- App gọi đúng một lần mỗi khi mở app hay quay lại từ nền: trả các thông báo mới kể từ lần mở trước cho popup (mục "Popup thông báo mới" (US30)),
 -- rồi dời mốc. Mốc trống (lần đầu) thì trả mọi thông báo chưa đọc (giả định GD18). Không đổi trạng thái đã đọc.
 -- p_client_id: gọi lại cùng khóa sau lỗi mạng thì trả đúng danh sách cũ, không dời mốc lần hai.
 create or replace function public.fn_mo_app(p_client_id uuid default null) returns jsonb
@@ -232,7 +232,7 @@ begin
   update thong_bao set doc_luc = now() where nguoi_nhan = v_me and doc_luc is null and (p_ids is null or id = any (p_ids));
 end $$;
 
--- Ghi một lần sale gửi chữ hay ảnh của một căn cho khách (YC5.5)
+-- Ghi một lần sale gửi chữ hay ảnh của một căn cho khách (mục "Gửi thông tin cho khách qua Zalo" (US14))
 create or replace function public.fn_ghi_lan_gui(p_can uuid, p_nhan date, p_tra date) returns uuid
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap(); v_id uuid;

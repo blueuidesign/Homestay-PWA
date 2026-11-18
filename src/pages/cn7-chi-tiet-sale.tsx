@@ -13,8 +13,8 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { HopXacNhanNgung, NoiDungCN704 } from "./cn7-man-chi-tiet";
 
-// CN7-04 · Chi tiết một sale (YC1.9 bước 5, 6; YC4.1.2-NT3): tên, số, ngày kết nối, nút Gọi, đặt phòng của sale, ngừng cho xem lịch.
-// Canvas có khối quyền? Không (YC1-H5), nên không có công tắc quyền. Số liệu trên canvas ("8", "14.2tr") chưa theo DLM, chờ Tùng:
+// CN7-04 · Chi tiết một sale (mục "Chủ nhà quản lý danh sách sale" (US5) bước 5, 6; US5-NT13): tên, số, ngày kết nối, nút Gọi, đặt phòng của sale, ngừng cho xem lịch.
+// Canvas có khối quyền? Không (CH-053), nên không có công tắc quyền. Số liệu trên canvas ("8", "14.2tr") chưa theo DLM, chờ Tùng:
 // ở đây tính từ danh sách đặt phòng của sale có ngày nhận trong tháng này.
 
 const khoaMoi = () =>

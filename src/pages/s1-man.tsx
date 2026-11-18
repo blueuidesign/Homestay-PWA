@@ -5,9 +5,9 @@ import { Icon } from "../components/icon";
 import type { CanLichSale, LichSale, OLichSale, SapXepLich } from "../services/kieu";
 import { chuNgayNgan, chuThu } from "../services/ngay";
 
-// S1 · Lịch phòng 7 ngày của sale (YC5.1 bước 1 đến 5). Phần vẽ, không gọi server.
-// Nút "Xoay ngang" / "Xoay dọc" (S1-05, YC5.1 bước 7): xoay giả, phần khung quay ở components/xoay-ngang.tsx.
-// US16: nhóm "Căn của tôi" ở đầu, căn tự nhập ghi "?" và "Bạn" (YC5.1-NT3), sắp xếp S1-04 (YC5.1 bước 6).
+// S1 · Lịch phòng 7 ngày của sale (mục "Lịch phòng 7 ngày" (US16) bước 1 đến 5). Phần vẽ, không gọi server.
+// Nút "Xoay ngang" / "Xoay dọc" (S1-05, mục "Lịch phòng 7 ngày" (US16) bước 7): xoay giả, phần khung quay ở components/xoay-ngang.tsx.
+// US16: nhóm "Căn của tôi" ở đầu, căn tự nhập ghi "?" và "Bạn" (US16-NT2), sắp xếp S1-04 (mục "Lịch phòng 7 ngày" (US16) bước 6).
 // Chạm một căn mở chi tiết (onMoCan): căn của chủ nhà mở S3, căn của tôi mở S6-07, căn tự nhập mở S6-03. Không có onMoCan thì báo bằng toast.
 
 export const tenCanTrenLuoi = (c: Pick<CanLichSale, "toa_nha" | "ma_can">) => [c.toa_nha?.ten, c.ma_can].filter(Boolean).join(" ");
@@ -19,7 +19,7 @@ export const chuKhoangTuan = (l: Pick<LichSale, "tu" | "ngay">, hom: string) =>
 export const TEN_NHOM: Record<string, string> = { cua_toi: "Căn của tôi", nguon_phong: "Nguồn phòng", tu_nhap: "Căn tự nhập" };
 
 // Chữ trong một ô ngày. Kín theo QT2.1; có giá thì viết ngắn; "?" chỉ cho căn tự nhập (US16), không bao giờ ghi "trống" cho căn tự nhập.
-// Chủ nhà tắt giá: server không gửi giá nên ô trống chỉ ghi "Trống" [MỞ: YC5-H3, TK23 chưa vẽ ô không giá; chữ này là tạm].
+// Chủ nhà tắt giá: server không gửi giá nên ô trống chỉ ghi "Trống" [MỞ: CH-068, TK23 chưa vẽ ô không giá; chữ này là tạm].
 export const chuO = (o: OLichSale): string => {
   if (o.trang_thai === "kin") return "Kín";
   if (o.trang_thai === "chua_biet") return "?";
@@ -33,7 +33,7 @@ export const lopO = (o: OLichSale, homNayChuoi: string) =>
   (o.trang_thai === "kin" ? " s1-o--kin" : o.trang_thai === "chua_biet" ? " s1-o--hoi" : o.trang_thai === "cua_ban" ? " s1-o--ban" : "") +
   (o.ngay === homNayChuoi && o.trang_thai === "trong" ? " s1-o--nay" : "");
 
-// S1-04 · Sắp xếp (YC5.1 bước 6): chọn "Theo tên", "Giá tăng dần" hoặc "Bán nhiều nhất". Căn của tôi luôn hiện đầu danh sách.
+// S1-04 · Sắp xếp (mục "Lịch phòng 7 ngày" (US16) bước 6): chọn "Theo tên", "Giá tăng dần" hoặc "Bán nhiều nhất". Căn của tôi luôn hiện đầu danh sách.
 export const HopSapXep = ({ sapXep, onChon, onDong }: { sapXep: SapXepLich; onChon: (ma: SapXepLich) => void; onDong: () => void }) => (
   <div className="hh-scrim" role="dialog" aria-modal="true" aria-label="Sắp xếp" data-man="S1-04" onClick={onDong}>
     <div className="hh-sheet" onClick={(e) => e.stopPropagation()}>

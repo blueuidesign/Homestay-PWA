@@ -1,12 +1,12 @@
 import { LoiApi, type DatPhong, type ThanSuaDatPhong } from "../services/kieu";
 import { docTien, loiKhiLuu, ngayTraTheoChip, type FormCN4, type SoDemChip } from "./cn4-dat-phong";
 
-// CN4-02 · Sửa đặt phòng (YC4.3, YC4.1.2-NT4/NT5 qua CN4-01). Cùng form với CN4, điền sẵn giá trị hiện có.
+// CN4-02 · Sửa đặt phòng (mục "Sửa booking" (US10), US3-NT14/NT5 qua CN4-01). Cùng form với CN4, điền sẵn giá trị hiện có.
 // Kiểm trùng bỏ qua chính đặt phòng đang sửa (QT1.2). Rời app rồi quay lại: form giữ nguyên, không tải đè (HV3 bước 2).
 // Chưa làm: giữ nháp khi app bị đóng hẳn (HV3 bước 3) vì cần Native Storage, như CN4 (US3).
 // Chữ tạm: "Đặt phòng đã đổi ở máy khác..." khi cap_nhat_luc khác.
 
-// Điền sẵn form từ đặt phòng (YC4.3-NT1)
+// Điền sẵn form từ đặt phòng (US10-NT5)
 export const formTuDatPhong = (dp: DatPhong): FormCN4 => ({
   canId: dp.can_id,
   ngayNhan: dp.ngay_nhan,

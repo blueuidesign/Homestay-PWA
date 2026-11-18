@@ -30,7 +30,7 @@ Một bộ số cho tiêu chí nghiệm thu, ví dụ trong story, test và dữ
 | Villa Tuần Châu | Chú Bình (tự nhập) | Không có lịch trống | Giá chủ sale lưu: 1.400.000đ mỗi đêm | | |
 
 - Thẻ căn ghi số giường theo `Tu_dien.md` (mục Phòng ngủ và số giường): 1509 "2PN · 3 giường", Sapphire 1103 "3PN · 2 giường", À La Carte 2208 "1PN · 1 giường".
-- Giá của Chị Hoa áp cho tháng 10, 11, 12/2026. Căn 3402 có giá 7 tháng (T6 đến T12/2026). Tháng 11 và 12 được đặt bằng thao tác "Áp dụng cho Tháng 11 – 12" lúc 800.000đ / 1.100.000đ (YC3.4-NT1); trước thao tác đó hai tháng này ghi "Chưa đặt" (CN6), sau đó ghi "800k–1,1tr" (CN6-04, CN6-07, CN6-08).
+- Giá của Chị Hoa áp cho tháng 10, 11, 12/2026. Căn 3402 có giá 7 tháng (T6 đến T12/2026). Tháng 11 và 12 được đặt bằng thao tác "Áp dụng cho Tháng 11 – 12" lúc 800.000đ / 1.100.000đ (US4-NT3); trước thao tác đó hai tháng này ghi "Chưa đặt" (CN6), sau đó ghi "800k–1,1tr" (CN6-04, CN6-07, CN6-08).
 - Thẻ căn tuần 05/10 – 11/10: 1509 "900.000đ – 1.300.000đ", 3402 "800.000đ – 1.100.000đ".
 - Ô tháng 10 của 3402: "800k–1,3tr".
 - Căn của sale Hùng (S6, S6-07): Green Bay 0812 "2PN · view biển", lịch 7 ngày 07/10 → 13/10 theo giá đêm của Hùng: 750k, Kín, Kín, 900k, 750k, 750k, 750k (S6-07, cùng số với hàng Green Bay 0812 trên S1). Mường Thanh 1605 "1PN · view biển", "Có khách 12/10" (S6). Phần còn thiếu ghi ở DLM.9.
@@ -83,7 +83,7 @@ Booking đã chốt:
   - Y4 · Bị từ chối: Sapphire 1103 · 05/10 → 06/10 (1 đêm T2), giá chủ nhà 700.000đ, Hùng gửi lúc 09:00 ngày 03/10, Anh Tuấn từ chối ngày 04/10 (P13).
 - Ví dụ hết hạn ở S3-09: yêu cầu ICON40 1509 · 10/10 → 12/10, gửi lúc 14:20 ngày 22/09, Chị Hoa chưa trả lời, tới 07/10 đã quá 2 tuần nên Hết hạn. Số tiền trên S3-09 chưa theo bộ này.
 - Booking sale tự ghi cho Villa Tuần Châu trước V2: V1 20/09 → 22/09, trả chủ 2.800.000đ, thu khách 3.400.000đ, chênh 600.000đ (S6-04, tháng 9).
-- Ví dụ chủ nhà sửa booking (S3-10, S1-06, P13): Chị Hoa sửa B1 lúc 10:15 ngày 07/10, từ 10/10 → 12/10 sang 11/10 → 13/10 (2 đêm: CN, T2), giá chủ nhà 2.200.000đ → 1.800.000đ (900.000đ + 900.000đ). Giá bán của Hùng giữ 2.600.000đ như đã báo khách (YC4.3). Đây là ví dụ cho luồng sửa booking: các số B1 ở DLM.4, DLM.5, DLM.6 vẫn là trạng thái trước khi sửa.
+- Ví dụ chủ nhà sửa booking (S3-10, S1-06, P13): Chị Hoa sửa B1 lúc 10:15 ngày 07/10, từ 10/10 → 12/10 sang 11/10 → 13/10 (2 đêm: CN, T2), giá chủ nhà 2.200.000đ → 1.800.000đ (900.000đ + 900.000đ). Giá bán của Hùng giữ 2.600.000đ như đã báo khách (mục "Sửa booking" (US10)). Đây là ví dụ cho luồng sửa booking: các số B1 ở DLM.4, DLM.5, DLM.6 vẫn là trạng thái trước khi sửa.
 - Thông báo của Hùng trên P13 (cùng ví dụ với popup S1-06). Giờ khớp DLM.1 và DLM.7. Hôm nay 07/10: "Chị Hoa đã sửa đặt phòng của bạn" (B1, như ví dụ trên) 10:15, chưa đọc. Trước đó: "Chị Hoa đã chấp nhận đặt phòng" (ICON40 1509 · 10/10 → 12/10, giá chủ nhà 2.200.000đ) hôm qua 06/10 lúc 15:05, chưa đọc; "Căn bạn đã gửi khách vừa có người đặt" hôm qua 06/10; "Yêu cầu đặt phòng đã hết hạn" (Y2, ICON40 1509 · 27/09 → 28/09) hôm qua 06/10; "Yêu cầu đặt phòng bị từ chối" (Y4, Sapphire 1103 · 05/10 → 06/10) ngày 04/10; "Anh Tuấn đồng ý cho bạn xem lịch" (Sapphire 1103 và À La Carte 2208) ngày 01/10, đã đọc.
 
 ## DLM.7 · Tìm phòng và gửi khách

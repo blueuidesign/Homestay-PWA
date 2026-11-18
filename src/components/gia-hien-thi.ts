@@ -8,11 +8,11 @@ export const chuGiaNgan = (n: number) => {
   return `${String(tr).replace(".", ",")}tr`;
 };
 
-// Ô tháng (YC3.4 bước 1): "800k–1,3tr", một giá thì ghi một giá, chưa có giá thì "Chưa đặt"
+// Ô tháng (mục "Đặt giá theo tháng" (US4) bước 1): "800k–1,3tr", một giá thì ghi một giá, chưa có giá thì "Chưa đặt"
 export const chuKhoangThang = (thap: number | null, cao: number | null) =>
   thap === null || cao === null ? "Chưa đặt" : thap === cao ? chuGiaNgan(thap) : `${chuGiaNgan(thap)}–${chuGiaNgan(cao)}`;
 
-// Thẻ căn (YC3.1-NT4, quy tắc Giá tuần này): "900.000đ – 1.300.000đ"
+// Thẻ căn (US4-NT2, quy tắc Giá tuần này): "900.000đ – 1.300.000đ"
 export const chuKhoangTuan = (g: NonNullable<Can["gia_tuan_nay"]>) =>
   g.thap_nhat === g.cao_nhat ? `${chuTien(g.thap_nhat)}đ` : `${chuTien(g.thap_nhat)}đ – ${chuTien(g.cao_nhat)}đ`;
 

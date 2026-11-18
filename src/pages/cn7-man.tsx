@@ -4,8 +4,8 @@ import { chuCaiDau, chuTomTat } from "../components/sale-hien-thi";
 import type { DanhSachKetNoi, DongKetNoi } from "../services/kieu";
 import { chuTien } from "../services/ngay";
 
-// CN7 · Sale của tôi (YC1.9 bước 1), CN7-00 khi chưa có sale nào (bước 2). Phần vẽ, tách khỏi cn7-sale.tsx để test.
-// "Nhắc lại" ở sale chưa kết nối chưa thiết kế (YC1.9 bước 3, [MỞ: YC1-H14]) nên không có nút.
+// CN7 · Sale của tôi (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1), CN7-00 khi chưa có sale nào (bước 2). Phần vẽ, tách khỏi cn7-sale.tsx để test.
+// "Nhắc lại" ở sale chưa kết nối chưa thiết kế (mục "Chủ nhà quản lý danh sách sale" (US5) bước 3, [MỞ: CH-011]) nên không có nút.
 
 export const CHU_DE_SAU_CN7 = "Để sau vẫn gửi được link. Sale chưa thấy tên và số của bạn.";
 

@@ -129,7 +129,7 @@ type CanLuu = Omit<Can, "moi_them" | "anh_dai_dien" | "loai" | "ten_chu_can" | "
   gia_chu_cuoi_tuan?: number | null;
 };
 const laTuNhap = (c: CanLuu) => c.loai === "tu_nhap";
-// Hồ sơ nằm cùng dòng tài khoản (bảng tai_khoan). so_dien_thoai chỉ ghi qua POST /toi/thong-tin-zalo (YC1.5.3).
+// Hồ sơ nằm cùng dòng tài khoản (bảng tai_khoan). so_dien_thoai chỉ ghi qua POST /toi/thong-tin-zalo (mục "Số điện thoại hiện trong hồ sơ" (US5)).
 type TaiKhoanLuu = TaiKhoan & {
   zalo_id: string;
   ho_ten?: string | null;
@@ -139,11 +139,11 @@ type TaiKhoanLuu = TaiKhoan & {
   // Chỉ vai sale (phien-ho-so.md): mức cộng mặc định và làm tròn 50k. Mới tạo thì 0 và tắt.
   muc_cong_mac_dinh?: number;
   lam_tron_50k?: boolean;
-  // YC5.7: mẫu tin gửi khách của sale, null hay không có là mẫu mặc định
+  // mục "Mẫu tin gửi khách" (US14): mẫu tin gửi khách của sale, null hay không có là mẫu mặc định
   mau_tin_gui_khach?: string | null;
-  // YC3.8: các thứ tính giá cuối tuần của chủ nhà (1 là T2 đến 7 là CN), mặc định T6, T7. Không có thì [5, 6].
+  // mục "Ngày tính giá cuối tuần" (US11): các thứ tính giá cuối tuần của chủ nhà (1 là T2 đến 7 là CN), mặc định T6, T7. Không có thì [5, 6].
   dem_cuoi_tuan?: number[];
-  // Giờ nhận, trả mặc định của chủ nhà (YC9.4). Không có thì 14:00 và 12:00.
+  // Giờ nhận, trả mặc định của chủ nhà (mục "Giờ nhận, trả phòng mặc định" (US21)). Không có thì 14:00 và 12:00.
   gio_nhan?: string;
   gio_tra?: string;
   // US17 (QD18 r5): đã rút quyền tên và số trong Zalo; chủ nhà không chia lịch cho sale đó (QD18 r9)
@@ -159,8 +159,8 @@ type KetNoiLuu = {
   trang_thai: TrangThaiKetNoi;
   nguon: NguonKetNoi;
   ket_noi_luc: string | null;
-  // Phạm vi căn sale được xem (US26): trống hay tat_ca_can thì mọi căn chưa ẩn, kể cả căn thêm sau (YC1.12-NT1);
-  // chon_can thì chỉ các căn trong can_ids (bảng ket_noi_can), căn thêm sau không tự vào (YC1.12-NT2)
+  // Phạm vi căn sale được xem (US26): trống hay tat_ca_can thì mọi căn chưa ẩn, kể cả căn thêm sau (US6-NT10);
+  // chon_can thì chỉ các căn trong can_ids (bảng ket_noi_can), căn thêm sau không tự vào (US26-NT4)
   pham_vi?: "tat_ca_can" | "chon_can";
   can_ids?: string[];
   // US16: tên chủ nhà lúc rút quyền, để sale vẫn thấy dòng "Chị Hoa đã xóa tài khoản" (QD18 r6)
@@ -194,10 +194,10 @@ type BookingLuu = {
   gia_ban?: number | null;
   tao_luc?: string;
   cap_nhat_luc?: string;
-  // US16: đặt phòng sale tự ghi cho căn tự nhập (YC6.5): không sale_id, không trạng thái tiền; tien_phong là tiền trả chủ, gia_ban là tiền thu khách
+  // US16: đặt phòng sale tự ghi cho căn tự nhập (mục "Ghi booking đã chốt cho căn tự nhập" (US16)): không sale_id, không trạng thái tiền; tien_phong là tiền trả chủ, gia_ban là tiền thu khách
   nguon?: "sale_tu_ghi";
 };
-// Bảng thong_bao, phần loại chu_sua_booking (YC4.3 bước 4). Đọc qua getThongBaoChuSua cho tới khi US17 làm GET /thong-bao.
+// Bảng thong_bao, phần loại chu_sua_booking (mục "Sửa booking" (US10) bước 4). Đọc qua getThongBaoChuSua cho tới khi US17 làm GET /thong-bao.
 type ThongBaoLuu = ThongBaoChuSua & { nguoi_nhan_id: string };
 // Bảng thong_bao, các loại khác (US17): chu_dong_y_ket_noi, chu_ngung_ket_noi. khoa_gom gom các lần đồng ý trong 10 phút [GIẢ ĐỊNH: GD15].
 type ThongBaoMoiLuu = {
@@ -223,7 +223,7 @@ type AnhLuu = {
 // Bảng toa_nha (data-model): tao_boi trống là tòa Home247 đặt sẵn. Server giả dùng tên làm id tòa (như getLichTuan, GET /sale/lich).
 type ToaLuu = { id: string; ten: string; khu_vuc: string | null; tao_boi: string | null };
 
-// Bảng yeu_cau_dat_phong (data-model). Chưa chiếm đêm nào; chỉ khi chủ nhà chấp nhận mới thành booking (YC4 quy tắc Yêu cầu chưa phải booking).
+// Bảng yeu_cau_dat_phong (data-model). Chưa chiếm đêm nào; chỉ khi chủ nhà chấp nhận mới thành booking (nhóm Booking quy tắc Yêu cầu chưa phải booking).
 type YeuCauLuu = {
   id: string;
   can_id: string;
@@ -278,7 +278,7 @@ type Db = {
   dem: number;
 };
 
-// Ba tòa Home247 đặt sẵn (YC3.2.2 bước 1, YC10.2). DLM chưa có khu vực của À La Carte, Sapphire.
+// Ba tòa Home247 đặt sẵn (mục "Tòa nhà, loại view, số giường, mô tả" (US11) bước 1, mục "Quản trị danh sách tòa nhà" (US29)). DLM chưa có khu vực của À La Carte, Sapphire.
 const toaDatSan = (): ToaLuu[] => [
   { id: "ICON40", ten: "ICON40", khu_vuc: "Bãi Cháy", tao_boi: null },
   { id: "À La Carte", ten: "À La Carte", khu_vuc: null, tao_boi: null },
@@ -340,7 +340,7 @@ const raCan = (c: CanLuu, bayGio = Date.now()): Can => ({
 });
 
 // POST /anh (api/can-anh.md, server.md 1.9): tải một ảnh, nhận anh_id tạm chưa gắn căn.
-// Server giả không đổi ảnh, chỉ kiểm tệp và lưu thông tin. onTienDo cho chữ "Đang tải 60%" (YC3.2.1 bước 2).
+// Server giả không đổi ảnh, chỉ kiểm tệp và lưu thông tin. onTienDo cho chữ "Đang tải 60%" (mục "Ảnh khi thêm căn" (US25) bước 2).
 // Bấm "Thử lại" giữ nguyên khoa nên không tạo ảnh thứ hai (Chống bấm hai lần).
 export const MAX_ANH_CAN = 12;
 const MAX_BYTE_ANH = 15 * 1024 * 1024;
@@ -391,7 +391,7 @@ const raTaiKhoan = ({ id, vai_chon, dong_y_dieu_khoan_luc }: TaiKhoanLuu): TaiKh
 });
 
 // POST /tai-khoan { vai_chon } (server.md 2.1): đã có tài khoản với ID Zalo đó thì trả tài khoản cũ
-// ma_link: mở từ link mời thì tạo tài khoản vai sale, bỏ qua A3 (YC1.3 bước 2, server.md 2.2 bước 2)
+// ma_link: mở từ link mời thì tạo tài khoản vai sale, bỏ qua A3 (mục "Mở app từ link mời của chủ nhà" (US6) bước 2, server.md 2.2 bước 2)
 export async function postTaiKhoan(body: {
   vai_chon: VaiChon;
   dong_y_dieu_khoan_luc: string;
@@ -405,7 +405,7 @@ export async function postTaiKhoan(body: {
   if (cu) return raTaiKhoan(cu);
   const { ma_link, ...goc } = body;
   if (ma_link !== undefined) {
-    // Vai sale: link mời hay link gửi lịch (YC1.3 bước 2). Vai chủ nhà: link xin lịch của sale (YC1.7 bước 3, A8); server chỉ kiểm dạng mã
+    // Vai sale: link mời hay link gửi lịch (mục "Mở app từ link mời của chủ nhà" (US6) bước 2). Vai chủ nhà: link xin lịch của sale (mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 3, A8); server chỉ kiểm dạng mã
     if (body.vai_chon === "chu_nha") {
       if (!laMaLink(ma_link)) throw new LoiApi("DU_LIEU_SAI", "", "ma_link");
     } else linkDungDuoc(ma_link);
@@ -415,7 +415,7 @@ export async function postTaiKhoan(body: {
   return raTaiKhoan(tk);
 }
 
-// Khoảng giá tuần này của thẻ căn (YC3.1-NT4, server.md 2.4): thấp nhất đến cao nhất của gia_dem 7 đêm từ hôm nay,
+// Khoảng giá tuần này của thẻ căn (US4-NT2, server.md 2.4): thấp nhất đến cao nhất của gia_dem 7 đêm từ hôm nay,
 // đêm không có giá thì bỏ qua. chua_dat_gia: căn không có giá tháng nào và không có dịp nào (api/can-anh.md, đề xuất tạm).
 const giaTuanNay = (c: CanLuu): Pick<Can, "gia_tuan_nay" | "chua_dat_gia"> => {
   const gia: number[] = [];
@@ -448,8 +448,8 @@ const tinhTrangHomNay = (c: CanLuu): TinhTrangHomNay => {
   return o.ngay_nhan === hom ? { loai: "khach_den", ngay_tra: null } : { loai: "co_khach", ngay_tra: o.ngay_tra };
 };
 
-// GET /can của sale (api/can-anh.md, YC6.1 bước 1, 3): cả căn của tôi (co_lich) và căn tự nhập, theo thứ tự tạo (cũ trước).
-// Căn có lịch có tinh_trang_hom_nay; căn tự nhập luôn null, không bao giờ `trong` (YC6.1-NT2) và có ten_chu_can. Chỉ căn của người gọi (PQ13, PQ14.SALE).
+// GET /can của sale (api/can-anh.md, mục "Danh sách căn và nguồn phòng" (US16) bước 1, 3): cả căn của tôi (co_lich) và căn tự nhập, theo thứ tự tạo (cũ trước).
+// Căn có lịch có tinh_trang_hom_nay; căn tự nhập luôn null, không bao giờ `trong` (US16-NT5) và có ten_chu_can. Chỉ căn của người gọi (PQ13, PQ14.SALE).
 export async function getCanSale(): Promise<Can[]> {
   await cho();
   const tk = nguoiGoi();
@@ -479,8 +479,8 @@ const raToa = (t: ToaLuu, tk: TaiKhoanLuu): ToaNha => ({
   da_dung: db.can.some((c) => c.tai_khoan_id === tk.id && c.an_luc === null && c.toa_nha === t.ten),
 });
 
-// GET /toa-nha?q=&gioi_han= (api/can-anh.md). Có q: mọi tòa có tên chứa q, tòa da_dung trước rồi theo tên (YC3.2.2-NT2, NT6).
-// Không có q: tòa người gọi đã dùng, rồi tòa Home247 đặt sẵn (server.md 2.4; YC3-H4 chưa chốt có cả tòa người khác thêm không).
+// GET /toa-nha?q=&gioi_han= (api/can-anh.md). Có q: mọi tòa có tên chứa q, tòa da_dung trước rồi theo tên (US11-NT3, NT6).
+// Không có q: tòa người gọi đã dùng, rồi tòa Home247 đặt sẵn (server.md 2.4; CH-063 chưa chốt có cả tòa người khác thêm không).
 // Không trả tao_boi: người dùng không cần biết ai thêm tòa.
 export async function getToaNha(q: { q?: string; gioi_han?: number } = {}): Promise<ToaNha[]> {
   await cho();
@@ -624,7 +624,7 @@ const canCuaToiTheoId = (canId: string): CanLuu => {
   return c;
 };
 
-// GET /can/:id (api/can-anh.md): mọi trường và ảnh theo thứ tự (YC3.3 bước 1)
+// GET /can/:id (api/can-anh.md): mọi trường và ảnh theo thứ tự (mục "Sửa thông tin căn" (US11) bước 1)
 export async function getCanChiTiet(canId: string): Promise<CanChiTiet> {
   await cho();
   const c = canCuaToiTheoId(canId);
@@ -638,7 +638,7 @@ const chuanSdtChuCan = (v: unknown): string | null => {
   const so = typeof v === "string" ? v.replace(/[\s.\-]/g, "") : "";
   return /^\+?\d{9,15}$/.test(so) ? so : null;
 };
-// Kiểm bốn trường theo api/can-anh.md; chỉ trả trường có trong thân. sdt_chu_can null là xóa số (QD11, YC6.4-NT5).
+// Kiểm bốn trường theo api/can-anh.md; chỉ trả trường có trong thân. sdt_chu_can null là xóa số (QD11, US16-NT27).
 const kiemTruongTuNhap = (la: Record<string, unknown>, laCanTuNhap: boolean): Partial<Pick<CanLuu, "ten_chu_can" | "sdt_chu_can" | "gia_chu_thuong" | "gia_chu_cuoi_tuan">> => {
   const co = TRUONG_TU_NHAP.filter((k) => la[k] !== undefined);
   if (!laCanTuNhap) {
@@ -668,8 +668,8 @@ const kiemTruongTuNhap = (la: Record<string, unknown>, laCanTuNhap: boolean): Pa
 };
 
 // PATCH /can/:id (api/can-anh.md): chỉ gửi trường muốn đổi. anh_ids là danh sách ảnh đầy đủ theo thứ tự, ảnh số 1 là ảnh đại diện
-// (YC3.3-NT2); ảnh cũ không còn trong mảng thì bị xóa; so_giuong null là xóa trống (YC3.3-NT4); mã trùng căn khác của cùng chủ
-// thì MA_CAN_TRUNG (YC3.3-NT3). Một giao dịch: lỗi thì không đổi gì. Cùng Idempotency-Key thì trả kết quả cũ.
+// (US11-NT9); ảnh cũ không còn trong mảng thì bị xóa; so_giuong null là xóa trống (US11-NT11); mã trùng căn khác của cùng chủ
+// thì MA_CAN_TRUNG (US11-NT10). Một giao dịch: lỗi thì không đổi gì. Cùng Idempotency-Key thì trả kết quả cũ.
 export async function patchCan(canId: string, than: ThanSuaCan, khoa: string): Promise<CanChiTiet> {
   await cho();
   const tk = nguoiGoi();
@@ -726,9 +726,9 @@ export async function patchCan(canId: string, than: ThanSuaCan, khoa: string): P
   });
 }
 
-// POST /can (server.md 2.4): cần mã căn và số phòng ngủ (YC3 quy tắc Căn tối thiểu);
-// mã trùng căn chưa ẩn của cùng chủ thì MA_CAN_TRUNG (YC3 quy tắc Mã căn không trùng)
-// US16 (YC6.3 bước 7): loai "tu_nhap" chỉ sale; cần ten_chu_can, sdt_chu_can; giá chủ không bắt buộc (YC6.3-NT2).
+// POST /can (server.md 2.4): cần mã căn và số phòng ngủ (nhóm Căn và giá quy tắc Căn tối thiểu);
+// mã trùng căn chưa ẩn của cùng chủ thì MA_CAN_TRUNG (nhóm Căn và giá quy tắc Mã căn không trùng)
+// US16 (mục "Thêm căn tự nhập" (US16) bước 7): loai "tu_nhap" chỉ sale; cần ten_chu_can, sdt_chu_can; giá chủ không bắt buộc (US16-NT17).
 export async function postCan(body: ThanPostCan, khoa?: string): Promise<Can> {
   await cho();
   const tk = nguoiGoi();
@@ -768,7 +768,7 @@ export async function postCan(body: ThanPostCan, khoa?: string): Promise<Can> {
     ...(loai === "tu_nhap" ? { loai: "tu_nhap" as const, gia_chu_thuong: null, gia_chu_cuoi_tuan: null, ...tuNhap } : {}),
   };
   db.can.push(can);
-  // Thứ tự mảng anh_ids là thu_tu, phần tử đầu là ảnh đại diện (YC3.2.1 bước 3)
+  // Thứ tự mảng anh_ids là thu_tu, phần tử đầu là ảnh đại diện (mục "Ảnh khi thêm căn" (US25) bước 3)
   anhGan.forEach((a, i) => {
     a!.can_id = can.id;
     a!.thu_tu = i + 1;
@@ -776,8 +776,8 @@ export async function postCan(body: ThanPostCan, khoa?: string): Promise<Can> {
   return loai === "tu_nhap" ? { ...raCan(can), loai: "tu_nhap", ten_chu_can: can.ten_chu_can } : raCan(can);
 }
 
-// DELETE /can/:id (api/can-anh.md). Căn tự nhập: xóa thật căn và mọi đặt phòng sale_tu_ghi, ảnh, mức cộng, lần gửi khách (YC6.4 bước 7),
-// chỉ sale tạo (PQ14.SALE). Căn có lịch: ẩn căn (YC3.9), chỉ chủ nhà của căn (PQ3.CHU); còn đặt phòng có ngày trả sau hôm nay (giờ VN)
+// DELETE /can/:id (api/can-anh.md). Căn tự nhập: xóa thật căn và mọi đặt phòng sale_tu_ghi, ảnh, mức cộng, lần gửi khách (mục "Chi tiết căn tự nhập" (US16) bước 7),
+// chỉ sale tạo (PQ14.SALE). Căn có lịch: ẩn căn (mục "Xóa căn" (US27)), chỉ chủ nhà của căn (PQ3.CHU); còn đặt phòng có ngày trả sau hôm nay (giờ VN)
 // hoặc yêu cầu đang chờ chủ chưa quá hạn thì CAN_CON_DAT_PHONG, căn giữ nguyên; đặt phòng đã hủy không tính (QD21).
 // Ẩn xong chỉ đặt an_luc: đặt phòng, tiền, ảnh, giá giữ nguyên, căn biến khỏi getCan, lịch, tìm phòng (các hàm đọc đã lọc an_luc).
 // Căn của người khác, căn đã ẩn, sale xóa căn của chủ nhà: KHONG_TIM_THAY (PQ3.SALE).
@@ -909,9 +909,9 @@ export async function getLichTomTat(q: { thang: string; can_id?: string }): Prom
 }
 
 // GET /thong-ke/chu?thang=&so_thang= (api/thong-bao-thong-ke-xuat.md, PQ16.CHU, PQ11.CHU): số liệu một tháng của chủ nhà gọi.
-// Theo tháng của đêm (QD14, QT2.2, QT4.2), bỏ đặt phòng đã hủy (QD21), kể cả căn đã ẩn (YC3.9). Sale (vai đã chọn): KHONG_DUOC_PHEP (PQ16.SALE).
+// Theo tháng của đêm (QD14, QT2.2, QT4.2), bỏ đặt phòng đã hủy (QD21), kể cả căn đã ẩn (mục "Xóa căn" (US27)). Sale (vai đã chọn): KHONG_DUOC_PHEP (PQ16.SALE).
 // theo_can chỉ căn có lịch chưa ẩn, kể cả căn 0đ; theo_nguoi_ban giảm dần, không giá bán, tiền chênh. Chưa có khối chua_thu
-// (US18-TA2, còn [MỞ: YC7.4 bước 1, DC53 US18-Q1]). Tháng cũ của dữ liệu mẫu chỉ có tổng (doanh_thu_cu) cộng vào doanh thu tháng đó.
+// (US18-TA2, còn [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1]). Tháng cũ của dữ liệu mẫu chỉ có tổng (doanh_thu_cu) cộng vào doanh thu tháng đó.
 export async function getThongKeChu(q: { thang: string; so_thang?: number }): Promise<ThongKeChu> {
   await cho();
   const tk = nguoiGoi();
@@ -995,7 +995,7 @@ export async function getBookingSapToi(q: { gioi_han?: number } = {}): Promise<S
 }
 
 // GET /lich/tuan?tu=&toa_nha_id=&so_phong_ngu= (PQ4.CHU, PQ5.CHU): bảng căn x 7 ngày từ thứ hai. Ô trống có gia_dem theo
-// server.md 1.8 (null khi chưa đặt giá), ô có khách có booking_id. Ba số tóm tắt tính theo tuần đang xem [MỞ: YC2-H5].
+// server.md 1.8 (null khi chưa đặt giá), ô có khách có booking_id. Ba số tóm tắt tính theo tuần đang xem [MỞ: CH-016].
 // Server giả dùng tên tòa làm id tòa.
 export async function getLichTuan(q: { tu: string; toa_nha_id?: string; so_phong_ngu?: number }): Promise<LichTuan> {
   await cho();
@@ -1060,7 +1060,7 @@ const canCuaToi = (canId: string) => {
 };
 
 // gia_dem(can, ngay) của server.md 1.8: giá dịp, không thì giá tháng theo đêm T6, T7; không có thì null
-// Đêm cuối tuần tính lúc đọc, theo cài đặt hiện tại của người giữ căn (YC3.8); đặt phòng đã có giữ tiền riêng
+// Đêm cuối tuần tính lúc đọc, theo cài đặt hiện tại của người giữ căn (mục "Ngày tính giá cuối tuần" (US11)); đặt phòng đã có giữ tiền riêng
 const demCuoiTuanCua = (c: CanLuu) => db.tai_khoan.find((t) => t.id === c.tai_khoan_id)?.dem_cuoi_tuan ?? DEM_CUOI_TUAN_MAC_DINH;
 const giaDem = (c: CanLuu, ngay: string): number | null => {
   // Căn tự nhập: giá chủ báo, thường hay cuối tuần theo đêm cuối tuần của sale (server.md 1.8); chưa nhập thì chưa có giá
@@ -1093,7 +1093,7 @@ export const chiaTienTheoDem = (gia: GiaDem[], tienPhong: number) => {
 };
 
 // GET /booking/kiem-trung (server.md 2.6): chỉ để hiện sớm, lúc lưu vẫn kiểm lại
-// bo_qua_id: id đặt phòng đang sửa, bỏ qua chính nó (QT1.2, YC4.3 bước 2). Đặt phòng của người khác thì KHONG_TIM_THAY.
+// bo_qua_id: id đặt phòng đang sửa, bỏ qua chính nó (QT1.2, mục "Sửa booking" (US10) bước 2). Đặt phòng của người khác thì KHONG_TIM_THAY.
 export async function getKiemTrung(q: { can_id: string; ngay_nhan: string; ngay_tra: string; bo_qua_id?: string }): Promise<KiemTrung> {
   await cho();
   kiemNgay(q.ngay_nhan, q.ngay_tra);
@@ -1112,7 +1112,7 @@ export async function getKiemTrung(q: { can_id: string; ngay_nhan: string; ngay_
     so_dem: dem.length,
     dem,
     tong_gia_chu: tongGiaChu,
-    // Chỉ căn tự nhập: giá chủ cộng mức cộng của sale (YC6.5 bước 4). null khi có đêm chưa có giá.
+    // Chỉ căn tự nhập: giá chủ cộng mức cộng của sale (mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 4). null khi có đêm chưa có giá.
     ...(tn ? { tong_gia_ban: ban.some((g) => g === null) ? null : ban.reduce((t: number, g) => t + (g as number), 0) } : {}),
   };
 }
@@ -1139,7 +1139,7 @@ export async function getKhachLe(): Promise<{ muc: { ten_khach: string }[] }> {
 }
 
 // GET /ket-noi, phần app dùng ở CN4: sale đã kết nối (ket-noi-link.md), theo thứ tự kết nối. Dữ liệu mẫu DLM.2.
-// Sale chưa kết nối (thêm tay) và sale đã bị ngừng không có chip (YC4.1.2-NT3, quy tắc Nhóm kết nối).
+// Sale chưa kết nối (thêm tay) và sale đã bị ngừng không có chip (US5-NT13, quy tắc Nhóm kết nối).
 export async function getSaleKetNoi(): Promise<SaleKetNoi[]> {
   await cho();
   const tk = nguoiGoi();
@@ -1155,7 +1155,7 @@ const nguoiDatChiTiet = (b: BookingLuu): NguoiDat => {
   return so ? { ...nd, so_dien_thoai: so } : nd;
 };
 
-// Dạng CHU của GET /booking/:id: tien_coc chỉ khi da_coc_con_thu, tien_con_lai tính lúc đọc (YC4 quy tắc Tiền còn lại),
+// Dạng CHU của GET /booking/:id: tien_coc chỉ khi da_coc_con_thu, tien_con_lai tính lúc đọc (nhóm Booking quy tắc Tiền còn lại),
 // không có gia_ban, tien_chenh, khách của sale (QD11, PQ11.CHU). Khách lẻ chủ nhà nhập thì có ten_khach.
 const raDatPhong = (b: BookingLuu, c: CanLuu): DatPhong => {
   const tt = b.trang_thai_tien ?? "chua_coc";
@@ -1189,7 +1189,7 @@ const raDatPhong = (b: BookingLuu, c: CanLuu): DatPhong => {
 };
 
 // Giá bán của sale cho đặt phòng (bảng gia_ban_booking): tiền phòng cộng mức cộng mỗi đêm của căn, làm tròn 50k nếu sale bật.
-// Chỉ tính một lần lúc ghi; chủ nhà sửa sau không tính lại (YC4.3 bước 5, QT3.1).
+// Chỉ tính một lần lúc ghi; chủ nhà sửa sau không tính lại (mục "Sửa booking" (US10) bước 5, QT3.1).
 const giaBanLucGhi = (sale: TaiKhoanLuu, c: CanLuu, tienPhong: number, soDem: number) => {
   const cong = db.muc_cong.find((m) => m.sale_id === sale.id && m.can_id === c.id)?.so_tien ?? sale.muc_cong_mac_dinh ?? 0;
   const tong = tienPhong + cong * soDem;
@@ -1254,7 +1254,7 @@ export async function getBookingSale(id: string): Promise<DatPhongSale> {
   };
 }
 
-// Thông báo "chủ sửa booking" gần nhất của một đặt phòng cho sale đang gọi (YC4.3 bước 4, 5). Tạm cho tới khi US17 làm GET /thong-bao.
+// Thông báo "chủ sửa booking" gần nhất của một đặt phòng cho sale đang gọi (mục "Sửa booking" (US10) bước 4, 5). Tạm cho tới khi US17 làm GET /thong-bao.
 export async function getThongBaoChuSua(bookingId: string): Promise<ThongBaoChuSua | null> {
   await cho();
   const tk = nguoiGoi();
@@ -1264,7 +1264,7 @@ export async function getThongBaoChuSua(bookingId: string): Promise<ThongBaoChuS
   return t;
 }
 
-// POST /booking/:id/thu-du (YC4.2 bước 4): giữ trạng thái trước để hoàn tác đúng, giữ tien_coc. Đã thanh toán rồi: TRANG_THAI_DA_DOI.
+// POST /booking/:id/thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10) bước 4): giữ trạng thái trước để hoàn tác đúng, giữ tien_coc. Đã thanh toán rồi: TRANG_THAI_DA_DOI.
 // Cùng Idempotency-Key thì trả kết quả cũ (bấm hai lần chỉ ghi một lần, HV1-NT1).
 export async function postBookingThuDu(id: string, khoa: string): Promise<DatPhong> {
   await cho();
@@ -1279,7 +1279,7 @@ export async function postBookingThuDu(id: string, khoa: string): Promise<DatPho
   });
 }
 
-// POST /booking/:id/hoan-tac-thu-du (YC4.2 bước 5): về đúng trạng thái trước khi thu đủ
+// POST /booking/:id/hoan-tac-thu-du (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10) bước 5): về đúng trạng thái trước khi thu đủ
 export async function postBookingHoanTacThuDu(id: string, khoa: string): Promise<DatPhong> {
   await cho();
   const tk = nguoiGoi();
@@ -1293,7 +1293,7 @@ export async function postBookingHoanTacThuDu(id: string, khoa: string): Promise
   });
 }
 
-// DELETE /booking/:id (YC4.4 bước 2, 3): chỉ đặt phòng chủ nhà tự ghi cho khách lẻ. Đặt phòng có sale: KHONG_DUOC_PHEP
+// DELETE /booking/:id (mục "Xóa booking" (US10) bước 2, 3): chỉ đặt phòng chủ nhà tự ghi cho khách lẻ. Đặt phòng có sale: KHONG_DUOC_PHEP
 // (server chặn, không chỉ ẩn nút; ở server thật còn trigger database). Xóa thật: các đêm trống lại.
 export async function deleteBooking(id: string, khoa: string): Promise<{ id: string; da_xoa: true }> {
   await cho();
@@ -1306,7 +1306,7 @@ export async function deleteBooking(id: string, khoa: string): Promise<{ id: str
   });
 }
 
-// PATCH /booking/:id (YC4.3 bước 3 đến 5): chỉ trường gửi lên mới đổi. Kiểm trùng bỏ qua chính nó (QT1.2); tính lại booking_dem
+// PATCH /booking/:id (mục "Sửa booking" (US10) bước 3 đến 5): chỉ trường gửi lên mới đổi. Kiểm trùng bỏ qua chính nó (QT1.2); tính lại booking_dem
 // khi đổi căn, ngày hay tiền phòng, tổng các đêm bằng tiền phòng (QT4.2, theo bảng giá hiện tại [MỞ: api câu hỏi mở 4]);
 // không đổi giá bán (QT3.1); đặt phòng có sale thì ghi thông báo chu_sua_booking cho sale mỗi lần lưu.
 // Chưa làm vì còn [MỞ]: đổi người đặt (sale_id khác thì DU_LIEU_SAI), sửa đặt phòng cho_huy, da_huy (TRANG_THAI_DA_DOI).
@@ -1354,7 +1354,7 @@ export async function patchBooking(id: string, than: ThanSuaDatPhong, khoa: stri
     }
     b.cap_nhat_luc = lucMoi(than.cap_nhat_luc);
     tuChoiYeuCauTrung(c.id, nhan, tra); // GD11: đổi ngày, căn trùng yêu cầu chờ thì yêu cầu bị từ chối
-    // Báo sale của đặt phòng mỗi lần lưu (YC4.3 bước 4). Không tên khách, ghi chú, cọc, giá bán (PQ19).
+    // Báo sale của đặt phòng mỗi lần lưu (mục "Sửa booking" (US10) bước 4). Không tên khách, ghi chú, cọc, giá bán (PQ19).
     const sale = laSale ? db.ket_noi.find((k) => k.id === b.sale_id) : undefined;
     if (sale?.sale_id) {
       const chu = db.tai_khoan.find((t) => t.id === tk.id);
@@ -1391,7 +1391,7 @@ export async function postBooking(than: ThanDatPhong, khoa: string): Promise<Dat
   const tk = nguoiGoi();
   const cu = db.khoa_lap.get(`${tk.id}:${khoa}`);
   if (cu) return cu;
-  // Căn tự nhập của chính sale: ghi sale_tu_ghi (YC6.5). Căn tự nhập của người khác rơi xuống dưới và nhận KHONG_TIM_THAY (PQ14.SALE).
+  // Căn tự nhập của chính sale: ghi sale_tu_ghi (mục "Ghi booking đã chốt cho căn tự nhập" (US16)). Căn tự nhập của người khác rơi xuống dưới và nhận KHONG_TIM_THAY (PQ14.SALE).
   const canTuNhap = db.can.find((x) => x.id === than.can_id && x.tai_khoan_id === tk.id && x.an_luc === null && laTuNhap(x));
   if (canTuNhap) return ghiBookingTuNhap(tk, canTuNhap, than, khoa);
   if (db.can.some((x) => x.id === than.can_id && laTuNhap(x))) throw new LoiApi("KHONG_TIM_THAY"); // căn tự nhập của sale khác (PQ14.SALE)
@@ -1404,7 +1404,7 @@ export async function postBooking(than: ThanDatPhong, khoa: string): Promise<Dat
     throw new LoiApi("DU_LIEU_SAI", "", "tien_coc");
   }
   const c = canCuaToi(than.can_id);
-  // Người đặt là sale: phải là sale đã kết nối với người gọi (api/lich-dat-phong.md, YC4.1.2-NT3). Không kèm tên khách.
+  // Người đặt là sale: phải là sale đã kết nối với người gọi (api/lich-dat-phong.md, US5-NT13). Không kèm tên khách.
   const sale = than.sale_id ? db.ket_noi.find((k) => k.id === than.sale_id && k.chu_nha_id === tk.id && k.trang_thai === "da_ket_noi") : undefined;
   if (than.sale_id && !sale) throw new LoiApi("DU_LIEU_SAI", "", "sale_id");
   if (sale && than.ten_khach?.trim()) throw new LoiApi("DU_LIEU_SAI", "", "ten_khach");
@@ -1436,13 +1436,13 @@ export async function postBooking(than: ThanDatPhong, khoa: string): Promise<Dat
   const tkSale = sale?.sale_id ? db.tai_khoan.find((t) => t.id === sale.sale_id) : undefined;
   if (tkSale) b.gia_ban = giaBanLucGhi(tkSale, c, than.tien_phong, gia.length);
   db.booking.push(b);
-  tuChoiYeuCauTrung(c.id, b.ngay_nhan, b.ngay_tra); // GD11, YC4.8-NT3
+  tuChoiYeuCauTrung(c.id, b.ngay_nhan, b.ngay_tra); // GD11, US15-NT19
   const kq = raDatPhong(b, c);
   db.khoa_lap.set(`${tk.id}:${khoa}`, kq);
   return kq;
 }
 
-// POST /booking với căn tự nhập (api/lich-dat-phong.md, YC6.5 bước 5): nguon sale_tu_ghi, tien_phong là tiền trả chủ, gia_ban là tiền thu khách,
+// POST /booking với căn tự nhập (api/lich-dat-phong.md, mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 5): nguon sale_tu_ghi, tien_phong là tiền trả chủ, gia_ban là tiền thu khách,
 // không trạng thái tiền; chặn trùng chỉ trong chính căn đó (QT1.3, TRUNG_LICH); không so với căn tự nhập của sale khác.
 const ghiBookingTuNhap = (tk: TaiKhoanLuu, c: CanLuu, than: ThanDatPhong, khoa: string): DatPhong => {
   kiemNgay(than.ngay_nhan, than.ngay_tra);
@@ -1565,7 +1565,7 @@ const kiemThangVaGia = (than: { thang: string[]; gia_ngay_thuong: number; gia_cu
   return ds;
 };
 
-// PUT /can/:id/gia-thang (api/gia.md): ghi đè giá ngày thường, cuối tuần cho các tháng đã chọn. Không đổi booking (YC3.4-NT6).
+// PUT /can/:id/gia-thang (api/gia.md): ghi đè giá ngày thường, cuối tuần cho các tháng đã chọn. Không đổi booking (US7-NT1).
 // Cùng khóa thì trả kết quả đã ghi (server.md 1.6). Tháng đã qua của năm nay: [MỞ] nên cho đặt.
 export async function putGiaThang(
   canId: string,
@@ -1589,8 +1589,8 @@ export async function putGiaThang(
   return kq;
 }
 
-// POST /gia/nhieu-can (api/gia.md, YC3.6 bước 3): cùng giá tháng cho nhiều căn, một lần. Một căn không phải của người gọi
-// thì KHONG_TIM_THAY và không căn nào đổi. Không đổi đặt phòng đã có. gia_dip (YC3.6 bước 4) còn [MỞ] nên chưa nhận.
+// POST /gia/nhieu-can (api/gia.md, mục "Đặt giá nhiều căn" (US7) bước 3): cùng giá tháng cho nhiều căn, một lần. Một căn không phải của người gọi
+// thì KHONG_TIM_THAY và không căn nào đổi. Không đổi đặt phòng đã có. gia_dip (mục "Đặt giá nhiều căn" (US7) bước 4) còn [MỞ] nên chưa nhận.
 // Cùng Idempotency-Key thì trả kết quả cũ, không ghi lại (server.md 1.6).
 export async function postGiaNhieuCan(
   than: { can_ids: string[]; thang: string[]; gia_ngay_thuong: number; gia_cuoi_tuan: number; gia_dip?: null },
@@ -1612,7 +1612,7 @@ export async function postGiaNhieuCan(
   });
 }
 
-// GET /ngay-le?nam= (api/gia.md): dải ngày lễ Home247 đặt sẵn của một năm, cho "Chọn nhanh ngày lễ" (YC3.5 bước 1).
+// GET /ngay-le?nam= (api/gia.md): dải ngày lễ Home247 đặt sẵn của một năm, cho "Chọn nhanh ngày lễ" (mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 1).
 // Người gọi phải giữ ít nhất một căn có lịch, không thì KHONG_TIM_THAY. Năm chưa có dải thì muc rỗng (EN16 nạp dữ liệu sau).
 export async function getNgayLe(q: { nam: number }): Promise<KetQuaNgayLe> {
   await cho();
@@ -1625,10 +1625,10 @@ export async function getNgayLe(q: { nam: number }): Promise<KetQuaNgayLe> {
 const DIP_TOI_DA_NGAY = 10;
 const soNgayDai = (tu: string, den: string) => cacDem(tu, den).length + 1;
 
-// POST /can/:id/gia-dip (api/gia.md, YC3.5 bước 4 đến 8): thêm một dải giá ngày lễ hoặc dịp đặc biệt cho căn của người gọi.
+// POST /can/:id/gia-dip (api/gia.md, mục "Giá ngày lễ và dịp đặc biệt" (US8) bước 4 đến 8): thêm một dải giá ngày lễ hoặc dịp đặc biệt cho căn của người gọi.
 // Tối đa 10 ngày; tên trống thì đặt "Dịp đặc biệt dd/mm – dd/mm"; chồng ngày với dải khác của căn (tính cả hai đầu) thì
 // DIP_CHONG_NGAY kèm dai_chong và không ghi gì; hai dải liền nhau thì lưu được. Không đổi đặt phòng đã có, không sửa dải ngay_le.
-// Cùng Idempotency-Key thì trả kết quả cũ. Tên trống khi bật "Là ngày lễ" còn [MỞ: YC3-H15] nên DU_LIEU_SAI ở ten.
+// Cùng Idempotency-Key thì trả kết quả cũ. Tên trống khi bật "Là ngày lễ" còn [MỞ: CH-020] nên DU_LIEU_SAI ở ten.
 export async function postGiaDip(canId: string, than: ThanGiaDip, khoa: string): Promise<KetQuaGiaDip> {
   await cho();
   const tk = nguoiGoi();
@@ -1683,7 +1683,7 @@ const cungDai = (a: GiaCan["dip"][number], b: GiaCan["dip"][number]) =>
   a.la_ngay_le === b.la_ngay_le && a.tu_ngay === b.tu_ngay && a.den_ngay === b.den_ngay;
 const chongDai = (a: GiaCan["dip"][number], b: GiaCan["dip"][number]) => a.tu_ngay <= b.den_ngay && b.tu_ngay <= a.den_ngay;
 
-// POST /can/:id/gia/sao-chep (api/gia.md, YC3.7 bước 5): thay giá có sẵn của căn đích theo từng phần đã chọn, một lần.
+// POST /can/:id/gia/sao-chep (api/gia.md, mục "Sao chép giá sang căn khác" (US7) bước 5): thay giá có sẵn của căn đích theo từng phần đã chọn, một lần.
 // Tháng căn nguồn chưa có giá mà căn đích đã có giá: giữ giá đích, các tháng khác chép bình thường, không báo lỗi; trả
 // thang_giu_gia_cu để app hiện popup (US7, Tùng quyết 04/11/2026). Tháng nguồn trống và đích trống thì để trống.
 // Ngày lễ, dịp đặc biệt (loại đã chọn): căn đích có dải mà căn nguồn không có thì giữ dải của đích, trả dip_giu_cu để app hiện
@@ -1697,7 +1697,7 @@ export async function postGiaSaoChep(tuCanId: string, than: ThanSaoChepGia, khoa
   return motLan(tk, `POST /can/${tuCanId}/gia/sao-chep`, khoa, () => {
     const nguon = canCuaToiGia(tuCanId);
     const ids = [...new Set(than.den_can_ids ?? [])];
-    if (ids.length === 0) throw new LoiApi("DU_LIEU_SAI", "Chọn căn để sao chép", "den_can_ids"); // YC3.7-NT1
+    if (ids.length === 0) throw new LoiApi("DU_LIEU_SAI", "Chọn căn để sao chép", "den_can_ids"); // US7-NT5
     if (ids.length > 200 || ids.includes(tuCanId)) throw new LoiApi("DU_LIEU_SAI", "", "den_can_ids");
     for (const k of ["gia_thang", "gia_le", "gia_dip_dac_biet"] as const) {
       if (typeof than[k] !== "boolean") throw new LoiApi("DU_LIEU_SAI", "", k);
@@ -1757,8 +1757,8 @@ export async function getToi(): Promise<HoSo> {
 }
 
 // PATCH /toi (api/phien-ho-so.md): chỉ đổi của chính người gọi. Mỗi lần gửi ít nhất một trong ba trường.
-// dem_cuoi_tuan (YC3.8 bước 4, PQ6.CHU): mỗi số 1 đến 7, không trùng, server xếp tăng dần. Mảng rỗng chưa nhận [MỞ: DC53 phien-ho-so.md câu hỏi mở 12].
-// muc_cong_mac_dinh (0 đến 10.000.000), lam_tron_50k (YC5.6 bước 5, PQ11.SALE): chỉ vai sale; chủ nhà gửi thì DU_LIEU_SAI (PQ11.CHU).
+// dem_cuoi_tuan (mục "Ngày tính giá cuối tuần" (US11) bước 4, PQ6.CHU): mỗi số 1 đến 7, không trùng, server xếp tăng dần. Mảng rỗng chưa nhận [MỞ: DC53 phien-ho-so.md câu hỏi mở 12].
+// muc_cong_mac_dinh (0 đến 10.000.000), lam_tron_50k (mục "Mức cộng giá mặc định" (US13) bước 5, PQ11.SALE): chỉ vai sale; chủ nhà gửi thì DU_LIEU_SAI (PQ11.CHU).
 // Giá bán tính lúc đọc nên đổi theo cho căn không có mức cộng riêng; không đổi đặt phòng đã có (tiền ở booking_dem, gia_ban_booking).
 const MAX_MUC_CONG = 10_000_000;
 export async function patchToi(than: ThanSuaToi, khoa: string): Promise<HoSo> {
@@ -1859,8 +1859,8 @@ const chuNhaGoi = () => {
 const raLink = ({ tai_khoan_id: _bo, ...l }: LinkLuu): LinkMoi => ({ ...l, ...(l.can_ids ? { can_ids: [...l.can_ids] } : {}) });
 
 // POST /link (api/ket-noi-link.md). moi_sale: trả link mời đang dùng nếu còn hạn, không thì tạo mới.
-// gui_lich (US26, YC1.8 bước 4): luôn tạo link mới cho các căn trong can_ids; cùng Idempotency-Key trả cùng một link.
-// xin_lich (US17, A6): tài khoản vai sale; mỗi sale một link, không hạn, có thì trả link đó (YC1 quy tắc Một link xin lịch nhiều chủ nhà).
+// gui_lich (US26, mục "Chủ nhà chủ động gửi lịch cho sale" (US26) bước 4): luôn tạo link mới cho các căn trong can_ids; cùng Idempotency-Key trả cùng một link.
+// xin_lich (US17, A6): tài khoản vai sale; mỗi sale một link, không hạn, có thì trả link đó (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale quy tắc Một link xin lịch nhiều chủ nhà).
 export async function postLink(than: { loai: string; can_ids?: string[] }, khoa: string): Promise<LinkMoi> {
   await cho();
   if (than?.loai === "xin_lich") {
@@ -1899,7 +1899,7 @@ const taoLink = (tk: TaiKhoanLuu, loai: "moi_sale" | "gui_lich" | "xin_lich", ca
     duong_dan: `https://zalo.me/s/${MINI_APP_ID_GIA}/?ma=${ma}`,
     loai,
     tao_luc: new Date(bayGio).toISOString(),
-    // Link xin lịch không hạn tới khi DC49 quyết [MỞ: DC49]; đường dẫn chỉ có mã ngẫu nhiên, không số điện thoại (YC1.6-NT4)
+    // Link xin lịch không hạn tới khi DC49 quyết [MỞ: DC49]; đường dẫn chỉ có mã ngẫu nhiên, không số điện thoại (US17-NT5)
     het_han_luc: loai === "xin_lich" ? null : new Date(bayGio + LINK_HET_HAN_NGAY * 24 * 60 * 60 * 1000).toISOString(),
     so_lan_gui: 0,
     gui_cuoi_luc: null,
@@ -1931,7 +1931,7 @@ const datPhongCuaSale = (tk: TaiKhoanLuu, k: KetNoiLuu) => {
 };
 
 // Tên sale chủ nhà thấy: sale có tài khoản thì lấy tên hiển thị của tài khoản (PQ1.CHU), sale thêm tay thì tên chủ nhà nhập.
-// Tài khoản chưa có tên: [MỞ: YC9.2 chưa có quy tắc khi tên hiển thị trống], tạm ghi "Sale chưa có tên".
+// Tài khoản chưa có tên: [MỞ: mục "Hồ sơ (Thông tin cá nhân)" (US21) chưa có quy tắc khi tên hiển thị trống], tạm ghi "Sale chưa có tên".
 const tenKetNoi = (k: KetNoiLuu) => {
   if (!k.sale_id) return k.ten;
   const t = db.tai_khoan.find((x) => x.id === k.sale_id);
@@ -1939,7 +1939,7 @@ const tenKetNoi = (k: KetNoiLuu) => {
 };
 
 const raDongKetNoi = (tk: TaiKhoanLuu, k: KetNoiLuu): DongKetNoi => {
-  // [MỞ: YC1.9 bước 1 không nói kỳ tính] Tạm theo canvas CN7 ("tháng này"): đặt phòng có ngày nhận trong tháng của hôm nay.
+  // [MỞ: mục "Chủ nhà quản lý danh sách sale" (US5) bước 1 không nói kỳ tính] Tạm theo canvas CN7 ("tháng này"): đặt phòng có ngày nhận trong tháng của hôm nay.
   const thang = thangCua(homNay());
   const ds = datPhongCuaSale(tk, k).filter((b) => thangCua(b.ngay_nhan) === thang);
   return {
@@ -2033,14 +2033,14 @@ export async function getKetNoiChiTiet(id: string): Promise<ChiTietKetNoi> {
 }
 
 // POST /ket-noi/:id/ngung (api/ket-noi-link.md): sale mất quyền xem lịch, căn, giá của người gọi; đặt phòng cũ giữ nguyên
-// (YC1.9-NT2). Đã ngừng rồi thì trả như lần đầu. Dòng không phải da_ket_noi: TRANG_THAI_DA_DOI.
+// (US5-NT10). Đã ngừng rồi thì trả như lần đầu. Dòng không phải da_ket_noi: TRANG_THAI_DA_DOI.
 export async function postKetNoiNgung(id: string, khoa: string): Promise<{ id: string; trang_thai: TrangThaiKetNoi }> {
   await cho();
   const tk = chuNhaGoi();
   return motLan(tk, `ket-noi/${id}/ngung`, khoa, () => {
     const k = ketNoiCuaToi(tk, id);
     if (k.trang_thai !== "da_ket_noi" && k.trang_thai !== "chu_ngung") throw new LoiApi("TRANG_THAI_DA_DOI");
-    // Báo sale bị ngừng một lần (QD17 dòng 13, YC1.9-NT6): gọi lại khi đã ngừng thì không ghi lần hai. Không giá, không tên khách (PQ19.SALE).
+    // Báo sale bị ngừng một lần (QD17 dòng 13, US17-NT9): gọi lại khi đã ngừng thì không ghi lần hai. Không giá, không tên khách (PQ19.SALE).
     if (k.trang_thai === "da_ket_noi" && k.sale_id) {
       db.thong_bao_moi.push({
         id: idMoi("tb"),
@@ -2124,7 +2124,7 @@ export async function getLinkXemTruoc(ma: string): Promise<XemTruocLink | XemTru
   const l = laMaLink(ma) ? db.link.find((x) => x.ma === ma) : undefined;
   if (l?.loai !== "xin_lich") return xemTruocLinkMoi(ma);
   const sale = db.tai_khoan.find((t) => t.id === l.tai_khoan_id);
-  if (!sale) throw new LoiApi("LINK_KHONG_DUNG_DUOC"); // sale đã xóa tài khoản: link xóa theo (YC1.7-NT4)
+  if (!sale) throw new LoiApi("LINK_KHONG_DUNG_DUOC"); // sale đã xóa tài khoản: link xóa theo (US22-NT2)
   const phien = phienCuaApp ? db.phien.get(phienCuaApp) : undefined;
   if (!phien) throw new LoiApi("CHUA_DANG_NHAP");
   const tk = db.tai_khoan.find((t) => t.zalo_id === phien.zalo_id);
@@ -2296,7 +2296,7 @@ export async function postThongBaoDaDoc(than: ThanDaDoc): Promise<{ so_chua_doc:
 }
 
 // POST /link/:ma/them-lich (api/ket-noi-link.md): chỗ link thành SALE (PQ17.LINK). Không có thân; phạm vi lấy theo loại link
-// (link mời: tất cả căn, kể cả căn thêm sau, YC1.12), quyền mặc định giá bật. Đã kết nối rồi thì không tạo thêm (YC1.3-NT5).
+// (link mời: tất cả căn, kể cả căn thêm sau, mục "Căn mới của chủ nhà tự hiện cho sale" (US6)), quyền mặc định giá bật. Đã kết nối rồi thì không tạo thêm (US6-NT6).
 export async function postLinkThemLich(ma: string, khoa: string): Promise<KetQuaThemLich> {
   await cho();
   const tk = nguoiGoi();
@@ -2319,7 +2319,7 @@ export async function postLinkThemLich(ma: string, khoa: string): Promise<KetQua
           trang_thai: "da_ket_noi",
           nguon: l.loai === "gui_lich" ? "chu_gui_lich" : "link_moi",
           ket_noi_luc: new Date().toISOString(),
-          // Link gửi lịch: chỉ các căn của link (YC1.8); link mời: tất cả căn (QD9)
+          // Link gửi lịch: chỉ các căn của link (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)); link mời: tất cả căn (QD9)
           ...(l.can_ids ? { pham_vi: "chon_can" as const, can_ids: [...l.can_ids] } : {}),
         };
         db.ket_noi.push(moi);
@@ -2347,7 +2347,7 @@ const giaBanDem = (sale: TaiKhoanLuu, c: CanLuu, ngay: string): number | null =>
 // GET /sale/lich?tu=&so_ngay=&sap_xep= (api/sale.md): ba nhóm căn của sale, 7 hoặc 14 ngày từ `tu`.
 // cua_toi: căn sale giữ, ô `trong` có gia_chu (giá đêm của chính sale); nguon_phong: căn của chủ nhà đã kết nối, ô kín không có tên người đặt,
 // sale_id, nguồn (PQ4.SALE, PQ7.SALE, QT2.1), ô trống luôn có giá bán (QD20 r2 điểm 3, EN53); tu_nhap: không bao giờ `trong` hay `kin`,
-// ô là `chua_biet` ("?"), đêm sale đã ghi là `cua_ban` ("Bạn") (YC5.1-NT3, YC6.5-NT4). Căn chỉ của người gọi (PQ13, PQ14.SALE).
+// ô là `chua_biet` ("?"), đêm sale đã ghi là `cua_ban` ("Bạn") (US16-NT2, US16-NT32). Căn chỉ của người gọi (PQ13, PQ14.SALE).
 // Sắp xếp trong mỗi nhóm: ten (mặc định), gia_tang (giá hôm nay, căn không giá xếp cuối), ban_nhieu (số đặt phòng của sale 90 ngày qua).
 const SAP_XEP_LICH: SapXepLich[] = ["ten", "gia_tang", "ban_nhieu"];
 export async function getSaleLich(q: { tu?: string; so_ngay?: number; sap_xep?: SapXepLich } = {}): Promise<LichSale> {
@@ -2458,8 +2458,8 @@ const saleGoi = () => {
 const tenChuNha = (chu: TaiKhoanLuu | undefined, k: KetNoiLuu) => (chu ? chu.ten_hien_thi ?? chu.ho_ten ?? null : k.ten_chu_cu ?? null);
 const theCanNguon = (c: CanLuu): CanNguonPhong => ({ id: c.id, ma_can: c.ma_can, toa_nha: c.toa_nha ?? null, so_phong_ngu: c.so_phong_ngu, so_giuong: c.so_giuong, loai_view: c.loai_view });
 
-// GET /ket-noi, bản sale (YC6.1 bước 2, 10): dòng da_ket_noi kèm căn trong phạm vi chia sẻ; dòng chủ nhà đã rút quyền chỉ có tên cũ và cờ,
-// không căn (YC6.1-NT5, PQ23.SALE). Dòng sale_bo, chu_ngung không trả. Giá căn, "Cập nhật … trước" chưa có [MỞ: YC6-H4, YC6.1 bước 2].
+// GET /ket-noi, bản sale (mục "Danh sách căn và nguồn phòng" (US16) bước 2, 10): dòng da_ket_noi kèm căn trong phạm vi chia sẻ; dòng chủ nhà đã rút quyền chỉ có tên cũ và cờ,
+// không căn (US22-NT10, PQ23.SALE). Dòng sale_bo, chu_ngung không trả. Giá căn, "Cập nhật … trước" chưa có [MỞ: CH-074, mục "Danh sách căn và nguồn phòng" (US16) bước 2].
 export async function getNguonPhong(): Promise<NguonPhong> {
   await cho();
   const tk = saleGoi();
@@ -2475,7 +2475,7 @@ export async function getNguonPhong(): Promise<NguonPhong> {
   return { vai: "sale", nguon_phong: dong };
 }
 
-// GET /ket-noi/:id, bản sale (S6-04, YC6.2 bước 1 đến 3). Chủ nhà đã rút quyền, đã ngừng, sale đã bỏ: KHONG_CON_QUYEN kèm lý do (HV5).
+// GET /ket-noi/:id, bản sale (S6-04, mục "Chi tiết chủ nhà và bỏ nguồn phòng" (US16) bước 1 đến 3). Chủ nhà đã rút quyền, đã ngừng, sale đã bỏ: KHONG_CON_QUYEN kèm lý do (HV5).
 export async function getNguonPhongChiTiet(id: string): Promise<ChiTietNguonPhong> {
   await cho();
   const tk = saleGoi();
@@ -2497,8 +2497,8 @@ export async function getNguonPhongChiTiet(id: string): Promise<ChiTietNguonPhon
   };
 }
 
-// DELETE /ket-noi/:id, bản sale (YC6.2 bước 6, YC6.1 bước 11): bỏ nguồn thì dòng sang sale_bo, sale không còn thấy lịch của chủ đó (YC6.2-NT3);
-// dòng chủ nhà đã rút quyền thì xóa hẳn dòng, không đổi đặt phòng nào (YC6.1-NT6). Gọi lại với dòng đã sale_bo trả như lần đầu.
+// DELETE /ket-noi/:id, bản sale (mục "Chi tiết chủ nhà và bỏ nguồn phòng" (US16) bước 6, mục "Danh sách căn và nguồn phòng" (US16) bước 11): bỏ nguồn thì dòng sang sale_bo, sale không còn thấy lịch của chủ đó (US16-NT15);
+// dòng chủ nhà đã rút quyền thì xóa hẳn dòng, không đổi đặt phòng nào (US22-NT11). Gọi lại với dòng đã sale_bo trả như lần đầu.
 export async function deleteKetNoi(id: string, khoa: string): Promise<KetQuaBoNguon> {
   await cho();
   const tk = saleGoi();
@@ -2643,7 +2643,7 @@ export async function getSaleTim(q: Partial<DieuKienTim> & { ghi_lich_su?: boole
   };
 }
 
-// GET /sale/tim/lich-tuan: cùng điều kiện và cùng tập căn với GET /sale/tim (YC5.3-NT3), bảng căn × 7 ngày từ ngày nhận. Không ghi Tìm gần đây.
+// GET /sale/tim/lich-tuan: cùng điều kiện và cùng tập căn với GET /sale/tim (US12-NT8), bảng căn × 7 ngày từ ngày nhận. Không ghi Tìm gần đây.
 export async function getSaleTimLichTuan(q: Partial<DieuKienTim>): Promise<LichTuanTim> {
   await cho();
   const tk = nguoiGoi();
@@ -2772,7 +2772,7 @@ export async function getSaleCan(canId: string, q: { ngay_nhan?: string; ngay_tr
   };
 }
 
-// PUT /sale/can/:id/muc-cong { so_tien, ngay_nhan?, ngay_tra? }: mức cộng riêng của người gọi cho căn này (YC5.4 bước 4, PQ11.SALE).
+// PUT /sale/can/:id/muc-cong { so_tien, ngay_nhan?, ngay_tra? }: mức cộng riêng của người gọi cho căn này (mục "Chi tiết căn và giá bán" (US13) bước 4, PQ11.SALE).
 // Thân có sale_id hay trường lạ thì bỏ qua: dòng luôn ghi cho người gọi. Có ngày thì trả giá theo mức mới.
 export async function putSaleCanMucCong(canId: string, than: { so_tien: number; ngay_nhan?: string; ngay_tra?: string }, khoa: string): Promise<KetQuaMucCong> {
   await cho();
@@ -2919,7 +2919,7 @@ const raYeuCauSale = (y: YeuCauLuu): YeuCauSale => {
 
 const chungDem = (a: { ngay_nhan: string; ngay_tra: string }, nhan: string, tra: string) => a.ngay_nhan < tra && nhan < a.ngay_tra;
 
-// Dạng CHU: chỉ gia_chu (không gia_ban, tien_chenh), có sale và cờ trùng đêm với yêu cầu chờ khác (YC4.8-NT1)
+// Dạng CHU: chỉ gia_chu (không gia_ban, tien_chenh), có sale và cờ trùng đêm với yêu cầu chờ khác (US15-NT17)
 const raYeuCauChu = (y: YeuCauLuu): YeuCauChu => {
   const sale = db.tai_khoan.find((t) => t.id === y.sale_id);
   const r: YeuCauChu = { ...raYeuCauChung(y), sale: benKia(sale) };
@@ -2931,7 +2931,7 @@ const raYeuCauChu = (y: YeuCauLuu): YeuCauChu => {
   return r;
 };
 
-// Yêu cầu chờ trùng đêm với đặt phòng vừa ghi thì Bị từ chối, lý do chu_nhan_dat_khac (QT1.4-VD2, YC4.8-NT2, NT3, GD11)
+// Yêu cầu chờ trùng đêm với đặt phòng vừa ghi thì Bị từ chối, lý do chu_nhan_dat_khac (QT1.4-VD2, US15-NT18, NT3, GD11)
 const tuChoiYeuCauTrung = (canId: string, nhan: string, tra: string, boQuaId?: string): YeuCauLuu[] => {
   const lucNay = isoYC(bayGioYC());
   const ds = db.yeu_cau.filter((y) => y.id !== boQuaId && y.can_id === canId && dangCho(y) && chungDem(y, nhan, tra));
@@ -3367,11 +3367,11 @@ export const banThu = {
     t.so_dien_thoai = null;
     t.rut_quyen_luc = new Date().toISOString();
   },
-  // Cho test: lùi giờ tạo mọi thông báo mới (ms), để thử gom 10 phút (YC1.10-NT2)
+  // Cho test: lùi giờ tạo mọi thông báo mới (ms), để thử gom 10 phút (US17-NT11)
   luiGioThongBao(ms: number) {
     for (const t of db.thong_bao_moi) t.tao_luc = new Date(Date.parse(t.tao_luc) - ms).toISOString();
   },
-  // Cho test: chủ nhà xóa tài khoản (YC1.3-NT6). US22 làm phần xóa thật; ở đây chỉ bỏ tài khoản và căn.
+  // Cho test: chủ nhà xóa tài khoản (US22-NT1). US22 làm phần xóa thật; ở đây chỉ bỏ tài khoản và căn.
   chuNhaXoaTaiKhoan(zaloId: string) {
     const t = db.tai_khoan.find((x) => x.zalo_id === zaloId);
     if (!t) return;
@@ -3410,7 +3410,7 @@ export const banThu = {
     c.gia ??= { thang: {}, dip: [] };
     c.gia.dip.push({ ...dip, id: idMoi("dip") });
   },
-  // Cho test: đẩy đồng hồ của yêu cầu tới (ms), để thử hết hạn 14 ngày (YC4.5-NT6) mà không chờ thật
+  // Cho test: đẩy đồng hồ của yêu cầu tới (ms), để thử hết hạn 14 ngày (US15-NT6) mà không chờ thật
   tienGioYeuCau(ms: number) {
     lechGioYeuCau += ms;
   },

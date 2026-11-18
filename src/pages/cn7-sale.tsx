@@ -15,8 +15,8 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { CHU_DE_SAU_CN7, NoiDungCN7 } from "./cn7-man";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 
-// CN7 · Sale của tôi (YC1.9 bước 1), CN7-00 khi chưa có sale nào (bước 2), nút gửi link và sao chép link (bước 1a).
-// "Nhắc lại" ở sale chưa kết nối chưa thiết kế (YC1.9 bước 3, [MỞ: YC1-H14]) nên không có nút.
+// CN7 · Sale của tôi (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1), CN7-00 khi chưa có sale nào (bước 2), nút gửi link và sao chép link (bước 1a).
+// "Nhắc lại" ở sale chưa kết nối chưa thiết kế (mục "Chủ nhà quản lý danh sách sale" (US5) bước 3, [MỞ: CH-011]) nên không có nút.
 
 export const TabSale = () => {
   const dieuHuong = useNavigate();
@@ -59,7 +59,7 @@ export const TabSale = () => {
   }, [matMang]);
   useKhiQuayLai(tai);
 
-  // Việc gốc của hai nút (YC1.9 bước 1a); lỗi mạng của server giả hiện ở banner đầu màn
+  // Việc gốc của hai nút (mục "Chủ nhà quản lý danh sách sale" (US5) bước 1a); lỗi mạng của server giả hiện ở banner đầu màn
   const lam = (viec: () => Promise<string | null>) => async () => {
     setDangLam(true);
     setLoiViec(null);

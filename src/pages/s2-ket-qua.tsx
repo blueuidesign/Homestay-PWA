@@ -13,10 +13,10 @@ import { boNhoTim } from "../stores/lich";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungS200, NoiDungS2, NoiDungS4 } from "./s2-man";
 
-// S2, S2-00, S4 · Kết quả tìm phòng (YC5.3). Mở từ "Tìm phòng trống" ở S1-03 với state { dk, ten_toa }.
+// S2, S2-00, S4 · Kết quả tìm phòng (mục "Kết quả tìm phòng" (US12)). Mở từ "Tìm phòng trống" ở S1-03 với state { dk, ten_toa }.
 // Lần mở đầu ghi Tìm gần đây (ghi_lich_su); tải lại (quay lại từ nền, có mạng lại) thì không ghi thêm.
 // Dấu tích giữ trong bộ nhớ của màn: chuyển Danh sách / Lịch tuần, tải lại không mất. Căn không còn trong kết quả thì bỏ tích (HV5).
-// "Gửi cho khách" (US14): hồ sơ chưa có số thì popup xin tên và số trước (YC5.5 bước 0), rồi mở S5 với các căn đã tích theo thứ tự tích. Chạm thẻ căn mở S3 (US13).
+// "Gửi cho khách" (US14): hồ sơ chưa có số thì popup xin tên và số trước (mục "Gửi thông tin cho khách qua Zalo" (US14) bước 0), rồi mở S5 với các căn đã tích theo thứ tự tích. Chạm thẻ căn mở S3 (US13).
 const KhungKetQuaDangTai = () => (
   <div aria-busy="true" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
     <div className="khung-xam" style={{ height: 44 }} />
@@ -104,7 +104,7 @@ export const ManKetQuaTim = () => {
     const d = diDenGuiKhach(chon, dk.ngay_nhan, dk.ngay_tra);
     void xin.chay(() => dieuHuong(d.duong, { state: d.state }));
   };
-  // Chạm thẻ căn nguồn phòng mở S3 với đúng căn và ngày đang tìm (YC5.3 bước 6). Căn của tôi, căn tự nhập: S3 chưa chốt [MỞ: DC53 api/sale.md câu hỏi 2]
+  // Chạm thẻ căn nguồn phòng mở S3 với đúng căn và ngày đang tìm (mục "Kết quả tìm phòng" (US12) bước 6). Căn của tôi, căn tự nhập: S3 chưa chốt [MỞ: DC53 api/sale.md câu hỏi 2]
   const moCan = (c: CanTim) =>
     laCanCuaToi(c)
       ? toast("Chi tiết căn của bạn làm ở US16")

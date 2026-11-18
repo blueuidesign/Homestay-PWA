@@ -16,7 +16,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Hàng "Chọn nhanh ngày lễ" có: Lễ 30/4 – 1/5, Quốc khánh 2/9, Tết Dương lịch, Tết Âm lịch.
   - Có ghi chú "Home247 đặt sẵn dải ngày nghỉ của từng dịp mỗi năm, gồm nghỉ bù và nối cuối tuần. Chọn xong vẫn sửa được ngày."
   - Có ô "Giá mỗi đêm (đ)", công tắc "Là ngày lễ (hiện trong mục Giá ngày lễ)", nút "Lưu giá".
-- **Nguồn:** YC3.5 bước 1
+- **Nguồn:** mục "Giá ngày lễ và dịp đặc biệt" bước 1
 
 ### US8-KB2 · Mở màn giá ngày lễ bằng cách chạm lịch giá `[Chính]`
 - **Mục đích:** chạm một ngày trên lịch giá cũng mở được màn này.
@@ -26,7 +26,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   2. Ở "Lịch giá tháng 10", chạm ngày 28.
 - **Mong đợi:**
   - Mở màn "Giá ngày lễ, dịp đặc biệt" của Phòng 1509.
-- **Nguồn:** YC3.5 Khi nào xảy ra, YC3.4 bước 7
+- **Nguồn:** mục "Giá ngày lễ và dịp đặc biệt" Khi nào xảy ra, mục "Đặt giá theo tháng" (US4) bước 7
 
 ### US8-KB3 · Chọn nhanh Lễ 30/4 – 1/5 `[Chính]`
 - **Mục đích:** chạm dịp lễ thì ngày điền sẵn theo dải Home247 đặt.
@@ -38,7 +38,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - "Từ ngày" là 30/04, "Đến ngày" là 03/05, tên dịp "Lễ 30/4 – 1/5".
   - Dòng "4 ngày · T5 30/4 → CN 3/5".
   - Lưới tuần từ T2 27/4 đến CN 3/5, bốn ngày 30/4 đến 3/5 được tô. T7, CN có màu riêng.
-- **Nguồn:** YC3.5-NT1, YC3.5 bước 2, 3, quy tắc Dải ngày lễ do Home247 đặt (YC3)
+- **Nguồn:** US8-NT1
 
 ### US8-KB4 · Nới dải ngày lễ trên lưới tuần `[Chính]`
 - **Mục đích:** chủ nhà sửa được dải đã điền sẵn.
@@ -49,7 +49,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Dải thành 29/4 → 3/5, dòng ghi "5 ngày · T4 29/4 → CN 3/5".
   - Ô 29/4 được tô.
-- **Nguồn:** YC3.5 bước 3, quy tắc Dải ngày lễ do Home247 đặt (YC3)
+- **Nguồn:** mục "Giá ngày lễ và dịp đặc biệt" bước 3, quy tắc Dải ngày lễ do Home247 đặt (nhóm Căn và giá)
 
 ### US8-KB5 · Dải 13 ngày bị chặn `[Lỗi]`
 - **Mục đích:** dải dài hơn 10 ngày có cảnh báo và không lưu được.
@@ -64,7 +64,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Dòng "13 ngày · T5 24/12 → T3 5/1".
   - Cảnh báo "Tối đa 10 ngày. Đang chọn 13 ngày, hãy rút ngắn ngày kết thúc."
   - Bấm "Lưu giá" không lưu: tab Giá của 3402 không có dải 24/12 – 05/01.
-- **Nguồn:** YC3.5-NT2, YC3.5 bước 6, quy tắc Dải ngày lễ do Home247 đặt (YC3): 13 ngày là quá
+- **Nguồn:** US8-NT2
 
 ### US8-KB6 · Dải đúng 10 ngày lưu được, 11 ngày thì không `[Biên]`
 - **Mục đích:** mốc 10 ngày tính đúng.
@@ -79,7 +79,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Bước 2: "11 ngày", có cảnh báo "Tối đa 10 ngày. Đang chọn 11 ngày, hãy rút ngắn ngày kết thúc."
   - Bước 3: "10 ngày", không còn cảnh báo.
   - Bước 5: lưu được. Mục "DỊP ĐẶC BIỆT" của 3402 có "24/12 – 02/01 Noel và Tết 1.500.000đ".
-- **Nguồn:** YC3.5-NT2, quy tắc Dải ngày lễ do Home247 đặt (YC3): một dải tối đa 10 ngày
+- **Nguồn:** US8-NT2
 
 ### US8-KB7 · Lưu dịp đặc biệt 24/10 – 25/10 `[Chính]`
 - **Mục đích:** dịp đặc biệt vào đúng mục và thay giá tháng trên lịch giá.
@@ -94,7 +94,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Mục "DỊP ĐẶC BIỆT" có "24/10 – 25/10 Lễ hội Carnaval 1.300.000đ". Mục "GIÁ NGÀY LỄ" không có dải này.
   - Lịch giá: 24/10 (T7) 1,3tr, 25/10 (CN) 1,3tr (trước đó 900k), 26/10 (T2) vẫn 900k, 22/10 (T5) vẫn 900k.
-- **Nguồn:** YC3.5-NT3, quy tắc Giá dịp thay giá tháng (YC3), quy tắc Ngày lễ khác dịp đặc biệt (YC3)
+- **Nguồn:** US8-NT3
 
 ### US8-KB8 · Lưu dải là ngày lễ `[Chính]`
 - **Mục đích:** bật "Là ngày lễ" thì dải vào mục "GIÁ NGÀY LỄ".
@@ -108,7 +108,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Mục "GIÁ NGÀY LỄ" của 1509 có dải Quốc khánh 2/9 với giá 2.500.000đ.
   - Mục "DỊP ĐẶC BIỆT" không có dải này.
-- **Nguồn:** YC3.5-NT4, quy tắc Ngày lễ khác dịp đặc biệt (YC3)
+- **Nguồn:** US8-NT4
 
 ### US8-KB9 · Bỏ trống tên dịp `[Biên]`
 - **Mục đích:** app tự đặt tên theo ngày khi chủ nhà không gõ tên.
@@ -122,7 +122,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Ô tên ghi "Tên (không bắt buộc)", gợi ý "Dịp đặc biệt 24/10 – 25/10", dòng "Bỏ trống thì app đặt tên theo ngày: "Dịp đặc biệt 24/10 – 25/10"."
   - Sau khi lưu, mục "DỊP ĐẶC BIỆT" có "Dịp đặc biệt 24/10 – 25/10" giá 1.300.000đ.
-- **Nguồn:** YC3.5-NT5, quy tắc Tên dịp tự đặt (YC3), CN6-03-01. Nút lưu theo YC3.5 bước 7 là "Lưu giá"; canvas CN6-03-01 vẽ "Lưu giá dịp"
+- **Nguồn:** US8-NT5
 
 ### US8-KB10 · Dải chồng ngày với dịp đã có bị chặn `[Lỗi]`
 - **Mục đích:** hai dải của cùng căn không có ngày chung.
@@ -137,7 +137,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - App báo lỗi chồng ngày, có nêu tên và ngày của dải đã có (24/10 – 25/10). Chữ chính xác chưa vẽ.
   - Mục "DỊP ĐẶC BIỆT" vẫn chỉ có dịp 24/10 – 25/10 1.300.000đ.
   - Lịch giá 3402: 25/10 vẫn 1,3tr, 26/10 (T2) vẫn 800k.
-- **Nguồn:** YC3.5-NT6, YC3.5 bước 8, quy tắc Giá dịp không chồng ngày (YC3): 24/10 – 25/10 và 25/10 – 26/10 chồng ngày 25/10
+- **Nguồn:** US8-NT6
 
 ### US8-KB11 · Hai dải liền nhau lưu được `[Biên]`
 - **Mục đích:** dải bắt đầu ngay sau dải cũ không bị coi là chồng.
@@ -152,7 +152,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Lưu được, không báo lỗi.
   - Mục "DỊP ĐẶC BIỆT" có hai dải: 24/10 – 25/10 1.300.000đ và 26/10 – 27/10 1.200.000đ.
   - Lịch giá: 25/10 1,3tr, 26/10 1,2tr, 27/10 1,2tr, 28/10 (T4) 800k.
-- **Nguồn:** YC3.5-NT8, quy tắc Giá dịp không chồng ngày (YC3)
+- **Nguồn:** US8-NT8
 
 ### US8-KB12 · Đặt phòng mới lấy giá dịp làm tiền điền sẵn `[Chính]`
 - **Mục đích:** đêm trong dịp dùng giá dịp, không dùng giá tháng.
@@ -164,7 +164,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   4. Bấm quay lại, không lưu.
 - **Mong đợi:**
   - Ô tiền phòng điền sẵn 1.300.000, dòng tách theo đêm "25/10: 1.300.000đ" (không phải 900.000đ).
-- **Nguồn:** quy tắc Giá dịp thay giá tháng (YC3), QT4.1
+- **Nguồn:** quy tắc Giá dịp thay giá tháng (nhóm Căn và giá), QT4.1
 
 ### US8-KB13 · Đặt phòng đã có giữ tiền khi thêm dịp `[Chính]`
 - **Mục đích:** thêm giá dịp lên đêm đã có khách không đổi tiền đặt phòng và doanh thu.
@@ -179,7 +179,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Lưu được. Mục "DỊP ĐẶC BIỆT" của 3402 có "Dịp thử" 17/10 – 18/10 2.000.000đ.
   - Chi tiết B2 vẫn "Tiền phòng 1.900.000đ".
   - Khối doanh thu vẫn "11.800.000đ".
-- **Nguồn:** quy tắc Booking giữ giá riêng (YC3), YC3.4-NT6
+- **Nguồn:** US7-NT1
 
 ### US8-KB14 · Sửa dải lễ không đổi dải chung của Home247 `[Quyền]`
 - **Mục đích:** chủ nhà sửa dải chỉ áp cho giá của mình.
@@ -206,7 +206,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 3 báo "Chưa lưu được, bấm lại khi có mạng". Ngày và giá vẫn còn trên form.
   - Bước 5 mục "DỊP ĐẶC BIỆT" vẫn trống: app không tự gửi lại.
-- **Nguồn:** HV2 bước 3, 4 (YC3.5 trạng thái lỗi mạng)
+- **Nguồn:** HV2 bước 3, 4 (mục "Giá ngày lễ và dịp đặc biệt" trạng thái lỗi mạng)
 
 ### US8-KB16 · Rời app khi đang nhập giá dịp `[Mạng]`
 - **Mục đích:** quay lại từ nền vẫn còn đủ thứ đang nhập.
@@ -217,7 +217,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   3. Mở lại Zalo.
 - **Mong đợi:**
   - Vẫn ở màn "Giá ngày lễ, dịp đặc biệt" của 1509, còn đủ ngày, tên và giá.
-- **Nguồn:** HV3 bước 1, 2 (YC3.5 trạng thái quay lại từ nền)
+- **Nguồn:** HV3 bước 1, 2 (mục "Giá ngày lễ và dịp đặc biệt" trạng thái quay lại từ nền)
 
 ### US8-KB17 · Dải ngày lễ chồng một dịp đặc biệt đã có cũng bị chặn `[Lỗi]`
 - **Mục đích:** chồng ngày bị chặn dù một dải là ngày lễ và dải kia là dịp đặc biệt.
@@ -231,7 +231,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - App báo lỗi chồng ngày, có nêu tên và ngày của dải đã có ("Dịp đặc biệt 24/10 – 25/10"). Chữ chính xác chưa vẽ.
   - Mục "GIÁ NGÀY LỄ" không có dải mới. Mục "DỊP ĐẶC BIỆT" vẫn chỉ có 24/10 – 25/10 1.300.000đ.
-- **Nguồn:** YC3.5 bước 8, quy tắc Giá dịp không chồng ngày (YC3): dải ngày lễ hoặc dịp đặc biệt
+- **Nguồn:** mục "Giá ngày lễ và dịp đặc biệt" bước 8, quy tắc Giá dịp không chồng ngày (nhóm Căn và giá): dải ngày lễ hoặc dịp đặc biệt
 
 ### US8-KB18 · Bấm "Lưu giá" hai lần liền `[Mạng]`
 - **Mục đích:** đang lưu thì nút khóa, chỉ một dải được ghi.
@@ -244,7 +244,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Nút đổi chữ thành "Đang lưu…" và không bấm được tới khi xong.
   - Mục "DỊP ĐẶC BIỆT" có đúng một dải "24/10 – 25/10 Lễ hội Carnaval 1.300.000đ", không báo lỗi chồng ngày.
-- **Nguồn:** HV1 bước 3 (YC3.5 trạng thái đang tải), YC3.5 bước 7
+- **Nguồn:** HV1 bước 3 (mục "Giá ngày lễ và dịp đặc biệt" trạng thái đang tải), mục "Giá ngày lễ và dịp đặc biệt" bước 7
 
 ### US8-KB19 · Chủ nhà khác không thấy dịp của Chị Hoa `[Quyền]`
 - **Mục đích:** giá dịp chỉ của người giữ căn.

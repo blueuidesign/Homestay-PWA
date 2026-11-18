@@ -13,7 +13,7 @@ Là chủ nhà mới, tôi muốn vào app bằng Zalo và thêm căn chỉ vớ
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC1.1 · Đăng nhập
+### Đăng nhập
 > **Bản PWA:** cách đăng nhập theo CH-001; bảng dưới là cách của bản Zalo. Điều giữ cho mọi nền tảng: không bắt đăng ký email, không hỏi tên, số khi vừa vào, A1 hiện được khi chưa đăng nhập, dòng điều khoản ở A1. Xem `PWA.md` mục P1.
 Rủi ro: tb
 Mục đích: người dùng mới vào app mà không phải tạo tài khoản bằng email.
@@ -23,8 +23,8 @@ Khi nào xảy ra: người dùng mở app lần đầu, đang ở màn chào m�
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 1 | Mở app | Hiện A1: tên app, 3 dòng giá trị, nút "Bắt đầu ngay" (YC1.5), dòng "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách quyền riêng tư" | Không gọi server: A1 hiện được không cần phiên | Không | Không |
-| 2 | Bấm "Bắt đầu ngay" | Chuyển sang A3, không hỏi tên hay số điện thoại (YC1.5) | gọi Zalo lấy ID người dùng, chưa có tài khoản thì tạo phiên tạm, trả `tai_khoan: null` | App lấy access token (`getAccessToken`), không hiện hộp thoại xin quyền; server gọi Zalo lấy ID người dùng | phiên đăng nhập mới (phiên tạm) |
+| 1 | Mở app | Hiện A1: tên app, 3 dòng giá trị, nút "Bắt đầu ngay" (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), dòng "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách quyền riêng tư" | Không gọi server: A1 hiện được không cần phiên | Không | Không |
+| 2 | Bấm "Bắt đầu ngay" | Chuyển sang A3, không hỏi tên hay số điện thoại (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | gọi Zalo lấy ID người dùng, chưa có tài khoản thì tạo phiên tạm, trả `tai_khoan: null` | App lấy access token (`getAccessToken`), không hiện hộp thoại xin quyền; server gọi Zalo lấy ID người dùng | phiên đăng nhập mới (phiên tạm) |
 
 Trạng thái màn:
 - rỗng: không áp dụng
@@ -33,9 +33,9 @@ Trạng thái màn:
 - không có quyền: theo HV5
 - từ chối quyền: theo HV4
 - quay lại từ nền: theo HV3
-- mở từ link: xem YC1.3
+- mở từ link: xem mục "Mở app từ link mời của chủ nhà" (US6)
 
-### YC1.2 · Chọn vai trò
+### Chọn vai trò
 Rủi ro: thap
 Vai chọn ở A3 quyết định giao diện. Sale vẫn có căn của mình (sở hữu hoặc thuê lại) ngay trong vai sale. Bản đầu không có màn đổi vai (QD-005).
 Mục đích: người dùng chọn mình là chủ nhà hay sale để app đưa đúng màn đầu tiên.
@@ -56,13 +56,13 @@ Trạng thái màn:
 - không có quyền: không áp dụng
 - từ chối quyền: không áp dụng
 - quay lại từ nền: theo HV3
-- mở từ link: bỏ qua màn này, xem YC1.3
+- mở từ link: bỏ qua màn này, xem mục "Mở app từ link mời của chủ nhà" (US6)
 
-### YC1.4 · Màn đầu tiên khi chưa có dữ liệu
+### Màn đầu tiên khi chưa có dữ liệu
 Rủi ro: thap
 Mục đích: chủ nhà mới và sale mới biết bước tiếp theo để có dữ liệu.
 Màn hình: A4, A5, A4-01, A5-01
-Khi nào xảy ra: ngay sau YC1.2, khi tài khoản chưa có căn hoặc chưa có nguồn phòng.
+Khi nào xảy ra: ngay sau mục "Chọn vai trò", khi tài khoản chưa có căn hoặc chưa có nguồn phòng.
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
@@ -70,8 +70,8 @@ Hành vi:
 | 1 | Chủ nhà vào A4 | "Chưa có căn nào", nút "Thêm căn đầu tiên", danh sách 3 bước (Thêm căn và ảnh, Đặt giá, Mời sale xem lịch) và mẹo sổ lịch cũ | căn chưa ẩn của người gọi, ở đây rỗng | Không | Không |
 | 2 | Chủ nhà bấm "Thêm căn đầu tiên" hoặc dòng "Thêm căn và ảnh" | Mở CN5-A1 | Không gọi server | Không | Không |
 | 3 | Sale vào A5 | "Chưa có nguồn phòng", nút "Gửi tin nhắn xin lịch đến chủ nhà", nút "Thêm căn thủ công", ghi chú "Căn của chủ nhà chưa dùng app, hoặc căn của chính bạn", dòng "Chủ nhà đã gửi link? Mở link trong tin nhắn Zalo của chủ nhà, lịch sẽ hiện ở đây" | hai nhóm căn của tôi và nguồn phòng, ở đây rỗng | Không | Không |
-| 4 | Sale bấm "Gửi tin nhắn xin lịch đến chủ nhà" | Mở A6, xem YC1.6 | Không gọi server (A6 xem YC1.6) | Không | Không |
-| 5 | Sale bấm "Thêm căn thủ công" | Mở S6-02 (thuộc YC6) | Không gọi server | Không | Không |
+| 4 | Sale bấm "Gửi tin nhắn xin lịch đến chủ nhà" | Mở A6, xem mục "Sale xin chủ nhà cho xem lịch" (US17) | Không gọi server (A6 xem mục "Sale xin chủ nhà cho xem lịch" (US17)) | Không | Không |
+| 5 | Sale bấm "Thêm căn thủ công" | Mở S6-02 (thuộc nhóm Nguồn phòng và căn tự nhập) | Không gọi server | Không | Không |
 
 Trạng thái màn:
 - rỗng: đây là trạng thái rỗng của hai tab
@@ -82,7 +82,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: chủ nhà mới vừa đồng ý ở A8: A4-01; sale mới mở link đã hết hạn hoặc hỏng: A5-01
 
-### YC3.1 · Danh sách căn
+### Danh sách căn
 Rủi ro: thap
 Mục đích: chủ nhà thấy mọi căn của mình, căn nào thiếu ảnh hoặc chưa có giá, và vào sửa hoặc đặt giá nhanh.
 Màn hình: CN5, CN5-A4, CN5-A4b
@@ -92,17 +92,17 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở tab Căn | Tiêu đề "Căn của tôi", số căn ("4 căn"), nút "Đặt giá nhiều căn", nút "Thêm căn" | căn của người gọi, chưa ẩn | Không | Không |
-| 2 | Xem một thẻ căn | Số ảnh, "Phòng 1509", dòng "2PN · view biển · ICON40", "Giá tuần này 900.000đ – 1.300.000đ", trạng thái ("Có khách đến 12/10" hoặc "Trống hôm nay ✓"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (YC3.2.2), ghi theo `Tu_dien.md`: có số giường thì "2PN · 3 giường", chưa nhập thì chỉ "2PN"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | tòa, số phòng ngủ, số giường, khoảng giá tuần này theo `gia_dem` 7 ngày từ hôm nay, tình trạng hôm nay (`co_khach`, `khach_den`, `trong`) | Không | Không |
+| 2 | Xem một thẻ căn | Số ảnh, "Phòng 1509", dòng "2PN · view biển · ICON40", "Giá tuần này 900.000đ – 1.300.000đ", trạng thái ("Có khách đến 12/10" hoặc "Trống hôm nay ✓"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (mục "Tòa nhà, loại view, số giường, mô tả" (US11)), ghi theo `Tu_dien.md`: có số giường thì "2PN · 3 giường", chưa nhập thì chỉ "2PN"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | tòa, số phòng ngủ, số giường, khoảng giá tuần này theo `gia_dem` 7 ngày từ hôm nay, tình trạng hôm nay (`co_khach`, `khach_den`, `trong`) | Không | Không |
 | 3 | Xem căn thiếu ảnh | Thẻ ghi "Chưa có ảnh", có gợi ý "Nên thêm ảnh: sale cần ít nhất 6 ảnh" | số ảnh, ảnh đại diện có chữ ký | Không | Không |
 | 4 | Xem căn chưa có giá | Thẻ ghi "Chưa đặt giá" và nút "Đặt giá cho căn này"; căn vừa thêm có nhãn "Mới thêm" | cờ "Chưa đặt giá", cờ "Mới thêm" (tạo trong 24 giờ (giả định GD14)) | Không | Không |
-| 5 | Chạm ảnh hoặc thẻ căn | Mở sửa căn (CN5-02, xem YC3.3), như mũi tên trên canvas ở CN5, CN5-A4, CN5-A4b | Không gọi server | Không | Không |
-| 6 | Bấm "Đặt giá nhiều căn" | Mở CN6-05, xem YC3.6 | Không gọi server | Không | Không |
-| 7 | Bấm "Thêm căn" | Mở CN5-A1, xem YC3.2 | Không gọi server | Không | Không |
+| 5 | Chạm ảnh hoặc thẻ căn | Mở sửa căn (CN5-02, xem mục "Sửa thông tin căn" (US11)), như mũi tên trên canvas ở CN5, CN5-A4, CN5-A4b | Không gọi server | Không | Không |
+| 6 | Bấm "Đặt giá nhiều căn" | Mở CN6-05, xem mục "Đặt giá nhiều căn" (US7) | Không gọi server | Không | Không |
+| 7 | Bấm "Thêm căn" | Mở CN5-A1, xem mục "Thêm căn" | Không gọi server | Không | Không |
 
 Theo quy tắc: Giá tuần này; Ảnh căn.
 
 Trạng thái màn:
-- rỗng: chủ nhà chưa có căn thì thấy A4 (thuộc YC1.4)
+- rỗng: chủ nhà chưa có căn thì thấy A4 (thuộc mục "Màn đầu tiên khi chưa có dữ liệu")
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
@@ -110,12 +110,12 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC3.2 · Thêm căn
+### Thêm căn
 > **Bản PWA:** chọn ảnh bằng ô chọn file của trình duyệt, không xin quyền. Xem `PWA.md` mục P6.
 Rủi ro: tb
 Mục đích: chủ nhà thêm một căn mới chỉ với mã căn và số phòng ngủ, phần còn lại thêm sau cũng được.
 Màn hình: CN5-A1, CN5-A1b, CN5-A2, CN5-A3, CN5-A4, CN5-A4b
-Khi nào xảy ra: chủ nhà bấm "Thêm căn" ở CN5, hoặc bấm "Thêm căn đầu tiên" ở A4 (YC1.4).
+Khi nào xảy ra: chủ nhà bấm "Thêm căn" ở CN5, hoặc bấm "Thêm căn đầu tiên" ở A4 (mục "Màn đầu tiên khi chưa có dữ liệu").
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
@@ -130,7 +130,7 @@ Theo quy tắc: Căn tối thiểu; Mã căn không trùng.
 
 Trạng thái màn:
 - rỗng: CN5-A1 là form trống
-- đang tải: CN5-A2, xem YC3.2.1
+- đang tải: CN5-A2, xem mục "Ảnh khi thêm căn" (US25)
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
 - từ chối quyền: theo HV4, dòng "Chọn ảnh"
@@ -140,18 +140,18 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC1.1-NT1** Khi người dùng bấm "Bắt đầu ngay" ở A1, thì app chuyển sang A3 và không hiện popup hay hộp thoại xin tên, số điện thoại.
-- **YC1.1-NT2** Khi A1 hiện ra, thì thấy dòng điều khoản có hai link "Điều khoản" và "Chính sách quyền riêng tư". Theo quy tắc: Điều khoản khi tiếp tục.
-- **YC1.2-NT1** Khi người dùng chọn "Tôi là chủ nhà" rồi bấm "Tiếp tục", thì app mở A4.
-- **YC1.2-NT3** Khi người dùng chạm một thẻ, thì thẻ đó hiện trạng thái đã chọn và thẻ còn lại không được chọn.
-- **YC1.4-NT1** Khi chủ nhà chưa có căn và vào tab Lịch, thì thấy A4 với nút "Thêm căn đầu tiên".
-- **YC3.1-NT1** Khi chủ nhà có 4 căn, thì tiêu đề ghi "4 căn" và có đúng 4 thẻ.
-- **YC3.1-NT6** Khi chủ nhà chưa nhập số giường, thì thẻ căn chỉ ghi số phòng ngủ ("2PN"), không có chữ "giường".
-- **YC3.1-NT7** Khi chủ nhà xem bất kỳ thẻ căn nào, thì thẻ không có "x khách", "x người lớn" hay "y trẻ em".
-- **YC3.2-NT1** Khi chưa có mã căn hoặc chưa chọn số phòng ngủ, thì nút "Thêm căn" không dùng được và có dòng liệt kê phần còn thiếu.
-- **YC3.2-NT2** Khi đã có mã căn và số phòng ngủ nhưng chưa có ảnh, giá, tòa nhà, thì vẫn thêm căn được.
-- **YC3.2-NT3** Khi mã căn trùng với một căn đã có của chủ nhà, thì hiện lỗi "Đã có căn <mã>" dưới ô mã căn và không thêm căn. Theo quy tắc: Mã căn không trùng. `[đã có test database: t_07_can_gia_mo_rong.sql]`
-- **YC3.2-NT4** Khi thêm căn xong, thì thấy toast "Đã thêm phòng <mã>" và căn mới nằm trong danh sách với nhãn "Mới thêm".
+- **US1-NT1** Khi người dùng bấm "Bắt đầu ngay" ở A1, thì app chuyển sang A3 và không hiện popup hay hộp thoại xin tên, số điện thoại.
+- **US1-NT2** Khi A1 hiện ra, thì thấy dòng điều khoản có hai link "Điều khoản" và "Chính sách quyền riêng tư". Theo quy tắc: Điều khoản khi tiếp tục.
+- **US1-NT3** Khi người dùng chọn "Tôi là chủ nhà" rồi bấm "Tiếp tục", thì app mở A4.
+- **US1-NT4** Khi người dùng chạm một thẻ, thì thẻ đó hiện trạng thái đã chọn và thẻ còn lại không được chọn.
+- **US1-NT5** Khi chủ nhà chưa có căn và vào tab Lịch, thì thấy A4 với nút "Thêm căn đầu tiên".
+- **US1-NT6** Khi chủ nhà có 4 căn, thì tiêu đề ghi "4 căn" và có đúng 4 thẻ.
+- **US1-NT7** Khi chủ nhà chưa nhập số giường, thì thẻ căn chỉ ghi số phòng ngủ ("2PN"), không có chữ "giường".
+- **US1-NT8** Khi chủ nhà xem bất kỳ thẻ căn nào, thì thẻ không có "x khách", "x người lớn" hay "y trẻ em".
+- **US1-NT9** Khi chưa có mã căn hoặc chưa chọn số phòng ngủ, thì nút "Thêm căn" không dùng được và có dòng liệt kê phần còn thiếu.
+- **US1-NT10** Khi đã có mã căn và số phòng ngủ nhưng chưa có ảnh, giá, tòa nhà, thì vẫn thêm căn được.
+- **US1-NT11** Khi mã căn trùng với một căn đã có của chủ nhà, thì hiện lỗi "Đã có căn <mã>" dưới ô mã căn và không thêm căn. Theo quy tắc: Mã căn không trùng. `[đã có test database: t_07_can_gia_mo_rong.sql]`
+- **US1-NT12** Khi thêm căn xong, thì thấy toast "Đã thêm phòng <mã>" và căn mới nằm trong danh sách với nhãn "Mới thêm".
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -162,8 +162,8 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|---|---|---|
 | Authorization | header | chuỗi `Bearer <phien>` | Có | Phiên tạm hoặc phiên thường |
 | vai_chon | thân | chuỗi: `chu_nha`, `sale` | Có | Một trong hai giá trị (Thiet_ke_DB `tai_khoan.vai_chon`) |
-| dong_y_dieu_khoan_luc | thân | luc | Có | Lúc bấm "Bắt đầu ngay" bước 2, YC1 quy tắc Điều khoản khi tiếp tục). Không được sau giờ server quá 5 phút, không được trước `tao_luc` của phiên tạm quá 24 giờ |
-| ma_link | thân | chuỗi 22 ký tự | Không | Gửi khi mở từ link mời, link gửi lịch (`vai_chon` `sale`, YC1.3 bước 2) hoặc link xin lịch (`vai_chon` `chu_nha`, YC1.7 bước 3). Chỉ kiểm định dạng. Server dùng mã này làm gì: [MỞ: US1-H1] bước 2 và 2.3 có gửi `ma_link` nhưng không nói server kiểm hay ghi gì với nó |
+| dong_y_dieu_khoan_luc | thân | luc | Có | Lúc bấm "Bắt đầu ngay" bước 2, nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale quy tắc Điều khoản khi tiếp tục). Không được sau giờ server quá 5 phút, không được trước `tao_luc` của phiên tạm quá 24 giờ |
+| ma_link | thân | chuỗi 22 ký tự | Không | Gửi khi mở từ link mời, link gửi lịch (`vai_chon` `sale`, mục "Mở app từ link mời của chủ nhà" (US6) bước 2) hoặc link xin lịch (`vai_chon` `chu_nha`, mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 3). Chỉ kiểm định dạng. Server dùng mã này làm gì: [MỞ: US1-H1] bước 2 và 2.3 có gửi `ma_link` nhưng không nói server kiểm hay ghi gì với nó |
 
 **Lỗi riêng**
 | Mã | Khi nào |
@@ -200,28 +200,28 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Trường | Kiểu | Bắt buộc | Luật kiểm |
 |---|---|---|---|
 | `loai` | `co_lich` hoặc `tu_nhap` | không, mặc định `co_lich` | |
-| `ma_can` | chuỗi | có | Bỏ khoảng trắng đầu cuối, 1 đến 50 ký tự. Không trùng căn chưa ẩn của cùng người gọi (YC3 quy tắc Mã căn không trùng) |
-| `so_phong_ngu` | số nguyên 0 đến 4 | có | YC3 quy tắc Căn tối thiểu |
+| `ma_can` | chuỗi | có | Bỏ khoảng trắng đầu cuối, 1 đến 50 ký tự. Không trùng căn chưa ẩn của cùng người gọi (nhóm Căn và giá quy tắc Mã căn không trùng) |
+| `so_phong_ngu` | số nguyên 0 đến 4 | có | nhóm Căn và giá quy tắc Căn tối thiểu |
 | `so_giuong` | số nguyên 1 đến 50 hoặc null | không | |
 | `loai_view` | `bien`, `thanh_pho`, `nui` hoặc null | không | |
 | `toa_nha_id` | id hoặc null | không | Tòa phải có trong `toa_nha` |
 | `mo_ta_gui_khach` | chuỗi hoặc null | không | Tối đa 2.000 ký tự |
-| `anh_ids` | mảng id | không, mặc định rỗng | Tối đa 12 phần tử (YC3.2.1-NT3,. Không trùng nhau. Mỗi id là ảnh tạm của chính người gọi, chưa gắn căn nào, chưa bị xóa. Thứ tự mảng là `thu_tu`, phần tử đầu là ảnh đại diện |
+| `anh_ids` | mảng id | không, mặc định rỗng | Tối đa 12 phần tử (US25-NT4,. Không trùng nhau. Mỗi id là ảnh tạm của chính người gọi, chưa gắn căn nào, chưa bị xóa. Thứ tự mảng là `thu_tu`, phần tử đầu là ảnh đại diện |
 | `ten_chu_can` | chuỗi 1 đến 100 ký tự | có khi `tu_nhap`; cấm khi `co_lich` | Thiet_ke_DB ràng buộc `can` |
-| `sdt_chu_can` | chuỗi 9 đến 15 chữ số, cho phép dấu `+` đầu | có khi `tu_nhap` (YC6.3 bước 2, NT1); cấm khi `co_lich` | |
-| `gia_chu_thuong` | tien hoặc null | không (YC6.3-NT2); cấm khi `co_lich` | |
+| `sdt_chu_can` | chuỗi 9 đến 15 chữ số, cho phép dấu `+` đầu | có khi `tu_nhap` (mục "Thêm căn tự nhập" (US16) bước 2, NT1); cấm khi `co_lich` | |
+| `gia_chu_thuong` | tien hoặc null | không (US16-NT17); cấm khi `co_lich` | |
 | `gia_chu_cuoi_tuan` | tien hoặc null | không; cấm khi `co_lich` | |
 
 **Lỗi riêng**
 | Mã | Khi nào |
 |---|---|
 | DU_LIEU_SAI | Thiếu `ma_can` hoặc `so_phong_ngu`; thiếu `ten_chu_can` hay `sdt_chu_can` với `tu_nhap`; có trường của căn tự nhập trong căn có lịch; `toa_nha_id` không có; quá 12 `anh_ids`; `anh_id` không phải ảnh tạm của người gọi hoặc đã gắn căn; tài khoản `chu_nha` tạo `tu_nhap`. Kèm `o` |
-| MA_CAN_TRUNG | Đã có căn chưa ẩn cùng `ma_can` của người gọi. `ly_do`: "Đã có căn 1509. Kiểm tra lại mã căn." (YC3.2 bước 5, YC3.2-NT3) |
+| MA_CAN_TRUNG | Đã có căn chưa ẩn cùng `ma_can` của người gọi. `ly_do`: "Đã có căn 1509. Kiểm tra lại mã căn." (mục "Thêm căn" bước 5, US1-NT11) |
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC1: Điều khoản khi tiếp tục, Xin số điện thoại đúng lúc (không xin lúc vào app). Quy tắc trong YC3: Căn tối thiểu, Mã căn không trùng. HV1 đến HV3, HV5, HV7, HV8.
+Quy tắc trong nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale: Điều khoản khi tiếp tục, Xin số điện thoại đúng lúc (không xin lúc vào app). Quy tắc trong nhóm Căn và giá: Căn tối thiểu, Mã căn không trùng. HV1 đến HV3, HV5, HV7, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -263,8 +263,8 @@ Vào từ: A1, bấm "Bắt đầu"
 |---|---|---|---|
 | 1 | Đầu màn | Thanh Zalo, nút ✕ | Cố định |
 | 2 | Câu hỏi | "Bạn dùng app để làm gì?" | Cố định |
-| 3 | Thẻ chủ nhà | "Tôi là chủ nhà", "Ghi lịch phòng, đặt giá, mời sale xem lịch." | YC1.2 bước 1 |
-| 4 | Thẻ sale | "Tôi là sale", "Tìm phòng trống, gửi ảnh và giá cho khách." | YC1.2 bước 1 |
+| 3 | Thẻ chủ nhà | "Tôi là chủ nhà", "Ghi lịch phòng, đặt giá, mời sale xem lịch." | mục "Chọn vai trò" bước 1 |
+| 4 | Thẻ sale | "Tôi là sale", "Tìm phòng trống, gửi ảnh và giá cho khách." | mục "Chọn vai trò" bước 1 |
 | 5 | Nút | "Tiếp tục", cao 44 px | Cố định |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
@@ -273,7 +273,7 @@ Vào từ: A1, bấm "Bắt đầu"
 | "Tiếp tục" khi chọn sale | Sang màn sale mới | A5 |
 Trạng thái riêng:
 - rỗng: chưa chọn thẻ nào: A3-00
-- mở từ link: bỏ qua màn này, xem YC1.3
+- mở từ link: bỏ qua màn này, xem mục "Mở app từ link mời của chủ nhà" (US6)
 
 **A4-01 · Chủ nhà mới · mở từ link xin lịch**
 Vào từ: A8, chủ nhà chưa có tài khoản bấm "Đồng ý cho xem lịch"
@@ -450,12 +450,12 @@ Trạng thái riêng:
 - `fn_them_toa_nha`: CHƯA có test, viết test trước khi dùng
 
 ## Ngoài phạm vi
-- YC1.2-NT2 và YC1.4-NT2 (sale chọn vai, màn A5): US6.
-- YC1.4-NT3 (mở A6): US17.
-- Ảnh căn (YC3.2.1) và YC3.1-NT2: US25.
-- Tòa nhà, loại view, số giường (YC3.2.2), YC3.1-NT5, sửa căn (YC3.3): US11.
-- YC3.1-NT3, NT4 (giá trên thẻ căn): US4.
-- Đăng xuất, Cá nhân (YC1.11): US21.
+- US6-NT1 và US6-NT9 (sale chọn vai, màn A5): US6.
+- US17-NT1 (mở A6): US17.
+- Ảnh căn (mục "Ảnh khi thêm căn" (US25)) và US25-NT1: US25.
+- Tòa nhà, loại view, số giường (mục "Tòa nhà, loại view, số giường, mô tả" (US11)), US11-NT1, sửa căn (mục "Sửa thông tin căn" (US11)): US11.
+- US4-NT1, NT4 (giá trên thẻ căn): US4.
+- Đăng xuất, Cá nhân (mục "Tài khoản đăng nhập và đăng xuất" (US21)): US21.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

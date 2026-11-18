@@ -27,10 +27,10 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS6ChuNha } from "./s6-chu-nha-man";
 
-// S6-04 · Chi tiết chủ nhà (YC6.2). Mở từ tên chủ nhà ở S6, state { id } (id dòng ket_noi).
+// S6-04 · Chi tiết chủ nhà (mục "Chi tiết chủ nhà và bỏ nguồn phòng" (US16)). Mở từ tên chủ nhà ở S6, state { id } (id dòng ket_noi).
 // Quy tắc QD20: "Phòng trống hay đã đặt" và "Giá từng đêm" luôn có; "Đã cọc hay chưa" chỉ khi chủ nhà bật. Giá căn ("1.800.000đ/đêm"),
-// "BẠN ĐÃ BÁN", "TIỀN CHÊNH" còn [MỞ: YC6-H4, YC6-H5] và server chưa gửi: màn không hiện, không điền thay (YC6.2-NT1).
-// "Bỏ nguồn phòng này" phải bấm hai lần (YC6.2-NT2): lần một chỉ hiện nút xác nhận, chưa gọi server.
+// "BẠN ĐÃ BÁN", "TIỀN CHÊNH" còn [MỞ: CH-074, CH-075] và server chưa gửi: màn không hiện, không điền thay (US16-NT13).
+// "Bỏ nguồn phòng này" phải bấm hai lần (US16-NT14): lần một chỉ hiện nút xác nhận, chưa gọi server.
 const khoaMoi = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`);
 
 export const ManChuNhaNguon = () => {

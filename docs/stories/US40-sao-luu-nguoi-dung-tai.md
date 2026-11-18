@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn tải một file chứa dữ liệu của mình đ�
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC9.5 · Sao lưu và khôi phục dữ liệu
+### Sao lưu và khôi phục dữ liệu
 **Không làm ở bản 1.** Dữ liệu được giữ bằng sao lưu tự động ở máy chủ (`docs/van-hanh/Sao_luu_khoi_phuc.md`). Không có tải file sao lưu, khôi phục, nhắc sao lưu. Nội dung dưới đây để dành nếu sau này làm.
 Rủi ro: cao
 Mục đích: chủ nhà giữ một bản dữ liệu của mình phòng khi mất hoặc xóa nhầm.
@@ -42,9 +42,9 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC9.5-NT1** Khi chủ nhà bấm "Tải file sao lưu", thì "Lần cuối" đổi thành thời điểm vừa tải.
-- **YC9.5-NT2** Khi chủ nhà bấm "Khôi phục từ file sao lưu", thì app cảnh báo dữ liệu hiện tại sẽ bị thay và chưa thay gì cho tới khi xác nhận.
-- **YC9.5-NT3** Khi khôi phục xong, thì hai booking trùng đêm trong file bị từ chối, không ghi vào (xem YC9-H4).
+- **US40-NT1** Khi chủ nhà bấm "Tải file sao lưu", thì "Lần cuối" đổi thành thời điểm vừa tải.
+- **US40-NT2** Khi chủ nhà bấm "Khôi phục từ file sao lưu", thì app cảnh báo dữ liệu hiện tại sẽ bị thay và chưa thay gì cho tới khi xác nhận.
+- **US40-NT3** Khi khôi phục xong, thì hai booking trùng đêm trong file bị từ chối, không ghi vào (xem CH-089).
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.

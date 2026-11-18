@@ -22,9 +22,9 @@ Mỗi thông tin chỉ nằm một chỗ. Bảng "cái gì ở đâu" và luật
 Tìm theo mã:
 
 ```bash
-grep -rn "YC5.2-NT3" docs/stories/ tests/        # một tiêu chí: nguyên văn và test của nó
+grep -rn "US12-NT3" docs/stories/ tests/        # một tiêu chí: nguyên văn và test của nó
 grep -n "QT1.4" docs/luat-chung/QT.md            # một quy tắc
 grep -n "PQ5" docs/luat-chung/PQ.md              # một hàng quyền
 grep -n "QD-011" docs/Quyet_dinh.md              # một quyết định
-grep -n "YC4-H6\|US12-H1" docs/Cau_hoi_mo.md     # một câu hỏi mở
+grep -n "CH-022\|US12-H1" docs/Cau_hoi_mo.md     # một câu hỏi mở
 ```

@@ -4,8 +4,8 @@ import { Icon } from "../components/icon";
 import { chuCaiDau } from "../components/sale-hien-thi";
 import { GIA_TRI } from "./a1-chao-mung";
 
-// A1-link · Mở từ link mời của chủ nhà, khi chưa có tài khoản (YC1.3 bước 1, 2). Như A1, thêm thẻ lời mời.
-// Canvas ghi "Đăng nhập để xem lịch và giá mới nhất" và nút "Bắt đầu với Zalo"; YC1.3 r15 (NT8) bỏ chữ "Đăng nhập"
+// A1-link · Mở từ link mời của chủ nhà, khi chưa có tài khoản (mục "Mở app từ link mời của chủ nhà" (US6) bước 1, 2). Như A1, thêm thẻ lời mời.
+// Canvas ghi "Đăng nhập để xem lịch và giá mới nhất" và nút "Bắt đầu với Zalo"; mục "Mở app từ link mời của chủ nhà" (US6) r15 (NT8) bỏ chữ "Đăng nhập"
 // và đổi nút thành "Bắt đầu ngay" (QD2, RV2-F14): làm theo YC.
 export const chuTheMoi = (ten: string | null, soCan: number) => `${ten ?? "Chủ nhà"} mời bạn xem lịch ${soCan} căn`;
 export const CHU_DONG_THE_MOI = "Bấm Bắt đầu ngay để xem lịch và giá mới nhất";
@@ -113,7 +113,7 @@ export const NoiDungA1Link = ({
   </div>
 );
 
-// A1-link-01 · Link sai, hết hạn hoặc chủ nhà đã xóa tài khoản (YC1.3-NT6, HV5). Không có tên chủ nhà, tên căn, ảnh căn (PQ18.LINK).
+// A1-link-01 · Link sai, hết hạn hoặc chủ nhà đã xóa tài khoản (US22-NT1, HV5). Không có tên chủ nhà, tên căn, ảnh căn (PQ18.LINK).
 export const CHU_LINK_KHONG_MO_DUOC = "Link này không mở được";
 export const CHU_LINK_KHONG_MO_DUOC_PHU = "Chủ nhà đã xóa tài khoản hoặc link không đúng. Xin chủ nhà gửi lại link mới.";
 

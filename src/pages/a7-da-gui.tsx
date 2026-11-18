@@ -10,7 +10,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { NoiDungA7 } from "./a7-man";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 
-// A7 · Đã gửi, chờ chủ nhà (YC1.6 bước 3). Vào từ A6 sau khi gửi hay sao chép (state { vuaGui }), hoặc từ Cá nhân.
+// A7 · Đã gửi, chờ chủ nhà (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 3). Vào từ A6 sau khi gửi hay sao chép (state { vuaGui }), hoặc từ Cá nhân.
 // GET /xin-lich/thong-ke; quay lại từ nền thì đọc lại để số đếm cập nhật (A7-01, HV3).
 export const A7DaGui = () => {
   const dieuHuong = useNavigate();

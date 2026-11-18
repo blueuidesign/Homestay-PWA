@@ -1,5 +1,5 @@
 <!-- Tài liệu đóng băng, chép từ bản Zalo ngày 18/11/2026. Đọc khi cần, không sửa theo code. Tên file, mã việc cũ trong này (server.md, api/…) là lịch sử: không tìm các file đó. Mâu thuẫn với docs/Quyet_dinh.md hay docs/luat-chung/ thì các file kia đúng. -->
-<!-- Bản nháp, viết cho bản Zalo. Chưa qua luật sư. Phải soát lại cho bản PWA trước khi có người dùng thật (story US39, câu hỏi YC1-H19). -->
+<!-- Bản nháp, viết cho bản Zalo. Chưa qua luật sư. Phải soát lại cho bản PWA trước khi có người dùng thật (story US39, câu hỏi CH-056). -->
 > **Bản nháp do Claude Code soạn ngày 02/11/2026, chưa qua người có chuyên môn pháp lý đọc.** Chưa đưa vào app. Việc đọc lại và điền chỗ trống: [](../../../work/backlog/).
 > Chỗ ghi [MỞ:...] là chưa biết hoặc chưa quyết. Không đoán, không điền thử. Phần nằm trong khung trích dẫn như đoạn này là ghi chú cho người soạn, không đưa vào app.
 > Căn cứ: Chính sách kiểm duyệt Zalo app mục 4.8 (văn bản cụ thể, nêu tên đơn vị vận hành, tiêu đề nói rõ app nào); docs/external/zalo-rang-buoc.md mục 3.3, 4.3.

@@ -10,14 +10,14 @@
 ## Mục tiêu
 Là chủ nhà, tôi muốn lấy danh sách đặt phòng ra Excel, để xem và tính trên máy tính. Là chủ nhà hoặc sale, tôi muốn có hướng dẫn sử dụng và nhắn Zalo cho Home247, để tự tra cách làm. Là chủ nhà hoặc sale, khi người cùng giao dịch đã xóa tài khoản Home247 trong Zalo, tôi muốn vẫn thấy đặt phòng đã chốt với họ kèm ghi chú và biết vì sao họ biến khỏi danh sách, để đối chiếu và báo khách.
 
-Theo QD-013 (Tùng chốt 02/11/2026, đổi ở r5, r6, r7) không có màn "Xóa tài khoản" trong app. Người dùng xóa tài khoản của Home247 trong Zalo; server nhận qua webhook và chỉ xóa số điện thoại. Căn, lịch, giá, tiền, booking còn ở server. Sale không còn thấy căn, lịch của chủ nhà đã xóa tài khoản và không đặt được. Tên cũ vẫn hiện kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản". Người đó mở lại app bằng cùng tài khoản Zalo thì thấy lại dữ liệu cũ; cho lại tên và số điện thoại thì dùng lại như trước, hết ghi chú (QD-013). Sale gửi yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản thì app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." Sale có thông báo khi chủ nhà xóa tài khoản. Yêu cầu đang chờ giữ nguyên. US này làm phía app của YC9.8 bản 3: không có nút xóa ở P2, và các chỗ YC9.8 bước 8 đến 10 trỏ tới. Màn theo.
+Theo QD-013 (Tùng chốt 02/11/2026, đổi ở r5, r6, r7) không có màn "Xóa tài khoản" trong app. Người dùng xóa tài khoản của Home247 trong Zalo; server nhận qua webhook và chỉ xóa số điện thoại. Căn, lịch, giá, tiền, booking còn ở server. Sale không còn thấy căn, lịch của chủ nhà đã xóa tài khoản và không đặt được. Tên cũ vẫn hiện kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản". Người đó mở lại app bằng cùng tài khoản Zalo thì thấy lại dữ liệu cũ; cho lại tên và số điện thoại thì dùng lại như trước, hết ghi chú (QD-013). Sale gửi yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản thì app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." Sale có thông báo khi chủ nhà xóa tài khoản. Yêu cầu đang chờ giữ nguyên. US này làm phía app của mục "Khi người dùng xóa tài khoản" bản 3: không có nút xóa ở P2, và các chỗ mục "Khi người dùng xóa tài khoản" bước 8 đến 10 trỏ tới. Màn theo.
 
-**YC9.8 bản 3 đã gộp (PR #117, 04/11).** QD-013, r7, r8 đã trả lời các câu trước đây còn mở (sale có thấy căn, lịch không: không; tên hiện ra sao: tên cũ kèm ghi chú đỏ; mở lại app: thấy lại dữ liệu cũ; r8: yêu cầu đang chờ giữ nguyên, có thông báo cho sale, cho lại tên và số điện thoại thì dùng lại như trước, báo ngay khi gửi yêu cầu vào căn đã xóa tài khoản). Còn mở ở YC9.8 bản 3 [MỞ: US22-H1]: có xóa ảnh Zalo, tên và số điện thoại chủ căn tự nhập, tên và số khách do người đó nhập không (bước 4); link mời và link xin xem lịch (A1-link-01, A8-01); chính sách quyền riêng tư; soát lại các màn phía người còn lại theo bản 3. Các NT cũ ở YC6.1, YC5.1, YC4.2, YC4.7, YC7.6, YC1.3, YC1.7, YC1.9, HV5 còn viết "đã xóa tài khoản" chữ thường; chưa sửa hết, KB ở đây theo YC9.8 bản 3. Phần xuất CSV và hướng dẫn (YC9.6, YC9.7) không bị ảnh hưởng, làm được ngay.
+**mục "Khi người dùng xóa tài khoản" bản 3 đã gộp (PR #117, 04/11).** QD-013, r7, r8 đã trả lời các câu trước đây còn mở (sale có thấy căn, lịch không: không; tên hiện ra sao: tên cũ kèm ghi chú đỏ; mở lại app: thấy lại dữ liệu cũ; r8: yêu cầu đang chờ giữ nguyên, có thông báo cho sale, cho lại tên và số điện thoại thì dùng lại như trước, báo ngay khi gửi yêu cầu vào căn đã xóa tài khoản). Còn mở ở mục "Khi người dùng xóa tài khoản" bản 3 [MỞ: US22-H1]: có xóa ảnh Zalo, tên và số điện thoại chủ căn tự nhập, tên và số khách do người đó nhập không (bước 4); link mời và link xin xem lịch (A1-link-01, A8-01); chính sách quyền riêng tư; soát lại các màn phía người còn lại theo bản 3. Các NT cũ ở mục "Danh sách căn và nguồn phòng" (US16), mục "Lịch phòng 7 ngày" (US16), mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Sale nhận kết quả yêu cầu" (US15), mục "Trạng thái booking của sale" (US19), mục "Mở app từ link mời của chủ nhà" (US6), mục "Chủ nhà duyệt lời mời xem lịch" (US17), mục "Chủ nhà quản lý danh sách sale" (US5), HV5 còn viết "đã xóa tài khoản" chữ thường; chưa sửa hết, KB ở đây theo mục "Khi người dùng xóa tài khoản" bản 3. Phần xuất CSV và hướng dẫn (mục "Xuất file Excel (CSV)", mục "Hướng dẫn sử dụng và nhắn Zalo cho Home247") không bị ảnh hưởng, làm được ngay.
 
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC9.6 · Xuất file Excel (CSV)
+### Xuất file Excel (CSV)
 Rủi ro: cao
 Mục đích: chủ nhà lấy danh sách booking để xem hoặc tính trên Excel, Google Sheets.
 Màn hình: P8, P8-00
@@ -44,7 +44,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC9.7 · Hướng dẫn sử dụng và nhắn Zalo cho Home247
+### Hướng dẫn sử dụng và nhắn Zalo cho Home247
 > **Bản PWA:** "Nhắn Zalo cho Home247" là link `https://zalo.me/<OA Home247>` mở Zalo. Xem `PWA.md` mục P5.
 Rủi ro: thap
 Mục đích: người dùng tự tra cách làm một việc, hoặc nhắn người hỗ trợ khi vẫn chưa rõ.
@@ -70,12 +70,12 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC9.8 · Khi người dùng xóa tài khoản
-> **Bản PWA:** người dùng bấm xóa tài khoản ngay trong app (màn: CH-007), không qua webhook của Zalo. Bước 1 đến 3 và YC9.8-NT1 đến NT4 thay bằng YC9.8-NT19 đến NT21 ở cuối mục. Bước 4 đến 10 và các NT còn lại giữ nguyên; "mở lại bằng cùng tài khoản Zalo" đọc là "đăng nhập lại cùng tài khoản", "cho lại số điện thoại" đọc là "nhập lại số". Xem `PWA.md` mục P8.
+### Khi người dùng xóa tài khoản
+> **Bản PWA:** người dùng bấm xóa tài khoản ngay trong app (màn: CH-007), không qua webhook của Zalo. Bước 1 đến 3 và US22-NT21 đến NT4 thay bằng US22-NT37 đến NT21 ở cuối mục. Bước 4 đến 10 và các NT còn lại giữ nguyên; "mở lại bằng cùng tài khoản Zalo" đọc là "đăng nhập lại cùng tài khoản", "cho lại số điện thoại" đọc là "nhập lại số". Xem `PWA.md` mục P8.
 
 Rủi ro: cao
-Mục đích: khi chủ nhà hoặc sale không dùng Home247 nữa, họ xóa tài khoản của Home247 ngay trong Zalo. Server khi đó xóa số điện thoại của người đó. Căn, lịch, giá, tiền và booking vẫn giữ ở server, nhưng người khác không còn thấy căn, lịch, giá của người đó. Đặt phòng đã có thì vẫn hiện tên cũ, kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản" (QD-013. Đây là quyền của người dùng theo Chính sách quyền riêng tư mục 9. Bản Zalo còn phải khai webhook xóa dữ liệu trước khi gửi duyệt (`docs/zalo/rang-buoc.md` mục 3.3). Chính sách phải nói rõ dữ liệu nào còn giữ, giữ bao lâu và để làm gì [MỞ: YC9-H15].
-Màn hình: bản Zalo không có màn xóa trong app; bản PWA có (CH-007). Các màn phía người còn lại: S6-08 (YC6.1), S3-11 (YC4.7), S7-03-01 (YC7.6), P13-01 (YC1.13), CN3-02-01 (YC4.2), HV5-02 (HV5), A1-link-01 (YC1.3), A8-01 (YC1.7). Canvas của các màn này có thể còn hiện số điện thoại hay thiếu ghi chú đỏ; làm theo đặc tả này: ghi chú nhỏ đỏ "Đã xoá tài khoản", không số điện thoại.
+Mục đích: khi chủ nhà hoặc sale không dùng Home247 nữa, họ xóa tài khoản của Home247 ngay trong Zalo. Server khi đó xóa số điện thoại của người đó. Căn, lịch, giá, tiền và booking vẫn giữ ở server, nhưng người khác không còn thấy căn, lịch, giá của người đó. Đặt phòng đã có thì vẫn hiện tên cũ, kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản" (QD-013. Đây là quyền của người dùng theo Chính sách quyền riêng tư mục 9. Bản Zalo còn phải khai webhook xóa dữ liệu trước khi gửi duyệt (`docs/zalo/rang-buoc.md` mục 3.3). Chính sách phải nói rõ dữ liệu nào còn giữ, giữ bao lâu và để làm gì [MỞ: CH-032].
+Màn hình: bản Zalo không có màn xóa trong app; bản PWA có (CH-007). Các màn phía người còn lại: S6-08 (mục "Danh sách căn và nguồn phòng" (US16)), S3-11 (mục "Sale nhận kết quả yêu cầu" (US15)), S7-03-01 (mục "Trạng thái booking của sale" (US19)), P13-01 (mục "Popup thông báo mới" (US30)), CN3-02-01 (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)), HV5-02 (HV5), A1-link-01 (mục "Mở app từ link mời của chủ nhà" (US6)), A8-01 (mục "Chủ nhà duyệt lời mời xem lịch" (US17)). Canvas của các màn này có thể còn hiện số điện thoại hay thiếu ghi chú đỏ; làm theo đặc tả này: ghi chú nhỏ đỏ "Đã xoá tài khoản", không số điện thoại.
 Dùng quy tắc: chưa có QT. Booking của người đã xóa tài khoản vẫn chặn trùng theo QT1.
 Khi nào xảy ra: người dùng xóa tài khoản của Home247 trong Zalo và chọn xóa dữ liệu. Zalo khi đó gọi webhook của Home247.
 
@@ -85,11 +85,11 @@ Hành vi:
 | 1 | Rút quyền của Home247 trong Zalo và chọn xóa dữ liệu. Cách bấm cụ thể trong Zalo: chưa kiểm | Không có màn nào của Home247 | nhận sự kiện | Zalo gọi Webhook URL đã khai trong console Zalo, gửi sự kiện "người dùng rút lại sự đồng ý và xóa dữ liệu" kèm ID Zalo của người đó. Nội dung sự kiện, cách ký: chưa đọc được tài liệu Zalo | Không |
 | 2 | | | Kiểm chữ ký của sự kiện theo cách Zalo quy định. Sai chữ ký thì không xóa gì, ghi log | | Không |
 | 3 | | | Tìm tài khoản theo ID Zalo. Chưa có tài khoản, hoặc đã xóa từ lần gửi trước, thì trả thành công và không làm gì | | Không |
-| 4 | | | Xóa số điện thoại của người đó, đánh dấu tài khoản đã xóa tài khoản (QD-013). Giữ tên cũ chỉ để hiện kèm ghi chú. Làm hết hoặc không làm gì trong một lần; lỗi thì không trả thành công và ghi log (QD-013, phần còn đúng). Không xóa căn, ảnh căn, lịch, giá, tiền, booking. Ảnh Zalo, tên và số điện thoại chủ căn tự nhập do sale đó nhập, tên và số khách do người đó nhập: có xóa không [MỞ: YC9-H16] | | Hồ sơ của người đó: không còn số điện thoại, có dấu đã xóa tài khoản. Mọi dữ liệu khác giữ |
+| 4 | | | Xóa số điện thoại của người đó, đánh dấu tài khoản đã xóa tài khoản (QD-013). Giữ tên cũ chỉ để hiện kèm ghi chú. Làm hết hoặc không làm gì trong một lần; lỗi thì không trả thành công và ghi log (QD-013, phần còn đúng). Không xóa căn, ảnh căn, lịch, giá, tiền, booking. Ảnh Zalo, tên và số điện thoại chủ căn tự nhập do sale đó nhập, tên và số khách do người đó nhập: có xóa không [MỞ: CH-033] | | Hồ sơ của người đó: không còn số điện thoại, có dấu đã xóa tài khoản. Mọi dữ liệu khác giữ |
 | 5 | | | Booking giữ nguyên, kể cả tiền và giá. Chỗ hiện tên người đã xóa tài khoản: tên cũ kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản" (QD-013). Không gửi số điện thoại, nên không có nút gọi, nhắn | | Không |
-| 6 | | | Yêu cầu đặt phòng đang chờ (YC4.5) giữa người đã xóa tài khoản và người khác: giữ nguyên trạng thái chờ, không tự hủy. Yêu cầu vẫn hết hạn như thường theo YC4.5 bước 6 (QD-013; điểm (b) cũ không còn đúng). Chủ nhà đã xóa tài khoản thì không còn gì để sale gửi thêm (bước 8) | | Không |
-| 7 | | | Chủ nhà xóa tài khoản thì ghi một thông báo cho mỗi sale đang kết nối với chủ nhà đó (YC9.3, QD-013). Sale thấy ở P13 và popup hôm nay (YC1.13); chạm vào mở danh sách chủ nhà (YC6.1), không mở lịch hay căn | | Thông báo mới cho mỗi sale |
-| 8 | Sale có chủ nhà đã xóa tài khoản | Danh sách chủ nhà: dòng chủ nhà kèm ghi chú đỏ, không chạm vào xem được (YC6.1 bước 10, 11). Lịch, tìm phòng: căn của chủ nhà đó không còn hiện, sale không đặt hay gửi yêu cầu đặt phòng được (QD-013). Nếu sale vẫn bấm gửi (màn mở từ trước): app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." (QD-013). Đặt phòng đã chốt: còn, tên chủ nhà kèm ghi chú đỏ (YC4.7, YC7.6). Mở căn, lịch từ thông báo hay màn cũ: HV5, lý do "Chủ nhà đã xóa tài khoản" | Không gửi căn, lịch, giá, số điện thoại của chủ nhà đã xóa tài khoản; từ chối lệnh đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đó bằng `KHONG_CON_QUYEN`, lý do "Chủ nhà đã xóa tài khoản trên Home247" (QD-013) | | Không |
+| 6 | | | Yêu cầu đặt phòng đang chờ (mục "Sale gửi yêu cầu đặt phòng" (US15)) giữa người đã xóa tài khoản và người khác: giữ nguyên trạng thái chờ, không tự hủy. Yêu cầu vẫn hết hạn như thường theo mục "Sale gửi yêu cầu đặt phòng" (US15) bước 6 (QD-013; điểm (b) cũ không còn đúng). Chủ nhà đã xóa tài khoản thì không còn gì để sale gửi thêm (bước 8) | | Không |
+| 7 | | | Chủ nhà xóa tài khoản thì ghi một thông báo cho mỗi sale đang kết nối với chủ nhà đó (mục "Cài đặt thông báo" (US21), QD-013). Sale thấy ở P13 và popup hôm nay (mục "Popup thông báo mới" (US30)); chạm vào mở danh sách chủ nhà (mục "Danh sách căn và nguồn phòng" (US16)), không mở lịch hay căn | | Thông báo mới cho mỗi sale |
+| 8 | Sale có chủ nhà đã xóa tài khoản | Danh sách chủ nhà: dòng chủ nhà kèm ghi chú đỏ, không chạm vào xem được (mục "Danh sách căn và nguồn phòng" (US16) bước 10, 11). Lịch, tìm phòng: căn của chủ nhà đó không còn hiện, sale không đặt hay gửi yêu cầu đặt phòng được (QD-013). Nếu sale vẫn bấm gửi (màn mở từ trước): app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." (QD-013). Đặt phòng đã chốt: còn, tên chủ nhà kèm ghi chú đỏ (mục "Sale nhận kết quả yêu cầu" (US15), mục "Trạng thái booking của sale" (US19)). Mở căn, lịch từ thông báo hay màn cũ: HV5, lý do "Chủ nhà đã xóa tài khoản" | Không gửi căn, lịch, giá, số điện thoại của chủ nhà đã xóa tài khoản; từ chối lệnh đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đó bằng `KHONG_CON_QUYEN`, lý do "Chủ nhà đã xóa tài khoản trên Home247" (QD-013) | | Không |
 | 9 | Chủ nhà có sale đã xóa tài khoản | Đặt phòng đã nhận từ sale đó còn trong lịch, vẫn chặn trùng, tên sale kèm ghi chú đỏ, không có số điện thoại. Danh sách sale CN7: dòng sale đó kèm ghi chú, không chạm vào xem được (QD-013). Chủ nhà không chia lịch, không đổi quyền xem cho sale đó (QD-013) | sale đã xóa tài khoản gửi tên kèm cờ đã xóa tài khoản, không số điện thoại | | Không |
 | 10 | Người đã xóa tài khoản mở lại app bằng cùng tài khoản Zalo | Thấy lại dữ liệu cũ của mình: căn, lịch, giá, đặt phòng (QD-013). Chưa có số điện thoại thì xin lại khi người đó bấm việc cần số (HV4) | tìm tài khoản theo ID Zalo, trả tài khoản cũ | | Không. Khi người đó cho lại tên và số điện thoại (luồng xin quyền HV4): dùng lại như trước. Server bỏ dấu đã xóa tài khoản (`profiles.da_xoa_luc` về trống) và ghi chú "Đã xoá tài khoản"; sale lại thấy căn, lịch theo kết nối cũ, nếu dòng kết nối chưa bị người kia xóa (QD-013). Kết nối tự nối lại, không phải mời lại (QD-013) |
 
@@ -100,66 +100,66 @@ Trạng thái màn:
 - không có quyền: sale mở căn, lịch của chủ nhà đã xóa tài khoản thì theo HV5, lý do "Chủ nhà đã xóa tài khoản" (bước 8)
 - từ chối quyền: người dùng chỉ tắt quyền tên, ảnh, số điện thoại mà không chọn xóa dữ liệu thì không thuộc yêu cầu này, theo HV4. Zalo có tách hai việc đó không: chưa kiểm
 - quay lại từ nền: không áp dụng
-- mở từ link: link mời của chủ nhà đã xóa tài khoản (A1-link-01, YC1.3), link xin xem lịch của sale đã xóa tài khoản (A8-01, YC1.7). Chữ cụ thể của A1-link-01 khi chủ nhà đã xóa tài khoản: CH-005
+- mở từ link: link mời của chủ nhà đã xóa tài khoản (A1-link-01, mục "Mở app từ link mời của chủ nhà" (US6)), link xin xem lịch của sale đã xóa tài khoản (A8-01, mục "Chủ nhà duyệt lời mời xem lịch" (US17)). Chữ cụ thể của A1-link-01 khi chủ nhà đã xóa tài khoản: CH-005
 
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC1.3 · Mở app từ link mời của chủ nhà: bảng bước ở US6. Story này làm NT6.
-- YC1.7 · Chủ nhà duyệt lời mời xem lịch: bảng bước ở US17. Story này làm NT4.
-- YC1.9 · Chủ nhà quản lý danh sách sale: bảng bước ở US5. Story này làm NT4.
-- YC1.13 · Popup thông báo mới: bảng bước ở US30. Story này làm NT4, NT7.
-- YC4.2 · Chi tiết booking và đánh dấu đã thu đủ: bảng bước ở US10. Story này làm NT4.
-- YC4.5 · Sale gửi yêu cầu đặt phòng: bảng bước ở US15. Story này làm NT8.
-- YC4.7 · Sale nhận kết quả yêu cầu: bảng bước ở US15. Story này làm NT5.
-- YC5.1 · Lịch phòng 7 ngày: bảng bước ở US16. Story này làm NT6.
-- YC6.1 · Danh sách căn và nguồn phòng: bảng bước ở US16. Story này làm NT5, NT6.
-- YC7.3 · Doanh thu theo người bán: bảng bước ở US18. Story này làm NT4.
-- YC7.5 · Thống kê của sale: bảng bước ở US19. Story này làm NT7.
-- YC7.6 · Trạng thái booking của sale: bảng bước ở US19. Story này làm NT6.
+- mục "Mở app từ link mời của chủ nhà" (US6) · Mở app từ link mời của chủ nhà: bảng bước ở US6. Story này làm NT6.
+- mục "Chủ nhà duyệt lời mời xem lịch" (US17) · Chủ nhà duyệt lời mời xem lịch: bảng bước ở US17. Story này làm NT4.
+- mục "Chủ nhà quản lý danh sách sale" (US5) · Chủ nhà quản lý danh sách sale: bảng bước ở US5. Story này làm NT4.
+- mục "Popup thông báo mới" (US30) · Popup thông báo mới: bảng bước ở US30. Story này làm NT4, NT7.
+- mục "Chi tiết booking và đánh dấu đã thu đủ" (US10) · Chi tiết booking và đánh dấu đã thu đủ: bảng bước ở US10. Story này làm NT4.
+- mục "Sale gửi yêu cầu đặt phòng" (US15) · Sale gửi yêu cầu đặt phòng: bảng bước ở US15. Story này làm NT8.
+- mục "Sale nhận kết quả yêu cầu" (US15) · Sale nhận kết quả yêu cầu: bảng bước ở US15. Story này làm NT5.
+- mục "Lịch phòng 7 ngày" (US16) · Lịch phòng 7 ngày: bảng bước ở US16. Story này làm NT6.
+- mục "Danh sách căn và nguồn phòng" (US16) · Danh sách căn và nguồn phòng: bảng bước ở US16. Story này làm NT5, NT6.
+- mục "Doanh thu theo người bán" (US18) · Doanh thu theo người bán: bảng bước ở US18. Story này làm NT4.
+- mục "Thống kê của sale" (US19) · Thống kê của sale: bảng bước ở US19. Story này làm NT7.
+- mục "Trạng thái booking của sale" (US19) · Trạng thái booking của sale: bảng bước ở US19. Story này làm NT6.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC1.3-NT6** Khi Anh Tuấn đã xóa tài khoản (YC9.8) và một người mở link mời cũ của Anh Tuấn, thì app hiện A1-link-01, không hiện A10, không có tên căn, ảnh căn hay giá nào, và không tạo kết nối (QD-013).
-- **YC1.7-NT4** Khi Sale Lan đã xóa tài khoản (YC9.8) và chủ nhà bấm thẻ xin xem lịch cũ của Sale Lan, thì app hiện A8-01, không có số điện thoại của Sale Lan, và không tạo kết nối. Nếu A8-01 hiện tên Sale Lan thì kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013). A8-01 có hiện tên không: [MỞ: YC1-H31]. `[đã có test database: t_11_ket_noi_quan_tri.sql]`
-- **YC1.9-NT4** Khi Sale Hùng đã xóa tài khoản, thì CN7 của Chị Hoa còn dòng "Sale Hùng" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại và nút "Gọi", chạm vào dòng không mở gì, và các booking cũ của Sale Hùng vẫn ở trong lịch.
-- **YC1.13-NT4** Khi Chị Hoa xóa tài khoản trong ngày, thì P13 của Sale Hùng có một dòng báo Chị Hoa đã xóa tài khoản, tên Chị Hoa kèm ghi chú nhỏ đỏ; chạm vào dòng đó mở danh sách chủ nhà (YC6.1), không mở lịch hay căn của Chị Hoa (YC9.3, QD-013).
-- **YC1.13-NT7** Khi Chị Hoa xóa tài khoản (YC9.8) sau lần mở app trước của Sale Hùng, thì chỗ nào popup có tên Chị Hoa đều kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản" và không có số điện thoại (QD-013). Popup có dòng báo riêng "Chị Hoa đã xóa tài khoản" (NT4, QD-013).
-- **YC4.2-NT4** Khi Sale Hùng đã xóa tài khoản và Chị Hoa mở booking 10/10 → 12/10 của Sale Hùng, thì booking vẫn hiện đủ ngày và tiền, tên người bán là "Sale Hùng" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại hay nút gọi.
-- **YC4.5-NT8** Khi Chị Hoa đã xóa tài khoản và Sale Hùng bấm "Gửi yêu cầu đặt phòng" vào căn 1509 từ màn mở trước đó, thì app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." và không có yêu cầu mới (QD-013).
-- **YC4.7-NT5** Khi Chị Hoa đã xóa tài khoản và Sale Hùng mở booking Chị Hoa đã chấp nhận, thì thấy ngày ở, giá và tiền của booking như cũ, tên "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không thấy số điện thoại của Chị Hoa, và không mở được lịch của căn đó.
-- **YC5.1-NT6** Khi Chị Hoa đã xóa tài khoản, thì lịch của Sale Hùng không còn hai căn của Chị Hoa và nhóm "NGUỒN PHÒNG" ghi 3 thay vì 5. Hai căn đó vẫn còn ở server, nên khi Chị Hoa mở lại app bằng cùng tài khoản Zalo thì Chị Hoa thấy lại (QD-013).
-- **YC6.1-NT5** Khi Chị Hoa đã xóa tài khoản (YC9.8), thì Nguồn phòng của Sale Hùng còn dòng "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại, không còn căn nào bên dưới, và chạm vào dòng không mở S6-04.
-- **YC6.1-NT6** Khi Sale Hùng bấm nút xóa dòng Chị Hoa đã xóa tài khoản, thì dòng đó biến khỏi Nguồn phòng và booking đã chốt với Chị Hoa vẫn còn trong danh sách booking của Sale Hùng.
-- **YC7.3-NT4** Khi Sale Hùng đã xóa tài khoản (YC9.8), thì booking của Sale Hùng vẫn tính vào doanh thu tháng của Chị Hoa và dòng "Sale Hùng" vẫn có, tên kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013).
-- **YC7.5-NT7** Khi Chị Hoa đã xóa tài khoản (YC9.8), thì booking đã chốt của Sale Hùng với Chị Hoa vẫn tính vào thống kê của Sale Hùng, ở dòng "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013).
-- **YC7.6-NT6** Khi Chị Hoa đã xóa tài khoản, thì booking "Đã chốt" của Sale Hùng với Chị Hoa vẫn ở S7-03 với tiền chênh như cũ và tên "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản".
-- **YC9.6-NT1** Khi chủ nhà chọn "Tháng này" và căn "1509", thì số dòng ghi đúng số booking của 1509 trong tháng.
-- **YC9.6-NT2** Khi xuất, thì mỗi dòng có đủ các cột ở mục "FILE GỒM CÁC CỘT" (xem YC9-H1 về cột Khách, SĐT).
-- **YC9.6-NT3** Khi số tiền được xuất, thì là số nguyên đồng, không có dấu chấm ngăn nghìn để Excel đọc được là số.
-- **YC9.7-NT1** Khi người dùng chạm "Đặt giá theo tháng", thì thấy 3 bước theo đúng thứ tự trong thiết kế.
-- **YC9.7-NT2** Khi người dùng bấm "Nhắn Zalo cho Home247", thì khung chat Zalo mở trong Zalo, không mở trình duyệt ngoài.
-- **YC9.7-NT3** Khi người dùng là sale, thì "Hướng dẫn sử dụng" có phần dành cho sale (chưa thiết kế, xem YC9-H8).
-- **YC9.8-NT1** Khi người dùng mở P2 hay bất kỳ màn nào của app, thì không có nút hay màn "Xóa tài khoản" (QD-013).
-- **YC9.8-NT2** Khi Zalo gửi sự kiện rút đồng ý có chữ ký đúng cho Chị Hoa (DLM.2), thì server không còn số điện thoại của Chị Hoa, còn căn 1509, 3402, ảnh căn, lịch, giá và mọi booking vẫn còn như trước.
-- **YC9.8-NT3** Khi server nhận sự kiện có chữ ký sai, thì không có dữ liệu nào bị xóa và log ghi lần nhận đó.
-- **YC9.8-NT4** Khi Zalo gửi lại sự kiện của người đã xóa tài khoản, hoặc gửi cho ID Zalo chưa có tài khoản, thì server trả thành công và không đổi dữ liệu nào.
-- **YC9.8-NT5** Khi Chị Hoa đã xóa tài khoản và Sale Hùng có booking B1 với Chị Hoa, thì Sale Hùng vẫn thấy B1 với ngày, giá và tiền như cũ, tên "Chị Hoa" kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản", không có số điện thoại hay nút gọi.
-- **YC9.8-NT6** Khi Chị Hoa đã xóa tài khoản, thì Sale Hùng, Lan, Nga, Minh mỗi người có một thông báo "chủ nhà đã xóa tài khoản" ở P13 và popup hôm nay (YC9.3, QD-013). `[đã có test database: t_08_thong_bao.sql]`
-- **YC9.8-NT7** Khi Chị Hoa đã xóa tài khoản, thì lịch và tìm phòng của Sale Hùng không còn 1509, 3402, Sale Hùng không đặt được phòng vào hai căn đó, và danh sách chủ nhà còn dòng Chị Hoa kèm ghi chú đỏ, chạm vào không mở gì.
-- **YC9.8-NT8** Khi Sale Hùng đã xóa tài khoản, thì B1 vẫn chiếm đêm 10/10, 11/10 của 1509 trong lịch Chị Hoa và vẫn chặn trùng theo QT1; B1 hiện tên Sale Hùng kèm ghi chú đỏ "Đã xoá tài khoản", không có số điện thoại.
-- **YC9.8-NT9** Khi Chị Hoa đã xóa tài khoản và Sale Hùng mở lại căn 1509 từ thông báo cũ, thì thấy màn HV5 với lý do "Chủ nhà đã xóa tài khoản", không thấy ảnh, lịch hay giá.
-- **YC9.8-NT10** Khi một người vừa có căn vừa bán căn người khác (QD-005) xóa tài khoản, thì cả phía chủ nhà và phía sale của người đó theo bước 4 đến 9.
-- **YC9.8-NT13** Khi Chị Hoa đã xóa tài khoản, thì mọi chỗ Sale Hùng, Lan, Nga, Minh còn thấy tên Chị Hoa đều có ghi chú nhỏ màu đỏ "Đã xoá tài khoản", không chỗ nào có số điện thoại hay nút gọi, nhắn cho Chị Hoa.
-- **YC9.8-NT14** Khi Chị Hoa đã xóa tài khoản rồi mở lại Home247 bằng cùng tài khoản Zalo, thì Chị Hoa thấy lại 1509, 3402, lịch và các đặt phòng B1 đến B8 như trước khi xóa tài khoản (QD-013).
-- **YC9.8-NT15** Khi Chị Hoa đã xóa tài khoản rồi cho lại tên và số điện thoại ở luồng xin quyền (HV4), thì tài khoản dùng lại như trước: tên Chị Hoa không còn ghi chú "Đã xoá tài khoản", Sale Hùng thấy lại 1509, 3402 và lịch theo kết nối cũ ngay, không ai phải mời lại hay gửi link mới (QD-013).
-- **YC9.8-NT16** Khi Chị Hoa đã xóa tài khoản và Sale Hùng bấm "Gửi yêu cầu đặt phòng" vào căn 1509 từ màn mở trước đó, thì yêu cầu không được gửi và app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247."; server trả `KHONG_CON_QUYEN`, không tạo yêu cầu hay booking nào (QD-013).
-- **YC9.8-NT17** Khi Sale Hùng có yêu cầu đang chờ với Chị Hoa rồi Chị Hoa (hoặc Hùng) xóa tài khoản, thì yêu cầu vẫn ở trạng thái "Chờ chủ", không tự hủy; quá 14 ngày vẫn thành "Hết hạn" như thường (YC4.5 bước 6, QD-013).
-- **YC9.8-NT18** Khi Sale Hùng đã xóa tài khoản, thì Chị Hoa không chia được lịch hay đổi quyền xem cho Sale Hùng; Sale Hùng cho lại tên và số điện thoại thì Chị Hoa thấy Sale Hùng như trước và kết nối dùng lại ngay, không phải mời lại (QD-013).
-- **YC9.8-NT19** (bản PWA) Khi Chị Hoa bấm xóa tài khoản và xác nhận, thì máy chủ không còn số điện thoại của Chị Hoa, còn căn 1509, 3402, ảnh căn, lịch, giá và mọi booking như trước; Chị Hoa về màn A1.
-- **YC9.8-NT20** (bản PWA) Khi Chị Hoa bấm xóa tài khoản rồi bấm hủy ở bước xác nhận, thì không có gì thay đổi.
-- **YC9.8-NT21** (bản PWA) Khi lệnh xóa tài khoản lỗi giữa chừng, thì không có thay đổi nào được ghi (làm hết hoặc không làm gì) và app báo theo HV2.
+- **US22-NT1** Khi Anh Tuấn đã xóa tài khoản (mục "Khi người dùng xóa tài khoản") và một người mở link mời cũ của Anh Tuấn, thì app hiện A1-link-01, không hiện A10, không có tên căn, ảnh căn hay giá nào, và không tạo kết nối (QD-013).
+- **US22-NT2** Khi Sale Lan đã xóa tài khoản (mục "Khi người dùng xóa tài khoản") và chủ nhà bấm thẻ xin xem lịch cũ của Sale Lan, thì app hiện A8-01, không có số điện thoại của Sale Lan, và không tạo kết nối. Nếu A8-01 hiện tên Sale Lan thì kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013). A8-01 có hiện tên không: [MỞ: CH-013]. `[đã có test database: t_11_ket_noi_quan_tri.sql]`
+- **US22-NT3** Khi Sale Hùng đã xóa tài khoản, thì CN7 của Chị Hoa còn dòng "Sale Hùng" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại và nút "Gọi", chạm vào dòng không mở gì, và các booking cũ của Sale Hùng vẫn ở trong lịch.
+- **US22-NT4** Khi Chị Hoa xóa tài khoản trong ngày, thì P13 của Sale Hùng có một dòng báo Chị Hoa đã xóa tài khoản, tên Chị Hoa kèm ghi chú nhỏ đỏ; chạm vào dòng đó mở danh sách chủ nhà (mục "Danh sách căn và nguồn phòng" (US16)), không mở lịch hay căn của Chị Hoa (mục "Cài đặt thông báo" (US21), QD-013).
+- **US22-NT5** Khi Chị Hoa xóa tài khoản (mục "Khi người dùng xóa tài khoản") sau lần mở app trước của Sale Hùng, thì chỗ nào popup có tên Chị Hoa đều kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản" và không có số điện thoại (QD-013). Popup có dòng báo riêng "Chị Hoa đã xóa tài khoản" (NT4, QD-013).
+- **US22-NT6** Khi Sale Hùng đã xóa tài khoản và Chị Hoa mở booking 10/10 → 12/10 của Sale Hùng, thì booking vẫn hiện đủ ngày và tiền, tên người bán là "Sale Hùng" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại hay nút gọi.
+- **US22-NT7** Khi Chị Hoa đã xóa tài khoản và Sale Hùng bấm "Gửi yêu cầu đặt phòng" vào căn 1509 từ màn mở trước đó, thì app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." và không có yêu cầu mới (QD-013).
+- **US22-NT8** Khi Chị Hoa đã xóa tài khoản và Sale Hùng mở booking Chị Hoa đã chấp nhận, thì thấy ngày ở, giá và tiền của booking như cũ, tên "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không thấy số điện thoại của Chị Hoa, và không mở được lịch của căn đó.
+- **US22-NT9** Khi Chị Hoa đã xóa tài khoản, thì lịch của Sale Hùng không còn hai căn của Chị Hoa và nhóm "NGUỒN PHÒNG" ghi 3 thay vì 5. Hai căn đó vẫn còn ở server, nên khi Chị Hoa mở lại app bằng cùng tài khoản Zalo thì Chị Hoa thấy lại (QD-013).
+- **US22-NT10** Khi Chị Hoa đã xóa tài khoản (mục "Khi người dùng xóa tài khoản"), thì Nguồn phòng của Sale Hùng còn dòng "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại, không còn căn nào bên dưới, và chạm vào dòng không mở S6-04.
+- **US22-NT11** Khi Sale Hùng bấm nút xóa dòng Chị Hoa đã xóa tài khoản, thì dòng đó biến khỏi Nguồn phòng và booking đã chốt với Chị Hoa vẫn còn trong danh sách booking của Sale Hùng.
+- **US22-NT12** Khi Sale Hùng đã xóa tài khoản (mục "Khi người dùng xóa tài khoản"), thì booking của Sale Hùng vẫn tính vào doanh thu tháng của Chị Hoa và dòng "Sale Hùng" vẫn có, tên kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013).
+- **US22-NT13** Khi Chị Hoa đã xóa tài khoản (mục "Khi người dùng xóa tài khoản"), thì booking đã chốt của Sale Hùng với Chị Hoa vẫn tính vào thống kê của Sale Hùng, ở dòng "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" (QD-013).
+- **US22-NT14** Khi Chị Hoa đã xóa tài khoản, thì booking "Đã chốt" của Sale Hùng với Chị Hoa vẫn ở S7-03 với tiền chênh như cũ và tên "Chị Hoa" kèm ghi chú nhỏ đỏ "Đã xoá tài khoản".
+- **US22-NT15** Khi chủ nhà chọn "Tháng này" và căn "1509", thì số dòng ghi đúng số booking của 1509 trong tháng.
+- **US22-NT16** Khi xuất, thì mỗi dòng có đủ các cột ở mục "FILE GỒM CÁC CỘT" (xem CH-088 về cột Khách, SĐT).
+- **US22-NT17** Khi số tiền được xuất, thì là số nguyên đồng, không có dấu chấm ngăn nghìn để Excel đọc được là số.
+- **US22-NT18** Khi người dùng chạm "Đặt giá theo tháng", thì thấy 3 bước theo đúng thứ tự trong thiết kế.
+- **US22-NT19** Khi người dùng bấm "Nhắn Zalo cho Home247", thì khung chat Zalo mở trong Zalo, không mở trình duyệt ngoài.
+- **US22-NT20** Khi người dùng là sale, thì "Hướng dẫn sử dụng" có phần dành cho sale (chưa thiết kế, xem CH-090).
+- **US22-NT21** Khi người dùng mở P2 hay bất kỳ màn nào của app, thì không có nút hay màn "Xóa tài khoản" (QD-013).
+- **US22-NT22** Khi Zalo gửi sự kiện rút đồng ý có chữ ký đúng cho Chị Hoa (DLM.2), thì server không còn số điện thoại của Chị Hoa, còn căn 1509, 3402, ảnh căn, lịch, giá và mọi booking vẫn còn như trước.
+- **US22-NT23** Khi server nhận sự kiện có chữ ký sai, thì không có dữ liệu nào bị xóa và log ghi lần nhận đó.
+- **US22-NT24** Khi Zalo gửi lại sự kiện của người đã xóa tài khoản, hoặc gửi cho ID Zalo chưa có tài khoản, thì server trả thành công và không đổi dữ liệu nào.
+- **US22-NT25** Khi Chị Hoa đã xóa tài khoản và Sale Hùng có booking B1 với Chị Hoa, thì Sale Hùng vẫn thấy B1 với ngày, giá và tiền như cũ, tên "Chị Hoa" kèm ghi chú nhỏ màu đỏ "Đã xoá tài khoản", không có số điện thoại hay nút gọi.
+- **US22-NT26** Khi Chị Hoa đã xóa tài khoản, thì Sale Hùng, Lan, Nga, Minh mỗi người có một thông báo "chủ nhà đã xóa tài khoản" ở P13 và popup hôm nay (mục "Cài đặt thông báo" (US21), QD-013). `[đã có test database: t_08_thong_bao.sql]`
+- **US22-NT27** Khi Chị Hoa đã xóa tài khoản, thì lịch và tìm phòng của Sale Hùng không còn 1509, 3402, Sale Hùng không đặt được phòng vào hai căn đó, và danh sách chủ nhà còn dòng Chị Hoa kèm ghi chú đỏ, chạm vào không mở gì.
+- **US22-NT28** Khi Sale Hùng đã xóa tài khoản, thì B1 vẫn chiếm đêm 10/10, 11/10 của 1509 trong lịch Chị Hoa và vẫn chặn trùng theo QT1; B1 hiện tên Sale Hùng kèm ghi chú đỏ "Đã xoá tài khoản", không có số điện thoại.
+- **US22-NT29** Khi Chị Hoa đã xóa tài khoản và Sale Hùng mở lại căn 1509 từ thông báo cũ, thì thấy màn HV5 với lý do "Chủ nhà đã xóa tài khoản", không thấy ảnh, lịch hay giá.
+- **US22-NT30** Khi một người vừa có căn vừa bán căn người khác (QD-005) xóa tài khoản, thì cả phía chủ nhà và phía sale của người đó theo bước 4 đến 9.
+- **US22-NT31** Khi Chị Hoa đã xóa tài khoản, thì mọi chỗ Sale Hùng, Lan, Nga, Minh còn thấy tên Chị Hoa đều có ghi chú nhỏ màu đỏ "Đã xoá tài khoản", không chỗ nào có số điện thoại hay nút gọi, nhắn cho Chị Hoa.
+- **US22-NT32** Khi Chị Hoa đã xóa tài khoản rồi mở lại Home247 bằng cùng tài khoản Zalo, thì Chị Hoa thấy lại 1509, 3402, lịch và các đặt phòng B1 đến B8 như trước khi xóa tài khoản (QD-013).
+- **US22-NT33** Khi Chị Hoa đã xóa tài khoản rồi cho lại tên và số điện thoại ở luồng xin quyền (HV4), thì tài khoản dùng lại như trước: tên Chị Hoa không còn ghi chú "Đã xoá tài khoản", Sale Hùng thấy lại 1509, 3402 và lịch theo kết nối cũ ngay, không ai phải mời lại hay gửi link mới (QD-013).
+- **US22-NT34** Khi Chị Hoa đã xóa tài khoản và Sale Hùng bấm "Gửi yêu cầu đặt phòng" vào căn 1509 từ màn mở trước đó, thì yêu cầu không được gửi và app báo ngay "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247."; server trả `KHONG_CON_QUYEN`, không tạo yêu cầu hay booking nào (QD-013).
+- **US22-NT35** Khi Sale Hùng có yêu cầu đang chờ với Chị Hoa rồi Chị Hoa (hoặc Hùng) xóa tài khoản, thì yêu cầu vẫn ở trạng thái "Chờ chủ", không tự hủy; quá 14 ngày vẫn thành "Hết hạn" như thường (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 6, QD-013).
+- **US22-NT36** Khi Sale Hùng đã xóa tài khoản, thì Chị Hoa không chia được lịch hay đổi quyền xem cho Sale Hùng; Sale Hùng cho lại tên và số điện thoại thì Chị Hoa thấy Sale Hùng như trước và kết nối dùng lại ngay, không phải mời lại (QD-013).
+- **US22-NT37** (bản PWA) Khi Chị Hoa bấm xóa tài khoản và xác nhận, thì máy chủ không còn số điện thoại của Chị Hoa, còn căn 1509, 3402, ảnh căn, lịch, giá và mọi booking như trước; Chị Hoa về màn A1.
+- **US22-NT38** (bản PWA) Khi Chị Hoa bấm xóa tài khoản rồi bấm hủy ở bước xác nhận, thì không có gì thay đổi.
+- **US22-NT39** (bản PWA) Khi lệnh xóa tài khoản lỗi giữa chừng, thì không có thay đổi nào được ghi (làm hết hoặc không làm gì) và app báo theo HV2.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -181,12 +181,12 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC9: Menu theo vai trò, Tiền là số nguyên đồng. QT1.1 (đặt phòng giữ lại vẫn chặn trùng). QD-011 (khách do ai nhập, người đó mới thấy), YC9.3 (thông báo chủ nhà đã xóa, đã chốt có, QD-013), QD-013 (r5, r6, r7 và các điểm còn đúng ở a đến j), QD-007. Chữ tối thiểu 14 px (CLAUDE.md) áp dụng cả ghi chú đỏ. HV1, HV2, HV3, HV4 (không áp dụng ở P8), HV5.
+Quy tắc trong nhóm Quản trị và dữ liệu: Menu theo vai trò, Tiền là số nguyên đồng. QT1.1 (đặt phòng giữ lại vẫn chặn trùng). QD-011 (khách do ai nhập, người đó mới thấy), mục "Cài đặt thông báo" (US21) (thông báo chủ nhà đã xóa, đã chốt có, QD-013), QD-013 (r5, r6, r7 và các điểm còn đúng ở a đến j), QD-007. Chữ tối thiểu 14 px (CLAUDE.md) áp dụng cả ghi chú đỏ. HV1, HV2, HV3, HV4 (không áp dụng ở P8), HV5.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
 
-P8, P8-00 (xuất file). P9 (hướng dẫn). P2 (không có nút xóa tài khoản). S6-08 (YC6.1), S3-11 (YC4.7), S7-03-01 (YC7.6), P13-01, S1-06-01 (YC1.13), CN3-02-01 (YC4.2), CN7-01 (YC1.9), HV5-02 (HV5), A1-link-01 (YC1.3), A8-01 (YC1.7).
+P8, P8-00 (xuất file). P9 (hướng dẫn). P2 (không có nút xóa tài khoản). S6-08 (mục "Danh sách căn và nguồn phòng" (US16)), S3-11 (mục "Sale nhận kết quả yêu cầu" (US15)), S7-03-01 (mục "Trạng thái booking của sale" (US19)), P13-01, S1-06-01 (mục "Popup thông báo mới" (US30)), CN3-02-01 (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)), CN7-01 (mục "Chủ nhà quản lý danh sách sale" (US5)), HV5-02 (HV5), A1-link-01 (mục "Mở app từ link mời của chủ nhà" (US6)), A8-01 (mục "Chủ nhà duyệt lời mời xem lịch" (US17)).
 
 **HV5-02 · Không còn quyền · chủ nhà đã xóa tài khoản**
 Vào từ: Thông báo cũ trỏ tới căn của Chị Hoa
@@ -265,13 +265,13 @@ Trạng thái riêng:
 - PQ11.CHU: không cột nào trong file chứa giá bán 2.600.000 của B1.
 - Ô bắt đầu bằng `=`, `+`, `-`, `@` được thêm dấu `'` phía trước.
 - Luật chung 4: không phiên, trả `CHUA_DANG_NHAP`.
-- PQ23.SALE: sau khi chủ nhà đã xóa tài khoản, Sale Hùng gọi,: có tên cũ của chủ nhà kèm cờ đã xóa tài khoản, không có số điện thoại; gọi API lịch, tìm phòng, chi tiết căn của chủ nhà đó: không có căn, lịch, giá, ảnh (server không gửi, không phải ẩn ở giao diện), trả `KHONG_CON_QUYEN` kèm lý do "Chủ nhà đã xóa tài khoản" (HV5-NT2, QD-013); gửi lệnh đặt phòng hay yêu cầu đặt phòng vào căn đó: bị từ chối, không tạo bản ghi (YC9.8 bước 8).
+- PQ23.SALE: sau khi chủ nhà đã xóa tài khoản, Sale Hùng gọi,: có tên cũ của chủ nhà kèm cờ đã xóa tài khoản, không có số điện thoại; gọi API lịch, tìm phòng, chi tiết căn của chủ nhà đó: không có căn, lịch, giá, ảnh (server không gửi, không phải ẩn ở giao diện), trả `KHONG_CON_QUYEN` kèm lý do "Chủ nhà đã xóa tài khoản" (HV5-NT2, QD-013); gửi lệnh đặt phòng hay yêu cầu đặt phòng vào căn đó: bị từ chối, không tạo bản ghi (mục "Khi người dùng xóa tài khoản" bước 8).
 - PQ23.CHU: sau khi sale đã xóa tài khoản, Chị Hoa gọi của B1: có tên sale kèm cờ đã xóa tài khoản, không có số điện thoại sale; của sale đã xóa không mở được; chỉ xóa được dòng `da_xoa_tai_khoan`, dòng sale chưa xóa trả `KHONG_TIM_THAY`.
 - PQ17.SALE, PQ17.CHU: sale hay chủ nhà khác gọi của dòng không thuộc mình: `KHONG_TIM_THAY`.
 - PQ23.LINK, PQ18.LINK: link mời cũ của chủ nhà đã xóa tài khoản không trả tên căn, ảnh; link xin lịch của sale đã xóa tài khoản không trả số điện thoại; cả hai không tạo kết nối. Có trả tên cũ hay không: [MỞ: US22-H2].
-- Không API nào của US này trả số điện thoại của người đã xóa tài khoản: kiểm toàn bộ phản hồi của,,, (YC9.8-NT13).
+- Không API nào của US này trả số điện thoại của người đã xóa tài khoản: kiểm toàn bộ phản hồi của,,, (US22-NT31).
 - PQ19.SALE: mỗi sale chỉ đọc thông báo của mình; không sale nào đọc thông báo của sale khác.
-- PQ3.SALE, PQ4.SALE: lịch 7 ngày của sale không chứa căn của chủ nhà đã xóa tài khoản (YC9.8-NT7).
+- PQ3.SALE, PQ4.SALE: lịch 7 ngày của sale không chứa căn của chủ nhà đã xóa tài khoản (US22-NT27).
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -282,12 +282,12 @@ Xóa tài khoản chỉ xóa số điện thoại, đặt `profiles.da_xoa_luc` 
 - `fn_xoa_tai_khoan`: test ở t_02_gia.sql, t_08_thong_bao.sql, t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Webhook của Zalo, kiểm chữ ký, ghi sự kiện, xóa số điện thoại và đánh dấu đã xóa tài khoản, ghi thông báo "chủ nhà đã xóa tài khoản" cho sale (QD-013), lỗi giữa chừng và gửi lại (YC9.8-NT2, NT3, NT4, NT8, NT10, NT14 phần server):. Phía server của cờ đã xóa tài khoản, không gửi căn, lịch, giá cho sale, từ chối đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản bằng `KHONG_CON_QUYEN`, bỏ cờ khi cho lại tên và số, trả tài khoản cũ:. US này chỉ hiện kết quả phía app.
-- Sao lưu và khôi phục (YC9.5): On Hold, không giao.
-- Hồ sơ, cài đặt, giờ nhận trả, đăng xuất (YC9.1 đến YC9.4): US21.
+- Webhook của Zalo, kiểm chữ ký, ghi sự kiện, xóa số điện thoại và đánh dấu đã xóa tài khoản, ghi thông báo "chủ nhà đã xóa tài khoản" cho sale (QD-013), lỗi giữa chừng và gửi lại (US22-NT22, NT3, NT4, NT8, NT10, NT14 phần server):. Phía server của cờ đã xóa tài khoản, không gửi căn, lịch, giá cho sale, từ chối đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản bằng `KHONG_CON_QUYEN`, bỏ cờ khi cho lại tên và số, trả tài khoản cũ:. US này chỉ hiện kết quả phía app.
+- Sao lưu và khôi phục (mục "Sao lưu và khôi phục dữ liệu" (US40)): On Hold, không giao.
+- Hồ sơ, cài đặt, giờ nhận trả, đăng xuất (mục "Menu tài khoản (tab Cá nhân)" (US21) đến mục "Giờ nhận, trả phòng mặc định" (US21)): US21.
 - Các màn gốc của những chỗ bị ảnh hưởng: S6 và Nguồn phòng (US16), lịch 7 ngày (US6, US16), chi tiết đặt phòng của chủ nhà (US10), chi tiết đặt phòng của sale (US15), S7-03 (US19), P13 và popup (US30), A1-link (US6), A8 và CN7 (US17, US5). US22 chỉ làm biến thể "người kia đã xóa tài khoản".
-- YC6.1-NT7 (bỏ dòng ngay, không hỏi lại) và YC6.1-NT8 (số đếm không tính dòng đã xóa): US16 làm; KB19, KB20 ở đây chỉ kiểm hiệu ứng.
-- Người đã xóa tài khoản mở lại app bằng cùng tài khoản Zalo (YC9.8 bước 10, NT14): KB40, KB41 chạy cùng nhóm A, KB42 cùng nhóm B. Cho lại tên và số điện thoại thì dùng lại như trước, hết ghi chú đỏ (YC9.8-NT15, QD-013): KB43.
+- US16-NT8 (bỏ dòng ngay, không hỏi lại) và US16-NT9 (số đếm không tính dòng đã xóa): US16 làm; KB19, KB20 ở đây chỉ kiểm hiệu ứng.
+- Người đã xóa tài khoản mở lại app bằng cùng tài khoản Zalo (mục "Khi người dùng xóa tài khoản" bước 10, NT14): KB40, KB41 chạy cùng nhóm A, KB42 cùng nhóm B. Cho lại tên và số điện thoại thì dùng lại như trước, hết ghi chú đỏ (US22-NT33, QD-013): KB43.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

@@ -7,7 +7,7 @@ import type { VaiChon } from "../services/kieu";
 import { datVai } from "../stores/vai";
 import { layDongYDieuKhoan } from "../stores/vao-app";
 
-// A3 · Chọn vai trò, A3-00 khi chưa chọn (YC1.2)
+// A3 · Chọn vai trò, A3-00 khi chưa chọn (mục "Chọn vai trò" (US1))
 const CAC_VAI: { vai: VaiChon; ten: string; mo_ta: string; icon: TenIcon }[] = [
   { vai: "chu_nha", ten: "Tôi là chủ nhà", mo_ta: "Ghi lịch phòng, đặt giá, mời sale xem lịch.", icon: "lich" },
   { vai: "sale", ten: "Tôi là sale", mo_ta: "Tìm phòng trống, gửi ảnh và giá cho khách.", icon: "nhom-nguoi" },

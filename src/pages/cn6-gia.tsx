@@ -124,7 +124,7 @@ export const CN6ChiTietCan = () => {
   const apDung = async () => {
     if (dangLuuRef.current) return;
     if (thangChon.length === 0) {
-      setBaoChuaChon(true); // YC3.4-NT2: không gửi, không lưu gì
+      setBaoChuaChon(true); // US4-NT4: không gửi, không lưu gì
       return;
     }
     const thuong = docTien(giaThuong);
@@ -186,7 +186,7 @@ export const CN6ChiTietCan = () => {
           </button>
         ))}
       </div>
-      {/* Tab Thông tin (US11, YC3.3) vẫn gắn trong màn khi sang tab Giá, để chỗ đang sửa không mất (HV3) */}
+      {/* Tab Thông tin (US11, mục "Sửa thông tin căn" (US11)) vẫn gắn trong màn khi sang tab Giá, để chỗ đang sửa không mất (HV3) */}
       {daMoThongTin && canId && (
         <div hidden={tab !== "thong_tin"} style={tab !== "thong_tin" ? { display: "none" } : undefined}>
           <TabThongTinCan canId={canId} onXong={() => dieuHuong(layVai() === "sale" ? DUONG.CAN_SALE : DUONG.CAN, { replace: true })} />

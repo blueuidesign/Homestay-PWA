@@ -2,10 +2,10 @@ import { tinGuiLich } from "../components/sale-hien-thi";
 import { postLink, postLinkDaGui } from "./api";
 import { zalo } from "./zalo";
 
-// Việc gốc của nút "Gửi lịch qua Zalo" ở CN10 (YC1.8 bước 4). Tách khỏi màn để test.
+// Việc gốc của nút "Gửi lịch qua Zalo" ở CN10 (mục "Chủ nhà chủ động gửi lịch cho sale" (US26) bước 4). Tách khỏi màn để test.
 // Tạo link gửi lịch cho các căn đã chọn, rồi mở Zalo: mỗi sale đã chọn một cửa sổ, không chọn ai thì một cửa sổ để tự chọn người nhận.
-// App không gửi gì thay chủ nhà và không biết gửi cho ai (YC1 quy tắc Không biết gửi cho ai).
-// [MỞ: YC1-H15] Cách Zalo gửi cho nhiều sale (lần lượt hay một lần) chưa chốt. Tạm: lần lượt, một cửa sổ chia sẻ cho mỗi sale,
+// App không gửi gì thay chủ nhà và không biết gửi cho ai (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale quy tắc Không biết gửi cho ai).
+// [MỞ: CH-054] Cách Zalo gửi cho nhiều sale (lần lượt hay một lần) chưa chốt. Tạm: lần lượt, một cửa sổ chia sẻ cho mỗi sale,
 // vì server không gửi ID Zalo của sale nên openChat chọn sẵn người nhận chưa làm được (zalo-hanh-vi 5.2).
 export type NguoiNhan = { id: string; ten: string };
 export type KetQuaGuiLich =

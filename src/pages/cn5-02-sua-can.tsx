@@ -12,9 +12,9 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { dongConThieu, type LoiForm } from "./cn5-a1-them-can";
 import { chuToastLuuCan, loiSuaCan, NoiDungCN5_02 } from "./cn5-02-man";
 
-// CN5-02 · Sửa thông tin căn, tab "Thông tin" (YC3.3): tải GET /can/:id, lưu PATCH /can/:id. Phần vẽ ở cn5-02-man.tsx.
+// CN5-02 · Sửa thông tin căn, tab "Thông tin" (mục "Sửa thông tin căn" (US11)): tải GET /can/:id, lưu PATCH /can/:id. Phần vẽ ở cn5-02-man.tsx.
 
-// Form đã có dữ liệu của căn: điền sẵn (YC3.3-NT1)
+// Form đã có dữ liệu của căn: điền sẵn (US11-NT8)
 const FormSua = ({ chiTiet, onXong }: { chiTiet: CanChiTiet; onXong: () => void }) => {
   const toast = useToast();
   const khoaMoi = () => `sua-can-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
@@ -66,11 +66,11 @@ const FormSua = ({ chiTiet, onXong }: { chiTiet: CanChiTiet; onXong: () => void 
         {
           ma_can: ma,
           so_phong_ngu: phongNgu,
-          so_giuong: mr.giuong.gia_tri, // null là xóa trống (YC3.3-NT4)
+          so_giuong: mr.giuong.gia_tri, // null là xóa trống (US11-NT11)
           loai_view: mr.form.view,
           toa_nha_id: mr.form.toa?.id ?? null,
           mo_ta_gui_khach: mr.form.moTa.trim() || null,
-          anh_ids: bo.anhIds(), // theo thứ tự, ảnh số 1 là ảnh đại diện (YC3.3-NT2)
+          anh_ids: bo.anhIds(), // theo thứ tự, ảnh số 1 là ảnh đại diện (US11-NT9)
         },
         khoa.current,
       );

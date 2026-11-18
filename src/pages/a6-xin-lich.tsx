@@ -13,7 +13,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungA6 } from "./a6-man";
 
-// A6 · Soạn tin xin link (YC1.6). Vào từ A5 (nút "Gửi tin nhắn xin lịch đến chủ nhà"), từ A7 ("Gửi link cho chủ nhà khác")
+// A6 · Soạn tin xin link (mục "Sale xin chủ nhà cho xem lịch" (US17)). Vào từ A5 (nút "Gửi tin nhắn xin lịch đến chủ nhà"), từ A7 ("Gửi link cho chủ nhà khác")
 // và từ Cá nhân. Bước 1 POST /link { loai: "xin_lich" } (mỗi sale một link, có thì trả link đó) rồi dựng tin; bước 2, 4 ở services/xin-lich.ts.
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
@@ -74,7 +74,7 @@ export const A6XinLich = () => {
     if (kq === "da_gui") dieuHuong(DUONG.XIN_LICH_DA_GUI, { replace: true, animate: false, state: { vuaGui: true } });
     else if (kq === "loi") setLoiViec(CHU_LOI_ZALO_GUI);
   });
-  // "Sao chép tin nhắn": sao chép rồi sang A7 (YC1.6 bước 4, RV2-F9)
+  // "Sao chép tin nhắn": sao chép rồi sang A7 (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 4, RV2-F9)
   const viecSaoChep = lam(async () => {
     if (!link) return;
     if (await saoChepXinLich(link, tin)) dieuHuong(DUONG.XIN_LICH_DA_GUI, { replace: true, animate: false, state: { vuaGui: false } });

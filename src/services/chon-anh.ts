@@ -1,4 +1,4 @@
-// Lớp bọc chọn ảnh của zmp-sdk (chooseImage) cho thêm ảnh khi tạo căn (US25, YC3.2.1 bước 1).
+// Lớp bọc chọn ảnh của zmp-sdk (chooseImage) cho thêm ảnh khi tạo căn (US25, mục "Ảnh khi thêm căn" (US25) bước 1).
 // Màn không gọi zmp-sdk trực tiếp mà gọi qua đây, để test thay bằng bản giả (datCongAnh).
 // Ảnh chỉ đi từ máy lên server của Home247, không gửi ra ngoài Zalo.
 import { DU_LIEU_GIA } from "./api";

@@ -6,12 +6,12 @@ import { LoiApi, LoiMang, type SoPhongNgu } from "../services/kieu";
 import { demTheo, type AnhForm } from "../stores/anh-form";
 import { dongConThieu, type LoiForm } from "./cn5-a1-them-can";
 
-// CN5-02 · Sửa thông tin căn, tab "Thông tin" (YC3.3). Phần vẽ, không gọi server, để test render. Phần tải và lưu ở cn5-02-sua-can.tsx; tab "Giá" ở cn6-gia.tsx.
+// CN5-02 · Sửa thông tin căn, tab "Thông tin" (mục "Sửa thông tin căn" (US11)). Phần vẽ, không gọi server, để test render. Phần tải và lưu ở cn5-02-sua-can.tsx; tab "Giá" ở cn6-gia.tsx.
 
 export const CHU_CHUA_LUU = "Chưa lưu được, bấm lại khi có mạng";
 export const chuToastLuuCan = (ma: string) => `Đã lưu phòng ${ma}`; // chữ tạm: canvas chưa vẽ kết quả lưu
 
-// Lỗi từ PATCH /can/:id thành lỗi dưới từng ô (YC3.3-NT3, HV2 bước 3)
+// Lỗi từ PATCH /can/:id thành lỗi dưới từng ô (US11-NT10, HV2 bước 3)
 export const loiSuaCan = (e: unknown, ma: string): LoiForm => {
   if (e instanceof LoiApi && e.loi === "MA_CAN_TRUNG") return { ma_can: `Đã có căn ${ma.trim()}` };
   if (e instanceof LoiApi && e.loi === "DU_LIEU_SAI" && e.o === "ma_can") return { ma_can: "Nhập mã căn" };

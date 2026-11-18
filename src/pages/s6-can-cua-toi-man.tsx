@@ -5,7 +5,7 @@ import { Icon } from "../components/icon";
 import type { CanChiTiet, OLichSale } from "../services/kieu";
 import { chuThu, soCuaNgay } from "../services/ngay";
 
-// Phần vẽ của S6-07 (YC6.1 bước 9). Không gọi server. Màn: s6-can-cua-toi.tsx.
+// Phần vẽ của S6-07 (mục "Danh sách căn và nguồn phòng" (US16) bước 9). Không gọi server. Màn: s6-can-cua-toi.tsx.
 export const chuOLich = (o: OLichSale) => (o.trang_thai === "kin" ? "Kín" : o.gia_chu === null || o.gia_chu === undefined ? "—" : chuGiaNgan(o.gia_chu));
 
 export const VIEC = [

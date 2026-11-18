@@ -3,8 +3,8 @@ import { CHU_TIEN, chuKetNoiTu, chuSoDienThoai } from "../components/sale-hien-t
 import type { ChiTietKetNoi } from "../services/kieu";
 import { chuNgayNgan, chuTien, thangCua } from "../services/ngay";
 
-// CN7-04 · Chi tiết một sale (YC1.9 bước 5, 6; YC4.1.2-NT3). Phần vẽ, tách khỏi cn7-chi-tiet-sale.tsx để test.
-// Canvas chưa có khối quyền (YC1-H5) nên không có công tắc quyền. Số liệu canvas ("8", "14.2tr") chưa theo DLM, chờ Tùng:
+// CN7-04 · Chi tiết một sale (mục "Chủ nhà quản lý danh sách sale" (US5) bước 5, 6; US5-NT13). Phần vẽ, tách khỏi cn7-chi-tiet-sale.tsx để test.
+// Canvas chưa có khối quyền (CH-053) nên không có công tắc quyền. Số liệu canvas ("8", "14.2tr") chưa theo DLM, chờ Tùng:
 // ở đây tính từ danh sách đặt phòng của sale có ngày nhận trong tháng này.
 
 export const chuHopNgung = (ten: string) => `Xác nhận ngừng cho ${ten} xem? Đặt phòng cũ vẫn giữ. Sale không thấy lịch của bạn nữa.`;

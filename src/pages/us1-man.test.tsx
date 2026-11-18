@@ -116,7 +116,7 @@ test("test_YC3_1_NT6_chua_nhap_so_giuong_chi_ghi_so_phong_ngu", () => {
   const h = html(<TheCan can={can("1509")} />);
   expect(h).toContain(">2PN<");
   expect(h).not.toContain("giường");
-  // Có số giường thì ghi theo glossary (YC3.1-NT5 thuộc US11)
+  // Có số giường thì ghi theo glossary (US11-NT1 thuộc US11)
   expect(dongThongTin(can("1509", { so_giuong: 3, loai_view: "view biển", toa_nha: "ICON40" }))).toBe(
     "2PN · 3 giường · view biển · ICON40",
   );

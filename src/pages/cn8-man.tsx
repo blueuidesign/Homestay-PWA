@@ -4,20 +4,20 @@ import type { ThongKeChu, ThongKeTheoNguoiBan } from "../services/kieu";
 import { chuThang, chuThangNgan, chuTien, congThang } from "../services/ngay";
 import { chuCongSuat, chuPhanTram, chuSoRutGon, congSuat, phanTramSoVoiThangTruoc } from "../services/thong-ke";
 
-// CN8, CN8-00: Thống kê tháng của chủ nhà (YC7.1, YC7.2, YC7.3). Phần vẽ, không gọi server, để test render được.
+// CN8, CN8-00: Thống kê tháng của chủ nhà (mục "Thống kê tháng của chủ nhà" (US18), mục "Doanh thu 6 tháng" (US18), mục "Doanh thu theo người bán" (US18)). Phần vẽ, không gọi server, để test render được.
 // Phần tải dữ liệu ở cn8-thong-ke.tsx. Màn này là của chủ nhà, tiền là giá chủ nhà, không có giá bán hay tiền chênh (PQ11.CHU).
-// Khối "CHƯA THU TIỀN" (YC7.4) chưa vẽ: còn [MỞ: YC7.4 bước 1, DC53 US18-Q1].
+// Khối "CHƯA THU TIỀN" (mục "Chưa thu tiền" (US18)) chưa vẽ: còn [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1].
 // Chữ 13 px ở số trên cột biểu đồ (màn dày thông tin, CL13.4); chữ còn lại 14 px trở lên.
 
 const chuTienDong = (n: number) => `${chuTien(n)}đ`;
 const soThang = (thang: string) => Number(thang.slice(5, 7));
 const nhanCot = (thang: string) => `T${soThang(thang)}`;
 
-// Tháng chưa có đặt phòng nào (CN8-00, YC7.1 bước 6)
+// Tháng chưa có đặt phòng nào (CN8-00, mục "Thống kê tháng của chủ nhà" (US18) bước 6)
 export const laThangTrong = (tk: ThongKeChu) => tk.doanh_thu === 0 && tk.dem_co_khach === 0;
 
-// Dòng dưới số doanh thu: "+22.9% so với tháng 9" (YC7.1-NT3). Tháng chưa có đặt phòng ghi "Chưa có đặt phòng", không có dòng phần trăm
-// (YC7.1-NT5). Tháng trước bằng 0 thì không có dòng phần trăm [MỞ: YC7-H4].
+// Dòng dưới số doanh thu: "+22.9% so với tháng 9" (US18-NT3). Tháng chưa có đặt phòng ghi "Chưa có đặt phòng", không có dòng phần trăm
+// (US18-NT5). Tháng trước bằng 0 thì không có dòng phần trăm [MỞ: CH-079].
 export const chuSoSanh = (tk: ThongKeChu): { chu: string; phanTram: number | null } => {
   if (laThangTrong(tk)) return { chu: "Chưa có đặt phòng", phanTram: null };
   const p = phanTramSoVoiThangTruoc(tk.doanh_thu, tk.doanh_thu_thang_truoc);
@@ -25,13 +25,13 @@ export const chuSoSanh = (tk: ThongKeChu): { chu: string; phanTram: number | nul
   return { chu: `${chuPhanTram(p)} so với tháng ${soThang(congThang(tk.thang, -1))}`, phanTram: p };
 };
 
-// Thẻ "ĐÊM CÓ KHÁCH": "13/62" (số đêm có khách chia số căn nhân số đêm của tháng, YC7.1 bước 4). Tháng chưa có đặt phòng ghi "0" (CN8-00).
+// Thẻ "ĐÊM CÓ KHÁCH": "13/62" (số đêm có khách chia số căn nhân số đêm của tháng, mục "Thống kê tháng của chủ nhà" (US18) bước 4). Tháng chưa có đặt phòng ghi "0" (CN8-00).
 export const chuDemCoKhach = (tk: ThongKeChu) =>
   laThangTrong(tk) ? "0" : `${tk.dem_co_khach}/${tk.so_can_cong_suat * tk.so_dem_trong_thang}`;
 
 export const chuCongSuatThang = (tk: ThongKeChu) => chuCongSuat(congSuat(tk.dem_co_khach, tk.so_can_cong_suat, tk.so_dem_trong_thang));
 
-// Hàng chọn tháng: ‹ [T09] Tháng 10/2026 [T11] › (YC7.1 bước 1, 5). Mọi nút cao 44 px.
+// Hàng chọn tháng: ‹ [T09] Tháng 10/2026 [T11] › (mục "Thống kê tháng của chủ nhà" (US18) bước 1, 5). Mọi nút cao 44 px.
 export const HangChonThang = ({ thang, onDoi }: { thang: string; onDoi: (thang: string) => void }) => {
   const truoc = congThang(thang, -1);
   const sau = congThang(thang, 1);
@@ -88,7 +88,7 @@ export const TheDoanhThu = ({ tk }: { tk: ThongKeChu }) => {
   );
 };
 
-// Mỗi căn một thẻ "PHÒNG 1509" (YC7.1 bước 3), kể cả căn 0đ
+// Mỗi căn một thẻ "PHÒNG 1509" (mục "Thống kê tháng của chủ nhà" (US18) bước 3), kể cả căn 0đ
 export const TheCan = ({ tk }: { tk: ThongKeChu }) => (
   <div className="tk-luoi" data-tk="theo-can">
     {tk.theo_can.map((c) => (
@@ -113,8 +113,8 @@ export const TheKin = ({ tk }: { tk: ThongKeChu }) => (
   </div>
 );
 
-// "DOANH THU 6 THÁNG": 6 cột, số rút gọn trên đầu, nhãn tháng dưới chân. Cột tháng đang xem đậm, các cột khác nhạt (YC7.2-NT2).
-// Cột 0đ không có thanh, không có số (YC7.2 trạng thái rỗng).
+// "DOANH THU 6 THÁNG": 6 cột, số rút gọn trên đầu, nhãn tháng dưới chân. Cột tháng đang xem đậm, các cột khác nhạt (US18-NT7).
+// Cột 0đ không có thanh, không có số (mục "Doanh thu 6 tháng" (US18) trạng thái rỗng).
 export const BieuDo6Thang = ({ tk }: { tk: ThongKeChu }) => {
   const cao = Math.max(...tk.chuoi_thang.map((t) => t.doanh_thu), 0);
   return (
@@ -153,7 +153,7 @@ const DongNguoiBan = ({ d }: { d: ThongKeTheoNguoiBan }) => (
   </div>
 );
 
-// "DOANH THU THEO NGƯỜI BÁN": giá chủ nhà, xếp theo thứ tự server trả (giảm dần, YC7.3 bước 2). Khách lẻ là dòng như sale (YC7.3-NT2).
+// "DOANH THU THEO NGƯỜI BÁN": giá chủ nhà, xếp theo thứ tự server trả (giảm dần, mục "Doanh thu theo người bán" (US18) bước 2). Khách lẻ là dòng như sale (US18-NT10).
 export const KhoiNguoiBan = ({ tk }: { tk: ThongKeChu }) => (
   <div className="khoi" style={{ gap: 0 }} data-tk="nguoi-ban">
     <span className="nhan-muc" style={{ paddingBottom: 8 }}>

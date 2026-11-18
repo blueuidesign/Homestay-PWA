@@ -14,7 +14,7 @@ Là chủ dự án, tôi muốn đưa app cho người dùng thật mà dữ li�
 ## Chặn bởi
 - CH-002: dữ liệu người dùng đặt ở đâu. Chưa có lời đáp thì không tạo project production.
 - CH-001: cách đăng nhập (US37).
-- YC1-H19: nội dung Điều khoản và Chính sách quyền riêng tư. Bản nháp ở `docs/phap-ly/` viết cho bản Zalo, chưa qua luật sư.
+- CH-056: nội dung Điều khoản và Chính sách quyền riêng tư. Bản nháp ở `docs/phap-ly/` viết cho bản Zalo, chưa qua luật sư.
 
 ## Tiêu chí nghiệm thu
 - **US39-NT1** Khi chạy toàn bộ migration lên project production trống, thì không lỗi và các cảnh báo bảo mật của Supabase không còn mục mức cao.

@@ -58,7 +58,7 @@ beforeEach(() => {
   banThu.datDoTre(0);
 });
 
-// ---- A5 → A6 (YC1.4-NT3) ----
+// ---- A5 → A6 (US17-NT1) ----
 
 test("test_YC1_4_NT2_NT3_US17_KB2_A5_co_hai_nut_va_nut_xin_lich_goi_dung_ham_mo_A6", () => {
   let moA6 = 0;
@@ -68,7 +68,7 @@ test("test_YC1_4_NT2_NT3_US17_KB2_A5_co_hai_nut_va_nut_xin_lich_goi_dung_ham_mo_
   expect(moA6).toBe(0);
 });
 
-// ---- A6 (YC1.6 bước 1, NT4) ----
+// ---- A6 (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 1, NT4) ----
 
 const TIN = "Chào anh/chị, em là Sale Bình, sale phòng ở Hạ Long. Anh/chị bấm link dưới đây để cho em xem lịch phòng trống. Em gửi khách nhanh hơn, không phải gọi hỏi từng lần. https://zalo.me/s/0000/?ma=Ks2Pq7Wn4Rx9Lm1Bv6Td8a";
 
@@ -100,13 +100,13 @@ test("test_HV1_HV2_US17_A6_dang_lam_thi_khoa_hai_nut_va_loi_mang_hien_o_banner",
 });
 
 test("test_YC1_5_1_NT3_US17_KB4_chu_popup_A6_P1_nguoi_kia_la_chu_nha_va_ghi_chu_De_sau", () => {
-  expect(tieuDePopup("chu_nha")).toBe("Chia sẻ số điện thoại với chủ nhà"); // theo YC1.5.1; canvas A6-P1 ghi "tên và số điện thoại"
+  expect(tieuDePopup("chu_nha")).toBe("Chia sẻ số điện thoại với chủ nhà"); // theo mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5); canvas A6-P1 ghi "tên và số điện thoại"
   expect(CHU_LY_DO_A6.startsWith("Chủ nhà nhận ra bạn qua tên và số điện thoại khi mở link xin lịch.")).toBe(true);
   expect(CHU_DE_SAU_A6).toBe("Để sau vẫn gửi được tin. Chủ nhà chưa thấy tên và số của bạn.");
   expect(CHU_DE_SAU_A8).toBe("Để sau vẫn cho sale xem lịch được. Sale chưa thấy tên và số của bạn.");
 });
 
-// ---- A7, A7-00, A7-01 (YC1.6 bước 3, NT2) ----
+// ---- A7, A7-00, A7-01 (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 3, NT2) ----
 
 const guiLuc = (phutTruoc: number) => new Date(HOM_NAY - phutTruoc * 60_000).toISOString();
 
@@ -156,7 +156,7 @@ test("test_YC1_6_US17_chu_lan_gui_cuoi_hom_qua_va_ngay_cu", () => {
   expect(chuLanGuiCuoi(null, bay)).toBeNull();
 });
 
-// ---- A8, A8-01 (YC1.7) ----
+// ---- A8, A8-01 (mục "Chủ nhà duyệt lời mời xem lịch" (US17)) ----
 
 const a8 = (p: Partial<React.ComponentProps<typeof NoiDungA8>> = {}) =>
   html(<NoiDungA8 xin={xin()} coTaiKhoan coc dangLam={false} loi={null} onDoiCoc={khong} onDongY={khong} onTuChoi={khong} {...p} />);
@@ -179,7 +179,7 @@ test("test_YC1_7_NT1_US17_KB7_A8_co_ten_va_so_dien_thoai_sale_mot_cong_tac_coc_v
   expect(s).toMatch(/role="switch" aria-checked="true" data-coc/);
   // Đã có tài khoản thì không có dòng "Chưa có tài khoản?"
   expect(c).not.toContain("Chưa có tài khoản?");
-  expect(c).not.toContain("Đổi được trong mục Sale"); // chưa có màn đổi quyền ([MỞ: YC1-H5])
+  expect(c).not.toContain("Đổi được trong mục Sale"); // chưa có màn đổi quyền ([MỞ: CH-053])
 });
 
 test("test_YC1_7_NT2_US17_KB12_cong_tac_coc_tat_thi_aria_checked_false_va_chu_Tat", () => {
@@ -224,7 +224,7 @@ test("test_YC1_7_buoc_3_US17_CN7_06_toast_sau_khi_dong_y_va_A4_01_dai_xanh_cho_c
   expect(chu(html(<DaiXanh chu={chuDaiA401("Sale Hùng")} />))).toContain("Thêm căn để Sale Hùng thấy phòng trống.");
 });
 
-// ---- Toast A9, A9-02 (YC1.10 bước 1, 2) ----
+// ---- Toast A9, A9-02 (mục "Thông báo kết quả kết nối cho sale" (US17) bước 1, 2) ----
 
 test("test_YC1_10_NT1_US17_KB8_toast_A9_ten_chu_nha_so_can_va_nut_Xem", () => {
   const s = html(<HopToast chu="Chị Hoa đã đồng ý cho bạn xem lịch" phu="ICON40 1509 và 3402 đã vào Nguồn phòng" nut={{ chu: "Xem", onBam: khong }} onDong={khong} />);
@@ -248,7 +248,7 @@ test("test_YC1_10_NT2_US17_KB10_chu_cac_can_cung_toa_ghi_toa_mot_lan_khac_toa_gh
   expect(chuCacCan([ICON("1509"), ICON("3402"), ICON("2501")])).toBe("ICON40 1509, 3402 và 2501");
 });
 
-// ---- P13, P13-00 (YC1.10 bước 3, NT3) ----
+// ---- P13, P13-00 (mục "Thông báo kết quả kết nối cho sale" (US17) bước 3, NT3) ----
 
 const p13 = (ds: MucThongBao[], p: Partial<React.ComponentProps<typeof NoiDungP13>> = {}) =>
   html(

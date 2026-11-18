@@ -18,8 +18,8 @@ import { TheXemLichTuan } from "./cn2-lich-tuan";
 import { KhoiYeuCauDangCho } from "./cn1-yeu-cau";
 import { ChiTietNgay, ChuaTaiDuoc, KhungLichDangTai, LuoiLichThang } from "./cn1-lich-thang";
 
-// Tab Lịch của chủ nhà. Chưa có căn: A4 (YC1.4-NT1). Có căn: lịch tháng CN1, CN1-02, CN1-00 (YC2.1)
-// và chi tiết ngày CN3 ngay dưới lưới (YC2.4). GET /lich/thang trả cả danh sách căn có lịch,
+// Tab Lịch của chủ nhà. Chưa có căn: A4 (US1-NT5). Có căn: lịch tháng CN1, CN1-02, CN1-00 (mục "Lịch tháng và lọc theo căn" (US2))
+// và chi tiết ngày CN3 ngay dưới lưới (mục "Chi tiết một ngày" (US2)). GET /lich/thang trả cả danh sách căn có lịch,
 // nên một lời gọi đủ cho hàng chip và cho biết chủ nhà đã có căn chưa.
 export const TabLich = () => {
   const dieuHuong = useNavigate();
@@ -68,7 +68,7 @@ export const TabLich = () => {
     }
   }, []);
 
-  // Doanh thu tháng (YC2.2) và đặt phòng sắp tới (YC2.3): hai lời gọi riêng, hỏng thì chỉ hai khối đó báo lỗi
+  // Doanh thu tháng (mục "Tóm tắt tháng" (US9)) và đặt phòng sắp tới (mục "Booking sắp tới" (US9)): hai lời gọi riêng, hỏng thì chỉ hai khối đó báo lỗi
   const taiTom = useCallback(async (t: string) => {
     const lan = ++lanTom.current;
     try {
@@ -145,7 +145,7 @@ export const TabLich = () => {
   }, [matMang]);
   useKhiQuayLai(taiLai);
 
-  // Vừa ghi đặt phòng ở CN4: mở tháng và ngày nhận của đặt phòng đó, tải lại (YC4.1 bước 3)
+  // Vừa ghi đặt phòng ở CN4: mở tháng và ngày nhận của đặt phòng đó, tải lại (mục "Chủ nhà ghi booking mới" (US3) bước 3)
   const vuaGhi = (viTri.state as { vuaGhi?: string } | null)?.vuaGhi;
   useEffect(() => {
     if (!vuaGhi) return;
@@ -165,10 +165,10 @@ export const TabLich = () => {
     if (!vuaGhi) taiLai();
   }, [viTri.key]);
 
-  // CN4: nút ở đầu lịch mở form trống; nút ở căn trống của chi tiết ngày điền sẵn căn và ngày (YC2.4-NT2)
+  // CN4: nút ở đầu lịch mở form trống; nút ở căn trống của chi tiết ngày điền sẵn căn và ngày (US3-NT10)
   const datPhong = () => dieuHuong(DUONG.DAT_PHONG);
   const datPhongTu = (can_id: string, ngay: string) => dieuHuong(DUONG.DAT_PHONG, { state: { can_id, ngay } });
-  // Chạm một dòng sắp tới (YC2.3 bước 2) hay nút "Sửa" trên thẻ phòng (YC4.2): chi tiết đặt phòng CN3-02 (US10)
+  // Chạm một dòng sắp tới (mục "Booking sắp tới" (US9) bước 2) hay nút "Sửa" trên thẻ phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): chi tiết đặt phòng CN3-02 (US10)
   const moChiTiet = (id: string) => dieuHuong(DUONG.CHI_TIET_DAT_PHONG, { state: { id } });
   const chamDong = (dp: DatPhongSapToi) => moChiTiet(dp.id);
   const coCan = !!lich && lich.can.length > 0;

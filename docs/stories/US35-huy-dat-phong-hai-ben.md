@@ -13,11 +13,11 @@ Là chủ nhà hoặc sale, khi một đặt phòng có sale đứng tên phải
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC4.9 · Hủy booking đã nhận
+### Hủy booking đã nhận
 Rủi ro: cao
 Mục đích: khách của sale đổi ý thì booking đã nhận cần có đường ra khỏi lịch, mà không bên nào tự bỏ được phần của bên kia (QD-012).
 Màn hình: chưa vẽ. Nút "Xin hủy" và khối trả lời đặt ở chi tiết booking của chủ nhà (CN3-02) và của sale (S7-03); chữ và vị trí hỏi Tùng khi làm.
-Khi nào xảy ra: chủ nhà hoặc sale của một booking có sale bấm "Xin hủy". Booking khách lẻ thì chủ nhà xóa theo YC4.4, không qua đây.
+Khi nào xảy ra: chủ nhà hoặc sale của một booking có sale bấm "Xin hủy". Booking khách lẻ thì chủ nhà xóa theo mục "Xóa booking" (US10), không qua đây.
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
@@ -42,12 +42,12 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC4.9-NT1** Khi Sale Hùng bấm "Xin hủy" ở B1 và xác nhận, thì B1 có nhãn "Chờ đồng ý hủy" ở cả Chị Hoa và Hùng, đêm 10/10, 11/10 của 1509 vẫn kín, và Chị Hoa có thông báo xin hủy. `[đã có test database: t_08_thong_bao.sql]`
-- **YC4.9-NT2** Khi Chị Hoa bấm "Đồng ý hủy" ở B1 đang chờ hủy, thì B1 có nhãn "Đã hủy" ở cả hai bên, đêm 10/10, 11/10 của 1509 trống lại, ghi được booking mới vào đó, và B1 không còn tính vào doanh thu, đêm có khách, tiền chênh. `[đã có test database: t_10_thong_ke.sql]`
-- **YC4.9-NT3** Khi Chị Hoa bấm "Không đồng ý" ở B1 đang chờ hủy, thì B1 trở lại như trước, có ghi "Bị từ chối hủy", và không ai bấm "Xin hủy" lại B1 được (lệnh gửi thẳng tới máy chủ cũng bị từ chối).
-- **YC4.9-NT4** Khi Sale Hùng đã xin hủy B1, thì chính Sale Hùng không đồng ý hủy được (lệnh gửi thẳng tới máy chủ bị từ chối).
-- **YC4.9-NT5** Khi Sale Lan hay Anh Tuấn gửi lệnh xin hủy B1, thì máy chủ từ chối và B1 không đổi.
-- **YC4.9-NT6** Khi booking là khách lẻ (B5), thì không có nút "Xin hủy"; chủ nhà xóa theo YC4.4.
+- **US35-NT1** Khi Sale Hùng bấm "Xin hủy" ở B1 và xác nhận, thì B1 có nhãn "Chờ đồng ý hủy" ở cả Chị Hoa và Hùng, đêm 10/10, 11/10 của 1509 vẫn kín, và Chị Hoa có thông báo xin hủy. `[đã có test database: t_08_thong_bao.sql]`
+- **US35-NT2** Khi Chị Hoa bấm "Đồng ý hủy" ở B1 đang chờ hủy, thì B1 có nhãn "Đã hủy" ở cả hai bên, đêm 10/10, 11/10 của 1509 trống lại, ghi được booking mới vào đó, và B1 không còn tính vào doanh thu, đêm có khách, tiền chênh. `[đã có test database: t_10_thong_ke.sql]`
+- **US35-NT3** Khi Chị Hoa bấm "Không đồng ý" ở B1 đang chờ hủy, thì B1 trở lại như trước, có ghi "Bị từ chối hủy", và không ai bấm "Xin hủy" lại B1 được (lệnh gửi thẳng tới máy chủ cũng bị từ chối).
+- **US35-NT4** Khi Sale Hùng đã xin hủy B1, thì chính Sale Hùng không đồng ý hủy được (lệnh gửi thẳng tới máy chủ bị từ chối).
+- **US35-NT5** Khi Sale Lan hay Anh Tuấn gửi lệnh xin hủy B1, thì máy chủ từ chối và B1 không đổi.
+- **US35-NT6** Khi booking là khách lẻ (B5), thì không có nút "Xin hủy"; chủ nhà xóa theo mục "Xóa booking" (US10).
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).

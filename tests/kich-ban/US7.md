@@ -15,7 +15,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Dòng đếm ghi "CHỌN CĂN · ĐÃ CHỌN 2/4".
   - Nút dưới đáy ghi "Đặt giá cho 2 căn".
-- **Nguồn:** YC3.6-NT1
+- **Nguồn:** US7-NT2
 
 ### US7-KB2 · Chọn tất cả căn `[Chính]`
 - **Mục đích:** "Chọn tất cả" chọn cả 4 căn.
@@ -26,7 +26,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Cả 4 căn 1509, 3402, Greenbay, 2208 có dấu chọn.
   - Dòng đếm ghi "ĐÃ CHỌN 4/4", nút ghi "Đặt giá cho 4 căn".
-- **Nguồn:** YC3.6-NT2
+- **Nguồn:** US7-NT3
 
 ### US7-KB3 · Chưa chọn căn nào `[Biên]`
 - **Mục đích:** không đi tiếp được khi chưa chọn căn.
@@ -39,7 +39,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Dòng đếm ghi "Đã chọn 0/4".
   - Nút dưới đáy mờ, có dòng "Chọn ít nhất một căn" (CN6-05-00).
   - Bấm nút không mở màn nào.
-- **Nguồn:** YC3.6 trạng thái rỗng (CN6-05-00)
+- **Nguồn:** mục "Đặt giá nhiều căn" trạng thái rỗng (CN6-05-00)
 
 ### US7-KB4 · Đặt giá Tháng 11 – 12 cho 2 căn chưa có giá `[Chính]`
 - **Mục đích:** mọi căn đã chọn nhận đúng giá, đêm T6, T7 tính giá cuối tuần.
@@ -59,7 +59,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Tab Giá của Greenbay và của 2208: Tháng 11 ghi "800k–1,1tr", Tháng 12 ghi "800k–1,1tr", Tháng 10 vẫn "Chưa đặt".
   - Lịch giá tháng 11 của cả hai căn: 05/11 (T5) 800k, 06/11 (T6) 1,1tr, 07/11 (T7) 1,1tr, 08/11 (CN) 800k.
   - Tab Giá của 1509 và 3402 không đổi: 1509 Tháng 11 vẫn "900k–1,3tr", 3402 Tháng 11 vẫn "800k–1,1tr".
-- **Nguồn:** YC3.6-NT3, quy tắc Giá hai loại đêm (YC3), quy tắc Giá theo tháng và năm (YC3)
+- **Nguồn:** US7-NT4
 
 ### US7-KB5 · Đổi giá tháng 10 của hai căn đã có đặt phòng `[Chính]`
 - **Mục đích:** giá mới ghi đè giá tháng, đặt phòng đã có và doanh thu giữ nguyên, dịp vẫn thay giá tháng.
@@ -79,7 +79,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Lịch giá 3402: 22/10 (T5) 1tr, 23/10 (T6) 1,5tr; 24/10 và 25/10 vẫn 1,3tr (giá dịp).
   - Chi tiết B1 vẫn ghi "Tiền phòng 2.200.000đ", "Còn lại 1.200.000đ".
   - Khối doanh thu vẫn "11.800.000đ", "13 đêm có khách".
-- **Nguồn:** YC3.6-NT3, YC3.4-NT6, quy tắc Booking giữ giá riêng (YC3), quy tắc Giá dịp thay giá tháng (YC3)
+- **Nguồn:** US7-NT4, US7-NT1
 
 ### US7-KB6 · Chưa chọn tháng thì không áp dụng được `[Lỗi]`
 - **Mục đích:** không lưu giá khi chưa chọn tháng nào.
@@ -92,7 +92,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Dòng ghi "Chưa chọn tháng nào. Chọn một tháng bên trên sau đó nhập giá."
   - Nút áp dụng không dùng được. Greenbay và 2208 vẫn ghi "Chưa đặt giá" ở tab Căn.
-- **Nguồn:** YC3.6 bước 3 (đặt giá như YC3.4), YC3.4-NT2
+- **Nguồn:** US4-NT4
 
 ### US7-KB7 · Đổi căn từ màn đặt giá `[Chính]`
 - **Mục đích:** "Đổi căn" quay về danh sách căn, giữ các căn đã chọn.
@@ -106,7 +106,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 3 mở màn chọn căn, 1509 và 3402 vẫn có dấu chọn, dòng đếm "2/4".
   - Bước 5 tiêu đề ghi "Đặt giá · 3 căn", khối "CĂN ÁP DỤNG" có 1509, 3402, Greenbay.
-- **Nguồn:** YC3.6 bước 3 (CN6-06 nút "Đổi căn")
+- **Nguồn:** mục "Đặt giá nhiều căn" bước 3 (CN6-06 nút "Đổi căn")
 
 ### US7-KB8 · Đặt giá năm sau cho nhiều căn `[Biên]`
 - **Mục đích:** giá đặt cho năm 2027 không đè lên năm 2026.
@@ -122,7 +122,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Năm 2027: Tháng 1 ghi "700k–1tr", các tháng khác "Chưa đặt".
   - Năm 2026: Tháng 1 vẫn "Chưa đặt".
   - 2208 giống Greenbay.
-- **Nguồn:** YC3.6 bước 3, quy tắc Giá theo tháng và năm (YC3), YC3.4-NT5
+- **Nguồn:** US4-NT7
 
 ### US7-KB9 · Mất mạng khi bấm áp dụng `[Mạng]`
 - **Mục đích:** không bao giờ tưởng đã lưu giá khi chưa lưu.
@@ -136,7 +136,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 3 báo "Chưa lưu được, bấm lại khi có mạng". Tháng đã chọn và hai số giá vẫn còn trên form.
   - Bước 5 Tháng 11 vẫn "Chưa đặt": app không tự gửi lại.
-- **Nguồn:** HV2 bước 3, 4 (YC3.6 trạng thái lỗi mạng)
+- **Nguồn:** HV2 bước 3, 4 (mục "Đặt giá nhiều căn" trạng thái lỗi mạng)
 
 ### US7-KB10 · Đang lưu không bấm lại được `[Mạng]`
 - **Mục đích:** bấm áp dụng hai lần không ghi hai lần.
@@ -147,7 +147,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Nút đổi chữ thành "Đang lưu…" và không bấm được tới khi xong.
   - Sau khi xong, Tháng 11 của hai căn ghi "800k–1,1tr".
-- **Nguồn:** HV1 bước 3 (YC3.6 trạng thái đang tải)
+- **Nguồn:** HV1 bước 3 (mục "Đặt giá nhiều căn" trạng thái đang tải)
 
 ### US7-KB11 · Rời app khi đang nhập giá nhiều căn `[Mạng]`
 - **Mục đích:** gọi điện xong quay lại vẫn còn đủ thứ đang nhập.
@@ -158,7 +158,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   3. Mở lại Zalo.
 - **Mong đợi:**
   - Vẫn ở màn "Đặt giá · 2 căn", còn đủ 2 căn, 2 tháng đã chọn và 2 số giá.
-- **Nguồn:** HV3 bước 1, 2 (YC3.6 trạng thái quay lại từ nền)
+- **Nguồn:** HV3 bước 1, 2 (mục "Đặt giá nhiều căn" trạng thái quay lại từ nền)
 
 ### US7-KB12 · Chủ nhà khác không thấy căn của Chị Hoa `[Quyền]`
 - **Mục đích:** chủ nhà chỉ đặt giá và chép giá cho căn của mình.
@@ -185,7 +185,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Mục "SANG CĂN" ghi "ĐÃ CHỌN 0", có 1509, Greenbay, 2208, không có 3402.
   - Có dòng "Giá đang có của căn được chọn sẽ được thay bằng giá của Phòng 3402."
   - Nút ghi "Chọn căn để sao chép", mờ, bấm không có gì xảy ra.
-- **Nguồn:** YC3.7-NT1, YC3.7 bước 1 đến 4
+- **Nguồn:** US7-NT5
 
 ### US7-KB14 · Chỉ chép giá theo tháng `[Chính]`
 - **Mục đích:** chép giá tháng không đụng giá ngày lễ và dịp đặc biệt của căn đích.
@@ -202,7 +202,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Mục "DỊP ĐẶC BIỆT" của 1509 vẫn chỉ có "Dịp thử" 28/10 – 29/10 1.500.000đ.
   - Mục giá ngày lễ của 1509 vẫn trống.
   - B1 vẫn "Tiền phòng 2.200.000đ".
-- **Nguồn:** YC3.7-NT2, quy tắc Sao chép giá thay giá có sẵn (YC3), quy tắc Booking giữ giá riêng (YC3)
+- **Nguồn:** US7-NT6
 
 ### US7-KB15 · Chép giá sang 2 căn `[Chính]`
 - **Mục đích:** chép xong có toast đúng số căn, hai căn đích nhận giá.
@@ -219,7 +219,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Toast tự tắt sau khoảng 3 giây.
   - Greenbay: Tháng 10 "800k–1,3tr", Tháng 11 và Tháng 12 "800k–1,1tr". Mục "DỊP ĐẶC BIỆT" có 24/10 – 25/10 1.300.000đ. Lịch giá 24/10 là 1,3tr.
   - 2208 giống Greenbay.
-- **Nguồn:** YC3.7-NT3, YC3.7 bước 5, HV8-NT2
+- **Nguồn:** US7-NT7, HV8-NT2
 
 ### US7-KB16 · Chọn tất cả căn đích `[Chính]`
 - **Mục đích:** "Chọn tất cả" ở mục "SANG CĂN" chọn mọi căn trừ căn nguồn.
@@ -230,7 +230,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - 1509, Greenbay, 2208 có dấu chọn. Dòng ghi "ĐÃ CHỌN 3".
   - Nút sao chép sáng, bấm được.
-- **Nguồn:** YC3.7 bước 3
+- **Nguồn:** mục "Sao chép giá sang căn khác" bước 3
 
 ### US7-KB17 · Đổi giá tháng 10 của riêng 1509, đặt phòng đã có giữ tiền `[Chính]`
 - **Mục đích:** đổi giá tháng của một căn không đổi tiền đặt phòng đã có và doanh thu.
@@ -247,7 +247,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Lịch giá 1509: 08/10 (T5) 1tr, 09/10 (T6) 1,5tr, 10/10 (T7) 1,5tr, 11/10 (CN) 1tr.
   - Chi tiết B1 vẫn ghi "Tiền phòng 2.200.000đ", "Còn lại 1.200.000đ".
   - Khối doanh thu vẫn "11.800.000đ".
-- **Nguồn:** YC3.4-NT6, quy tắc Booking giữ giá riêng (YC3)
+- **Nguồn:** US7-NT1
 
 ### US7-KB18 · Sale không có chỗ đặt giá hay sao chép giá `[Quyền]`
 - **Mục đích:** chỉ người giữ căn đặt được giá.
@@ -273,7 +273,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Bước 4 báo "Chưa lưu được, bấm lại khi có mạng". Vẫn ở màn sao chép, hai căn đích còn dấu chọn. Không có toast "Đã sao chép giá sang 2 căn".
   - Bước 6 Tháng 11 vẫn "Chưa đặt": app không tự gửi lại.
-- **Nguồn:** HV2 bước 3, 4 (YC3.7 trạng thái lỗi mạng)
+- **Nguồn:** HV2 bước 3, 4 (mục "Sao chép giá sang căn khác" trạng thái lỗi mạng)
 
 ### US7-KB20 · Rời app khi đang chọn sao chép giá `[Mạng]`
 - **Mục đích:** gọi điện xong quay lại vẫn còn lựa chọn đang làm.
@@ -286,4 +286,4 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Vẫn ở màn sao chép, "TỪ CĂN" ghi "Phòng 3402".
   - Chỉ "Giá theo tháng" được chọn. "SANG CĂN" ghi "ĐÃ CHỌN 1", Greenbay có dấu chọn.
-- **Nguồn:** HV3 bước 1, 2 (YC3.7 trạng thái quay lại từ nền)
+- **Nguồn:** HV3 bước 1, 2 (mục "Sao chép giá sang căn khác" trạng thái quay lại từ nền)

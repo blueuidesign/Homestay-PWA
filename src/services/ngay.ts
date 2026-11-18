@@ -33,7 +33,7 @@ export const cacDem = (ngayNhan: string, ngayTra: string) => {
   return dem;
 };
 
-// Đêm cuối tuần mặc định T6, T7 (YC3.8); chủ nhà đổi ở P6 (US11). Thứ đánh số 1 là T2 đến 7 là CN như tai_khoan.dem_cuoi_tuan.
+// Đêm cuối tuần mặc định T6, T7 (mục "Ngày tính giá cuối tuần" (US11)); chủ nhà đổi ở P6 (US11). Thứ đánh số 1 là T2 đến 7 là CN như tai_khoan.dem_cuoi_tuan.
 export const DEM_CUOI_TUAN_MAC_DINH = [5, 6];
 export const soThu = (ngay: string) => ((new Date(raUtc(ngay)).getUTCDay() + 6) % 7) + 1;
 export const laCuoiTuan = (ngay: string, demCuoiTuan: number[] = DEM_CUOI_TUAN_MAC_DINH) => demCuoiTuan.includes(soThu(ngay));
@@ -41,7 +41,7 @@ export const laCuoiTuan = (ngay: string, demCuoiTuan: number[] = DEM_CUOI_TUAN_M
 // Tiền là số nguyên đồng, viết "2.200.000"
 export const chuTien = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-// Lưới tháng, tuần bắt đầu thứ hai (YC2 quy tắc Tuần bắt đầu thứ hai). null là ô trống trước ngày 1.
+// Lưới tháng, tuần bắt đầu thứ hai (nhóm Lịch chủ nhà quy tắc Tuần bắt đầu thứ hai). null là ô trống trước ngày 1.
 export const THU_TRONG_TUAN = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 export const luoiThang = (thang: string): (string | null)[] => {
   const ngay1 = `${thang}-01`;
@@ -60,7 +60,7 @@ export const soCuaNgay = (ngay: string) => Number(ngay.slice(8, 10));
 // Thứ viết ngắn trên đầu cột lịch 7 ngày của sale: "T2" đến "T7", "CN"
 export const chuThu = (ngay: string) => ["CN", "T2", "T3", "T4", "T5", "T6", "T7"][new Date(raUtc(ngay)).getUTCDay()];
 
-// Lịch tuần bắt đầu thứ hai (YC2 quy tắc Tuần bắt đầu thứ hai): thứ hai của tuần chứa ngày này, và kiểm một ngày có phải thứ hai
+// Lịch tuần bắt đầu thứ hai (nhóm Lịch chủ nhà quy tắc Tuần bắt đầu thứ hai): thứ hai của tuần chứa ngày này, và kiểm một ngày có phải thứ hai
 export const laThuHai = (ngay: string) => new Date(raUtc(ngay)).getUTCDay() === 1;
 export const thuHaiCuaTuan = (ngay: string) => congNgay(ngay, -((new Date(raUtc(ngay)).getUTCDay() + 6) % 7));
 

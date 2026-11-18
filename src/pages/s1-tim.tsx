@@ -9,7 +9,7 @@ import { LoiApi, type MucTimGanDay, type ToaNha } from "../services/kieu";
 import { boNhoTim } from "../stores/lich";
 import { NoiDungTim } from "./s1-tim-man";
 
-// S1-02, S1-03 · Tìm phòng trống theo ngày (YC5.2). Mở từ ô "Tìm phòng trống theo ngày" ở tab Lịch của sale,
+// S1-02, S1-03 · Tìm phòng trống theo ngày (mục "Tìm phòng trống theo ngày" (US12)). Mở từ ô "Tìm phòng trống theo ngày" ở tab Lịch của sale,
 // hoặc từ "Sửa" ở kết quả (state { dk, ten_toa } điền sẵn điều kiện).
 // Tìm gần đây và danh sách tòa lấy từ server; có bản đã xem thì hiện ngay, không để màn trống (HV1 bước 2).
 export const ManTimPhong = () => {

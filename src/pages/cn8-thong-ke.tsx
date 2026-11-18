@@ -13,11 +13,11 @@ import { layVai } from "../stores/vai";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { HangChonThang, KhungThongKeDangTai, NoiDungThongKe } from "./cn8-man";
 
-// Số tháng của biểu đồ (YC7.2): 6 cột, tháng đang xem ở cuối
+// Số tháng của biểu đồ (mục "Doanh thu 6 tháng" (US18)): 6 cột, tháng đang xem ở cuối
 const SO_THANG_BIEU_DO = 6;
 
-// Tab Thống kê của chủ nhà: CN8, CN8-00 (YC7.1 đến YC7.3). Một lời gọi GET /thong-ke/chu?thang=&so_thang=6 đủ cho mọi khối.
-// Khối "CHƯA THU TIỀN" (YC7.4) chưa có: [MỞ: YC7.4 bước 1, DC53 US18-Q1].
+// Tab Thống kê của chủ nhà: CN8, CN8-00 (mục "Thống kê tháng của chủ nhà" (US18) đến mục "Doanh thu theo người bán" (US18)). Một lời gọi GET /thong-ke/chu?thang=&so_thang=6 đủ cho mọi khối.
+// Khối "CHƯA THU TIỀN" (mục "Chưa thu tiền" (US18)) chưa có: [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1].
 const ManThongKeChu = () => {
   const dieuHuong = useNavigate();
   const matMang = useMatMang();

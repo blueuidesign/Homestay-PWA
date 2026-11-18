@@ -2,7 +2,7 @@ import React from "react";
 import { CHU_NUT_XEM_TRA_LOI, NHAN_CHO_BAN, chuDongKhoi, chuKhoiYeuCau, tenCanYC, tenSale } from "../components/yeu-cau-hien-thi";
 import type { YeuCauChu } from "../services/yeu-cau";
 
-// CN1-03 · Lịch có yêu cầu từ sale (YC4.6 bước 2, YC4.8 bước 1). Khối "YÊU CẦU ĐẶT PHÒNG · N" phía trên lưới tháng, chỉ hiện khi có yêu cầu chờ
+// CN1-03 · Lịch có yêu cầu từ sale (mục "Chủ nhà nhận và trả lời yêu cầu" (US15) bước 2, mục "Yêu cầu trùng ngày" (US15) bước 1). Khối "YÊU CẦU ĐẶT PHÒNG · N" phía trên lưới tháng, chỉ hiện khi có yêu cầu chờ
 // (trạng thái rỗng: không có khối). Mỗi dòng: tên sale, phòng, ngày, "gửi 10 phút trước", nhãn "Chờ bạn", nút "Xem và trả lời";
 // dòng trùng ngày ghi "trùng ngày với Sale Hùng". Giá bán của sale không có trong dữ liệu (PQ11.CHU).
 export const KhoiYeuCauCN1 = ({ ds, onMo, bayGio }: { ds: YeuCauChu[]; onMo: (y: YeuCauChu) => void; bayGio?: number }) => {

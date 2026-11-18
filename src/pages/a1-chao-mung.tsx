@@ -9,7 +9,7 @@ import { boNhoLink } from "../stores/link";
 import { datVai } from "../stores/vai";
 import { ghiDongYDieuKhoan } from "../stores/vao-app";
 
-// A1 · Chào mừng (YC1.1). Hiện được không cần phiên, không xin tên hay số điện thoại (QD2).
+// A1 · Chào mừng (mục "Đăng nhập" (US1)). Hiện được không cần phiên, không xin tên hay số điện thoại (QD2).
 export const GIA_TRI: { icon: TenIcon; chu: string }[] = [
   { icon: "lich", chu: "Ghi lịch các phòng nhanh hơn sổ tay" },
   { icon: "nhom-nguoi", chu: "Sale tự xem phòng trống, không cần gọi hỏi" },
@@ -73,7 +73,7 @@ export const NoiDungA1 = ({
   </div>
 );
 
-// Chưa có tài khoản thì sang A3 (YC1.1 bước 2); đã có thì vào thẳng màn đầu của vai
+// Chưa có tài khoản thì sang A3 (mục "Đăng nhập" (US1) bước 2); đã có thì vào thẳng màn đầu của vai
 export const manSauPhien = (tai_khoan: TaiKhoan | null) =>
   !tai_khoan ? DUONG.A3 : tai_khoan.vai_chon === "sale" ? DUONG.LICH_SALE : DUONG.LICH;
 
@@ -81,7 +81,7 @@ export const A1ChaoMung = () => {
   const dieuHuong = useNavigate();
   const [dangVao, setDangVao] = useState(false);
 
-  // Mở app từ link mời (zalo.me/s/<id>/?ma=...) thì sang luồng link, không hiện A1 thường (YC1.3)
+  // Mở app từ link mời (zalo.me/s/<id>/?ma=...) thì sang luồng link, không hiện A1 thường (mục "Mở app từ link mời của chủ nhà" (US6))
   useEffect(() => {
     if (boNhoLink.daXuLy()) return;
     docMaLinkKhiMo().then((ma) => {
@@ -93,7 +93,7 @@ export const A1ChaoMung = () => {
   }, []);
 
   const batDau = async () => {
-    // Bấm "Bắt đầu ngay" là đồng ý điều khoản (YC1 quy tắc Điều khoản khi tiếp tục)
+    // Bấm "Bắt đầu ngay" là đồng ý điều khoản (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale quy tắc Điều khoản khi tiếp tục)
     ghiDongYDieuKhoan();
     setDangVao(true);
     try {

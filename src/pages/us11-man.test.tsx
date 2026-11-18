@@ -91,7 +91,7 @@ const form02 = (p: Partial<PropsCN5_02> = {}) =>
     />,
   );
 
-// ---- YC3.1-NT5 ----
+// ---- US11-NT1 ----
 
 test("test_YC3_1_NT5_the_can_ghi_2PN_3_giuong_va_khong_ghi_so_khach", () => {
   const c = can("1509", { so_giuong: 3, loai_view: "view biển", toa_nha: "ICON40" });
@@ -103,7 +103,7 @@ test("test_YC3_1_NT5_the_can_ghi_2PN_3_giuong_va_khong_ghi_so_khach", () => {
   expect(dongThongTin(can("2501", { loai_view: "thanh_pho" }))).toBe("2PN · view thành phố");
 });
 
-// ---- YC3.2.2 ----
+// ---- mục "Tòa nhà, loại view, số giường, mô tả" (US11) ----
 
 test("test_YC3_2_2_NT1_khong_mo_phan_them_thong_tin_van_them_duoc_can", () => {
   const h = formA1();
@@ -182,7 +182,7 @@ test("test_YC3_2_2_NT6_toa_nguoi_khac_them_hien_trong_danh_sach_tim", () => {
   expect(chu(h)).toContain("+ Thêm tòa mới Green Hạ");
 });
 
-// ---- YC3.3 CN5-02 ----
+// ---- mục "Sửa thông tin căn" (US11) CN5-02 ----
 
 test("test_YC3_3_NT1_mo_sua_can_cac_o_hien_dung_gia_tri_hien_co", () => {
   const h = form02();
@@ -260,7 +260,7 @@ test("test_YC3_3_HV1_dang_luu_nut_doi_chu_va_khong_bam_lai", () => {
   expect(nutLuu(h)).toContain("Đang lưu…");
 });
 
-// ---- YC3.8 P6 ----
+// ---- mục "Ngày tính giá cuối tuần" (US11) P6 ----
 
 const MAU = { ma_can: "1509", thuong: 900000, cuoi_tuan: 1300000 };
 

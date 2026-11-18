@@ -49,7 +49,7 @@ export const tinMoiSale = (duongDan: string) =>
 export const tinGuiLich = (duongDan: string, tenSale: string | null) =>
   `${tenSale ? `Gửi ${tenSale}: ` : ""}Lịch phòng trống và giá của tôi trên Home247 (Lịch phòng Hạ Long). Bấm link để xem, không cần gọi hỏi: ${duongDan}`;
 
-// Toast ở CN10-02. Chữ theo bảng Hành vi YC1.8 bước 5; YC1-H3 chưa chốt nên đây là chữ tạm (ghi trong PR).
+// Toast ở CN10-02. Chữ theo bảng Hành vi mục "Chủ nhà chủ động gửi lịch cho sale" (US26) bước 5; CH-052 chưa chốt nên đây là chữ tạm (ghi trong PR).
 export const chuToastDaGuiLich = "Đã gửi lịch thành công";
 
 // Chữ toast

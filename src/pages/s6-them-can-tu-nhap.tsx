@@ -26,7 +26,7 @@ import { BoAnhForm, chuLoiAnh, demTheo } from "../stores/anh-form";
 import { boNhoLichSale } from "../stores/lich";
 import { boNhoTabCan } from "../stores/can-sale";
 
-// S6-02 · Thêm căn tự nhập (YC6.3). Mở từ S6 "Thêm căn tự nhập" và A5 "Thêm căn thủ công".
+// S6-02 · Thêm căn tự nhập (mục "Thêm căn tự nhập" (US16)). Mở từ S6 "Thêm căn tự nhập" và A5 "Thêm căn thủ công".
 // Bốn ô bắt buộc: tên chủ nhà, số điện thoại, mã căn, số phòng ngủ (dòng "Còn thiếu"). Số giường, giá chủ, ảnh không bắt buộc (NT2, NT8).
 // Tối đa 12 ảnh (NT4). Tên và số chủ căn chỉ sale này thấy (QD11). Ảnh qua POST /anh khi chọn, HV4 khi từ chối quyền ảnh.
 // Khóa chống bấm hai lần giữ nguyên khi lỗi mạng, đổi khi server đã trả lỗi (HV1, server.md 1.6).

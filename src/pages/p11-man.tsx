@@ -8,7 +8,7 @@ import {
 } from "../components/gui-khach-hien-thi";
 import { CAC_O_CHEN, xemTruocMau } from "../services/mau-tin";
 
-// P11 · Mẫu tin gửi khách (YC5.7). Phần vẽ, không gọi server. Bản xem trước dựng ở app từ mẫu đang gõ và ba căn mẫu (YC5.7 bước 3).
+// P11 · Mẫu tin gửi khách (mục "Mẫu tin gửi khách" (US14)). Phần vẽ, không gọi server. Bản xem trước dựng ở app từ mẫu đang gõ và ba căn mẫu (mục "Mẫu tin gửi khách" (US14) bước 3).
 export type PropsP11 = {
   mau: string;
   tenSale: string | null;

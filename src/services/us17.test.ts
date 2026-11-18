@@ -26,7 +26,7 @@ import { dongYXinLich, moLink } from "./mo-link";
 import { guiXinLichQuaZalo, saoChepXinLich, tinXinLich } from "./xin-lich";
 import { datCongZalo, type CongZalo } from "./zalo";
 
-// US17 · Test chức năng trên server giả: sale xin lịch (YC1.6), chủ nhà duyệt (YC1.7), toast và thông báo (YC1.10), ngừng (YC1.9-NT6).
+// US17 · Test chức năng trên server giả: sale xin lịch (mục "Sale xin chủ nhà cho xem lịch" (US17)), chủ nhà duyệt (mục "Chủ nhà duyệt lời mời xem lịch" (US17)), toast và thông báo (mục "Thông báo kết quả kết nối cho sale" (US17)), ngừng (US17-NT9).
 // Dữ liệu DLM: hôm nay 07/10/2026. Chị Hoa có ICON40 1509 và 3402; Anh Tuấn có Sapphire 1103 và À La Carte 2208; Hùng đã kết nối cả hai.
 // "Zalo thử B" là sale mới chưa kết nối ai, nhập tên Zalo, số điện thoại cho khi cần.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
@@ -82,7 +82,7 @@ beforeEach(() => {
   banThu.napDuLieuSale("moi");
 });
 
-// ---- A6: link xin lịch (YC1.6 bước 1, NT4) ----
+// ---- A6: link xin lịch (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 1, NT4) ----
 
 test("test_YC1_6_NT4_US17_KB3_link_xin_lich_dang_zalo_me_s_khong_home247_khong_so_dien_thoai_va_mot_link_cho_moi_sale", async () => {
   await saleMoi();
@@ -113,7 +113,7 @@ test("test_PQ18_SALE_US17_chu_nha_hoac_nguoi_chua_dang_nhap_khong_lay_duoc_link_
   expect((await getXinLichThongKe()).so_lan_gui).toBe(0); // Lan không tăng số của Bình
 });
 
-// ---- A6 gửi, sao chép và A7 (YC1.6 bước 2, 3, 4, NT2, NT3) ----
+// ---- A6 gửi, sao chép và A7 (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 2, 3, 4, NT2, NT3) ----
 
 test("test_YC1_6_NT1_buoc_2_4_US17_KB4_KB6_gui_qua_zalo_va_sao_chep_deu_dem_mot_lan_dong_cua_so_khong_gui_thi_khong_dem", async () => {
   await saleMoi();
@@ -147,7 +147,7 @@ test("test_YC1_6_NT2_NT3_US17_KB5_KB9_A7_chi_co_hai_con_so_khong_ten_chu_nha_va_
   expect((await getXinLichThongKe()).so_chu_nha_dong_y).toBe(1);
 });
 
-// ---- A8: chủ nhà mở link xin lịch (YC1.7 bước 2, NT1, NT4) ----
+// ---- A8: chủ nhà mở link xin lịch (mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 2, NT1, NT4) ----
 
 test("test_YC1_7_NT1_US17_KB7_chu_nha_mo_link_thay_dung_ten_va_so_dien_thoai_sale_dang_xin", async () => {
   await saleMoi();
@@ -180,7 +180,7 @@ test("test_PQ18_CHU_US17_KB20_link_xin_lich_can_phien_nguoi_chua_co_tai_khoan_mo
   expect(await moLink(ma)).toEqual({ man: "a8_01" });
 });
 
-// ---- A8: đồng ý (YC1.7 bước 3, 5, NT3), thông báo (YC1.10-NT1, PQ19.SALE) ----
+// ---- A8: đồng ý (mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 3, 5, NT3), thông báo (US17-NT10, PQ19.SALE) ----
 
 test("test_YC1_7_NT3_YC1_10_NT1_US17_KB8_chu_nha_dong_y_thi_sale_vao_CN7_va_sale_nhan_mot_thong_bao_khong_gia", async () => {
   await saleMoi();
@@ -282,7 +282,7 @@ test("test_YC1_7_NT4_US17_KB15_A8_01_link_cua_sale_da_bi_ngung_hoac_da_rut_quyen
   expect("sale" in x && x.sale).toEqual({ ten_hien_thi: "Sale Bình", so_dien_thoai: null });
 });
 
-// ---- Thông báo: gom, đã đọc, ngừng (YC1.10-NT2, NT3, YC1.9-NT6) ----
+// ---- Thông báo: gom, đã đọc, ngừng (US17-NT11, NT3, US17-NT9) ----
 
 test("test_YC1_10_NT2_US17_KB11_hai_chu_nha_dong_y_trong_10_phut_thi_mot_muc_gom_va_mot_toast", async () => {
   await saleMoi();
@@ -294,7 +294,7 @@ test("test_YC1_10_NT2_US17_KB11_hai_chu_nha_dong_y_trong_10_phut_thi_mot_muc_gom
   await dung("zalo-thu-b");
   const ds = await getThongBao();
   expect(ds.muc).toHaveLength(1);
-  expect(ds.so_chua_doc).toBe(1); // nhóm gom tính một (YC1.10-NT3)
+  expect(ds.so_chua_doc).toBe(1); // nhóm gom tính một (US17-NT12)
   expect(ds.muc[0].ids).toHaveLength(2);
   expect(ds.muc[0].du_lieu_gom).toHaveLength(2);
   const st = { daThay: new Set<string>() };

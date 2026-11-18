@@ -6,7 +6,7 @@ import { chuNgayNgan, chuThang } from "../services/ngay";
 import { OChon } from "./cn10-man";
 import { FormGiaThang, loiKhiApDung, type OThangGia } from "./cn6-gia-man";
 
-// Phần vẽ của US7: CN6-05, CN6-05-00 (chọn căn), CN6-06 (đặt giá nhiều căn), CN6-07 (sao chép giá), YC3.6, YC3.7.
+// Phần vẽ của US7: CN6-05, CN6-05-00 (chọn căn), CN6-06 (đặt giá nhiều căn), CN6-07 (sao chép giá), mục "Đặt giá nhiều căn" (US7), mục "Sao chép giá sang căn khác" (US7).
 // Không gọi server, không dùng zmp-sdk, để test render được. Phần tải và lưu ở cn6-nhieu-can.tsx, cn6-sao-chep.tsx.
 // Chữ chưa vẽ trên canvas, ghi ở PR: nút "Bỏ chọn" khi đã chọn hết, chữ nút khi đã chọn căn đích, toast sau khi áp dụng nhiều căn,
 // dòng báo ca sao chép còn [MỞ], popup báo tháng và dịp giữ giá cũ sau khi sao chép (tiêu đề, câu dẫn, nút "Tôi đã hiểu"), cách báo khi không chọn phần nào để sao chép.
@@ -15,27 +15,27 @@ export const CHU_CHON_IT_NHAT = "Chọn ít nhất một căn";
 export const CHU_CHON_CAN_DE_SAO_CHEP = "Chọn căn để sao chép";
 export const CHU_DAT_GIA_NGAY_LE_NHIEU_CAN = "Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn chưa có cách làm";
 
-// Dòng đếm CN6-05 (YC3.6-NT1): "CHỌN CĂN · ĐÃ CHỌN 2/4". Chưa chọn căn nào là CN6-05-00: cùng dòng, "ĐÃ CHỌN 0/4".
+// Dòng đếm CN6-05 (US7-NT2): "CHỌN CĂN · ĐÃ CHỌN 2/4". Chưa chọn căn nào là CN6-05-00: cùng dòng, "ĐÃ CHỌN 0/4".
 export const chuDemChonCan = (chon: number, tong: number) => `CHỌN CĂN · ĐÃ CHỌN ${chon}/${tong}`;
-// Nút dưới đáy CN6-05 (YC3.6 bước 2): "Đặt giá cho 2 căn"; chưa chọn thì mờ, ghi "Chọn ít nhất một căn" (CN6-05-00)
+// Nút dưới đáy CN6-05 (mục "Đặt giá nhiều căn" (US7) bước 2): "Đặt giá cho 2 căn"; chưa chọn thì mờ, ghi "Chọn ít nhất một căn" (CN6-05-00)
 export const chuNutDatGia = (chon: number) => (chon === 0 ? CHU_CHON_IT_NHAT : `Đặt giá cho ${chon} căn`);
-// Tiêu đề CN6-06 (YC3.6 bước 3)
+// Tiêu đề CN6-06 (mục "Đặt giá nhiều căn" (US7) bước 3)
 export const chuTieuDeDatGia = (soCan: number) => `Đặt giá · ${soCan} căn`;
-// Toast CN6-08 (YC3.7-NT3, HV8)
+// Toast CN6-08 (US7-NT7, HV8)
 export const chuToastSaoChep = (soCan: number) => `Đã sao chép giá sang ${soCan} căn`;
-// Dòng đếm căn đích CN6-07 (YC3.7 bước 3): "SANG CĂN · ĐÃ CHỌN 0"
+// Dòng đếm căn đích CN6-07 (mục "Sao chép giá sang căn khác" (US7) bước 3): "SANG CĂN · ĐÃ CHỌN 0"
 export const chuDemCanDich = (chon: number) => `SANG CĂN · ĐÃ CHỌN ${chon}`;
 export const chuCanhBaoThay = (maCanNguon: string) => `Giá đang có của căn được chọn sẽ được thay bằng giá của ${tenThe(maCanNguon)}.`;
 export const chuNutSaoChep = (soCanDich: number) => (soCanDich === 0 ? CHU_CHON_CAN_DE_SAO_CHEP : `Sao chép giá sang ${soCanDich} căn`);
-// "Giá 7 tháng · 2 ngày lễ · 2 dịp đặc biệt" (YC3.7 bước 1); phần nào không có thì bỏ
+// "Giá 7 tháng · 2 ngày lễ · 2 dịp đặc biệt" (mục "Sao chép giá sang căn khác" (US7) bước 1); phần nào không có thì bỏ
 export const chuTomTatGia = (soThang: number, soNgayLe: number, soDip: number) =>
   [`Giá ${soThang} tháng`, soNgayLe > 0 ? `${soNgayLe} ngày lễ` : null, soDip > 0 ? `${soDip} dịp đặc biệt` : null].filter(Boolean).join(" · ");
 
-// "Chọn tất cả" (YC3.6-NT2, YC3.7 bước 3): chưa chọn hết thì chọn hết, đã chọn hết thì bỏ chọn
+// "Chọn tất cả" (US7-NT3, mục "Sao chép giá sang căn khác" (US7) bước 3): chưa chọn hết thì chọn hết, đã chọn hết thì bỏ chọn
 export const chonTatCa = (dangChon: string[], tatCa: string[]) => (tatCa.length > 0 && tatCa.every((id) => dangChon.includes(id)) ? [] : [...tatCa]);
 export const doiChon = (ds: string[], id: string) => (ds.includes(id) ? ds.filter((x) => x !== id) : [...ds, id]);
 
-// Popup sau khi sao chép khi có tháng giữ giá cũ (YC3.7, US7 Tùng quyết 04/11/2026). Chữ tạm: canvas chưa vẽ, chỉ nút "Tôi đã hiểu" do Tùng nêu.
+// Popup sau khi sao chép khi có tháng giữ giá cũ (mục "Sao chép giá sang căn khác" (US7), US7 Tùng quyết 04/11/2026). Chữ tạm: canvas chưa vẽ, chỉ nút "Tôi đã hiểu" do Tùng nêu.
 export const CHU_TIEU_DE_GIU_GIA_CU = "Một số giá được giữ nguyên";
 export const CHU_DAN_GIU_GIA_CU = "Căn gốc chưa có giá các tháng này, nên căn đích giữ nguyên giá đang có:";
 export const CHU_DAN_GIU_DIP_CU = "Căn gốc không có các ngày lễ, dịp đặc biệt này, nên căn đích giữ nguyên:";
@@ -134,7 +134,7 @@ export const NoiDungChonCan = (p: {
   );
 };
 
-// CN6-06 · đặt giá nhiều căn: khối "CĂN ÁP DỤNG" rồi đặt giá như CN6 (YC3.6 bước 3)
+// CN6-06 · đặt giá nhiều căn: khối "CĂN ÁP DỤNG" rồi đặt giá như CN6 (mục "Đặt giá nhiều căn" (US7) bước 3)
 export const NoiDungDatGiaNhieuCan = (p: {
   can: Can[];
   nam: number;
@@ -193,7 +193,7 @@ export const NoiDungDatGiaNhieuCan = (p: {
   );
 };
 
-// CN6-07 · sao chép giá (YC3.7)
+// CN6-07 · sao chép giá (mục "Sao chép giá sang căn khác" (US7))
 export const NoiDungSaoChep = (p: {
   maCanNguon: string;
   tomTat: string | null; // null: đang tải

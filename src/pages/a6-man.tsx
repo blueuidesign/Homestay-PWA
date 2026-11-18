@@ -7,8 +7,8 @@ import {
   CHU_A6_TIN_SE_GUI,
 } from "../components/xin-lich-hien-thi";
 
-// A6 · Soạn tin xin link (YC1.6 bước 1). Phần vẽ, tách khỏi a6-xin-lich.tsx để test.
-// Hai nút ở thanh dưới: "Gửi qua Zalo" (A6-P1 nếu chưa có số) và "Sao chép tin nhắn" (chạy YC1.5 rồi sao chép, sang A7).
+// A6 · Soạn tin xin link (mục "Sale xin chủ nhà cho xem lịch" (US17) bước 1). Phần vẽ, tách khỏi a6-xin-lich.tsx để test.
+// Hai nút ở thanh dưới: "Gửi qua Zalo" (A6-P1 nếu chưa có số) và "Sao chép tin nhắn" (chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) rồi sao chép, sang A7).
 export type PropsA6 = {
   tin: string;
   dangLam: boolean;

@@ -3,7 +3,7 @@ import { MAX_ANH_CAN } from "../services/api";
 import { chuDangTai, demTheo, type AnhForm } from "../stores/anh-form";
 import { Icon } from "./icon";
 
-// Mục Ảnh của CN5-A1 (YC3.2.1, canvas CN5-A2 đang tải, CN5-A3 lỗi). Chữ ≥ 14 px, nút ≥ 44 px.
+// Mục Ảnh của CN5-A1 (mục "Ảnh khi thêm căn" (US25), canvas CN5-A2 đang tải, CN5-A3 lỗi). Chữ ≥ 14 px, nút ≥ 44 px.
 export const CHU_THE_QUYEN = "Cần quyền chọn ảnh để thêm ảnh căn"; // HV4, bảng câu theo quyền
 export const CHU_CAN_VAN_LUU = "Căn vẫn lưu được khi chưa có ảnh.";
 export const CHU_ANH_DAU = "Ảnh đầu tiên là ảnh đại diện · Tối đa 12 ảnh";
@@ -166,7 +166,7 @@ export const KhoiAnh = ({
   );
 };
 
-// Hai dòng báo trên nút "Thêm căn" khi còn ảnh đang tải (YC3.2.1-NT1)
+// Hai dòng báo trên nút "Thêm căn" khi còn ảnh đang tải (US25-NT2)
 export const dongBaoAnh = (anh: AnhForm[]) => {
   const n = demTheo(anh, "dang_tai");
   return n > 0 ? chuDangTai(n) : null;

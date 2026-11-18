@@ -22,7 +22,7 @@ import type { CanLichSale, CanTim, DieuKienTim, GoiYTim, KetQuaTim, LichTuanTim 
 import { chuThu } from "../services/ngay";
 import { chuO, dongPhuCan, lopO, tenCanTrenLuoi } from "./s1-man";
 
-// S2 · Kết quả, danh sách (YC5.3 bước 1 đến 4, 6). S2-00 · Không có căn trống (YC5.2 bước 6). S4 · Kết quả, lịch tuần (YC5.3 bước 5).
+// S2 · Kết quả, danh sách (mục "Kết quả tìm phòng" (US12) bước 1 đến 4, 6). S2-00 · Không có căn trống (mục "Tìm phòng trống theo ngày" (US12) bước 6). S4 · Kết quả, lịch tuần (mục "Kết quả tìm phòng" (US12) bước 5).
 // Phần vẽ, không gọi server. Giá và quyền do server quyết: chỗ nào server không gửi giá thì thẻ không có số.
 
 export const NhanDemKhachHoi = "Đêm khách hỏi";

@@ -15,8 +15,8 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungCN9 } from "./cn9-man";
 
-// CN9, CN9-02, CN9-03 (YC4.6, YC4.8). Một màn, mở với state { id } từ CN1-03 "Xem và trả lời" hoặc từ thông báo (YC4.6-NT1).
-// Chấp nhận: chạy YC1.5 nếu hồ sơ chưa có số ("Để sau" vẫn chấp nhận), rồi POST /yeu-cau/:id/chap-nhan. Từ chối: ba chip, POST .../tu-choi.
+// CN9, CN9-02, CN9-03 (mục "Chủ nhà nhận và trả lời yêu cầu" (US15), mục "Yêu cầu trùng ngày" (US15)). Một màn, mở với state { id } từ CN1-03 "Xem và trả lời" hoặc từ thông báo (US15-NT8).
+// Chấp nhận: chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số ("Để sau" vẫn chấp nhận), rồi POST /yeu-cau/:id/chap-nhan. Từ chối: ba chip, POST .../tu-choi.
 // Yêu cầu không còn chờ (TRANG_THAI_DA_DOI): tải lại và hiện trạng thái thật (HV3 bước 4). Mỗi lần bấm một Idempotency-Key.
 const khoaMoi = (loai: string) => `${loai}-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
 

@@ -37,7 +37,7 @@ create table public.can (
   sdt_chu_can text check (sdt_chu_can ~ '^\+?[0-9]{9,15}$'),
   gia_chu_thuong integer check (gia_chu_thuong > 0),
   gia_chu_cuoi_tuan integer check (gia_chu_cuoi_tuan > 0),
-  an_luc timestamptz,                    -- chủ xóa căn: chỉ ẩn, booking và thống kê còn (YC3.9)
+  an_luc timestamptz,                    -- chủ xóa căn: chỉ ẩn, booking và thống kê còn (mục "Xóa căn" (US27))
   lich_cap_nhat_luc timestamptz not null default now(),
   created_at timestamptz not null default now(),
   check (loai = 'tu_nhap' or (ten_chu_can is null and sdt_chu_can is null and gia_chu_thuong is null and gia_chu_cuoi_tuan is null)),
@@ -70,7 +70,7 @@ create table public.ket_noi_can (
 create table public.link_moi (
   ma text primary key default encode(extensions.gen_random_bytes(12), 'hex'),
   chu_nha_id uuid not null references public.profiles(id),
-  loai text not null default 'moi_sale' check (loai in ('moi_sale', 'gui_lich')),   -- gui_lich: chỉ các căn trong link_moi_can (YC1.8)
+  loai text not null default 'moi_sale' check (loai in ('moi_sale', 'gui_lich')),   -- gui_lich: chỉ các căn trong link_moi_can (mục "Chủ nhà chủ động gửi lịch cho sale" (US26))
   het_han_luc timestamptz not null default now() + interval '21 days',
   thu_hoi_luc timestamptz,
   so_lan_gui integer not null default 0,     -- app đếm mỗi lần mở bảng chia sẻ hay sao chép; app không biết gửi cho ai
@@ -83,7 +83,7 @@ create table public.link_moi_can (
   primary key (ma, can_id)
 );
 
--- Link xin lịch của sale: mỗi sale đúng một link, gửi cho nhiều chủ nhà (YC1.6). Mã ngẫu nhiên, không chứa số điện thoại.
+-- Link xin lịch của sale: mỗi sale đúng một link, gửi cho nhiều chủ nhà (mục "Sale xin chủ nhà cho xem lịch" (US17)). Mã ngẫu nhiên, không chứa số điện thoại.
 create table public.link_xin_lich (
   ma text primary key default encode(extensions.gen_random_bytes(12), 'hex'),
   sale_id uuid not null unique references public.profiles(id),
@@ -92,7 +92,7 @@ create table public.link_xin_lich (
   created_at timestamptz not null default now()
 );
 
--- Sale chủ nhà thêm tay bằng tên và số, chưa dùng app: nhóm "Chưa kết nối" ở CN7 (YC1.9). Chỉ chủ nhà đó thấy.
+-- Sale chủ nhà thêm tay bằng tên và số, chưa dùng app: nhóm "Chưa kết nối" ở CN7 (mục "Chủ nhà quản lý danh sách sale" (US5)). Chỉ chủ nhà đó thấy.
 create table public.sale_them_tay (
   id uuid primary key default gen_random_uuid(),
   chu_nha_id uuid not null references public.profiles(id),
@@ -122,7 +122,7 @@ create table public.gia_thang (
   primary key (can_id, thang)
 );
 
--- Giá riêng cho một dải ngày: ngày lễ hoặc dịp đặc biệt. Đêm trong dải dùng giá dải, không dùng giá tháng (YC3.5).
+-- Giá riêng cho một dải ngày: ngày lễ hoặc dịp đặc biệt. Đêm trong dải dùng giá dải, không dùng giá tháng (mục "Giá ngày lễ và dịp đặc biệt" (US8)).
 -- dai là [ngày đầu, ngày cuối + 1). Hai dải của một căn không được có ngày chung: chặn ở database.
 create table public.gia_dip (
   id uuid primary key default gen_random_uuid(),
@@ -134,7 +134,7 @@ create table public.gia_dip (
   constraint gia_dip_khong_chong exclude using gist (can_id with =, dai with &&)
 );
 
--- Dải nghỉ lễ hằng năm do Home247 đặt sẵn, chủ nhà chọn nhanh ở CN6-02 (YC3.5, YC10.1)
+-- Dải nghỉ lễ hằng năm do Home247 đặt sẵn, chủ nhà chọn nhanh ở CN6-02 (mục "Giá ngày lễ và dịp đặc biệt" (US8), mục "Quản trị dải ngày lễ hằng năm" (US23))
 create table public.ngay_le (
   id uuid primary key default gen_random_uuid(),
   nam smallint not null,
@@ -144,7 +144,7 @@ create table public.ngay_le (
   unique (nam, ten)
 );
 
--- Mức cộng riêng của một sale cho một căn: tiền cộng MỖI ĐÊM vào giá chủ nhà (YC5.4). Chỉ sale đó đọc được.
+-- Mức cộng riêng của một sale cho một căn: tiền cộng MỖI ĐÊM vào giá chủ nhà (mục "Chi tiết căn và giá bán" (US13)). Chỉ sale đó đọc được.
 create table public.muc_cong (
   sale_id uuid not null references public.profiles(id),
   can_id uuid not null references public.can(id),
@@ -268,7 +268,7 @@ begin
     toa_nha_id = case when p ? 'toa_nha_id' then (p->>'toa_nha_id')::uuid else toa_nha_id end,
     mo_ta_gui_khach = case when p ? 'mo_ta_gui_khach' then nullif(p->>'mo_ta_gui_khach', '') else mo_ta_gui_khach end,
     ten_chu_can = case when p ? 'ten_chu_can' then btrim(p->>'ten_chu_can') else ten_chu_can end,
-    sdt_chu_can = case when p ? 'sdt_chu_can' then nullif(btrim(p->>'sdt_chu_can'), '') else sdt_chu_can end,   -- xóa số thì không còn giữ số (YC6.3)
+    sdt_chu_can = case when p ? 'sdt_chu_can' then nullif(btrim(p->>'sdt_chu_can'), '') else sdt_chu_can end,   -- xóa số thì không còn giữ số (mục "Thêm căn tự nhập" (US16))
     gia_chu_thuong = case when p ? 'gia_chu_thuong' then (p->>'gia_chu_thuong')::int else gia_chu_thuong end,
     gia_chu_cuoi_tuan = case when p ? 'gia_chu_cuoi_tuan' then (p->>'gia_chu_cuoi_tuan')::int else gia_chu_cuoi_tuan end
   where id = p_can;
@@ -309,7 +309,7 @@ begin
     from unnest(p_anh_ids) with ordinality o(id, stt) where a.id = o.id;
 end $$;
 
--- Thêm tòa mới vào danh sách chung, không cần duyệt (YC3.2). Trùng tên (không kể hoa thường) thì trả tòa đã có.
+-- Thêm tòa mới vào danh sách chung, không cần duyệt (mục "Thêm căn" (US1)). Trùng tên (không kể hoa thường) thì trả tòa đã có.
 create or replace function public.fn_them_toa_nha(p_ten text) returns uuid
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap(); v_id uuid; v_ten text := btrim(coalesce(p_ten, ''));
@@ -329,7 +329,7 @@ begin
   if not exists (select 1 from can where id = p_can and nguoi_giu = v_me and an_luc is null) then
     raise exception 'Không tìm thấy căn của bạn' using errcode = '42501';
   end if;
-  -- Còn booking chưa tới ngày trả, hoặc yêu cầu đang chờ: không xóa (YC3.9). can_con_dat_phong ở migration booking.
+  -- Còn booking chưa tới ngày trả, hoặc yêu cầu đang chờ: không xóa (mục "Xóa căn" (US27)). can_con_dat_phong ở migration booking.
   if can_con_dat_phong(p_can) then raise exception 'Căn còn đặt phòng sắp tới' using errcode = 'P0001'; end if;
   update can set an_luc = now() where id = p_can;
 end $$;
@@ -351,7 +351,7 @@ begin
   update can set lich_cap_nhat_luc = now() where id = p_can;
 end $$;
 
--- Đặt giá tháng cho nhiều căn mình giữ một lần (YC3.6)
+-- Đặt giá tháng cho nhiều căn mình giữ một lần (mục "Đặt giá nhiều căn" (US7))
 create or replace function public.fn_dat_gia_nhieu_can(p_cans uuid[], p_thangs date[], p_thuong int, p_cuoi_tuan int) returns void
 language plpgsql security definer set search_path = public as $$
 declare c uuid;
@@ -360,7 +360,7 @@ begin
   foreach c in array p_cans loop perform fn_dat_gia_thang(c, p_thangs, p_thuong, p_cuoi_tuan); end loop;
 end $$;
 
--- Thêm hay sửa một dải giá dịp (YC3.5). p: id (khi sửa), ten, la_ngay_le, ngay_dau, ngay_cuoi, gia_moi_dem.
+-- Thêm hay sửa một dải giá dịp (mục "Giá ngày lễ và dịp đặc biệt" (US8)). p: id (khi sửa), ten, la_ngay_le, ngay_dau, ngay_cuoi, gia_moi_dem.
 -- Bỏ trống tên thì đặt "Dịp đặc biệt <ngày đầu> – <ngày cuối>". Dài hơn 10 ngày hay chồng ngày dải khác thì từ chối.
 create or replace function public.fn_luu_gia_dip(p_can uuid, p jsonb) returns uuid
 language plpgsql security definer set search_path = public as $$
@@ -402,7 +402,7 @@ begin
   if not found then raise exception 'Không tìm thấy dải giá' using errcode = '42501'; end if;
 end $$;
 
--- Sao chép giá từ một căn sang các căn khác của mình (YC3.7). p_phan gồm: 'thang', 'ngay_le', 'dip'.
+-- Sao chép giá từ một căn sang các căn khác của mình (mục "Sao chép giá sang căn khác" (US7)). p_phan gồm: 'thang', 'ngay_le', 'dip'.
 -- Tháng nguồn có giá thì thay giá tháng đó ở đích; tháng nguồn chưa đặt thì giữ giá đích.
 -- Dải nguồn trùng đúng ngày một dải đích thì thay giá và tên; chồng ngày mà không trùng đúng thì giữ dải đích, bỏ dải nguồn;
 -- dải đích mà nguồn không có thì giữ nguyên.
@@ -492,7 +492,7 @@ begin
   return v;
 end $$;
 
--- Link gửi lịch các căn đã chọn (CN10, YC1.8): sale mở link chỉ được các căn này
+-- Link gửi lịch các căn đã chọn (CN10, mục "Chủ nhà chủ động gửi lịch cho sale" (US26)): sale mở link chỉ được các căn này
 create or replace function public.fn_tao_link_gui_lich(p_can_ids uuid[]) returns text
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap(); v text;
@@ -548,7 +548,7 @@ begin
                         and (l.loai = 'moi_sale' or id in (select can_id from link_moi_can where ma = l.ma))), '[]'::jsonb));
 end $$;
 
--- Sale bấm "Thêm lịch". Link mời: được mọi căn (căn mới tự thêm, YC1.12). Link gửi lịch: chỉ các căn của link.
+-- Sale bấm "Thêm lịch". Link mời: được mọi căn (căn mới tự thêm, mục "Căn mới của chủ nhà tự hiện cho sale" (US6)). Link gửi lịch: chỉ các căn của link.
 -- Đã có đủ rồi thì báo, không nhân đôi (A10-01).
 create or replace function public.fn_them_lich_tu_link(p_ma text) returns uuid
 language plpgsql security definer set search_path = public as $$

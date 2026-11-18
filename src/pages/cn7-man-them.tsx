@@ -1,6 +1,6 @@
 import React from "react";
 
-// CN7-05 · Thêm sale thủ công (YC1.9 bước 4, YC1.9-NT1). Phần vẽ, tách khỏi cn7-them-sale.tsx để test.
+// CN7-05 · Thêm sale thủ công (mục "Chủ nhà quản lý danh sách sale" (US5) bước 4, US5-NT9). Phần vẽ, tách khỏi cn7-them-sale.tsx để test.
 export const CHU_LOI_THIEU_TEN = "Nhập tên sale trước khi lưu";
 export const CHU_LOI_THIEU_SO = "Nhập số điện thoại 10 số, bắt đầu bằng 0";
 

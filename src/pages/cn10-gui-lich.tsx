@@ -13,7 +13,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { CHU_DE_SAU_CN10, NoiDungCN10, saleGuiDuoc } from "./cn10-man";
 
-// CN10 · Gửi lịch cho sale (YC1.8). Vào từ nút "Gửi lịch cho sale" ở tab Lịch.
+// CN10 · Gửi lịch cho sale (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)). Vào từ nút "Gửi lịch cho sale" ở tab Lịch.
 // Bước 1 GET /can, bước 3 GET /ket-noi, bước 4 POST /link { loai: "gui_lich", can_ids } rồi mở Zalo (services/gui-lich.ts).
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;

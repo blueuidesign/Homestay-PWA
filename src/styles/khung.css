@@ -103,7 +103,7 @@ body { background: var(--surface-page); }
 .dang-cap-nhat { padding: 4px 12px; font: var(--text-caption); color: var(--ink-muted); text-align: center; }
 .khung-xam { background: var(--border-subtle); border-radius: var(--radius-md); }
 
-/* Thẻ căn: dòng "Chưa đặt giá" (YC3.1-NT3) */
+/* Thẻ căn: dòng "Chưa đặt giá" (US4-NT1) */
 .the-can__gia-chua { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; }
 
 /* Tab Giá (CN6, CN6-04, CN6-09) */
@@ -134,7 +134,7 @@ body { background: var(--surface-page); }
 .gia-sheet__dau { display: flex; align-items: center; gap: 8px; padding: 16px 12px 12px 20px; border-bottom: 1px solid var(--border-subtle); }
 .gia-sheet__hang { width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: 0; border-bottom: 1px solid var(--border-subtle); background: none; padding: 0 20px; cursor: pointer; font: inherit; text-align: left; }
 
-/* Popup xin số (YC1.5.1), dòng sale ở CN7, CN7-04 (US5) */
+/* Popup xin số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), dòng sale ở CN7, CN7-04 (US5) */
 .xin-so__icon { width: 56px; height: 56px; border-radius: var(--radius-full); background: var(--action-tint); color: var(--action); display: flex; align-items: center; justify-content: center; }
 .dong-sale { width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: 0; border-bottom: 1px solid var(--border-subtle); background: none; padding: 8px 0; cursor: pointer; font: inherit; text-align: left; color: inherit; -webkit-tap-highlight-color: transparent; }
 .dong-sale--tinh { cursor: default; }
@@ -170,7 +170,7 @@ body { background: var(--surface-page); }
 .s1-mau--hoi { background: var(--surface-page); border: 1px solid var(--border); }
 .s1-mau--ban { background: var(--action-soft); }
 
-/* Nút "Xoay ngang" và màn xoay S1-05 (YC5.1 bước 7). Hàng nút nằm ngay dưới hàng "7 ngày tới", không nổi. */
+/* Nút "Xoay ngang" và màn xoay S1-05 (mục "Lịch phòng 7 ngày" (US16) bước 7). Hàng nút nằm ngay dưới hàng "7 ngày tới", không nổi. */
 .s1-thanh__nut { display: flex; align-items: center; gap: 8px; }
 .s1-xoay { min-width: 44px; }
 .xoay-khung { background: var(--surface-page); overflow: hidden; }

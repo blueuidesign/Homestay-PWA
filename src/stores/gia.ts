@@ -27,9 +27,9 @@ export const NHAP_TRONG: NhapGia = { nam: null, thangChon: [], giaThuong: "", gi
 
 const bangDaXem = new Map<string, BangGia>();
 const nhapTheoCan = new Map<string, NhapGia>();
-// Căn đã thấy có giá ở năm nào đó trong lần mở này: để CN6-00 chỉ hiện khi căn chưa có giá năm nào (YC3.4-NT3)
+// Căn đã thấy có giá ở năm nào đó trong lần mở này: để CN6-00 chỉ hiện khi căn chưa có giá năm nào (US4-NT5)
 const canCoGia = new Set<string>();
-// Sao chép giá xong (YC3.7 bước 5) thì CN6 của căn nguồn mở lại ở tab Giá, một lần
+// Sao chép giá xong (mục "Sao chép giá sang căn khác" (US7) bước 5) thì CN6 của căn nguồn mở lại ở tab Giá, một lần
 const quayVeTabGia = new Set<string>();
 let nhapNhieuCan: NhapNhieuCan = NHAP_NHIEU_TRONG;
 const nhapSaoChep = new Map<string, NhapSaoChep>();
@@ -47,7 +47,7 @@ export const boNhoGia = {
   boBangCuaCan: (canId: string) => {
     for (const k of [...bangDaXem.keys()]) if (k.startsWith(canId + "|")) bangDaXem.delete(k);
   },
-  // Đổi ngày tính giá cuối tuần (US11, YC3.8): mọi bảng giá đã xem đổi tên ô giá và loại đêm, bỏ hết bảng cũ
+  // Đổi ngày tính giá cuối tuần (US11, mục "Ngày tính giá cuối tuần" (US11)): mọi bảng giá đã xem đổi tên ô giá và loại đêm, bỏ hết bảng cũ
   boMoiBang: () => bangDaXem.clear(),
   coGiaNamNao: (canId: string) => canCoGia.has(canId),
   nhap: (canId: string) => nhapTheoCan.get(canId) ?? NHAP_TRONG,

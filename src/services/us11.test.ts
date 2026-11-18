@@ -44,7 +44,7 @@ beforeEach(() => {
   banThu.napDuLieuMau(false, true);
 });
 
-// ---- YC3.1-NT5, YC3.2.2 ----
+// ---- US11-NT1, mục "Tòa nhà, loại view, số giường, mô tả" (US11) ----
 
 test("test_YC3_1_NT5_the_can_1509_ghi_2PN_3_giuong_view_bien_ICON40", async () => {
   expect(dongThongTin(await the("1509"))).toBe("2PN · 3 giường · view biển · ICON40");
@@ -124,7 +124,7 @@ test("test_YC3_2_2_post_toa_nha_khong_sua_duoc_toa_co_san_hay_dat_tao_boi", asyn
   await expect(maLoi(postToaNha({ ten: "   " }, khoa()))).resolves.toBe("DU_LIEU_SAI:ten");
 });
 
-// ---- YC3.3 ----
+// ---- mục "Sửa thông tin căn" (US11) ----
 
 test("test_YC3_3_NT1_mo_sua_can_1509_cac_o_dung_gia_tri_hien_co", async () => {
   const c = await getCanChiTiet((await the("1509")).id);
@@ -248,7 +248,7 @@ test("test_PQ3_khong_co_phien_thi_CHUA_DANG_NHAP", async () => {
   await expect(maLoi(patchToi({ dem_cuoi_tuan: [5, 6] }, khoa()))).resolves.toBe("CHUA_DANG_NHAP:");
 });
 
-// ---- YC3.8 ----
+// ---- mục "Ngày tính giá cuối tuần" (US11) ----
 
 test("test_YC3_8_NT1_luu_T6_T7_thi_o_gia_ghi_Cuoi_tuan_T6_T7_va_Ngay_thuong_CN_T5", async () => {
   expect((await getToi()).dem_cuoi_tuan).toEqual([5, 6]);

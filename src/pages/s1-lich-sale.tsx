@@ -16,7 +16,7 @@ import { NoiDungA7 } from "./a7-man";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungS1 } from "./s1-man";
 
-// Tab Lịch của sale: S1, hoặc A5 khi chưa có nguồn phòng (YC1.4-NT2). Phần vẽ ở s1-man.tsx.
+// Tab Lịch của sale: S1, hoặc A5 khi chưa có nguồn phòng (US6-NT9). Phần vẽ ở s1-man.tsx.
 
 // Khung xám khi tải lần đầu (HV1 bước 1)
 const KhungS1DangTai = () => (
@@ -39,7 +39,7 @@ export const TabLichSale = () => {
   const [loi, setLoi] = useState<"mang" | "khac" | null>(null);
   const { dangNgang, gui } = useXoayNgang();
   const [toastNgang, setToastNgang] = useState("");
-  // US17: chưa có nguồn phòng mà đã gửi link xin lịch thì tab Lịch là A7 (chờ chủ nhà), chưa gửi thì A5 [MỞ: YC1-H28]. undefined: đang đọc.
+  // US17: chưa có nguồn phòng mà đã gửi link xin lịch thì tab Lịch là A7 (chờ chủ nhà), chưa gửi thì A5 [MỞ: CH-059]. undefined: đang đọc.
   const [tkXin, setTkXin] = useState<ThongKeXinLich | null | undefined>(undefined);
   const lan = useRef(0);
   const dangXem = useRef(tu);
@@ -101,7 +101,7 @@ export const TabLichSale = () => {
     if (!dangNgang) setToastNgang("");
   }, [dangNgang]);
 
-  // Chạm một căn (YC5.1 bước 8): căn chủ nhà mở S3, căn của tôi mở S6-07, căn tự nhập mở S6-03
+  // Chạm một căn (mục "Lịch phòng 7 ngày" (US16) bước 8): căn chủ nhà mở S3, căn của tôi mở S6-07, căn tự nhập mở S6-03
   const moCan = (c: CanLichSale) => {
     const m = manKhiChamCan(c.nhom, c.id);
     dieuHuong(m.duong, { state: m.state });

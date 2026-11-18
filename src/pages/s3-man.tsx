@@ -3,9 +3,9 @@ import { chuPhongNgu } from "../components/can-hien-thi";
 import type { DatPhongSale, ThongBaoChuSua } from "../services/kieu";
 import { chuNgayNgan, chuTien } from "../services/ngay";
 
-// S3-10 · Đặt phòng chủ nhà đã sửa (YC4.3 bước 4, 5). Sale xem đặt phòng của mình mà chủ nhà vừa sửa hộ: đổi gì, lúc nào.
-// Hai giá của chính sale: giá bán cho khách GIỮ như đã báo khách (YC4.3 bước 5, QT3.1), giá chủ nhà là giá mới.
-// Canvas S3-10 ghi thẻ vàng "Giá bán tính lại theo mức cộng", trái YC4.3 bước 5 [MỞ: DC53]: làm theo YC, bỏ câu đó, chờ Tùng chọn.
+// S3-10 · Đặt phòng chủ nhà đã sửa (mục "Sửa booking" (US10) bước 4, 5). Sale xem đặt phòng của mình mà chủ nhà vừa sửa hộ: đổi gì, lúc nào.
+// Hai giá của chính sale: giá bán cho khách GIỮ như đã báo khách (mục "Sửa booking" (US10) bước 5, QT3.1), giá chủ nhà là giá mới.
+// Canvas S3-10 ghi thẻ vàng "Giá bán tính lại theo mức cộng", trái mục "Sửa booking" (US10) bước 5 [MỞ: DC53]: làm theo YC, bỏ câu đó, chờ Tùng chọn.
 // Không có tiền cọc, trạng thái tiền, tên hay số điện thoại khách chủ nhà nhập (QD20 điểm 2, QD11).
 // Chưa có lối vào từ dòng thông báo S1-06 và P13 (US30, US17): màn mở bằng state { id } của DUONG.DAT_PHONG_SALE.
 // Chữ tạm: "Chủ nhà đã lưu thay đổi khác" khi ngày và giá chủ nhà không đổi.

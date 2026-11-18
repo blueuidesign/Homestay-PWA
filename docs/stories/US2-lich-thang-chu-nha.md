@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn thấy tháng này trên một lịch có chip lọc
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC2.1 · Lịch tháng và lọc theo căn
+### Lịch tháng và lọc theo căn
 Rủi ro: tb
 Mục đích: chủ nhà xem một tháng các căn của mình trên một lịch để biết ngày nào có khách.
 Màn hình: CN1, CN1-02, CN1-00
@@ -26,9 +26,9 @@ Hành vi:
 | 2 | Xem lưới | Ngày có khách tô màu theo căn. Chú thích bên dưới ghi "1509 đã đặt", "3402 đã đặt" | Không gọi server (dùng kết quả của bước 1) | Không | Không |
 | 3 | Chạm một chip | Lọc lịch theo căn. Chip đầu là "Cả 2 phòng" (CN1) hoặc "Tất cả" (CN1-02) | chỉ căn đã chọn; chip "Tất cả" thì không gửi `can_id` | Không | Không |
 | 4 | Bấm T09 hoặc T11 | Chuyển tháng. Kết quả chưa vẽ (?) | với tháng mới | Không | Không |
-| 5 | Bấm "Đặt phòng" | Mở form thêm booking (CN4, thuộc YC4) | Không gọi server (lưu đặt phòng thuộc YC4:, | Không | Không |
-| 6 | Bấm "Gửi lịch cho sale" (nút có dòng "Lịch chung các căn") | Mở CN10 (thuộc YC1.8) | Không gọi server (CN10 thuộc YC1.8) | Không | Không |
-| 7 | Chạm một ngày | Hiện chi tiết ngày, xem YC2.4 | xem YC2.4 | Không | Không |
+| 5 | Bấm "Đặt phòng" | Mở form thêm booking (CN4, thuộc nhóm Booking) | Không gọi server (lưu đặt phòng thuộc nhóm Booking:, | Không | Không |
+| 6 | Bấm "Gửi lịch cho sale" (nút có dòng "Lịch chung các căn") | Mở CN10 (thuộc mục "Chủ nhà chủ động gửi lịch cho sale" (US26)) | Không gọi server (CN10 thuộc mục "Chủ nhà chủ động gửi lịch cho sale" (US26)) | Không | Không |
+| 7 | Chạm một ngày | Hiện chi tiết ngày, xem mục "Chi tiết một ngày" | xem mục "Chi tiết một ngày" | Không | Không |
 
 Theo quy tắc: Đêm có khách (QT2); Màu theo căn; Tuần bắt đầu thứ hai.
 
@@ -44,18 +44,18 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC2.4 · Chi tiết một ngày: bảng bước ở US3. Story này làm NT1.
+- mục "Chi tiết một ngày" · Chi tiết một ngày: bảng bước ở US3. Story này làm NT1.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC2.1-NT1** Khi chủ nhà có 2 căn và mở tab Lịch, thì thấy chip "Cả 2 phòng" cùng một chip cho mỗi căn.
-- **YC2.1-NT2** Khi chủ nhà có 3 căn và mở tab Lịch, thì thấy chip "Tất cả" cùng một chip cho mỗi căn.
-- **YC2.1-NT5** Khi chủ nhà chưa có booking nào, thì thấy CN1-00 thay cho lịch có booking.
-- **YC2.4-NT1** Khi chủ nhà chạm một ngày, thì phần chi tiết hiện ngay dưới lịch và ghi đúng ngày đã chạm.
-- **YC2.1-NT3** Khi chủ nhà chạm chip của một căn, thì lịch chỉ còn hiện các ngày có khách của căn đó.
-- **YC2.1-NT4** Khi một booking nhận 09/10 và trả 12/10, thì các ngày 09/10, 10/10 và 11/10 được tô, ngày 12/10 không được tô. Theo quy tắc: Đêm có khách (QT2).
-- **YC2.4-NT3** Khi một căn có khách trong ngày đó, thì hiện tên người đặt, ngày nhận, ngày trả, số đêm và số tiền.
+- **US2-NT1** Khi chủ nhà có 2 căn và mở tab Lịch, thì thấy chip "Cả 2 phòng" cùng một chip cho mỗi căn.
+- **US2-NT2** Khi chủ nhà có 3 căn và mở tab Lịch, thì thấy chip "Tất cả" cùng một chip cho mỗi căn.
+- **US2-NT3** Khi chủ nhà chưa có booking nào, thì thấy CN1-00 thay cho lịch có booking.
+- **US2-NT4** Khi chủ nhà chạm một ngày, thì phần chi tiết hiện ngay dưới lịch và ghi đúng ngày đã chạm.
+- **US2-NT5** Khi chủ nhà chạm chip của một căn, thì lịch chỉ còn hiện các ngày có khách của căn đó.
+- **US2-NT6** Khi một booking nhận 09/10 và trả 12/10, thì các ngày 09/10, 10/10 và 11/10 được tô, ngày 12/10 không được tô. Theo quy tắc: Đêm có khách (QT2).
+- **US2-NT7** Khi một căn có khách trong ngày đó, thì hiện tên người đặt, ngày nhận, ngày trả, số đêm và số tiền.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -76,7 +76,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-QT2.1. Quy tắc trong YC2: Màu theo căn, Tuần bắt đầu thứ hai. HV1 đến HV3, HV8.
+QT2.1. Quy tắc trong nhóm Lịch chủ nhà: Màu theo căn, Tuần bắt đầu thứ hai. HV1 đến HV3, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -156,8 +156,8 @@ Trạng thái riêng:
 Đọc `booking`, `booking_dem`, `booking_rieng`, `can` qua RLS (chủ nhà chỉ thấy căn mình giữ).
 
 ## Ngoài phạm vi
-- Ngày được tô, lọc chip theo căn có booking, thẻ "Trống" và "Đặt phòng" ở CN3 (YC2.1-NT3, NT4, YC2.4-NT2, NT3): US3, vì cần có booking.
-- Tóm tắt tháng, booking sắp tới, lịch tuần (YC2.2, YC2.3, YC2.5): US9.
+- Ngày được tô, lọc chip theo căn có booking, thẻ "Trống" và "Đặt phòng" ở CN3 (US2-NT5, NT4, US3-NT10, NT3): US3, vì cần có booking.
+- Tóm tắt tháng, booking sắp tới, lịch tuần (mục "Tóm tắt tháng" (US9), mục "Booking sắp tới" (US9), mục "Lịch tuần khi có nhiều căn" (US9)): US9.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

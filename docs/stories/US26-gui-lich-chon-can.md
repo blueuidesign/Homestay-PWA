@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn chọn căn và chọn sale rồi gửi lịch qua Z
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC1.8 · Chủ nhà chủ động gửi lịch cho sale
+### Chủ nhà chủ động gửi lịch cho sale
 > **Bản PWA:** không mở được tin riêng cho từng sale đã chọn như Zalo; xem `PWA.md` mục P3 và CH-003.
 Rủi ro: cao
 Mục đích: chủ nhà gửi link xem lịch của các căn đã chọn cho sale, không chờ sale xin.
@@ -26,7 +26,7 @@ Hành vi:
 | 1 | Vào CN10 | Mô tả "Sale nhận link xem lịch trống/kín và giá của các căn đã chọn. Không thấy tên khách và tiền cọc" | Không gọi server | Không | Không |
 | 2 | Chọn căn | "Bước 1: Chọn căn" với các lựa chọn và nút chọn tất cả | căn của chủ nhà | Không | Không |
 | 3 | Chọn sale | "Bước 2: Chọn sale để chia sẻ lịch", chọn từ sale đã lưu trong tab Sale | danh sách sale của chủ nhà | Không | Không |
-| 4 | Bấm "Gửi lịch qua Zalo" | Chạy YC1.5 nếu hồ sơ chưa có số; mở Zalo | tạo link gửi lịch các căn đã chọn; tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi mở cửa sổ gửi | Mở sẵn tin kèm link cho từng sale đã chọn; nếu không chọn ai thì mở cửa sổ chia sẻ để chọn người nhận | `link_moi` mới loại `gui_lich`, `link_chia_se_can` các căn đã chọn; `so_lan_gui`, `gui_cuoi_luc` |
+| 4 | Bấm "Gửi lịch qua Zalo" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số; mở Zalo | tạo link gửi lịch các căn đã chọn; tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi mở cửa sổ gửi | Mở sẵn tin kèm link cho từng sale đã chọn; nếu không chọn ai thì mở cửa sổ chia sẻ để chọn người nhận | `link_moi` mới loại `gui_lich`, `link_chia_se_can` các căn đã chọn; `so_lan_gui`, `gui_cuoi_luc` |
 | 5 | Về app | Hiện CN10-02: trang Lịch với toast "Đã gửi lịch thành công" | Không gọi server | Không | Không |
 
 Theo quy tắc: Quyền sale được xem; Không biết gửi cho ai.
@@ -36,22 +36,22 @@ Trạng thái màn:
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
-- từ chối quyền: xem YC1.5.1
+- từ chối quyền: xem mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)
 - quay lại từ nền: CN10-02 hiện khi về app; người dùng đóng cửa sổ Zalo mà không gửi: CN10-01
 - mở từ link: không áp dụng
 
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC1.12 · Căn mới của chủ nhà tự hiện cho sale: bảng bước ở US6. Story này làm NT2.
+- mục "Căn mới của chủ nhà tự hiện cho sale" (US6) · Căn mới của chủ nhà tự hiện cho sale: bảng bước ở US6. Story này làm NT2.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC1.8-NT1** Khi chủ nhà chọn 2 sale và bấm "Gửi lịch qua Zalo", thì Zalo mở tin có sẵn link cho từng sale đã chọn.
-- **YC1.8-NT2** Khi chủ nhà không chọn sale nào và bấm gửi, thì Zalo mở cửa sổ chia sẻ để chọn người nhận.
-- **YC1.8-NT3** Khi chủ nhà về app sau khi gửi, thì thấy CN10-02 với toast theo HV8: đúng kiểu và vị trí toast chung, tự tắt sau 3 giây.
-- **YC1.12-NT2** Khi sale chỉ được chia sẻ 2 trong 6 căn và chủ nhà thêm căn thứ 7, thì sale vẫn chỉ thấy 2 căn. (QD-008)
+- **US26-NT1** Khi chủ nhà chọn 2 sale và bấm "Gửi lịch qua Zalo", thì Zalo mở tin có sẵn link cho từng sale đã chọn.
+- **US26-NT2** Khi chủ nhà không chọn sale nào và bấm gửi, thì Zalo mở cửa sổ chia sẻ để chọn người nhận.
+- **US26-NT3** Khi chủ nhà về app sau khi gửi, thì thấy CN10-02 với toast theo HV8: đúng kiểu và vị trí toast chung, tự tắt sau 3 giây.
+- **US26-NT4** Khi sale chỉ được chia sẻ 2 trong 6 căn và chủ nhà thêm căn thứ 7, thì sale vẫn chỉ thấy 2 căn. (QD-008)
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -59,7 +59,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC1: Quyền sale được xem, Không biết gửi cho ai, Căn mới tự hiện, Xin số điện thoại đúng lúc (nút "Gửi lịch qua Zalo"). QD-008 (link, phạm vi căn). HV1 đến HV5, HV8.
+Quy tắc trong nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale: Quyền sale được xem, Không biết gửi cho ai, Căn mới tự hiện, Xin số điện thoại đúng lúc (nút "Gửi lịch qua Zalo"). QD-008 (link, phạm vi căn). HV1 đến HV5, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -149,7 +149,7 @@ Test vi phạm phải có:
 - Chủ nhà A gọi loại `gui_lich` với căn của chủ nhà B: `KHONG_TIM_THAY`, không có link mới (PQ18.CHU, PQ3.CHU).
 - Tài khoản sale gọi loại `gui_lich`: `KHONG_TIM_THAY` (PQ18.CHU, PQ13.SALE).
 - Gọi loại `gui_lich` với căn tự nhập hoặc căn đã ẩn: `KHONG_TIM_THAY`.
-- Chủ nhà thêm căn thứ 7 thì sale chỉ được 2 căn vẫn không thấy căn đó (YC1.12-NT2, PQ3.SALE).
+- Chủ nhà thêm căn thứ 7 thì sale chỉ được 2 căn vẫn không thấy căn đó (US26-NT4, PQ3.SALE).
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -158,13 +158,13 @@ Test vi phạm phải có:
 - `fn_dem_gui_link`: CHƯA có test, viết test trước khi dùng
 
 ## Ngoài phạm vi
-- Gửi link mời chung ở CN7 (YC1.9): US5.
-- Sale mở link và bấm "Thêm lịch" (YC1.3), lịch 7 ngày của sale (YC5.1): US6. US này dùng và của US6, chỉ thêm xử lý phạm vi "chọn căn" cho link `gui_lich`.
-- Sale xin lịch, chủ nhà duyệt ở A8 và chọn quyền (YC1.6, YC1.7), thông báo kết nối (YC1.10): US17.
-- Căn mới tự hiện cho sale được chia sẻ "tất cả căn" (YC1.12-NT1): US6.
+- Gửi link mời chung ở CN7 (mục "Chủ nhà quản lý danh sách sale" (US5)): US5.
+- Sale mở link và bấm "Thêm lịch" (mục "Mở app từ link mời của chủ nhà" (US6)), lịch 7 ngày của sale (mục "Lịch phòng 7 ngày" (US16)): US6. US này dùng và của US6, chỉ thêm xử lý phạm vi "chọn căn" cho link `gui_lich`.
+- Sale xin lịch, chủ nhà duyệt ở A8 và chọn quyền (mục "Sale xin chủ nhà cho xem lịch" (US17), mục "Chủ nhà duyệt lời mời xem lịch" (US17)), thông báo kết nối (mục "Thông báo kết quả kết nối cho sale" (US17)): US17.
+- Căn mới tự hiện cho sale được chia sẻ "tất cả căn" (US6-NT10): US6.
 - Sale đã kết nối nhận link gửi lịch thì phạm vi căn có đổi theo link không: [MỞ: US26-H1] US26 câu 2. Phiên server đang giữ phạm vi cũ, không ghi.
-- Toast "Đã gửi lịch thành công" và cách Zalo gửi cho nhiều sale: YC1-H3 và 15 chưa chốt, dừng và hỏi nếu gặp.
-- Chưa chọn căn nào mà bấm gửi: YC1.8 không nói [MỞ: US26-H2] US26 câu 1. Không viết kịch bản. Bản code đang chặn nút gửi khi bỏ chọn hết căn.
+- Toast "Đã gửi lịch thành công" và cách Zalo gửi cho nhiều sale: CH-052 và 15 chưa chốt, dừng và hỏi nếu gặp.
+- Chưa chọn căn nào mà bấm gửi: mục "Chủ nhà chủ động gửi lịch cho sale" không nói [MỞ: US26-H2] US26 câu 1. Không viết kịch bản. Bản code đang chặn nút gửi khi bỏ chọn hết căn.
 - Thu hồi link gửi lịch: [MỞ: US26-H3].
 
 ## Việc cần làm

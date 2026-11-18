@@ -38,7 +38,7 @@ import type { CanTim, ChiTietCanSale } from "../services/kieu";
 import { chuThu, soCuaNgay } from "../services/ngay";
 import type { YeuCauSale } from "../services/yeu-cau";
 
-// S3-02 Đặt phòng (YC4.5 bước 1 đến 3) và S3-03, S3-04, S3-05, S3-08, S3-09 (YC4.5 bước 4 đến 6, YC4.7). Phần vẽ, không gọi server.
+// S3-02 Đặt phòng (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 1 đến 3) và S3-03, S3-04, S3-05, S3-08, S3-09 (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 4 đến 6, mục "Sale nhận kết quả yêu cầu" (US15)). Phần vẽ, không gọi server.
 // Hai giá: sale thấy giá bán cho khách và giá chủ nhà (quy tắc Sale thấy hai giá, chủ nhà thấy một giá).
 
 const Dong = ({ nhan, gia_tri, dam }: { nhan: string; gia_tri: string; dam?: boolean }) => (

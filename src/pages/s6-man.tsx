@@ -22,7 +22,7 @@ import {
 import { Icon } from "../components/icon";
 import type { Can, DongNguonPhong, NguonPhong } from "../services/kieu";
 
-// Phần vẽ của S6, S6-00, S6-08 (YC6.1). Không gọi server. Màn: s6-can-sale.tsx.
+// Phần vẽ của S6, S6-00, S6-08 (mục "Danh sách căn và nguồn phòng" (US16)). Không gọi server. Màn: s6-can-sale.tsx.
 const NhanNhom = ({ ten, so, nut }: { ten: string; so: number; nut?: React.ReactNode }) => (
   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, minHeight: 44, padding: "0 4px" }}>
     <span className="nhan-muc">

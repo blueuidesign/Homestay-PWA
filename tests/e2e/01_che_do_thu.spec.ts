@@ -10,7 +10,7 @@ test('US1 chế độ thử: mở app, bắt đầu, chọn vai chủ nhà, vào
   await expect(page.getByRole('button', { name: 'Bắt đầu ngay' })).toBeVisible();
   await page.getByRole('button', { name: 'Bắt đầu ngay' }).click();
   await expect(page.getByText('Bạn dùng app để làm gì?')).toBeVisible();
-  // YC1.1: chưa chọn vai thì chưa đi tiếp được
+  // mục "Đăng nhập" (US1): chưa chọn vai thì chưa đi tiếp được
   await expect(page.getByText('Chọn một mục để tiếp tục')).toBeVisible();
   await page.getByRole('button', { name: /Tôi là chủ nhà/ }).click();
   await page.getByRole('button', { name: 'Tiếp tục' }).click();

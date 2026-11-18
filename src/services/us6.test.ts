@@ -18,7 +18,7 @@ import { LoiApi, LoiMang, type LichSale } from "./kieu";
 import { batDauTuLink, moLink, themLich } from "./mo-link";
 import { datCongZalo, type CongZalo } from "./zalo";
 
-// US6 · Test chức năng trên server giả: mở link mời (YC1.3), chọn vai sale (YC1.2), lịch 7 ngày (YC5.1), quyền của sale.
+// US6 · Test chức năng trên server giả: mở link mời (mục "Mở app từ link mời của chủ nhà" (US6)), chọn vai sale (mục "Chọn vai trò" (US1)), lịch 7 ngày (mục "Lịch phòng 7 ngày" (US16)), quyền của sale.
 // Dữ liệu DLM: hôm nay 07/10/2026. Hùng kết nối Chị Hoa và Anh Tuấn; Lan chỉ Chị Hoa; Zalo thử B là người mới.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 let n = 0;

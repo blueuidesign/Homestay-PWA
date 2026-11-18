@@ -2,7 +2,7 @@ import React from "react";
 import { ChipMucCong } from "../components/chip-muc-cong";
 import { CHU_GHI_CHU_P10_CUOI, CHU_GHI_CHU_P10_DAU, chuDong, viDuP10 } from "../components/muc-cong-hien-thi";
 
-// P10 · Mức cộng giá mặc định (YC5.6). Phần vẽ, không gọi server. Ví dụ "PHÒNG 1509, 2 ĐÊM" tính theo chip và công tắc đang chọn.
+// P10 · Mức cộng giá mặc định (mục "Mức cộng giá mặc định" (US13)). Phần vẽ, không gọi server. Ví dụ "PHÒNG 1509, 2 ĐÊM" tính theo chip và công tắc đang chọn.
 export const NoiDungP10 = ({
   muc,
   lamTron,

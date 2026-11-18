@@ -11,7 +11,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungP2 } from "./p2-man";
 
-// P2 · Thông tin cá nhân, chỉ phần Số điện thoại (YC1.5.3) và tên lấy từ Zalo. Phần sửa tên, ảnh, lưu: US21.
+// P2 · Thông tin cá nhân, chỉ phần Số điện thoại (mục "Số điện thoại hiện trong hồ sơ" (US5)) và tên lấy từ Zalo. Phần sửa tên, ảnh, lưu: US21.
 export const P2ThongTinCaNhan = () => {
   const dieuHuong = useNavigate();
   const matMang = useMatMang();

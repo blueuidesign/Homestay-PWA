@@ -52,10 +52,10 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS6CanTuNhap } from "./s6-can-tu-nhap-man";
 
-// S6-03 · Chi tiết căn tự nhập, S6-03-00 khi chưa ghi đặt phòng nào (YC6.4). Mở từ nhóm "Căn tự nhập" ở S6, state { can_id }.
-// Tải GET /can/:id (chỉ sale tạo đọc được, PQ14.SALE). Ngày không có đặt phòng không bao giờ ghi "trống" (YC6.4-NT2).
-// "Xóa căn tự nhập" phải bấm hai lần (YC6.4-NT3): lần một chỉ hiện nút xác nhận, chưa gọi server.
-// "Sửa thông tin căn" chưa có màn [MỞ: YC6-H9]. "Gửi cho khách" cần ngày khách hỏi (YC6-H13).
+// S6-03 · Chi tiết căn tự nhập, S6-03-00 khi chưa ghi đặt phòng nào (mục "Chi tiết căn tự nhập" (US16)). Mở từ nhóm "Căn tự nhập" ở S6, state { can_id }.
+// Tải GET /can/:id (chỉ sale tạo đọc được, PQ14.SALE). Ngày không có đặt phòng không bao giờ ghi "trống" (US16-NT25).
+// "Xóa căn tự nhập" phải bấm hai lần (US16-NT26): lần một chỉ hiện nút xác nhận, chưa gọi server.
+// "Sửa thông tin căn" chưa có màn [MỞ: CH-076]. "Gửi cho khách" cần ngày khách hỏi (CH-078).
 const khoaMoi = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`);
 
 export const ManCanTuNhap = () => {

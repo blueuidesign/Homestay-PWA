@@ -3,9 +3,9 @@ import { banThu, deleteCan, getThongKeChu, postBooking, postCan, postPhien } fro
 import { LoiApi, type ThanDatPhong } from "./kieu";
 import { chuCongSuat, chuPhanTram, chuSoRutGon, congSuat, phanTramSoVoiThangTruoc } from "./thong-ke";
 
-// US18 · Thống kê tháng của chủ nhà (YC7.1 đến YC7.3) trên server giả, máy là Chị Hoa (DLM). Hôm nay 07/10/2026 (DLM.1).
+// US18 · Thống kê tháng của chủ nhà (mục "Thống kê tháng của chủ nhà" (US18) đến mục "Doanh thu theo người bán" (US18)) trên server giả, máy là Chị Hoa (DLM). Hôm nay 07/10/2026 (DLM.1).
 // Phép tính phía app (TA3): phần trăm, công suất, số rút gọn. Server thật có test riêng (src/server/api/us18-nt.test.js);
-// test ghép: services/that/us18.ghep.ts. Khối chưa thu (YC7.4, TA2) chưa làm: [MỞ: YC7.4 bước 1, DC53 US18-Q1].
+// test ghép: services/that/us18.ghep.ts. Khối chưa thu (mục "Chưa thu tiền" (US18), TA2) chưa làm: [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1].
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 const HOA = "zalo-chi-hoa";
 const HUNG = "zalo-sale-hung";
@@ -52,7 +52,7 @@ test("test_YC7_1_NT3_KB4_KB6_KB7_KB13_phan_tram_giam_va_tang_theo_so_cua_kich_ba
 
 test("test_YC7_1_NT3_phan_tram_khong_doi_ghi_0_0_va_thang_truoc_bang_0_khong_co_phan_tram", () => {
   expect(chuPhanTram(phanTramSoVoiThangTruoc(5_000_000, 5_000_000)!)).toBe("0.0%");
-  // YC7-H4: tháng trước 0 thì không chia được; app tạm không có dòng phần trăm
+  // CH-079: tháng trước 0 thì không chia được; app tạm không có dòng phần trăm
   expect(phanTramSoVoiThangTruoc(800_000, 0)).toBeNull();
   expect(phanTramSoVoiThangTruoc(0, 0)).toBeNull();
 });
@@ -131,7 +131,7 @@ test("test_QT2_2_VD1_KB5_B9_30_11_den_02_12_chia_800_000d_cho_thang_11_va_800_00
 test("test_YC7_1_NT5_KB9_thang_1_2027_chua_co_dat_phong_moi_so_la_0_theo_nguoi_ban_rong", async () => {
   const tk = await getThongKeChu({ thang: "2027-01" });
   expect(tk).toMatchObject({ doanh_thu: 0, dem_co_khach: 0, theo_nguoi_ban: [], so_dem_trong_thang: 31 });
-  // Tháng 12 còn 800.000đ của B9, nhưng tháng 1 trống thì không có dòng phần trăm (YC7.1-NT5)
+  // Tháng 12 còn 800.000đ của B9, nhưng tháng 1 trống thì không có dòng phần trăm (US18-NT5)
   expect(tk.doanh_thu_thang_truoc).toBe(800_000);
   expect(tk.theo_can.map((c) => c.doanh_thu)).toEqual([0, 0]);
 });
@@ -141,7 +141,7 @@ test("test_YC7_2_NT2_NT3_chuoi_6_thang_ket_thuc_o_thang_dang_xem_T9_9_6tr_T10_11
   expect(t10.chuoi_thang.map((t) => t.thang)).toEqual(["2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"]);
   expect(t10.chuoi_thang[4].doanh_thu).toBe(9_600_000);
   expect(t10.chuoi_thang[5].doanh_thu).toBe(11_800_000);
-  // YC7.2-NT3: tháng 12 thì T7 đến T12
+  // US18-NT8: tháng 12 thì T7 đến T12
   const t12 = await getThongKeChu({ thang: "2026-12", so_thang: 6 });
   expect(t12.chuoi_thang.map((t) => t.thang)).toEqual(["2026-07", "2026-08", "2026-09", "2026-10", "2026-11", "2026-12"]);
   expect(t12.chuoi_thang.slice(-3).map((t) => t.doanh_thu)).toEqual([11_800_000, 800_000, 800_000]);

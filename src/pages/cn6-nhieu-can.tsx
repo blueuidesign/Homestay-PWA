@@ -15,7 +15,7 @@ import { docTien } from "./cn4-dat-phong";
 import { BangChonNam, chuToastApDung } from "./cn6-gia-man";
 import { chonTatCa, chuTieuDeDatGia, doiChon, loiKhiApDungNhieuCan, NoiDungChonCan, NoiDungDatGiaNhieuCan } from "./cn6-nhieu-can-man";
 
-// US7 · Đặt giá nhiều căn (YC3.6): CN6-05 và CN6-05-00 chọn căn, CN6-06 đặt giá. Lưu bằng POST /gia/nhieu-can.
+// US7 · Đặt giá nhiều căn (mục "Đặt giá nhiều căn" (US7)): CN6-05 và CN6-05-00 chọn căn, CN6-06 đặt giá. Lưu bằng POST /gia/nhieu-can.
 // Các căn đã chọn và phần đang nhập giữ trong bộ nhớ (stores/gia.ts) để "Đổi căn" và rời app rồi quay lại (HV3) không mất.
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
@@ -114,7 +114,7 @@ export const CN6DatGiaNhieuCan = () => {
   const apDung = async () => {
     if (dangLuuRef.current || !canApDung) return;
     if (thangChon.length === 0) {
-      setBaoChuaChon(true); // như YC3.4-NT2: không gửi, không lưu gì
+      setBaoChuaChon(true); // như US4-NT4: không gửi, không lưu gì
       return;
     }
     const thuong = docTien(giaThuong);

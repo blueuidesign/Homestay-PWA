@@ -26,7 +26,7 @@ CH-001 (`docs/Cau_hoi_mo.md`): người dùng đăng nhập bằng gì (mã OTP 
 Màn này chỉ hiện khi project Supabase bật đăng nhập bằng email và mật khẩu. Production không bật.
 
 ### Đăng nhập thật
-Viết sau khi CH-001 có lời đáp: bảng bước, chữ trên màn, tiêu chí. Giữ các điều sau dù chọn cách nào (mục YC1.1 ở story US1, `docs/luat-chung/HV.md` mục HV4): không bắt đăng ký tài khoản bằng form dài; không xin quyền gì khi vừa mở app; chỉ xin số điện thoại khi người dùng bấm việc cần số, có thẻ giải thích trước.
+Viết sau khi CH-001 có lời đáp: bảng bước, chữ trên màn, tiêu chí. Giữ các điều sau dù chọn cách nào (mục mục "Đăng nhập" (US1) ở story US1, `docs/luat-chung/HV.md` mục HV4): không bắt đăng ký tài khoản bằng form dài; không xin quyền gì khi vừa mở app; chỉ xin số điện thoại khi người dùng bấm việc cần số, có thẻ giải thích trước.
 
 ## Tiêu chí nghiệm thu
 - **US37-NT1** Khi app có cấu hình Supabase và người dùng chưa đăng nhập, thì mở địa chỉ nào của app cũng về màn đăng nhập, trừ địa chỉ mở link mời (xem trước không cần đăng nhập, QD-008).
@@ -35,7 +35,7 @@ Viết sau khi CH-001 có lời đáp: bảng bước, chữ trên màn, tiêu c
 - **US37-NT4** Khi đã đăng nhập, đóng trình duyệt rồi mở lại, thì vẫn ở trong app.
 - **US37-NT5** Khi bấm "Đăng xuất", thì về màn đăng nhập, và bấm nút quay lại của trình duyệt không thấy lại dữ liệu cũ.
 - **US37-NT6** Khi app không có cấu hình Supabase, thì không có màn đăng nhập và app chạy chế độ thử như cũ.
-- **US37-NT7** Khi một người mở link mời lúc chưa đăng nhập rồi đăng nhập, thì quay lại đúng màn "Thêm lịch" của link đó (mục YC1.3 ở story US6).
+- **US37-NT7** Khi một người mở link mời lúc chưa đăng nhập rồi đăng nhập, thì quay lại đúng màn "Thêm lịch" của link đó (mục mục "Mở app từ link mời của chủ nhà" (US6) ở story US6).
 
 ## Quyền
 PQ1, PQ2 (`docs/luat-chung/PQ.md`): mỗi người chỉ sửa hồ sơ của mình. Đã có test ở `tests/db/t_01_phan_quyen.sql`.

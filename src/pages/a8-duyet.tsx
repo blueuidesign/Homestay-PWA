@@ -11,9 +11,9 @@ import { dongYXinLich, type ManLink } from "../services/mo-link";
 import { boNhoHoSo } from "../stores/ho-so";
 import { NoiDungA8, NoiDungA801 } from "./a8-man";
 
-// A8 · Chủ nhà mở link của sale (YC1.7), A8-P1 và A8-P2 (popup xin tên và số của US5), A8-01 khi link không dùng được.
+// A8 · Chủ nhà mở link của sale (mục "Chủ nhà duyệt lời mời xem lịch" (US17)), A8-P1 và A8-P2 (popup xin tên và số của US5), A8-01 khi link không dùng được.
 // Do ManMoLink (a10-them-lich.tsx) gọi khi link mở ra là link xin lịch. "Đồng ý": CN7-06 (toast, về tab Sale); chủ nhà mới chưa có căn:
-// A4-01 (tab Lịch, dải xanh, "Thêm căn đầu tiên"). "Từ chối": về CN7, không gọi server ([MỞ: YC1-H11]).
+// A4-01 (tab Lịch, dải xanh, "Thêm căn đầu tiên"). "Từ chối": về CN7, không gọi server ([MỞ: CH-010]).
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 
@@ -68,7 +68,7 @@ export const A8DuyetXinLich = ({ ma, man }: { ma: string; man: Extract<ManLink, 
     }
   };
 
-  // "Từ chối": không gọi server, không ghi gì (YC1.7 bước 4). Chưa có tài khoản thì không có CN7 để về: về A1.
+  // "Từ chối": không gọi server, không ghi gì (mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 4). Chưa có tài khoản thì không có CN7 để về: về A1.
   const tuChoi = () => dieuHuong(man.coTaiKhoan ? DUONG.SALE : DUONG.A1, { replace: true, animate: false });
 
   return (

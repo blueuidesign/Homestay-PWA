@@ -16,7 +16,7 @@ import {
 import type { CanChiTiet } from "../services/kieu";
 import { chuNgayNgan, congNgay } from "../services/ngay";
 
-// Phần vẽ của S6-05 (YC6.5). Không gọi server. Màn: s6-ghi-dat-phong.tsx.
+// Phần vẽ của S6-05 (mục "Ghi booking đã chốt cho căn tự nhập" (US16)). Không gọi server. Màn: s6-ghi-dat-phong.tsx.
 export type FormGhi = { chip: "hom" | "mai" | "khac"; ngayNhan: string; soDem: number; tra: string; thu: string };
 
 export const NoiDungS6GhiDatPhong = ({

@@ -13,7 +13,7 @@ Là sale, tôi muốn gửi mô tả, giá bán và ảnh của vài căn cho kh
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC5.5 · Gửi thông tin cho khách qua Zalo
+### Gửi thông tin cho khách qua Zalo
 > **Bản PWA:** gửi bằng bảng chia sẻ của điện thoại, thiếu thì sao chép. Xem `PWA.md` mục P3 và CH-003.
 Rủi ro: cao
 Mục đích: sale gửi cho khách mô tả, giá và ảnh của các căn đã chọn qua Zalo, trong vài chạm.
@@ -23,7 +23,7 @@ Khi nào xảy ra: sale đã chọn căn và bấm "Gửi cho khách" (S2, S3, S
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 0 | Bấm "Gửi cho khách" | Chạy YC1.5 nếu hồ sơ sale chưa có số (YC1.5), rồi mở S5. Bấm "Để sau" vẫn mở S5 | đổi token số điện thoại một lần trong 2 phút, ghi `sdt`, `ten`, `anh_dai_dien`; từ chối hay "Để sau" thì không gọi | Hộp thoại xin quyền của Zalo (YC1.5.2) | Số điện thoại vào hồ sơ nếu sale cho phép |
+| 0 | Bấm "Gửi cho khách" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ sale chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), rồi mở S5. Bấm "Để sau" vẫn mở S5 | đổi token số điện thoại một lần trong 2 phút, ghi `sdt`, `ten`, `anh_dai_dien`; từ chối hay "Để sau" thì không gọi | Hộp thoại xin quyền của Zalo (mục "Hộp thoại cấp quyền của Zalo" (US5)) | Số điện thoại vào hồ sơ nếu sale cho phép |
 | 1 | Mở màn | Tiêu đề "Gửi cho khách". Dòng "3 căn · 10/10 → 12/10. Zalo không gửi chữ và ảnh chung một tin: mỗi căn gửi chữ một lần, ảnh một lần." | mỗi căn chữ theo mẫu tin của sale, giá bán không giá chủ, đường dẫn ảnh có chữ ký. Không ghi gì | Không | Không |
 | 2 | Xem một căn | Số thứ tự, tên căn, số ảnh ("6 ảnh"), nội dung chữ ("ICON40 1509 · 2PN, view biển Bãi Cháy / 10/10 → 12/10 (2 đêm): 2.600.000đ"), không có tiện ích căn. Phần phòng ngủ ghi theo `Tu_dien.md`: có số giường thì "2PN · 3 giường"; không ghi số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | Không gọi server, dùng chữ bước 1 trả về (| Không | Không |
 | 3 | Bấm "Gửi chữ qua Zalo" | Mở cửa sổ gửi của Zalo với chữ có sẵn; sale chọn người nhận và bấm gửi | xem bước 7; server không gửi gì ra ngoài | Cửa sổ chia sẻ của Zalo | Không (lần gửi: bước 7) |
@@ -31,7 +31,7 @@ Hành vi:
 | 5 | Bấm "Sao chép chữ" | Sao chép chữ của căn đó | Không gọi server | Không | Không |
 | 6 | Bấm "Sao chép chữ cả 3 căn" | Sao chép chữ cả 3 căn để dán vào tin nhắn bất kỳ ("Hoặc sao chép chữ rồi dán vào tin nhắn bất kỳ") | Không gọi server | Không | Không |
 | 7 | Đã gửi một căn (bước 3 hoặc 4) | Không đổi gì trên màn | Ghi lần gửi: căn, các đêm, lúc gửi. Chỉ ghi căn và ngày, không ghi khách (QD-011) | | Lần gửi khách của sale |
-| 8 | (sau đó) Có booking mới chiếm ít nhất một đêm của lần gửi | Thông báo "<tòa> <căn> · <ngày nhận> → <ngày trả> vừa có người đặt" ở P13 (YC9.3) | Tìm lần gửi còn hiệu lực có đêm trùng, gửi thông báo theo quy tắc Báo căn đã gửi có người đặt | | Thông báo của sale |
+| 8 | (sau đó) Có booking mới chiếm ít nhất một đêm của lần gửi | Thông báo "<tòa> <căn> · <ngày nhận> → <ngày trả> vừa có người đặt" ở P13 (mục "Cài đặt thông báo" (US21)) | Tìm lần gửi còn hiệu lực có đêm trùng, gửi thông báo theo quy tắc Báo căn đã gửi có người đặt | | Thông báo của sale |
 
 Theo quy tắc: Chữ và ảnh gửi riêng; Giá bán gồm phần cộng thêm; Mẫu tin gửi khách; Báo căn đã gửi có người đặt.
 
@@ -44,7 +44,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3; sale gửi xong quay lại app; chưa vẽ nhãn "Đã gửi"
 - mở từ link: không áp dụng
 
-### YC5.7 · Mẫu tin gửi khách
+### Mẫu tin gửi khách
 Rủi ro: tb
 Mục đích: sale tùy chỉnh câu chữ tin gửi khách bằng các ô điền sẵn, để mỗi lần gửi không phải gõ lại.
 Màn hình: P11
@@ -73,21 +73,21 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC5.5-NT1** Khi sale chọn 3 căn, thì S5 có 3 khối, mỗi khối một nút gửi chữ và một nút gửi ảnh.
-- **YC5.5-NT2** Khi sale bấm "Gửi chữ qua Zalo", thì cửa sổ Zalo mở với chữ của đúng căn đó.
-- **YC5.5-NT3** Khi sale bấm "Sao chép chữ cả 3 căn", thì bộ nhớ tạm có chữ của cả 3 căn theo thứ tự trên màn.
-- **YC5.5-NT4** Khi chữ gửi khách hiện giá, thì đó là giá bán cho khách và không có giá chủ nhà.
-- **YC5.5-NT5** Khi căn gửi khách có số giường, thì chữ gửi khách ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn; chữ không có "x khách".
-- **YC5.5-NT6** Khi sale đã gửi một căn cho khách và sau đó có booking mới của người khác chiếm ít nhất một đêm của lần gửi, thì sale nhận thông báo "<tòa> <căn> · <ngày nhận> → <ngày trả> vừa có người đặt" ở P13.
-- **YC5.5-NT7** Khi sale nhận thông báo này, thì thông báo không có tên người đặt và không có giá (QD-011).
-- **YC5.5-NT8** Khi chính sale đã gửi là người đặt căn đó, thì sale không nhận thông báo này.
-- **YC5.5-NT9** Khi booking mới được tạo sau ngày nhận phòng của lần gửi, thì sale không nhận thông báo cho lần gửi đó.
-- **YC5.5-NT10** Khi có hai booking mới cùng chiếm đêm của một lần gửi, thì sale chỉ nhận một thông báo cho căn đó của lần gửi đó.
-- **YC5.5-NT11** Khi hồ sơ sale chưa có số điện thoại và sale bấm "Gửi cho khách", thì popup giải thích xin tên và số hiện trước hộp thoại Zalo; bấm "Để sau" thì S5 vẫn mở. Khi hồ sơ đã có số, thì S5 mở ngay, không có popup. (YC1.5)
-- **YC5.5-NT12** Khi sale xem chữ gửi khách của một căn ở S5, thì chữ không có tiện ích căn (bếp, máy giặt, bể bơi...).
-- **YC5.7-NT1** Khi sale chạm "[Ngày]", thì mẫu có thêm ô [Ngày] và bản xem trước hiện ngày thật.
-- **YC5.7-NT2** Khi sale bấm "Dùng lại mẫu mặc định", thì mẫu về nội dung mặc định.
-- **YC5.7-NT3** Khi sale gửi khách ở S5, thì chữ gửi theo mẫu đã lưu.
+- **US14-NT1** Khi sale chọn 3 căn, thì S5 có 3 khối, mỗi khối một nút gửi chữ và một nút gửi ảnh.
+- **US14-NT2** Khi sale bấm "Gửi chữ qua Zalo", thì cửa sổ Zalo mở với chữ của đúng căn đó.
+- **US14-NT3** Khi sale bấm "Sao chép chữ cả 3 căn", thì bộ nhớ tạm có chữ của cả 3 căn theo thứ tự trên màn.
+- **US14-NT4** Khi chữ gửi khách hiện giá, thì đó là giá bán cho khách và không có giá chủ nhà.
+- **US14-NT5** Khi căn gửi khách có số giường, thì chữ gửi khách ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn; chữ không có "x khách".
+- **US14-NT6** Khi sale đã gửi một căn cho khách và sau đó có booking mới của người khác chiếm ít nhất một đêm của lần gửi, thì sale nhận thông báo "<tòa> <căn> · <ngày nhận> → <ngày trả> vừa có người đặt" ở P13.
+- **US14-NT7** Khi sale nhận thông báo này, thì thông báo không có tên người đặt và không có giá (QD-011).
+- **US14-NT8** Khi chính sale đã gửi là người đặt căn đó, thì sale không nhận thông báo này.
+- **US14-NT9** Khi booking mới được tạo sau ngày nhận phòng của lần gửi, thì sale không nhận thông báo cho lần gửi đó.
+- **US14-NT10** Khi có hai booking mới cùng chiếm đêm của một lần gửi, thì sale chỉ nhận một thông báo cho căn đó của lần gửi đó.
+- **US14-NT11** Khi hồ sơ sale chưa có số điện thoại và sale bấm "Gửi cho khách", thì popup giải thích xin tên và số hiện trước hộp thoại Zalo; bấm "Để sau" thì S5 vẫn mở. Khi hồ sơ đã có số, thì S5 mở ngay, không có popup. (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5))
+- **US14-NT12** Khi sale xem chữ gửi khách của một căn ở S5, thì chữ không có tiện ích căn (bếp, máy giặt, bể bơi...).
+- **US14-NT13** Khi sale chạm "[Ngày]", thì mẫu có thêm ô [Ngày] và bản xem trước hiện ngày thật.
+- **US14-NT14** Khi sale bấm "Dùng lại mẫu mặc định", thì mẫu về nội dung mặc định.
+- **US14-NT15** Khi sale gửi khách ở S5, thì chữ gửi theo mẫu đã lưu.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -114,7 +114,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | can_id | thân | id | Có | |
 | ngay_nhan | thân | ngay | Có | |
 | ngay_tra | thân | ngay | Có | Sau `ngay_nhan`, tối đa 30 đêm |
-App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (YC5.5 bước 5, 6). [MỞ: YC5-H15] (câu hỏi 19).
+App gọi khi sale bấm "Gửi chữ qua Zalo" hoặc "Gửi ảnh qua Zalo", không gọi khi "Sao chép chữ" (mục "Gửi thông tin cho khách qua Zalo" bước 5, 6). [MỞ: CH-026] (câu hỏi 19).
 
 **Lỗi riêng**
 | Mã | Khi nào |
@@ -150,7 +150,7 @@ Vào từ: S3, bấm việc cần tên và số khi hồ sơ chưa có số
 | # | Thành phần | Nội dung | Dữ liệu lấy từ |
 |---|---|---|---|
 | 1 | Màn gốc | Chép đúng S3, phủ lớp tối | S3 |
-| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Thêm tên và số điện thoại vào tin gửi khách", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | YC1.5 Sửa r4 |
+| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Thêm tên và số điện thoại vào tin gửi khách", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) Sửa r4 |
 | 3 | Nút | "Đồng ý, tiếp tục", "Để sau", dòng "Để sau vẫn … được" | |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
@@ -190,13 +190,13 @@ Bảng `lan_gui_khach` (chỉ sale đó đọc).
 - `fn_luu_cai_dat`: test ở t_07_can_gia_mo_rong.sql, t_08_thong_bao.sql
 
 ## Ngoài phạm vi
-- Chọn căn, tích chọn, thanh đáy "Gửi cho khách" (YC5.3): US12.
-- Chi tiết căn S3, giá bán và mức cộng (YC5.4, YC5.6): US13.
-- Hộp thoại xin tên và số điện thoại (YC1.5): phần dùng chung làm ở US5. US này chỉ gọi nó khi hồ sơ chưa có số (YC5.5 bước 0).
-- Màn P13 danh sách thông báo (YC1.10): US17. Popup thông báo mới (YC1.13): US30. Công tắc bật tắt từng loại thông báo (YC9.3): US21.
-- Gửi yêu cầu đặt phòng, chủ nhà chấp nhận (YC4.5, YC4.6): US15. Hàm báo "căn đã gửi có người đặt" làm ở đây, (US3) gọi nó; chỗ gọi từ làm ở US15, từ đổi ngày làm ở US10 [MỞ: US14-H2] bảng phủ không nêu.
-- Nhãn "Đã gửi" trên màn và đếm lần gửi cho thống kê (YC5-H10): chưa làm.
-- Chọn ảnh khi căn có hơn 10 ảnh, giới hạn số căn mỗi lần gửi (YC5-H6, 8): chưa chốt.
+- Chọn căn, tích chọn, thanh đáy "Gửi cho khách" (mục "Kết quả tìm phòng" (US12)): US12.
+- Chi tiết căn S3, giá bán và mức cộng (mục "Chi tiết căn và giá bán" (US13), mục "Mức cộng giá mặc định" (US13)): US13.
+- Hộp thoại xin tên và số điện thoại (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)): phần dùng chung làm ở US5. US này chỉ gọi nó khi hồ sơ chưa có số (mục "Gửi thông tin cho khách qua Zalo" bước 0).
+- Màn P13 danh sách thông báo (mục "Thông báo kết quả kết nối cho sale" (US17)): US17. Popup thông báo mới (mục "Popup thông báo mới" (US30)): US30. Công tắc bật tắt từng loại thông báo (mục "Cài đặt thông báo" (US21)): US21.
+- Gửi yêu cầu đặt phòng, chủ nhà chấp nhận (mục "Sale gửi yêu cầu đặt phòng" (US15), mục "Chủ nhà nhận và trả lời yêu cầu" (US15)): US15. Hàm báo "căn đã gửi có người đặt" làm ở đây, (US3) gọi nó; chỗ gọi từ làm ở US15, từ đổi ngày làm ở US10 [MỞ: US14-H2] bảng phủ không nêu.
+- Nhãn "Đã gửi" trên màn và đếm lần gửi cho thống kê (CH-072): chưa làm.
+- Chọn ảnh khi căn có hơn 10 ảnh, giới hạn số căn mỗi lần gửi (CH-070, 8): chưa chốt.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

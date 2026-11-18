@@ -25,8 +25,8 @@ import { boNhoLich } from "../stores/lich";
 import { layVai } from "../stores/vai";
 import { mauCuaCan } from "./cn1-lich-thang";
 
-// CN4 · Thêm đặt phòng (YC4.1, YC4.1.1, YC4.1.2), CN4-01 tiền phòng trống, CN4-03 toast (HV8).
-// US5: chọn sale đã kết nối làm người đặt thì đặt phòng tính cho sale đó (YC4.1.2-NT3, YC4.1.3). "+ Sale mới" là US sau.
+// CN4 · Thêm đặt phòng (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), mục "Người đặt, tiền phòng và tiền cọc" (US3)), CN4-01 tiền phòng trống, CN4-03 toast (HV8).
+// US5: chọn sale đã kết nối làm người đặt thì đặt phòng tính cho sale đó (US5-NT13, mục "Booking chủ nhà ghi cho sale" (US28)). "+ Sale mới" là US sau.
 // Chưa làm: giữ nháp khi app bị đóng hẳn (HV3 bước 3, US3-KB21) vì cần Native Storage.
 
 export type SoDemChip = 1 | 2 | 3 | "tuy_chon";
@@ -42,11 +42,11 @@ export const CHIP_TIEN: { gia_tri: TrangThaiTien; chu: string }[] = [
   { gia_tri: "da_thanh_toan", chu: "Đã thanh toán" },
 ];
 
-// Ngày trả theo chip số đêm (YC4.1.1-NT3: "2 đêm" thì ngày trả là ngày nhận cộng 2)
+// Ngày trả theo chip số đêm (US3-NT8: "2 đêm" thì ngày trả là ngày nhận cộng 2)
 export const ngayTraTheoChip = (nhan: string, chip: SoDemChip, traTuyChon: string) =>
   chip === "tuy_chon" ? traTuyChon : congNgay(nhan, chip);
 
-// Dòng kiểm trùng (YC4.1.1 bước 4)
+// Dòng kiểm trùng (mục "Căn, ngày và kiểm tra trùng lịch" (US3) bước 4)
 export const dongKiemTrung = (nhan: string, tra: string, kq: KiemTrung | null) => {
   if (!kq) return { loai: "dang" as const, chu: "Đang kiểm tra lịch…" };
   if (kq.khong_trung) {
@@ -61,7 +61,7 @@ export const docTien = (chu: string) => {
   return so === "" ? null : Number(so);
 };
 
-// Toast sau khi lưu (YC4.1-NT1, CN4-03)
+// Toast sau khi lưu (US3-NT1, CN4-03)
 export const chuToastDatPhong = (tenNguoiDat: string | null, maCan: string) =>
   `Đã thêm đặt phòng ${tenNguoiDat ?? "Khách lẻ"} · ${maCan}`;
 
@@ -360,7 +360,7 @@ export const NoiDungCN4 = ({ can, sale, khachLe, form, kiemTra, daSuaTien, dangL
   );
 };
 
-// Chữ lỗi khi lưu không được (HV2 bước 3, YC4.1.1-NT2)
+// Chữ lỗi khi lưu không được (HV2 bước 3, US3-NT3)
 export const loiKhiLuu = (e: unknown) => {
   if (e instanceof LoiMang) return "Chưa lưu được, bấm lại khi có mạng";
   if (e instanceof LoiApi && e.loi === "TRUNG_LICH") {
@@ -402,7 +402,7 @@ export const CN4DatPhong = () => {
         setCan(lich.can);
         const canId = moTu.can_id ?? lich.can[0]?.can_id ?? null;
         if (!moTu.ngay && canId) {
-          // Mở từ nút "Đặt phòng" ở đầu lịch: đêm trống đầu tiên (YC4.1 trạng thái rỗng)
+          // Mở từ nút "Đặt phòng" ở đầu lịch: đêm trống đầu tiên (mục "Chủ nhà ghi booking mới" (US3) trạng thái rỗng)
           const g = await getGoiY({ can_id: canId });
           if (!huy.da) setForm((f) => ({ ...f, canId, ...(g.ngay_nhan ? { ngayNhan: g.ngay_nhan, traTuyChon: g.ngay_tra! } : {}) }));
         } else if (!huy.da) {
@@ -421,7 +421,7 @@ export const CN4DatPhong = () => {
     };
   }, []);
 
-  // Kiểm trùng và điền sẵn tiền phòng mỗi khi đổi căn hay ngày (YC4.1.1 bước 4, YC4.1.2 bước 2, QT4.1)
+  // Kiểm trùng và điền sẵn tiền phòng mỗi khi đổi căn hay ngày (mục "Căn, ngày và kiểm tra trùng lịch" (US3) bước 4, mục "Người đặt, tiền phòng và tiền cọc" (US3) bước 2, QT4.1)
   useEffect(() => {
     if (!form.canId) return;
     const lan = ++lanKiem.current;
@@ -474,7 +474,7 @@ export const CN4DatPhong = () => {
         khoa.current,
       );
       toast(chuToastDatPhong(dp.nguoi_dat.ten, dp.ma_can));
-      // Về lịch, ngày nhận mở sẵn trong chi tiết ngày (YC4.1 bước 3)
+      // Về lịch, ngày nhận mở sẵn trong chi tiết ngày (mục "Chủ nhà ghi booking mới" (US3) bước 3)
       boNhoLich.ghiDangXem({ thang: thangCua(dp.ngay_nhan), ngay: dp.ngay_nhan });
       // Sale ghi đặt phòng cho căn của tôi (S6-07) thì về Lịch của sale
       dieuHuong(layVai() === "sale" ? DUONG.LICH_SALE : DUONG.LICH, { replace: true, state: { vuaGhi: dp.ngay_nhan } });

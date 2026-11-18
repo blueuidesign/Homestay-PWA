@@ -149,7 +149,7 @@ test("test_YC4_5_NT1_US15_KB2_gui_thanh_cong_co_gio_gui_va_man_cho_ba_nut", asyn
   expect(yc.gia_chu).toBe(2_200_000);
   expect(yc.gia_ban).toBe(2_600_000);
   expect(yc.loi_nhan).toBe("Khách đến tối");
-  // Giờ theo giờ Việt Nam: 07:20 UTC là 14:20 (YC4.5 bước 4)
+  // Giờ theo giờ Việt Nam: 07:20 UTC là 14:20 (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 4)
   expect(chuGio("2026-10-07T07:20:00.000Z")).toBe("14:20");
   const m = ketQuaSale(yc);
   const v = van(m);
@@ -384,7 +384,7 @@ test("test_YC4_6_NT3_US15_KB6_chap_nhan_thi_booking_vao_lich_sale_khac_thay_kin_
   const co = (n: string) => thang.ngay.some((x) => x.ngay === n);
   expect([co("2026-10-24"), co("2026-10-25"), co("2026-10-26")]).toEqual([true, true, false]);
   expect((await choDS()).map((y) => y.id)).not.toContain(yc.id);
-  // Sale Lan: Kín, không có tên Sale Hùng (YC4.7-NT1, PQ4.SALE)
+  // Sale Lan: Kín, không có tên Sale Hùng (US15-NT12, PQ4.SALE)
   await dung(LAN);
   const lich = await getSaleLich({ tu: "2026-10-24", so_ngay: 7 });
   const json = JSON.stringify(lich.can.find((c) => c.id === ids["1509"])!.o);
@@ -443,7 +443,7 @@ test("test_YC4_6_NT4_US15_KB8_tu_choi_ba_chip_gui_ly_do_da_co_khach_va_sale_thay
   const thang = await getLichThang({ thang: "2026-10" });
   expect(thang.ngay.filter((n) => n.ngay === "2026-10-31")).toEqual([]);
   expect(JSON.stringify(tc)).not.toMatch(/gia_ban|tien_chenh/);
-  // Sale: S3-05 với lý do và căn tương tự giá bán (YC4.7-NT2, NT6)
+  // Sale: S3-05 với lý do và căn tương tự giá bán (US15-NT13, NT6)
   await dung(HUNG);
   const s = (await getYeuCau(yc.id)) as YeuCauSale;
   expect(s.ly_do).toBe("da_co_khach");
@@ -468,7 +468,7 @@ test("test_YC4_7_NT6_US15_can_tuong_tu_chi_ghi_gia_ban_khong_ghi_tim_gan_day", a
   const truoc = (await import("../services/api")).getSaleTimGanDay;
   const nTruoc = (await truoc()).muc.length;
   const can = await canTuongTu(yc);
-  expect((await truoc()).muc.length).toBe(nTruoc); // ghi_lich_su=false (YC4.7 bước 2)
+  expect((await truoc()).muc.length).toBe(nTruoc); // ghi_lich_su=false (mục "Sale nhận kết quả yêu cầu" (US15) bước 2)
   expect(can.find((c) => c.ma_can === "1103")!.tong_gia_ban).toBe(1_600_000);
   expect(can.find((c) => c.ma_can === "2208")!.tong_gia_ban).toBe(3_600_000);
   const v = van(ketQuaSale({ ...yc, trang_thai: "bi_tu_choi", ly_do: "da_co_khach" }, { canTuongTu: can }));
@@ -479,7 +479,7 @@ test("test_YC4_7_NT6_US15_can_tuong_tu_chi_ghi_gia_ban_khong_ghi_tim_gan_day", a
 test("test_YC4_8_NT1_US15_KB12_hai_yeu_cau_trung_dem_co_nhan_trung_ngay_o_CN1_03_va_canh_bao_o_CN9", async () => {
   const hung = await gui(HUNG, "1509", "2026-10-17", "2026-10-19");
   const lan = await gui(LAN, "1509", "2026-10-18", "2026-10-19");
-  // Yêu cầu của Hùng chưa chiếm đêm: Lan gửi được (YC4.8 bước 1)
+  // Yêu cầu của Hùng chưa chiếm đêm: Lan gửi được (mục "Yêu cầu trùng ngày" (US15) bước 1)
   expect(lan.trang_thai).toBe("cho_chu");
   await dung(HOA);
   const ds = await choDS();
@@ -505,7 +505,7 @@ test("test_YC4_8_NT2_US15_KB13_chap_nhan_mot_yeu_cau_thi_yeu_cau_trung_bi_tu_cho
   expect(await choDS()).toEqual([]);
   const thang = await getLichThang({ thang: "2026-10" });
   expect(thang.ngay.filter((n) => n.ngay === "2026-10-17" || n.ngay === "2026-10-18")).toHaveLength(2);
-  // Lan: Bị từ chối, lý do chủ nhận đặt khác (YC4.7-NT3), không có tên Sale Hùng, không có giá bán của Hùng
+  // Lan: Bị từ chối, lý do chủ nhận đặt khác (US15-NT14), không có tên Sale Hùng, không có giá bán của Hùng
   await dung(LAN);
   const y = (await getYeuCau(lan.id)) as YeuCauSale;
   expect(y.trang_thai).toBe("bi_tu_choi");

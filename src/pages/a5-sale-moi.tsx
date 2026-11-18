@@ -1,8 +1,8 @@
 import React from "react";
 import { Icon } from "../components/icon";
 
-// A5 · Sale mới, chưa có nguồn phòng (YC1.4 bước 3). Hai nút chưa nối: "Gửi tin nhắn xin lịch đến chủ nhà" mở A6 (YC1.6, US17),
-// "Thêm căn thủ công" mở S6-02 (YC6, US16). Thanh tab không có "Tìm phòng" (YC1.4-NT2).
+// A5 · Sale mới, chưa có nguồn phòng (mục "Màn đầu tiên khi chưa có dữ liệu" (US1) bước 3). Hai nút chưa nối: "Gửi tin nhắn xin lịch đến chủ nhà" mở A6 (mục "Sale xin chủ nhà cho xem lịch" (US17), US17),
+// "Thêm căn thủ công" mở S6-02 (nhóm Nguồn phòng và căn tự nhập, US16). Thanh tab không có "Tìm phòng" (US6-NT9).
 export const CHU_A5_TIEU_DE = "Chưa có nguồn phòng";
 export const CHU_A5_MO_TA = "Xin chủ nhà gửi link mời để thấy lịch phòng trống. Chủ chưa dùng app thì tự nhập căn.";
 export const CHU_A5_GHI_CHU =

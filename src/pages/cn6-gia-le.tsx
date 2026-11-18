@@ -10,7 +10,7 @@ import { boNhoGia } from "../stores/gia";
 import { docTien } from "./cn4-dat-phong";
 import { chamONoiDai, chuChuaCoDai, chuToastDaLuuDip, dienTuNgayLe, kiemDip, loiKhiLuuDip, NoiDungGiaLe, timNgayLe } from "./cn6-gia-le-man";
 
-// US8 · CN6-02, CN6-03, CN6-03-01 Giá ngày lễ, dịp đặc biệt (YC3.5). Vào từ nút "Đặt giá ngày lễ, dịp đặc biệt" hoặc chạm một ngày
+// US8 · CN6-02, CN6-03, CN6-03-01 Giá ngày lễ, dịp đặc biệt (mục "Giá ngày lễ và dịp đặc biệt" (US8)). Vào từ nút "Đặt giá ngày lễ, dịp đặc biệt" hoặc chạm một ngày
 // trên lịch giá ở tab Giá. Tải GET /ngay-le, lưu POST /can/:id/gia-dip. Lưu xong về tab Giá, toast.
 // Phần đang nhập giữ trong bộ nhớ (stores/gia.ts) để rời app rồi quay lại vẫn còn (HV3).
 const khoaMoi = () =>

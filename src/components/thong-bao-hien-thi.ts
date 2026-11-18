@@ -29,7 +29,7 @@ const tenChu = (d: DuLieu) => chuoi(d.ten_chu_nha) ?? "Chủ nhà";
 
 // ---- Toast A9, A9-02 ----
 export const CHU_NUT_XEM = "Xem";
-export const CHU_PHU_CHUA_CO_CAN = "Căn của chủ nhà sẽ vào Nguồn phòng khi chủ nhà thêm căn"; // chữ tạm, canvas không vẽ trường hợp chưa có căn [MỞ: YC1-H30]
+export const CHU_PHU_CHUA_CO_CAN = "Căn của chủ nhà sẽ vào Nguồn phòng khi chủ nhà thêm căn"; // chữ tạm, canvas không vẽ trường hợp chưa có căn [MỞ: CH-061]
 export type NoiDungToast = { chu: string; phu: string };
 
 // ds: du_lieu của từng lần đồng ý (một mục gom gồm nhiều lần). Một chủ nhà: A9. Nhiều chủ nhà: A9-02 ("3 chủ nhà … 7 căn mới").
@@ -116,7 +116,7 @@ export function dongThongBao(m: MucThongBao): DongP13 {
     case "can_da_gui_co_nguoi_dat":
       return { tieuDe: "Căn bạn đã gửi khách vừa có người đặt", chiTiet: kyTu(can, d.ngay_nhan, d.ngay_tra) };
     default:
-      // Loại chưa vẽ ở P13 (chu_them_can, chu_ghi_booking_cho_sale, sale_gui_yeu_cau, xin_huy_booking, tra_loi_huy_booking…): [MỞ: YC1-H29]
+      // Loại chưa vẽ ở P13 (chu_them_can, chu_ghi_booking_cho_sale, sale_gui_yeu_cau, xin_huy_booking, tra_loi_huy_booking…): [MỞ: CH-060]
       return { tieuDe: "Thông báo mới", chiTiet: null };
   }
 }
@@ -146,7 +146,7 @@ export function dichThongBao(m: MucThongBao): DichThongBao | null {
     case "chu_dong_y_ket_noi":
       return { duong: "LICH_SALE" }; // A10-02: lịch sau khi thêm
     case "chu_xoa_tai_khoan":
-      return { duong: "CAN_SALE" }; // S6-08, không mở căn hay lịch của chủ nhà đã xóa (YC1.13-NT4)
+      return { duong: "CAN_SALE" }; // S6-08, không mở căn hay lịch của chủ nhà đã xóa (US22-NT4)
     case "chu_ngung_ket_noi":
       return { duong: "THONG_KE" }; // S7-03 chưa làm: tab Thống kê, không mở lịch của chủ nhà đó
     default:

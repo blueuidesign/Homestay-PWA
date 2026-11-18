@@ -16,7 +16,7 @@ import { chuTuoi } from "../components/tim-phong-hien-thi";
 import type { CanLichSale, ChiTietCanSale } from "../services/kieu";
 import { chuNgayNgan } from "../services/ngay";
 
-// S3 · Chi tiết căn (YC5.4). Phần vẽ, không gọi server. Giá chủ nhà, giá bán do server gửi; căn đã chia sẻ luôn có giá
+// S3 · Chi tiết căn (mục "Chi tiết căn và giá bán" (US13)). Phần vẽ, không gọi server. Giá chủ nhà, giá bán do server gửi; căn đã chia sẻ luôn có giá
 // (QD20 r2 điểm 3, EN53). Không có tổng (đêm chưa đặt giá) thì không có số nào để hiện.
 
 export type TongGiaS3 = { tong_gia_chu?: number | null; tong_gia_ban?: number | null };

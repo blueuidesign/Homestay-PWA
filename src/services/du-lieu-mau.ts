@@ -55,7 +55,7 @@ export const SALE_MAU = [
   { zalo_id: "zalo-sale-minh", ten: "Sale Minh", so_dien_thoai: null as string | null, muc_cong_mac_dinh: 0, muc_cong_can: {} as Record<string, number> },
 ];
 
-// DLM.2: sale đã kết nối với Chị Hoa, theo thứ tự chip ở CN4 (YC4.1.2 bước 1).
+// DLM.2: sale đã kết nối với Chị Hoa, theo thứ tự chip ở CN4 (mục "Người đặt, tiền phòng và tiền cọc" (US3) bước 1).
 // Số điện thoại và ngày kết nối chỉ Sale Hùng có, lấy từ canvas CN7-04 ("0912 345 678 · kết nối từ 02/08/2026"); DLM chưa ghi.
 // Sale còn lại chưa cho số: CN7-04 không hiện số và nút Gọi (api/ket-noi-link.md, PQ2.CHU).
 export const SALE_CUA_CHI_HOA: { ten: string; so_dien_thoai: string | null; ket_noi_luc: string }[] = [
@@ -65,7 +65,7 @@ export const SALE_CUA_CHI_HOA: { ten: string; so_dien_thoai: string | null; ket_
   { ten: "Sale Minh", so_dien_thoai: null, ket_noi_luc: "2026-09-10T09:00:00+07:00" },
 ];
 
-// DLM.3: giá chủ một đêm tháng 10, 11, 12/2026; đêm cuối tuần là T6, T7 (YC3.8). Căn khác chưa đặt giá.
+// DLM.3: giá chủ một đêm tháng 10, 11, 12/2026; đêm cuối tuần là T6, T7 (mục "Ngày tính giá cuối tuần" (US11)). Căn khác chưa đặt giá.
 export const GIA_THANG_MAU: Record<string, { thuong: number; cuoi_tuan: number }> = {
   "1509": { thuong: 900000, cuoi_tuan: 1300000 },
   "3402": { thuong: 800000, cuoi_tuan: 1100000 },
@@ -77,7 +77,7 @@ export const THANG_CO_GIA_MAU: Record<string, string[]> = {
   "3402": ["2026-06", "2026-07", "2026-08", "2026-09", "2026-10"],
 };
 // DLM.3: dịp đặc biệt của 3402, tính cả hai đầu
-// Dải ngày lễ Home247 đặt sẵn (bảng ngay_le). Chỉ dải có số liệu trong YC3.5 / CN6-02: năm 2026 "Lễ 30/4 – 1/5" là T5 30/4 → CN 3/5.
+// Dải ngày lễ Home247 đặt sẵn (bảng ngay_le). Chỉ dải có số liệu trong mục "Giá ngày lễ và dịp đặc biệt" (US8) / CN6-02: năm 2026 "Lễ 30/4 – 1/5" là T5 30/4 → CN 3/5.
 // Quốc khánh 2/9, Tết Dương lịch, Tết Âm lịch chờ EN16 nạp, nên bản thử chưa có (api/gia.md GET /ngay-le).
 export const NGAY_LE_MAU = [{ ten: "Lễ 30/4 – 1/5", tu_ngay: "2026-04-30", den_ngay: "2026-05-03" }];
 

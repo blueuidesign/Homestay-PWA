@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer, useRef } from "react";
 import { createPortal } from "react-dom";
 
-// Nút "Xoay ngang" của S1 (YC5.1 bước 7, S1-05): xoay giả theo SK9. Zalo không xoay thật được,
-// nên app quay cả khung 90 độ và người dùng tự nghiêng máy theo. App không tự xoay khi nghiêng máy (YC5.1-NT5).
+// Nút "Xoay ngang" của S1 (mục "Lịch phòng 7 ngày" (US16) bước 7, S1-05): xoay giả theo SK9. Zalo không xoay thật được,
+// nên app quay cả khung 90 độ và người dùng tự nghiêng máy theo. App không tự xoay khi nghiêng máy (US6-NT13).
 
 export type SuKienXoay = "bam-xoay-ngang" | "bam-xoay-doc" | "doi-huong-may" | "doi-kich-thuoc";
 

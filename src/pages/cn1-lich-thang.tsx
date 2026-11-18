@@ -13,15 +13,15 @@ import {
   THU_TRONG_TUAN,
 } from "../services/ngay";
 
-// CN1 · Lịch tháng (YC2.1), CN1-00 khi chưa có đặt phòng, CN3 · Chi tiết một ngày (YC2.4).
+// CN1 · Lịch tháng (mục "Lịch tháng và lọc theo căn" (US2)), CN1-00 khi chưa có đặt phòng, CN3 · Chi tiết một ngày (mục "Chi tiết một ngày" (US2)).
 // Phần vẽ, không gọi server, để test render được. Phần tải dữ liệu ở tab-lich.tsx.
 
-// Màu theo căn (YC2 quy tắc Màu theo căn): căn thứ nhất, hai, ba theo thứ tự tạo lấy ba màu của canvas.
+// Màu theo căn (nhóm Lịch chủ nhà quy tắc Màu theo căn): căn thứ nhất, hai, ba theo thứ tự tạo lấy ba màu của canvas.
 // Tên lớp là tên màu trên canvas (r1509...), không phải mã căn. Từ căn thứ tư lặp lại màu (canvas chưa vẽ).
 const MAU = ["r1509", "r3402", "r2501"];
 export const mauCuaCan = (thuTu: number) => MAU[thuTu % MAU.length];
 
-// Chip đầu: 2 căn là "Cả 2 phòng" (CN1, YC2.1-NT1), từ 3 căn là "Tất cả" (CN1-02, YC2.1-NT2)
+// Chip đầu: 2 căn là "Cả 2 phòng" (CN1, US2-NT1), từ 3 căn là "Tất cả" (CN1-02, US2-NT2)
 export const chuChipDau = (soCan: number) => (soCan === 2 ? "Cả 2 phòng" : "Tất cả");
 
 type ThangProps = {
@@ -129,7 +129,7 @@ export const LuoiLichThang = ({ lich, homNay, ngayChon, canChon, onChonNgay, onD
   );
 };
 
-// CN1-00 (YC2.1 trạng thái rỗng, YC2.1-NT5)
+// CN1-00 (mục "Lịch tháng và lọc theo căn" (US2) trạng thái rỗng, US2-NT3)
 export const ChuaCoDatPhong = ({ onDatPhong }: { onDatPhong: () => void }) => (
   <>
     <div className="khoi">
@@ -157,17 +157,17 @@ export const ChuaCoDatPhong = ({ onDatPhong }: { onDatPhong: () => void }) => (
   </>
 );
 
-// Người đặt trên thẻ có khách (YC2.4-NT3): tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ"
+// Người đặt trên thẻ có khách (US2-NT7): tên sale, tên khách lẻ chủ nhà nhập, hoặc "Khách lẻ"
 export const chuNguoiDat = (dp: DatPhongTrongNgay) => dp.nguoi_dat.ten ?? (dp.nguoi_dat.loai === "sale" ? "Sale" : "Khách lẻ");
 
-// Số tiền trên thẻ: "2.200.000đ · Cọc: 1.000.000đ" khi đã cọc còn thu (YC2.4-NT3, US3-KB10)
+// Số tiền trên thẻ: "2.200.000đ · Cọc: 1.000.000đ" khi đã cọc còn thu (US2-NT7, US3-KB10)
 export const chuTienDatPhong = (dp: DatPhongTrongNgay) =>
   `${chuTien(dp.tien_phong)}đ` +
   (dp.trang_thai_tien === "da_coc_con_thu" && dp.tien_coc !== null ? ` · Cọc: ${chuTien(dp.tien_coc)}đ` : "");
 
-// CN3 · Chi tiết một ngày (YC2.4). Tiêu đề hiện ngay khi chạm, khối từng căn hiện khi có kết quả GET /lich/ngay.
-// Căn trống có nút "Đặt phòng" mở CN4 với căn và ngày điền sẵn (YC2.4-NT2, QD12); căn có khách hiện người đặt,
-// ngày, số đêm, số tiền (YC2.4-NT3).
+// CN3 · Chi tiết một ngày (mục "Chi tiết một ngày" (US2)). Tiêu đề hiện ngay khi chạm, khối từng căn hiện khi có kết quả GET /lich/ngay.
+// Căn trống có nút "Đặt phòng" mở CN4 với căn và ngày điền sẵn (US3-NT10, QD12); căn có khách hiện người đặt,
+// ngày, số đêm, số tiền (US2-NT7).
 export const ChiTietNgay = ({
   ngay,
   lich,
@@ -183,7 +183,7 @@ export const ChiTietNgay = ({
   loi: boolean;
   onThuLai: () => void;
   onDatPhong?: (canId: string, ngay: string) => void;
-  onSua?: (bookingId: string) => void; // nút "Sửa" trên thẻ có khách mở CN3-02 (YC4.2, US10)
+  onSua?: (bookingId: string) => void; // nút "Sửa" trên thẻ có khách mở CN3-02 (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), US10)
 }) => {
   const thuTu = (canId: string) => canTheoThuTu.findIndex((c) => c.can_id === canId);
   return (

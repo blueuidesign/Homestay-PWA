@@ -9,9 +9,9 @@ import { CHU_CHUA_SUA_DAI } from "./cn6-gia-le-man";
 import { docTien } from "./cn4-dat-phong";
 
 // Phần vẽ của CN5-02 · Chi tiết căn, hai tab "Thông tin" (US11) và "Giá" (US4).
-// Tab Giá: CN6 (YC3.4), CN6-00 căn chưa có giá, CN6-04 toast sau khi áp dụng, CN6-09 chọn năm.
+// Tab Giá: CN6 (mục "Đặt giá theo tháng" (US4)), CN6-00 căn chưa có giá, CN6-04 toast sau khi áp dụng, CN6-09 chọn năm.
 // Không gọi server, không dùng zmp-sdk, để test render được. Phần tải và lưu ở cn6-gia.tsx.
-// Giá ngày lễ, dịp đặc biệt (CN6-02, US8): nút và ô ngày mở màn qua onMoGiaLe; sửa dải đã lưu chưa có cách làm (YC3.5 [MỞ]). Sao chép giá (CN6-07, US7): nút mở màn qua onSaoChep.
+// Giá ngày lễ, dịp đặc biệt (CN6-02, US8): nút và ô ngày mở màn qua onMoGiaLe; sửa dải đã lưu chưa có cách làm (mục "Giá ngày lễ và dịp đặc biệt" (US8) [MỞ]). Sao chép giá (CN6-07, US7): nút mở màn qua onSaoChep.
 
 export const CHU_CHUA_CHON_THANG = "Chưa chọn tháng nào. Chọn một tháng bên trên sau đó nhập giá.";
 export const CHU_CAN_CHUA_CO_GIA =
@@ -19,7 +19,7 @@ export const CHU_CAN_CHUA_CO_GIA =
 export const CHU_CHUA_CO_GIA_LE = 'Chưa có giá ngày lễ. Bấm "Đặt giá ngày lễ, dịp đặc biệt" để thêm, VD: Lễ 30/4 – 1/5.';
 export const CHU_CHUA_CO_DIP = "Chưa có dịp đặc biệt.";
 
-// Nút áp dụng (YC3.4 bước 4): có tháng thì ghi rõ tháng nào
+// Nút áp dụng (mục "Đặt giá theo tháng" (US4) bước 4): có tháng thì ghi rõ tháng nào
 export const chuNutApDung = (thangChon: number[]) =>
   thangChon.length === 0 ? "Áp dụng cho tháng đã chọn" : `Áp dụng cho ${chuCacThang(thangChon)}`;
 export const chuDangChon = (thangChon: number[]) =>
@@ -27,7 +27,7 @@ export const chuDangChon = (thangChon: number[]) =>
 // Toast CN6-04, ví dụ "Đã áp dụng giá cho Tháng 11 – 12" (toast tự thêm dấu ✓)
 export const chuToastApDung = (thangChon: number[]) => `Đã áp dụng giá cho ${chuCacThang(thangChon)}`;
 
-// Chữ lỗi khi áp dụng không được (HV2 bước 3, YC3.4-NT2, luật kiểm giá của PUT /can/:id/gia-thang)
+// Chữ lỗi khi áp dụng không được (HV2 bước 3, US4-NT4, luật kiểm giá của PUT /can/:id/gia-thang)
 export const loiKhiApDung = (e: unknown) => {
   if (e instanceof LoiMang) return "Chưa lưu được, bấm lại khi có mạng";
   if (e instanceof LoiApi && e.loi === "DU_LIEU_SAI") {
@@ -66,7 +66,7 @@ export const DanhSachDip = ({ dai, laNgayLe, onCham }: { dai: DaiDip[]; laNgayLe
   );
 };
 
-// Lịch giá một tháng (YC3.4 bước 6): giá từng đêm, tô dịp đặc biệt, ngày lễ, có khách
+// Lịch giá một tháng (mục "Đặt giá theo tháng" (US4) bước 6): giá từng đêm, tô dịp đặc biệt, ngày lễ, có khách
 export const LichGia = ({
   thang,
   dem,
@@ -156,7 +156,7 @@ export const LichGia = ({
   );
 };
 
-// CN6-09 · Chọn năm (YC3.4 bước 5)
+// CN6-09 · Chọn năm (mục "Đặt giá theo tháng" (US4) bước 5)
 export const BangChonNam = ({
   namNay,
   nam,
@@ -193,7 +193,7 @@ export const BangChonNam = ({
   </>
 );
 
-// Khối "GIÁ THEO THÁNG" (YC3.4 bước 1 đến 4): 12 ô tháng, hai ô giá, nút áp dụng. Dùng chung cho CN6 (một căn)
+// Khối "GIÁ THEO THÁNG" (mục "Đặt giá theo tháng" (US4) bước 1 đến 4): 12 ô tháng, hai ô giá, nút áp dụng. Dùng chung cho CN6 (một căn)
 // và CN6-06 (nhiều căn, US7). Ô tháng ghi sẵn chữ giá: một căn thì khoảng giá của căn, nhiều căn thì "Chưa đặt" như canvas.
 export type OThangGia = { khoa: string; so: number; gia: string; chua: boolean };
 export const FormGiaThang = (p: {
@@ -209,7 +209,7 @@ export const FormGiaThang = (p: {
   onDoiGia: (o: "thuong" | "cuoi_tuan", chu: string) => void;
   onApDung: () => void;
   onMoNam: () => void;
-  // US11 (YC3.8): các thứ tính giá cuối tuần của tài khoản, đổi tên hai ô giá. Không truyền thì T6, T7.
+  // US11 (mục "Ngày tính giá cuối tuần" (US11)): các thứ tính giá cuối tuần của tài khoản, đổi tên hai ô giá. Không truyền thì T6, T7.
   demCuoiTuan?: number[];
 }) => {
   const dem = p.demCuoiTuan ?? [5, 6];

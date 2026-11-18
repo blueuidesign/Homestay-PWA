@@ -5,7 +5,7 @@
 const sdk = () => import("../nen-tang/thiet-bi");
 import { DU_LIEU_GIA } from "./api";
 
-// Kết quả xin tên và số trong một lần bấm "Đồng ý, tiếp tục" (QD2, YC1.5.2 bước 1).
+// Kết quả xin tên và số trong một lần bấm "Đồng ý, tiếp tục" (QD2, mục "Hộp thoại cấp quyền của Zalo" (US5) bước 1).
 // Người dùng cho tên mà không cho số, hay ngược lại, thì gửi phần có (api/phien-ho-so.md; cách Zalo trả: chờ SK10).
 export type KetQuaXinSo =
   | { kq: "co"; access_token: string; token_sdt: string | null; ho_ten: string | null; anh_zalo: string | null }

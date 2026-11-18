@@ -52,7 +52,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **HV4-NT1** Khi người dùng đã từ chối quyền chọn ảnh và bấm "Thêm ảnh", thì thấy thẻ "Cần quyền chọn ảnh để thêm ảnh căn" và nút "Mở cài đặt quyền", không thấy hộp thoại Zalo.
 - **HV4-NT2** Khi người dùng đã từ chối quyền số điện thoại và bấm lại việc cần số, thì app hiện thẻ giải thích trước, và chỉ gọi hộp thoại Zalo khi người dùng bấm đồng ý trên thẻ.
 - **HV4-NT3** Khi người dùng đã từ chối quyền khác số điện thoại, thì không màn nào hiện lại nút "Cho phép" như lần đầu.
-- **HV4-NT4** Khi hồ sơ chưa có tên Zalo và số điện thoại, và người dùng bấm "Đồng ý, tiếp tục" ở thẻ giải thích, thì app xin cả tên và số trong lần bấm đó; người dùng không phải bấm thêm việc nào để được hỏi tên. (YC1.5)
+- **HV4-NT4** Khi hồ sơ chưa có tên Zalo và số điện thoại, và người dùng bấm "Đồng ý, tiếp tục" ở thẻ giải thích, thì app xin cả tên và số trong lần bấm đó; người dùng không phải bấm thêm việc nào để được hỏi tên. (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5))
 - **HV5-NT1** Khi chủ nhà ngừng chia sẻ với sale và sale mở lại chi tiết căn từ thông báo cũ, thì sale thấy "Bạn không còn xem được mục này", không thấy giá hay lịch của căn.
 - **HV5-NT2** Khi Chị Hoa đã xóa tài khoản và Sale Hùng mở chi tiết căn ICON40 1509 từ thông báo cũ, thì thấy "Bạn không còn xem được mục này" với lý do "Chủ nhà đã xóa tài khoản", không thấy ảnh, giá hay lịch của căn.
 - **HV6-NT1** Khi Zalo trên máy cũ hơn bản cần cho một nút, thì bấm nút đó hiện câu mời cập nhật, không đứng im.
@@ -192,11 +192,11 @@ Vào từ: A6, bấm gửi khi quyền số điện thoại đã bị từ chố
 | 0 | Màn gốc | Chép đúng màn A6 trên canvas, chỉ đổi phần trạng thái. Thẻ quyền và dòng "Bạn vẫn gửi được link..." chèn ngay dưới thẻ tin nhắn của A6 | A6 |
 | 1 | Thẻ tin nhắn | Tin xin lịch như A6 | |
 | 2 | Thẻ quyền | "Cần số điện thoại để kết nối với chủ nhà", "Lần trước bạn chưa cho phép. Bấm "Chia sẻ số điện thoại" để Zalo hỏi lại.", nút chính "Chia sẻ số điện thoại", nút phụ "Mở cài đặt quyền" | HV4 bước 3a |
-| 3 | Dòng | "Bạn vẫn gửi được link. Chủ nhà chỉ thấy tên Zalo của bạn." | YC1.5 |
+| 3 | Dòng | "Bạn vẫn gửi được link. Chủ nhà chỉ thấy tên Zalo của bạn." | mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) |
 | 4 | Nút | "Gửi qua Zalo" | |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
-| "Chia sẻ số điện thoại" | Gọi lại hộp thoại số điện thoại của Zalo (YC1.5) | Hộp thoại Zalo |
+| "Chia sẻ số điện thoại" | Gọi lại hộp thoại số điện thoại của Zalo (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)) | Hộp thoại Zalo |
 | "Mở cài đặt quyền" | Mở cài đặt quyền | openPermissionSetting |
 | "Gửi qua Zalo" | Gửi link không có số | Zalo |
 

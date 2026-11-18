@@ -15,15 +15,15 @@ create extension if not exists btree_gist with schema extensions;   -- cho ràng
 
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
-  ten text check (char_length(ten) <= 100),              -- tên hiển thị: tên người đã kết nối thấy (YC9.2)
+  ten text check (char_length(ten) <= 100),              -- tên hiển thị: tên người đã kết nối thấy (mục "Hồ sơ (Thông tin cá nhân)" (US21))
   ho_ten text check (char_length(ho_ten) <= 100),        -- họ và tên, chỉ mình và quản trị dùng
   anh_dai_dien text,                                     -- đường dẫn ảnh trong Storage, trống thì hiện chữ cái đầu
   sdt text check (sdt ~ '^\+?[0-9]{9,15}$'),             -- số điện thoại; người đã kết nối thấy số của nhau (QD-007)
   vai_chon text check (vai_chon in ('chu_nha', 'sale')), -- vai chọn lúc đầu, chỉ để chọn màn mở đầu. Quyền KHÔNG dựa vào cột này
-  dem_cuoi_tuan smallint[] not null default '{5,6}',     -- thứ của các ĐÊM tính giá cuối tuần, theo extract(dow): 5 = đêm T6, 6 = đêm T7 (YC3.8, DLM.3)
-  gio_nhan time not null default '14:00',                -- giờ nhận phòng mặc định của mọi căn mình giữ (YC9.4)
+  dem_cuoi_tuan smallint[] not null default '{5,6}',     -- thứ của các ĐÊM tính giá cuối tuần, theo extract(dow): 5 = đêm T6, 6 = đêm T7 (mục "Ngày tính giá cuối tuần" (US11), DLM.3)
+  gio_nhan time not null default '14:00',                -- giờ nhận phòng mặc định của mọi căn mình giữ (mục "Giờ nhận, trả phòng mặc định" (US21))
   gio_tra time not null default '12:00',
-  dong_y_dieu_khoan_luc timestamptz,                     -- lúc bấm "Bắt đầu ngay" ở A1 (YC1.1)
+  dong_y_dieu_khoan_luc timestamptz,                     -- lúc bấm "Bắt đầu ngay" ở A1 (mục "Đăng nhập" (US1))
   da_xoa_luc timestamptz,                                -- đã xóa tài khoản: giữ tên, xóa số, ngừng chia sẻ (QD-013)
   created_at timestamptz not null default now(),
   check (dem_cuoi_tuan <@ '{0,1,2,3,4,5,6}'::smallint[])
@@ -33,17 +33,17 @@ create table public.profiles (
 -- còn mức cộng và mẫu tin của sale thì chủ nhà không bao giờ được thấy (PQ11).
 create table public.cai_dat_rieng (
   user_id uuid primary key references public.profiles(id) on delete cascade,
-  muc_cong_mac_dinh integer not null default 0 check (muc_cong_mac_dinh >= 0),   -- tiền sale cộng mỗi đêm (YC5.6)
+  muc_cong_mac_dinh integer not null default 0 check (muc_cong_mac_dinh >= 0),   -- tiền sale cộng mỗi đêm (mục "Mức cộng giá mặc định" (US13))
   lam_tron_50k boolean not null default false,                                    -- làm tròn giá bán lên bội số 50.000đ
-  mau_tin text check (char_length(mau_tin) <= 2000),                              -- mẫu tin gửi khách (YC5.7); trống là mẫu mặc định
-  thong_bao_tat text[] not null default '{}',                                     -- các loại thông báo đã tắt (YC9.3)
-  mo_app_luc timestamptz                                                          -- mốc lần mở app trước, cho popup thông báo mới (YC1.13)
+  mau_tin text check (char_length(mau_tin) <= 2000),                              -- mẫu tin gửi khách (mục "Mẫu tin gửi khách" (US14)); trống là mẫu mặc định
+  thong_bao_tat text[] not null default '{}',                                     -- các loại thông báo đã tắt (mục "Cài đặt thông báo" (US21))
+  mo_app_luc timestamptz                                                          -- mốc lần mở app trước, cho popup thông báo mới (mục "Popup thông báo mới" (US30))
 );
 
 -- Quản trị viên Home247: xem được mọi dữ liệu (QD-007). Chỉ thêm bằng SQL hoặc bootstrap_admins.
 create table public.admins (
   user_id uuid primary key references public.profiles(id),
-  la_goc boolean not null default false,   -- quản trị viên đầu tiên: chỉ người này thêm, gỡ người đồng quản trị; không bị gỡ (YC10.3)
+  la_goc boolean not null default false,   -- quản trị viên đầu tiên: chỉ người này thêm, gỡ người đồng quản trị; không bị gỡ (mục "Thêm người đồng quản trị" (US34))
   created_at timestamptz not null default now()
 );
 

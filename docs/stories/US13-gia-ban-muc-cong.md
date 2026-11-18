@@ -13,7 +13,7 @@ Là sale, tôi muốn xem một căn đủ để tư vấn và cộng phần c�
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC5.4 · Chi tiết căn và giá bán
+### Chi tiết căn và giá bán
 Rủi ro: cao
 Mục đích: sale xem một căn đủ thông tin để tư vấn, chỉnh mức cộng giá của mình cho căn này, và quyết định đặt hay gửi khách.
 Màn hình: S3
@@ -22,16 +22,16 @@ Khi nào xảy ra: sale chạm một căn ở lịch phòng hoặc ở kết qu�
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 1 | Mở chi tiết | Bộ ảnh ("1/6"), tên "ICON40 1509 · 2PN", "2PN · view biển · Bãi Cháy", nhãn "Lịch cập nhật 2 giờ trước". Phần phòng ngủ ghi theo `Tu_dien.md` như thẻ căn (YC3.1 bước 2): có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | chỉ căn sale có quyền, số phòng ngủ, số giường, mô tả, lúc lịch cập nhật; ảnh là đường dẫn có chữ ký 1 giờ | Không | Không |
+| 1 | Mở chi tiết | Bộ ảnh ("1/6"), tên "ICON40 1509 · 2PN", "2PN · view biển · Bãi Cháy", nhãn "Lịch cập nhật 2 giờ trước". Phần phòng ngủ ghi theo `Tu_dien.md` như thẻ căn (mục "Danh sách căn" (US1) bước 2): có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | chỉ căn sale có quyền, số phòng ngủ, số giường, mô tả, lúc lịch cập nhật; ảnh là đường dẫn có chữ ký 1 giờ | Không | Không |
 | 2 | Xem chủ nhà | Thẻ "Chị Hoa · Chủ nhà · 2 căn" kèm nút "Gọi" | tên và số điện thoại chủ nhà (PQ2.SALE). Số căn chủ nhà chia sẻ cho sale này. | Gọi mở ứng dụng gọi (`openPhone`, `docs/zalo/hanh-vi.md`) | Không |
 | 3 | Xem giá | Ngày ở "10/10 → 12/10 (2 đêm)", "Giá chủ nhà 2.200.000đ" | giá chủ và giá bán theo đêm; đêm chưa đặt giá thì không có giá | Không | Không |
-| 4 | Chọn mức cộng | Mục "CỘNG THÊM CHO BẠN": chip theo danh sách Mức cộng của sale ở `Tu_dien.md`, cùng bộ với P10 (YC5.6). Cập nhật "Giá bán cho khách". Ghi chú "Chỉ bạn thấy giá này. Khách và chủ nhà không thấy phần cộng thêm." | mức cộng riêng căn này | Không | Mức cộng riêng cho căn (bảng `muc_cong`: `sale_id`, `can_id`, `so_tien`) |
+| 4 | Chọn mức cộng | Mục "CỘNG THÊM CHO BẠN": chip theo danh sách Mức cộng của sale ở `Tu_dien.md`, cùng bộ với P10 (mục "Mức cộng giá mặc định"). Cập nhật "Giá bán cho khách". Ghi chú "Chỉ bạn thấy giá này. Khách và chủ nhà không thấy phần cộng thêm." | mức cộng riêng căn này | Không | Mức cộng riêng cho căn (bảng `muc_cong`: `sale_id`, `can_id`, `so_tien`) |
 | 5 | Xem lịch | "Lịch 2 tuần tới" Trống / Kín; "Ngày khách hỏi" được tô | lịch 2 tuần của căn | Không | Không |
 | 6 | Xem giờ nhận, trả phòng | "Nhận phòng 14:00 · Trả phòng 12:00". Không có tiện ích căn (Bếp, Máy giặt...): bản đầu không làm tiện ích căn. | giờ nhận, trả phòng của chủ nhà | Không | Không |
-| 7 | Bấm "Gửi yêu cầu đặt phòng" (Tu_dien) | Mở S3-02 (thuộc YC4.5) | Không gọi server ở bước này (yêu cầu đặt phòng: YC4.5, | Không | Không |
-| 8 | Bấm "Gửi cho khách" | Sang YC5.5 với căn này (có bước xin tên và số khi chưa có, YC5.5 bước 0) | Không gọi server ở bước này (gửi khách: YC5.5) | Không | Không |
+| 7 | Bấm "Gửi yêu cầu đặt phòng" (Tu_dien) | Mở S3-02 (thuộc mục "Sale gửi yêu cầu đặt phòng" (US15)) | Không gọi server ở bước này (yêu cầu đặt phòng: mục "Sale gửi yêu cầu đặt phòng" (US15), | Không | Không |
+| 8 | Bấm "Gửi cho khách" | Sang mục "Gửi thông tin cho khách qua Zalo" (US14) với căn này (có bước xin tên và số khi chưa có, mục "Gửi thông tin cho khách qua Zalo" (US14) bước 0) | Không gọi server ở bước này (gửi khách: mục "Gửi thông tin cho khách qua Zalo" (US14)) | Không | Không |
 
-Theo quy tắc: Giá bán gồm phần cộng thêm; Sale chỉ thấy giá khi chủ nhà cho phép (YC1, Quyền sale được xem).
+Theo quy tắc: Giá bán gồm phần cộng thêm; Sale chỉ thấy giá khi chủ nhà cho phép (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale, Quyền sale được xem).
 
 Trạng thái màn:
 - rỗng: không áp dụng
@@ -42,7 +42,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC5.6 · Mức cộng giá mặc định
+### Mức cộng giá mặc định
 Rủi ro: cao
 Mục đích: sale đặt một lần mức cộng thêm vào giá chủ nhà để mọi tin gửi khách đã có giá bán.
 Màn hình: P10
@@ -52,7 +52,7 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở màn | "Cộng thêm vào giá chủ nhà mỗi đêm khi soạn tin gửi khách. Khách chỉ thấy giá đã cộng." | có mức cộng, làm tròn | Không | Không |
-| 2 | Chọn mức | Chip theo danh sách Mức cộng của sale ở `Tu_dien.md`, cùng bộ với S3 (YC5.4) | Không gọi server | Không | Không |
+| 2 | Chọn mức | Chip theo danh sách Mức cộng của sale ở `Tu_dien.md`, cùng bộ với S3 (mục "Chi tiết căn và giá bán") | Không gọi server | Không | Không |
 | 3 | Bật "Làm tròn lên 50.000đ" | Công tắc | Không gọi server | Không | Không |
 | 4 | Xem ví dụ | "VÍ DỤ: PHÒNG 1509, 2 ĐÊM": Giá chủ nhà 2.200.000đ, Giá gửi khách 3.000.000đ, Bạn được 800.000đ | Không gọi server | Không | Không |
 | 5 | Bấm "Lưu thay đổi" | Lưu. Ghi chú "Khi soạn tin (S3) vẫn sửa được mức cộng cho từng căn." | | Không | Mức cộng mặc định của sale |
@@ -71,16 +71,16 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC5.4-NT1** Khi sale chọn chip +200k cho phòng 2 đêm, thì giá bán bằng giá chủ nhà cộng 200.000đ nhân số đêm. `[đã có test database: t_07_can_gia_mo_rong.sql]`
-- **YC5.4-NT2** Khi sale xem chi tiết, thì thấy giá chủ nhà và giá bán cho khách; chủ nhà và khách không thấy phần cộng thêm.
-- **YC5.4-NT3** Khi sale bấm "Gửi yêu cầu đặt phòng", thì app mở S3-02 với đúng căn và ngày đang xem.
-- **YC5.4-NT4** Khi sale mở mục "CỘNG THÊM CHO BẠN" ở S3, thì thấy đúng các chip của danh sách Mức cộng của sale trong `Tu_dien.md`, giống bộ chip ở P10.
-- **YC5.4-NT5** Khi chủ nhà đã nhập số giường của căn, thì S3 ghi số phòng ngủ và số giường như thẻ căn (YC3.1-NT5); chưa nhập thì chỉ ghi số phòng ngủ. S3 không có "x khách", "x người lớn" hay "y trẻ em".
-- **YC5.4-NT6** Khi sale mở S3 của bất kỳ căn nào, thì không có mục tiện ích căn; dòng giờ "Nhận phòng 14:00 · Trả phòng 12:00" vẫn còn.
-- **YC5.6-NT1** Khi sale chọn "+400k", thì ví dụ 2 đêm ghi bạn được 800.000đ.
-- **YC5.6-NT2** Khi sale chọn "Không cộng", thì giá gửi khách bằng giá chủ nhà.
-- **YC5.6-NT3** Khi sale bật làm tròn lên 50.000đ, thì giá gửi khách làm tròn lên bội số 50.000đ gần nhất. `[đã có test database: t_07_can_gia_mo_rong.sql]`
-- **YC5.6-NT4** Khi sale mở P10, thì thấy đúng các chip của danh sách Mức cộng của sale trong `Tu_dien.md`, giống bộ chip ở S3.
+- **US13-NT1** Khi sale chọn chip +200k cho phòng 2 đêm, thì giá bán bằng giá chủ nhà cộng 200.000đ nhân số đêm. `[đã có test database: t_07_can_gia_mo_rong.sql]`
+- **US13-NT2** Khi sale xem chi tiết, thì thấy giá chủ nhà và giá bán cho khách; chủ nhà và khách không thấy phần cộng thêm.
+- **US13-NT3** Khi sale bấm "Gửi yêu cầu đặt phòng", thì app mở S3-02 với đúng căn và ngày đang xem.
+- **US13-NT4** Khi sale mở mục "CỘNG THÊM CHO BẠN" ở S3, thì thấy đúng các chip của danh sách Mức cộng của sale trong `Tu_dien.md`, giống bộ chip ở P10.
+- **US13-NT5** Khi chủ nhà đã nhập số giường của căn, thì S3 ghi số phòng ngủ và số giường như thẻ căn (US11-NT1); chưa nhập thì chỉ ghi số phòng ngủ. S3 không có "x khách", "x người lớn" hay "y trẻ em".
+- **US13-NT6** Khi sale mở S3 của bất kỳ căn nào, thì không có mục tiện ích căn; dòng giờ "Nhận phòng 14:00 · Trả phòng 12:00" vẫn còn.
+- **US13-NT7** Khi sale chọn "+400k", thì ví dụ 2 đêm ghi bạn được 800.000đ.
+- **US13-NT8** Khi sale chọn "Không cộng", thì giá gửi khách bằng giá chủ nhà.
+- **US13-NT9** Khi sale bật làm tròn lên 50.000đ, thì giá gửi khách làm tròn lên bội số 50.000đ gần nhất. `[đã có test database: t_07_can_gia_mo_rong.sql]`
+- **US13-NT10** Khi sale mở P10, thì thấy đúng các chip của danh sách Mức cộng của sale trong `Tu_dien.md`, giống bộ chip ở S3.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -119,7 +119,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC5: Giá bán gồm phần cộng thêm, Độ tươi lịch. Sale chỉ thấy giá khi chủ nhà cho phép (YC1, Quyền sale được xem). Quy tắc trong YC4: Sale thấy hai giá, chủ nhà thấy một giá. QT2.1. (giả định GD13) làm tròn lên 50.000đ từng đêm rồi mới cộng các đêm. (giả định GD16) ô ngày hiện giá bán. HV1, HV2, HV3, HV5.
+Quy tắc trong nhóm Tìm phòng và gửi khách: Giá bán gồm phần cộng thêm, Độ tươi lịch. Sale chỉ thấy giá khi chủ nhà cho phép (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale, Quyền sale được xem). Quy tắc trong nhóm Booking: Sale thấy hai giá, chủ nhà thấy một giá. QT2.1. (giả định GD13) làm tròn lên 50.000đ từng đêm rồi mới cộng các đêm. (giả định GD16) ô ngày hiện giá bán. HV1, HV2, HV3, HV5.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -185,13 +185,13 @@ Trạng thái riêng:
 - `fn_luu_cai_dat`: test ở t_07_can_gia_mo_rong.sql, t_08_thong_bao.sql
 
 ## Ngoài phạm vi
-- Tìm phòng và danh sách kết quả (YC5.2, YC5.3): US12.
-- Nội dung S3-02, gửi và theo dõi yêu cầu đặt phòng (YC4.5 đến YC4.8): US15. US này chỉ làm nút "Gửi yêu cầu đặt phòng" mở S3-02 đúng căn và ngày (YC5.4-NT3).
-- Gửi cho khách ở S5, mẫu tin P11 (YC5.5, YC5.7): US14. US này chỉ làm nút "Gửi cho khách" mở S5 với căn đang xem.
-- Mở S3 từ lịch 7 ngày S1 (YC5.1 bước 8): US6; ngày ở khi không có ngày khách hỏi chưa chốt [MỞ: US13-H3].
+- Tìm phòng và danh sách kết quả (mục "Tìm phòng trống theo ngày" (US12), mục "Kết quả tìm phòng" (US12)): US12.
+- Nội dung S3-02, gửi và theo dõi yêu cầu đặt phòng (mục "Sale gửi yêu cầu đặt phòng" (US15) đến mục "Yêu cầu trùng ngày" (US15)): US15. US này chỉ làm nút "Gửi yêu cầu đặt phòng" mở S3-02 đúng căn và ngày (US13-NT3).
+- Gửi cho khách ở S5, mẫu tin P11 (mục "Gửi thông tin cho khách qua Zalo" (US14), mục "Mẫu tin gửi khách" (US14)): US14. US này chỉ làm nút "Gửi cho khách" mở S5 với căn đang xem.
+- Mở S3 từ lịch 7 ngày S1 (mục "Lịch phòng 7 ngày" (US16) bước 8): US6; ngày ở khi không có ngày khách hỏi chưa chốt [MỞ: US13-H3].
 - S3 của căn của tôi và căn tự nhập, giá bán có cộng cho căn của chính sale: chưa chốt [MỞ: US13-H4]. US này chỉ làm căn trong nguồn phòng.
-- Chủ nhà đặt giá và nhập số giường (YC3): US4, US11.
-- Tiện ích căn: bản đầu không làm (YC5.4-NT6).
+- Chủ nhà đặt giá và nhập số giường (nhóm Căn và giá): US4, US11.
+- Tiện ích căn: bản đầu không làm (US13-NT6).
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

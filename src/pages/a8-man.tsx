@@ -15,10 +15,10 @@ import {
 import { chuCaiDau, chuSoDienThoai } from "../components/sale-hien-thi";
 import type { XemTruocLinkXin } from "../services/kieu";
 
-// A8 · Chủ nhà mở link của sale (YC1.7 bước 2): sale là ai, sale sẽ thấy gì, rồi đồng ý hoặc từ chối.
-// A8-01 · link hết hạn, sale đã xóa tài khoản hoặc đã bị ngừng: không có tên, số, nút đồng ý (HV5, YC1.7-NT4).
+// A8 · Chủ nhà mở link của sale (mục "Chủ nhà duyệt lời mời xem lịch" (US17) bước 2): sale là ai, sale sẽ thấy gì, rồi đồng ý hoặc từ chối.
+// A8-01 · link hết hạn, sale đã xóa tài khoản hoặc đã bị ngừng: không có tên, số, nút đồng ý (HV5, US22-NT2).
 // Giá từng đêm không còn công tắc: căn đã chia sẻ thì sale luôn thấy giá (QD20 r2 điểm 3). Còn một công tắc: Tình trạng cọc.
-// "Đổi được trong mục Sale" của canvas bỏ: chưa có màn đổi quyền ở CN7-04 ([MỞ: YC1-H5]).
+// "Đổi được trong mục Sale" của canvas bỏ: chưa có màn đổi quyền ở CN7-04 ([MỞ: CH-053]).
 export type PropsA8 = {
   xin: XemTruocLinkXin;
   coTaiKhoan: boolean;

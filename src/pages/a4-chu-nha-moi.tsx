@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "../components/icon";
 
-// A4 · Chủ nhà mới, chưa có căn (YC1.4 bước 1, 2). Dùng ở tab Lịch và tab Căn khi chưa có căn (YC3.1 trạng thái rỗng).
+// A4 · Chủ nhà mới, chưa có căn (mục "Màn đầu tiên khi chưa có dữ liệu" (US1) bước 1, 2). Dùng ở tab Lịch và tab Căn khi chưa có căn (mục "Danh sách căn" (US1) trạng thái rỗng).
 const BUOC = [
   { so: 1, ten: "Thêm căn và ảnh", mo_ta: "Tòa nhà, số phòng ngủ, ảnh để sale gửi khách" },
   { so: 2, ten: "Đặt giá", mo_ta: "Ngày thường, cuối tuần, ngày lễ" },
@@ -83,7 +83,7 @@ export const NoiDungA4 = ({ onThemCan }: { onThemCan: () => void }) => (
           gap: 12,
           borderBottom: b.so < 3 ? "1px solid var(--border-subtle)" : undefined,
         };
-        // Dòng "Thêm căn và ảnh" mở CN5-A1 như nút "Thêm căn đầu tiên" (YC1.4 bước 2)
+        // Dòng "Thêm căn và ảnh" mở CN5-A1 như nút "Thêm căn đầu tiên" (mục "Màn đầu tiên khi chưa có dữ liệu" (US1) bước 2)
         return dau ? (
           <a key={b.so} style={{ ...kieu, cursor: "pointer", color: "inherit" }} onClick={onThemCan}>
             {noiDung}

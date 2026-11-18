@@ -2,14 +2,14 @@ import type { CanTim, DieuKienTim, GoiYTim, MucTimGanDay } from "../services/kie
 import { cacDem, chuNgayNgan, chuTien, congNgay } from "../services/ngay";
 import { CHIP_LOAI_VIEW, chuLoaiView, chuPhongNgu } from "./can-hien-thi";
 
-// Chữ và luật tính của tìm phòng trống (US12, YC5.2, YC5.3). Không gọi server.
+// Chữ và luật tính của tìm phòng trống (US12, mục "Tìm phòng trống theo ngày" (US12), mục "Kết quả tìm phòng" (US12)). Không gọi server.
 
 // Điều kiện kèm tên tòa để vẽ ("ICON40" thay vì id). Đi từ màn tìm sang màn kết quả qua state điều hướng.
 export type TenToa = Record<string, string>;
 export type TrangThaiTim = { dk: DieuKienTim; ten_toa: TenToa };
 
 type PhongNgu = 1 | 2 | 3 | 4;
-// Số phòng ngủ ở lọc thêm: 1PN, 2PN, 3PN, 4PN+ (YC5.2 bước 3). Không có Studio.
+// Số phòng ngủ ở lọc thêm: 1PN, 2PN, 3PN, 4PN+ (mục "Tìm phòng trống theo ngày" (US12) bước 3). Không có Studio.
 export const CHIP_PHONG_NGU_TIM: { gia_tri: number; chu: string }[] = ([1, 2, 3, 4] as PhongNgu[]).map((n) => ({ gia_tri: n, chu: chuPhongNgu(n) }));
 export const CHIP_VIEW_TIM = CHIP_LOAI_VIEW;
 
@@ -21,7 +21,7 @@ export const chuChipDem = (c: ChipDem) => (c === "tuy_chon" ? "Tùy chọn" : St
 export type FormTim = { ngayNhan: string; chipDem: ChipDem; traTuyChon: string; phong: number[]; view: string[]; toa: string[] };
 export const formTimTrong = (): FormTim => ({ ngayNhan: "", chipDem: 1, traTuyChon: "", phong: [], view: [], toa: [] });
 
-// Ngày trả = ngày nhận cộng số đêm (YC5.2-NT2). Chưa có ngày nhận thì chưa có ngày trả.
+// Ngày trả = ngày nhận cộng số đêm (US12-NT2). Chưa có ngày nhận thì chưa có ngày trả.
 export const ngayTraCuaForm = (f: FormTim): string => {
   if (!f.ngayNhan) return "";
   if (f.chipDem !== "tuy_chon") return congNgay(f.ngayNhan, f.chipDem);
@@ -29,7 +29,7 @@ export const ngayTraCuaForm = (f: FormTim): string => {
 };
 export const soDemCuaForm = (f: FormTim) => (f.ngayNhan ? cacDem(f.ngayNhan, ngayTraCuaForm(f)).length : 0);
 
-// Nút "Tìm phòng trống" mờ khi chưa có ngày nhận (YC5.2-NT1)
+// Nút "Tìm phòng trống" mờ khi chưa có ngày nhận (US12-NT1)
 export const CHU_NUT_TIM = "Tìm phòng trống";
 export const CHU_NUT_TIM_CHUA_CO_NGAY = "Chọn ngày nhận để tìm phòng";
 export const nutTimBamDuoc = (f: FormTim) => f.ngayNhan !== "";
@@ -43,7 +43,7 @@ export const dieuKienTuForm = (f: FormTim): DieuKienTim => ({
   toa_nha_id: [...f.toa],
 });
 
-// Điền sẵn điều kiện của một lần tìm (YC5.2-NT4)
+// Điền sẵn điều kiện của một lần tìm (US12-NT4)
 export const formTuDieuKien = (dk: DieuKienTim): FormTim => {
   const dem = cacDem(dk.ngay_nhan, dk.ngay_tra).length;
   const ngan = dem >= 1 && dem <= 4;
@@ -79,11 +79,11 @@ const chuViewLoc = (ds: string[]) =>
     .join(", ");
 const chuToaLoc = (dk: DieuKienTim, ten: TenToa) => dk.toa_nha_id.map((id) => ten[id] ?? id).join(", ");
 
-// "10/10 → 12/10 · 2PN, 3PN · 2 đêm" (YC5.3 bước 1)
+// "10/10 → 12/10 · 2PN, 3PN · 2 đêm" (mục "Kết quả tìm phòng" (US12) bước 1)
 export const chuDieuKien = (dk: DieuKienTim, ten: TenToa) =>
   [chuKhoangNgay(dk), chuPhongLoc(dk.so_phong_ngu), chuViewLoc(dk.loai_view), chuToaLoc(dk, ten), chuSoDem(dk)].filter(Boolean).join(" · ");
 
-// Dòng "Tìm gần đây": "10/10 → 12/10 · 2PN · ICON40" (YC5.2 bước 1). Không ghi số đêm.
+// Dòng "Tìm gần đây": "10/10 → 12/10 · 2PN · ICON40" (mục "Tìm phòng trống theo ngày" (US12) bước 1). Không ghi số đêm.
 export const chuTimGanDay = (m: MucTimGanDay) =>
   [chuKhoangNgay(m), chuPhongLoc(m.so_phong_ngu), chuViewLoc(m.loai_view), m.toa_nha.map((t) => t.ten).join(", ")].filter(Boolean).join(" · ");
 
@@ -103,7 +103,7 @@ export const NHAN_NHOM_TU_NHAP = "Tự nhập · chưa biết lịch";
 
 export const tenCanTim = (c: Pick<CanTim, "toa_nha" | "ma_can">) => [c.toa_nha?.ten, c.ma_can].filter(Boolean).join(" ");
 
-// "2PN · 3 giường · view biển · Chị Hoa" (YC5.3 bước 1: tên căn, số phòng ngủ, chủ nhà, view)
+// "2PN · 3 giường · view biển · Chị Hoa" (mục "Kết quả tìm phòng" (US12) bước 1: tên căn, số phòng ngủ, chủ nhà, view)
 export const dongPhuCanTim = (c: CanTim) =>
   [chuPhongNgu(c.so_phong_ngu), c.so_giuong ? `${c.so_giuong} giường` : null, chuLoaiView(c.loai_view), c.chu_nha?.ten_hien_thi ?? null]
     .filter(Boolean)
@@ -129,7 +129,7 @@ export const chuTuoi = (luc: string, bayGio: number = Date.now()) => {
   return `${Math.floor(phut / (24 * 60))} ngày trước`;
 };
 
-// Độ tươi lịch (YC5.3 bước 3): căn của tôi "luôn đúng"; căn tự nhập không có lịch, không bao giờ ghi "trống"
+// Độ tươi lịch (mục "Kết quả tìm phòng" (US12) bước 3): căn của tôi "luôn đúng"; căn tự nhập không có lịch, không bao giờ ghi "trống"
 export const CHU_LICH_CUA_BAN = "Lịch của bạn, luôn đúng";
 export const chuDoTuoi = (c: CanTim, bayGio: number = Date.now()): string | null => {
   if (c.khong_co_lich || c.nhom === "tu_nhap") {
@@ -140,7 +140,7 @@ export const chuDoTuoi = (c: CanTim, bayGio: number = Date.now()): string | null
   return c.lich_cap_nhat_luc ? `Lịch cập nhật ${chuTuoi(c.lich_cap_nhat_luc, bayGio)}` : null;
 };
 
-// S2-00 (YC5.2 bước 6). Chữ tạm: câu giải thích ghép từ điều kiện, dòng gợi ý.
+// S2-00 (mục "Tìm phòng trống theo ngày" (US12) bước 6). Chữ tạm: câu giải thích ghép từ điều kiện, dòng gợi ý.
 export const CHU_KHONG_CO_CAN_TRONG = "Không có căn trống";
 export const CHU_GHI_CHU_TU_NHAP = "Căn tự nhập không có lịch tự động. Gọi chủ nhà để hỏi.";
 export const chuGiaiThichKhongTrong = (dk: DieuKienTim, ten: TenToa) => {

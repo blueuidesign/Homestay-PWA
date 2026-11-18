@@ -13,7 +13,7 @@ Là sale, tôi muốn lưu căn của chủ chưa dùng app, xem nguồn phòng 
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC5.1 · Lịch phòng 7 ngày
+### Lịch phòng 7 ngày
 Rủi ro: cao
 Mục đích: sale thấy ngay căn nào trống, căn nào kín trong 7 ngày tới, kèm giá, để trả lời khách nhanh.
 Màn hình: S1, S1-04, S1-05
@@ -29,24 +29,24 @@ Hành vi:
 | 5 | Bấm ‹ hoặc › | Chuyển 7 ngày | với `tu` lùi hoặc tiến 7 ngày | Không | Không |
 | 6 | Bấm nút sắp xếp | S1-04: chọn "Theo tên", "Giá tăng dần" hoặc "Bán nhiều nhất". Ghi chú "Căn của tôi luôn hiện đầu danh sách." | `ten`, `gia_tang` (theo giá hôm nay, căn không giá xếp cuối), `ban_nhieu` (số đặt phòng của chính sale với căn đó trong 90 ngày qua); nhóm căn của tôi luôn ở trên | Không | Không |
 | 7 | Chạm nút nhỏ "Xoay ngang" ở hàng ngay dưới hàng "7 ngày tới", cùng hàng với nút "Theo tên" (không nổi, không che bảng hay chú thích; câu 1, câu 1) | S1-05: app quay cả bảng 90 độ (xoay giả, vì Zalo không xoay thật được), người dùng tự nghiêng máy theo. Cột tên căn rộng hơn, ẩn thanh menu. Nút đổi thành "Xoay dọc" để trở lại. App không tự xoay khi người dùng nghiêng điện thoại | Không gọi server | Không | Không |
-| 8 | Chạm một căn | Mở chi tiết căn (S3, xem YC5.4) | Không gọi server ở bước này (chi tiết căn: YC5.4) | Không | Không |
-| 9 | Chạm ô tìm | Mở tìm phòng (S1-02, xem YC5.2) | Không gọi server ở bước này (tìm phòng: YC5.2) | Không | Không |
-| 10 | Một chủ nhà trong nguồn phòng đã xóa tài khoản (YC9.8) | Các căn của chủ nhà đó biến khỏi bảng và khỏi kết quả tìm phòng (YC5.3), dù căn, lịch, giá vẫn còn ở server (QD-013). Số đếm "NGUỒN PHÒNG" giảm theo. Sale thấy dòng chủ nhà kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" ở Nguồn phòng (YC6.1 bước 10); sale có thông báo "chủ nhà đã xóa tài khoản" (YC9.3, QD-013) | Không gửi căn, lịch, giá của chủ nhà đã xóa tài khoản | | Không |
+| 8 | Chạm một căn | Mở chi tiết căn (S3, xem mục "Chi tiết căn và giá bán" (US13)) | Không gọi server ở bước này (chi tiết căn: mục "Chi tiết căn và giá bán" (US13)) | Không | Không |
+| 9 | Chạm ô tìm | Mở tìm phòng (S1-02, xem mục "Tìm phòng trống theo ngày" (US12)) | Không gọi server ở bước này (tìm phòng: mục "Tìm phòng trống theo ngày" (US12)) | Không | Không |
+| 10 | Một chủ nhà trong nguồn phòng đã xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22)) | Các căn của chủ nhà đó biến khỏi bảng và khỏi kết quả tìm phòng (mục "Kết quả tìm phòng" (US12)), dù căn, lịch, giá vẫn còn ở server (QD-013). Số đếm "NGUỒN PHÒNG" giảm theo. Sale thấy dòng chủ nhà kèm ghi chú nhỏ đỏ "Đã xoá tài khoản" ở Nguồn phòng (mục "Danh sách căn và nguồn phòng" bước 10); sale có thông báo "chủ nhà đã xóa tài khoản" (mục "Cài đặt thông báo" (US21), QD-013) | Không gửi căn, lịch, giá của chủ nhà đã xóa tài khoản | | Không |
 
-Theo quy tắc: Căn của tôi đứng đầu; Căn tự nhập không có lịch; Sale chỉ thấy căn chủ nhà đã đồng ý (YC1).
+Theo quy tắc: Căn của tôi đứng đầu; Căn tự nhập không có lịch; Sale chỉ thấy căn chủ nhà đã đồng ý (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale).
 
 Trạng thái màn:
-- rỗng: sale chưa có nguồn phòng thì thấy A5 (thuộc YC1.4)
+- rỗng: sale chưa có nguồn phòng thì thấy A5 (thuộc mục "Màn đầu tiên khi chưa có dữ liệu" (US1))
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5 (sale bị ngừng, chủ nhà xóa tài khoản)
 - từ chối quyền: không áp dụng
 - quay lại từ nền: theo HV3
-- mở từ link: toast "đã đồng ý cho bạn xem lịch" (A9, thuộc YC1.10)
+- mở từ link: toast "đã đồng ý cho bạn xem lịch" (A9, thuộc mục "Thông báo kết quả kết nối cho sale" (US17))
 
-### YC6.1 · Danh sách căn và nguồn phòng
+### Danh sách căn và nguồn phòng
 Rủi ro: tb
-Căn của mình là căn sale sở hữu hoặc thuê lại để kinh doanh (QD-005). Sale bán cả căn của mình và căn của chủ nhà đã kết nối. Chia lịch các căn này cho sale khác chỉ qua Đội nhóm (YC8), bản đầu chưa có (YC8).
+Căn của mình là căn sale sở hữu hoặc thuê lại để kinh doanh (QD-005). Sale bán cả căn của mình và căn của chủ nhà đã kết nối. Chia lịch các căn này cho sale khác chỉ qua Đội nhóm (nhóm Đội nhóm, cộng tác viên), bản đầu chưa có (nhóm Đội nhóm, cộng tác viên).
 Mục đích: sale thấy một chỗ gồm căn của mình, chủ nhà đã kết nối và căn tự nhập.
 Màn hình: S6, S6-00, S6-07, S6-08
 Khi nào xảy ra: sale mở tab Căn.
@@ -55,22 +55,22 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở tab Căn | Hai tab "Nguồn phòng" và "Căn". Nhóm "CĂN CỦA TÔI · 2" kèm nút "+ Thêm căn". Mỗi căn: tên, "2PN · view biển", tình trạng ("Trống hôm nay ✓", "Có khách 12/10") | căn người gọi giữ, chưa ẩn, có tình trạng hôm nay (`co_khach`, `khach_den`, `trong`) | Không | Không |
-| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước", danh sách căn ("ICON40 1509 · 2PN", "view biển"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (YC3.2.2), ghi theo `Tu_dien.md` như thẻ căn ở YC3.1 bước 2: có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | với sale: danh sách nguồn phòng; căn trong phạm vi `ket_noi` `da_ket_noi` | Không | Không |
+| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước", danh sách căn ("ICON40 1509 · 2PN", "view biển"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (mục "Tòa nhà, loại view, số giường, mô tả" (US11)), ghi theo `Tu_dien.md` như thẻ căn ở mục "Danh sách căn" (US1) bước 2: có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | với sale: danh sách nguồn phòng; căn trong phạm vi `ket_noi` `da_ket_noi` | Không | Không |
 | 3 | Xem căn tự nhập | Nhóm "CĂN TỰ NHẬP · 1": "Villa Tuần Châu", "Chú Bình · chưa dùng app · gọi hỏi lịch" | căn người gọi giữ, gồm căn tự nhập; chỉ sale tạo đọc được | Không | Không |
-| 4 | Xem gợi ý mời | "Mời chú Bình dùng app để lịch tự cập nhật, không cần gọi hỏi." và nút "Gửi lời mời qua Zalo". Bấm nút: chạy YC1.5 nếu hồ sơ sale chưa có số (YC1.5), rồi mở cửa sổ chia sẻ | Có chạy YC1.5. Mời chủ căn tự nhập: app mở cửa sổ gửi của Zalo với tin mời chung, chủ căn mở thì vào app như người mới. Ghép căn tự nhập với căn thật của chủ đó: [MỞ: YC6-H2] | Hộp thoại xin thông tin và số điện thoại khi chạy YC1.5; mở cửa sổ chia sẻ | Có chạy YC1.5: `profiles`: `sdt`, `ten`, `anh_dai_dien`. Không thì Không |
-| 5 | Bấm "+ Thêm căn" | Luồng thêm căn của chủ nhà (YC3.2) | Không gọi server. Lưu căn theo YC3.2 (| Không | Không |
-| 6 | Bấm "Thêm căn tự nhập" | Sang YC6.3 | Không gọi server | Không | Không |
-| 7 | Chạm tên một chủ nhà đã kết nối (ví dụ Chị Hoa) | Mở chi tiết chủ nhà S6-04 (YC6.2). Chạm một căn bên dưới tên thì theo bước 7a | Không gọi server | Không | Không |
-| 7a | Chạm một căn của chủ nhà đã kết nối (ví dụ ICON40 1509 dưới Chị Hoa) | Mở chi tiết căn S3 (YC5.4) của căn đó, như chạm căn ở lịch phòng. Không mở S6-07: sale không ghi booking hay sửa giá trên căn của chủ nhà | Gửi căn theo quyền sale được xem (YC1) | Không | Không |
-| 8 | Chạm căn tự nhập | Sang YC6.4 | Không gọi server | Không | Không |
+| 4 | Xem gợi ý mời | "Mời chú Bình dùng app để lịch tự cập nhật, không cần gọi hỏi." và nút "Gửi lời mời qua Zalo". Bấm nút: chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ sale chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), rồi mở cửa sổ chia sẻ | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5). Mời chủ căn tự nhập: app mở cửa sổ gửi của Zalo với tin mời chung, chủ căn mở thì vào app như người mới. Ghép căn tự nhập với căn thật của chủ đó: [MỞ: CH-027] | Hộp thoại xin thông tin và số điện thoại khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5); mở cửa sổ chia sẻ | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5): `profiles`: `sdt`, `ten`, `anh_dai_dien`. Không thì Không |
+| 5 | Bấm "+ Thêm căn" | Luồng thêm căn của chủ nhà (mục "Thêm căn" (US1)) | Không gọi server. Lưu căn theo mục "Thêm căn" (US1) (| Không | Không |
+| 6 | Bấm "Thêm căn tự nhập" | Sang mục "Thêm căn tự nhập" | Không gọi server | Không | Không |
+| 7 | Chạm tên một chủ nhà đã kết nối (ví dụ Chị Hoa) | Mở chi tiết chủ nhà S6-04 (mục "Chi tiết chủ nhà và bỏ nguồn phòng"). Chạm một căn bên dưới tên thì theo bước 7a | Không gọi server | Không | Không |
+| 7a | Chạm một căn của chủ nhà đã kết nối (ví dụ ICON40 1509 dưới Chị Hoa) | Mở chi tiết căn S3 (mục "Chi tiết căn và giá bán" (US13)) của căn đó, như chạm căn ở lịch phòng. Không mở S6-07: sale không ghi booking hay sửa giá trên căn của chủ nhà | Gửi căn theo quyền sale được xem (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale) | Không | Không |
+| 8 | Chạm căn tự nhập | Sang mục "Chi tiết căn tự nhập" | Không gọi server | Không | Không |
 | 9 | Chạm một căn của tôi | Mở S6-07 "Chi tiết căn của tôi": thẻ căn có nhãn "Căn của tôi", lịch 7 ngày với giá của sale, ba việc "Đặt phòng" (CN4; trước là "Ghi booking", Tu_dien), "Sửa căn và giá" (CN5-02), "Gửi cho khách" (S5) | chi tiết căn của mình, mọi trường và ảnh theo thứ tự (S6-07) | Không | Không |
-| 10 | Xem chủ nhà đã xóa tài khoản (YC9.8) | Trong nhóm "CHỦ NHÀ ĐÃ KẾT NỐI": dòng tên cũ của chủ nhà kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại, không có danh sách căn, không có "Cập nhật... trước". Chạm vào dòng không mở gì. Có nút "Bỏ khỏi danh sách" (S6-08). Số đếm của nhóm không tính dòng chủ nhà đã xóa tài khoản. Chủ nhà cho lại tên và số điện thoại thì dòng trở lại như trước, kết nối tự nối lại, sale không phải xin lại lịch (QD-013) | Không gửi căn, lịch, giá, số điện thoại của chủ nhà đã xóa tài khoản, chỉ gửi tên kèm cờ đã xóa tài khoản (QD-013) | | Không |
-| 11 | Bấm "Bỏ khỏi danh sách" ở dòng chủ nhà đã xóa tài khoản | Bỏ ngay, không hỏi lại. Dòng biến khỏi danh sách. Booking đã chốt với chủ nhà đó vẫn còn ở danh sách booking của sale (YC7.6). Đã bỏ dòng thì khi chủ nhà cho lại tên và số, kết nối có nối lại không: [MỞ: YC6-H14] | Bỏ dòng khỏi danh sách của sale này | | Danh sách chủ nhà của sale |
+| 10 | Xem chủ nhà đã xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22)) | Trong nhóm "CHỦ NHÀ ĐÃ KẾT NỐI": dòng tên cũ của chủ nhà kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không có số điện thoại, không có danh sách căn, không có "Cập nhật... trước". Chạm vào dòng không mở gì. Có nút "Bỏ khỏi danh sách" (S6-08). Số đếm của nhóm không tính dòng chủ nhà đã xóa tài khoản. Chủ nhà cho lại tên và số điện thoại thì dòng trở lại như trước, kết nối tự nối lại, sale không phải xin lại lịch (QD-013) | Không gửi căn, lịch, giá, số điện thoại của chủ nhà đã xóa tài khoản, chỉ gửi tên kèm cờ đã xóa tài khoản (QD-013) | | Không |
+| 11 | Bấm "Bỏ khỏi danh sách" ở dòng chủ nhà đã xóa tài khoản | Bỏ ngay, không hỏi lại. Dòng biến khỏi danh sách. Booking đã chốt với chủ nhà đó vẫn còn ở danh sách booking của sale (mục "Trạng thái booking của sale" (US19)). Đã bỏ dòng thì khi chủ nhà cho lại tên và số, kết nối có nối lại không: [MỞ: CH-028] | Bỏ dòng khỏi danh sách của sale này | | Danh sách chủ nhà của sale |
 
-Theo quy tắc: Ba loại căn của sale; Căn tự nhập không có lịch (YC5); Độ tươi lịch (YC5); Xóa và giữ khi người dùng xóa tài khoản (QD-013, YC9.8).
+Theo quy tắc: Ba loại căn của sale; Căn tự nhập không có lịch (nhóm Tìm phòng và gửi khách); Độ tươi lịch (nhóm Tìm phòng và gửi khách); Xóa và giữ khi người dùng xóa tài khoản (QD-013, mục "Khi người dùng xóa tài khoản" (US22)).
 
 Trạng thái màn:
-- rỗng: tab Căn chưa có căn nào: S6-00 (màn đầu khi chưa có nguồn phòng là A5, thuộc YC1.4)
+- rỗng: tab Căn chưa có căn nào: S6-00 (màn đầu khi chưa có nguồn phòng là A5, thuộc mục "Màn đầu tiên khi chưa có dữ liệu" (US1))
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
@@ -78,11 +78,11 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC6.2 · Chi tiết chủ nhà và bỏ nguồn phòng
+### Chi tiết chủ nhà và bỏ nguồn phòng
 Rủi ro: cao
 Mục đích: sale xem một chủ nhà đã kết nối cho mình xem gì, mình đã bán được bao nhiêu, và bỏ nguồn nếu cần.
 Màn hình: S6-04
-Khi nào xảy ra: sale chạm tên một chủ nhà trong "Nguồn phòng" (YC6.1 bước 7).
+Khi nào xảy ra: sale chạm tên một chủ nhà trong "Nguồn phòng" (mục "Danh sách căn và nguồn phòng" bước 7).
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
@@ -94,18 +94,18 @@ Hành vi:
 | 5 | Bấm "Bỏ nguồn phòng này" | Nút đổi thành "Xác nhận bỏ Chị Hoa?" kèm lời nhắc "Bạn không thấy lịch của Chị Hoa nữa. Muốn xem lại phải xin link mới." | Không gọi server | Không | Không |
 | 6 | Bấm xác nhận | Bỏ nguồn phòng (màn sau đó: chưa thiết kế) | sale bỏ nguồn | Không | Quan hệ sale và chủ nhà: `ket_noi.trang_thai` sang `sale_bo` |
 
-Theo quy tắc: Bỏ nguồn phải bấm hai lần; Sale chỉ thấy giá khi chủ nhà cho phép (YC1).
+Theo quy tắc: Bỏ nguồn phải bấm hai lần; Sale chỉ thấy giá khi chủ nhà cho phép (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale).
 
 Trạng thái màn:
 - rỗng: không áp dụng
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
-- không có quyền: chưa thiết kế (xem YC6-H4). Chủ nhà đã xóa tài khoản thì không mở được màn này (YC6.1 bước 10); mở từ chỗ khác thì theo HV5
+- không có quyền: chưa thiết kế (xem CH-074). Chủ nhà đã xóa tài khoản thì không mở được màn này (mục "Danh sách căn và nguồn phòng" bước 10); mở từ chỗ khác thì theo HV5
 - từ chối quyền: không áp dụng
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC6.3 · Thêm căn tự nhập
+### Thêm căn tự nhập
 Rủi ro: tb
 Mục đích: sale lưu thông tin một căn của chủ chưa dùng app, để gửi khách và ghi booking.
 Màn hình: S6-02
@@ -122,7 +122,7 @@ Hành vi:
 | 6 | Thiếu ô bắt buộc | Dòng "Còn thiếu: tên chủ nhà, số điện thoại, mã căn, số phòng ngủ"; nút "Thêm căn" chưa dùng được (?) | Không gọi server. Gọi thiếu ô thì trả `DU_LIEU_SAI` kèm `o` | Không | Không |
 | 7 | Bấm "Thêm căn" | Căn xuất hiện trong "CĂN TỰ NHẬP" | chỉ sale tạo, chỉ sale đó đọc (PQ14.SALE); kiểm mã căn, số phòng ngủ; mã trùng thì `MA_CAN_TRUNG` | Không | Căn tự nhập của sale |
 
-Theo quy tắc: Căn tự nhập không có lịch (YC5); Căn tự nhập chỉ sale đó thấy; Thông tin chủ căn tự nhập theo QD-011.
+Theo quy tắc: Căn tự nhập không có lịch (nhóm Tìm phòng và gửi khách); Căn tự nhập chỉ sale đó thấy; Thông tin chủ căn tự nhập theo QD-011.
 
 Trạng thái màn:
 - rỗng: S6-02 lúc mới mở
@@ -133,7 +133,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC6.4 · Chi tiết căn tự nhập
+### Chi tiết căn tự nhập
 Rủi ro: tb
 Mục đích: sale xem một căn tự nhập, gọi chủ hỏi lịch, và dùng các việc liên quan đến căn này.
 Màn hình: S6-03, S6-03-00
@@ -144,14 +144,14 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Mở chi tiết | Tên căn, tên chủ, số điện thoại che giữa, "chưa dùng app", nút "Gọi hỏi lịch", lời nhắc "Căn này không có lịch trống. Khách hỏi ngày nào, bạn gọi chú Bình hỏi ngày đó." | căn tự nhập có thêm tên, số chủ căn, giá chủ báo. Chỉ sale tạo đọc được | Nút "Gọi" mở màn gọi điện (`openPhone`, | Không |
 | 2 | Xem booking đã ghi | "ĐẶT PHÒNG BẠN ĐÃ GHI · 1", "Chỉ bạn thấy", ngày, "Trả chủ 2.800.000đ · Thu khách 3.400.000đ", "+600.000đ". Ghi chú: "Đây là đặt phòng của bạn, không phải lịch của căn. Ngày không có đặt phòng chưa chắc còn trống." | danh sách đặt phòng sale đã ghi của căn tự nhập | Không | Không |
-| 3 | Bấm "Gửi cho khách" | Sang gửi khách (YC5.5) với căn này | Không gọi server. Gửi theo YC5.5 (| Không | Không |
+| 3 | Bấm "Gửi cho khách" | Sang gửi khách (mục "Gửi thông tin cho khách qua Zalo" (US14)) với căn này | Không gọi server. Gửi theo mục "Gửi thông tin cho khách qua Zalo" (US14) (| Không | Không |
 | 4 | Bấm "Sửa thông tin căn" | Sửa ảnh, giá chủ, số phòng ngủ, tên và số điện thoại chủ căn; xóa được số điện thoại (QD-011) (màn sửa: chưa thiết kế) | ảnh mới qua rồi gửi `anh_ids` theo thứ tự | Không | `can`: cột đã sửa, `sdt_chu_can` trống khi xóa số; `anh_can` |
-| 5 | Bấm "Mời chú Bình dùng app" | Chạy YC1.5 nếu hồ sơ sale chưa có số (YC1.5), rồi mời chủ dùng app để thấy lịch thật | Có chạy YC1.5. Mời chủ căn tự nhập: app mở cửa sổ gửi của Zalo với tin mời chung, chủ căn mở thì vào app như người mới. Ghép căn tự nhập với căn thật của chủ đó: [MỞ: YC6-H2] | Cửa sổ chia sẻ của Zalo; hộp thoại xin thông tin và số điện thoại khi chạy YC1.5 | Có chạy YC1.5: `profiles`: `sdt`, `ten`, `anh_dai_dien`. Không thì Không |
+| 5 | Bấm "Mời chú Bình dùng app" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ sale chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), rồi mời chủ dùng app để thấy lịch thật | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5). Mời chủ căn tự nhập: app mở cửa sổ gửi của Zalo với tin mời chung, chủ căn mở thì vào app như người mới. Ghép căn tự nhập với căn thật của chủ đó: [MỞ: CH-027] | Cửa sổ chia sẻ của Zalo; hộp thoại xin thông tin và số điện thoại khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5): `profiles`: `sdt`, `ten`, `anh_dai_dien`. Không thì Không |
 | 6 | Bấm "Xóa căn tự nhập" | Nút đổi thành "Xác nhận xóa Villa Tuần Châu?" kèm "Chỉ xóa khỏi Nguồn phòng của bạn." | Không gọi server | Không | Không |
 | 7 | Bấm xác nhận xóa | Xóa căn (màn sau đó: chưa thiết kế) | căn tự nhập thì xóa thật căn và mọi đặt phòng `sale_tu_ghi` của căn | Không | Căn tự nhập và booking đã ghi của nó: xóa dòng `can`, `anh_can`, `booking` `sale_tu_ghi` của căn |
-| 8 | Bấm "Đặt phòng" (trước là "Ghi booking đã chốt", Tu_dien) | Sang YC6.5 | Không gọi server | Không | Không |
+| 8 | Bấm "Đặt phòng" (trước là "Ghi booking đã chốt", Tu_dien) | Sang mục "Ghi booking đã chốt cho căn tự nhập" | Không gọi server | Không | Không |
 
-Theo quy tắc: Căn tự nhập không có lịch (YC5); Booking sale tự ghi chỉ sale đó thấy; Xóa phải bấm hai lần (YC4).
+Theo quy tắc: Căn tự nhập không có lịch (nhóm Tìm phòng và gửi khách); Booking sale tự ghi chỉ sale đó thấy; Xóa phải bấm hai lần (nhóm Booking).
 
 Trạng thái màn:
 - rỗng: chưa có booking đã ghi: S6-03-00
@@ -162,7 +162,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC6.5 · Ghi booking đã chốt cho căn tự nhập
+### Ghi booking đã chốt cho căn tự nhập
 Booking của căn tự nhập không theo dõi trạng thái tiền (chưa cọc, đã cọc, đã thanh toán), vì căn này không có chủ nhà trong app.
 Rủi ro: cao
 Mục đích: sale ghi nhanh một booking đã chốt với chủ nhà qua điện thoại, trong một màn, để tính vào thống kê.
@@ -194,40 +194,40 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC5.1-NT1** Khi sale có 2 căn của mình và 5 căn trong nguồn phòng, thì nhóm "CĂN CỦA TÔI · 2" nằm trên nhóm "NGUỒN PHÒNG · 5".
-- **YC5.1-NT3** Khi căn là căn tự nhập, thì mọi ô ngày ghi "?" ngoại trừ ngày sale đã ghi booking của mình ghi "Bạn". Không ô nào ghi "trống".
-- **YC5.1-NT4** Khi sale chọn "Giá tăng dần", thì thứ tự các căn đổi theo giá và nhóm "CĂN CỦA TÔI" vẫn ở trên cùng.
-- **YC6.1-NT1** Khi sale có 2 căn của mình, 2 chủ nhà đã kết nối và 1 căn tự nhập, thì thấy ba nhóm với số đếm 2, 2 và 1.
-- **YC6.1-NT2** Khi căn là căn tự nhập, thì thẻ ghi "chưa dùng app" và không hiện "Trống hôm nay".
-- **YC6.1-NT3** Khi sale bấm "Gửi lời mời qua Zalo", thì mở cửa sổ gửi của Zalo; app không tự gửi tin.
-- **YC6.1-NT4** Khi căn của chủ nhà đã kết nối có số giường, thì danh sách căn ở nguồn phòng ghi số phòng ngủ và số giường như thẻ căn (YC3.1-NT5), không có "x khách", "x người lớn" hay "y trẻ em".
-- **YC6.1-NT7** Khi Sale Hùng bấm "Bỏ khỏi danh sách" ở dòng Chị Hoa đã xóa tài khoản, thì dòng biến ngay, app không hỏi lại. Chị Hoa mở lại app bằng cùng tài khoản Zalo vẫn thấy dữ liệu cũ của mình (QD-013).
-- **YC6.1-NT8** Khi Chị Hoa đã xóa tài khoản và dòng của Chị Hoa còn trong danh sách, thì nhóm "CHỦ NHÀ ĐÃ KẾT NỐI" đếm 1 (chỉ Anh Tuấn), không đếm dòng Chị Hoa.
-- **YC6.1-NT9** Khi Sale Hùng chạm ICON40 1509 dưới Chị Hoa ở Nguồn phòng, thì app mở S3 của 1509, không mở S6-07, và màn không có nút "Đặt phòng" (ghi booking thẳng vào lịch) hay "Sửa căn và giá".
-- **YC6.1-NT10** Khi Sale Hùng chạm tên Chị Hoa trong nhóm "CHỦ NHÀ ĐÃ KẾT NỐI" ở Nguồn phòng, thì app mở S6-04 của Chị Hoa (chi tiết chủ nhà), không mở S3.
-- **YC6.1-NT11** Khi sale chạm Green Bay 0812 trong nhóm "Căn của tôi", thì app mở S6-07 của căn đó với ba việc Đặt phòng, Sửa căn và giá, Gửi cho khách. (Tu_dien) Chỉ đổi mã: dòng này trước mang mã NT4, trùng với dòng số giường.
-- **YC6.2-NT1** Khi Chị Hoa đã đặt giá tháng 10 cho 1509 và 3402, thì S6-04 của Sale Hùng hiện giá mỗi đêm của cả hai căn; căn nào chưa đặt giá thì không có giá (QD-007).
-- **YC6.2-NT2** Khi sale bấm "Bỏ nguồn phòng này" một lần, thì chưa bỏ gì cả, chỉ hiện nút xác nhận.
-- **YC6.2-NT3** Khi sale bấm xác nhận, thì chủ nhà đó biến khỏi "Nguồn phòng" và sale không còn thấy lịch của họ.
-- **YC6.3-NT1** Khi còn thiếu một trong bốn ô bắt buộc, thì dòng "Còn thiếu" liệt kê đúng ô thiếu.
-- **YC6.3-NT2** Khi sale không nhập giá chủ, thì vẫn thêm được căn.
-- **YC6.3-NT3** Khi sale thêm căn xong, thì căn nằm trong nhóm "CĂN TỰ NHẬP" và không có lịch trống.
-- **YC6.3-NT4** Khi sale chọn 12 ảnh, thì không chọn thêm được ảnh thứ 13.
-- **YC6.3-NT5** Khi Sale Lan mở căn tự nhập của mình, thì không thấy tên và số chủ căn do Sale Hùng nhập cho căn tự nhập của Hùng (QD-011).
-- **YC6.3-NT6** Khi sale mở hàng chip "Loại view" ở S6-02, thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md`, giống form thêm căn của chủ nhà (YC3.2.2).
-- **YC6.3-NT7** Khi sale nhập số giường rồi thêm căn tự nhập, thì thẻ căn tự nhập ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn (ví dụ "2PN · 3 giường").
-- **YC6.3-NT8** Khi sale bỏ trống ô số giường, thì vẫn thêm được căn tự nhập và dòng "Còn thiếu" không nhắc số giường.
-- **YC6.4-NT1** Khi căn có 1 booking sale đã ghi, thì mục "ĐẶT PHÒNG BẠN ĐÃ GHI · 1" hiện đúng ngày, tiền trả chủ, tiền thu khách và phần chênh.
-- **YC6.4-NT2** Khi ngày nào không có booking, thì màn không ghi "trống" cho ngày đó.
-- **YC6.4-NT3** Khi sale bấm "Xóa căn tự nhập" một lần, thì chưa xóa, chỉ hiện nút xác nhận.
-- **YC6.4-NT5** Khi sale xóa số điện thoại chủ căn rồi lưu, thì server không còn giữ số đó và nút "Gọi hỏi lịch" không dùng được (QD-011).
-- **YC6.4-NT4** Khi phần chênh hiện ra, thì bằng tiền thu khách trừ tiền trả chủ (2.800.000đ và 3.400.000đ cho +600.000đ).
-- **YC6.5-NT1** Khi sale chọn ngày nhận 08/10 và 1 đêm, thì khoảng ngày ghi "08/10 → 09/10 (1 đêm)".
-- **YC6.5-NT2** Khi trả chủ 1.400.000đ và thu khách 1.600.000đ, thì dòng ghi "Bạn lời 200.000đ".
-- **YC6.5-NT3** Khi sale bấm "Đặt phòng" ở S6-05, thì S6-06 hiện booking mới trong danh sách và thông báo ghi tháng 10.
-- **YC6.5-NT4** Khi sale ghi xong, thì ngày đó vẫn không được coi là "kín" hay "trống" trên lưới lịch (S1); chỉ ô "Bạn" xuất hiện (YC5.1).
-- **YC6.5-NT5** Khi Sale Hùng đã ghi Villa Tuần Châu 08/10 → 09/10 và ghi tiếp 08/10 → 10/10 cho cùng căn, thì app báo trùng và không lưu (QT1.3-VD1).
-- **YC6.5-NT6** Khi Sale Lan ghi căn tự nhập Villa Tuần Châu của Lan cùng ngày với booking của Sale Hùng, thì lưu được (QT1.3-VD2).
+- **US16-NT1** Khi sale có 2 căn của mình và 5 căn trong nguồn phòng, thì nhóm "CĂN CỦA TÔI · 2" nằm trên nhóm "NGUỒN PHÒNG · 5".
+- **US16-NT2** Khi căn là căn tự nhập, thì mọi ô ngày ghi "?" ngoại trừ ngày sale đã ghi booking của mình ghi "Bạn". Không ô nào ghi "trống".
+- **US16-NT3** Khi sale chọn "Giá tăng dần", thì thứ tự các căn đổi theo giá và nhóm "CĂN CỦA TÔI" vẫn ở trên cùng.
+- **US16-NT4** Khi sale có 2 căn của mình, 2 chủ nhà đã kết nối và 1 căn tự nhập, thì thấy ba nhóm với số đếm 2, 2 và 1.
+- **US16-NT5** Khi căn là căn tự nhập, thì thẻ ghi "chưa dùng app" và không hiện "Trống hôm nay".
+- **US16-NT6** Khi sale bấm "Gửi lời mời qua Zalo", thì mở cửa sổ gửi của Zalo; app không tự gửi tin.
+- **US16-NT7** Khi căn của chủ nhà đã kết nối có số giường, thì danh sách căn ở nguồn phòng ghi số phòng ngủ và số giường như thẻ căn (US11-NT1), không có "x khách", "x người lớn" hay "y trẻ em".
+- **US16-NT8** Khi Sale Hùng bấm "Bỏ khỏi danh sách" ở dòng Chị Hoa đã xóa tài khoản, thì dòng biến ngay, app không hỏi lại. Chị Hoa mở lại app bằng cùng tài khoản Zalo vẫn thấy dữ liệu cũ của mình (QD-013).
+- **US16-NT9** Khi Chị Hoa đã xóa tài khoản và dòng của Chị Hoa còn trong danh sách, thì nhóm "CHỦ NHÀ ĐÃ KẾT NỐI" đếm 1 (chỉ Anh Tuấn), không đếm dòng Chị Hoa.
+- **US16-NT10** Khi Sale Hùng chạm ICON40 1509 dưới Chị Hoa ở Nguồn phòng, thì app mở S3 của 1509, không mở S6-07, và màn không có nút "Đặt phòng" (ghi booking thẳng vào lịch) hay "Sửa căn và giá".
+- **US16-NT11** Khi Sale Hùng chạm tên Chị Hoa trong nhóm "CHỦ NHÀ ĐÃ KẾT NỐI" ở Nguồn phòng, thì app mở S6-04 của Chị Hoa (chi tiết chủ nhà), không mở S3.
+- **US16-NT12** Khi sale chạm Green Bay 0812 trong nhóm "Căn của tôi", thì app mở S6-07 của căn đó với ba việc Đặt phòng, Sửa căn và giá, Gửi cho khách. (Tu_dien) Chỉ đổi mã: dòng này trước mang mã NT4, trùng với dòng số giường.
+- **US16-NT13** Khi Chị Hoa đã đặt giá tháng 10 cho 1509 và 3402, thì S6-04 của Sale Hùng hiện giá mỗi đêm của cả hai căn; căn nào chưa đặt giá thì không có giá (QD-007).
+- **US16-NT14** Khi sale bấm "Bỏ nguồn phòng này" một lần, thì chưa bỏ gì cả, chỉ hiện nút xác nhận.
+- **US16-NT15** Khi sale bấm xác nhận, thì chủ nhà đó biến khỏi "Nguồn phòng" và sale không còn thấy lịch của họ.
+- **US16-NT16** Khi còn thiếu một trong bốn ô bắt buộc, thì dòng "Còn thiếu" liệt kê đúng ô thiếu.
+- **US16-NT17** Khi sale không nhập giá chủ, thì vẫn thêm được căn.
+- **US16-NT18** Khi sale thêm căn xong, thì căn nằm trong nhóm "CĂN TỰ NHẬP" và không có lịch trống.
+- **US16-NT19** Khi sale chọn 12 ảnh, thì không chọn thêm được ảnh thứ 13.
+- **US16-NT20** Khi Sale Lan mở căn tự nhập của mình, thì không thấy tên và số chủ căn do Sale Hùng nhập cho căn tự nhập của Hùng (QD-011).
+- **US16-NT21** Khi sale mở hàng chip "Loại view" ở S6-02, thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md`, giống form thêm căn của chủ nhà (mục "Tòa nhà, loại view, số giường, mô tả" (US11)).
+- **US16-NT22** Khi sale nhập số giường rồi thêm căn tự nhập, thì thẻ căn tự nhập ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn (ví dụ "2PN · 3 giường").
+- **US16-NT23** Khi sale bỏ trống ô số giường, thì vẫn thêm được căn tự nhập và dòng "Còn thiếu" không nhắc số giường.
+- **US16-NT24** Khi căn có 1 booking sale đã ghi, thì mục "ĐẶT PHÒNG BẠN ĐÃ GHI · 1" hiện đúng ngày, tiền trả chủ, tiền thu khách và phần chênh.
+- **US16-NT25** Khi ngày nào không có booking, thì màn không ghi "trống" cho ngày đó.
+- **US16-NT26** Khi sale bấm "Xóa căn tự nhập" một lần, thì chưa xóa, chỉ hiện nút xác nhận.
+- **US16-NT27** Khi sale xóa số điện thoại chủ căn rồi lưu, thì server không còn giữ số đó và nút "Gọi hỏi lịch" không dùng được (QD-011).
+- **US16-NT28** Khi phần chênh hiện ra, thì bằng tiền thu khách trừ tiền trả chủ (2.800.000đ và 3.400.000đ cho +600.000đ).
+- **US16-NT29** Khi sale chọn ngày nhận 08/10 và 1 đêm, thì khoảng ngày ghi "08/10 → 09/10 (1 đêm)".
+- **US16-NT30** Khi trả chủ 1.400.000đ và thu khách 1.600.000đ, thì dòng ghi "Bạn lời 200.000đ".
+- **US16-NT31** Khi sale bấm "Đặt phòng" ở S6-05, thì S6-06 hiện booking mới trong danh sách và thông báo ghi tháng 10.
+- **US16-NT32** Khi sale ghi xong, thì ngày đó vẫn không được coi là "kín" hay "trống" trên lưới lịch (S1); chỉ ô "Bạn" xuất hiện (mục "Lịch phòng 7 ngày").
+- **US16-NT33** Khi Sale Hùng đã ghi Villa Tuần Châu 08/10 → 09/10 và ghi tiếp 08/10 → 10/10 cho cùng căn, thì app báo trùng và không lưu (QT1.3-VD1).
+- **US16-NT34** Khi Sale Lan ghi căn tự nhập Villa Tuần Châu của Lan cùng ngày với booking của Sale Hùng, thì lưu được (QT1.3-VD2).
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -248,10 +248,10 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 **Đầu vào**
 | Trường | Ở đâu (đường dẫn, query, thân) | Kiểu | Bắt buộc | Luật kiểm |
 |---|---|---|---|---|
-| tu | query | ngay | Không | Mặc định hôm nay theo giờ Việt Nam. Lùi, tiến tự do (YC5.1 bước 5) |
+| tu | query | ngay | Không | Mặc định hôm nay theo giờ Việt Nam. Lùi, tiến tự do (mục "Lịch phòng 7 ngày" bước 5) |
 | so_ngay | query | số nguyên | Không | Chỉ 7 hoặc 14. Mặc định 7 |
 | sap_xep | query | chuỗi | Không | `ten` (mặc định), `gia_tang`, `ban_nhieu` |
-| can_id | query | id | Không | Chỉ lấy một căn, cho "Lịch 2 tuần tới" ở S3 (YC5.4 bước 5) |
+| can_id | query | id | Không | Chỉ lấy một căn, cho "Lịch 2 tuần tới" ở S3 (mục "Chi tiết căn và giá bán" (US13) bước 5) |
 
 **Lỗi riêng**
 | Mã | Khi nào |
@@ -404,7 +404,7 @@ Vào từ: S6, bấm việc cần tên và số khi hồ sơ chưa có số
 | # | Thành phần | Nội dung | Dữ liệu lấy từ |
 |---|---|---|---|
 | 1 | Màn gốc | Chép đúng S6, phủ lớp tối | S6 |
-| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Chia sẻ tên và số điện thoại với chủ nhà", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | YC1.5 Sửa r4 |
+| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Chia sẻ tên và số điện thoại với chủ nhà", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) Sửa r4 |
 | 3 | Nút | "Đồng ý, tiếp tục", "Để sau", dòng "Để sau vẫn … được" | |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
@@ -445,13 +445,13 @@ Vào từ: S6-P1, bấm "Đồng ý, tiếp tục"
 - `fn_sale_bo_nguon`: test ở t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Chủ nhà đã xóa tài khoản (YC6.1-NT5, NT6): US22. US16 chỉ làm phần bỏ dòng và số đếm (YC6.1-NT7, NT8).
-- Lịch 7 ngày của căn chủ nhà chia sẻ, nút xoay ngang (YC5.1-NT2, NT5): US6.
-- Chi tiết căn S3 và gửi khách (YC5.4, YC5.5): US13, US14. Nút "Gửi cho khách" chỉ mở màn đó.
-- Link xin lịch, A6, A7 (YC1.6): US17.
-- Ghép căn tự nhập với căn thật khi chủ căn vào app: [MỞ: US16-H2] chưa có, YC6.1 bước 4, YC6.4 bước 5. US này chỉ mở cửa sổ chia sẻ của Zalo (YC6.1-NT3).
-- Sửa, xóa đặt phòng sale đã ghi: chưa có màn (YC6-H9), chưa US nào.
-- Danh sách đặt phòng và thống kê của sale (YC7): US19.
+- Chủ nhà đã xóa tài khoản (US22-NT10, NT6): US22. US16 chỉ làm phần bỏ dòng và số đếm (US16-NT8, NT8).
+- Lịch 7 ngày của căn chủ nhà chia sẻ, nút xoay ngang (US6-NT12, NT5): US6.
+- Chi tiết căn S3 và gửi khách (mục "Chi tiết căn và giá bán" (US13), mục "Gửi thông tin cho khách qua Zalo" (US14)): US13, US14. Nút "Gửi cho khách" chỉ mở màn đó.
+- Link xin lịch, A6, A7 (mục "Sale xin chủ nhà cho xem lịch" (US17)): US17.
+- Ghép căn tự nhập với căn thật khi chủ căn vào app: [MỞ: US16-H2] chưa có, mục "Danh sách căn và nguồn phòng" bước 4, mục "Chi tiết căn tự nhập" bước 5. US này chỉ mở cửa sổ chia sẻ của Zalo (US16-NT6).
+- Sửa, xóa đặt phòng sale đã ghi: chưa có màn (CH-076), chưa US nào.
+- Danh sách đặt phòng và thống kê của sale (nhóm Thống kê): US19.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

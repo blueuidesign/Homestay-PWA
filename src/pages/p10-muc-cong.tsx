@@ -12,7 +12,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungP10 } from "./p10-man";
 
-// P10 · Mức cộng giá mặc định (YC5.6): tải GET /toi, lưu PATCH /toi { muc_cong_mac_dinh, lam_tron_50k }.
+// P10 · Mức cộng giá mặc định (mục "Mức cộng giá mặc định" (US13)): tải GET /toi, lưu PATCH /toi { muc_cong_mac_dinh, lam_tron_50k }.
 // Chọn dở nằm trong trạng thái của màn: rời app rồi quay lại vẫn còn (HV3 bước 2); thoát không lưu thì bỏ. Không tự lưu lại khi có mạng (HV2 bước 4).
 const khoaMoi = () => `muc-cong-mac-dinh-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 

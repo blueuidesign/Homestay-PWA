@@ -13,21 +13,21 @@ Là chủ nhà, tôi muốn gửi link mời cho sale qua Zalo, thấy ai đã k
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC1.5 · Xin tên và số điện thoại khi bắt đầu kết nối
-> **Bản PWA:** popup giải thích và nút "Để sau" (YC1.5.1) giữ nguyên. Hộp thoại cấp quyền của Zalo (YC1.5.2) và "số từ Zalo" (YC1.5.3) đổi theo cách đăng nhập ở CH-001. Xem `PWA.md` mục P2.
+### Xin tên và số điện thoại khi bắt đầu kết nối
+> **Bản PWA:** popup giải thích và nút "Để sau" (mục "Xin tên và số điện thoại khi bắt đầu kết nối") giữ nguyên. Hộp thoại cấp quyền của Zalo (mục "Hộp thoại cấp quyền của Zalo") và "số từ Zalo" (mục "Số điện thoại hiện trong hồ sơ") đổi theo cách đăng nhập ở CH-001. Xem `PWA.md` mục P2.
 Rủi ro: cao
 Mục đích: app lấy tên và số điện thoại từ Zalo để chủ nhà và sale nhận ra nhau, mà không ép người dùng cấp quyền ngay lúc vào app.
 Màn hình: A6-P1, A6-P2, A8-P1, A8-P2, CN10-P1, CN10-P2, P2; popup và hộp thoại cho A10, CN7, CN9, S6, S6-03, S3-02 và nút "Gửi cho khách" chưa vẽ
-Khi nào xảy ra: mọi việc bắt đầu chia sẻ, chấp thuận hoặc kết nối, khi hồ sơ chưa có số (YC1.5).
-- Bắt đầu chia sẻ: sale bấm "Gửi qua Zalo" hoặc "Sao chép tin nhắn" ở A6 (vào A6 từ A5, A7 hay P4); chủ nhà bấm "Gửi lịch qua Zalo" ở CN10; chủ nhà bấm "Gửi link mời qua Zalo", "Sao chép link" hoặc "Nhắc lại" ở CN7, CN7-00; sale mời chủ căn tự nhập dùng app ("Gửi lời mời qua Zalo" ở S6, "Mời chú Bình dùng app" ở S6-03, YC6.1, YC6.4).
-- Chấp thuận: chủ nhà bấm "Đồng ý cho xem lịch" ở A8; sale bấm "Thêm lịch" ở A10; chủ nhà bấm "Chấp nhận đặt phòng" ở CN9 (YC4.6).
-- Gửi cho người khác: sale bấm "Gửi yêu cầu đặt phòng" ở S3-02 (YC4.5 bước 3); sale bấm "Gửi cho khách" ở S3, S2, S6-03 hoặc S6-07, trước khi mở S5 (YC5.5 bước 0). YC1.5), A8-P1 (chủ nhà), CN10-P1 (chủ nhà)
+Khi nào xảy ra: mọi việc bắt đầu chia sẻ, chấp thuận hoặc kết nối, khi hồ sơ chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối").
+- Bắt đầu chia sẻ: sale bấm "Gửi qua Zalo" hoặc "Sao chép tin nhắn" ở A6 (vào A6 từ A5, A7 hay P4); chủ nhà bấm "Gửi lịch qua Zalo" ở CN10; chủ nhà bấm "Gửi link mời qua Zalo", "Sao chép link" hoặc "Nhắc lại" ở CN7, CN7-00; sale mời chủ căn tự nhập dùng app ("Gửi lời mời qua Zalo" ở S6, "Mời chú Bình dùng app" ở S6-03, mục "Danh sách căn và nguồn phòng" (US16), mục "Chi tiết căn tự nhập" (US16)).
+- Chấp thuận: chủ nhà bấm "Đồng ý cho xem lịch" ở A8; sale bấm "Thêm lịch" ở A10; chủ nhà bấm "Chấp nhận đặt phòng" ở CN9 (mục "Chủ nhà nhận và trả lời yêu cầu" (US15)).
+- Gửi cho người khác: sale bấm "Gửi yêu cầu đặt phòng" ở S3-02 (mục "Sale gửi yêu cầu đặt phòng" (US15) bước 3); sale bấm "Gửi cho khách" ở S3, S2, S6-03 hoặc S6-07, trước khi mở S5 (mục "Gửi thông tin cho khách qua Zalo" (US14) bước 0). mục "Xin tên và số điện thoại khi bắt đầu kết nối"), A8-P1 (chủ nhà), CN10-P1 (chủ nhà)
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Bấm nút ở màn gốc | Hiện popup dưới đáy: biểu tượng điện thoại, tiêu đề "Chia sẻ số điện thoại với chủ nhà" (sale) hoặc "với sale" (chủ nhà), 1 đoạn lý do, khung "Zalo sẽ hiện hộp thoại. Bật Số điện thoại rồi bấm Cho phép." | Không gọi server | Không | Không |
-| 2 | Bấm "Đồng ý, tiếp tục" | Sang hộp thoại Zalo (YC1.5.2) | Không gọi server | Hiện hộp thoại xin quyền (YC1.5.2) | Không |
+| 2 | Bấm "Đồng ý, tiếp tục" | Sang hộp thoại Zalo (mục "Hộp thoại cấp quyền của Zalo") | Không gọi server | Hiện hộp thoại xin quyền (mục "Hộp thoại cấp quyền của Zalo") | Không |
 | 3 | Bấm "Để sau" | Làm tiếp việc gốc mà không có số: A6 sang A7, A8 về CN7 của chủ nhà kèm toast theo HV8, CN10 sang CN10-02. Dòng ghi chú: bên kia chỉ thấy tên Zalo | Không gọi; việc gốc gọi API của nó như khi có số | Không | `profiles.sdt` vẫn trống; dữ liệu của việc gốc theo mục của việc đó |
 
 Trạng thái màn:
@@ -35,18 +35,18 @@ Trạng thái màn:
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: không áp dụng
-- từ chối quyền: xem YC1.5.2
+- từ chối quyền: xem mục "Hộp thoại cấp quyền của Zalo"
 - quay lại từ nền: theo HV3
 - mở từ link: A8-P1 mở từ link xin lịch của sale; các màn khác không áp dụng
 
-### YC1.5.2 · Hộp thoại cấp quyền của Zalo
+### Hộp thoại cấp quyền của Zalo
 Rủi ro: cao
 Màn hình: A6-P2, A8-P2, CN10-P2 (cả ba đều là hình minh họa, có nhãn "Hộp thoại do Zalo hiển thị, app không tự vẽ")
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 1 | Bấm "Đồng ý, tiếp tục" ở popup | Xin cả tên và ảnh Zalo và số điện thoại trong lần bấm này, không xin tên ở bước riêng (YC1.5 lần bốn) | Không gọi server | Hiện hộp thoại: "Lịch phòng Hạ Long muốn sử dụng thông tin của bạn", dòng Số điện thoại kèm công tắc, nút "Cho phép". Tên và số ra một hộp thoại hay hai, thứ tự nào: chờ | Không |
+| 1 | Bấm "Đồng ý, tiếp tục" ở popup | Xin cả tên và ảnh Zalo và số điện thoại trong lần bấm này, không xin tên ở bước riêng (mục "Xin tên và số điện thoại khi bắt đầu kết nối" lần bốn) | Không gọi server | Hiện hộp thoại: "Lịch phòng Hạ Long muốn sử dụng thông tin của bạn", dòng Số điện thoại kèm công tắc, nút "Cho phép". Tên và số ra một hộp thoại hay hai, thứ tự nào: chờ | Không |
 | 2 | Bật công tắc, bấm "Cho phép" | Nhận tên và số, làm tiếp việc gốc: A6-P2 sang A7, A8-P2 về CN7 của chủ nhà kèm toast theo HV8, CN10-P2 sang CN10-02 | đổi token số điện thoại với Zalo bằng access token và App Secret, trong 2 phút, mỗi token một lần; token đã dùng hoặc quá hạn thì `TOKEN_SDT_HET_HAN`, không ghi gì | Trả tên, ảnh và token số điện thoại cho app; server đổi token ra số | Tên và số điện thoại lưu vào hồ sơ |
 
 Trạng thái màn:
@@ -58,7 +58,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC1.5.3 · Số điện thoại hiện trong hồ sơ
+### Số điện thoại hiện trong hồ sơ
 Rủi ro: cao
 Màn hình: P2
 
@@ -77,7 +77,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC1.9 · Chủ nhà quản lý danh sách sale
+### Chủ nhà quản lý danh sách sale
 Rủi ro: cao
 Mục đích: chủ nhà thấy ai đã kết nối, nhắc người chưa mở link, thêm sale chưa dùng app, và ngừng cho một sale xem lịch.
 Màn hình: CN7, CN7-00, CN7-01, CN7-04, CN7-05 (S9 đã bỏ, QD-005;, F16)
@@ -87,13 +87,13 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở tab Sale | CN7: nút "Gửi link mời qua Zalo", nút "Sao chép link", nhóm "Đã kết nối · 3" (tên, trạng thái, số tiền), nhóm "Chưa kết nối · 1" | hai nhóm Đã kết nối, Chưa kết nối, mỗi dòng tên hiển thị, trạng thái, tổng tiền đặt phòng của sale | Không | Không |
-| 1a | Bấm "Gửi link mời qua Zalo" hoặc "Sao chép link" (CN7, CN7-00) | Chạy YC1.5 nếu hồ sơ chưa có số (YC1.5), rồi mở cửa sổ gửi của Zalo hoặc sao chép link | trả link mời đang dùng nếu còn hạn, không thì tạo mới; tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi mở cửa sổ gửi hoặc sao chép | Cửa sổ gửi tin của Zalo | `link_moi` loại `moi_sale` mới khi chưa có hoặc hết hạn; `so_lan_gui`, `gui_cuoi_luc` |
+| 1a | Bấm "Gửi link mời qua Zalo" hoặc "Sao chép link" (CN7, CN7-00) | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" nếu hồ sơ chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối"), rồi mở cửa sổ gửi của Zalo hoặc sao chép link | trả link mời đang dùng nếu còn hạn, không thì tạo mới; tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi mở cửa sổ gửi hoặc sao chép | Cửa sổ gửi tin của Zalo | `link_moi` loại `moi_sale` mới khi chưa có hoặc hết hạn; `so_lan_gui`, `gui_cuoi_luc` |
 | 2 | Chưa có sale nào | CN7-00: "Chưa có sale nào xem lịch", cùng hai nút gửi link, khung "Sale sẽ thấy: Phòng trống hay đã đặt; Giá từng đêm; Không thấy tên, số điện thoại khách và doanh thu" | cả hai nhóm rỗng | Không | Không |
-| 3 | Bấm "Nhắc lại" ở sale chưa kết nối | Chạy YC1.5 nếu hồ sơ chưa có số (YC1.5). Kết quả sau đó chưa vẽ (?) | [MỞ: YC1-H14] | Hộp thoại quyền khi chạy YC1.5; phần sau chưa vẽ | [MỞ: YC1-H14] |
+| 3 | Bấm "Nhắc lại" ở sale chưa kết nối | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" nếu hồ sơ chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối"). Kết quả sau đó chưa vẽ (?) | [MỞ: CH-011] | Hộp thoại quyền khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối"; phần sau chưa vẽ | [MỞ: CH-011] |
 | 4 | Bấm nút "Thêm sale" | CN7-05: ô Tên sale *, Số điện thoại *, nút "Lưu sale" | thêm tay, `chua_ket_noi`, `chu_them_tay` | Không | Thêm sale vào nhóm Chưa kết nối |
 | 5 | Bấm một sale đã kết nối | CN7-04: tên, số điện thoại, ngày kết nối, nút "Gọi", danh sách booking của sale (trạng thái, số tiền) | tên, số điện thoại nếu sale đã cho, ngày kết nối, đặt phòng của sale với chủ nhà này | Nút "Gọi" mở màn gọi điện (`openPhone`, | Không |
-| 6 | Bấm "Ngừng cho xem lịch" | Hỏi xác nhận "Xác nhận ngừng cho Sale Hùng xem? Đặt phòng cũ vẫn giữ. Sale không thấy lịch của bạn nữa." | Không gửi lịch, căn, giá của chủ nhà này cho sale nữa; vẫn gửi đặt phòng cũ của sale | Thông báo cho sale (YC9.3) | Sale mất quyền xem lịch, vẫn xem lại đặt phòng cũ của mình (QD-007) |
-| 7 | Một sale đã kết nối xóa tài khoản (YC9.8) | Booking đã nhận từ sale đó vẫn ở trong lịch, vẫn chặn trùng (QD-013). Sale đó còn một dòng ở CN7: tên cũ kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không số điện thoại, không nút "Gọi", không chạm vào xem được; chủ nhà bỏ được dòng đó. Chủ nhà không nhận thông báo riêng (QD-013). Trong lúc sale đó đã xóa tài khoản, chủ nhà không chia lịch, không đổi quyền xem cho sale đó (QD-013). Sale đó cho lại tên và số điện thoại thì dòng trở lại như trước, hết ghi chú, kết nối tự nối lại, không phải mời lại (QD-013). | Gửi tên kèm cờ đã xóa tài khoản, không gửi số điện thoại của sale đã xóa tài khoản | | Không đổi dữ liệu mới. Cột `ket_noi` ghi theo Thiet_ke_DB (CN7-01, YC1.9-NT4) |
+| 6 | Bấm "Ngừng cho xem lịch" | Hỏi xác nhận "Xác nhận ngừng cho Sale Hùng xem? Đặt phòng cũ vẫn giữ. Sale không thấy lịch của bạn nữa." | Không gửi lịch, căn, giá của chủ nhà này cho sale nữa; vẫn gửi đặt phòng cũ của sale | Thông báo cho sale (mục "Cài đặt thông báo" (US21)) | Sale mất quyền xem lịch, vẫn xem lại đặt phòng cũ của mình (QD-007) |
+| 7 | Một sale đã kết nối xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22)) | Booking đã nhận từ sale đó vẫn ở trong lịch, vẫn chặn trùng (QD-013). Sale đó còn một dòng ở CN7: tên cũ kèm ghi chú nhỏ đỏ "Đã xoá tài khoản", không số điện thoại, không nút "Gọi", không chạm vào xem được; chủ nhà bỏ được dòng đó. Chủ nhà không nhận thông báo riêng (QD-013). Trong lúc sale đó đã xóa tài khoản, chủ nhà không chia lịch, không đổi quyền xem cho sale đó (QD-013). Sale đó cho lại tên và số điện thoại thì dòng trở lại như trước, hết ghi chú, kết nối tự nối lại, không phải mời lại (QD-013). | Gửi tên kèm cờ đã xóa tài khoản, không gửi số điện thoại của sale đã xóa tài khoản | | Không đổi dữ liệu mới. Cột `ket_noi` ghi theo Thiet_ke_DB (CN7-01, US22-NT3) |
 
 Theo quy tắc: Nhóm kết nối; Ngừng cho xem; Quyền sale được xem.
 
@@ -109,24 +109,24 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC4.1.2 · Người đặt, tiền phòng và tiền cọc: bảng bước ở US3. Story này làm NT3.
+- mục "Người đặt, tiền phòng và tiền cọc" (US3) · Người đặt, tiền phòng và tiền cọc: bảng bước ở US3. Story này làm NT3.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC1.5.1-NT1** Khi hồ sơ chưa có số điện thoại và người dùng bấm một nút ở danh sách "Khi nào xảy ra" của YC1.5 (A6, A8, A10, CN7, CN7-00, CN9, CN10, S6, S6-03, S3-02, "Gửi cho khách"), thì popup giải thích hiện trước hộp thoại của Zalo.
-- **YC1.5.1-NT2** Khi hồ sơ đã có số điện thoại, thì popup không hiện và việc gốc chạy tiếp.
-- **YC1.5.1-NT3** Khi người dùng bấm "Để sau", thì việc gốc vẫn hoàn tất và hồ sơ vẫn chưa có số.
-- **YC1.5.1-NT4** Khi chủ nhà bấm "Để sau" ở A8-P1, thì app về CN7 của chủ nhà, có toast, và không mở A9 (màn của sale).
-- **YC1.5.2-NT1** Khi người dùng cho phép cả tên và số điện thoại, thì app làm tiếp việc gốc, tên Zalo và số xuất hiện ở P2, và người dùng chỉ bấm "Đồng ý, tiếp tục" một lần. (YC1.5)
-- **YC1.5.2-NT2** Khi người dùng đã cho phép một lần, thì các lần sau không hiện lại popup (A6-P2 ghi "Lần sau không hỏi lại").
-- **YC1.5.3-NT1** Khi hồ sơ có số lấy từ Zalo, thì P2 hiện số đó ở dạng chỉ xem. Theo quy tắc: Số điện thoại từ Zalo, chỉ xem.
-- **YC1.5.3-NT2** Khi hồ sơ chưa có số, thì P2 hiện dòng "Chưa có · Zalo sẽ hỏi khi bạn kết nối lần đầu".
-- **YC1.9-NT1** Khi chủ nhà thêm sale ở CN7-05 với tên và số điện thoại, thì sale đó hiện trong nhóm "Chưa kết nối" của CN7.
-- **YC1.9-NT2** Khi chủ nhà xác nhận "Ngừng cho xem lịch", thì sale đó không còn thấy lịch và các booking cũ của sale vẫn còn.
-- **YC1.9-NT3** Khi chủ nhà chưa có sale nào, thì tab Sale hiện CN7-00.
-- **YC1.9-NT5** Khi hồ sơ chủ nhà chưa có số điện thoại và chủ nhà bấm "Gửi link mời qua Zalo" ở CN7, thì popup giải thích xin tên và số hiện trước; bấm "Để sau" thì Zalo vẫn mở cửa sổ gửi link. (YC1.5)
-- **YC4.1.2-NT3** Khi chủ nhà chọn một sale đã kết nối làm người đặt, thì booking hiện tên sale đó trong lịch và trong danh sách booking của sale (CN7-04). Booking này coi như booking của sale đó (YC4.1.3).
+- **US5-NT1** Khi hồ sơ chưa có số điện thoại và người dùng bấm một nút ở danh sách "Khi nào xảy ra" của mục "Xin tên và số điện thoại khi bắt đầu kết nối" (A6, A8, A10, CN7, CN7-00, CN9, CN10, S6, S6-03, S3-02, "Gửi cho khách"), thì popup giải thích hiện trước hộp thoại của Zalo.
+- **US5-NT2** Khi hồ sơ đã có số điện thoại, thì popup không hiện và việc gốc chạy tiếp.
+- **US5-NT3** Khi người dùng bấm "Để sau", thì việc gốc vẫn hoàn tất và hồ sơ vẫn chưa có số.
+- **US5-NT4** Khi chủ nhà bấm "Để sau" ở A8-P1, thì app về CN7 của chủ nhà, có toast, và không mở A9 (màn của sale).
+- **US5-NT5** Khi người dùng cho phép cả tên và số điện thoại, thì app làm tiếp việc gốc, tên Zalo và số xuất hiện ở P2, và người dùng chỉ bấm "Đồng ý, tiếp tục" một lần. (mục "Xin tên và số điện thoại khi bắt đầu kết nối")
+- **US5-NT6** Khi người dùng đã cho phép một lần, thì các lần sau không hiện lại popup (A6-P2 ghi "Lần sau không hỏi lại").
+- **US5-NT7** Khi hồ sơ có số lấy từ Zalo, thì P2 hiện số đó ở dạng chỉ xem. Theo quy tắc: Số điện thoại từ Zalo, chỉ xem.
+- **US5-NT8** Khi hồ sơ chưa có số, thì P2 hiện dòng "Chưa có · Zalo sẽ hỏi khi bạn kết nối lần đầu".
+- **US5-NT9** Khi chủ nhà thêm sale ở CN7-05 với tên và số điện thoại, thì sale đó hiện trong nhóm "Chưa kết nối" của CN7.
+- **US5-NT10** Khi chủ nhà xác nhận "Ngừng cho xem lịch", thì sale đó không còn thấy lịch và các booking cũ của sale vẫn còn.
+- **US5-NT11** Khi chủ nhà chưa có sale nào, thì tab Sale hiện CN7-00.
+- **US5-NT12** Khi hồ sơ chủ nhà chưa có số điện thoại và chủ nhà bấm "Gửi link mời qua Zalo" ở CN7, thì popup giải thích xin tên và số hiện trước; bấm "Để sau" thì Zalo vẫn mở cửa sổ gửi link. (mục "Xin tên và số điện thoại khi bắt đầu kết nối")
+- **US5-NT13** Khi chủ nhà chọn một sale đã kết nối làm người đặt, thì booking hiện tên sale đó trong lịch và trong danh sách booking của sale (CN7-04). Booking này coi như booking của sale đó (mục "Booking chủ nhà ghi cho sale" (US28)).
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -153,7 +153,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | Mã | Khi nào |
 |---|---|
 | `DU_LIEU_SAI` | Thiếu tên hoặc số; tên quá 100 ký tự; số sai định dạng. `o` là tên trường |
-Cùng chủ nhà đã có dòng với cùng số điện thoại (thêm tay hoặc sale đã kết nối có số đó): [MỞ: YC1-H1]. Tới khi có quyết định, server không chặn.
+Cùng chủ nhà đã có dòng với cùng số điện thoại (thêm tay hoặc sale đã kết nối có số đó): [MỞ: CH-009]. Tới khi có quyết định, server không chặn.
 
 ### Chi tiết một kết nối
 **Đầu vào**
@@ -182,7 +182,7 @@ Cùng chủ nhà đã có dòng với cùng số điện thoại (thêm tay ho�
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC1: Xin số điện thoại đúng lúc, Số điện thoại từ Zalo chỉ xem, Nhận ra nhau bằng số điện thoại, Nhóm kết nối, Ngừng cho xem, Quyền sale được xem (bản này mọi sale dùng quyền mặc định: giá bật, cọc bật, đặt phòng của sale khác tắt). HV1 đến HV5, HV8.
+Quy tắc trong nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale: Xin số điện thoại đúng lúc, Số điện thoại từ Zalo chỉ xem, Nhận ra nhau bằng số điện thoại, Nhóm kết nối, Ngừng cho xem, Quyền sale được xem (bản này mọi sale dùng quyền mặc định: giá bật, cọc bật, đặt phòng của sale khác tắt). HV1 đến HV5, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -392,7 +392,7 @@ Vào từ: CN7, bấm việc cần tên và số khi hồ sơ chưa có số
 | # | Thành phần | Nội dung | Dữ liệu lấy từ |
 |---|---|---|---|
 | 1 | Màn gốc | Chép đúng CN7, phủ lớp tối | CN7 |
-| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Chia sẻ tên và số điện thoại với sale", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | YC1.5 Sửa r4 |
+| 2 | Popup dưới đáy | Biểu tượng điện thoại, tiêu đề "Chia sẻ tên và số điện thoại với sale", lý do, bước "Zalo sẽ hiện hộp thoại. Bật Tên và ảnh đại diện, Số điện thoại rồi bấm Cho phép." | mục "Xin tên và số điện thoại khi bắt đầu kết nối" Sửa r4 |
 | 3 | Nút | "Đồng ý, tiếp tục", "Để sau", dòng "Để sau vẫn … được" | |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
@@ -558,11 +558,11 @@ Trạng thái riêng:
 - `fn_cap_nhat_ho_so`: test ở t_02_gia.sql, t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Sale mở link và bấm "Thêm lịch" (YC1.3): US6.
-- Sale xin lịch, chủ nhà duyệt ở A8 và chọn quyền (YC1.6, YC1.7), thông báo kết nối (YC1.10): US17.
-- Chủ nhà chọn căn và sale để gửi lịch ở CN10 (YC1.8): US26.
-- Sale đã xóa tài khoản (YC1.9-NT4): US22.
-- "Nhắc lại" ở CN7: chưa thiết kế (YC1.9 bước 3), không làm.
+- Sale mở link và bấm "Thêm lịch" (mục "Mở app từ link mời của chủ nhà" (US6)): US6.
+- Sale xin lịch, chủ nhà duyệt ở A8 và chọn quyền (mục "Sale xin chủ nhà cho xem lịch" (US17), mục "Chủ nhà duyệt lời mời xem lịch" (US17)), thông báo kết nối (mục "Thông báo kết quả kết nối cho sale" (US17)): US17.
+- Chủ nhà chọn căn và sale để gửi lịch ở CN10 (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)): US26.
+- Sale đã xóa tài khoản (US22-NT3): US22.
+- "Nhắc lại" ở CN7: chưa thiết kế (mục "Chủ nhà quản lý danh sách sale" bước 3), không làm.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

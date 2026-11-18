@@ -14,7 +14,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Thấy dòng "Chưa có sale nào xem lịch".
   - Có hai nút "Gửi link mời qua Zalo" và "Sao chép link".
   - Có khung "SALE SẼ THẤY" ghi phòng trống hay đã đặt và "Giá từng đêm".
-- **Nguồn:** YC1.9-NT3
+- **Nguồn:** US5-NT11
 
 ### US5-KB2 · Chủ nhà chưa có số bấm gửi link, chọn "Để sau" `[Zalo]`
 - **Mục đích:** popup của app hiện trước hộp thoại Zalo; "Để sau" vẫn gửi được link.
@@ -26,7 +26,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 1: popup hiện từ dưới đáy, có biểu tượng điện thoại, nút "Đồng ý, tiếp tục" và "Để sau". Chưa có hộp thoại nào của Zalo.
   - Sau bước 3: không có hộp thoại xin quyền. Zalo mở cửa sổ gửi tin, trong tin có link mời.
-- **Nguồn:** YC1.9-NT5, YC1.5.1-NT1, YC1.5.1-NT3, quy tắc Xin số điện thoại đúng lúc
+- **Nguồn:** US5-NT12, US5-NT1, US5-NT3
 
 ### US5-KB3 · Hồ sơ chưa có số sau khi chọn "Để sau" `[Chính]`
 - **Mục đích:** "Để sau" không ghi số vào hồ sơ, P2 báo chưa có.
@@ -36,7 +36,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   2. Bấm "Thông tin cá nhân".
 - **Mong đợi:**
   - Ô Số điện thoại ghi "Chưa có · Zalo sẽ hỏi khi bạn kết nối lần đầu".
-- **Nguồn:** YC1.5.3-NT2, YC1.5.1-NT3
+- **Nguồn:** US5-NT8, US5-NT3
 
 ### US5-KB4 · "Sao chép link" khi chưa có số `[Zalo]`
 - **Mục đích:** nút "Sao chép link" cũng hỏi số trước, "Để sau" vẫn sao chép được.
@@ -49,7 +49,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 1: popup giải thích hiện, chưa có hộp thoại Zalo.
   - Sau bước 4: ô nhập tin có link mời của app.
-- **Nguồn:** YC1.5.1-NT1, YC1.9 bước 1a
+- **Nguồn:** US5-NT1
 
 ### US5-KB5 · Từ chối trong hộp thoại của Zalo `[Zalo]`
 - **Mục đích:** từ chối quyền không làm app báo lỗi hay treo.
@@ -61,7 +61,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Không có thông báo lỗi. App quay về tab Sale, bấm được các nút khác.
   - Cá nhân > Thông tin cá nhân vẫn ghi "Chưa có · Zalo sẽ hỏi khi bạn kết nối lần đầu".
-- **Nguồn:** HV4 bước 2, YC1.5.2 (trạng thái đã từ chối quyền Zalo)
+- **Nguồn:** HV4 bước 2, mục "Hộp thoại cấp quyền của Zalo" (trạng thái đã từ chối quyền Zalo)
 
 ### US5-KB6 · Bấm lại sau khi đã từ chối `[Zalo]`
 - **Mục đích:** lần sau app hiện lại popup giải thích, chỉ gọi hộp thoại Zalo khi người dùng đồng ý.
@@ -100,7 +100,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Sau bước 3: Zalo mở cửa sổ gửi tin có link mời. Không phải bấm "Đồng ý, tiếp tục" lần nữa.
   - Sau bước 5: ô Số điện thoại hiện số của Zalo thử A, nhãn "Từ Zalo ✓". Tên hiện đúng tên Zalo.
-- **Nguồn:** YC1.5.2-NT1, HV4-NT4, YC1.5.3-NT1
+- **Nguồn:** US5-NT5, US5-NT7, HV4-NT4
 
 ### US5-KB9 · Đã có số thì không hỏi lại `[Zalo]`
 - **Mục đích:** hồ sơ đã có số thì bấm gửi link là mở Zalo ngay.
@@ -111,7 +111,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Không có popup giải thích, không có hộp thoại xin quyền.
   - Zalo mở cửa sổ gửi tin có link mời.
-- **Nguồn:** YC1.5.2-NT2, YC1.5.1-NT2
+- **Nguồn:** US5-NT6, US5-NT2
 
 ### US5-KB10 · Số điện thoại ở P2 chỉ xem `[Chính]`
 - **Mục đích:** số lấy từ Zalo không sửa được trong app.
@@ -122,7 +122,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
 - **Mong đợi:**
   - Ô ghi "0904 118 772", nhãn "Từ Zalo ✓".
   - Chạm vào ô không hiện bàn phím, số không đổi được.
-- **Nguồn:** YC1.5.3-NT1, quy tắc Số điện thoại từ Zalo, chỉ xem, PQ2.CHU
+- **Nguồn:** US5-NT7, PQ2.CHU
 
 ### US5-KB11 · Sale không có tab Sale `[Quyền]`
 - **Mục đích:** sale không xem được danh sách sale của chủ nhà.
@@ -143,7 +143,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   4. Bấm "Lưu sale".
 - **Mong đợi:**
   - Sale không được lưu. Về tab Sale thì nhóm "Chưa kết nối" không có Sale Quân.
-- **Nguồn:** YC1.9 bước 4 (ô "Số điện thoại *" bắt buộc)
+- **Nguồn:** mục "Chủ nhà quản lý danh sách sale" bước 4 (ô "Số điện thoại *" bắt buộc)
 
 ### US5-KB13 · Lưu sale khi mất mạng `[Mạng]`
 - **Mục đích:** mất mạng thì app báo chưa lưu, không làm mất chữ đã gõ.
@@ -169,7 +169,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - App về tab Sale.
   - Nhóm "Chưa kết nối · 1" có dòng Sale Quân.
   - Nhóm "Đã kết nối · 4" vẫn là Sale Hùng, Sale Lan, Sale Minh, Sale Nga.
-- **Nguồn:** YC1.9-NT1, quy tắc Nhóm kết nối, PQ17.CHU
+- **Nguồn:** US5-NT9, PQ17.CHU
 
 ### US5-KB15 · Đặt phòng chủ nhà ghi cho sale hiện ở chi tiết sale `[Chính]`
 - **Mục đích:** chủ nhà chọn chip sale đã kết nối thì đặt phòng tính cho sale đó.
@@ -186,7 +186,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 2: có chip Sale Hùng, Sale Lan, Sale Nga, Sale Minh. Không có chip Sale Quân (chưa kết nối).
   - Sau bước 6: toast "Đã thêm đặt phòng Sale Hùng · 3402" ở đầu màn, tự tắt sau 3 giây.
   - Sau bước 7: danh sách đặt phòng của Sale Hùng có dòng 3402 · 08/10 → 09/10.
-- **Nguồn:** YC4.1.2-NT3, YC4.1-NT1, HV8-NT2
+- **Nguồn:** US5-NT13, US3-NT1, HV8-NT2
 
 ### US5-KB16 · Ngừng cho Sale Hùng xem lịch `[Chính]`
 - **Mục đích:** sale bị ngừng mất lịch của chủ nhà, đặt phòng cũ vẫn còn.
@@ -201,7 +201,7 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Sau bước 2: hộp xác nhận ghi "Xác nhận ngừng cho Sale Hùng xem? Đặt phòng cũ vẫn giữ. Sale không thấy lịch của bạn nữa."
   - Sau bước 4: lịch của Hùng không còn 1509 và 3402, nhóm ghi "NGUỒN PHÒNG · 3".
   - Sau bước 5: ngày 10/10 căn 1509 vẫn có đặt phòng của Sale Hùng (B1).
-- **Nguồn:** YC1.9-NT2, quy tắc Ngừng cho xem, PQ4.SALE, PQ17.CHU
+- **Nguồn:** US5-NT10, PQ4.SALE, PQ17.CHU
 
 ### US5-KB17 · Sale bị ngừng lúc đang xem căn `[Quyền]`
 - **Mục đích:** sale bị ngừng không còn thấy giá, lịch của căn đang mở, kể cả thoáng qua.

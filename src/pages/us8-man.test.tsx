@@ -19,7 +19,7 @@ import {
   type PropsGiaLe,
 } from "./cn6-gia-le-man";
 
-// US8 · Test YC3.5-NT1 đến NT6, NT8 phần giao diện, dùng dữ liệu của server giả (DLM.3): 1509 chưa có dịp,
+// US8 · Test US8-NT1 đến NT6, NT8 phần giao diện, dùng dữ liệu của server giả (DLM.3): 1509 chưa có dịp,
 // 3402 có dịp đặc biệt 24/10 – 25/10 giá 1.300.000đ. NT7 (gửi thẳng tới server) chỉ kiểm ở test server, không có kịch bản tay.
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);
@@ -153,7 +153,7 @@ test("test_YC3_5_NT4_US8_bat_la_ngay_le_dai_vao_muc_gia_ngay_le", async () => {
   expect(le).toContain("02/09 – 03/09");
   expect(le).toContain("2.500.000đ");
   expect(chu(html(<DanhSachDip dai={b.dai_dip} laNgayLe={false} onCham={khong} />))).toContain("Chưa có dịp đặc biệt.");
-  // Bật "Là ngày lễ" mà bỏ trống tên thì chưa lưu ([MỞ: YC3-H15])
+  // Bật "Là ngày lễ" mà bỏ trống tên thì chưa lưu ([MỞ: CH-020])
   expect(kiemDip({ tu: "2026-09-02", den: "2026-09-03", ten: " ", gia: "2500000", laLe: true })).toBe("ten");
 });
 

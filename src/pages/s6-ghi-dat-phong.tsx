@@ -32,7 +32,7 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS6GhiDatPhong, type FormGhi } from "./s6-ghi-dat-phong-man";
 
-// S6-05 · Đặt phòng căn tự nhập, một màn (YC6.5), và S6-06 (toast "Đã lưu đặt phòng ..., tính vào thống kê tháng 10").
+// S6-05 · Đặt phòng căn tự nhập, một màn (mục "Ghi booking đã chốt cho căn tự nhập" (US16)), và S6-06 (toast "Đã lưu đặt phòng ..., tính vào thống kê tháng 10").
 // Mở từ S6-03, state { can_id }. Ngày nhận chọn bằng chip Hôm nay, Mai, Ngày khác; số đêm bằng − và +. Tiền điền sẵn từ
 // GET /booking/kiem-trung (giá chủ đã lưu, giá bán cộng mức cộng), sale sửa được; đã sửa tay thì không điền đè nữa.
 // Không có trạng thái tiền, cọc, số khách, ghi chú (thêm sau). Trùng đặt phòng đã ghi của chính căn này: báo trùng, không lưu (QT1.3).
@@ -81,7 +81,7 @@ export const ManGhiDatPhongTuNhap = () => {
     void taiCan();
   }, [canId]);
 
-  // Điền sẵn tiền và báo trùng mỗi khi đổi khoảng ngày (YC6.5 bước 4, 5a). Ô đã sửa tay thì giữ nguyên.
+  // Điền sẵn tiền và báo trùng mỗi khi đổi khoảng ngày (mục "Ghi booking đã chốt cho căn tự nhập" (US16) bước 4, 5a). Ô đã sửa tay thì giữ nguyên.
   const ngayTra = congNgay(form.ngayNhan, form.soDem);
   useEffect(() => {
     if (!can) return;

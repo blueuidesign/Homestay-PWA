@@ -103,7 +103,7 @@ Luật viết:
 - Một story làm được trong vài ngày. To hơn thì tách theo lát dọc (mỗi lát người dùng làm được một việc trọn vẹn).
 - Mỗi tiêu chí nghiệm thu thuộc đúng một story. `scripts/kiem-tai-lieu.py` kiểm điều này.
 - Tiêu chí phải có số cụ thể lấy từ `docs/luat-chung/Du_lieu_mau.md` để viết thành test được. Không viết được ví dụ thì luật chưa đủ rõ để code: hỏi Tùng.
-- Mã tiêu chí của story mới: `US<n>-NT<số>`. Các story chuyển từ bản Zalo giữ mã cũ (`YC5.2-NT3`) để test và kịch bản không phải đổi tên.
+- Mã tiêu chí: `US<n>-NT<số>`, theo story chứa nó. Mã câu hỏi: `CH-<số>` (hỏi chung) hoặc `US<n>-H<số>` (chỗ chưa rõ trong một story). Không dùng mã `YC…` của bản Zalo (QD-018).
 - Chỗ chưa rõ: gắn thẻ `[MỞ: US<n>-H<số>]` ngay tại câu đó và thêm một dòng vào `Cau_hoi_mo.md`. Không lấp bằng cách làm phổ biến.
 
 ### 4.3 Story đóng băng sau khi merge
@@ -153,7 +153,7 @@ Hai thứ độc lập để đối chiếu: ý định viết thành test, và 
 
 Luật:
 - Mỗi tiêu chí kiểm ở lớp rẻ nhất mà vẫn bắt được lỗi. Quyền và tiền luôn kiểm ở lớp database, vì giao diện đúng không chứng minh được dữ liệu không lộ.
-- Tên test có mã tiêu chí (`YC5.3-NT2 …`), để tra ngược được.
+- Tên test có mã tiêu chí (`US12-NT7 …`), để tra ngược được.
 - Đổi hay thêm hàm `fn_*`, policy, view, ràng buộc: thêm test trong `tests/db/` và một dòng trong `scripts/thu-lam-hong.sh` cùng PR.
 - Mỗi ô quyền trong `PQ.md` mà story chạm tới phải có một test vi phạm: đóng vai người không có quyền, chứng minh không đọc, không ghi được.
 - CI chạy mọi lớp tự động ở mỗi PR (`.github/workflows/`). CI đỏ thì không merge.

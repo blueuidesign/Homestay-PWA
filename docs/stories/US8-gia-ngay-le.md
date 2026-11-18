@@ -13,17 +13,17 @@ Là chủ nhà, tôi muốn đặt giá riêng cho Lễ 30/4 và các dịp đ�
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC3.5 · Giá ngày lễ và dịp đặc biệt
+### Giá ngày lễ và dịp đặc biệt
 Rủi ro: cao
 Mục đích: chủ nhà đặt giá riêng cho một dải ngày, như Lễ 30/4 – 1/5 hay một lễ hội địa phương.
-Nguồn dải ngày lễ: Home247 đặt sẵn, chủ nhà không phải tự nhập. Bản đầu nạp bằng script. Về sau người quản trị Home247 nhập và sửa trên web quản trị theo YC10.1.
+Nguồn dải ngày lễ: Home247 đặt sẵn, chủ nhà không phải tự nhập. Bản đầu nạp bằng script. Về sau người quản trị Home247 nhập và sửa trên web quản trị theo mục "Quản trị dải ngày lễ hằng năm" (US23).
 Màn hình: CN6-02, CN6-03, CN6-03-01
 Khi nào xảy ra: chủ nhà bấm "Đặt giá ngày lễ, dịp đặc biệt" ở tab Giá, hoặc chạm một ngày trên lịch giá.
 
 Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
-| 1 | Mở màn | Tiêu đề "Giá ngày lễ, dịp đặc biệt", tên phòng, hàng "Chọn nhanh ngày lễ" (Lễ 30/4 – 1/5, Quốc khánh 2/9, Tết Dương lịch, Tết Âm lịch). Ghi chú "Home247 đặt sẵn dải ngày nghỉ của từng dịp mỗi năm, gồm nghỉ bù và nối cuối tuần. Chọn xong vẫn sửa được ngày." | Trả các dải ngày lễ Home247 đặt sẵn cho năm đang chọn (nguồn:, sau là YC10.1) | Không | Không |
+| 1 | Mở màn | Tiêu đề "Giá ngày lễ, dịp đặc biệt", tên phòng, hàng "Chọn nhanh ngày lễ" (Lễ 30/4 – 1/5, Quốc khánh 2/9, Tết Dương lịch, Tết Âm lịch). Ghi chú "Home247 đặt sẵn dải ngày nghỉ của từng dịp mỗi năm, gồm nghỉ bù và nối cuối tuần. Chọn xong vẫn sửa được ngày." | Trả các dải ngày lễ Home247 đặt sẵn cho năm đang chọn (nguồn:, sau là mục "Quản trị dải ngày lễ hằng năm" (US23)) | Không | Không |
 | 2 | Chạm một dịp lễ chọn nhanh | Điền sẵn "Từ ngày", "Đến ngày", tên dịp, dòng "4 ngày · T5 30/4 → CN 3/5" | Không gọi server | Không | Không |
 | 3 | Sửa dải ngày | Lưới tuần tròn từ T2 đến CN hiện các ngày đã chọn; chạm một ô để nới dải ngày. Cuối tuần có màu riêng | Không gọi server | Không | Không |
 | 4 | Nhập tên dịp và "Giá mỗi đêm (đ)" | Hai ô nhập. Bỏ trống tên thì app tự đặt tên theo ngày (CN6-03-01) | Không gọi server. App hiện sẵn tên "Dịp đặc biệt dd/mm – dd/mm"; server đặt đúng tên đó nếu nhận tên trống | Không | Không |
@@ -46,19 +46,19 @@ Trạng thái màn:
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC3.5-NT1** Khi chủ nhà chạm "Lễ 30/4 – 1/5", thì các ô ngày điền sẵn dải do Home247 đặt cho năm đang chọn.
-- **YC3.5-NT2** Khi dải ngày dài hơn 10 ngày, thì hiện cảnh báo và không lưu được.
-- **YC3.5-NT3** Khi chủ nhà lưu một dải 24/10 – 25/10 giá 1.300.000đ với tắt "Là ngày lễ", thì dải đó hiện trong mục "DỊP ĐẶC BIỆT" và lịch giá hiện 1,3tr ở hai ngày đó.
-- **YC3.5-NT4** Khi chủ nhà lưu một dải với bật "Là ngày lễ", thì dải đó hiện trong mục "GIÁ NGÀY LỄ".
-- **YC3.5-NT5** Khi chủ nhà bỏ trống ô tên và lưu dải 24/10 – 25/10 với tắt "Là ngày lễ", thì dải đó có tên "Dịp đặc biệt 24/10 – 25/10". Theo quy tắc: Tên dịp tự đặt.
-- **YC3.5-NT6** Khi 3402 đã có dịp đặc biệt 24/10 – 25/10 (DLM.3) và chủ nhà lưu thêm một dải 25/10 – 26/10 cho 3402, thì app báo lỗi chồng ngày, dải mới không được lưu và dịp 24/10 – 25/10 giữ nguyên. Theo quy tắc: Giá dịp không chồng ngày.
-- **YC3.5-NT7** Khi lệnh lưu một dải chồng ngày với dải đã có của cùng căn gửi thẳng tới server, thì server từ chối và dữ liệu không đổi.
-- **YC3.5-NT8** Khi 3402 có dịp 24/10 – 25/10 và chủ nhà lưu dải 26/10 – 27/10, thì lưu được: hai dải liền nhau nhưng không chồng ngày.
+- **US8-NT1** Khi chủ nhà chạm "Lễ 30/4 – 1/5", thì các ô ngày điền sẵn dải do Home247 đặt cho năm đang chọn.
+- **US8-NT2** Khi dải ngày dài hơn 10 ngày, thì hiện cảnh báo và không lưu được.
+- **US8-NT3** Khi chủ nhà lưu một dải 24/10 – 25/10 giá 1.300.000đ với tắt "Là ngày lễ", thì dải đó hiện trong mục "DỊP ĐẶC BIỆT" và lịch giá hiện 1,3tr ở hai ngày đó.
+- **US8-NT4** Khi chủ nhà lưu một dải với bật "Là ngày lễ", thì dải đó hiện trong mục "GIÁ NGÀY LỄ".
+- **US8-NT5** Khi chủ nhà bỏ trống ô tên và lưu dải 24/10 – 25/10 với tắt "Là ngày lễ", thì dải đó có tên "Dịp đặc biệt 24/10 – 25/10". Theo quy tắc: Tên dịp tự đặt.
+- **US8-NT6** Khi 3402 đã có dịp đặc biệt 24/10 – 25/10 (DLM.3) và chủ nhà lưu thêm một dải 25/10 – 26/10 cho 3402, thì app báo lỗi chồng ngày, dải mới không được lưu và dịp 24/10 – 25/10 giữ nguyên. Theo quy tắc: Giá dịp không chồng ngày.
+- **US8-NT7** Khi lệnh lưu một dải chồng ngày với dải đã có của cùng căn gửi thẳng tới server, thì server từ chối và dữ liệu không đổi.
+- **US8-NT8** Khi 3402 có dịp 24/10 – 25/10 và chủ nhà lưu dải 26/10 – 27/10, thì lưu được: hai dải liền nhau nhưng không chồng ngày.
 
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC3: Giá dịp thay giá tháng, Dải ngày lễ do Home247 đặt, Tên dịp tự đặt, Ngày lễ khác dịp đặc biệt, Giá dịp không chồng ngày, Booking giữ giá riêng, Giá hai loại đêm. QT4.1 (giá dịp chỉ điền sẵn tiền phòng). HV1 đến HV3, HV5.
+Quy tắc trong nhóm Căn và giá: Giá dịp thay giá tháng, Dải ngày lễ do Home247 đặt, Tên dịp tự đặt, Ngày lễ khác dịp đặc biệt, Giá dịp không chồng ngày, Booking giữ giá riêng, Giá hai loại đêm. QT4.1 (giá dịp chỉ điền sẵn tiền phòng). HV1 đến HV3, HV5.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -145,7 +145,7 @@ Trạng thái riêng:
 - PQ21.CHU: chủ nhà lưu dải từ "Lễ 30/4 – 1/5" với ngày khác thì dải chung của Home247 (`ngay_le`) không đổi.
 - PQ5.SALE: Sale Hùng thêm dải giá cho 1509: `KHONG_TIM_THAY`.
 - Không có phiên: `CHUA_DANG_NHAP`.
-- Chặn ở database: hai lệnh lưu dải chồng ngày cùng lúc chỉ một lệnh qua; lưu dải chồng ngày gửi thẳng tới server thì từ chối và dữ liệu không đổi (YC3.5-NT7).
+- Chặn ở database: hai lệnh lưu dải chồng ngày cùng lúc chỉ một lệnh qua; lưu dải chồng ngày gửi thẳng tới server thì từ chối và dữ liệu không đổi (US8-NT7).
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -154,11 +154,11 @@ Trạng thái riêng:
 - `fn_xoa_gia_dip`: CHƯA có test, viết test trước khi dùng
 
 ## Ngoài phạm vi
-- Giá theo tháng của một căn: US4. Sao chép dịp sang căn khác (YC3.7): US7.
-- Đặt giá dịp cho nhiều căn (YC3.6 bước 4): chưa có màn (?). [MỞ: YC3-H13] (YC3.6 bước 4 chưa vẽ)
-- Nạp dải ngày lễ vào database và sửa dải chung của Home247 trên web quản trị (YC10.1):, US23.
-- Sửa và xóa một dải đã lưu: YC3.5 chưa có bước nào. [MỞ: US8-H1] gia.md
-- Tên tự đặt khi bật "Là ngày lễ": [MỞ: YC3-H15]. Kịch bản chỉ chạm tên tự đặt với "Là ngày lễ" tắt.
+- Giá theo tháng của một căn: US4. Sao chép dịp sang căn khác (mục "Sao chép giá sang căn khác" (US7)): US7.
+- Đặt giá dịp cho nhiều căn (mục "Đặt giá nhiều căn" (US7) bước 4): chưa có màn (?). [MỞ: CH-019] (mục "Đặt giá nhiều căn" (US7) bước 4 chưa vẽ)
+- Nạp dải ngày lễ vào database và sửa dải chung của Home247 trên web quản trị (mục "Quản trị dải ngày lễ hằng năm" (US23)):, US23.
+- Sửa và xóa một dải đã lưu: mục "Giá ngày lễ và dịp đặc biệt" chưa có bước nào. [MỞ: US8-H1] gia.md
+- Tên tự đặt khi bật "Là ngày lễ": [MỞ: CH-020]. Kịch bản chỉ chạm tên tự đặt với "Là ngày lễ" tắt.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

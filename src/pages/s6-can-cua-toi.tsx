@@ -16,9 +16,9 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS6CanCuaToi, VIEC } from "./s6-can-cua-toi-man";
 
-// S6-07 · Chi tiết căn của tôi (YC6.1 bước 9, NT11). Mở từ nhóm "Căn của tôi" ở S6, state { can_id }.
+// S6-07 · Chi tiết căn của tôi (mục "Danh sách căn và nguồn phòng" (US16) bước 9, NT11). Mở từ nhóm "Căn của tôi" ở S6, state { can_id }.
 // Lịch 7 ngày lấy từ GET /sale/lich (ô trống có giá đêm của chính sale, ô kín ghi "Kín"). Ba việc dùng lại màn của chủ nhà (QD13):
-// "Đặt phòng" mở CN4, "Sửa căn và giá" mở CN5-02, "Gửi cho khách" mở gửi khách (S5, cần ngày khách hỏi, YC6-H13 còn mở).
+// "Đặt phòng" mở CN4, "Sửa căn và giá" mở CN5-02, "Gửi cho khách" mở gửi khách (S5, cần ngày khách hỏi, CH-078 còn mở).
 export const ManCanCuaToi = () => {
   const dieuHuong = useNavigate();
   const viTri = useLocation();

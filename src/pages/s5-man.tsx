@@ -12,7 +12,7 @@ import {
 import { anhGuiDuoc } from "../services/gui-khach";
 import type { CanGuiKhach, KetQuaGuiKhachXem } from "../services/kieu";
 
-// S5 · Gửi cho khách (YC5.5 bước 1, 2). Phần vẽ, không gọi server. Chữ do server dựng, màn chỉ hiện (giá bán, không giá chủ).
+// S5 · Gửi cho khách (mục "Gửi thông tin cho khách qua Zalo" (US14) bước 1, 2). Phần vẽ, không gọi server. Chữ do server dựng, màn chỉ hiện (giá bán, không giá chủ).
 // Mỗi căn một khối: số thứ tự, tên, số ảnh, chữ, ba nút. Cuối màn: dòng "Hoặc sao chép chữ..." và nút sao chép cả lô.
 export type PropsS5 = {
   ket: KetQuaGuiKhachXem;

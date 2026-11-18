@@ -3,7 +3,7 @@ import { dongThongTin } from "../components/can-hien-thi";
 import { chuCaiDau } from "../components/sale-hien-thi";
 import type { CanTrongLink, XemTruocLink } from "../services/kieu";
 
-// A10 · Thêm lịch (YC1.3 bước 3, 4), A10-01 · Đã có lịch của chủ nhà này (bước 6). Phần vẽ, không gọi server.
+// A10 · Thêm lịch (mục "Mở app từ link mời của chủ nhà" (US6) bước 3, 4), A10-01 · Đã có lịch của chủ nhà này (bước 6). Phần vẽ, không gọi server.
 // Không có giá nào trên màn, kể cả khi chủ nhà cho sale xem giá (QD9, PQ5.LINK).
 
 export const CHU_DONG_DUOI_NUT = "Chưa bấm thì chưa có gì vào lịch của bạn.";

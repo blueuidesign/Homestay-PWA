@@ -9,6 +9,6 @@ test.fixme('US3 chủ ghi đặt phòng, tiền điền sẵn, trùng đêm thì
   // 1. Lịch tháng (CN1) → bấm "Đặt phòng"
   // 2. CN4: chọn căn 1509, ngày nhận, ngày trả → ô Tiền phòng đã điền sẵn
   // 3. Lưu → lịch hiện các đêm đã kín, ngày trả không kín
-  // 4. Ghi lại một đặt phòng trùng một đêm → thấy câu báo trùng đêm (YC4.1.1)
+  // 4. Ghi lại một đặt phòng trùng một đêm → thấy câu báo trùng đêm (mục "Căn, ngày và kiểm tra trùng lịch" (US3))
   await expect(page).toHaveScreenshot();
 });

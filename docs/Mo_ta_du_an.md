@@ -35,12 +35,12 @@ Nhiều người dùng trung niên, lớn tuổi, dùng một tay, hay vừa ngh
 
 ## Cách Home247 giải quyết
 
-- **Lịch và giá một chỗ.** Chủ nhà ghi đặt phòng và đặt giá theo tháng, cuối tuần, ngày lễ (YC2, YC3, YC4).
-- **Chia sẻ lịch cho sale bằng link** gửi qua Zalo. Sale bấm thêm là thấy lịch và giá chủ nhà của các căn được chia sẻ, luôn mới nhất (YC1).
-- **Sale tìm căn trống theo ngày**, xem giá chủ nhà, cộng phần của mình, gửi chữ và ảnh cho khách với giá bán (YC5).
-- **Sale gửi yêu cầu đặt phòng, chủ nhà chấp nhận** trong app. Một đêm chỉ thuộc một đặt phòng, chặn ở database (YC4, QT1).
-- **Căn tự nhập**: sale lưu căn của chủ chưa dùng app để gửi khách và ghi đặt phòng tính thống kê. Căn này không có lịch trống (YC6).
-- **Thống kê tháng**: chủ nhà xem doanh thu, công suất, theo người bán; sale xem doanh số và tiền chênh (YC7).
+- **Lịch và giá một chỗ.** Chủ nhà ghi đặt phòng và đặt giá theo tháng, cuối tuần, ngày lễ (nhóm Lịch chủ nhà, nhóm Căn và giá, nhóm Booking).
+- **Chia sẻ lịch cho sale bằng link** gửi qua Zalo. Sale bấm thêm là thấy lịch và giá chủ nhà của các căn được chia sẻ, luôn mới nhất (nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale).
+- **Sale tìm căn trống theo ngày**, xem giá chủ nhà, cộng phần của mình, gửi chữ và ảnh cho khách với giá bán (nhóm Tìm phòng và gửi khách).
+- **Sale gửi yêu cầu đặt phòng, chủ nhà chấp nhận** trong app. Một đêm chỉ thuộc một đặt phòng, chặn ở database (nhóm Booking, QT1).
+- **Căn tự nhập**: sale lưu căn của chủ chưa dùng app để gửi khách và ghi đặt phòng tính thống kê. Căn này không có lịch trống (nhóm Nguồn phòng và căn tự nhập).
+- **Thống kê tháng**: chủ nhà xem doanh thu, công suất, theo người bán; sale xem doanh số và tiền chênh (nhóm Thống kê).
 
 ## Nguyên tắc không đổi
 

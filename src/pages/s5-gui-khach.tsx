@@ -13,7 +13,7 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem } from "./cn3-man";
 import { NoiDungS5 } from "./s5-man";
 
-// S5 · Gửi cho khách (YC5.5). Mở từ S2, S3 với state { can_ids | can_id, ngay_nhan, ngay_tra }.
+// S5 · Gửi cho khách (mục "Gửi thông tin cho khách qua Zalo" (US14)). Mở từ S2, S3 với state { can_ids | can_id, ngay_nhan, ngay_tra }.
 // Mở màn: POST /sale/gui-khach/xem (không ghi gì). Các nút Gửi mở cửa sổ Zalo qua services/gui-khach.ts; đóng cửa sổ không gửi thì ở lại S5.
 // Quay lại từ nền (kể cả sau khi gửi) thì tải lại ngầm, giữ chữ đang hiện (HV3 bước 2). Mất quyền: HV5.
 const khungDangTai = <div className="noi-dung"><KhungDangTai /></div>;

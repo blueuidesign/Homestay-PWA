@@ -63,15 +63,15 @@ python3 scripts/kiem-tai-lieu.py
 
 ## 5. Chú thích cũ trong code
 
-Code chuyển từ bản Zalo còn nhiều chú thích nhắc tài liệu của repo cũ: `server.md`, `api/….md`, `zalo-rang-buoc`, mã `EN…`, `DC…`, `SK…`, `TK…`, `CL…`, và mã quyết định cũ dạng `QD<số>` viết liền. Đó là lịch sử: **không đi tìm các file đó**. Sửa một file thì dọn chú thích của file đó theo tài liệu mới. Mã mục và tiêu chí (`YC5.2`, `YC5.2-NT3`, `QT1.1`, `PQ5.SALE`, `HV2`) vẫn đúng.
+Code chuyển từ bản Zalo còn nhiều chú thích nhắc tài liệu của repo cũ: `server.md`, `api/….md`, `zalo-rang-buoc`, mã `EN…`, `DC…`, `SK…`, `TK…`, `CL…`, và mã quyết định cũ dạng `QD<số>` viết liền. Đó là lịch sử: **không đi tìm các file đó**. Sửa một file thì dọn chú thích của file đó theo tài liệu mới. Mã mục và tiêu chí (`mục "Tìm phòng trống theo ngày" (US12)`, `US12-NT3`, `QT1.1`, `PQ5.SALE`, `HV2`) vẫn đúng.
 
 Bảng đổi mã quyết định cũ:
 
 | Cũ | Nay |
 |---|---|
 | QD1 | QD-003 |
-| QD2 | mục YC1.5 (story US5) |
-| QD8, QD17 | mục YC9.3 (story US21): bản 1 chỉ báo trong app |
+| QD2 | mục mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) (story US5) |
+| QD8, QD17 | mục mục "Cài đặt thông báo" (US21) (story US21): bản 1 chỉ báo trong app |
 | QD9 | QD-008 |
 | QD10 | đội nhóm làm sau (story US20) |
 | QD11 | QD-011 |
@@ -82,7 +82,7 @@ Bảng đổi mã quyết định cũ:
 | QD20 | QD-007 |
 | QD21 | QD-012 |
 | QD22 | máy chủ giả trong `api.ts` (mục 1 ở trên) |
-| QD25 | mục YC10.3 (story US34) |
+| QD25 | mục mục "Thêm người đồng quản trị" (US34) (story US34) |
 | QD khác | đã bỏ |
 
 Chữ "Giá từng đêm" như một công tắc bật tắt trong chú thích hay test cũ: công tắc này đã bỏ (QD-007).

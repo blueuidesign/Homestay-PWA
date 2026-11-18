@@ -13,9 +13,9 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungP6, type MauTuan } from "./p6-man";
 
-// P6 · Ngày tính giá cuối tuần (YC3.8): tải GET /toi, tuần mẫu từ GET /can/:id/gia, lưu PATCH /toi.
-// Chữ chọn dở nằm trong trạng thái của màn nên rời app rồi quay lại vẫn còn (HV3 bước 2); thoát không lưu thì bỏ (YC3.8 quay lại từ nền).
-export const chuToastLuuDem = "Đã lưu ngày tính giá cuối tuần"; // chữ tạm: "Kết quả chưa vẽ" (YC3.8 bước 4)
+// P6 · Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)): tải GET /toi, tuần mẫu từ GET /can/:id/gia, lưu PATCH /toi.
+// Chữ chọn dở nằm trong trạng thái của màn nên rời app rồi quay lại vẫn còn (HV3 bước 2); thoát không lưu thì bỏ (mục "Ngày tính giá cuối tuần" (US11) quay lại từ nền).
+export const chuToastLuuDem = "Đã lưu ngày tính giá cuối tuần"; // chữ tạm: "Kết quả chưa vẽ" (mục "Ngày tính giá cuối tuần" (US11) bước 4)
 
 const khoaMoi = () => `dem-cuoi-tuan-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 

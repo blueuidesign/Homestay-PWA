@@ -13,7 +13,7 @@ Là sale, tôi muốn gửi link xin lịch cho chủ nhà và biết ngay khi h
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC1.6 · Sale xin chủ nhà cho xem lịch
+### Sale xin chủ nhà cho xem lịch
 > **Bản PWA:** "Gửi qua Zalo" mở bảng chia sẻ của điện thoại, link là link https của app. Xem `PWA.md` mục P3, P4.
 Rủi ro: tb
 Mục đích: sale gửi tin Zalo cho chủ nhà kèm link, để chủ nhà cho xem lịch phòng.
@@ -24,9 +24,9 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Vào A6 | Hiện nội dung tin sẵn ("Chào anh/chị, em là Hùng, sale phòng ở Hạ Long…"), link xin lịch của sale, 3 bước "Sau khi gửi". Link là link app dạng `zalo.me/s/…` (`docs/zalo/rang-buoc.md` mục 5.4), không chứa số điện thoại, không mở trang ngoài Zalo | trả link xin lịch của sale, mỗi sale một link | Không | `link_moi` loại `xin_lich` mới khi sale chưa có |
-| 2 | Bấm "Gửi qua Zalo" | Chạy YC1.5 nếu hồ sơ chưa có số, rồi mở cửa sổ gửi của Zalo | tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi app mở cửa sổ gửi của Zalo | Cửa sổ gửi tin của Zalo mở ra | Số lần gửi tăng: `link_chia_se.so_lan_gui`, `gui_cuoi_luc` |
+| 2 | Bấm "Gửi qua Zalo" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số, rồi mở cửa sổ gửi của Zalo | tăng `so_lan_gui`, ghi `gui_cuoi_luc` khi app mở cửa sổ gửi của Zalo | Cửa sổ gửi tin của Zalo mở ra | Số lần gửi tăng: `link_chia_se.so_lan_gui`, `gui_cuoi_luc` |
 | 3 | Gửi xong, về app | Hiện A7: "Đang chờ chủ nhà đồng ý", lần gửi gần nhất, hai số "3 lần đã gửi qua Zalo" và "0 chủ nhà đã đồng ý" | số lần đã gửi, lần gửi gần nhất, số chủ nhà đã đồng ý | Không | Không |
-| 4 | Bấm "Sao chép tin nhắn" | Chạy YC1.5 nếu hồ sơ chưa có số (YC1.5), rồi sao chép và sang A7 | sao chép cũng tính một lần gửi; A7 đọc | Không | `link_chia_se.so_lan_gui`, `gui_cuoi_luc` |
+| 4 | Bấm "Sao chép tin nhắn" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), rồi sao chép và sang A7 | sao chép cũng tính một lần gửi; A7 đọc | Không | `link_chia_se.so_lan_gui`, `gui_cuoi_luc` |
 | 5 | Ở A7, bấm "Gửi link cho chủ nhà khác" hoặc "Thêm căn tự nhập" | Chưa vẽ màn đích | Không gọi server ở bước này (màn đích chưa vẽ) | Không | Không |
 
 Theo quy tắc: Xin lịch chỉ qua tin Zalo; Không biết gửi cho ai; Một link xin lịch nhiều chủ nhà.
@@ -36,11 +36,11 @@ Trạng thái màn:
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
-- từ chối quyền: sang A7 không có số, xem YC1.5.1
+- từ chối quyền: sang A7 không có số, xem mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)
 - quay lại từ nền: A7 là màn hiện khi quay lại từ cửa sổ Zalo; số đếm cập nhật khi quay lại: A7-01
 - mở từ link: không áp dụng
 
-### YC1.7 · Chủ nhà duyệt lời mời xem lịch
+### Chủ nhà duyệt lời mời xem lịch
 > **Bản PWA:** "thẻ trong tin Zalo" là tin nhắn chữ kèm link; chủ nhà bấm link. Xem `PWA.md` mục P4.
 Rủi ro: cao
 Mục đích: chủ nhà quyết định cho một sale xem lịch, và chọn sale được thấy những gì.
@@ -52,9 +52,9 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Mở tin Zalo của sale | (chưa vào app) | Không gọi server | Khung chat Zalo hiện tin và thẻ "Sale Lan xin xem lịch phòng" với nút "Mở và trả lời" (CN7-03) | Không |
 | 2 | Bấm thẻ | Hiện A8: tên và số điện thoại sale, một quyền có công tắc: Tình trạng cọc (đã cọc hay chưa, không có số tiền, mặc định bật); dòng "Luôn thấy ngày đã có người đặt và giá từng đêm" không có công tắc (QD-007), dòng "Không bao giờ thấy tên, số điện thoại khách và doanh thu", ghi chú "Chưa có tài khoản? Bấm Đồng ý để đăng nhập, sau đó thêm căn" | (phiên tạm nếu chưa có tài khoản), rồi: link xin lịch cần phiên; trả tên, số điện thoại sale nếu sale đã cho (PQ2.CHU). Link không dùng được, sale đã xóa tài khoản hoặc đã bị chủ nhà này ngừng: `LINK_KHONG_DUNG_DUOC`, không tên, không số (A8-01) | Mở app từ thẻ | phiên đăng nhập mới khi chưa có phiên |
-| 3 | Bấm "Đồng ý cho xem lịch" | Chạy YC1.5 nếu hồ sơ chưa có số; kết nối hoàn tất | tạo kết nối, ghi thông báo `chu_dong_y_ket_noi` cho sale (YC1.10). Chủ nhà chưa có tài khoản: gọi trước | Không, trừ hộp thoại quyền khi chạy YC1.5 (YC1.5.2) | Sale được xem lịch theo quyền đã chọn: `profiles` mới vai `chu_nha` khi chưa có; `ket_noi` mới (`da_ket_noi`, `nguon` `sale_xin`, `pham_vi` `tat_ca_can`, `quyen_gia_tung_dem`, `quyen_tinh_trang_coc`); `thong_bao` `chu_dong_y_ket_noi` cho sale |
-| 4 | Bấm "Từ chối" | Sang CN7. Sale có được báo không: YC1-H11 | Không gọi server, không ghi gì [MỞ: YC1-H11] | Không | Không |
-| 5 | Sau khi đồng ý | Sale nhận thông báo (YC1.10); chủ nhà thấy sale mới trong CN7 | chủ nhà thấy sale ở nhóm Đã kết nối; sale đọc thông báo qua | Không | Sale chuyển sang nhóm Đã kết nối: `ket_noi.trang_thai` `da_ket_noi` ghi ở bước 3 |
+| 3 | Bấm "Đồng ý cho xem lịch" | Chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ chưa có số; kết nối hoàn tất | tạo kết nối, ghi thông báo `chu_dong_y_ket_noi` cho sale (mục "Thông báo kết quả kết nối cho sale"). Chủ nhà chưa có tài khoản: gọi trước | Không, trừ hộp thoại quyền khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) (mục "Hộp thoại cấp quyền của Zalo" (US5)) | Sale được xem lịch theo quyền đã chọn: `profiles` mới vai `chu_nha` khi chưa có; `ket_noi` mới (`da_ket_noi`, `nguon` `sale_xin`, `pham_vi` `tat_ca_can`, `quyen_gia_tung_dem`, `quyen_tinh_trang_coc`); `thong_bao` `chu_dong_y_ket_noi` cho sale |
+| 4 | Bấm "Từ chối" | Sang CN7. Sale có được báo không: CH-010 | Không gọi server, không ghi gì [MỞ: CH-010] | Không | Không |
+| 5 | Sau khi đồng ý | Sale nhận thông báo (mục "Thông báo kết quả kết nối cho sale"); chủ nhà thấy sale mới trong CN7 | chủ nhà thấy sale ở nhóm Đã kết nối; sale đọc thông báo qua | Không | Sale chuyển sang nhóm Đã kết nối: `ket_noi.trang_thai` `da_ket_noi` ghi ở bước 3 |
 
 Theo quy tắc: Quyền sale được xem; Xin lịch chỉ qua tin Zalo; Nhận ra nhau bằng số điện thoại.
 
@@ -63,11 +63,11 @@ Trạng thái màn:
 - đang tải: theo HV1
 - lỗi mạng: theo HV2
 - không có quyền: theo HV5
-- từ chối quyền: xem YC1.5.1
+- từ chối quyền: xem mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)
 - quay lại từ nền: theo HV3
-- mở từ link: A8 chính là trạng thái mở từ link; link hết hạn, sale đã bị ngừng, hoặc sale đã xóa tài khoản (YC9.8): A8-01 (theo HV5)
+- mở từ link: A8 chính là trạng thái mở từ link; link hết hạn, sale đã bị ngừng, hoặc sale đã xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22)): A8-01 (theo HV5)
 
-### YC1.10 · Thông báo kết quả kết nối cho sale
+### Thông báo kết quả kết nối cho sale
 Rủi ro: thap
 Mục đích: sale biết ngay khi chủ nhà đồng ý, mà không có hộp thư xin lịch riêng.
 Màn hình: A9, A9-02, P13, P13-00
@@ -78,7 +78,7 @@ Hành vi:
 |---|---|---|---|---|---|
 | 1 | Sale đang dùng app | Hiện toast đầu màn: "Chị Hoa đã đồng ý cho bạn xem lịch / ICON40 1509 và 3402 đã vào Nguồn phòng", nút "Xem" (A9) | App gọi mỗi 60 giây khi đang mở; toast hiện chậm nhất 60 giây sau khi chủ nhà đồng ý | Không | Lịch của chủ nhà vào Nguồn phòng |
 | 2 | Nhiều chủ nhà đồng ý gần nhau | Gom một toast: "3 chủ nhà đã đồng ý cho bạn xem lịch / Chị Hoa, Anh Tuấn và Chú Bình · 7 căn mới trong Nguồn phòng", nút "Xem" (A9-02) | gom các lần đồng ý trong 10 phút thành một dòng theo `khoa_gom` (giả định GD15) | Không | Không |
-| 3 | Sale mở Cá nhân > Thông báo | P13 (bản của sale vẽ ở, có thêm loại "chủ sửa booking", YC4.3): "2 chưa đọc", nút "Đánh dấu đã đọc", nhóm Hôm nay và Trước đó, mỗi sự kiện một dòng (dòng đồng ý nằm trong nhóm này) | mới trước, kèm số chưa đọc; "Đánh dấu đã đọc": | Không | Trạng thái đã đọc |
+| 3 | Sale mở Cá nhân > Thông báo | P13 (bản của sale vẽ ở, có thêm loại "chủ sửa booking", mục "Sửa booking" (US10)): "2 chưa đọc", nút "Đánh dấu đã đọc", nhóm Hôm nay và Trước đó, mỗi sự kiện một dòng (dòng đồng ý nằm trong nhóm này) | mới trước, kèm số chưa đọc; "Đánh dấu đã đọc": | Không | Trạng thái đã đọc |
 
 Theo quy tắc: Gom thông báo.
 
@@ -94,24 +94,24 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC1.4 · Màn đầu tiên khi chưa có dữ liệu: bảng bước ở US1. Story này làm NT3.
-- YC1.9 · Chủ nhà quản lý danh sách sale: bảng bước ở US5. Story này làm NT6.
+- mục "Màn đầu tiên khi chưa có dữ liệu" (US1) · Màn đầu tiên khi chưa có dữ liệu: bảng bước ở US1. Story này làm NT3.
+- mục "Chủ nhà quản lý danh sách sale" (US5) · Chủ nhà quản lý danh sách sale: bảng bước ở US5. Story này làm NT6.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC1.4-NT3** Khi sale bấm "Gửi tin nhắn xin lịch đến chủ nhà", thì app mở A6.
-- **YC1.6-NT1** Khi sale bấm "Gửi qua Zalo" ở A6, thì Zalo mở cửa sổ gửi tin có sẵn nội dung và link.
-- **YC1.6-NT2** Khi sale ở A7, thì chỉ thấy hai con số (lần đã gửi, chủ nhà đã đồng ý) và không có danh sách tên chủ nhà.
-- **YC1.6-NT3** Khi một chủ nhà đồng ý, thì số "chủ nhà đã đồng ý" ở A7 tăng thêm 1.
-- **YC1.6-NT4** Khi A6 hiện link xin lịch, thì link có dạng `zalo.me/s/…`, không có "home247.vn" và không có chữ số nào của số điện thoại sale.
-- **YC1.7-NT1** Khi chủ nhà bấm thẻ trong tin Zalo của sale, thì app mở A8 với đúng tên và số điện thoại của sale đó. `[đã có test database: t_11_ket_noi_quan_tri.sql]`
-- **YC1.7-NT2** Khi chủ nhà tắt "Tình trạng cọc" ở A8 rồi bấm "Đồng ý cho xem lịch", thì sale không thấy đặt phòng của mình đã cọc hay chưa; sale vẫn thấy lịch và giá từng đêm của các căn được chia sẻ (QD-007). `[đã có test database: t_11_ket_noi_quan_tri.sql]`
-- **YC1.7-NT3** Khi chủ nhà bấm "Đồng ý cho xem lịch", thì sale xuất hiện ở CN7.
-- **YC1.9-NT6** Khi Chị Hoa ngừng cho Sale Hùng xem lịch, thì Hùng nhận một thông báo, lịch 7 ngày của Hùng không còn căn của Chị Hoa, và Hùng vẫn mở được đặt phòng cũ của mình với Chị Hoa. (QD-007)
-- **YC1.10-NT1** Khi một chủ nhà đồng ý lúc sale đang mở app, thì toast hiện đầu màn với tên chủ nhà và số căn mới.
-- **YC1.10-NT2** Khi nhiều chủ nhà đồng ý gần nhau, thì chỉ hiện một toast và P13 có một dòng gom.
-- **YC1.10-NT3** Khi sale mở P13, thì số chưa đọc ở nhãn "2 chưa đọc" khớp với số dòng chưa đọc.
+- **US17-NT1** Khi sale bấm "Gửi tin nhắn xin lịch đến chủ nhà", thì app mở A6.
+- **US17-NT2** Khi sale bấm "Gửi qua Zalo" ở A6, thì Zalo mở cửa sổ gửi tin có sẵn nội dung và link.
+- **US17-NT3** Khi sale ở A7, thì chỉ thấy hai con số (lần đã gửi, chủ nhà đã đồng ý) và không có danh sách tên chủ nhà.
+- **US17-NT4** Khi một chủ nhà đồng ý, thì số "chủ nhà đã đồng ý" ở A7 tăng thêm 1.
+- **US17-NT5** Khi A6 hiện link xin lịch, thì link có dạng `zalo.me/s/…`, không có "home247.vn" và không có chữ số nào của số điện thoại sale.
+- **US17-NT6** Khi chủ nhà bấm thẻ trong tin Zalo của sale, thì app mở A8 với đúng tên và số điện thoại của sale đó. `[đã có test database: t_11_ket_noi_quan_tri.sql]`
+- **US17-NT7** Khi chủ nhà tắt "Tình trạng cọc" ở A8 rồi bấm "Đồng ý cho xem lịch", thì sale không thấy đặt phòng của mình đã cọc hay chưa; sale vẫn thấy lịch và giá từng đêm của các căn được chia sẻ (QD-007). `[đã có test database: t_11_ket_noi_quan_tri.sql]`
+- **US17-NT8** Khi chủ nhà bấm "Đồng ý cho xem lịch", thì sale xuất hiện ở CN7.
+- **US17-NT9** Khi Chị Hoa ngừng cho Sale Hùng xem lịch, thì Hùng nhận một thông báo, lịch 7 ngày của Hùng không còn căn của Chị Hoa, và Hùng vẫn mở được đặt phòng cũ của mình với Chị Hoa. (QD-007)
+- **US17-NT10** Khi một chủ nhà đồng ý lúc sale đang mở app, thì toast hiện đầu màn với tên chủ nhà và số căn mới.
+- **US17-NT11** Khi nhiều chủ nhà đồng ý gần nhau, thì chỉ hiện một toast và P13 có một dòng gom.
+- **US17-NT12** Khi sale mở P13, thì số chưa đọc ở nhãn "2 chưa đọc" khớp với số dòng chưa đọc.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -151,7 +151,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 **Lỗi riêng**
 | Mã | Khi nào |
 |---|---|
-| `LINK_KHONG_DUNG_DUOC` | Link sai, quá hạn (khi đặt hạn), link không phải loại `xin_lich` (sale đã xóa tài khoản: [MỞ: US17-H2]), hoặc người gọi đã ngừng sale đó, YC1.7-NT4) |
+| `LINK_KHONG_DUNG_DUOC` | Link sai, quá hạn (khi đặt hạn), link không phải loại `xin_lich` (sale đã xóa tài khoản: [MỞ: US17-H2]), hoặc người gọi đã ngừng sale đó, US22-NT2) |
 | `DU_LIEU_SAI` | Thiếu một trong hai quyền, hoặc không phải boolean |
 
 ### Chủ nhà bật tắt quyền Tình trạng cọc, đổi phạm vi chia sẻ cho một sale
@@ -166,7 +166,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | `KHONG_TIM_THAY` | Không có dòng, hoặc người gọi không phải chủ nhà của dòng |
 | `DU_LIEU_SAI` | Thân rỗng, sai kiểu, hoặc có trường không đổi được |
-| `TRANG_THAI_DA_DOI` | Dòng không còn `da_ket_noi` (sale đã bỏ nguồn, đã bị ngừng). Sale đã xóa tài khoản thì đổi quyền được không: [MỞ: US17-H3]. Đổi quyền của dòng thêm tay `chua_ket_noi`: [MỞ: YC1-H1]; tới khi có quyết định, cũng trả mã này. Dùng mã này cho kết nối là mở rộng(bảng ghi cho yêu cầu, đặt phòng) |
+| `TRANG_THAI_DA_DOI` | Dòng không còn `da_ket_noi` (sale đã bỏ nguồn, đã bị ngừng). Sale đã xóa tài khoản thì đổi quyền được không: [MỞ: US17-H3]. Đổi quyền của dòng thêm tay `chua_ket_noi`: [MỞ: CH-009]; tới khi có quyết định, cũng trả mã này. Dùng mã này cho kết nối là mở rộng(bảng ghi cho yêu cầu, đặt phòng) |
 
 ### Số lần sale đã gửi link xin lịch, lần gửi gần nhất, số chủ nhà đã đồng ý
 **Lỗi riêng**
@@ -202,7 +202,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC1: Xin lịch chỉ qua tin Zalo, Không biết gửi cho ai, Một link xin lịch nhiều chủ nhà, Quyền sale được xem, Nhận ra nhau bằng số điện thoại, Gom thông báo, Ngừng cho xem. HV1 đến HV3, HV5, HV8. YC1.5 (xin số khi bấm việc cần số), YC9.3 (thông báo, dòng 1 và 13), QD-007 (điểm 1 đến 4).
+Quy tắc trong nhóm Đăng nhập, vai trò, kết nối chủ nhà và sale: Xin lịch chỉ qua tin Zalo, Không biết gửi cho ai, Một link xin lịch nhiều chủ nhà, Quyền sale được xem, Nhận ra nhau bằng số điện thoại, Gom thông báo, Ngừng cho xem. HV1 đến HV3, HV5, HV8. mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) (xin số khi bấm việc cần số), mục "Cài đặt thông báo" (US21) (thông báo, dòng 1 và 13), QD-007 (điểm 1 đến 4).
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -315,7 +315,7 @@ Vào từ: S1 khi nhiều chủ nhà đồng ý gần nhau
 |---|---|---|---|
 | 2 | Vị trí toast | Toast chung: nổi trên nội dung, cách mép trái, phải 12 px, đỉnh cách đỉnh màn 108 px (ngay dưới thanh tiêu đề và cụm ··· ✕ của Zalo), nền tối, chữ trắng 14 px đậm, bo góc vừa. Mọi màn có toast dùng đúng chỗ này | |
 | 3 | Toast | Một kiểu: dấu ✓, chữ đậm, không có nút ✕, tự tắt sau 3 giây | |
-| 4 | Căn tự nhập | Hàng "Villa Tuần Châu · Chú Bình · tự nhập": mọi ô ngày "?", ô T7 10/10 và CN 11/10 ghi "Bạn" (booking sale tự ghi). Không có giá, không có "Kín" | YC5.1 bước 3, NT3 |
+| 4 | Căn tự nhập | Hàng "Villa Tuần Châu · Chú Bình · tự nhập": mọi ô ngày "?", ô T7 10/10 và CN 11/10 ghi "Bạn" (booking sale tự ghi). Không có giá, không có "Kín" | mục "Lịch phòng 7 ngày" (US16) bước 3, NT3 |
 
 **A9 · Chủ nhà đã đồng ý · toast**
 Vào từ: Sale đang ở S1 khi chủ nhà đồng ý
@@ -325,7 +325,7 @@ Vào từ: Sale đang ở S1 khi chủ nhà đồng ý
 | 2 | Toast | "Chị Hoa đã đồng ý cho bạn xem lịch", "ICON40 1509 và 3402 đã vào Nguồn phòng", "Xem" | Kết nối |
 | 3 | Vị trí toast | Toast chung: nổi trên nội dung, cách mép trái, phải 12 px, đỉnh cách đỉnh màn 108 px (ngay dưới thanh tiêu đề và cụm ··· ✕ của Zalo), nền tối, chữ trắng 14 px đậm, bo góc vừa. Mọi màn có toast dùng đúng chỗ này | |
 | 4 | Toast | Một kiểu: dấu ✓, chữ đậm, không có nút ✕, tự tắt sau 3 giây | |
-| 5 | Căn tự nhập | Hàng "Villa Tuần Châu · Chú Bình · tự nhập": mọi ô ngày "?", ô T7 10/10 và CN 11/10 ghi "Bạn" (booking sale tự ghi). Không có giá, không có "Kín" | YC5.1 bước 3, NT3 |
+| 5 | Căn tự nhập | Hàng "Villa Tuần Châu · Chú Bình · tự nhập": mọi ô ngày "?", ô T7 10/10 và CN 11/10 ghi "Bạn" (booking sale tự ghi). Không có giá, không có "Kín" | mục "Lịch phòng 7 ngày" (US16) bước 3, NT3 |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
 | "Xem" | Mở nguồn phòng | S6 |
@@ -369,8 +369,8 @@ Vào từ: Popup S1-06, nút "Xem tất cả thông báo"; Cá nhân, dòng "Th�
 | # | Thành phần | Nội dung | Dữ liệu lấy từ |
 |---|---|---|---|
 | 1 | Đầu danh sách | "2 chưa đọc", "Đánh dấu đã đọc" | Thông báo chưa đọc |
-| 2 | Nhóm "Hôm nay" | Chưa đọc (nền xanh nhạt, chấm xanh, chữ đậm): "Chị Hoa đã sửa đặt phòng của bạn" (ICON40 1509 · 10/10 → 12/10 đổi thành 11/10 → 13/10, giá chủ nhà 2.200.000đ → 1.800.000đ, 10:15); "Chị Hoa đã chấp nhận đặt phòng" (09:05). Đã đọc (nền trắng, chữ thường): "Anh Tuấn đồng ý cho bạn xem lịch" (08:30) | YC9.3 đến 3, cùng ví dụ S1-06 |
-| 3 | Nhóm "Trước đó" | "Yêu cầu đặt phòng bị từ chối" (Sapphire 1103 · 05/10 → 06/10, 04/10); "Yêu cầu đặt phòng đã hết hạn" (ICON40 1509 · 27/09 → 28/09, Hôm qua); "Căn bạn đã gửi khách vừa có người đặt" (Hôm qua) | YC9.3 |
+| 2 | Nhóm "Hôm nay" | Chưa đọc (nền xanh nhạt, chấm xanh, chữ đậm): "Chị Hoa đã sửa đặt phòng của bạn" (ICON40 1509 · 10/10 → 12/10 đổi thành 11/10 → 13/10, giá chủ nhà 2.200.000đ → 1.800.000đ, 10:15); "Chị Hoa đã chấp nhận đặt phòng" (09:05). Đã đọc (nền trắng, chữ thường): "Anh Tuấn đồng ý cho bạn xem lịch" (08:30) | mục "Cài đặt thông báo" (US21) đến 3, cùng ví dụ S1-06 |
+| 3 | Nhóm "Trước đó" | "Yêu cầu đặt phòng bị từ chối" (Sapphire 1103 · 05/10 → 06/10, 04/10); "Yêu cầu đặt phòng đã hết hạn" (ICON40 1509 · 27/09 → 28/09, Hôm qua); "Căn bạn đã gửi khách vừa có người đặt" (Hôm qua) | mục "Cài đặt thông báo" (US21) |
 | 4 | Ghi chú dưới | "Sale vào màn này từ Cá nhân > Thông báo, hoặc nút "Xem tất cả thông báo" ở popup hôm nay (S1-06)..."; "... Chủ nhà thấy loại của mình: sale vừa được xem lịch, yêu cầu đặt phòng mới, yêu cầu bị từ chối vì trùng đêm, booking chưa cọc." | Cố định |
 | Bấm gì | Kết quả | Sang màn |
 |---|---|---|
@@ -406,12 +406,12 @@ Trạng thái riêng:
 - `fn_chu_dong_y_xin_lich`: test ở t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Xin tên và số điện thoại, popup dùng chung (YC1.5), quản lý danh sách sale, ngừng cho xem lịch (YC1.9-NT1 đến NT3, NT5; API và CN7-04): US5. Ở đây chỉ kiểm popup hiện đúng chỗ và phần sale nhận thông báo (YC1.9-NT6).
-- Sale đã xóa tài khoản (YC1.7-NT4), chủ nhà đã xóa tài khoản (YC1.9-NT4): US22.
-- Chủ nhà gửi lịch theo căn (YC1.8): US26.
-- Popup thông báo mới hôm nay (YC1.13): US30.
+- Xin tên và số điện thoại, popup dùng chung (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), quản lý danh sách sale, ngừng cho xem lịch (US5-NT9 đến NT3, NT5; API và CN7-04): US5. Ở đây chỉ kiểm popup hiện đúng chỗ và phần sale nhận thông báo (US17-NT9).
+- Sale đã xóa tài khoản (US22-NT2), chủ nhà đã xóa tài khoản (US22-NT3): US22.
+- Chủ nhà gửi lịch theo căn (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)): US26.
+- Popup thông báo mới hôm nay (mục "Popup thông báo mới" (US30)): US30.
 - Nhóm "Nguồn phòng" mà nút "Xem" ở toast mở tới (S6): US16.
-- "Gửi link cho chủ nhà khác" và "Thêm căn tự nhập" ở A7: chưa vẽ màn đích (YC1.6 bước 5).
+- "Gửi link cho chủ nhà khác" và "Thêm căn tự nhập" ở A7: chưa vẽ màn đích (mục "Sale xin chủ nhà cho xem lịch" bước 5).
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

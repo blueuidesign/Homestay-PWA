@@ -30,10 +30,10 @@ Story này làm:
 - Lưu, chống bấm hai lần, mất mạng khi lưu.
 
 Không làm (dễ tưởng thuộc story này):
-- Chọn một **sale** làm người đặt (chip "Sale Hùng" trên form, YC4.1.2-NT3): US28. Ở story này các chip sale có thể hiện nhưng chưa bấm được; xem bước 5.
+- Chọn một **sale** làm người đặt (chip "Sale Hùng" trên form, US5-NT13): US28. Ở story này các chip sale có thể hiện nhưng chưa bấm được; xem bước 5.
 - Chip "+ Sale mới" (thêm sale bằng tay): US5.
 - Lịch tháng tô đêm có khách, lọc theo căn, chi tiết ngày của căn có khách: US2.
-- Sale thấy "Kín" ở lịch của sale (YC4.1-NT2): US6.
+- Sale thấy "Kín" ở lịch của sale (US6-NT11): US6.
 - Xem chi tiết, sửa, xóa, ghi đã thu đủ (form sửa CN4-02 dùng chung bố cục với form này): US10.
 - Ghi đặt phòng cho căn tự nhập của sale: US16.
 - Thông báo cho sale khi đặt phòng mới làm yêu cầu của họ bị từ chối, hoặc chiếm đêm của căn họ đã gửi khách: việc này database tự làm khi lưu (bước 9), nhưng màn thông báo thuộc US15, US30.
@@ -97,7 +97,7 @@ Các chip sale và "+ Sale mới" hiện theo canvas nhưng ở story này chạ
 | 8b | Chọn "Đã cọc · còn thu" | Hiện ô "Số tiền cọc (đ)". Chọn chip khác thì ô này ẩn và giá trị đã gõ bị bỏ | Không |
 | 8c | Bấm "Thêm chi tiết" | Mở phần chi tiết: số khách (nút − và +, từ 1), giờ nhận và giờ trả điền sẵn theo cài đặt của chủ nhà ("14:00 → 12:00"), ô "Ghi chú". Dòng tóm tắt khi đóng: "4 khách · 14:00 → 12:00 · Ghi chú" | Đọc `profiles.gio_nhan`, `gio_tra` của chủ nhà |
 
-Tiền cọc có bắt buộc khi đã chọn "Đã cọc · còn thu" không: [MỞ: YC4-H13]. Tới khi có câu trả lời, ô để trống vẫn lưu được.
+Tiền cọc có bắt buộc khi đã chọn "Đã cọc · còn thu" không: [MỞ: CH-025]. Tới khi có câu trả lời, ô để trống vẫn lưu được.
 
 Tiền cọc lớn hơn tiền phòng thì không lưu được, ô cọc viền đỏ, dòng "Tiền cọc không được lớn hơn tiền phòng" (giả định GD20).
 
@@ -126,38 +126,38 @@ Hai máy cùng ghi một đêm của một căn trong cùng một lúc: một l�
 Mỗi tiêu chí một test mang đúng mã trong tên test. Lớp test ghi ở cuối dòng: **database** (`tests/db/`), **unit** (Vitest, cạnh file code), **E2E** (Playwright trên staging). Số theo `docs/luat-chung/Du_lieu_mau.md`, hôm nay 07/10/2026.
 
 Ghi và chặn trùng:
-- **YC4.1-NT1** Khi chủ nhà bấm "Thêm đặt phòng" với đủ căn, ngày, người đặt và tiền phòng, thì đặt phòng hiện trong lịch của căn đó và toast "Đã thêm đặt phòng <người đặt> · <căn>" hiện đầu màn. · E2E
-- **YC4.1.1-NT1** Khi các đêm đã chọn chưa có khách trong căn, thì thấy dòng "không trùng lịch". · unit
-- **YC4.1.1-NT2** Khi các đêm đã chọn trùng với một đặt phòng chưa hủy của cùng căn, thì thấy dòng báo trùng, nút lưu không bấm được, và lệnh lưu gửi thẳng tới database cũng bị từ chối. · unit (dòng báo), database (từ chối: QT1.1-VD1)
-- **US3-NT1** Khi 1509 đã có B1 (10/10 → 12/10) và chủ nhà ghi 1509 từ 12/10 tới 13/10, thì lưu được (QT1.1-VD2). Ghi 3402 từ 10/10 tới 12/10 cũng lưu được (QT1.1-VD3). · database
-- **US3-NT2** Khi hai lệnh ghi cùng đêm của cùng căn chạy cùng lúc, thì đúng một lệnh lưu được. · database
-- **US3-NT3** Khi app gửi lại lệnh lưu với cùng `client_id` sau khi lần trước đã lưu, thì không có đặt phòng thứ hai và app nhận về đặt phòng đã lưu. · database
-- **US3-NT4** Khi Sale Lan đang có yêu cầu chờ cho 1509 từ 17/10 tới 19/10 và Chị Hoa tự ghi 1509 từ 18/10 tới 19/10, thì yêu cầu của Sale Lan thành bị từ chối (giả định GD11). · database
+- **US3-NT1** Khi chủ nhà bấm "Thêm đặt phòng" với đủ căn, ngày, người đặt và tiền phòng, thì đặt phòng hiện trong lịch của căn đó và toast "Đã thêm đặt phòng <người đặt> · <căn>" hiện đầu màn. · E2E
+- **US3-NT2** Khi các đêm đã chọn chưa có khách trong căn, thì thấy dòng "không trùng lịch". · unit
+- **US3-NT3** Khi các đêm đã chọn trùng với một đặt phòng chưa hủy của cùng căn, thì thấy dòng báo trùng, nút lưu không bấm được, và lệnh lưu gửi thẳng tới database cũng bị từ chối. · unit (dòng báo), database (từ chối: QT1.1-VD1)
+- **US3-NT4** Khi 1509 đã có B1 (10/10 → 12/10) và chủ nhà ghi 1509 từ 12/10 tới 13/10, thì lưu được (QT1.1-VD2). Ghi 3402 từ 10/10 tới 12/10 cũng lưu được (QT1.1-VD3). · database
+- **US3-NT5** Khi hai lệnh ghi cùng đêm của cùng căn chạy cùng lúc, thì đúng một lệnh lưu được. · database
+- **US3-NT6** Khi app gửi lại lệnh lưu với cùng `client_id` sau khi lần trước đã lưu, thì không có đặt phòng thứ hai và app nhận về đặt phòng đã lưu. · database
+- **US3-NT7** Khi Sale Lan đang có yêu cầu chờ cho 1509 từ 17/10 tới 19/10 và Chị Hoa tự ghi 1509 từ 18/10 tới 19/10, thì yêu cầu của Sale Lan thành bị từ chối (giả định GD11). · database
 
 Ngày:
-- **YC4.1.1-NT3** Khi chủ nhà chọn "2 đêm", thì ngày trả bằng ngày nhận cộng 2. · unit
-- **US3-NT5** Khi chủ nhà bấm "Đặt phòng" ở tab Lịch, căn đầu tiên là 1509 và 1509 chỉ có B1 (10/10 → 12/10), thì form mở với 1509, nhận 07/10, trả 08/10. Khi 1509 có thêm một đặt phòng 07/10 → 10/10, thì ngày nhận điền sẵn là 12/10 (đêm trống đầu tiên sau B1). · unit
-- **YC2.4-NT2** Khi chủ nhà xem chi tiết ngày 10/10 và căn 3402 trống ngày đó, thì dòng 3402 ghi "Trống" và có nút "Đặt phòng"; bấm nút thì CN4 mở với căn 3402 và ngày nhận 10/10. · E2E
-- **US3-NT6** Khi lệnh ghi có ngày trả không sau ngày nhận, hoặc dài hơn 365 đêm, thì database từ chối với câu "Ngày trả phải sau ngày nhận" hoặc "Một đặt phòng dài tối đa 365 đêm". · database
+- **US3-NT8** Khi chủ nhà chọn "2 đêm", thì ngày trả bằng ngày nhận cộng 2. · unit
+- **US3-NT9** Khi chủ nhà bấm "Đặt phòng" ở tab Lịch, căn đầu tiên là 1509 và 1509 chỉ có B1 (10/10 → 12/10), thì form mở với 1509, nhận 07/10, trả 08/10. Khi 1509 có thêm một đặt phòng 07/10 → 10/10, thì ngày nhận điền sẵn là 12/10 (đêm trống đầu tiên sau B1). · unit
+- **US3-NT10** Khi chủ nhà xem chi tiết ngày 10/10 và căn 3402 trống ngày đó, thì dòng 3402 ghi "Trống" và có nút "Đặt phòng"; bấm nút thì CN4 mở với căn 3402 và ngày nhận 10/10. · E2E
+- **US3-NT11** Khi lệnh ghi có ngày trả không sau ngày nhận, hoặc dài hơn 365 đêm, thì database từ chối với câu "Ngày trả phải sau ngày nhận" hoặc "Một đặt phòng dài tối đa 365 đêm". · database
 
 Tiền:
-- **YC4.1.2-NT5** Khi chủ nhà chọn 1509, nhận 31/10 trả 02/11, thì ô tiền phòng điền sẵn 2.200.000đ, dưới ô có "31/10: 1.300.000đ" và "01/11: 900.000đ" (QT4.1-VD1). · database (hàm giá từng đêm), unit (hiển thị)
-- **US3-NT7** Khi chủ nhà giữ 2.200.000đ và lưu, thì tiền đêm 31/10 là 1.300.000đ, đêm 01/11 là 900.000đ (QT4.2-VD3). Khi gõ 2.000.000đ và lưu, thì mỗi đêm 1.000.000đ (QT4.2-VD1). Khi 3 đêm và gõ 1.000.000đ, thì 333.333đ, 333.333đ, 333.334đ (QT4.2-VD2). · database
-- **YC4.1.2-NT4** Khi ô "Tiền phòng (đ)" trống, thì nút "Thêm đặt phòng" không bấm được, ô viền đỏ với dòng "Nhập tiền phòng trước khi lưu", và đặt phòng không được lưu (CN4-01, QT4.1-VD3). · unit
-- **YC4.1.2-NT7** Khi lệnh tạo đặt phòng không có tiền phòng gửi thẳng tới database, thì database từ chối với câu "Cần nhập tiền phòng" và lịch không đổi. · database
-- **US3-NT8** Khi một đêm trong khoảng đã chọn chưa có giá (ví dụ 1509 nhận 30/12/2026 trả 02/01/2027, tháng 1 chưa đặt giá), thì dòng của đêm đó ghi "chưa đặt giá" và ô tiền phòng để trống. · unit
-- **YC4.1.2-NT1** Khi chủ nhà chọn "Đã cọc · còn thu", thì hiện ô "Số tiền cọc (đ)"; chọn "Chưa cọc" hoặc "Đã thanh toán" thì ô này ẩn. · unit
-- **US3-NT9** Khi tiền cọc lớn hơn tiền phòng (cọc 3.000.000đ, tiền phòng 2.200.000đ), thì app không cho lưu, và lệnh gửi thẳng tới database bị từ chối với câu "Tiền cọc không được lớn hơn tiền phòng" (giả định GD20). · unit, database
+- **US3-NT12** Khi chủ nhà chọn 1509, nhận 31/10 trả 02/11, thì ô tiền phòng điền sẵn 2.200.000đ, dưới ô có "31/10: 1.300.000đ" và "01/11: 900.000đ" (QT4.1-VD1). · database (hàm giá từng đêm), unit (hiển thị)
+- **US3-NT13** Khi chủ nhà giữ 2.200.000đ và lưu, thì tiền đêm 31/10 là 1.300.000đ, đêm 01/11 là 900.000đ (QT4.2-VD3). Khi gõ 2.000.000đ và lưu, thì mỗi đêm 1.000.000đ (QT4.2-VD1). Khi 3 đêm và gõ 1.000.000đ, thì 333.333đ, 333.333đ, 333.334đ (QT4.2-VD2). · database
+- **US3-NT14** Khi ô "Tiền phòng (đ)" trống, thì nút "Thêm đặt phòng" không bấm được, ô viền đỏ với dòng "Nhập tiền phòng trước khi lưu", và đặt phòng không được lưu (CN4-01, QT4.1-VD3). · unit
+- **US3-NT15** Khi lệnh tạo đặt phòng không có tiền phòng gửi thẳng tới database, thì database từ chối với câu "Cần nhập tiền phòng" và lịch không đổi. · database
+- **US3-NT16** Khi một đêm trong khoảng đã chọn chưa có giá (ví dụ 1509 nhận 30/12/2026 trả 02/01/2027, tháng 1 chưa đặt giá), thì dòng của đêm đó ghi "chưa đặt giá" và ô tiền phòng để trống. · unit
+- **US3-NT17** Khi chủ nhà chọn "Đã cọc · còn thu", thì hiện ô "Số tiền cọc (đ)"; chọn "Chưa cọc" hoặc "Đã thanh toán" thì ô này ẩn. · unit
+- **US3-NT18** Khi tiền cọc lớn hơn tiền phòng (cọc 3.000.000đ, tiền phòng 2.200.000đ), thì app không cho lưu, và lệnh gửi thẳng tới database bị từ chối với câu "Tiền cọc không được lớn hơn tiền phòng" (giả định GD20). · unit, database
 
 Người đặt và chi tiết:
-- **US3-NT10** Khi chưa chọn chip nào ở hàng "Khách / Sale", thì nút "Thêm đặt phòng" không bấm được. · unit
-- **US3-NT11** Khi Chị Hoa đã từng ghi khách tên "Dung Đỗ", thì hàng chip có "Dung Đỗ" sau các chip sale; Anh Tuấn mở form của mình thì không thấy "Dung Đỗ". · database (RLS), unit (thứ tự chip)
-- **YC4.1.2-NT2** Khi chủ nhà mở "Thêm chi tiết", thì thấy số khách, giờ nhận và giờ trả (14:00, 12:00 theo cài đặt) và ô ghi chú. · unit
-- **US3-NT12** Khi chủ nhà không mở "Thêm chi tiết" và lưu, thì giờ nhận, giờ trả của đặt phòng lấy theo cài đặt của chủ nhà lúc lưu. · database
+- **US3-NT19** Khi chưa chọn chip nào ở hàng "Khách / Sale", thì nút "Thêm đặt phòng" không bấm được. · unit
+- **US3-NT20** Khi Chị Hoa đã từng ghi khách tên "Dung Đỗ", thì hàng chip có "Dung Đỗ" sau các chip sale; Anh Tuấn mở form của mình thì không thấy "Dung Đỗ". · database (RLS), unit (thứ tự chip)
+- **US3-NT21** Khi chủ nhà mở "Thêm chi tiết", thì thấy số khách, giờ nhận và giờ trả (14:00, 12:00 theo cài đặt) và ô ghi chú. · unit
+- **US3-NT22** Khi chủ nhà không mở "Thêm chi tiết" và lưu, thì giờ nhận, giờ trả của đặt phòng lấy theo cài đặt của chủ nhà lúc lưu. · database
 
 Quyền:
-- **US3-NT13** Khi Anh Tuấn gửi lệnh ghi đặt phòng vào căn 1509 của Chị Hoa, hoặc Sale Hùng gửi lệnh này (dù được chia sẻ căn 1509), thì database từ chối và lịch 1509 không đổi. · database
-- **US3-NT14** Khi Sale Hùng đọc đặt phòng khách lẻ Chị Hoa vừa ghi, thì Hùng chỉ thấy đêm kín qua lịch của sale, không thấy tên khách, số khách, tiền phòng, tiền cọc. · database
+- **US3-NT23** Khi Anh Tuấn gửi lệnh ghi đặt phòng vào căn 1509 của Chị Hoa, hoặc Sale Hùng gửi lệnh này (dù được chia sẻ căn 1509), thì database từ chối và lịch 1509 không đổi. · database
+- **US3-NT24** Khi Sale Hùng đọc đặt phòng khách lẻ Chị Hoa vừa ghi, thì Hùng chỉ thấy đêm kín qua lịch của sale, không thấy tên khách, số khách, tiền phòng, tiền cọc. · database
 
 ## Luật kiểm dữ liệu và lỗi
 
@@ -186,9 +186,9 @@ Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có đư�
 
 Theo `docs/luat-chung/PQ.md`. Mỗi dòng dưới đây có test vi phạm ở lớp database.
 
-- PQ7.CHU: chỉ người giữ căn ghi được đặt phòng cho căn đó. Chủ nhà khác, sale được chia sẻ, người chưa đăng nhập đều không ghi được (US3-NT13).
-- PQ9: tên, số khách chủ nhà nhập chỉ chủ nhà đó đọc được (QD-011). Sale không thấy (US3-NT14); chủ nhà khác không thấy (US3-NT11).
-- PQ8.SALE: sale không thấy tiền phòng, tiền cọc của đặt phòng khách lẻ (US3-NT14).
+- PQ7.CHU: chỉ người giữ căn ghi được đặt phòng cho căn đó. Chủ nhà khác, sale được chia sẻ, người chưa đăng nhập đều không ghi được (US3-NT23).
+- PQ9: tên, số khách chủ nhà nhập chỉ chủ nhà đó đọc được (QD-011). Sale không thấy (US3-NT24); chủ nhà khác không thấy (US3-NT20).
+- PQ8.SALE: sale không thấy tiền phòng, tiền cọc của đặt phòng khách lẻ (US3-NT24).
 - PQ4.SALE: sale được chia sẻ căn thấy đêm đó kín (hiển thị ở US6).
 
 ## Database
@@ -200,9 +200,9 @@ Bảng: `booking` (phần hai bên cùng thấy), `booking_dem` (tiền từng �
 - Ràng buộc `booking_khong_trung`, chống gửi trùng bằng `client_id`, chia tiền theo đêm, từ chối yêu cầu trùng.
 
 **Database đang lệch story, phải sửa trong PR của story này** (thêm migration mới, test, và dòng trong `scripts/thu-lam-hong.sh`):
-1. `fn_chu_ghi_booking` tự điền tiền phòng theo bảng giá khi lệnh không gửi `tien_phong`. Story đòi từ chối (YC4.1.2-NT7). Sửa: bắt buộc `tien_phong`.
-2. Chưa có hàm cho app lấy giá từng đêm của căn mình (`gia_dem` là hàm nội bộ). Thêm `fn_chu_gia_cac_dem(p_can uuid, p_nhan date, p_tra date)` trả danh sách {đêm, giá hoặc null}, chỉ cho người giữ căn (YC4.1.2-NT5, US3-NT8).
-3. Tiền cọc lớn hơn tiền phòng đang bị ràng buộc bảng chặn, nhưng lỗi ra mã 23514, app chỉ hiện câu chung. Sửa: hàm kiểm trước và báo P0001 "Tiền cọc không được lớn hơn tiền phòng" (US3-NT9). Tương tự cho ngày dài hơn 365 đêm (chưa kiểm), số khách ngoài 1 đến 99 (bảng chỉ chặn số ≤ 0), tên khách quá 100 ký tự (chưa kiểm).
+1. `fn_chu_ghi_booking` tự điền tiền phòng theo bảng giá khi lệnh không gửi `tien_phong`. Story đòi từ chối (US3-NT15). Sửa: bắt buộc `tien_phong`.
+2. Chưa có hàm cho app lấy giá từng đêm của căn mình (`gia_dem` là hàm nội bộ). Thêm `fn_chu_gia_cac_dem(p_can uuid, p_nhan date, p_tra date)` trả danh sách {đêm, giá hoặc null}, chỉ cho người giữ căn (US3-NT12, US3-NT16).
+3. Tiền cọc lớn hơn tiền phòng đang bị ràng buộc bảng chặn, nhưng lỗi ra mã 23514, app chỉ hiện câu chung. Sửa: hàm kiểm trước và báo P0001 "Tiền cọc không được lớn hơn tiền phòng" (US3-NT18). Tương tự cho ngày dài hơn 365 đêm (chưa kiểm), số khách ngoài 1 đến 99 (bảng chỉ chặn số ≤ 0), tên khách quá 100 ký tự (chưa kiểm).
 4. Ghi chú: bảng cho 1.000 ký tự, story nói 500. Sửa ràng buộc về 500.
 5. Lỗi khi căn không phải của người gọi đang dùng mã 42501 với câu "Bạn không ghi được đặt phòng cho căn này". Giữ mã 42501 (app hiện câu chung) để không lộ căn có tồn tại hay không.
 
@@ -227,18 +227,18 @@ QT1.1 (chặn trùng theo căn), QT1.4 (yêu cầu gặp đêm đã kín), QT2 (
 - [MỞ: US3-H1] Chủ nhà nhập tên một khách mới (chưa có trên hàng chip) ở đâu? Gợi ý: chạm "Khách lẻ" thì hiện ô "Tên khách (không bắt buộc)".
 - [MỞ: US3-H2] Có ô số điện thoại khách trên form không? Database đã có chỗ lưu (`booking_rieng.sdt_khach`), canvas chưa có ô.
 - [MỞ: US3-H3] Tiền phòng 0 đồng có được ghi không?
-- [MỞ: YC4-H13] Đã chọn "Đã cọc · còn thu" thì tiền cọc có bắt buộc không?
+- [MỞ: CH-025] Đã chọn "Đã cọc · còn thu" thì tiền cọc có bắt buộc không?
 - GD11: chủ nhà tự ghi đặt phòng trùng đêm với yêu cầu đang chờ thì yêu cầu đó thành bị từ chối.
 - GD19: mở form thì chip "Chưa cọc" chọn sẵn.
 - GD20: tiền cọc không được lớn hơn tiền phòng.
 
 ## Việc cần làm
 
-- [ ] Hỏi Tùng US3-H1, US3-H2, US3-H3, YC4-H13 trước khi làm phần liên quan. Phần còn lại làm được ngay.
-- [ ] Test database cho US3-NT2 đến NT4, NT6, NT7, NT9, NT11 đến NT14, YC4.1.1-NT2, YC4.1.2-NT5, NT7. Chạy thấy đỏ ở các chỗ database đang lệch.
+- [ ] Hỏi Tùng US3-H1, US3-H2, US3-H3, CH-025 trước khi làm phần liên quan. Phần còn lại làm được ngay.
+- [ ] Test database cho US3-NT3 (phần database), NT4 đến NT7, NT11 đến NT13, NT15, NT18, NT20, NT22 đến NT24. Chạy thấy đỏ ở các chỗ database đang lệch.
 - [ ] Migration sửa 5 điểm ở mục "Database đang lệch story". Thêm dòng vào `scripts/thu-lam-hong.sh` cho: bắt buộc tiền phòng, cọc không lớn hơn tiền phòng, hàm giá từng đêm chỉ cho người giữ căn. Chạy `scripts/bang-cot.sh`.
 - [ ] Unit test cho các tiêu chí lớp unit, rồi code form CN4: nối `services/api.ts` sang Supabase cho các hàm form dùng (`docs/Ghi_chu_code.md` mục 3).
-- [ ] E2E: YC4.1-NT1, YC2.4-NT2 trên staging; bỏ `fixme` ở `tests/e2e/10_chu_ghi_dat_phong.spec.ts`.
+- [ ] E2E: US3-NT1, US3-NT10 trên staging; bỏ `fixme` ở `tests/e2e/10_chu_ghi_dat_phong.spec.ts`.
 - [ ] Sửa `tests/kich-ban/US3.md` theo story này: đổi ngày sang ngày còn trong tương lai, bỏ KB10, KB11 (thuộc US2), bỏ phần nói về Zalo.
 - [ ] Kiểm tay trên điện thoại thật, luồng chính và trùng đêm.
 - [ ] Đổi Trạng thái ở đầu file và ở `docs/stories/README.md`.

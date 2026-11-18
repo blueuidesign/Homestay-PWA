@@ -42,7 +42,7 @@ test("test_YC1_9_buoc_1_US5_CN7_nhom_da_ket_noi_4_dong_theo_canvas_va_nut_gui_li
     "M | Sale Minh | 2 đặt phòng · đã thanh toán | 1.700.000đ |",
     "N | Sale Nga | Chưa có đặt phòng tháng này | 0đ |",
   ]);
-  // Không có nút "Nhắc lại" (chưa thiết kế, YC1.9 bước 3 còn [MỞ])
+  // Không có nút "Nhắc lại" (chưa thiết kế, mục "Chủ nhà quản lý danh sách sale" (US5) bước 3 còn [MỞ])
   expect(c).not.toContain("Nhắc lại");
 });
 

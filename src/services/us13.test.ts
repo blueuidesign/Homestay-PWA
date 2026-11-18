@@ -2,7 +2,7 @@ import { beforeEach, expect, test } from "vitest";
 import { banThu, getSaleCan, getSaleTim, getToi, patchToi, postPhien, putSaleCanMucCong, postKetNoiNgung, getKetNoi } from "./api";
 import { LoiApi } from "./kieu";
 
-// US13 · Test server giả của chi tiết căn, mức cộng, mức cộng mặc định (YC5.4, YC5.6). Dữ liệu DLM: hôm nay 07/10/2026,
+// US13 · Test server giả của chi tiết căn, mức cộng, mức cộng mặc định (mục "Chi tiết căn và giá bán" (US13), mục "Mức cộng giá mặc định" (US13)). Dữ liệu DLM: hôm nay 07/10/2026,
 // kịch bản 24/10 → 26/10 (đêm T7, CN): 1509 giá chủ 1.300.000 + 900.000 = 2.200.000đ.
 const maLoi = (p: Promise<unknown>) => p.then(() => null, (e) => (e instanceof LoiApi ? e.loi : String(e)));
 let n = 0;

@@ -3,7 +3,7 @@ import { chuPhongNgu, tenThe } from "../components/can-hien-thi";
 import { Icon } from "../components/icon";
 import type { Can, DongKetNoi } from "../services/kieu";
 
-// CN10 · Gửi lịch cho sale (YC1.8), CN10-00 khi chưa có sale đã lưu, CN10-01 khi đóng cửa sổ Zalo mà chưa gửi.
+// CN10 · Gửi lịch cho sale (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)), CN10-00 khi chưa có sale đã lưu, CN10-01 khi đóng cửa sổ Zalo mà chưa gửi.
 // Phần vẽ, tách khỏi cn10-gui-lich.tsx để test. Màn gốc theo canvas OwnerCalendar, CN10-00 và CN10-01 chỉ đổi phần trạng thái.
 
 export const CHU_MO_TA_CN10 = "Sale nhận link xem lịch trống/kín và giá của các căn đã chọn. Không thấy tên khách và tiền cọc.";
@@ -18,7 +18,7 @@ export const CHU_CAN_CHON_CAN = "Chọn ít nhất một căn"; // YC không nó
 
 export const chuDaChonCan = (chon: number, tong: number) => `Căn · đã chọn ${chon}/${tong}`;
 export const chuCanTrongBuoc = (c: Pick<Can, "ma_can" | "so_phong_ngu">) => `${tenThe(c.ma_can)} · ${chuPhongNgu(c.so_phong_ngu)}`;
-// Cửa sổ Zalo mỗi sale một cái (tạm, [MỞ: YC1-H15]) nên chữ dưới nút nói rõ số tin
+// Cửa sổ Zalo mỗi sale một cái (tạm, [MỞ: CH-054]) nên chữ dưới nút nói rõ số tin
 export const chuDuoiNut = (soSale: number) => (soSale === 0 ? CHU_ZALO_SE_MO : `Zalo sẽ mở ${soSale} tin, mỗi tin một sale. Bạn bấm gửi từng tin.`);
 export const chuTrangThaiSale = (d: DongKetNoi) => (d.trang_thai === "da_ket_noi" ? "Đã kết nối" : "Chưa mở link");
 
@@ -158,7 +158,7 @@ export const NoiDungCN10 = (p: PropsCN10) => {
   );
 };
 
-// Thẻ "Gửi lịch cho sale · Lịch chung các căn" ở tab Lịch (CN1 thành phần 6, YC2 bước 6)
+// Thẻ "Gửi lịch cho sale · Lịch chung các căn" ở tab Lịch (CN1 thành phần 6, nhóm Lịch chủ nhà bước 6)
 export const TheGuiLich = ({ onBam }: { onBam: () => void }) => (
   <button
     type="button"

@@ -13,7 +13,7 @@ Là chủ nhà, tôi muốn thêm thông tin căn (tòa nhà, view, số giườ
 ## Hành vi
 Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc kép là chữ trên màn), máy chủ phải làm gì, dữ liệu nào đổi. Cột "Máy chủ" mô tả việc phải xảy ra; bản PWA làm bằng RLS, view và hàm `fn_*` của Supabase.
 
-### YC3.2.2 · Tòa nhà, loại view, số giường, mô tả
+### Tòa nhà, loại view, số giường, mô tả
 Rủi ro: tb
 Màn hình: CN5-A1, CN5-A1b
 
@@ -21,7 +21,7 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Bấm "Thêm tòa nhà, mô tả gửi khách, view..." | Mở rộng thêm: hàng chip "Tòa nhà" (ICON40, À La Carte, Sapphire, "+ Tòa khác"), hàng chip "Loại view" (theo danh sách Loại view ở `Tu_dien.md`), một ô số "Số giường" (không bắt buộc, theo `Tu_dien.md`), ô "Mô tả gửi khách" ("Sale dùng đoạn này khi gửi thông tin căn cho khách."), nút "Thu gọn" | không `q`: tòa người gọi đã dùng, rồi tòa Home247 đặt sẵn, cho hàng chip | Không | Số giường của căn |
-| 2 | Chọn "+ Tòa khác" | CN5-A1b: ô "Tên tòa nhà", danh sách tòa có sẵn (tên và khu vực), dòng "+ Thêm tòa mới <chữ đã gõ>", ghi chú "Chọn tòa có sẵn để sale lọc đúng tòa. Không thấy thì thêm tòa mới." Danh sách gồm tòa Home247 đặt sẵn (YC10.2) và tòa mọi người dùng đã thêm | Trả danh sách tòa dùng chung cho mọi người | Không | Không |
+| 2 | Chọn "+ Tòa khác" | CN5-A1b: ô "Tên tòa nhà", danh sách tòa có sẵn (tên và khu vực), dòng "+ Thêm tòa mới <chữ đã gõ>", ghi chú "Chọn tòa có sẵn để sale lọc đúng tòa. Không thấy thì thêm tòa mới." Danh sách gồm tòa Home247 đặt sẵn (mục "Quản trị danh sách tòa nhà" (US29)) và tòa mọi người dùng đã thêm | Trả danh sách tòa dùng chung cho mọi người | Không | Không |
 | 3 | Chọn một tòa trong danh sách hoặc thêm tòa mới | Tòa được chọn gắn vào căn | Thêm tòa mới vào danh sách chung, không cần duyệt | Không | Gắn tòa vào căn; thêm tòa mới thì tòa đó hiện cho mọi người chọn. Theo quy tắc: Tòa nhà dùng chung |
 
 Trạng thái màn:
@@ -33,7 +33,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC3.3 · Sửa thông tin căn
+### Sửa thông tin căn
 Rủi ro: tb
 Mục đích: chủ nhà đổi thông tin, ảnh, thứ tự ảnh của một căn đã có.
 Màn hình: CN5-02
@@ -45,9 +45,9 @@ Hành vi:
 | 1 | Mở sửa căn | Tiêu đề "Sửa phòng 1509", hai tab "Thông tin" và "Giá". Tab Thông tin điền sẵn: mã căn, số phòng ngủ, ảnh, tòa nhà, loại view, số giường, mô tả gửi khách. Loại view theo `Tu_dien.md`, số giường theo `Tu_dien.md` | mọi trường và ảnh theo thứ tự | Không | Không |
 | 2 | Bấm "Đổi thứ tự" ở mục ảnh | Chuyển chế độ đổi thứ tự ảnh. Ảnh số 1 là ảnh đại diện | Không gọi server | Không | Không |
 | 3 | Bấm ✕ trên một ảnh | Xóa ảnh đó (có hỏi lại hay không: chưa vẽ, ?) | Không gọi server ngay. Lưu ở bước 5: nhận `anh_ids` còn lại | Không | Lưu ở bước 5: ảnh đó không còn gắn căn |
-| 4 | Bấm "Thêm ảnh" | Như YC3.2.1 | trả `anh_id` tạm, gắn vào căn khi ở bước 5; hơn 12 `anh_ids` thì `DU_LIEU_SAI` | Không | Thêm một ảnh tạm vào thư mục ảnh, chưa gắn căn (bảng `anh_tam` hoặc `anh_can.can_id` trống, |
+| 4 | Bấm "Thêm ảnh" | Như mục "Ảnh khi thêm căn" (US25) | trả `anh_id` tạm, gắn vào căn khi ở bước 5; hơn 12 `anh_ids` thì `DU_LIEU_SAI` | Không | Thêm một ảnh tạm vào thư mục ảnh, chưa gắn căn (bảng `anh_tam` hoặc `anh_can.can_id` trống, |
 | 5 | Bấm "Lưu thay đổi" | Lưu và về danh sách căn CN5 | sửa căn, nhận `anh_ids` theo thứ tự, ảnh số 1 là ảnh đại diện; mã trùng thì `MA_CAN_TRUNG` | Không | Cập nhật thông tin căn |
-| 6 | Bấm tab "Giá" | Mở tab Giá của căn, xem YC3.4 | Không gọi server | Không | Không |
+| 6 | Bấm tab "Giá" | Mở tab Giá của căn, xem mục "Đặt giá theo tháng" (US4) | Không gọi server | Không | Không |
 
 Theo quy tắc: Căn tối thiểu; Mã căn không trùng; Ảnh căn.
 
@@ -60,7 +60,7 @@ Trạng thái màn:
 - quay lại từ nền: theo HV3
 - mở từ link: không áp dụng
 
-### YC3.8 · Ngày tính giá cuối tuần
+### Ngày tính giá cuối tuần
 Rủi ro: cao
 Mục đích: chủ nhà chọn những đêm nào tính giá cuối tuần, áp dụng cho mọi căn.
 Màn hình: P6
@@ -88,25 +88,25 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- YC3.1 · Danh sách căn: bảng bước ở US1. Story này làm NT5.
+- mục "Danh sách căn" (US1) · Danh sách căn: bảng bước ở US1. Story này làm NT5.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
 
-- **YC3.1-NT5** Khi chủ nhà đã nhập số giường của căn, thì thẻ căn ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn (ví dụ "2PN · 3 giường").
-- **YC3.2.2-NT1** Khi chủ nhà không mở phần này, thì vẫn thêm được căn.
-- **YC3.2.2-NT2** Khi chủ nhà gõ "Green" vào ô tên tòa, thì thấy các tòa có tên chứa "Green" và dòng thêm tòa mới.
-- **YC3.2.2-NT3** Khi chủ nhà mở hàng chip "Loại view", thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md` và không có "Vịnh".
-- **YC3.2.2-NT4** Khi chủ nhà nhập số giường rồi thêm căn, thì thẻ căn ở CN5 ghi số phòng ngủ và số giường như YC3.1-NT5.
-- **YC3.2.2-NT5** Khi chủ nhà bỏ trống ô số giường, thì vẫn thêm được căn và dòng "Còn thiếu" không nhắc số giường. Theo quy tắc: Căn tối thiểu.
-- **YC3.2.2-NT6** Khi một người dùng thêm tòa mới ở CN5-A1b, thì người dùng khác mở CN5-A1b thấy tòa đó trong danh sách tòa có sẵn. Theo quy tắc: Tòa nhà dùng chung.
-- **YC3.3-NT1** Khi chủ nhà mở sửa một căn, thì các ô hiện đúng giá trị hiện có của căn.
-- **YC3.3-NT2** Khi chủ nhà đổi thứ tự ảnh và lưu, thì ảnh số 1 trở thành ảnh đại diện. `[đã có test database: t_07_can_gia_mo_rong.sql]`
-- **YC3.3-NT3** Khi chủ nhà đổi mã căn thành mã của căn khác đã có, thì hiện lỗi trùng mã và không lưu.
-- **YC3.3-NT4** Khi chủ nhà sửa số giường rồi lưu, thì thẻ căn ở CN5 ghi số giường mới; xóa trống ô thì thẻ chỉ ghi số phòng ngủ.
-- **YC3.8-NT1** Khi chủ nhà chọn T6 và T7 rồi lưu, thì ô giá ở tab Giá ghi "Cuối tuần (T6, T7)".
-- **YC3.8-NT2** Khi chủ nhà chọn T7 và CN rồi lưu, thì ô giá ở tab Giá ghi tên theo hai thứ đó và ô "Ngày thường" ghi các thứ còn lại.
-- **YC3.8-NT3** Khi khách nhận phòng T6 và trả phòng CN, thì hai đêm đều tính giá cuối tuần với lựa chọn T6, T7.
+- **US11-NT1** Khi chủ nhà đã nhập số giường của căn, thì thẻ căn ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn (ví dụ "2PN · 3 giường").
+- **US11-NT2** Khi chủ nhà không mở phần này, thì vẫn thêm được căn.
+- **US11-NT3** Khi chủ nhà gõ "Green" vào ô tên tòa, thì thấy các tòa có tên chứa "Green" và dòng thêm tòa mới.
+- **US11-NT4** Khi chủ nhà mở hàng chip "Loại view", thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md` và không có "Vịnh".
+- **US11-NT5** Khi chủ nhà nhập số giường rồi thêm căn, thì thẻ căn ở CN5 ghi số phòng ngủ và số giường như US11-NT1.
+- **US11-NT6** Khi chủ nhà bỏ trống ô số giường, thì vẫn thêm được căn và dòng "Còn thiếu" không nhắc số giường. Theo quy tắc: Căn tối thiểu.
+- **US11-NT7** Khi một người dùng thêm tòa mới ở CN5-A1b, thì người dùng khác mở CN5-A1b thấy tòa đó trong danh sách tòa có sẵn. Theo quy tắc: Tòa nhà dùng chung.
+- **US11-NT8** Khi chủ nhà mở sửa một căn, thì các ô hiện đúng giá trị hiện có của căn.
+- **US11-NT9** Khi chủ nhà đổi thứ tự ảnh và lưu, thì ảnh số 1 trở thành ảnh đại diện. `[đã có test database: t_07_can_gia_mo_rong.sql]`
+- **US11-NT10** Khi chủ nhà đổi mã căn thành mã của căn khác đã có, thì hiện lỗi trùng mã và không lưu.
+- **US11-NT11** Khi chủ nhà sửa số giường rồi lưu, thì thẻ căn ở CN5 ghi số giường mới; xóa trống ô thì thẻ chỉ ghi số phòng ngủ.
+- **US11-NT12** Khi chủ nhà chọn T6 và T7 rồi lưu, thì ô giá ở tab Giá ghi "Cuối tuần (T6, T7)".
+- **US11-NT13** Khi chủ nhà chọn T7 và CN rồi lưu, thì ô giá ở tab Giá ghi tên theo hai thứ đó và ô "Ngày thường" ghi các thứ còn lại.
+- **US11-NT14** Khi khách nhận phòng T6 và trả phòng CN, thì hai đêm đều tính giá cuối tuần với lựa chọn T6, T7.
 
 ## Luật kiểm dữ liệu và lỗi
 Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật kiểm từng ô, "Lỗi riêng" là khi nào phải từ chối. Cột "Mã" là tên gọi trong tài liệu; hàm database báo lỗi bằng một câu tiếng Việt cho người dùng đọc (docs/luat-chung/Nghiep_vu.md mục Lỗi).
@@ -129,13 +129,13 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | `id` | id | có | |
 | `ma_can` | chuỗi | không | Như. Không trùng căn chưa ẩn khác của cùng người giữ |
 | `so_phong_ngu` | số 0 đến 4 | không | Không nhận null (Căn tối thiểu) |
-| `so_giuong` | số 1 đến 50 hoặc null | không | null là xóa trống (YC3.3-NT4) |
+| `so_giuong` | số 1 đến 50 hoặc null | không | null là xóa trống (US11-NT11) |
 | `loai_view` | như | không | |
 | `toa_nha_id` | id hoặc null | không | |
 | `mo_ta_gui_khach` | chuỗi hoặc null | không | Tối đa 2.000 ký tự |
 | `anh_ids` | mảng id | không | Có trường này thì là danh sách ảnh mới đầy đủ theo thứ tự, kể cả mảng rỗng. Tối đa 12, không trùng. Mỗi id là ảnh đang gắn căn này hoặc ảnh tạm của người gọi chưa gắn. Không có trường thì ảnh giữ nguyên |
 | `ten_chu_can` | chuỗi 1 đến 100 ký tự | không; cấm với `co_lich` | Không nhận null |
-| `sdt_chu_can` | chuỗi như, hoặc null | không; cấm với `co_lich` | null là xóa số (QD-011, YC6.4-NT5) |
+| `sdt_chu_can` | chuỗi như, hoặc null | không; cấm với `co_lich` | null là xóa số (QD-011, US16-NT27) |
 | `gia_chu_thuong`, `gia_chu_cuoi_tuan` | tien hoặc null | không; cấm với `co_lich` | |
 
 **Lỗi riêng**
@@ -143,7 +143,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 |---|---|
 | KHONG_TIM_THAY | Như |
 | DU_LIEU_SAI | Sai kiểu, quá giới hạn, null ở `ma_can`, `so_phong_ngu`, `ten_chu_can`; trường căn tự nhập trên căn có lịch; gửi `loai`; quá 12 `anh_ids`; `anh_id` không phải ảnh của căn này hay ảnh tạm của người gọi. Kèm `o` |
-| MA_CAN_TRUNG | `ma_can` mới trùng căn chưa ẩn khác của cùng người giữ (YC3.3-NT3) |
+| MA_CAN_TRUNG | `ma_can` mới trùng căn chưa ẩn khác của cùng người giữ (US11-NT10) |
 
 ### Tìm tòa theo chữ gõ, hoặc lấy danh sách tòa cho hàng chip
 **Đầu vào**
@@ -172,7 +172,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong YC3: Căn tối thiểu, Mã căn không trùng, Ảnh căn, Tòa nhà dùng chung, Giá hai loại đêm. Glossary: Phòng ngủ và số giường của căn, Danh sách lựa chọn dùng chung (Loại view). QT4.1 (tiền phòng điền sẵn theo đêm cuối tuần). HV1 đến HV5.
+Quy tắc trong nhóm Căn và giá: Căn tối thiểu, Mã căn không trùng, Ảnh căn, Tòa nhà dùng chung, Giá hai loại đêm. Glossary: Phòng ngủ và số giường của căn, Danh sách lựa chọn dùng chung (Loại view). QT4.1 (tiền phòng điền sẵn theo đêm cuối tuần). HV1 đến HV5.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -229,13 +229,13 @@ Trạng thái riêng:
 - `fn_gan_anh_can`: test ở t_07_can_gia_mo_rong.sql
 
 ## Ngoài phạm vi
-- Ảnh khi thêm căn (YC3.2.1) và YC3.1-NT2: US25.
-- Các NT còn lại của YC3.1: NT1, NT6, NT7 ở US1; NT3, NT4 ở US4.
-- Thêm căn, mã căn trùng (YC3.2): US1.
-- Chủ nhà mới thấy ba tòa quản trị đặt sẵn (YC3.2.2-NT7) và trang quản trị danh sách tòa (YC10.2): US29.
-- Giá theo tháng trên tab Giá (YC3.4): US4.
-- Xóa căn (YC3.9): US27.
-- Khu vực của tòa người dùng thêm: [MỞ: US11-H2] (YC3-H8 đã trả lời). Loại view chọn nhiều loại: [MỞ: YC3-H12], kịch bản chỉ chọn một loại.
+- Ảnh khi thêm căn (mục "Ảnh khi thêm căn" (US25)) và US25-NT1: US25.
+- Các NT còn lại của mục "Danh sách căn" (US1): NT1, NT6, NT7 ở US1; NT3, NT4 ở US4.
+- Thêm căn, mã căn trùng (mục "Thêm căn" (US1)): US1.
+- Chủ nhà mới thấy ba tòa quản trị đặt sẵn (US29-NT1) và trang quản trị danh sách tòa (mục "Quản trị danh sách tòa nhà" (US29)): US29.
+- Giá theo tháng trên tab Giá (mục "Đặt giá theo tháng" (US4)): US4.
+- Xóa căn (mục "Xóa căn" (US27)): US27.
+- Khu vực của tòa người dùng thêm: [MỞ: US11-H2] (CH-065 đã trả lời). Loại view chọn nhiều loại: [MỞ: CH-018], kịch bản chỉ chọn một loại.
 - Bỏ chọn hết các thứ ở P6: [MỞ: US11-H3] phien-ho-so.md, không có kịch bản.
 
 ## Việc cần làm

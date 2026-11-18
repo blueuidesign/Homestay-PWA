@@ -2,7 +2,7 @@ import React from "react";
 import { chuSoDienThoai } from "../components/sale-hien-thi";
 import type { HoSo } from "../services/kieu";
 
-// P2 · Thông tin cá nhân (YC1.5.3). Phần vẽ, tách khỏi p2-thong-tin-ca-nhan.tsx để test.
+// P2 · Thông tin cá nhân (mục "Số điện thoại hiện trong hồ sơ" (US5)). Phần vẽ, tách khỏi p2-thong-tin-ca-nhan.tsx để test.
 export const CHU_CHUA_CO_SO = "Chưa có · Zalo sẽ hỏi khi bạn kết nối lần đầu";
 
 export const NoiDungP2 = ({ ho_so }: { ho_so: HoSo }) => (
@@ -23,7 +23,7 @@ export const NoiDungP2 = ({ ho_so }: { ho_so: HoSo }) => (
             </span>
           )}
         </span>
-        {/* Chỉ xem: readOnly và inputMode none để chạm vào không hiện bàn phím (YC1.5.3-NT1) */}
+        {/* Chỉ xem: readOnly và inputMode none để chạm vào không hiện bàn phím (US5-NT7) */}
         <input
           className="hh-input"
           type="text"

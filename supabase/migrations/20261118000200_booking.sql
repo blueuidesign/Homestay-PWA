@@ -21,8 +21,8 @@ create table public.booking (
   tien_phong integer not null check (tien_phong > 0),           -- tổng giá chủ nhà; căn tự nhập là tiền trả chủ
   trang_thai_tien text check (trang_thai_tien in ('chua_coc', 'da_coc_con_thu', 'da_thanh_toan')),
   tien_coc integer check (tien_coc > 0),                        -- sale KHÔNG BAO GIỜ thấy cột này (QD-007)
-  trang_thai_tien_truoc text,                                   -- trạng thái tiền trước khi bấm "Đã thu đủ", để hoàn tác (YC4.2)
-  gio_nhan time,                                                -- chép từ giờ mặc định của chủ lúc ghi; đổi giờ mặc định không đổi booking cũ (YC9.4)
+  trang_thai_tien_truoc text,                                   -- trạng thái tiền trước khi bấm "Đã thu đủ", để hoàn tác (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10))
+  gio_nhan time,                                                -- chép từ giờ mặc định của chủ lúc ghi; đổi giờ mặc định không đổi booking cũ (mục "Giờ nhận, trả phòng mặc định" (US21))
   gio_tra time,
   ghi_chu text check (char_length(ghi_chu) <= 1000),            -- ghi chú của chủ nhà, sale không thấy
   trang_thai text not null default 'hieu_luc' check (trang_thai in ('hieu_luc', 'cho_huy', 'da_huy')),
@@ -68,7 +68,7 @@ create table public.yeu_cau_dat_phong (
   sale_id uuid not null references public.profiles(id),
   dem daterange not null check (lower_inc(dem) and not upper_inc(dem) and not isempty(dem)),
   client_id uuid unique,
-  -- cho → chap_nhan | tu_choi (chủ từ chối, hoặc chủ nhận booking khác trùng đêm) | het_han (quá 14 ngày) | da_huy (sale tự hủy). YC4.10
+  -- cho → chap_nhan | tu_choi (chủ từ chối, hoặc chủ nhận booking khác trùng đêm) | het_han (quá 14 ngày) | da_huy (sale tự hủy). mục "Booking"
   trang_thai text not null default 'cho' check (trang_thai in ('cho', 'chap_nhan', 'tu_choi', 'het_han', 'da_huy')),
   ly_do_ma text check (ly_do_ma in ('da_co_khach', 'dang_sua_phong', 'ly_do_khac', 'chu_nhan_dat_khac')),
   ly_do_tu_choi text,                                           -- câu sale đọc được
@@ -119,7 +119,7 @@ language sql stable security definer set search_path = public as $$
     from generate_series(p_nhan, p_tra - 1, interval '1 day') d
 $$;
 
--- Từ chối mọi yêu cầu đang chờ trùng đêm với một booking vừa chiếm đêm (QT1.4-VD2, YC4.8).
+-- Từ chối mọi yêu cầu đang chờ trùng đêm với một booking vừa chiếm đêm (QT1.4-VD2, mục "Yêu cầu trùng ngày" (US15)).
 -- Lý do sale đọc: "<chủ nhà> đã nhận đặt phòng khác cho <ngày>". Không có tên người đặt.
 create or replace function public.tu_choi_yeu_cau_trung(p_can uuid, p_dem daterange) returns void
 language sql security definer set search_path = public as $$
@@ -129,14 +129,14 @@ language sql security definer set search_path = public as $$
    where y.can_id = p_can and y.trang_thai = 'cho' and y.dem && p_dem
 $$;
 
--- Căn còn booking chưa tới ngày trả (tính theo hôm nay giờ Việt Nam) hoặc còn yêu cầu đang chờ: không xóa căn được (YC3.9)
+-- Căn còn booking chưa tới ngày trả (tính theo hôm nay giờ Việt Nam) hoặc còn yêu cầu đang chờ: không xóa căn được (mục "Xóa căn" (US27))
 create or replace function public.can_con_dat_phong(p_can uuid) returns boolean
 language sql stable security definer set search_path = public as $$
   select exists (select 1 from booking where can_id = p_can and trang_thai <> 'da_huy' and upper(dem) > local_today())
       or exists (select 1 from yeu_cau_dat_phong where can_id = p_can and trang_thai = 'cho' and het_han_luc > now())
 $$;
 
--- Giá bán điền sẵn khi chủ nhà ghi booking cho một sale (YC4.1.3): tiền phòng + mức cộng của sale đó × số đêm.
+-- Giá bán điền sẵn khi chủ nhà ghi booking cho một sale (mục "Booking chủ nhà ghi cho sale" (US28)): tiền phòng + mức cộng của sale đó × số đêm.
 create or replace function public.gia_ban_goi_y(p_sale uuid, p_can uuid, p_tien_phong int, p_so_dem int) returns integer
 language sql stable security definer set search_path = public as $$
   select case when coalesce(cd.lam_tron_50k, false) then (ceil(x.t / 50000.0) * 50000)::int else x.t end
@@ -195,7 +195,7 @@ begin
     insert into booking_rieng (booking_id, nguoi, ten_khach, sdt_khach, so_khach)
     values (v_id, v_me, p->'khach'->>'ten', p->'khach'->>'sdt', (p->'khach'->>'so_khach')::smallint);
   end if;
-  -- Chủ ghi cho một sale: coi như booking của sale đó, giá bán điền sẵn theo mức cộng của sale (YC4.1.3, QT3.1-VD3).
+  -- Chủ ghi cho một sale: coi như booking của sale đó, giá bán điền sẵn theo mức cộng của sale (mục "Booking chủ nhà ghi cho sale" (US28), QT3.1-VD3).
   -- Khách chủ nhà nhập nằm ở dòng của chủ, sale không thấy.
   if v_sale is not null then
     insert into booking_rieng (booking_id, nguoi, tien_thu_khach)
@@ -236,7 +236,7 @@ begin
   update can set lich_cap_nhat_luc = now() where id = b.can_id;
 end $$;
 
--- "Đã thu đủ" (YC4.2): nhãn thành Đã thanh toán, nhớ trạng thái trước để hoàn tác. Tiền cọc giữ nguyên.
+-- "Đã thu đủ" (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10)): nhãn thành Đã thanh toán, nhớ trạng thái trước để hoàn tác. Tiền cọc giữ nguyên.
 create or replace function public.fn_chu_thu_du(p_id uuid) returns void
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap();
@@ -256,7 +256,7 @@ begin
   if not found then raise exception 'Đặt phòng này chưa ghi đã thu đủ' using errcode = 'P0001'; end if;
 end $$;
 
--- Chủ nhà xóa booking khách lẻ mình tự ghi. Booking có sale thì không xóa, phải xin hủy (YC4.4, QD-012).
+-- Chủ nhà xóa booking khách lẻ mình tự ghi. Booking có sale thì không xóa, phải xin hủy (mục "Xóa booking" (US10), QD-012).
 create or replace function public.fn_chu_xoa_booking(p_id uuid) returns void
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap(); b booking;
@@ -302,7 +302,7 @@ begin
   return jsonb_build_object('id', v_id);
 end $$;
 
--- Sale hủy yêu cầu đang chờ của mình (YC4.5)
+-- Sale hủy yêu cầu đang chờ của mình (mục "Sale gửi yêu cầu đặt phòng" (US15))
 create or replace function public.fn_sale_huy_yeu_cau(p_id uuid) returns void
 language plpgsql security definer set search_path = public as $$
 declare v_me uuid := can_dang_nhap();
@@ -311,7 +311,7 @@ begin
   if not found then raise exception 'Không tìm thấy yêu cầu đang chờ của bạn' using errcode = 'P0001'; end if;
 end $$;
 
--- Việc định kỳ: yêu cầu chờ quá 14 ngày thành Hết hạn (YC4.5-NT6). pg_cron gọi mỗi 10 phút; không ai gọi qua API.
+-- Việc định kỳ: yêu cầu chờ quá 14 ngày thành Hết hạn (US15-NT6). pg_cron gọi mỗi 10 phút; không ai gọi qua API.
 create or replace function public.het_han_yeu_cau() returns integer
 language plpgsql security definer set search_path = public as $$
 declare n int;

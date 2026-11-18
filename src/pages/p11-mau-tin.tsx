@@ -13,7 +13,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { NoiDungP11 } from "./p11-man";
 
-// P11 · Mẫu tin gửi khách (YC5.7): tải GET /toi, lưu PATCH /toi { mau_tin_gui_khach }.
+// P11 · Mẫu tin gửi khách (mục "Mẫu tin gửi khách" (US14)): tải GET /toi, lưu PATCH /toi { mau_tin_gui_khach }.
 // Chữ đang gõ nằm trong trạng thái của màn: rời app rồi quay lại vẫn còn (HV3 bước 2). Lưu lỗi thì giữ nguyên chữ, không tự lưu lại (HV2 bước 3, 4).
 const khoaMoi = () => `mau-tin-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 
@@ -62,7 +62,7 @@ export const P11MauTin = () => {
     setLoi(null);
     setMau(m);
   };
-  // Chèn tại con trỏ; chưa đặt con trỏ thì ở cuối (YC5.7 bước 2)
+  // Chèn tại con trỏ; chưa đặt con trỏ thì ở cuối (mục "Mẫu tin gửi khách" (US14) bước 2)
   const chen = (ô: string) => {
     if (mau === null) return;
     const tu = o.current?.selectionStart ?? mau.length;

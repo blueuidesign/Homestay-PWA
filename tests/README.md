@@ -51,7 +51,7 @@ PGHOST=localhost PGPORT=5432 PGUSER=postgres PGPASSWORD=... scripts/test-db.sh
 - Phân quyền kiểm đủ: chủ nhà, chủ khác, sale được chia sẻ hết, sale chỉ được một căn, sale chưa kết nối, chưa đăng nhập, quản trị.
 - Mỗi luật mới có một dòng trong `scripts/thu-lam-hong.sh`.
 - Ví dụ số trong quy tắc QT (`docs/luat-chung/QT.md`) dùng đúng số và ghi mã ví dụ trong mô tả, ví dụ `QT1.1-VD2`.
-- Tiêu chí nghiệm thu của story: ghi mã tiêu chí trong mô tả của lệnh kiểm, ví dụ `YC5.3-NT2 …`, để tra ngược từ story ra test.
+- Tiêu chí nghiệm thu của story: ghi mã tiêu chí trong mô tả của lệnh kiểm, ví dụ `US12-NT7 …`, để tra ngược từ story ra test.
 - Số liệu lấy từ bộ mẫu `t.fixture()`, khớp `docs/luat-chung/Du_lieu_mau.md`.
 
 ## E2E (`tests/e2e`)

@@ -3,7 +3,7 @@
 <!-- Tài liệu sống, chỉ thêm. Mỗi quyết định đổi hướng là một mục, mới nhất ở TRÊN CÙNG. Không sửa nội dung mục cũ: quyết định bị thay thì viết mục mới,
      và ở mục cũ chỉ sửa dòng Trạng thái thành "Bị thay bởi QD-zzz". Mã QD-xxx tăng dần, không dùng lại.
      Đây là chỗ duy nhất ghi LÝ DO. Mâu thuẫn với tài liệu khác thì mục mới nhất ở đây đúng; PR thực hiện quyết định phải sửa mọi chỗ ghi ở dòng "Hệ quả".
-     Mã YCx.y, HVx trong các mục dưới là mã mục hành vi; mục nào nằm ở story nào: docs/stories/README.md. -->
+     Mã YC… trong các mục cũ là mã của bản Zalo; tra docs/tu-sinh/Doi_ma_YC.md (QD-018). -->
 
 ## Định dạng một mục
 
@@ -20,6 +20,14 @@
 Trạng thái "Đề xuất, chờ Tùng chốt" nghĩa là Claude đã làm theo hướng đó để không chặn việc, nhưng Tùng chưa nói đồng ý. Tùng chốt thì sửa dòng Trạng thái và ghi câu nguyên văn.
 
 ---
+
+## QD-018 · 18/11/2026 · Bỏ mã YC của bản Zalo khỏi repo
+- Bối cảnh: lúc dựng repo, tiêu chí và câu hỏi giữ mã cũ của bản Zalo (`YC4.1-NT1`, `YC4-H13`) để test và kịch bản không phải đổi tên. Nhưng repo không còn file YC nào, nên mã đó trỏ tới thứ không tồn tại. Tùng hỏi: "tại sao trong US3 vẫn ghi các YC, trong repo mới làm gì còn YC nữa".
+- Các phương án: (A) giữ mã YC làm tên, giải thích ở QUY_TRINH; (B) đổi hết sang mã của repo mới.
+- Chọn: B. Người chốt: Tùng (câu hỏi trên, 18/11/2026). Tiêu chí thành `US<n>-NT<số>` theo story chứa nó; câu hỏi thành `CH-<số>`; chỗ nhắc một mục hành vi thành tên mục kèm mã story; chỗ nhắc cả nhóm thành tên nhóm. Đổi bằng máy trên `docs/`, `tests/`, `src/`, `supabase/`. Bảng đổi lưu ở `docs/tu-sinh/Doi_ma_YC.md` để tra lịch sử.
+- Hệ quả: mọi story, kịch bản kiểm tay, test, chú thích code, `docs/luat-chung/`, `docs/Cau_hoi_mo.md`, `docs/QUY_TRINH.md` mục 4.2. Các mục quyết định cũ ở file này giữ nguyên chữ (chỉ thêm, không sửa); mã YC trong đó tra bảng đổi.
+- Thay cho: điểm "các story chuyển từ bản Zalo giữ mã mục và mã tiêu chí cũ làm tên" ở dòng Hệ quả của QD-015
+- Trạng thái: Đang hiệu lực
 
 ## QD-017 · 18/11/2026 · Claude được merge PR khi Tùng bảo
 - Bối cảnh: luật cũ (QD-001, giữ lại ở QD-015) cấm Claude merge, kèm lớp chặn `gh pr merge` trong `.claude/settings.json`. Tùng thấy mỗi lần phải tự vào GitHub bấm là chậm, và lời bảo trong phiên đã đủ rõ.

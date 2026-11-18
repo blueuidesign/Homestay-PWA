@@ -10,8 +10,8 @@ import { boNhoGia } from "../stores/gia";
 import type { Can } from "../services/kieu";
 import { KhungDangTai, LoiMang, NoiDungA4 } from "./a4-chu-nha-moi";
 
-// CN5 · Danh sách căn (YC3.1), bản gọn của US1.
-// Vừa thêm căn (có vuaThemId): CN5-A4 khi có một căn, CN5-A4b khi nhiều căn (YC3.2 bước 4).
+// CN5 · Danh sách căn (mục "Danh sách căn" (US1)), bản gọn của US1.
+// Vừa thêm căn (có vuaThemId): CN5-A4 khi có một căn, CN5-A4b khi nhiều căn (mục "Thêm căn" (US1) bước 4).
 export const NoiDungCN5 = ({
   dsCan,
   vuaThemId,
@@ -55,13 +55,13 @@ export const TabCan = () => {
   const vuaThemId = (viTri.state as { vuaThemId?: string } | null)?.vuaThemId;
   const { dsCan, loiMang } = useDanhSachCan();
   const themCan = () => dieuHuong(DUONG.THEM_CAN);
-  // Chạm thẻ mở CN5-02 tab Thông tin; "Đặt giá cho căn này" mở thẳng tab Giá (YC3.4 Khi nào xảy ra). Màu căn theo thứ tự tạo.
+  // Chạm thẻ mở CN5-02 tab Thông tin; "Đặt giá cho căn này" mở thẳng tab Giá (mục "Đặt giá theo tháng" (US4) Khi nào xảy ra). Màu căn theo thứ tự tạo.
   const moCan = (c: Can, tab: "thong_tin" | "gia") => {
     const thuTu = [...(dsCan ?? [])].sort((a, b) => a.tao_luc.localeCompare(b.tao_luc) || a.id.localeCompare(b.id, "en", { numeric: true }));
     dieuHuong(DUONG.CHI_TIET_CAN, { state: { can_id: c.id, ma_can: c.ma_can, tab, thu_tu: thuTu.findIndex((x) => x.id === c.id) } });
   };
   const coCan = !!dsCan && dsCan.length > 0;
-  // "Đặt giá nhiều căn" ở đầu màn (CN5, YC3.1 bước 6, US7): vào chọn căn từ đầu, chưa chọn căn nào
+  // "Đặt giá nhiều căn" ở đầu màn (CN5, mục "Danh sách căn" (US1) bước 6, US7): vào chọn căn từ đầu, chưa chọn căn nào
   const datGiaNhieuCan = () => {
     boNhoGia.ghiNhapNhieuCan({ canChon: [], nam: null, thangChon: [], giaThuong: "", giaCuoiTuan: "" });
     dieuHuong(DUONG.GIA_CHON_CAN);

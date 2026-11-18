@@ -13,7 +13,7 @@ import { KhungDangTai } from "./a4-chu-nha-moi";
 import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { KhongConXem, loiKhiGhi, NoiDungCN3, tieuDeCN3, type ViecDangLam } from "./cn3-man";
 
-// CN3-02 · Chi tiết đặt phòng (YC4.2, YC4.4): phần tải dữ liệu và gọi server. Phần vẽ ở cn3-man.tsx.
+// CN3-02 · Chi tiết đặt phòng (mục "Chi tiết booking và đánh dấu đã thu đủ" (US10), mục "Xóa booking" (US10)): phần tải dữ liệu và gọi server. Phần vẽ ở cn3-man.tsx.
 
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;

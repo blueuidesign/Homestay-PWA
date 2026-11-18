@@ -11,7 +11,7 @@ import {
 } from "../components/thong-bao-hien-thi";
 import type { MucThongBao } from "../services/kieu";
 
-// P13 · Thông báo (YC1.10 bước 3), P13-00 khi chưa có. Phần vẽ, tách khỏi p13-thong-bao.tsx để test.
+// P13 · Thông báo (mục "Thông báo kết quả kết nối cho sale" (US17) bước 3), P13-00 khi chưa có. Phần vẽ, tách khỏi p13-thong-bao.tsx để test.
 // Chưa đọc: nền xanh nhạt, chấm xanh, chữ đậm. Đã đọc: nền trắng, chữ thường. Nhóm "Hôm nay" và "Trước đó" theo ngày Việt Nam.
 export type PropsP13 = {
   muc: MucThongBao[];
