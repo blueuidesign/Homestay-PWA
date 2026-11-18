@@ -47,7 +47,7 @@ export const boNhoGia = {
   boBangCuaCan: (canId: string) => {
     for (const k of [...bangDaXem.keys()]) if (k.startsWith(canId + "|")) bangDaXem.delete(k);
   },
-  // Đổi ngày tính giá cuối tuần (US11, mục "Ngày tính giá cuối tuần" (US11)): mọi bảng giá đã xem đổi tên ô giá và loại đêm, bỏ hết bảng cũ
+  // Đổi ngày tính giá cuối tuần (US1, mục "Ngày tính giá cuối tuần" (US4)): mọi bảng giá đã xem đổi tên ô giá và loại đêm, bỏ hết bảng cũ
   boMoiBang: () => bangDaXem.clear(),
   coGiaNamNao: (canId: string) => canCoGia.has(canId),
   nhap: (canId: string) => nhapTheoCan.get(canId) ?? NHAP_TRONG,

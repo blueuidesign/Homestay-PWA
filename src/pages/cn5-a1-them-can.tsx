@@ -13,7 +13,7 @@ import { layVai } from "../stores/vai";
 import { BoAnhForm, chuLoiAnh, demTheo, type AnhForm } from "../stores/anh-form";
 import { LoiApi, LoiMang, type SoPhongNgu } from "../services/kieu";
 
-// CN5-A1 · Thêm căn, bản US1: chỉ mã căn và số phòng ngủ (mục "Thêm căn" (US1)). Ảnh: US25 (mục "Ảnh khi thêm căn" (US25)). Tòa nhà, view, số giường, mô tả: US11 (mục "Tòa nhà, loại view, số giường, mô tả" (US11)).
+// CN5-A1 · Thêm căn, bản US1: chỉ mã căn và số phòng ngủ (mục "Thêm căn" (US1)). Ảnh: US1 (mục "Ảnh khi thêm căn" (US1)). Tòa nhà, view, số giường, mô tả: US1 (mục "Tòa nhà, loại view, số giường, mô tả" (US1)).
 
 // Dòng dưới cùng (mục "Thêm căn" (US1) bước 2, 3)
 export const dongConThieu = (ma: string, phongNgu: SoPhongNgu | null) => {
@@ -33,7 +33,7 @@ export const loiTuApi = (e: unknown, ma: string): LoiForm => {
   return { chung: "Chưa lưu được, bấm lại khi có mạng" };
 };
 
-// Toast sau khi thêm (US1-NT12)
+// Toast sau khi thêm (US1-NT17)
 export const chuToastThemCan = (ma: string) => `Đã thêm phòng ${ma}`;
 
 // Khóa chống bấm hai lần (server.md 1.6): giữ nguyên khi thử lại vì lỗi mạng, đổi khi server đã trả lỗi.
@@ -67,14 +67,14 @@ export const NoiDungCN5A1 = ({
   onPhongNgu: (v: SoPhongNgu) => void;
   onThem: () => void;
   onChuaLam: (chu: string) => void;
-  // US25 (mục "Ảnh khi thêm căn" (US25))
+  // US1 (mục "Ảnh khi thêm căn" (US1))
   anh?: AnhForm[];
   coTheQuyen?: boolean;
   onThemAnh?: () => void;
   onThuLai?: (khoa: string) => void;
   onXoaAnh?: (khoa: string) => void;
   onMoCaiDat?: () => void;
-  // US11 (mục "Tòa nhà, loại view, số giường, mô tả" (US11)): phần tòa nhà, loại view, số giường, mô tả. Thu gọn mặc định.
+  // US1 (mục "Tòa nhà, loại view, số giường, mô tả" (US1)): phần tòa nhà, loại view, số giường, mô tả. Thu gọn mặc định.
   moRong?: { dangMo: boolean; onMo: () => void; khoi: PropsMoRong };
 }) => {
   const conThieu = dongConThieu(ma, phongNgu);
@@ -175,7 +175,7 @@ export const CN5A1ThemCan = () => {
 
   const them = async () => {
     if (dongConThieu(ma, phongNgu) || dangLuu || demTheo(anh, "dang_tai") > 0) return;
-    // Ảnh tải lỗi: chưa thêm căn cho tới khi thử lại hoặc xóa (US25-NT3)
+    // Ảnh tải lỗi: chưa thêm căn cho tới khi thử lại hoặc xóa (US1-NT21)
     const soLoi = demTheo(anh, "loi");
     if (soLoi > 0) {
       setLoi({ anh: chuLoiAnh(soLoi) });

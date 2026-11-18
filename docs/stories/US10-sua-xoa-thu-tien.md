@@ -148,7 +148,7 @@ Luật kiểm như. Đặt phòng `cho_huy` có sửa được không: [MỞ: US
 | Mã | Khi nào |
 |---|---|
 | KHONG_TIM_THAY | Không có đặt phòng, hoặc người gọi không phải CHU của căn |
-| KHONG_DUOC_PHEP | Đặt phòng có sale (US10-NT13, NT6). `ly_do`: "Đặt phòng của sale không xóa được, chỉ sửa được" |
+| KHONG_DUOC_PHEP | Đặt phòng có sale (US10-NT13, US10-NT6). `ly_do`: "Đặt phòng của sale không xóa được, chỉ sửa được" |
 
 ### Đánh dấu đặt phòng đã thu đủ tiền
 **Đầu vào**
@@ -306,7 +306,7 @@ Trạng thái riêng:
 - PQ11.CHU: trả lời và `PATCH` cho B1 không có khóa `gia_ban`, `tien_chenh`; `PATCH` có trường `gia_ban` thì `DU_LIEU_SAI` và giá bán của Sale Hùng không đổi.
 - PQ9.CHU: trả lời của chủ nhà không có khách do sale nhập (QD-011).
 - PQ2.CHU: số điện thoại sale chỉ có khi sale đã cho số.
-- Xóa đặt phòng có sale: lệnh `DELETE` cho B1 thì `KHONG_DUOC_PHEP`; `delete from booking where id = 101` chạy thẳng bằng SQL bị trigger database từ chối (US10-NT13, NT6).
+- Xóa đặt phòng có sale: lệnh `DELETE` cho B1 thì `KHONG_DUOC_PHEP`; `delete from booking where id = 101` chạy thẳng bằng SQL bị trigger database từ chối (US10-NT13, US10-NT6).
 
 ## Database
 Đã có trong `supabase/migrations/` và đã chạy test. Tham số và cột: `docs/tu-sinh/Bang_va_cot.md`.
@@ -317,7 +317,7 @@ Trạng thái riêng:
 - `fn_chu_hoan_tac_thu_du`: test ở t_10_thong_ke.sql
 
 ## Ngoài phạm vi
-- Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), US3-NT17, NT2): US3. US3-NT14, NT5, NT7 chưa có US, đề xuất vào US3 [MỞ: US10-H13].
+- Ghi đặt phòng mới (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3), US3-NT17, US3-NT2): US3. US3-NT14, US3-NT5, US3-NT7 chưa có US, đề xuất vào US3 [MỞ: US10-H13].
 - Chủ nhà ghi đặt phòng chọn sale làm người đặt (mục "Booking chủ nhà ghi cho sale" (US28)): US28. US10 chỉ kiểm hai điều về đặt phòng loại này: không có nút "Xóa đặt phòng" (US10-NT14) và sale được báo khi chủ sửa (mục "Sửa booking" bước 4). US10-KB21 và US10-KB26 chạy khi US28 xong.
 - Sale đã xóa tài khoản (US22-NT6, CN3-02-01): US22.
 - Xin hủy, đồng ý hủy, từ chối hủy đặt phòng đã chấp nhận (QD-012): chưa có NT trong nhóm Booking, chờ. API `xin-huy`, `tra-loi-huy` không thuộc US này.

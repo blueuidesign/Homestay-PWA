@@ -6,18 +6,18 @@
 
 | Mã cũ | Mã mới |
 |---|---|
-| YC1.1-NT1 | US1-NT1 |
-| YC1.1-NT2 | US1-NT2 |
-| YC1.2-NT1 | US1-NT3 |
-| YC1.2-NT3 | US1-NT4 |
-| YC1.4-NT1 | US1-NT5 |
-| YC3.1-NT1 | US1-NT6 |
-| YC3.1-NT6 | US1-NT7 |
-| YC3.1-NT7 | US1-NT8 |
-| YC3.2-NT1 | US1-NT9 |
-| YC3.2-NT2 | US1-NT10 |
-| YC3.2-NT3 | US1-NT11 |
-| YC3.2-NT4 | US1-NT12 |
+| YC1.1-NT1 | US1-NT2 |
+| YC1.1-NT2 | US1-NT1 |
+| YC1.2-NT1 | US1-NT5 |
+| YC1.2-NT3 | US1-NT3 |
+| YC1.4-NT1 | US1-NT7 |
+| YC3.1-NT1 | US1-NT8 |
+| YC3.1-NT6 | US1-NT9 |
+| YC3.1-NT7 | US1-NT10 |
+| YC3.2-NT1 | US1-NT12 |
+| YC3.2-NT2 | US1-NT13 |
+| YC3.2-NT3 | US1-NT15 |
+| YC3.2-NT4 | US1-NT17 |
 | YC2.1-NT1 | US2-NT1 |
 | YC2.1-NT2 | US2-NT2 |
 | YC2.1-NT5 | US2-NT3 |
@@ -105,20 +105,20 @@
 | YC4.4-NT4 | US10-NT12 |
 | YC4.4-NT5 | US10-NT13 |
 | YC4.4-NT6 | US10-NT14 |
-| YC3.1-NT5 | US11-NT1 |
-| YC3.2.2-NT1 | US11-NT2 |
-| YC3.2.2-NT2 | US11-NT3 |
-| YC3.2.2-NT3 | US11-NT4 |
-| YC3.2.2-NT4 | US11-NT5 |
-| YC3.2.2-NT5 | US11-NT6 |
-| YC3.2.2-NT6 | US11-NT7 |
-| YC3.3-NT1 | US11-NT8 |
-| YC3.3-NT2 | US11-NT9 |
-| YC3.3-NT3 | US11-NT10 |
-| YC3.3-NT4 | US11-NT11 |
-| YC3.8-NT1 | US11-NT12 |
-| YC3.8-NT2 | US11-NT13 |
-| YC3.8-NT3 | US11-NT14 |
+| YC3.1-NT5 | US1-NT9 |
+| YC3.2.2-NT1 | US1-NT13 |
+| YC3.2.2-NT2 | US1-NT26 |
+| YC3.2.2-NT3 | US1-NT27 |
+| YC3.2.2-NT4 | US1-NT9 |
+| YC3.2.2-NT5 | US1-NT14 |
+| YC3.2.2-NT6 | US1-NT28 |
+| YC3.3-NT1 | US1-NT30 |
+| YC3.3-NT2 | US1-NT31 |
+| YC3.3-NT3 | US1-NT32 |
+| YC3.3-NT4 | US1-NT33 |
+| YC3.8-NT1 | US4-NT8 |
+| YC3.8-NT2 | US4-NT9 |
+| YC3.8-NT3 | US4-NT10 |
 | YC5.2-NT1 | US12-NT1 |
 | YC5.2-NT2 | US12-NT2 |
 | YC5.2-NT3 | US12-NT3 |
@@ -324,24 +324,24 @@
 | YC10.1-NT2 | US23-NT2 |
 | YC10.1-NT3 | US23-NT3 |
 | YC10.1-NT4 | US23-NT4 |
-| YC3.1-NT2 | US25-NT1 |
-| YC3.2.1-NT1 | US25-NT2 |
-| YC3.2.1-NT2 | US25-NT3 |
-| YC3.2.1-NT3 | US25-NT4 |
+| YC3.1-NT2 | US1-NT11 |
+| YC3.2.1-NT1 | US1-NT20 |
+| YC3.2.1-NT2 | US1-NT21 |
+| YC3.2.1-NT3 | US1-NT22 |
 | YC1.8-NT1 | US26-NT1 |
 | YC1.8-NT2 | US26-NT2 |
 | YC1.8-NT3 | US26-NT3 |
 | YC1.12-NT2 | US26-NT4 |
-| YC3.2-NT5 | US27-NT1 |
-| YC3.2-NT6 | US27-NT2 |
-| YC3.9-NT1 | US27-NT3 |
-| YC3.9-NT2 | US27-NT4 |
-| YC3.9-NT3 | US27-NT5 |
-| YC3.9-NT4 | US27-NT6 |
-| YC3.9-NT5 | US27-NT7 |
-| YC3.9-NT6 | US27-NT8 |
-| YC3.9-NT7 | US27-NT9 |
-| YC3.9-NT8 | US27-NT10 |
+| YC3.2-NT5 | US1-NT42 |
+| YC3.2-NT6 | US1-NT16 |
+| YC3.9-NT1 | US1-NT35 |
+| YC3.9-NT2 | US1-NT36 |
+| YC3.9-NT3 | US1-NT37 |
+| YC3.9-NT4 | US1-NT38 |
+| YC3.9-NT5 | US1-NT39 |
+| YC3.9-NT6 | US1-NT40 |
+| YC3.9-NT7 | US1-NT41 |
+| YC3.9-NT8 | US1-NT43 |
 | YC4.1.3-NT1 | US28-NT1 |
 | YC4.1.3-NT2 | US28-NT2 |
 | YC4.1.3-NT3 | US28-NT3 |
@@ -497,15 +497,15 @@
 | YC2.5 | Lịch tuần khi có nhiều căn | US9 |
 | YC3.1 | Danh sách căn | US1 |
 | YC3.2 | Thêm căn | US1 |
-| YC3.2.1 | Ảnh khi thêm căn | US25 |
-| YC3.2.2 | Tòa nhà, loại view, số giường, mô tả | US11 |
-| YC3.3 | Sửa thông tin căn | US11 |
+| YC3.2.1 | Ảnh khi thêm căn | US1 |
+| YC3.2.2 | Tòa nhà, loại view, số giường, mô tả | US1 |
+| YC3.3 | Sửa thông tin căn | US1 |
 | YC3.4 | Đặt giá theo tháng | US4 |
 | YC3.5 | Giá ngày lễ và dịp đặc biệt | US8 |
 | YC3.6 | Đặt giá nhiều căn | US7 |
 | YC3.7 | Sao chép giá sang căn khác | US7 |
-| YC3.8 | Ngày tính giá cuối tuần | US11 |
-| YC3.9 | Xóa căn | US27 |
+| YC3.8 | Ngày tính giá cuối tuần | US1 |
+| YC3.9 | Xóa căn | US1 |
 | YC4.1 | Chủ nhà ghi booking mới | US3 |
 | YC4.1.1 | Căn, ngày và kiểm tra trùng lịch | US3 |
 | YC4.1.2 | Người đặt, tiền phòng và tiền cọc | US3 |

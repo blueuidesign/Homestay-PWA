@@ -222,9 +222,9 @@ Trạng thái riêng:
 - Giá ngày lễ, dịp đặc biệt của một căn (mục "Giá ngày lễ và dịp đặc biệt" (US8)): US8.
 - Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn (mục "Đặt giá nhiều căn" bước 4): chưa có màn (?), chưa US nào nhận. [MỞ: CH-019] (mục "Đặt giá nhiều căn" bước 4 chưa vẽ)
 - Cách "thay" giá có sẵn khi sao chép (phạm vi năm, tháng nguồn chưa đặt, dải chồng ngày của căn đích): [MỞ: US7-H1]. Các kịch bản dưới đây chỉ chạm ca không phụ thuộc phần này.
-- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)): US11.
+- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US4)): US1.
 - Sale thấy giá (US6-NT12): US6.
-- Căn đã xóa không còn trong danh sách chọn căn (mục "Xóa căn" (US27)): US27.
+- Căn đã xóa không còn trong danh sách chọn căn (mục "Xóa căn" (US1)): US1.
 
 ## Việc cần làm
 - [ ] Đọc story này và các luật chung nó trỏ tới. Chỗ nào gắn thẻ MỞ thì không code, hỏi Tùng (docs/Cau_hoi_mo.md).

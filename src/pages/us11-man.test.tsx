@@ -13,7 +13,7 @@ import { loiSuaCan, NoiDungCN5_02, type PropsCN5_02 } from "./cn5-02-man";
 import { FormGiaThang } from "./cn6-gia-man";
 import { chuGiaP6, CHU_P6_GHI_CHU, CHU_P6_DAU, NoiDungP6, tuanMau } from "./p6-man";
 
-// US11 · Test render phần giao diện: thẻ căn, CN5-A1 phần mở rộng, CN5-A1b, CN5-02, P6, tên hai ô giá.
+// US1 · Test render phần giao diện: thẻ căn, CN5-A1 phần mở rộng, CN5-A1b, CN5-02, P6, tên hai ô giá.
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);
 const chu = (s: string) => s.replace(/<[^>]+>/g, "|").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
@@ -91,7 +91,7 @@ const form02 = (p: Partial<PropsCN5_02> = {}) =>
     />,
   );
 
-// ---- US11-NT1 ----
+// ---- US1-NT9 ----
 
 test("test_YC3_1_NT5_the_can_ghi_2PN_3_giuong_va_khong_ghi_so_khach", () => {
   const c = can("1509", { so_giuong: 3, loai_view: "view biển", toa_nha: "ICON40" });
@@ -103,7 +103,7 @@ test("test_YC3_1_NT5_the_can_ghi_2PN_3_giuong_va_khong_ghi_so_khach", () => {
   expect(dongThongTin(can("2501", { loai_view: "thanh_pho" }))).toBe("2PN · view thành phố");
 });
 
-// ---- mục "Tòa nhà, loại view, số giường, mô tả" (US11) ----
+// ---- mục "Tòa nhà, loại view, số giường, mô tả" (US1) ----
 
 test("test_YC3_2_2_NT1_khong_mo_phan_them_thong_tin_van_them_duoc_can", () => {
   const h = formA1();
@@ -137,7 +137,7 @@ test("test_YC3_2_2_NT2_go_Green_thay_cac_toa_co_chu_Green_ten_khu_vuc_va_dong_th
   expect(chu(khoi({ moTim: true, chuTim: "" }))).not.toContain("+ Thêm tòa mới");
 });
 
-// Tùng quyết 04/11/2026 (US11, điểm 4): gõ tòa đã có thì gợi ý tòa có sẵn để chọn, vẫn bấm "+ Thêm tòa mới" được
+// Tùng quyết 04/11/2026 (US1, điểm 4): gõ tòa đã có thì gợi ý tòa có sẵn để chọn, vẫn bấm "+ Thêm tòa mới" được
 test("test_YC3_2_2_toa_trung_ten_goi_y_toa_co_san_va_van_con_nut_them_toa_moi", () => {
   const h = khoi({ moTim: true, chuTim: "  icon40 ", ketQuaTim: [toa("ICON40", "Bãi Cháy")] });
   const c = chu(h);
@@ -182,7 +182,7 @@ test("test_YC3_2_2_NT6_toa_nguoi_khac_them_hien_trong_danh_sach_tim", () => {
   expect(chu(h)).toContain("+ Thêm tòa mới Green Hạ");
 });
 
-// ---- mục "Sửa thông tin căn" (US11) CN5-02 ----
+// ---- mục "Sửa thông tin căn" (US1) CN5-02 ----
 
 test("test_YC3_3_NT1_mo_sua_can_cac_o_hien_dung_gia_tri_hien_co", () => {
   const h = form02();
@@ -260,7 +260,7 @@ test("test_YC3_3_HV1_dang_luu_nut_doi_chu_va_khong_bam_lai", () => {
   expect(nutLuu(h)).toContain("Đang lưu…");
 });
 
-// ---- mục "Ngày tính giá cuối tuần" (US11) P6 ----
+// ---- mục "Ngày tính giá cuối tuần" (US4) P6 ----
 
 const MAU = { ma_can: "1509", thuong: 900000, cuoi_tuan: 1300000 };
 

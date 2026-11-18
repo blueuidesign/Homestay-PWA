@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: sau
 - Rủi ro: tb
-- Làm sau khi xong: US23, US34, US11
+- Làm sau khi xong: US23, US34, US1
 - Kiểm tay: `tests/kich-ban/US29.md` (3 kịch bản)
 
 ## Mục tiêu
@@ -18,7 +18,7 @@ Bảng bước ghi: người dùng làm gì, app hiện gì (chữ trong ngoặc
 
 ### Quản trị danh sách tòa nhà
 Rủi ro: tb
-Mục đích: Home247 đặt sẵn danh sách tòa nhà ở Hạ Long để chủ nhà chọn khi thêm căn (mục "Tòa nhà, loại view, số giường, mô tả" (US11)) và sale lọc đúng tòa (mục "Tìm phòng trống theo ngày" (US12)). Người dùng vẫn thêm tòa mới thoải mái, không cần duyệt (nhóm Căn và giá quy tắc Tòa nhà dùng chung). khi soạn data model: "Danh sách toà nhà có thể seting bởi admin, ngoài ra thêm thoải mái." Tòa người dùng thêm hiện cho mọi người chọn.
+Mục đích: Home247 đặt sẵn danh sách tòa nhà ở Hạ Long để chủ nhà chọn khi thêm căn (mục "Tòa nhà, loại view, số giường, mô tả" (US1)) và sale lọc đúng tòa (mục "Tìm phòng trống theo ngày" (US12)). Người dùng vẫn thêm tòa mới thoải mái, không cần duyệt (nhóm Căn và giá quy tắc Tòa nhà dùng chung). khi soạn data model: "Danh sách toà nhà có thể seting bởi admin, ngoài ra thêm thoải mái." Tòa người dùng thêm hiện cho mọi người chọn.
 Màn hình: chưa thiết kế
 Dùng quy tắc: Tòa nhà dùng chung (nhóm Căn và giá, mục Quy tắc nghiệp vụ phát hiện)
 Khi nào xảy ra: người quản trị mở web quản trị để đặt sẵn tòa nhà, hoặc xem tòa người dùng đã thêm.
@@ -30,7 +30,7 @@ Nguồn dữ liệu: chưa có web quản trị thì danh sách đặt sẵn n�
 | 2 | Thêm một tòa | Ô tên tòa, khu vực | Lưu tòa, đánh dấu do Home247 đặt sẵn | Không áp dụng | Thêm một tòa vào danh sách chung |
 | 3 | Sửa tên hoặc khu vực một tòa | Mở tòa với các ô đã điền | Lưu tòa | Không áp dụng | Tòa đổi tên hoặc khu vực. Có áp cho tòa người dùng thêm không: CH-095 |
 | 4 | Xóa hoặc gộp tòa trùng | ? [MỞ: CH-038] | ? | Không áp dụng | ? |
-| 5 | (Chủ nhà mở CN5-A1b trên app) | Không thuộc web quản trị | Trả mọi tòa: Home247 đặt sẵn và người dùng thêm (mục "Tòa nhà, loại view, số giường, mô tả" (US11) bước 2) | Không áp dụng | Không |
+| 5 | (Chủ nhà mở CN5-A1b trên app) | Không thuộc web quản trị | Trả mọi tòa: Home247 đặt sẵn và người dùng thêm (mục "Tòa nhà, loại view, số giường, mô tả" (US1) bước 2) | Không áp dụng | Không |
 
 Trạng thái màn:
 - rỗng: chưa có tòa nào: chưa thiết kế
@@ -44,7 +44,7 @@ Trạng thái màn:
 ## Phần của story khác mà story này làm một lát
 Bảng bước của các mục dưới đây nằm ở story chủ của mục đó. Story này chỉ làm các tiêu chí được liệt kê ở mục Tiêu chí nghiệm thu.
 
-- mục "Tòa nhà, loại view, số giường, mô tả" (US11) · Tòa nhà, loại view, số giường, mô tả: bảng bước ở US11. Story này làm NT7.
+- mục "Tòa nhà, loại view, số giường, mô tả" (US1) · Tòa nhà, loại view, số giường, mô tả: bảng bước ở US1. Story này làm NT7.
 
 ## Tiêu chí nghiệm thu
 Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. Mã không đổi nghĩa; đổi hành vi thì cấp mã mới (docs/QUY_TRINH.md mục 5).
@@ -57,7 +57,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc "Tòa nhà dùng chung" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV mới: HV1, HV2 viết cho app, trạng thái của web quản trị chờ; CN5-A1b theo HV1, HV2, HV3 do US11 làm.
+Quy tắc "Tòa nhà dùng chung" trong nhóm Căn và giá (mục Quy tắc nghiệp vụ phát hiện), chưa có mã QT. Không dùng HV mới: HV1, HV2 viết cho app, trạng thái của web quản trị chờ; CN5-A1b theo HV1, HV2, HV3 do US1 làm.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -78,7 +78,7 @@ Test vi phạm phải có (US29-NT4): Chị Hoa (CHU) gọi đường quản tr�
 ## Ngoài phạm vi
 - Xóa hoặc gộp tòa trùng, căn đang gắn tòa bị xóa (mục "Quản trị danh sách tòa nhà" bước 4): [MỞ: US29-H4], chưa có NT, chưa US nào nhận.
 - Sửa tên hoặc khu vực một tòa (mục "Quản trị danh sách tòa nhà" bước 3) và có áp cho tòa người dùng thêm không: mục "Quản trị danh sách tòa nhà" không có NT cho bước này [MỞ: US29-H5]. Chưa có kịch bản.
-- Chủ nhà gõ tìm tòa, thêm tòa mới, gắn tòa vào căn (US11-NT2 đến NT6): US11. và do US11 làm; US này chỉ thêm test với dữ liệu đặt sẵn.
+- Chủ nhà gõ tìm tòa, thêm tòa mới, gắn tòa vào căn (US1-NT13 đến NT6): US1. và do US1 làm; US này chỉ thêm test với dữ liệu đặt sẵn.
 - Sale lọc phòng theo tòa (mục "Tìm phòng trống theo ngày" (US12)): US12.
 - Cách người quản trị đăng nhập web, đồng quản trị: US34. Dải ngày lễ trên web quản trị: US23.
 - Bản web cho chủ nhà: US24.

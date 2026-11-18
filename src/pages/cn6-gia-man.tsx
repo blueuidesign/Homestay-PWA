@@ -8,7 +8,7 @@ import { ChuaTaiDuoc } from "./cn1-lich-thang";
 import { CHU_CHUA_SUA_DAI } from "./cn6-gia-le-man";
 import { docTien } from "./cn4-dat-phong";
 
-// Phần vẽ của CN5-02 · Chi tiết căn, hai tab "Thông tin" (US11) và "Giá" (US4).
+// Phần vẽ của CN5-02 · Chi tiết căn, hai tab "Thông tin" (US1) và "Giá" (US4).
 // Tab Giá: CN6 (mục "Đặt giá theo tháng" (US4)), CN6-00 căn chưa có giá, CN6-04 toast sau khi áp dụng, CN6-09 chọn năm.
 // Không gọi server, không dùng zmp-sdk, để test render được. Phần tải và lưu ở cn6-gia.tsx.
 // Giá ngày lễ, dịp đặc biệt (CN6-02, US8): nút và ô ngày mở màn qua onMoGiaLe; sửa dải đã lưu chưa có cách làm (mục "Giá ngày lễ và dịp đặc biệt" (US8) [MỞ]). Sao chép giá (CN6-07, US7): nút mở màn qua onSaoChep.
@@ -209,7 +209,7 @@ export const FormGiaThang = (p: {
   onDoiGia: (o: "thuong" | "cuoi_tuan", chu: string) => void;
   onApDung: () => void;
   onMoNam: () => void;
-  // US11 (mục "Ngày tính giá cuối tuần" (US11)): các thứ tính giá cuối tuần của tài khoản, đổi tên hai ô giá. Không truyền thì T6, T7.
+  // US1 (mục "Ngày tính giá cuối tuần" (US4)): các thứ tính giá cuối tuần của tài khoản, đổi tên hai ô giá. Không truyền thì T6, T7.
   demCuoiTuan?: number[];
 }) => {
   const dem = p.demCuoiTuan ?? [5, 6];

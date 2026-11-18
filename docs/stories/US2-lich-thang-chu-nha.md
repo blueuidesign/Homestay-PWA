@@ -174,7 +174,7 @@ Trạng thái riêng:
 Đọc `booking`, `booking_dem`, `booking_rieng`, `can` qua RLS (chủ nhà chỉ thấy căn mình giữ).
 
 ## Ngoài phạm vi
-- Ngày được tô, lọc chip theo căn có booking, thẻ "Trống" và "Đặt phòng" ở CN3 (US2-NT5, NT4, US3-NT10, NT3): US3, vì cần có booking.
+- Ngày được tô, lọc chip theo căn có booking, thẻ "Trống" và "Đặt phòng" ở CN3 (US2-NT5, US2-NT4, US3-NT10, US3-NT3): US3, vì cần có booking.
 - Tóm tắt tháng, booking sắp tới, lịch tuần (mục "Tóm tắt tháng" (US9), mục "Booking sắp tới" (US9), mục "Lịch tuần khi có nhiều căn" (US9)): US9.
 
 ## Việc cần làm

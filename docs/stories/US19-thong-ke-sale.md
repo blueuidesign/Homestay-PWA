@@ -82,7 +82,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US19-NT3** Khi booking còn chờ chủ, thì không cộng vào thẻ "Đặt phòng", Doanh số hay Tiền chênh.
 - **US19-NT4** Khi tháng chưa chốt booking nào, thì thấy S7-00 và nút "Tìm phòng" mở tìm phòng.
 - **US19-NT5** Khi Chị Hoa ghi 1509 10/10 → 12/10 cho Sale Hùng (US28-NT1), thì thống kê tháng 10 của Sale Hùng cộng thêm 1 vào thẻ "Đặt phòng", 2.600.000đ vào Doanh số và 400.000đ vào Tiền chênh, ở dòng chủ nhà Chị Hoa.
-- **US19-NT6** Khi Chị Hoa đã xóa căn 1509 (mục "Xóa căn" (US27)), thì booking cũ của Sale Hùng ở 1509 vẫn tính vào thống kê của Sale Hùng.
+- **US19-NT6** Khi Chị Hoa đã xóa căn 1509 (mục "Xóa căn" (US1)), thì booking cũ của Sale Hùng ở 1509 vẫn tính vào thống kê của Sale Hùng.
 - **US19-NT7** Khi yêu cầu còn chờ chủ, thì nhãn là "Chờ chủ" và không có số tiền chênh.
 - **US19-NT8** Khi chủ chấp nhận, thì nhãn là "Đã chốt" và dòng ghi số tiền chênh.
 - **US19-NT9** Khi chủ từ chối hoặc nhận đặt phòng khác cùng ngày, thì nhãn là "Bị từ chối" và dòng ghi lý do.

@@ -82,7 +82,7 @@ export const PopupXinSo = ({
 const khoaMoi = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `k-${Date.now()}-${Math.random()}`;
 
-// Cần hỏi không (US5-NT1, NT2): chỉ khi hồ sơ chưa có số
+// Cần hỏi không (US5-NT1, US5-NT2): chỉ khi hồ sơ chưa có số
 export async function canXinSo(): Promise<boolean> {
   let h: HoSo | null = boNhoHoSo.lay();
   if (!h || !h.so_dien_thoai) {

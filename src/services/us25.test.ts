@@ -4,7 +4,7 @@ import { chonAnh, datCongAnh } from "./chon-anh";
 import type { TepAnh } from "./kieu";
 import { BoAnhForm, demTheo } from "../stores/anh-form";
 
-// US25 · ảnh khi thêm căn trên server giả: store ảnh của form, POST /anh, POST /can với anh_ids. Máy là Chị Hoa (DLM).
+// US1 · ảnh khi thêm căn trên server giả: store ảnh của form, POST /anh, POST /can với anh_ids. Máy là Chị Hoa (DLM).
 const tep = (n: number, them: Partial<TepAnh> = {}): TepAnh => ({ ten: `anh-${n}.jpg`, duong_dan: `file://anh-${n}.jpg`, dung_luong: 1_000_000, ...them });
 const nhieuTep = (n: number) => Array.from({ length: n }, (_, i) => tep(i + 1));
 

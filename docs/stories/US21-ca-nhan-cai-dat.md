@@ -64,7 +64,7 @@ Dòng và nơi mô tả:
 | Đăng nhập bằng Zalo, Đăng xuất | mục "Tài khoản đăng nhập và đăng xuất" |
 | Cài đặt thông báo | mục "Cài đặt thông báo" |
 | Giờ nhận, trả phòng mặc định | mục "Giờ nhận, trả phòng mặc định" |
-| Ngày tính giá cuối tuần | mục "Ngày tính giá cuối tuần" (US11) |
+| Ngày tính giá cuối tuần | mục "Ngày tính giá cuối tuần" (US4) |
 | Xuất file Excel (CSV) | mục "Xuất file Excel (CSV)" (US22) |
 | Đội nhóm | mục "Vào mục Đội nhóm khi chưa có nhóm" (US20) |
 | Link xin xem lịch, Gửi chủ nhà | mục "Sale xin chủ nhà cho xem lịch" (US17) |
@@ -216,7 +216,7 @@ Mỗi mục là một việc app nhờ database làm. "Đầu vào" là luật k
 | ten_hien_thi | thân | chuỗi | Không | Bỏ khoảng trắng đầu cuối, 1 đến 50 ký tự (mục "Hồ sơ (Thông tin cá nhân)" bước 3) |
 | ho_ten | thân | chuỗi | Không | Bỏ khoảng trắng đầu cuối, 1 đến 100 ký tự. Có trong, nhưng mục "Hồ sơ (Thông tin cá nhân)" chỉ cho sửa tên hiển thị: [MỞ: US21-H1] `ten` có sửa được trong app không |
 | gio_nhan, gio_tra | thân | chuỗi `HH:MM` | Không | 00:00 đến 23:59 (mục "Giờ nhận, trả phòng mặc định" bước 2) |
-| dem_cuoi_tuan | thân | mảng số | Không | Mỗi số từ 1 đến 7, không trùng; server xếp tăng dần. Mảng rỗng: [MỞ: US21-H2] mục "Ngày tính giá cuối tuần" (US11) không nói chủ nhà được bỏ chọn hết các thứ không |
+| dem_cuoi_tuan | thân | mảng số | Không | Mỗi số từ 1 đến 7, không trùng; server xếp tăng dần. Mảng rỗng: [MỞ: US21-H2] mục "Ngày tính giá cuối tuần" (US4) không nói chủ nhà được bỏ chọn hết các thứ không |
 | muc_cong_mac_dinh | thân | tien | Không | 0 đến 10.000.000. Chip theo `Tu_dien.md` Mức cộng của sale; "Tùy chọn" là số khác (mục "Mức cộng giá mặc định" (US13) bước 2). Chỉ `vai_chon` `sale` |
 | lam_tron_50k | thân | boolean | Không | Chỉ `vai_chon` `sale` (mục "Mức cộng giá mặc định" (US13) bước 3) |
 | mau_tin_gui_khach | thân | chuỗi hoặc `null` | Không | Tới 2.000 ký tự. `null` là về mẫu mặc định (mục "Mẫu tin gửi khách" (US14) bước 4, NT2). Các ô chèn `[Ngày]`, `[Số đêm]`, `[Số căn]`, `[Danh sách căn]`, `[Tên sale]` giữ nguyên dạng chữ (mục "Mẫu tin gửi khách" (US14) bước 1). Chỉ `vai_chon` `sale` |
@@ -424,11 +424,11 @@ Test vi phạm phải có (theo):
 
 ## Ngoài phạm vi
 - Dòng "Thông báo", màn P13 và API ở trên menu (mục "Thông báo kết quả kết nối cho sale" (US17)): US17. US này chỉ hiện số chưa đọc từ API đó (US21-NT5) (US17 có trong truoc, Tùng giao 04/11).
-- Dòng "Ngày tính giá cuối tuần" và màn P6 (mục "Ngày tính giá cuối tuần" (US11)): US11. Dòng "Xuất file Excel (CSV)" và màn P8, "Hướng dẫn sử dụng" và P9, "Nhắn Zalo cho Home247" (mục "Xuất file Excel (CSV)" (US22), mục "Hướng dẫn sử dụng và nhắn Zalo cho Home247" (US22)): US22.
+- Dòng "Ngày tính giá cuối tuần" và màn P6 (mục "Ngày tính giá cuối tuần" (US4)): US1. Dòng "Xuất file Excel (CSV)" và màn P8, "Hướng dẫn sử dụng" và P9, "Nhắn Zalo cho Home247" (mục "Xuất file Excel (CSV)" (US22), mục "Hướng dẫn sử dụng và nhắn Zalo cho Home247" (US22)): US22.
 - Nhóm BÁN PHÒNG của sale: "Đội nhóm" (nhóm Đội nhóm, cộng tác viên, US20 on-hold), "Link xin xem lịch" (mục "Sale xin chủ nhà cho xem lịch" (US17), US17), "Mức cộng giá mặc định" (mục "Mức cộng giá mặc định" (US13), US13), "Mẫu tin gửi khách" (mục "Mẫu tin gửi khách" (US14), US14). US này chỉ hiện các dòng và mở màn của chúng.
 - Sao lưu và khôi phục dữ liệu (mục "Sao lưu và khôi phục dữ liệu" (US40)): On Hold, không làm ở bản đầu.
 - Xóa dữ liệu khi người dùng xóa tài khoản (mục "Khi người dùng xóa tài khoản" (US22), QD-013): US22 và. Không có nút "Xóa tài khoản" ở P2.
-- Việc tạo thông báo từ các sự kiện (sale đặt phòng, chủ ghi đặt phòng cho sale, nhắc đặt phòng chưa cọc): US15, US28, US30 và các US sinh sự kiện. US này lưu công tắc và bảo đảm loại đã tắt thì server không ghi (US21-NT14, NT4).
+- Việc tạo thông báo từ các sự kiện (sale đặt phòng, chủ ghi đặt phòng cho sale, nhắc đặt phòng chưa cọc): US15, US28, US30 và các US sinh sự kiện. US này lưu công tắc và bảo đảm loại đã tắt thì server không ghi (US21-NT14, US21-NT4).
 - Ô "Họ và tên" có sửa được trong app không: mục "Hồ sơ (Thông tin cá nhân)" chỉ cho sửa tên hiển thị [MỞ: US21-H5] US21 câu 3.
 
 ## Việc cần làm

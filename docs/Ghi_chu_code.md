@@ -91,6 +91,6 @@ Chữ "Giá từng đêm" như một công tắc bật tắt trong chú thích h
 
 - File test (`*.test.ts(x)`) chưa qua kiểm kiểu: `tsconfig.json` đang loại chúng ra vì có vài lỗi kiểu có từ bản Zalo. Test vẫn chạy và xanh. Sửa kiểu rồi bỏ dòng `exclude` là một việc của story US38.
 - File JS chính khoảng 590 KB chưa tách. Tách theo màn khi đo thấy chậm.
-- `nen-tang/thiet-bi.ts` chưa thử trên điện thoại thật: chia sẻ ảnh qua bảng chia sẻ, chọn ảnh, gọi điện. Thử ở story US14, US25, US5.
+- `nen-tang/thiet-bi.ts` chưa thử trên điện thoại thật: chia sẻ ảnh qua bảng chia sẻ, chọn ảnh, gọi điện. Thử ở story US14, US1, US5.
 - E2E mới chạy bằng Chromium. WebKit (gần Safari trên iPhone) chạy trong CI trên bản xem thử.
 - Service worker chỉ lưu vỏ app. Không lưu dữ liệu để xem khi mất mạng: lịch và giá cũ dễ gây bán trùng.

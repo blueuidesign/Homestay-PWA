@@ -129,7 +129,7 @@ language sql security definer set search_path = public as $$
    where y.can_id = p_can and y.trang_thai = 'cho' and y.dem && p_dem
 $$;
 
--- Căn còn booking chưa tới ngày trả (tính theo hôm nay giờ Việt Nam) hoặc còn yêu cầu đang chờ: không xóa căn được (mục "Xóa căn" (US27))
+-- Căn còn booking chưa tới ngày trả (tính theo hôm nay giờ Việt Nam) hoặc còn yêu cầu đang chờ: không xóa căn được (mục "Xóa căn" (US1))
 create or replace function public.can_con_dat_phong(p_can uuid) returns boolean
 language sql stable security definer set search_path = public as $$
   select exists (select 1 from booking where can_id = p_can and trang_thai <> 'da_huy' and upper(dem) > local_today())

@@ -6,7 +6,7 @@ import { chuKhoangTuan } from "./gia-hien-thi";
 import { Icon } from "./icon";
 
 // Thẻ căn bản gọn của US1 (CN5). Giá tuần này, tình trạng hôm nay, nút đặt giá: US4, US2.
-// Ảnh đại diện và gợi ý thêm ảnh (US25-NT1): US25. Chạm thẻ mở sửa căn: US11.
+// Ảnh đại diện và gợi ý thêm ảnh (US1-NT11): US1. Chạm thẻ mở sửa căn: US1.
 export const TheCan = ({
   can,
   vuaThem,

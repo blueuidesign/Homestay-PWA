@@ -56,7 +56,7 @@ begin
   perform t.eq(t.dem_dong('select 1 from sale_them_tay'), 0, 'sale thêm tay chỉ chủ nhà đó thấy');
   perform t.throws(format('select fn_chu_xoa_sale_tay(%L)', v_id), 'không xóa sale thêm tay của chủ khác', null);
 
-  -- Yêu cầu: sale hủy, hết hạn sau 14 ngày (US15-NT5, NT6), chủ không trả lời yêu cầu đã hết hạn
+  -- Yêu cầu: sale hủy, hết hạn sau 14 ngày (US15-NT5, US15-NT6), chủ không trả lời yêu cầu đã hết hạn
   perform t.login(lan);
   y := (fn_sale_gui_yeu_cau(jsonb_build_object('can_id', c1509, 'ngay_nhan', '2026-12-20', 'ngay_tra', '2026-12-21'))->>'id')::uuid;
   perform t.login(hung);

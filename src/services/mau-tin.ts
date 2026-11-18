@@ -1,7 +1,7 @@
 // Chữ gửi khách theo mẫu tin (US14, mục "Gửi thông tin cho khách qua Zalo" (US14) bước 2, mục "Mẫu tin gửi khách" (US14)). Hàm thuần, không gọi API, không gọi Zalo.
 // Server giả (api.ts) dùng để dựng chữ; màn P11 dùng để dựng bản xem trước ở app (mục "Mẫu tin gửi khách" (US14) bước 3: app dựng, không gọi server).
 // Cách dựng chép từ src/server/domain/gui-khach/index.js để chữ ở P11 và chữ ở S5 giống nhau.
-// Chữ gửi khách chỉ có giá bán. Không có giá chủ nhà, mức cộng, số khách, tiện ích (US14-NT4, NT5, NT12).
+// Chữ gửi khách chỉ có giá bán. Không có giá chủ nhà, mức cộng, số khách, tiện ích (US14-NT4, US14-NT5, US14-NT12).
 
 // Các ô chèn của mẫu (nhóm Tìm phòng và gửi khách quy tắc Mẫu tin gửi khách), theo thứ tự hàng "Chạm để chèn" ở P11
 export const CAC_O_CHEN = ["[Ngày]", "[Số đêm]", "[Số căn]", "[Danh sách căn]", "[Tên sale]"] as const;
@@ -12,7 +12,7 @@ export const TOI_DA_KY_TU_MAU = 2000; // api/phien-ho-so.md: mau_tin_gui_khach t
 
 const CHU_VIEW: Record<string, string> = { bien: "biển", thanh_pho: "thành phố", nui: "núi" };
 
-// Hàng chip Số phòng ngủ (mục "Tòa nhà, loại view, số giường, mô tả" (US11)): 0 là Studio, 4 là 4PN+
+// Hàng chip Số phòng ngủ (mục "Tòa nhà, loại view, số giường, mô tả" (US1)): 0 là Studio, 4 là 4PN+
 const chuPhongNgu = (n: number) => (n === 0 ? "Studio" : n >= 4 ? "4PN+" : `${n}PN`);
 
 // 2600000 -> "2.600.000đ". Tiền là số nguyên đồng.

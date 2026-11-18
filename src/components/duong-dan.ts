@@ -29,7 +29,7 @@ export const DUONG = {
   CHI_TIET_DAT_PHONG: "/dat-phong/chi-tiet", // CN3-02 (US10), state { id }
   SUA_DAT_PHONG: "/dat-phong/sua", // CN4-02 (US10), state { id }
   DAT_PHONG_SALE: "/dat-phong/sale", // S3-10 (US10), state { id }
-  CHI_TIET_CAN: "/can/chi-tiet", // CN5-02 (tab Thông tin: US11) và CN6 (tab Giá: US4)
+  CHI_TIET_CAN: "/can/chi-tiet", // CN5-02 (tab Thông tin: US1) và CN6 (tab Giá: US4)
   GIA_CHON_CAN: "/can/gia-nhieu-can", // CN6-05, CN6-05-00 (US7)
   GIA_NHIEU_CAN: "/can/gia-nhieu-can/dat-gia", // CN6-06 (US7)
   SAO_CHEP_GIA: "/can/sao-chep-gia", // CN6-07, CN6-08 (US7)
@@ -40,7 +40,7 @@ export const DUONG = {
   THONG_KE: "/thong-ke",
   CA_NHAN: "/ca-nhan",
   THONG_TIN_CA_NHAN: "/ca-nhan/thong-tin", // P2
-  DEM_CUOI_TUAN: "/ca-nhan/dem-cuoi-tuan", // P6 (US11)
+  DEM_CUOI_TUAN: "/ca-nhan/dem-cuoi-tuan", // P6 (US4)
   MUC_CONG_MAC_DINH: "/ca-nhan/muc-cong", // P10 (US13)
   MAU_TIN: "/ca-nhan/mau-tin", // P11 (US14)
   THONG_BAO: "/ca-nhan/thong-bao", // P13, P13-00 (US17)

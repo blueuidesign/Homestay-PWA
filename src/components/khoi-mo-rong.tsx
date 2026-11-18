@@ -3,8 +3,8 @@ import type { ToaNha } from "../services/kieu";
 import { CHIP_LOAI_VIEW, maLoaiView } from "./can-hien-thi";
 import { Icon } from "./icon";
 
-// Phần mở rộng của form căn (US11): CN5-A1 phần mở rộng, CN5-A1b (tìm tòa), CN5-02 (sửa căn).
-// Chữ theo mục "Tòa nhà, loại view, số giường, mô tả" (US11) bước 1, 2 và glossary. Chữ ≥ 14 px, vùng bấm ≥ 44 px.
+// Phần mở rộng của form căn (US1): CN5-A1 phần mở rộng, CN5-A1b (tìm tòa), CN5-02 (sửa căn).
+// Chữ theo mục "Tòa nhà, loại view, số giường, mô tả" (US1) bước 1, 2 và glossary. Chữ ≥ 14 px, vùng bấm ≥ 44 px.
 export const CHU_MO_RONG = "Thêm tòa nhà, mô tả gửi khách, view...";
 export const CHU_GHI_CHU_MO_RONG = "Không bắt buộc. Chỉ cần mã căn và số phòng ngủ là dùng được lịch.";
 export const CHU_TOA_KHAC = "+ Tòa khác";
@@ -12,7 +12,7 @@ export const CHU_GHI_CHU_TIM_TOA = "Chọn tòa có sẵn để sale lọc đún
 export const CHU_GHI_CHU_MO_TA = "Sale dùng đoạn này khi gửi thông tin căn cho khách.";
 export const CHU_LOI_SO_GIUONG = "Số giường từ 1 đến 50";
 export const chuThemToaMoi = (chu: string) => `+ Thêm tòa mới ${chu.trim()}`;
-// Chữ tạm (canvas chưa vẽ): gợi ý khi tên gõ trùng tòa đã có (US11, Tùng quyết 04/11/2026)
+// Chữ tạm (canvas chưa vẽ): gợi ý khi tên gõ trùng tòa đã có (US1, Tùng quyết 04/11/2026)
 export const chuTrungToa = (ten: string) => `Đã có tòa ${ten}. Chọn tòa này, hoặc vẫn thêm tòa mới nếu là tòa khác.`;
 
 // Tên gõ trùng tòa đã có, không phân biệt hoa thường, dấu, khoảng trắng thừa
@@ -21,7 +21,7 @@ const gonTen = (s: string) =>
 export const timToaTrungTen = (ds: ToaNha[] | null, chu: string): ToaNha | undefined =>
   ds === null || chu.trim() === "" ? undefined : ds.find((t) => gonTen(t.ten) === gonTen(chu));
 
-// Ô "Số giường" (không bắt buộc, không vào dòng "Còn thiếu"): trống là chưa nhập (US11-NT6, US11-NT11)
+// Ô "Số giường" (không bắt buộc, không vào dòng "Còn thiếu"): trống là chưa nhập (US1-NT14, US1-NT33)
 export const docSoGiuong = (chu: string): { gia_tri: number | null; loi?: string } => {
   const c = chu.trim();
   if (c === "") return { gia_tri: null };
@@ -200,7 +200,7 @@ export const KhoiMoRong = (p: PropsMoRong) => {
   );
 };
 
-// Nút mở phần mở rộng (thu gọn mặc định, mục "Tòa nhà, loại view, số giường, mô tả" (US11) trạng thái rỗng)
+// Nút mở phần mở rộng (thu gọn mặc định, mục "Tòa nhà, loại view, số giường, mô tả" (US1) trạng thái rỗng)
 export const NutMoRong = ({ onMo }: { onMo: () => void }) => (
   <div style={{ display: "flex", flexDirection: "column", gap: 2, padding: "0 4px" }}>
     <button type="button" className="hh-btn hh-btn--text hh-btn--inline" style={{ justifyContent: "flex-start" }} onClick={onMo}>

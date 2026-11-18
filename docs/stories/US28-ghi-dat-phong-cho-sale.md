@@ -109,7 +109,7 @@ Phía chủ nhà: CN4 (hàng chip "Khách / Sale", dòng tách tiền), CN4-03 (
 - Ghi đặt phòng khách lẻ, chặn trùng, tiền phòng (mục "Chủ nhà ghi booking mới" (US3), mục "Căn, ngày và kiểm tra trùng lịch" (US3)): US3.
 - Chủ nhà sửa đặt phòng loại này, sale được báo (mục "Booking chủ nhà ghi cho sale" bước 6, mục "Sửa booking" (US10)): US10. Không có nút "Xóa đặt phòng" (US10-NT14): US10.
 - Handler (vai chủ nhà, vai sale) do US10-TA1 làm. US28 chỉ thêm test cho đặt phòng chủ nhà ghi có `sale_id`.
-- Công tắc "Chủ nhà ghi đặt phòng cho bạn" ở P12 (US21-NT12, NT4): US21. Công tắc tắt thì server không ghi thông báo nhưng đặt phòng vẫn là của sale.
+- Công tắc "Chủ nhà ghi đặt phòng cho bạn" ở P12 (US21-NT12, US21-NT4): US21. Công tắc tắt thì server không ghi thông báo nhưng đặt phòng vẫn là của sale.
 - Thẻ Đặt phòng, Doanh số, Tiền chênh và danh sách "Đặt phòng của tôi" của sale (US19-NT5, US19-NT12): US19. US28 chỉ bảo đảm dữ liệu đúng ở server.
 - Trang Thông báo P13 (mục "Thông báo kết quả kết nối cho sale" (US17)): US17. Popup thông báo mới (mục "Popup thông báo mới" (US30)): US30. US28-KB3 chạy khi hai US đó xong; trước đó Đức kiểm thông báo bằng API.
 - Chưa quyết, không code theo phần này (CLAUDE.md):

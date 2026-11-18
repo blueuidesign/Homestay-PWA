@@ -64,7 +64,7 @@ export const chuSdtChe = (so: string | null | undefined): string => {
 // Chữ cái đầu của tên chủ nhà (S6)
 export const chuCaiDau = (ten: string | null | undefined) => (ten ?? "?").trim().charAt(0).toUpperCase() || "?";
 
-// ---- Số nhóm (US16-NT4, NT8): chủ nhà đã rút quyền không tính ----
+// ---- Số nhóm (US16-NT4, US16-NT8): chủ nhà đã rút quyền không tính ----
 export const demChuNhaConKetNoi = (dong: { da_xoa_tai_khoan: boolean }[]) => dong.filter((d) => !d.da_xoa_tai_khoan).length;
 
 // ---- S6-02 (mục "Thêm căn tự nhập" (US16)) ----

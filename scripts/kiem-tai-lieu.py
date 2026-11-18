@@ -14,7 +14,7 @@ def bo_vi_du(s):
     return re.sub(r'`[^`\n]*`', '', s)
 
 MD = sorted(p for p in glob.glob('**/*.md', recursive=True) if not p.startswith(('node_modules/', 'dist/')))
-DONG_BANG = ('docs/zalo/', 'docs/phap-ly/', 'docs/bao-mat.md', 'docs/tu-sinh/Doi_ma_YC.md', 'docs/tham-khao/')
+DONG_BANG = ('docs/tu-sinh/Doi_ma_gop.md', 'docs/zalo/', 'docs/phap-ly/', 'docs/bao-mat.md', 'docs/tu-sinh/Doi_ma_YC.md', 'docs/tham-khao/')
 CHI_THEM = ('docs/Quyet_dinh.md',)          # mục cũ giữ nguyên chữ (QD-018)
 SONG = [p for p in MD if not p.startswith(DONG_BANG)]
 CODE = sorted(p for p in glob.glob('src/**/*.ts*', recursive=True)) + sorted(glob.glob('tests/**/*.sql', recursive=True)) + sorted(glob.glob('supabase/**/*.sql', recursive=True)) + sorted(glob.glob('tests/e2e/*.ts'))

@@ -159,7 +159,7 @@ Bảng `thong_bao`: sinh bằng trigger ở database, app không tự ghi.
 - Ghi dòng thông báo khi có sự kiện: mỗi API gây ra việc ghi (kết nối mới US5 và US17, chủ sửa đặt phòng US10, chấp nhận và từ chối yêu cầu, hết hạn US15, chủ ghi đặt phòng cho sale US28, ngừng cho xem US5, căn đã gửi khách vừa có người đặt US14, xin hủy QD-012). US này chỉ đọc và hiện.
 - Danh sách Thông báo P13, số chưa đọc, gom dòng, "Đánh dấu đã đọc" (mục "Thông báo kết quả kết nối cho sale" (US17)): US17.
 - Cài đặt bật tắt từng loại thông báo (mục "Cài đặt thông báo" (US21)): US21. Loại đã tắt thì server không ghi nên không có trong popup.
-- Dòng chủ nhà đã xóa tài khoản (US22-NT4, NT7): NT4 ở US22, NT7 [MỞ: US30-H1] QD-013.
+- Dòng chủ nhà đã xóa tài khoản (US22-NT4, US22-NT7): NT4 ở US22, NT7 [MỞ: US30-H1] QD-013.
 - Sale gửi link xin xem lịch (mục "Cài đặt thông báo" (US21)) vào popup của chủ nhà: server chưa có sự kiện để ghi [MỞ: US30-H2] US30 câu 4. Không viết kịch bản.
 - Tên API popup và chỗ lưu mốc lần mở app: đã có ở (cột `tai_khoan.mo_app_cuoi_luc`, GD18). Server phải đổi đang có (US17-TA4) sang API mới, thêm migration cột mốc.
 - Tách US theo vai (sale và chủ nhà): [MỞ: US30-H3] US30 câu 1.

@@ -45,7 +45,7 @@ Ai cũng chỉ ghi được số của chính mình. Bản Zalo: số lấy từ
 
 ## PQ3 · Thông tin và ảnh căn
 Mã căn, số phòng ngủ, số giường, tòa nhà, loại view, ảnh, mô tả gửi khách.
-- PQ3.CHU: tạo, xem, sửa căn của mình; tải và xóa ảnh căn của mình (nhóm Căn và giá). Xóa căn là ẩn căn (mục "Xóa căn" (US27)). Không đọc, không ghi căn của chủ nhà khác.
+- PQ3.CHU: tạo, xem, sửa căn của mình; tải và xóa ảnh căn của mình (nhóm Căn và giá). Xóa căn là ẩn căn (mục "Xóa căn" (US1)). Không đọc, không ghi căn của chủ nhà khác.
 - PQ3.SALE: xem các căn được chia sẻ, dùng khi gửi khách (nhóm Căn và giá, nhóm Tìm phòng và gửi khách). Được chia sẻ "tất cả căn" thì căn mới tự vào (mục "Căn mới của chủ nhà tự hiện cho sale" (US6), QD-008); chỉ được vài căn thì chỉ các căn đó (mục "Chủ nhà chủ động gửi lịch cho sale" (US26)). Không sửa. Bị ngừng: không xem căn nữa; đặt phòng cũ vẫn ghi tên căn (QD-007).
 - PQ3.LINK: có link mời hợp lệ thì A10 thấy tên chủ nhà, số căn, mỗi căn có ảnh, mã căn, số phòng ngủ, số giường, loại view; không có giá (QD-008, QD-007). Không có link, link sai, hết hạn hay đã thu hồi thì không thấy gì (QD-008). Ảnh căn không mở được bằng đường dẫn trực tiếp khi không có quyền.
 - PQ3.CTV: không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên).
@@ -71,7 +71,7 @@ Giá tháng, giá ngày lễ, giá dịp đặc biệt.
 
 ## PQ6 · Cài đặt chung của chủ nhà
 Ngày tính giá cuối tuần, giờ nhận và trả phòng.
-- PQ6.CHU: xem, sửa của mình (mục "Ngày tính giá cuối tuần" (US11), mục "Giờ nhận, trả phòng mặc định" (US21)).
+- PQ6.CHU: xem, sửa của mình (mục "Ngày tính giá cuối tuần" (US4), mục "Giờ nhận, trả phòng mặc định" (US21)).
 - PQ6.SALE: thấy giờ nhận, trả khi gửi khách (nhóm Quản trị và dữ liệu Ai thấy gì). Ngày tính giá cuối tuần: [MỞ: CH-044].
 - PQ6.LINK: không.
 - PQ6.CTV: không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên).

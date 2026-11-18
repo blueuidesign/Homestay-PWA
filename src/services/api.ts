@@ -141,7 +141,7 @@ type TaiKhoanLuu = TaiKhoan & {
   lam_tron_50k?: boolean;
   // mục "Mẫu tin gửi khách" (US14): mẫu tin gửi khách của sale, null hay không có là mẫu mặc định
   mau_tin_gui_khach?: string | null;
-  // mục "Ngày tính giá cuối tuần" (US11): các thứ tính giá cuối tuần của chủ nhà (1 là T2 đến 7 là CN), mặc định T6, T7. Không có thì [5, 6].
+  // mục "Ngày tính giá cuối tuần" (US4): các thứ tính giá cuối tuần của chủ nhà (1 là T2 đến 7 là CN), mặc định T6, T7. Không có thì [5, 6].
   dem_cuoi_tuan?: number[];
   // Giờ nhận, trả mặc định của chủ nhà (mục "Giờ nhận, trả phòng mặc định" (US21)). Không có thì 14:00 và 12:00.
   gio_nhan?: string;
@@ -278,7 +278,7 @@ type Db = {
   dem: number;
 };
 
-// Ba tòa Home247 đặt sẵn (mục "Tòa nhà, loại view, số giường, mô tả" (US11) bước 1, mục "Quản trị danh sách tòa nhà" (US29)). DLM chưa có khu vực của À La Carte, Sapphire.
+// Ba tòa Home247 đặt sẵn (mục "Tòa nhà, loại view, số giường, mô tả" (US1) bước 1, mục "Quản trị danh sách tòa nhà" (US29)). DLM chưa có khu vực của À La Carte, Sapphire.
 const toaDatSan = (): ToaLuu[] => [
   { id: "ICON40", ten: "ICON40", khu_vuc: "Bãi Cháy", tao_boi: null },
   { id: "À La Carte", ten: "À La Carte", khu_vuc: null, tao_boi: null },
@@ -340,7 +340,7 @@ const raCan = (c: CanLuu, bayGio = Date.now()): Can => ({
 });
 
 // POST /anh (api/can-anh.md, server.md 1.9): tải một ảnh, nhận anh_id tạm chưa gắn căn.
-// Server giả không đổi ảnh, chỉ kiểm tệp và lưu thông tin. onTienDo cho chữ "Đang tải 60%" (mục "Ảnh khi thêm căn" (US25) bước 2).
+// Server giả không đổi ảnh, chỉ kiểm tệp và lưu thông tin. onTienDo cho chữ "Đang tải 60%" (mục "Ảnh khi thêm căn" (US1) bước 2).
 // Bấm "Thử lại" giữ nguyên khoa nên không tạo ảnh thứ hai (Chống bấm hai lần).
 export const MAX_ANH_CAN = 12;
 const MAX_BYTE_ANH = 15 * 1024 * 1024;
@@ -465,7 +465,7 @@ export async function getCanSale(): Promise<Can[]> {
     }));
 }
 
-// ---- US11 · Tòa nhà dùng chung, thêm và sửa căn (api/can-anh.md). Server thật: src/server/api/can.js, toa-nha.js ----
+// ---- US1 · Tòa nhà dùng chung, thêm và sửa căn (api/can-anh.md). Server thật: src/server/api/can.js, toa-nha.js ----
 
 const MA_LOAI_VIEW = ["bien", "thanh_pho", "nui"];
 // Tìm không phân biệt hoa thường và dấu tiếng Việt (GET /toa-nha q)
@@ -479,7 +479,7 @@ const raToa = (t: ToaLuu, tk: TaiKhoanLuu): ToaNha => ({
   da_dung: db.can.some((c) => c.tai_khoan_id === tk.id && c.an_luc === null && c.toa_nha === t.ten),
 });
 
-// GET /toa-nha?q=&gioi_han= (api/can-anh.md). Có q: mọi tòa có tên chứa q, tòa da_dung trước rồi theo tên (US11-NT3, NT6).
+// GET /toa-nha?q=&gioi_han= (api/can-anh.md). Có q: mọi tòa có tên chứa q, tòa da_dung trước rồi theo tên (US1-NT26, US1-NT14).
 // Không có q: tòa người gọi đã dùng, rồi tòa Home247 đặt sẵn (server.md 2.4; CH-063 chưa chốt có cả tòa người khác thêm không).
 // Không trả tao_boi: người dùng không cần biết ai thêm tòa.
 export async function getToaNha(q: { q?: string; gioi_han?: number } = {}): Promise<ToaNha[]> {
@@ -499,7 +499,7 @@ export async function getToaNha(q: { q?: string; gioi_han?: number } = {}): Prom
 
 // POST /toa-nha { ten, khu_vuc? } (api/can-anh.md): thêm một dòng vào danh sách chung, không cần duyệt (quy tắc Tòa nhà dùng chung).
 // Chỉ thêm, không có đường sửa tòa có sẵn: gửi id, tao_boi hay trường lạ thì DU_LIEU_SAI. Tên trùng tòa đã có (không phân biệt
-// hoa thường, dấu) vẫn tạo tòa mới (US11, Tùng quyết 04/11/2026: màn tìm tòa chỉ gợi ý tòa có sẵn, người dùng vẫn được tạo mới).
+// hoa thường, dấu) vẫn tạo tòa mới (US1, Tùng quyết 04/11/2026: màn tìm tòa chỉ gợi ý tòa có sẵn, người dùng vẫn được tạo mới).
 // Server giả lấy tên làm id nên tòa trùng đúng tên nhận id có hậu tố "#n"; căn vẫn ghi theo tên, nên hai tòa trùng đúng tên
 // còn lẫn nhau ở phía căn. Server thật dùng id riêng (EN52).
 export async function postToaNha(than: { ten: string; khu_vuc?: string | null }, khoa: string): Promise<ToaNha> {
@@ -624,7 +624,7 @@ const canCuaToiTheoId = (canId: string): CanLuu => {
   return c;
 };
 
-// GET /can/:id (api/can-anh.md): mọi trường và ảnh theo thứ tự (mục "Sửa thông tin căn" (US11) bước 1)
+// GET /can/:id (api/can-anh.md): mọi trường và ảnh theo thứ tự (mục "Sửa thông tin căn" (US1) bước 1)
 export async function getCanChiTiet(canId: string): Promise<CanChiTiet> {
   await cho();
   const c = canCuaToiTheoId(canId);
@@ -668,8 +668,8 @@ const kiemTruongTuNhap = (la: Record<string, unknown>, laCanTuNhap: boolean): Pa
 };
 
 // PATCH /can/:id (api/can-anh.md): chỉ gửi trường muốn đổi. anh_ids là danh sách ảnh đầy đủ theo thứ tự, ảnh số 1 là ảnh đại diện
-// (US11-NT9); ảnh cũ không còn trong mảng thì bị xóa; so_giuong null là xóa trống (US11-NT11); mã trùng căn khác của cùng chủ
-// thì MA_CAN_TRUNG (US11-NT10). Một giao dịch: lỗi thì không đổi gì. Cùng Idempotency-Key thì trả kết quả cũ.
+// (US1-NT31); ảnh cũ không còn trong mảng thì bị xóa; so_giuong null là xóa trống (US1-NT33); mã trùng căn khác của cùng chủ
+// thì MA_CAN_TRUNG (US1-NT32). Một giao dịch: lỗi thì không đổi gì. Cùng Idempotency-Key thì trả kết quả cũ.
 export async function patchCan(canId: string, than: ThanSuaCan, khoa: string): Promise<CanChiTiet> {
   await cho();
   const tk = nguoiGoi();
@@ -768,7 +768,7 @@ export async function postCan(body: ThanPostCan, khoa?: string): Promise<Can> {
     ...(loai === "tu_nhap" ? { loai: "tu_nhap" as const, gia_chu_thuong: null, gia_chu_cuoi_tuan: null, ...tuNhap } : {}),
   };
   db.can.push(can);
-  // Thứ tự mảng anh_ids là thu_tu, phần tử đầu là ảnh đại diện (mục "Ảnh khi thêm căn" (US25) bước 3)
+  // Thứ tự mảng anh_ids là thu_tu, phần tử đầu là ảnh đại diện (mục "Ảnh khi thêm căn" (US1) bước 3)
   anhGan.forEach((a, i) => {
     a!.can_id = can.id;
     a!.thu_tu = i + 1;
@@ -777,7 +777,7 @@ export async function postCan(body: ThanPostCan, khoa?: string): Promise<Can> {
 }
 
 // DELETE /can/:id (api/can-anh.md). Căn tự nhập: xóa thật căn và mọi đặt phòng sale_tu_ghi, ảnh, mức cộng, lần gửi khách (mục "Chi tiết căn tự nhập" (US16) bước 7),
-// chỉ sale tạo (PQ14.SALE). Căn có lịch: ẩn căn (mục "Xóa căn" (US27)), chỉ chủ nhà của căn (PQ3.CHU); còn đặt phòng có ngày trả sau hôm nay (giờ VN)
+// chỉ sale tạo (PQ14.SALE). Căn có lịch: ẩn căn (mục "Xóa căn" (US1)), chỉ chủ nhà của căn (PQ3.CHU); còn đặt phòng có ngày trả sau hôm nay (giờ VN)
 // hoặc yêu cầu đang chờ chủ chưa quá hạn thì CAN_CON_DAT_PHONG, căn giữ nguyên; đặt phòng đã hủy không tính (QD21).
 // Ẩn xong chỉ đặt an_luc: đặt phòng, tiền, ảnh, giá giữ nguyên, căn biến khỏi getCan, lịch, tìm phòng (các hàm đọc đã lọc an_luc).
 // Căn của người khác, căn đã ẩn, sale xóa căn của chủ nhà: KHONG_TIM_THAY (PQ3.SALE).
@@ -909,7 +909,7 @@ export async function getLichTomTat(q: { thang: string; can_id?: string }): Prom
 }
 
 // GET /thong-ke/chu?thang=&so_thang= (api/thong-bao-thong-ke-xuat.md, PQ16.CHU, PQ11.CHU): số liệu một tháng của chủ nhà gọi.
-// Theo tháng của đêm (QD14, QT2.2, QT4.2), bỏ đặt phòng đã hủy (QD21), kể cả căn đã ẩn (mục "Xóa căn" (US27)). Sale (vai đã chọn): KHONG_DUOC_PHEP (PQ16.SALE).
+// Theo tháng của đêm (QD14, QT2.2, QT4.2), bỏ đặt phòng đã hủy (QD21), kể cả căn đã ẩn (mục "Xóa căn" (US1)). Sale (vai đã chọn): KHONG_DUOC_PHEP (PQ16.SALE).
 // theo_can chỉ căn có lịch chưa ẩn, kể cả căn 0đ; theo_nguoi_ban giảm dần, không giá bán, tiền chênh. Chưa có khối chua_thu
 // (US18-TA2, còn [MỞ: mục "Chưa thu tiền" (US18) bước 1, DC53 US18-Q1]). Tháng cũ của dữ liệu mẫu chỉ có tổng (doanh_thu_cu) cộng vào doanh thu tháng đó.
 export async function getThongKeChu(q: { thang: string; so_thang?: number }): Promise<ThongKeChu> {
@@ -1060,7 +1060,7 @@ const canCuaToi = (canId: string) => {
 };
 
 // gia_dem(can, ngay) của server.md 1.8: giá dịp, không thì giá tháng theo đêm T6, T7; không có thì null
-// Đêm cuối tuần tính lúc đọc, theo cài đặt hiện tại của người giữ căn (mục "Ngày tính giá cuối tuần" (US11)); đặt phòng đã có giữ tiền riêng
+// Đêm cuối tuần tính lúc đọc, theo cài đặt hiện tại của người giữ căn (mục "Ngày tính giá cuối tuần" (US4)); đặt phòng đã có giữ tiền riêng
 const demCuoiTuanCua = (c: CanLuu) => db.tai_khoan.find((t) => t.id === c.tai_khoan_id)?.dem_cuoi_tuan ?? DEM_CUOI_TUAN_MAC_DINH;
 const giaDem = (c: CanLuu, ngay: string): number | null => {
   // Căn tự nhập: giá chủ báo, thường hay cuối tuần theo đêm cuối tuần của sale (server.md 1.8); chưa nhập thì chưa có giá
@@ -1757,7 +1757,7 @@ export async function getToi(): Promise<HoSo> {
 }
 
 // PATCH /toi (api/phien-ho-so.md): chỉ đổi của chính người gọi. Mỗi lần gửi ít nhất một trong ba trường.
-// dem_cuoi_tuan (mục "Ngày tính giá cuối tuần" (US11) bước 4, PQ6.CHU): mỗi số 1 đến 7, không trùng, server xếp tăng dần. Mảng rỗng chưa nhận [MỞ: DC53 phien-ho-so.md câu hỏi mở 12].
+// dem_cuoi_tuan (mục "Ngày tính giá cuối tuần" (US4) bước 4, PQ6.CHU): mỗi số 1 đến 7, không trùng, server xếp tăng dần. Mảng rỗng chưa nhận [MỞ: DC53 phien-ho-so.md câu hỏi mở 12].
 // muc_cong_mac_dinh (0 đến 10.000.000), lam_tron_50k (mục "Mức cộng giá mặc định" (US13) bước 5, PQ11.SALE): chỉ vai sale; chủ nhà gửi thì DU_LIEU_SAI (PQ11.CHU).
 // Giá bán tính lúc đọc nên đổi theo cho căn không có mức cộng riêng; không đổi đặt phòng đã có (tiền ở booking_dem, gia_ban_booking).
 const MAX_MUC_CONG = 10_000_000;
@@ -2521,7 +2521,7 @@ export async function deleteKetNoi(id: string, khoa: string): Promise<KetQuaBoNg
 const TOI_DA_DEM_TIM = 30;
 const TOI_DA_TIM_GAN_DAY = 5; // GD17
 
-// Mã Loại view của căn: căn mẫu ghi "view biển", căn US11 ghi mã "bien"
+// Mã Loại view của căn: căn mẫu ghi "view biển", căn US1 ghi mã "bien"
 const maViewCua = (v: string | null): string | null => {
   if (!v) return null;
   if (MA_LOAI_VIEW.includes(v)) return v;
@@ -2931,7 +2931,7 @@ const raYeuCauChu = (y: YeuCauLuu): YeuCauChu => {
   return r;
 };
 
-// Yêu cầu chờ trùng đêm với đặt phòng vừa ghi thì Bị từ chối, lý do chu_nhan_dat_khac (QT1.4-VD2, US15-NT18, NT3, GD11)
+// Yêu cầu chờ trùng đêm với đặt phòng vừa ghi thì Bị từ chối, lý do chu_nhan_dat_khac (QT1.4-VD2, US15-NT18, US15-NT3, GD11)
 const tuChoiYeuCauTrung = (canId: string, nhan: string, tra: string, boQuaId?: string): YeuCauLuu[] => {
   const lucNay = isoYC(bayGioYC());
   const ds = db.yeu_cau.filter((y) => y.id !== boQuaId && y.can_id === canId && dangCho(y) && chungDem(y, nhan, tra));
@@ -3145,7 +3145,7 @@ export const banThu = {
     };
     db.tai_khoan.push(tk);
     // Căn đầu danh sách mẫu tạo sau cùng để lên đầu như canvas CN5
-    // Tạo theo thứ tự 1509, 3402, 2501 như Chị Hoa tự thêm (US1-KB11, KB13, US2-KB7): lịch xếp chip theo thứ tự tạo
+    // Tạo theo thứ tự 1509, 3402, 2501 như Chị Hoa tự thêm (US1-KB11, US1-KB13, US2-KB7): lịch xếp chip theo thứ tự tạo
     // (canvas CN1, CN1-02), danh sách căn CN5 xếp căn mới lên đầu.
     const dsMau = coCanThuBa ? [...CAN_CUA_CHI_HOA, CAN_THU_BA_CHI_HOA] : CAN_CUA_CHI_HOA;
     dsMau.forEach((c, i) => {

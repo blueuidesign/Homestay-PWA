@@ -43,7 +43,7 @@ export const chuTrangThaiTien = (trang_thai_tien: TrangThaiTien | null, tien_coc
 export const chuDongPhong = (dp: Pick<DatPhongSapToi, "ma_can" | "ngay_nhan" | "ngay_tra" | "so_dem">) =>
   `Phòng ${dp.ma_can} · ${chuNgayNgan(dp.ngay_nhan)} → ${chuNgayNgan(dp.ngay_tra)} (${dp.so_dem} đêm)`;
 
-// Mục "ĐẶT PHÒNG SẮP TỚI" (US9-NT3, NT2). Chưa có dòng nào thì CN1-01. Chạm một dòng mở chi tiết đặt phòng
+// Mục "ĐẶT PHÒNG SẮP TỚI" (US9-NT3, US9-NT2). Chưa có dòng nào thì CN1-01. Chạm một dòng mở chi tiết đặt phòng
 // (CN3-02, US10): chỗ gọi quyết định.
 export const MucSapToi = ({
   muc,

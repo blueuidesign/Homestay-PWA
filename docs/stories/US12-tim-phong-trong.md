@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
-- Làm sau khi xong: US6, US11
+- Làm sau khi xong: US6, US1
 - Kiểm tay: `tests/kich-ban/US12.md` (22 kịch bản)
 
 ## Mục tiêu

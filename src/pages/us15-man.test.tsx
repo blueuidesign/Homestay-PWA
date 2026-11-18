@@ -443,7 +443,7 @@ test("test_YC4_6_NT4_US15_KB8_tu_choi_ba_chip_gui_ly_do_da_co_khach_va_sale_thay
   const thang = await getLichThang({ thang: "2026-10" });
   expect(thang.ngay.filter((n) => n.ngay === "2026-10-31")).toEqual([]);
   expect(JSON.stringify(tc)).not.toMatch(/gia_ban|tien_chenh/);
-  // Sale: S3-05 với lý do và căn tương tự giá bán (US15-NT13, NT6)
+  // Sale: S3-05 với lý do và căn tương tự giá bán (US15-NT13, US15-NT6)
   await dung(HUNG);
   const s = (await getYeuCau(yc.id)) as YeuCauSale;
   expect(s.ly_do).toBe("da_co_khach");

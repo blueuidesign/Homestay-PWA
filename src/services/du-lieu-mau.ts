@@ -65,7 +65,7 @@ export const SALE_CUA_CHI_HOA: { ten: string; so_dien_thoai: string | null; ket_
   { ten: "Sale Minh", so_dien_thoai: null, ket_noi_luc: "2026-09-10T09:00:00+07:00" },
 ];
 
-// DLM.3: giá chủ một đêm tháng 10, 11, 12/2026; đêm cuối tuần là T6, T7 (mục "Ngày tính giá cuối tuần" (US11)). Căn khác chưa đặt giá.
+// DLM.3: giá chủ một đêm tháng 10, 11, 12/2026; đêm cuối tuần là T6, T7 (mục "Ngày tính giá cuối tuần" (US4)). Căn khác chưa đặt giá.
 export const GIA_THANG_MAU: Record<string, { thuong: number; cuoi_tuan: number }> = {
   "1509": { thuong: 900000, cuoi_tuan: 1300000 },
   "3402": { thuong: 800000, cuoi_tuan: 1100000 },

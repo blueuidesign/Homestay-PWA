@@ -29,7 +29,7 @@ export type Can = {
   loai_view: string | null;
   toa_nha: string | null;
   so_anh: number;
-  // US25: ảnh thu_tu 1, null khi chưa có ảnh. Căn mẫu của DLM chỉ có so_anh, không có ảnh thật.
+  // US1: ảnh thu_tu 1, null khi chưa có ảnh. Căn mẫu của DLM chỉ có so_anh, không có ảnh thật.
   anh_dai_dien?: Anh | null;
   moi_them: boolean;
   tao_luc: string;
@@ -44,7 +44,7 @@ export type Can = {
 // Tình trạng hôm nay của căn có lịch (api/can-anh.md GET /can). Căn tự nhập luôn null, không bao giờ `trong` (US16-NT5).
 export type TinhTrangHomNay = { loai: "co_khach" | "khach_den" | "trong"; ngay_tra: string | null };
 
-// US11 · Tòa nhà dùng chung (api/can-anh.md GET /toa-nha, POST /toa-nha). da_dung: căn chưa ẩn của người gọi đang gắn tòa này.
+// US1 · Tòa nhà dùng chung (api/can-anh.md GET /toa-nha, POST /toa-nha). da_dung: căn chưa ẩn của người gọi đang gắn tòa này.
 export type ToaNha = { id: string; ten: string; khu_vuc: string | null; da_dung: boolean };
 // Chi tiết một căn của mình (api/can-anh.md GET /can/:id, PATCH /can/:id), phần căn có lịch.
 // loai_view là mã `bien`, `thanh_pho`, `nui` (server thật). Căn mẫu DLM còn ghi "view biển", màn đọc qua components/can-hien-thi.
@@ -68,7 +68,7 @@ export type CanChiTiet = {
 };
 // Một đặt phòng sale đã ghi cho căn tự nhập (mục "Chi tiết căn tự nhập" (US16) bước 2). tien_chenh = gia_ban trừ tien_phong (QT3).
 export type DatPhongDaGhi = { id: string; ngay_nhan: string; ngay_tra: string; tien_phong: number; gia_ban: number; tien_chenh: number };
-// Thân PATCH /can/:id: chỉ gửi trường muốn đổi; so_giuong null là xóa trống (US11-NT11); anh_ids là danh sách đầy đủ theo thứ tự
+// Thân PATCH /can/:id: chỉ gửi trường muốn đổi; so_giuong null là xóa trống (US1-NT33); anh_ids là danh sách đầy đủ theo thứ tự
 export type ThanSuaCan = {
   ma_can?: string;
   so_phong_ngu?: SoPhongNgu;
@@ -436,7 +436,7 @@ export type HoSo = {
   ten_hien_thi: string | null;
   anh_dai_dien: string | null;
   so_dien_thoai: string | null;
-  // US11 (mục "Ngày tính giá cuối tuần" (US11)): các thứ tính giá cuối tuần, 1 là T2 đến 7 là CN, tăng dần. Mặc định [5, 6] (T6, T7).
+  // US1 (mục "Ngày tính giá cuối tuần" (US4)): các thứ tính giá cuối tuần, 1 là T2 đến 7 là CN, tăng dần. Mặc định [5, 6] (T6, T7).
   dem_cuoi_tuan?: number[];
   // US13 (mục "Mức cộng giá mặc định" (US13)): chỉ tài khoản vai sale có hai trường này. Chủ nhà không có (PQ11.CHU).
   muc_cong_mac_dinh?: number;

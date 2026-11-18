@@ -21,7 +21,7 @@ import {
 } from "./api";
 import { LoiApi, LoiMang, type TepAnh } from "./kieu";
 
-// US11 · Server giả của sửa căn, tòa nhà dùng chung, ngày tính giá cuối tuần (api/can-anh.md, api/phien-ho-so.md).
+// US1 · Server giả của sửa căn, tòa nhà dùng chung, ngày tính giá cuối tuần (api/can-anh.md, api/phien-ho-so.md).
 // Dữ liệu DLM: hôm nay 07/10/2026, máy là Chị Hoa (1509: 2PN, 3 giường, view biển, ICON40, 12 ảnh).
 const maLoi = (p: Promise<unknown>) =>
   p.then(
@@ -44,7 +44,7 @@ beforeEach(() => {
   banThu.napDuLieuMau(false, true);
 });
 
-// ---- US11-NT1, mục "Tòa nhà, loại view, số giường, mô tả" (US11) ----
+// ---- US1-NT9, mục "Tòa nhà, loại view, số giường, mô tả" (US1) ----
 
 test("test_YC3_1_NT5_the_can_1509_ghi_2PN_3_giuong_view_bien_ICON40", async () => {
   expect(dongThongTin(await the("1509"))).toBe("2PN · 3 giường · view biển · ICON40");
@@ -104,7 +104,7 @@ test("test_YC3_2_2_NT6_nguoi_dung_khac_them_toa_moi_thi_nguoi_khac_thay_trong_da
   expect(c.toa_nha).toBe("Green Hạ Long Test");
 });
 
-// Đổi theo quyết định của Tùng 04/11/2026 (US11, điểm 4): trước đây POST /toa-nha trùng tên trả tòa đã có (da_co true), không tạo dòng mới
+// Đổi theo quyết định của Tùng 04/11/2026 (US1, điểm 4): trước đây POST /toa-nha trùng tên trả tòa đã có (da_co true), không tạo dòng mới
 test("test_YC3_2_2_toa_dat_san_hien_khi_chua_go_chu_nao_va_toa_trung_ten_van_tao_toa_moi", async () => {
   expect((await getToaNha()).map((t) => t.ten)).toEqual(["ICON40", "À La Carte", "Sapphire"]);
   const lai = await postToaNha({ ten: "  icon40 " }, khoa());
@@ -124,7 +124,7 @@ test("test_YC3_2_2_post_toa_nha_khong_sua_duoc_toa_co_san_hay_dat_tao_boi", asyn
   await expect(maLoi(postToaNha({ ten: "   " }, khoa()))).resolves.toBe("DU_LIEU_SAI:ten");
 });
 
-// ---- mục "Sửa thông tin căn" (US11) ----
+// ---- mục "Sửa thông tin căn" (US1) ----
 
 test("test_YC3_3_NT1_mo_sua_can_1509_cac_o_dung_gia_tri_hien_co", async () => {
   const c = await getCanChiTiet((await the("1509")).id);
@@ -248,7 +248,7 @@ test("test_PQ3_khong_co_phien_thi_CHUA_DANG_NHAP", async () => {
   await expect(maLoi(patchToi({ dem_cuoi_tuan: [5, 6] }, khoa()))).resolves.toBe("CHUA_DANG_NHAP:");
 });
 
-// ---- mục "Ngày tính giá cuối tuần" (US11) ----
+// ---- mục "Ngày tính giá cuối tuần" (US4) ----
 
 test("test_YC3_8_NT1_luu_T6_T7_thi_o_gia_ghi_Cuoi_tuan_T6_T7_va_Ngay_thuong_CN_T5", async () => {
   expect((await getToi()).dem_cuoi_tuan).toEqual([5, 6]);

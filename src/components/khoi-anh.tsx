@@ -3,12 +3,12 @@ import { MAX_ANH_CAN } from "../services/api";
 import { chuDangTai, demTheo, type AnhForm } from "../stores/anh-form";
 import { Icon } from "./icon";
 
-// Mục Ảnh của CN5-A1 (mục "Ảnh khi thêm căn" (US25), canvas CN5-A2 đang tải, CN5-A3 lỗi). Chữ ≥ 14 px, nút ≥ 44 px.
+// Mục Ảnh của CN5-A1 (mục "Ảnh khi thêm căn" (US1), canvas CN5-A2 đang tải, CN5-A3 lỗi). Chữ ≥ 14 px, nút ≥ 44 px.
 export const CHU_THE_QUYEN = "Cần quyền chọn ảnh để thêm ảnh căn"; // HV4, bảng câu theo quyền
 export const CHU_CAN_VAN_LUU = "Căn vẫn lưu được khi chưa có ảnh.";
 export const CHU_ANH_DAU = "Ảnh đầu tiên là ảnh đại diện · Tối đa 12 ảnh";
 
-// US11 · CN5-02: "Đổi thứ tự" chuyển lưới sang chế độ đổi thứ tự. Mỗi ảnh có số thứ tự và hai nút đưa lên trước, ra sau.
+// US1 · CN5-02: "Đổi thứ tự" chuyển lưới sang chế độ đổi thứ tự. Mỗi ảnh có số thứ tự và hai nút đưa lên trước, ra sau.
 // Chữ tạm: canvas chưa vẽ cách đổi (kéo thả hay nút). Bản này dùng nút vì dùng một tay.
 export const CHU_DOI_THU_TU = "Đổi thứ tự";
 export const CHU_XONG_DOI = "Xong";
@@ -104,7 +104,7 @@ export const KhoiAnh = ({
   onThuLai: (khoa: string) => void;
   onXoa: (khoa: string) => void;
   onMoCaiDat: () => void;
-  // US11 · CN5-02: có onBatDoi thì mục ảnh có nút "Đổi thứ tự" (cần từ 2 ảnh)
+  // US1 · CN5-02: có onBatDoi thì mục ảnh có nút "Đổi thứ tự" (cần từ 2 ảnh)
   cheDoDoi?: boolean;
   onBatDoi?: () => void;
   onDoiViTri?: (khoa: string, huong: -1 | 1) => void;
@@ -166,7 +166,7 @@ export const KhoiAnh = ({
   );
 };
 
-// Hai dòng báo trên nút "Thêm căn" khi còn ảnh đang tải (US25-NT2)
+// Hai dòng báo trên nút "Thêm căn" khi còn ảnh đang tải (US1-NT20)
 export const dongBaoAnh = (anh: AnhForm[]) => {
   const n = demTheo(anh, "dang_tai");
   return n > 0 ? chuDangTai(n) : null;

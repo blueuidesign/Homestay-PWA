@@ -33,8 +33,8 @@ Ba story chưa có đặc tả nào (US24, US32, US33): không viết lại đư
 4. Đọc hàm database story dùng (`supabase/migrations/`, tên hàm ở mục Database của story) và test của nó (`tests/db/`). Ghi mọi chỗ database làm khác nguyên liệu vào "Database đang lệch story".
 5. Xem màn: `python3 docs/thiet-ke/trich-man.py <mã> --chu`. Chữ trên hình lệch nguyên liệu thì nguyên liệu (story) đúng; ghi chỗ lệch ở mục Màn hình.
 6. Viết lại cả file theo khuôn: luồng chính có số của bộ mẫu; phạm vi; bảng bước bản PWA (không cột Zalo, cách làm theo `docs/luat-chung/PWA.md`); đủ nhánh lỗi; tiêu chí kèm lớp test; bảng luật kiểm với câu lỗi; quyền; database; màn; câu hỏi và giả định; việc cần làm. Bỏ mục "Ai được làm và việc kéo theo" sau khi đã đưa nội dung vào bảng bước và mục Database.
-7. Tiêu chí: giữ nguyên mã và nghĩa. Chỉ đổi chữ của bản Zalo sang bản PWA. Thiếu thì thêm mã mới (số tiếp theo của story đó). Tiêu chí thuộc màn hay phần của story khác thì chuyển sang story đó, giữ mã, ghi trong commit. Không còn mục "Phần của story khác…".
-8. Chỗ ghi tắt kiểu "US12-NT1, NT4" trong story thô có thể theo số cũ của bản Zalo. Không tin số tắt; tra lại nội dung tiêu chí.
+7. Tiêu chí: giữ nghĩa, đổi chữ của bản Zalo sang bản PWA. Story gộp từ nhiều story cũ (QD-020): đánh số lại tiêu chí và câu hỏi theo thứ tự đọc, ghi bảng mã cũ sang mã mới, đổi bằng máy ở mọi file khác (test, kịch bản, chú thích code, `docs/Cau_hoi_mo.md`) trong cùng commit, bảng ghi vào `docs/tu-sinh/Doi_ma_gop.md`. Hai tiêu chí cũ trùng nghĩa thì gộp vào một mã. Thiếu thì thêm mã mới. Không còn mục "Phần của story khác…".
+8. Chỗ ghi tắt kiểu "US12-NT1, US12-NT4" trong story thô có thể theo số cũ của bản Zalo. Không tin số tắt; tra lại nội dung tiêu chí.
 9. Câu hỏi: dùng mã đã có ở `docs/Cau_hoi_mo.md`. Câu mới dùng `US<n>-H<số tiếp theo>` và thêm dòng. Dòng câu hỏi nào không còn chỗ dùng thì xóa. Giả định mới dùng `GD<số tiếp theo>`.
 10. Đổi dòng đầu file thành `- Đặc tả: đã viết lại`.
 11. Sửa `tests/kich-ban/US<n>.md` cho khớp: mã tiêu chí, ngày còn trong tương lai, bỏ bước của Zalo.

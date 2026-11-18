@@ -214,3 +214,98 @@ Kịch bản viết cho bản Zalo, số liệu theo ngày 07/10/2026 của bộ
   - Chỉ có thẻ Sapphire 1103 và À La Carte 2208. Không có 1509, 3402.
   - Không có giá 800.000đ – 1.100.000đ hay 900.000đ – 1.300.000đ của căn Chị Hoa ở đâu trên màn.
 - **Nguồn:** PQ5.CHU
+
+<!-- Chuyển từ nhóm khác khi gộp story (QD-020), giữ mã cũ tới khi làm nhóm này. -->
+
+### US4-KB17 · Mở màn ngày tính giá cuối tuần `[Chính]`
+- **Mục đích:** chủ nhà thấy đêm đang tính giá cuối tuần và tuần mẫu.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa.
+- **Làm:**
+  1. Tab Cá nhân, chạm "Ngày tính giá cuối tuần".
+- **Mong đợi:**
+  - Câu "Chọn những đêm tính giá cuối tuần. Các đêm còn lại tính giá ngày thường."
+  - Hàng chip "Đêm cuối tuần" T2 đến CN, T6 và T7 đang chọn.
+  - Ghi chú "Tính theo đêm ở. VD: nhận phòng T6, trả phòng CN là 2 đêm cuối tuần."
+  - "Một tuần của phòng 1509": T2 đến T5 900k, T6 1.300k, T7 1.300k, CN 900k; ô T6, T7 màu xanh.
+- **Nguồn:** mục "Ngày tính giá cuối tuần" bước 1 đến 3
+
+### US4-KB18 · Lưu T6, T7 thì ô giá ghi "Cuối tuần (T6, T7)" `[Chính]`
+- **Mục đích:** tên ô giá theo đêm đã chọn.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa.
+- **Làm:**
+  1. Tab Cá nhân, chạm "Ngày tính giá cuối tuần".
+  2. Để chọn T6 và T7. Bấm "Lưu thay đổi".
+  3. Tab Căn, chạm thẻ 3402, bấm tab "Giá".
+- **Mong đợi:**
+  - Hai ô giá ghi "Ngày thường (CN–T5)" và "Cuối tuần (T6, T7)".
+  - Tab Cá nhân dòng "Ngày tính giá cuối tuần" ghi "T6, T7".
+- **Nguồn:** US4-NT8
+
+### US4-KB19 · Nhận T6, trả CN là 2 đêm cuối tuần `[Chính]`
+- **Mục đích:** tính theo đêm ở: cả đêm T6 và đêm T7 dùng giá cuối tuần.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa, đêm cuối tuần là T6, T7.
+- **Làm:**
+  1. Tab Lịch, bấm "+ Đặt phòng".
+  2. Chọn phòng 1509, ngày nhận 16/10 (T6), ngày trả 18/10 (CN).
+  3. Xem ô "Tiền phòng (đ)" và dòng tách theo đêm.
+  4. Bấm quay lại, không lưu.
+- **Mong đợi:**
+  - Dòng tách: "16/10: 1.300.000đ", "17/10: 1.300.000đ".
+  - Ô tiền phòng điền sẵn 2.600.000.
+- **Nguồn:** US4-NT10, QT4.1
+
+### US4-KB20 · Đổi sang T7, CN `[Chính]`
+- **Mục đích:** đổi đêm cuối tuần thì tên ô giá, lịch giá và tiền điền sẵn đổi theo.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa.
+- **Làm:**
+  1. Tab Cá nhân, chạm "Ngày tính giá cuối tuần".
+  2. Bỏ chọn T6, chọn CN (đang chọn T7, CN).
+  3. Xem "Một tuần của phòng 1509". Bấm "Lưu thay đổi".
+  4. Tab Căn, chạm thẻ 1509, bấm tab "Giá". Xem hai ô giá và lịch giá tháng 10.
+  5. Tab Lịch, bấm "+ Đặt phòng", chọn 1509, nhận 16/10, trả 18/10. Xem tiền điền sẵn, rồi quay lại không lưu.
+  6. Đặt lại T6, T7 ở "Ngày tính giá cuối tuần", bấm "Lưu thay đổi".
+- **Mong đợi:**
+  - Bước 3 tuần mẫu: T6 900k, T7 1.300k, CN 1.300k.
+  - Bước 4 ô cuối tuần ghi theo T7, CN; ô ngày thường ghi các thứ còn lại (T2 đến T6). Lịch giá: 16/10 (T6) 900k, 18/10 (CN) 1,3tr.
+  - Bước 5: "16/10: 900.000đ", "17/10: 1.300.000đ", ô tiền phòng 2.200.000.
+  - Tab Cá nhân dòng "Ngày tính giá cuối tuần" ghi "T7, CN" sau bước 3, ghi "T6, T7" sau bước 6.
+- **Nguồn:** US4-NT9, QT4.1
+
+### US4-KB21 · Mất mạng khi lưu đêm cuối tuần `[Mạng]`
+- **Mục đích:** không tưởng đã đổi cài đặt khi chưa lưu.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa, đêm cuối tuần T6, T7.
+- **Làm:**
+  1. Mở "Ngày tính giá cuối tuần", bỏ T6, chọn CN.
+  2. Bật chế độ máy bay.
+  3. Bấm "Lưu thay đổi".
+  4. Tắt chế độ máy bay, về tab Cá nhân.
+- **Mong đợi:**
+  - Bước 3 báo "Chưa lưu được, bấm lại khi có mạng". Chip vẫn T7, CN.
+  - Bước 4 dòng "Ngày tính giá cuối tuần" vẫn "T6, T7".
+- **Nguồn:** HV2 bước 3, 4 (mục "Ngày tính giá cuối tuần" trạng thái lỗi mạng)
+
+### US4-KB22 · Chủ nhà khác đổi đêm cuối tuần không ảnh hưởng Chị Hoa `[Quyền]`
+- **Mục đích:** ngày tính giá cuối tuần là cài đặt của riêng từng tài khoản.
+- **Chuẩn bị:** hai máy: máy 1 tài khoản Anh Tuấn, máy 2 tài khoản Chị Hoa. Cả hai đang chọn T6, T7.
+- **Làm:**
+  1. Máy 1: tab Cá nhân, chạm "Ngày tính giá cuối tuần". Bỏ T6, chọn CN. Bấm "Lưu thay đổi".
+  2. Máy 2: tab Cá nhân, chạm "Ngày tính giá cuối tuần".
+  3. Máy 2: tab Căn, chạm thẻ 3402, bấm tab "Giá".
+  4. Máy 1: đặt lại T6, T7, bấm "Lưu thay đổi".
+- **Mong đợi:**
+  - Máy 2 chip "Đêm cuối tuần" vẫn T6, T7. Dòng "Ngày tính giá cuối tuần" ở tab Cá nhân vẫn "T6, T7".
+  - Máy 2 hai ô giá của 3402 vẫn "Ngày thường (CN–T5)" và "Cuối tuần (T6, T7)".
+- **Nguồn:** PQ6.CHU
+
+### US4-KB23 · Rời app khi đang chọn đêm cuối tuần `[Mạng]`
+- **Mục đích:** quay lại từ nền vẫn còn lựa chọn đang làm.
+- **Chuẩn bị:** vào app bằng tài khoản Chị Hoa, đêm cuối tuần T6, T7.
+- **Làm:**
+  1. Tab Cá nhân, chạm "Ngày tính giá cuối tuần". Bỏ T6, chọn CN.
+  2. Về màn hình chính của điện thoại, mở ứng dụng khác, chờ 1 phút.
+  3. Mở lại Zalo.
+  4. Thoát màn mà không bấm "Lưu thay đổi".
+- **Mong đợi:**
+  - Bước 3 vẫn ở màn "Ngày tính giá cuối tuần", chip đang chọn T7, CN.
+  - Bước 4 dòng "Ngày tính giá cuối tuần" ở tab Cá nhân vẫn "T6, T7".
+- **Nguồn:** HV3 bước 1, 2 (mục "Ngày tính giá cuối tuần" trạng thái quay lại từ nền)

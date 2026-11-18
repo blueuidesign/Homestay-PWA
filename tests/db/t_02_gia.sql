@@ -20,7 +20,7 @@ begin
   perform t.login((f->>'nga')::uuid);
   perform t.eq(t.dem_dong('select 1 from gia_thang'), 0, 'sale chưa kết nối không thấy giá');
 
-  -- Đổi cách tính cuối tuần thì giá đêm đổi theo (mục "Ngày tính giá cuối tuần" (US11))
+  -- Đổi cách tính cuối tuần thì giá đêm đổi theo (mục "Ngày tính giá cuối tuần" (US4))
   perform t.login(hoa);
   perform fn_cap_nhat_ho_so('{"dem_cuoi_tuan":[6,0]}');
   perform t.eq(gia_dem(c1509, '2026-10-30'), 900000, 'bỏ đêm T6 khỏi cuối tuần thì đêm T6 về giá ngày thường');

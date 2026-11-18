@@ -56,7 +56,7 @@ Hành vi:
 | Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
 |---|---|---|---|---|---|
 | 1 | Mở tab Căn | Hai tab "Nguồn phòng" và "Căn". Nhóm "CĂN CỦA TÔI · 2" kèm nút "+ Thêm căn". Mỗi căn: tên, "2PN · view biển", tình trạng ("Trống hôm nay ✓", "Có khách 12/10") | căn người gọi giữ, chưa ẩn, có tình trạng hôm nay (`co_khach`, `khach_den`, `trong`) | Không | Không |
-| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước", danh sách căn ("ICON40 1509 · 2PN", "view biển"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (mục "Tòa nhà, loại view, số giường, mô tả" (US11)), ghi theo `Tu_dien.md` như thẻ căn ở mục "Danh sách căn" (US1) bước 2: có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | với sale: danh sách nguồn phòng; căn trong phạm vi `ket_noi` `da_ket_noi` | Không | Không |
+| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước", danh sách căn ("ICON40 1509 · 2PN", "view biển"). Phần phòng ngủ lấy từ số phòng ngủ và ô "Số giường" của căn (mục "Tòa nhà, loại view, số giường, mô tả" (US1)), ghi theo `Tu_dien.md` như thẻ căn ở mục "Danh sách căn" (US1) bước 2: có số giường thì "2PN · 3 giường"; không hiện số khách. Số giường của 1509 chưa có trong dữ liệu mẫu | với sale: danh sách nguồn phòng; căn trong phạm vi `ket_noi` `da_ket_noi` | Không | Không |
 | 3 | Xem căn tự nhập | Nhóm "CĂN TỰ NHẬP · 1": "Villa Tuần Châu", "Chú Bình · chưa dùng app · gọi hỏi lịch" | căn người gọi giữ, gồm căn tự nhập; chỉ sale tạo đọc được | Không | Không |
 | 4 | Xem gợi ý mời | "Mời chú Bình dùng app để lịch tự cập nhật, không cần gọi hỏi." và nút "Gửi lời mời qua Zalo". Bấm nút: chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5) nếu hồ sơ sale chưa có số (mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5)), rồi mở cửa sổ chia sẻ | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5). Mời chủ căn tự nhập: app mở cửa sổ gửi của Zalo với tin mời chung, chủ căn mở thì vào app như người mới. Ghép căn tự nhập với căn thật của chủ đó: [MỞ: CH-027] | Hộp thoại xin thông tin và số điện thoại khi chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5); mở cửa sổ chia sẻ | Có chạy mục "Xin tên và số điện thoại khi bắt đầu kết nối" (US5): `profiles`: `sdt`, `ten`, `anh_dai_dien`. Không thì Không |
 | 5 | Bấm "+ Thêm căn" | Luồng thêm căn của chủ nhà (mục "Thêm căn" (US1)) | Không gọi server. Lưu căn theo mục "Thêm căn" (US1) (| Không | Không |
@@ -201,7 +201,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US16-NT4** Khi sale có 2 căn của mình, 2 chủ nhà đã kết nối và 1 căn tự nhập, thì thấy ba nhóm với số đếm 2, 2 và 1.
 - **US16-NT5** Khi căn là căn tự nhập, thì thẻ ghi "chưa dùng app" và không hiện "Trống hôm nay".
 - **US16-NT6** Khi sale bấm "Gửi lời mời qua Zalo", thì mở cửa sổ gửi của Zalo; app không tự gửi tin.
-- **US16-NT7** Khi căn của chủ nhà đã kết nối có số giường, thì danh sách căn ở nguồn phòng ghi số phòng ngủ và số giường như thẻ căn (US11-NT1), không có "x khách", "x người lớn" hay "y trẻ em".
+- **US16-NT7** Khi căn của chủ nhà đã kết nối có số giường, thì danh sách căn ở nguồn phòng ghi số phòng ngủ và số giường như thẻ căn (US1-NT9), không có "x khách", "x người lớn" hay "y trẻ em".
 - **US16-NT8** Khi Sale Hùng bấm "Bỏ khỏi danh sách" ở dòng Chị Hoa đã xóa tài khoản, thì dòng biến ngay, app không hỏi lại. Chị Hoa mở lại app bằng cùng tài khoản Zalo vẫn thấy dữ liệu cũ của mình (QD-013).
 - **US16-NT9** Khi Chị Hoa đã xóa tài khoản và dòng của Chị Hoa còn trong danh sách, thì nhóm "CHỦ NHÀ ĐÃ KẾT NỐI" đếm 1 (chỉ Anh Tuấn), không đếm dòng Chị Hoa.
 - **US16-NT10** Khi Sale Hùng chạm ICON40 1509 dưới Chị Hoa ở Nguồn phòng, thì app mở S3 của 1509, không mở S6-07, và màn không có nút "Đặt phòng" (ghi booking thẳng vào lịch) hay "Sửa căn và giá".
@@ -215,7 +215,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US16-NT18** Khi sale thêm căn xong, thì căn nằm trong nhóm "CĂN TỰ NHẬP" và không có lịch trống.
 - **US16-NT19** Khi sale chọn 12 ảnh, thì không chọn thêm được ảnh thứ 13.
 - **US16-NT20** Khi Sale Lan mở căn tự nhập của mình, thì không thấy tên và số chủ căn do Sale Hùng nhập cho căn tự nhập của Hùng (QD-011).
-- **US16-NT21** Khi sale mở hàng chip "Loại view" ở S6-02, thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md`, giống form thêm căn của chủ nhà (mục "Tòa nhà, loại view, số giường, mô tả" (US11)).
+- **US16-NT21** Khi sale mở hàng chip "Loại view" ở S6-02, thì thấy đúng các lựa chọn của danh sách Loại view trong `Tu_dien.md`, giống form thêm căn của chủ nhà (mục "Tòa nhà, loại view, số giường, mô tả" (US1)).
 - **US16-NT22** Khi sale nhập số giường rồi thêm căn tự nhập, thì thẻ căn tự nhập ghi số phòng ngủ và số giường theo `Tu_dien.md`, mục Phòng ngủ và số giường của căn (ví dụ "2PN · 3 giường").
 - **US16-NT23** Khi sale bỏ trống ô số giường, thì vẫn thêm được căn tự nhập và dòng "Còn thiếu" không nhắc số giường.
 - **US16-NT24** Khi căn có 1 booking sale đã ghi, thì mục "ĐẶT PHÒNG BẠN ĐÃ GHI · 1" hiện đúng ngày, tiền trả chủ, tiền thu khách và phần chênh.
@@ -469,8 +469,8 @@ Vào từ: S6-P1, bấm "Đồng ý, tiếp tục"
 - `fn_sale_bo_nguon`: test ở t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Chủ nhà đã xóa tài khoản (US22-NT10, NT6): US22. US16 chỉ làm phần bỏ dòng và số đếm (US16-NT8, NT8).
-- Lịch 7 ngày của căn chủ nhà chia sẻ, nút xoay ngang (US6-NT12, NT5): US6.
+- Chủ nhà đã xóa tài khoản (US22-NT10, US22-NT6): US22. US16 chỉ làm phần bỏ dòng và số đếm (US16-NT8, US16-NT8).
+- Lịch 7 ngày của căn chủ nhà chia sẻ, nút xoay ngang (US6-NT12, US6-NT5): US6.
 - Chi tiết căn S3 và gửi khách (mục "Chi tiết căn và giá bán" (US13), mục "Gửi thông tin cho khách qua Zalo" (US14)): US13, US14. Nút "Gửi cho khách" chỉ mở màn đó.
 - Link xin lịch, A6, A7 (mục "Sale xin chủ nhà cho xem lịch" (US17)): US17.
 - Ghép căn tự nhập với căn thật khi chủ căn vào app: [MỞ: US16-H2] chưa có, mục "Danh sách căn và nguồn phòng" bước 4, mục "Chi tiết căn tự nhập" bước 5. US này chỉ mở cửa sổ chia sẻ của Zalo (US16-NT6).

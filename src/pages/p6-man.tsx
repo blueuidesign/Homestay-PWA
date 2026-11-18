@@ -2,7 +2,7 @@ import React from "react";
 import { TEN_THU } from "../components/can-hien-thi";
 import { chuTien } from "../services/ngay";
 
-// P6 · Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)). Phần vẽ, tách khỏi p6-dem-cuoi-tuan.tsx để test.
+// P6 · Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US4)). Phần vẽ, tách khỏi p6-dem-cuoi-tuan.tsx để test.
 export const CHU_P6_DAU = "Chọn những đêm tính giá cuối tuần. Các đêm còn lại tính giá ngày thường.";
 export const CHU_P6_GHI_CHU = "Tính theo đêm ở. VD: nhận phòng T6, trả phòng CN là 2 đêm cuối tuần.";
 export const CHU_P6_TEN_GIA = "Tên ô giá ở mục Giá của căn đổi theo lựa chọn này.";

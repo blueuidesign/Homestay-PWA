@@ -18,7 +18,7 @@ import { TheXemLichTuan } from "./cn2-lich-tuan";
 import { KhoiYeuCauDangCho } from "./cn1-yeu-cau";
 import { ChiTietNgay, ChuaTaiDuoc, KhungLichDangTai, LuoiLichThang } from "./cn1-lich-thang";
 
-// Tab Lịch của chủ nhà. Chưa có căn: A4 (US1-NT5). Có căn: lịch tháng CN1, CN1-02, CN1-00 (mục "Lịch tháng và lọc theo căn" (US2))
+// Tab Lịch của chủ nhà. Chưa có căn: A4 (US1-NT7). Có căn: lịch tháng CN1, CN1-02, CN1-00 (mục "Lịch tháng và lọc theo căn" (US2))
 // và chi tiết ngày CN3 ngay dưới lưới (mục "Chi tiết một ngày" (US2)). GET /lich/thang trả cả danh sách căn có lịch,
 // nên một lời gọi đủ cho hàng chip và cho biết chủ nhà đã có căn chưa.
 export const TabLich = () => {

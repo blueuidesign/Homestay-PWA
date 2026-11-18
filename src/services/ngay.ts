@@ -33,7 +33,7 @@ export const cacDem = (ngayNhan: string, ngayTra: string) => {
   return dem;
 };
 
-// Đêm cuối tuần mặc định T6, T7 (mục "Ngày tính giá cuối tuần" (US11)); chủ nhà đổi ở P6 (US11). Thứ đánh số 1 là T2 đến 7 là CN như tai_khoan.dem_cuoi_tuan.
+// Đêm cuối tuần mặc định T6, T7 (mục "Ngày tính giá cuối tuần" (US4)); chủ nhà đổi ở P6 (US4). Thứ đánh số 1 là T2 đến 7 là CN như tai_khoan.dem_cuoi_tuan.
 export const DEM_CUOI_TUAN_MAC_DINH = [5, 6];
 export const soThu = (ngay: string) => ((new Date(raUtc(ngay)).getUTCDay() + 6) % 7) + 1;
 export const laCuoiTuan = (ngay: string, demCuoiTuan: number[] = DEM_CUOI_TUAN_MAC_DINH) => demCuoiTuan.includes(soThu(ngay));

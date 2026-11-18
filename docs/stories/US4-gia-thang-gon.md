@@ -62,7 +62,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 ## Luật chung dùng
 Nguyên văn ở `docs/luat-chung/` (QT.md, HV.md, Nghiep_vu.md, Tu_dien.md), tìm theo mã hoặc tên.
 
-Quy tắc trong nhóm Căn và giá: Giá hai loại đêm, Giá theo tháng và năm, Giá tuần này, Sale chỉ thấy giá sau khi đặt. Cuối tuần là T6 và T7 mặc định; đổi ngày tính cuối tuần (mục "Ngày tính giá cuối tuần" (US11)) ở US11. HV1 đến HV3, HV8.
+Quy tắc trong nhóm Căn và giá: Giá hai loại đêm, Giá theo tháng và năm, Giá tuần này, Sale chỉ thấy giá sau khi đặt. Cuối tuần là T6 và T7 mặc định; đổi ngày tính cuối tuần (mục "Ngày tính giá cuối tuần" (US4)) ở US1. HV1 đến HV3, HV8.
 
 ## Màn hình
 Hình: `python3 docs/thiet-ke/trich-man.py <mã màn>` (docs/thiet-ke/README.md). Chữ và số trên hình lệch story thì story đúng.
@@ -242,7 +242,7 @@ Trạng thái riêng:
 ## Ngoài phạm vi
 - Giá nhiều căn, sao chép giá (mục "Đặt giá nhiều căn" (US7), mục "Sao chép giá sang căn khác" (US7)): US7.
 - Giá ngày lễ, dịp đặc biệt (mục "Giá ngày lễ và dịp đặc biệt" (US8)): US8.
-- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11)): US11.
+- Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US4)): US1.
 - Sale thấy giá (US6-NT12): US6.
 
 ## Việc cần làm
@@ -253,3 +253,38 @@ Trạng thái riêng:
 - [ ] E2E cho luồng chính của story.
 - [ ] Kiểm tay theo `tests/kich-ban/US4.md` trên điện thoại thật.
 - [ ] Đổi Trạng thái ở đầu file và ở `docs/stories/README.md` trong cùng PR.
+
+
+## Phần chuyển vào nhóm Giá khi gộp story (QD-020), chưa viết lại
+
+Nguyên liệu thô của màn chọn đêm tính giá cuối tuần (P6), lấy từ story cũ về căn. Viết lại cùng nhóm Giá; khi đó tiêu chí đánh số lại. Tùng 04/11/2026 (điểm 5): "Không bao giờ có chuyện không có giá cuối tuần. Người dùng nếu muốn setup giá chung thì cứ gõ lại giá giống ngày thường, nhưng nhất định có giá cuối tuần." (P6 phải chọn ít nhất một đêm.)
+
+### Ngày tính giá cuối tuần
+Rủi ro: cao
+Mục đích: chủ nhà chọn những đêm nào tính giá cuối tuần, áp dụng cho mọi căn.
+Màn hình: P6
+Khi nào xảy ra: chủ nhà vào Cá nhân > "Ngày tính giá cuối tuần".
+
+Hành vi:
+| Bước | Người dùng | App | Máy chủ | Ngoài app | Dữ liệu đổi |
+|---|---|---|---|---|---|
+| 1 | Mở màn | "Chọn những đêm tính giá cuối tuần. Các đêm còn lại tính giá ngày thường." và hàng chip "Đêm cuối tuần" theo thứ | đêm cuối tuần | Không | Không |
+| 2 | Chọn các thứ | Ghi chú "Tính theo đêm ở. VD: nhận phòng T6, trả phòng CN là 2 đêm cuối tuần." | Không gọi server | Không | Không |
+| 3 | Xem mẫu | Mục "Một tuần của phòng 1509" hiện giá từng ngày; ô xanh là giá cuối tuần. Ghi chú "Tên ô giá ở mục Giá của căn đổi theo lựa chọn này." | | Không | Không |
+| 4 | Bấm "Lưu thay đổi" | Lưu. Kết quả chưa vẽ (?) | đổi đêm cuối tuần | Không | Tập các thứ tính giá cuối tuần của tài khoản |
+
+Theo quy tắc: Giá hai loại đêm.
+
+Trạng thái màn:
+- rỗng: không áp dụng
+- đang tải: theo HV1
+- lỗi mạng: theo HV2
+- không có quyền: theo HV5
+- từ chối quyền: không áp dụng
+- quay lại từ nền: theo HV3
+- mở từ link: không áp dụng
+
+Tiêu chí:
+- **US4-NT8** Khi chủ nhà chọn T6 và T7 rồi lưu, thì ô giá ở tab Giá ghi "Cuối tuần (T6, T7)".
+- **US4-NT9** Khi chủ nhà chọn T7 và CN rồi lưu, thì ô giá ở tab Giá ghi tên theo hai thứ đó và ô "Ngày thường" ghi các thứ còn lại.
+- **US4-NT10** Khi khách nhận phòng T6 và trả phòng CN, thì hai đêm đều tính giá cuối tuần với lựa chọn T6, T7.

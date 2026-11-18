@@ -6,15 +6,15 @@ declare f jsonb := t.fixture();
   c1509 uuid := (f->>'c1509')::uuid; c3402 uuid := (f->>'c3402')::uuid; c1103 uuid := (f->>'c1103')::uuid; villa uuid := (f->>'villa')::uuid;
   v_id uuid; v_c uuid; a1 uuid; a2 uuid; r jsonb; i int; v_ids uuid[] := '{}';
 begin
-  -- Mã căn (US1-NT11, mục "Sửa thông tin căn" (US11))
+  -- Mã căn (US1-NT15, mục "Sửa thông tin căn" (US1))
   perform t.login(hoa);
-  perform t.throws($q$select fn_tao_can('{"ma_can":"1509","so_phong_ngu":2}')$q$, 'US1-NT11 mã căn trùng trong cùng chủ bị từ chối', 'Đã có căn 1509');
+  perform t.throws($q$select fn_tao_can('{"ma_can":"1509","so_phong_ngu":2}')$q$, 'US1-NT15 mã căn trùng trong cùng chủ bị từ chối', 'Đã có căn 1509');
   perform t.throws($q$select fn_tao_can('{"ma_can":"9999"}')$q$, 'mục "Thêm căn" (US1) thiếu số phòng ngủ thì không thêm', 'số phòng ngủ');
-  perform t.throws(format($q$select fn_sua_can(%L, '{"ma_can":"1509"}')$q$, c3402), 'mục "Sửa thông tin căn" (US11) đổi mã trùng căn khác của mình bị từ chối', 'Đã có căn 1509');
+  perform t.throws(format($q$select fn_sua_can(%L, '{"ma_can":"1509"}')$q$, c3402), 'mục "Sửa thông tin căn" (US1) đổi mã trùng căn khác của mình bị từ chối', 'Đã có căn 1509');
   perform fn_sua_can(c3402, '{"so_giuong":2,"loai_view":"nui"}');
-  perform t.eq((select so_giuong::int from can where id = c3402), 2, 'mục "Sửa thông tin căn" (US11) sửa số giường');
+  perform t.eq((select so_giuong::int from can where id = c3402), 2, 'mục "Sửa thông tin căn" (US1) sửa số giường');
   perform fn_sua_can(c3402, '{"so_giuong":null}');
-  perform t.ok((select so_giuong is null from can where id = c3402), 'mục "Sửa thông tin căn" (US11) xóa trống số giường');
+  perform t.ok((select so_giuong is null from can where id = c3402), 'mục "Sửa thông tin căn" (US1) xóa trống số giường');
   perform t.login(tuan);
   perform t.throws(format($q$select fn_sua_can(%L, '{"so_giuong":9}')$q$, c1509), 'PQ3.CHU chủ khác không sửa được căn', 'Không tìm thấy căn');
   perform fn_tao_can('{"ma_can":"1509","so_phong_ngu":1}');   -- hai chủ khác nhau cùng mã được
@@ -24,11 +24,11 @@ begin
   a1 := fn_dang_ky_anh(hoa::text || '/a1.jpg'); a2 := fn_dang_ky_anh(hoa::text || '/a2.jpg');
   perform t.throws(format('select fn_dang_ky_anh(%L)', tuan::text || '/x.jpg'), 'PQ3 không ghi ảnh vào thư mục người khác', 'không thuộc về bạn');
   perform fn_gan_anh_can(c1509, array[a2, a1]);
-  perform t.eq((select id from anh_can where can_id = c1509 and thu_tu = 1), a2, 'US11-NT9 ảnh đầu danh sách là ảnh đại diện');
+  perform t.eq((select id from anh_can where can_id = c1509 and thu_tu = 1), a2, 'US1-NT31 ảnh đầu danh sách là ảnh đại diện');
   perform fn_gan_anh_can(c1509, array[a1]);
   perform t.eq((select count(*)::int from anh_can where can_id = c1509), 1, 'ảnh không còn trong danh sách thì bỏ khỏi căn');
   for i in 1..13 loop v_ids := v_ids || fn_dang_ky_anh(hoa::text || '/n' || i || '.jpg'); end loop;
-  perform t.throws(format('select fn_gan_anh_can(%L, %L::uuid[])', c1509, v_ids), 'US25-NT4 quá 12 ảnh bị từ chối', 'tối đa 12');
+  perform t.throws(format('select fn_gan_anh_can(%L, %L::uuid[])', c1509, v_ids), 'US1-NT22 quá 12 ảnh bị từ chối', 'tối đa 12');
   perform t.login(tuan);
   perform t.throws(format('select fn_gan_anh_can(%L, array[%L]::uuid[])', c1103, a1), 'PQ3.CHU không gắn ảnh của chủ khác vào căn mình', 'không phải của bạn');
   perform t.login(hung);
@@ -87,17 +87,17 @@ begin
   perform t.login((f->>'admin')::uuid);
   perform t.eq(t.dem_dong('select 1 from muc_cong'), 0, 'quản trị cũng không đọc mức cộng của sale');
 
-  -- Xóa căn (mục "Xóa căn" (US27)): còn booking chưa tới ngày trả thì không xóa; trả hôm nay thì xóa được
+  -- Xóa căn (mục "Xóa căn" (US1)): còn booking chưa tới ngày trả thì không xóa; trả hôm nay thì xóa được
   perform t.login(hoa);
   perform fn_chu_ghi_booking(jsonb_build_object('can_id', c3402, 'ngay_nhan', local_today() + 5, 'ngay_tra', local_today() + 6, 'tien_phong', 800000));
-  perform t.throws(format('select fn_an_can(%L)', c3402), 'mục "Xóa căn" (US27) còn đặt phòng sắp tới thì không xóa căn', 'Căn còn đặt phòng sắp tới');
+  perform t.throws(format('select fn_an_can(%L)', c3402), 'mục "Xóa căn" (US1) còn đặt phòng sắp tới thì không xóa căn', 'Căn còn đặt phòng sắp tới');
   v_c := fn_tao_can('{"ma_can":"2105","so_phong_ngu":1}');
   perform fn_chu_ghi_booking(jsonb_build_object('can_id', v_c, 'ngay_nhan', local_today() - 2, 'ngay_tra', local_today(), 'tien_phong', 500000));
   perform fn_an_can(v_c);
-  perform t.eq(t.dem_dong(format('select 1 from booking where can_id = %L', v_c)), 1, 'mục "Xóa căn" (US27) xóa căn là ẩn: đặt phòng cũ còn');
+  perform t.eq(t.dem_dong(format('select 1 from booking where can_id = %L', v_c)), 1, 'mục "Xóa căn" (US1) xóa căn là ẩn: đặt phòng cũ còn');
   perform fn_tao_can('{"ma_can":"2105","so_phong_ngu":1}');   -- mã của căn đã xóa dùng lại được
   perform t.login(hung);
-  perform t.eq(t.dem_dong(format('select 1 from can where id = %L', v_c)), 0, 'mục "Xóa căn" (US27) căn đã xóa biến khỏi phía sale');
+  perform t.eq(t.dem_dong(format('select 1 from can where id = %L', v_c)), 0, 'mục "Xóa căn" (US1) căn đã xóa biến khỏi phía sale');
 
   -- Căn tự nhập: giá chủ lấy từ căn; xóa số chủ căn thì không còn giữ (mục "Thêm căn tự nhập" (US16))
   perform t.eq(gia_dem(villa, '2026-11-03'), 1400000, 'mục "Ghi booking đã chốt cho căn tự nhập" (US16) giá chủ của căn tự nhập lấy từ giá sale đã nhập');

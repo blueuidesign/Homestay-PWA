@@ -308,7 +308,7 @@ Xóa tài khoản chỉ xóa số điện thoại, đặt `profiles.da_xoa_luc` 
 - `fn_xoa_tai_khoan`: test ở t_02_gia.sql, t_08_thong_bao.sql, t_11_ket_noi_quan_tri.sql
 
 ## Ngoài phạm vi
-- Webhook của Zalo, kiểm chữ ký, ghi sự kiện, xóa số điện thoại và đánh dấu đã xóa tài khoản, ghi thông báo "chủ nhà đã xóa tài khoản" cho sale (QD-013), lỗi giữa chừng và gửi lại (US22-NT22, NT3, NT4, NT8, NT10, NT14 phần server):. Phía server của cờ đã xóa tài khoản, không gửi căn, lịch, giá cho sale, từ chối đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản bằng `KHONG_CON_QUYEN`, bỏ cờ khi cho lại tên và số, trả tài khoản cũ:. US này chỉ hiện kết quả phía app.
+- Webhook của Zalo, kiểm chữ ký, ghi sự kiện, xóa số điện thoại và đánh dấu đã xóa tài khoản, ghi thông báo "chủ nhà đã xóa tài khoản" cho sale (QD-013), lỗi giữa chừng và gửi lại (US22-NT22, US22-NT3, US22-NT4, US22-NT8, US22-NT10, US22-NT14 phần server):. Phía server của cờ đã xóa tài khoản, không gửi căn, lịch, giá cho sale, từ chối đặt phòng, yêu cầu đặt phòng vào căn của chủ nhà đã xóa tài khoản bằng `KHONG_CON_QUYEN`, bỏ cờ khi cho lại tên và số, trả tài khoản cũ:. US này chỉ hiện kết quả phía app.
 - Sao lưu và khôi phục (mục "Sao lưu và khôi phục dữ liệu" (US40)): On Hold, không giao.
 - Hồ sơ, cài đặt, giờ nhận trả, đăng xuất (mục "Menu tài khoản (tab Cá nhân)" (US21) đến mục "Giờ nhận, trả phòng mặc định" (US21)): US21.
 - Các màn gốc của những chỗ bị ảnh hưởng: S6 và Nguồn phòng (US16), lịch 7 ngày (US6, US16), chi tiết đặt phòng của chủ nhà (US10), chi tiết đặt phòng của sale (US15), S7-03 (US19), P13 và popup (US30), A1-link (US6), A8 và CN7 (US17, US5). US22 chỉ làm biến thể "người kia đã xóa tài khoản".

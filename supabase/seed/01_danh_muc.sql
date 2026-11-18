@@ -1,7 +1,7 @@
 -- Seed: dữ liệu mặc định để một môi trường trống chạy được. Chạy sau toàn bộ migration, chạy lại không sinh trùng.
 -- KHÔNG đặt dữ liệu riêng của production ở đây (dùng data-fixes/). Không có email, số điện thoại thật.
 
--- Danh sách tòa nhà đặt sẵn ở Hạ Long (US2). Người dùng thêm tòa mới thì tao_boi là người đó.
+-- Danh sách tòa nhà đặt sẵn ở Hạ Long (US1). Người dùng thêm tòa mới thì tao_boi là người đó.
 insert into public.toa_nha (ten, khu_vuc) values
   ('ICON40', 'Bãi Cháy'),
   ('À La Carte', 'Bãi Cháy'),

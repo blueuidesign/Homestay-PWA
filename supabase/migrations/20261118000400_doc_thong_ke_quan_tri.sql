@@ -91,7 +91,7 @@ end $$;
 -- ---------- Thống kê ----------
 
 -- Thống kê một tháng của chủ nhà (CN8, CN1). p_thang: ngày bất kỳ trong tháng. Chỉ căn có lịch mình giữ, kể cả căn đã xóa
--- (doanh thu cũ không đổi, mục "Xóa căn" (US27)). Booking đã hủy không tính. Doanh thu và đêm có khách chia theo đêm (QT2.2, QT4.2).
+-- (doanh thu cũ không đổi, mục "Xóa căn" (US1)). Booking đã hủy không tính. Doanh thu và đêm có khách chia theo đêm (QT2.2, QT4.2).
 -- Không có giá bán hay tiền chênh của sale (PQ11, PQ15).
 create or replace function public.fn_thong_ke_chu(p_thang date default null) returns jsonb
 language plpgsql stable security definer set search_path = public as $$

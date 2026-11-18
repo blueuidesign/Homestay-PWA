@@ -9,7 +9,7 @@
 ### 1.1 Ngày và đêm
 - Ngày nghiệp vụ theo giờ Việt Nam. "Hôm nay" ở database là `local_today()`.
 - Một lần ở chiếm các đêm từ ngày nhận tới trước ngày trả. Nhận 10/10, trả 12/10 là hai đêm: đêm 10/10 và đêm 11/10. Khách cũ trả ngày 12/10 và khách mới nhận ngày 12/10 không trùng nhau.
-- Đêm cuối tuần mặc định là đêm thứ Sáu và đêm thứ Bảy. Mỗi chủ nhà đổi được (`profiles.dem_cuoi_tuan`, story US11).
+- Đêm cuối tuần mặc định là đêm thứ Sáu và đêm thứ Bảy. Mỗi chủ nhà đổi được (`profiles.dem_cuoi_tuan`, story US1).
 
 ### 1.2 Tiền
 - Tiền là số nguyên đồng, không có phần lẻ.
@@ -128,11 +128,11 @@ Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
 
 | Tên ngắn | Nội dung quy tắc | Yêu cầu dùng | Ví dụ số |
 |---|---|---|---|
-| Căn tối thiểu | Một căn chỉ cần mã căn và số phòng ngủ. Ảnh, giá, tòa nhà, loại view, số giường, mô tả thêm sau cũng được. Tên nhà mặt đất đặt tự do | mục "Thêm căn" (US1), mục "Sửa thông tin căn" (US11) | "Greenbay", "Phòng 1509" |
-| Mã căn không trùng | Một chủ nhà không có hai căn cùng mã. Hai chủ nhà khác nhau có cùng mã được. Căn đã xóa (ẩn) không tính, nên mã của nó dùng lại được. | mục "Thêm căn" (US1), mục "Sửa thông tin căn" (US11), mục "Xóa căn" (US27) | "Đã có căn 1509" |
-| Ảnh căn | Tối đa 12 ảnh. Ảnh đầu tiên là ảnh đại diện. Nên có ít nhất 6 ảnh vì sale cần. Còn ảnh đang tải hoặc tải lỗi thì chưa thêm căn được | mục "Danh sách căn" (US1), mục "Ảnh khi thêm căn" (US25), mục "Sửa thông tin căn" (US11) | 12 ảnh, 6 ảnh |
+| Căn tối thiểu | Một căn chỉ cần mã căn và số phòng ngủ. Ảnh, giá, tòa nhà, loại view, số giường, mô tả thêm sau cũng được. Tên nhà mặt đất đặt tự do | mục "Thêm căn" (US1), mục "Sửa thông tin căn" (US1) | "Greenbay", "Phòng 1509" |
+| Mã căn không trùng | Một chủ nhà không có hai căn cùng mã. Hai chủ nhà khác nhau có cùng mã được. Căn đã xóa (ẩn) không tính, nên mã của nó dùng lại được. | mục "Thêm căn" (US1), mục "Sửa thông tin căn" (US1), mục "Xóa căn" (US1) | "Đã có căn 1509" |
+| Ảnh căn | Tối đa 12 ảnh. Ảnh đầu tiên là ảnh đại diện. Nên có ít nhất 6 ảnh vì sale cần. Còn ảnh đang tải hoặc tải lỗi thì chưa thêm căn được | mục "Danh sách căn" (US1), mục "Ảnh khi thêm căn" (US1), mục "Sửa thông tin căn" (US1) | 12 ảnh, 6 ảnh |
 | Giá tuần này | Thẻ căn ghi khoảng từ giá đêm thấp nhất đến cao nhất trong tuần này | mục "Danh sách căn" (US1) | 900.000đ – 1.300.000đ |
-| Giá hai loại đêm | Mỗi tháng có hai giá: ngày thường (CN đến T5) và cuối tuần (T6, T7). Các thứ tính cuối tuần chọn ở Cá nhân và áp dụng cho mọi căn. Tính theo đêm ở: đêm nhận phòng T6 là đêm cuối tuần | mục "Đặt giá theo tháng" (US4), mục "Đặt giá nhiều căn" (US7), mục "Ngày tính giá cuối tuần" (US11) | Nhận T6, trả CN là 2 đêm cuối tuần |
+| Giá hai loại đêm | Mỗi tháng có hai giá: ngày thường (CN đến T5) và cuối tuần (T6, T7). Các thứ tính cuối tuần chọn ở Cá nhân và áp dụng cho mọi căn. Tính theo đêm ở: đêm nhận phòng T6 là đêm cuối tuần | mục "Đặt giá theo tháng" (US4), mục "Đặt giá nhiều căn" (US7), mục "Ngày tính giá cuối tuần" (US4) | Nhận T6, trả CN là 2 đêm cuối tuần |
 | Giá theo tháng và năm | Giá đặt theo tháng, chọn được nhiều tháng một lần, cho năm nay hoặc năm sau | mục "Đặt giá theo tháng" (US4), mục "Đặt giá nhiều căn" (US7) | Tháng 11 – 12 cùng 800k / 1,1tr |
 | Giá dịp thay giá tháng | Đêm nằm trong dải ngày lễ hoặc dịp đặc biệt dùng giá của dải đó, không dùng giá tháng | mục "Đặt giá theo tháng" (US4), mục "Giá ngày lễ và dịp đặc biệt" (US8) | 24/10 – 25/10 giá 1.300.000đ, lịch giá hiện 1,3tr |
 | Dải ngày lễ do Home247 đặt | Home247 đặt sẵn dải nghỉ của từng dịp mỗi năm (gồm nghỉ bù, nối cuối tuần). Bản đầu nạp bằng script, sau người quản trị sửa theo mục "Quản trị dải ngày lễ hằng năm" (US23). Chủ nhà sửa được dải. Một dải tối đa 10 ngày | mục "Giá ngày lễ và dịp đặc biệt" (US8), mục "Quản trị dải ngày lễ hằng năm" (US23) | 30/4 → 3/5 là 4 ngày; 13 ngày là quá |
@@ -142,14 +142,14 @@ Quy tắc của nhóm (story trỏ tới bằng tên ngắn):
 | Sale chỉ thấy giá sau khi đặt | Căn chưa đặt giá thì sale chưa thấy giá. Đã đặt giá thì sale được chia sẻ căn đó luôn thấy (QD-007) | mục "Đặt giá theo tháng" (US4) | Không |
 | Booking giữ giá riêng | Tiền của một booking lưu riêng cho booking đó, không tham chiếu bảng giá. Bảng giá (giá tháng, giá dịp) chỉ để điền sẵn tiền phòng khi tạo booking (QT4.1). Đổi bảng giá sau đó không đổi booking đã có. | mục "Đặt giá theo tháng" (US4), mục "Giá ngày lễ và dịp đặc biệt" (US8), mục "Đặt giá nhiều căn" (US7), mục "Sao chép giá sang căn khác" (US7), mục "Người đặt, tiền phòng và tiền cọc" (US3) | B1 2.200.000đ giữ nguyên khi đổi giá tháng 10 |
 | Giá dịp không chồng ngày | Hai dải giá ngày lễ hoặc dịp đặc biệt của cùng một căn không được có ngày chung. Lưu dải chồng ngày thì báo lỗi, không lưu; chặn cả ở database. Hai dải liền nhau thì được. | mục "Giá ngày lễ và dịp đặc biệt" (US8) | 24/10 – 25/10 và 25/10 – 26/10 chồng ngày 25/10 |
-| Tòa nhà dùng chung | Một danh sách tòa cho mọi người. Người quản trị Home247 đặt sẵn (mục "Quản trị danh sách tòa nhà" (US29)). Người dùng thêm tòa mới thoải mái, không cần duyệt, và tòa đó hiện cho mọi người chọn. Tòa người dùng thêm hiện cho mọi người. | mục "Tòa nhà, loại view, số giường, mô tả" (US11), mục "Tìm phòng trống theo ngày" (US12), mục "Quản trị danh sách tòa nhà" (US29) | Không |
-| Xóa căn là ẩn căn | Xóa căn chỉ ẩn căn khỏi màn hình; đặt phòng và số thống kê vẫn còn. Không xóa được khi còn đặt phòng có ngày trả sau hôm nay hoặc yêu cầu đang chờ. Sale không còn thấy căn. Mã căn dùng lại được. Bản đầu không hiện lại được | mục "Xóa căn" (US27) | Không |
+| Tòa nhà dùng chung | Một danh sách tòa cho mọi người. Người quản trị Home247 đặt sẵn (mục "Quản trị danh sách tòa nhà" (US29)). Người dùng thêm tòa mới thoải mái, không cần duyệt, và tòa đó hiện cho mọi người chọn. Tòa người dùng thêm hiện cho mọi người. | mục "Tòa nhà, loại view, số giường, mô tả" (US1), mục "Tìm phòng trống theo ngày" (US12), mục "Quản trị danh sách tòa nhà" (US29) | Không |
+| Xóa căn là ẩn căn | Xóa căn chỉ ẩn căn khỏi màn hình; đặt phòng và số thống kê vẫn còn. Không xóa được khi còn đặt phòng có ngày trả sau hôm nay hoặc yêu cầu đang chờ. Sale không còn thấy căn. Mã căn dùng lại được. Bản đầu không hiện lại được | mục "Xóa căn" (US1) | Không |
 
 Ai thấy gì trong nhóm này:
 
 | Dữ liệu | Chủ nhà | Sale đã kết nối | Người mở link chưa kết nối | Cộng tác viên | Khách |
 |---|---|---|---|---|---|
-| Danh sách căn, mã căn, số phòng ngủ | Thấy, sửa, xóa (ẩn, mục "Xóa căn" (US27)). Không thấy căn đã xóa | Thấy căn của chủ nhà đã đồng ý, trừ căn đã xóa | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Thông tin căn sale gửi (nhóm Tìm phòng và gửi khách) |
+| Danh sách căn, mã căn, số phòng ngủ | Thấy, sửa, xóa (ẩn, mục "Xóa căn" (US1)). Không thấy căn đã xóa | Thấy căn của chủ nhà đã đồng ý, trừ căn đã xóa | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Thông tin căn sale gửi (nhóm Tìm phòng và gửi khách) |
 | Danh sách tòa nhà | Thấy mọi tòa, thêm tòa mới | Thấy mọi tòa, thêm tòa mới khi nhập căn của mình | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Tên tòa trong tin sale gửi |
 | Ảnh, mô tả gửi khách, tòa nhà, loại view, số giường | Thấy và sửa | Thấy, dùng khi gửi khách | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Phần sale chọn gửi |
 | Giá đêm (tháng, ngày lễ, dịp đặc biệt) | Thấy và sửa | Thấy với căn được chia sẻ, chỉ sau khi chủ nhà đặt giá (QD-007) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không thấy giá chủ nhà |
@@ -209,7 +209,7 @@ Ai thấy gì trong nhóm này:
 
 | Dữ liệu | Chủ nhà | Sale đã kết nối | Người mở link chưa kết nối | Cộng tác viên | Khách |
 |---|---|---|---|---|---|
-| Lịch trống / kín của căn | Thấy mọi căn của mình | Thấy căn chủ nhà đã đồng ý, trừ căn chủ nhà đã xóa (mục "Xóa căn" (US27)) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
+| Lịch trống / kín của căn | Thấy mọi căn của mình | Thấy căn chủ nhà đã đồng ý, trừ căn chủ nhà đã xóa (mục "Xóa căn" (US1)) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 | Giá chủ nhà theo đêm | Thấy | Luôn thấy với căn được chia sẻ, khi chủ nhà đã đặt giá (QD-007) | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không thấy |
 | Giá bán, mức cộng thêm | Không thấy | Chỉ sale đó thấy | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Thấy giá bán, không thấy phần cộng thêm |
 | Ảnh, mô tả gửi khách, tòa nhà, loại view, số giường (không có tiện ích căn) | Thấy, sửa | Thấy, chọn gửi khách | Không (QD-008) | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Phần sale gửi |
@@ -317,7 +317,7 @@ Ai thấy gì trong nhóm này:
 | Cài đặt thông báo | Của mình | Của mình | Không | Không áp dụng ở bản đầu (nhóm Đội nhóm, cộng tác viên) | Không |
 
 ### Quản trị Home247 trên web
-Nhóm này cho người quản trị của Home247 (vai ADMIN) làm việc vận hành trên trang quản trị riêng, không nằm trong các tab của chủ nhà và sale. Mục đầu tiên là dải ngày lễ hằng năm mà chủ nhà chọn nhanh ở mục "Giá ngày lễ và dịp đặc biệt" (US8). Mục thứ hai là danh sách tòa nhà đặt sẵn mà chủ nhà chọn ở mục "Tòa nhà, loại view, số giường, mô tả" (US11). Mục thứ ba là thêm người đồng quản trị (mục "Thêm người đồng quản trị" (US34)). Người quản trị đăng nhập bằng mã gửi tới email của mình; quản trị viên đầu tiên là <email quản trị viên đầu tiên> (mục "Thêm người đồng quản trị" (US34)). Các mục quản trị khác (hỗ trợ, tra cứu tài khoản) và bản web cho chủ nhà thuộc và, chưa viết ở đây. Chưa có thiết kế. Câu có thẻ [MỞ: CH-051] chờ trả lời ở `docs/Cau_hoi_mo.md`.
+Nhóm này cho người quản trị của Home247 (vai ADMIN) làm việc vận hành trên trang quản trị riêng, không nằm trong các tab của chủ nhà và sale. Mục đầu tiên là dải ngày lễ hằng năm mà chủ nhà chọn nhanh ở mục "Giá ngày lễ và dịp đặc biệt" (US8). Mục thứ hai là danh sách tòa nhà đặt sẵn mà chủ nhà chọn ở mục "Tòa nhà, loại view, số giường, mô tả" (US1). Mục thứ ba là thêm người đồng quản trị (mục "Thêm người đồng quản trị" (US34)). Người quản trị đăng nhập bằng mã gửi tới email của mình; quản trị viên đầu tiên là <email quản trị viên đầu tiên> (mục "Thêm người đồng quản trị" (US34)). Các mục quản trị khác (hỗ trợ, tra cứu tài khoản) và bản web cho chủ nhà thuộc và, chưa viết ở đây. Chưa có thiết kế. Câu có thẻ [MỞ: CH-051] chờ trả lời ở `docs/Cau_hoi_mo.md`.
 
 Cột "app" trong bảng hành vi ghi việc web quản trị hiện, vì nhóm này không chạy trong app.
 
@@ -328,5 +328,5 @@ Ai thấy gì trong nhóm này:
 | Dữ liệu | Quản trị viên (ADMIN) | Chủ nhà | Sale | Khách |
 |---|---|---|---|---|
 | Dải ngày lễ của Home247 | Thấy, thêm, sửa, xóa | Thấy trong "Chọn nhanh ngày lễ" (mục "Giá ngày lễ và dịp đặc biệt" (US8)) | ? | Không |
-| Danh sách tòa nhà | Thấy mọi tòa, thêm, sửa | Thấy mọi tòa, thêm tòa mới (mục "Tòa nhà, loại view, số giường, mô tả" (US11)) | Thấy mọi tòa, thêm tòa mới khi nhập căn của mình | Tên tòa trong tin sale gửi |
+| Danh sách tòa nhà | Thấy mọi tòa, thêm, sửa | Thấy mọi tòa, thêm tòa mới (mục "Tòa nhà, loại view, số giường, mô tả" (US1)) | Thấy mọi tòa, thêm tòa mới khi nhập căn của mình | Tên tòa trong tin sale gửi |
 | Danh sách quản trị viên (email) | Thấy. Chỉ quản trị viên đầu tiên thêm, gỡ (mục "Thêm người đồng quản trị" (US34)) | Không | Không | Không |

@@ -1,9 +1,9 @@
-// Danh sách ảnh trong form thêm căn CN5-A1 (US25, mục "Ảnh khi thêm căn" (US25)). Giữ trạng thái từng ảnh: đang tải, xong, lỗi.
+// Danh sách ảnh trong form thêm căn CN5-A1 (US1, mục "Ảnh khi thêm căn" (US1)). Giữ trạng thái từng ảnh: đang tải, xong, lỗi.
 // Chạy được ngoài React để test; màn đọc qua useSyncExternalStore.
 import { MAX_ANH_CAN, postAnh } from "../services/api";
 import { LoiMang, type Anh, type KetQuaPostAnh, type TepAnh } from "../services/kieu";
 
-export const NEN_TOI_THIEU_ANH = 6; // US25-NT1: căn dưới 6 ảnh thì gợi ý thêm ảnh
+export const NEN_TOI_THIEU_ANH = 6; // US1-NT11: căn dưới 6 ảnh thì gợi ý thêm ảnh
 
 export type TrangThaiAnh = "dang_tai" | "xong" | "loi";
 export type AnhForm = {
@@ -18,7 +18,7 @@ export type AnhForm = {
 export type TaiAnh = (tep: TepAnh, idem: string, onTienDo?: (p: number) => void) => Promise<KetQuaPostAnh>;
 
 export const demTheo = (ds: AnhForm[], t: TrangThaiAnh) => ds.filter((a) => a.trang_thai === t).length;
-// US25-NT2, NT2: còn ảnh đang tải thì không thêm căn; ảnh lỗi thì chặn khi bấm "Thêm căn"
+// US1-NT20, US1-NT20: còn ảnh đang tải thì không thêm căn; ảnh lỗi thì chặn khi bấm "Thêm căn"
 export const chuDangTai = (n: number) => `Đang tải ${n} ảnh. Chờ tải xong mới thêm được căn.`;
 export const chuLoiAnh = (n: number) => `${n} ảnh chưa tải được. Bấm Thử lại hoặc xóa ảnh đó rồi thêm căn.`;
 
@@ -49,7 +49,7 @@ export class BoAnhForm {
     this.dat(this.ds.map((a) => (a.khoa === khoa ? { ...a, ...ghi } : a)));
   }
 
-  // Thêm ảnh vừa chọn, tối đa 12 ảnh (US25-NT4). Trả số ảnh nhận và số ảnh bị bỏ vì quá 12.
+  // Thêm ảnh vừa chọn, tối đa 12 ảnh (US1-NT22). Trả số ảnh nhận và số ảnh bị bỏ vì quá 12.
   // `xong` hoàn tất khi mọi ảnh vừa thêm đã tải xong hoặc lỗi.
   themTep(tep: TepAnh[]): { nhan: number; bo: number; xong: Promise<void> } {
     const con = Math.max(0, MAX_ANH_CAN - this.ds.length);
@@ -78,7 +78,7 @@ export class BoAnhForm {
     }
   }
 
-  // Nút "Thử lại" trên ảnh lỗi (mục "Ảnh khi thêm căn" (US25) bước 4): cùng Idempotency-Key
+  // Nút "Thử lại" trên ảnh lỗi (mục "Ảnh khi thêm căn" (US1) bước 4): cùng Idempotency-Key
   thuLai(khoa: string): Promise<void> {
     return this.ds.find((a) => a.khoa === khoa)?.trang_thai === "loi" ? this.tai(khoa) : Promise.resolve();
   }
@@ -88,7 +88,7 @@ export class BoAnhForm {
     this.dat(this.ds.filter((a) => a.khoa !== khoa));
   }
 
-  // US11 · CN5-02: nạp ảnh đang gắn căn (đã có trên server, trạng thái xong). Gọi một lần khi mở màn sửa.
+  // US1 · CN5-02: nạp ảnh đang gắn căn (đã có trên server, trạng thái xong). Gọi một lần khi mở màn sửa.
   nap(anh: Anh[]) {
     this.dat(
       anh.map((a) => ({
@@ -102,7 +102,7 @@ export class BoAnhForm {
     );
   }
 
-  // US11 · CN5-02 "Đổi thứ tự": đưa ảnh lên trước (-1) hoặc ra sau (1) một vị trí. Ảnh số 1 sau khi lưu là ảnh đại diện (US11-NT9).
+  // US1 · CN5-02 "Đổi thứ tự": đưa ảnh lên trước (-1) hoặc ra sau (1) một vị trí. Ảnh số 1 sau khi lưu là ảnh đại diện (US1-NT31).
   doiViTri(khoa: string, huong: -1 | 1) {
     const i = this.ds.findIndex((a) => a.khoa === khoa);
     const j = i + huong;

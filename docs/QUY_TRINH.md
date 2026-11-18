@@ -138,7 +138,7 @@ Mẫu đã duyệt: `docs/stories/US3-ghi-booking.md` (Tùng duyệt 18/11/2026)
 ```
 
 Luật viết:
-- Một story làm được trong vài ngày. To hơn thì tách theo lát dọc (mỗi lát người dùng làm được một việc trọn vẹn).
+- Một story là một nhóm chức năng, giữ suốt dự án (QD-019, QD-020). Story to thì code theo từng phần: mỗi PR làm một phần (một mục ở "Hành vi"), PR ghi phần nào; tiêu chí nào đã có test thì máy đếm. Không tách story để cho nhỏ.
 - Story tự đủ: phiên code chỉ đọc story này và luật chung nó trỏ tới bằng mã. Không mượn bảng bước của story khác. Một màn dùng chung cho nhiều story thì mỗi story mô tả đúng các bước nó làm.
 - Mỗi tiêu chí nghiệm thu thuộc đúng một story. `scripts/kiem-tai-lieu.py` kiểm điều này.
 - Tiêu chí phải có số cụ thể lấy từ `docs/luat-chung/Du_lieu_mau.md` để viết thành test được. Không viết được ví dụ thì luật chưa đủ rõ để code: hỏi Tùng.
@@ -152,7 +152,7 @@ Luật viết:
 
 - **Không code theo story có đặc tả thô.** Viết lại trước (story US41), rồi mới làm.
 - Story thô **chưa có** nhiều quyết định Tùng đã chốt ở bản Zalo (13 điểm ngày 04/11/2026 và khoảng 150 câu nói, câu trả lời khác). Chúng nằm ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; viết lại story nào thì áp phần của story đó.
-- Viết lại không đổi nghĩa tiêu chí. Mã tiêu chí giữ nguyên; tiêu chí thêm mới thì cấp số tiếp theo. Tiêu chí chuyển sang story khác thì giữ mã cũ và ghi rõ trong commit.
+- Viết lại không đổi nghĩa tiêu chí. Khi gộp story theo nhóm (QD-020), tiêu chí và câu hỏi được đánh số lại theo thứ tự đọc trong story mới; đổi bằng máy ở mọi chỗ trong cùng commit và ghi vào `docs/tu-sinh/Doi_ma_gop.md`. Sau lần gộp đó, mã không đổi nữa: tiêu chí thêm mới cấp số tiếp theo, tiêu chí đổi nghĩa cấp mã mới (mục 5).
 - Thấy nguyên liệu mâu thuẫn nhau hay mâu thuẫn với `Quyet_dinh.md`: dừng phần đó, hỏi Tùng.
 
 ## 5. Story sống suốt dự án (QD-019)

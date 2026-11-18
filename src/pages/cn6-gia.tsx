@@ -186,7 +186,7 @@ export const CN6ChiTietCan = () => {
           </button>
         ))}
       </div>
-      {/* Tab Thông tin (US11, mục "Sửa thông tin căn" (US11)) vẫn gắn trong màn khi sang tab Giá, để chỗ đang sửa không mất (HV3) */}
+      {/* Tab Thông tin (US1, mục "Sửa thông tin căn" (US1)) vẫn gắn trong màn khi sang tab Giá, để chỗ đang sửa không mất (HV3) */}
       {daMoThongTin && canId && (
         <div hidden={tab !== "thong_tin"} style={tab !== "thong_tin" ? { display: "none" } : undefined}>
           <TabThongTinCan canId={canId} onXong={() => dieuHuong(layVai() === "sale" ? DUONG.CAN_SALE : DUONG.CAN, { replace: true })} />

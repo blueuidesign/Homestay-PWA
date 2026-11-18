@@ -76,7 +76,7 @@ Mỗi tiêu chí một test tự động mang đúng mã này trong tên test. M
 - **US13-NT2** Khi sale xem chi tiết, thì thấy giá chủ nhà và giá bán cho khách; chủ nhà và khách không thấy phần cộng thêm.
 - **US13-NT3** Khi sale bấm "Gửi yêu cầu đặt phòng", thì app mở S3-02 với đúng căn và ngày đang xem.
 - **US13-NT4** Khi sale mở mục "CỘNG THÊM CHO BẠN" ở S3, thì thấy đúng các chip của danh sách Mức cộng của sale trong `Tu_dien.md`, giống bộ chip ở P10.
-- **US13-NT5** Khi chủ nhà đã nhập số giường của căn, thì S3 ghi số phòng ngủ và số giường như thẻ căn (US11-NT1); chưa nhập thì chỉ ghi số phòng ngủ. S3 không có "x khách", "x người lớn" hay "y trẻ em".
+- **US13-NT5** Khi chủ nhà đã nhập số giường của căn, thì S3 ghi số phòng ngủ và số giường như thẻ căn (US1-NT9); chưa nhập thì chỉ ghi số phòng ngủ. S3 không có "x khách", "x người lớn" hay "y trẻ em".
 - **US13-NT6** Khi sale mở S3 của bất kỳ căn nào, thì không có mục tiện ích căn; dòng giờ "Nhận phòng 14:00 · Trả phòng 12:00" vẫn còn.
 - **US13-NT7** Khi sale chọn "+400k", thì ví dụ 2 đêm ghi bạn được 800.000đ.
 - **US13-NT8** Khi sale chọn "Không cộng", thì giá gửi khách bằng giá chủ nhà.
@@ -208,7 +208,7 @@ Trạng thái riêng:
 - Gửi cho khách ở S5, mẫu tin P11 (mục "Gửi thông tin cho khách qua Zalo" (US14), mục "Mẫu tin gửi khách" (US14)): US14. US này chỉ làm nút "Gửi cho khách" mở S5 với căn đang xem.
 - Mở S3 từ lịch 7 ngày S1 (mục "Lịch phòng 7 ngày" (US16) bước 8): US6; ngày ở khi không có ngày khách hỏi chưa chốt [MỞ: US13-H3].
 - S3 của căn của tôi và căn tự nhập, giá bán có cộng cho căn của chính sale: chưa chốt [MỞ: US13-H4]. US này chỉ làm căn trong nguồn phòng.
-- Chủ nhà đặt giá và nhập số giường (nhóm Căn và giá): US4, US11.
+- Chủ nhà đặt giá và nhập số giường (nhóm Căn và giá): US4, US1.
 - Tiện ích căn: bản đầu không làm (US13-NT6).
 
 ## Việc cần làm

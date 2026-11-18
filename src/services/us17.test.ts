@@ -282,7 +282,7 @@ test("test_YC1_7_NT4_US17_KB15_A8_01_link_cua_sale_da_bi_ngung_hoac_da_rut_quyen
   expect("sale" in x && x.sale).toEqual({ ten_hien_thi: "Sale Bình", so_dien_thoai: null });
 });
 
-// ---- Thông báo: gom, đã đọc, ngừng (US17-NT11, NT3, US17-NT9) ----
+// ---- Thông báo: gom, đã đọc, ngừng (US17-NT11, US17-NT3, US17-NT9) ----
 
 test("test_YC1_10_NT2_US17_KB11_hai_chu_nha_dong_y_trong_10_phut_thi_mot_muc_gom_va_mot_toast", async () => {
   await saleMoi();

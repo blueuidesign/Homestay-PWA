@@ -21,7 +21,7 @@ export const dongThongTin = (c: Pick<Can, "so_phong_ngu" | "so_giuong" | "loai_v
     .filter(Boolean)
     .join(" · ");
 
-// Loại view theo glossary (Danh sách lựa chọn dùng chung): Biển, Thành phố, Núi, không có Vịnh (US11-NT4).
+// Loại view theo glossary (Danh sách lựa chọn dùng chung): Biển, Thành phố, Núi, không có Vịnh (US1-NT27).
 // ma là giá trị gửi lên server (`loai_view` của POST /can, PATCH /can/:id).
 export const CHIP_LOAI_VIEW: { ma: string; chu: string }[] = [
   { ma: "bien", chu: "Biển" },
@@ -41,9 +41,9 @@ export const chuLoaiView = (v: string | null | undefined) => {
   return ma ? `view ${CHIP_LOAI_VIEW.find((c) => c.ma === ma)!.chu.toLowerCase()}` : v;
 };
 
-// Các thứ T2 đến CN, số 1 đến 7 (mục "Ngày tính giá cuối tuần" (US11))
+// Các thứ T2 đến CN, số 1 đến 7 (mục "Ngày tính giá cuối tuần" (US4))
 export const TEN_THU = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
-// Tên ô giá "Cuối tuần (T6, T7)" theo đêm đã chọn (US11-NT12, NT2)
+// Tên ô giá "Cuối tuần (T6, T7)" theo đêm đã chọn (US4-NT8)
 export const chuCacThuCuoiTuan = (dem: number[]) => [...dem].sort((a, b) => a - b).map((t) => TEN_THU[t - 1]).join(", ");
 // Tên ô giá "Ngày thường (CN–T5)": các thứ còn lại. Một dải liền (vòng qua CN) thì ghi "đầu–cuối", không thì liệt kê.
 export const chuCacThuNgayThuong = (dem: number[]) => {

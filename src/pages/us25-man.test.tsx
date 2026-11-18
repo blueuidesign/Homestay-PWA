@@ -8,7 +8,7 @@ import { LoiApi } from "../services/kieu";
 import { chuDangTai, chuLoiAnh, type AnhForm } from "../stores/anh-form";
 import { loiTuApi, NoiDungCN5A1 } from "./cn5-a1-them-can";
 
-// US25 · Test render CN5-A1 phần ảnh (canvas CN5-A2, CN5-A3) và thẻ căn (CN5).
+// US1 · Test render CN5-A1 phần ảnh (canvas CN5-A2, CN5-A3) và thẻ căn (CN5).
 const khong = () => {};
 const html = (el: React.ReactElement) => renderToStaticMarkup(el);
 const chu = (s: string) => s.replace(/<[^>]+>/g, "|").replace(/&quot;/g, '"');

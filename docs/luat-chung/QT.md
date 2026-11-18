@@ -99,7 +99,7 @@ Một luật cho ô "Tiền phòng" khi chủ nhà ghi booking (mục "Người 
 
 ## QT4.1 · Tiền phòng điền sẵn và số chủ nhà gõ
 Rủi ro: cao
-Tiền phòng điền sẵn bằng tổng giá chủ nhà của các đêm theo bảng giá lúc ghi (giá dịp thay giá tháng, đêm cuối tuần theo mục "Ngày tính giá cuối tuần" (US11)). Chủ nhà sửa được; số chủ nhà gõ là tiền phòng của booking. Tiền phòng bắt buộc: còn trống thì chưa lưu được.
+Tiền phòng điền sẵn bằng tổng giá chủ nhà của các đêm theo bảng giá lúc ghi (giá dịp thay giá tháng, đêm cuối tuần theo mục "Ngày tính giá cuối tuần" (US4)). Chủ nhà sửa được; số chủ nhà gõ là tiền phòng của booking. Tiền phòng bắt buộc: còn trống thì chưa lưu được.
 
 | Mã | Booking | Bảng giá các đêm | Chủ nhà gõ | Phải ra |
 |---|---|---|---|---|

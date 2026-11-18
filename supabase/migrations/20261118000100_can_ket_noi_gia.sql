@@ -37,7 +37,7 @@ create table public.can (
   sdt_chu_can text check (sdt_chu_can ~ '^\+?[0-9]{9,15}$'),
   gia_chu_thuong integer check (gia_chu_thuong > 0),
   gia_chu_cuoi_tuan integer check (gia_chu_cuoi_tuan > 0),
-  an_luc timestamptz,                    -- chủ xóa căn: chỉ ẩn, booking và thống kê còn (mục "Xóa căn" (US27))
+  an_luc timestamptz,                    -- chủ xóa căn: chỉ ẩn, booking và thống kê còn (mục "Xóa căn" (US1))
   lich_cap_nhat_luc timestamptz not null default now(),
   created_at timestamptz not null default now(),
   check (loai = 'tu_nhap' or (ten_chu_can is null and sdt_chu_can is null and gia_chu_thuong is null and gia_chu_cuoi_tuan is null)),
@@ -329,7 +329,7 @@ begin
   if not exists (select 1 from can where id = p_can and nguoi_giu = v_me and an_luc is null) then
     raise exception 'Không tìm thấy căn của bạn' using errcode = '42501';
   end if;
-  -- Còn booking chưa tới ngày trả, hoặc yêu cầu đang chờ: không xóa (mục "Xóa căn" (US27)). can_con_dat_phong ở migration booking.
+  -- Còn booking chưa tới ngày trả, hoặc yêu cầu đang chờ: không xóa (mục "Xóa căn" (US1)). can_con_dat_phong ở migration booking.
   if can_con_dat_phong(p_can) then raise exception 'Căn còn đặt phòng sắp tới' using errcode = 'P0001'; end if;
   update can set an_luc = now() where id = p_can;
 end $$;

@@ -20,7 +20,7 @@ create table public.profiles (
   anh_dai_dien text,                                     -- đường dẫn ảnh trong Storage, trống thì hiện chữ cái đầu
   sdt text check (sdt ~ '^\+?[0-9]{9,15}$'),             -- số điện thoại; người đã kết nối thấy số của nhau (QD-007)
   vai_chon text check (vai_chon in ('chu_nha', 'sale')), -- vai chọn lúc đầu, chỉ để chọn màn mở đầu. Quyền KHÔNG dựa vào cột này
-  dem_cuoi_tuan smallint[] not null default '{5,6}',     -- thứ của các ĐÊM tính giá cuối tuần, theo extract(dow): 5 = đêm T6, 6 = đêm T7 (mục "Ngày tính giá cuối tuần" (US11), DLM.3)
+  dem_cuoi_tuan smallint[] not null default '{5,6}',     -- thứ của các ĐÊM tính giá cuối tuần, theo extract(dow): 5 = đêm T6, 6 = đêm T7 (mục "Ngày tính giá cuối tuần" (US4), DLM.3)
   gio_nhan time not null default '14:00',                -- giờ nhận phòng mặc định của mọi căn mình giữ (mục "Giờ nhận, trả phòng mặc định" (US21))
   gio_tra time not null default '12:00',
   dong_y_dieu_khoan_luc timestamptz,                     -- lúc bấm "Bắt đầu ngay" ở A1 (mục "Đăng nhập" (US1))

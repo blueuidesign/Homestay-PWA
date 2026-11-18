@@ -5,7 +5,7 @@
 - Đặc tả: thô (lắp bằng máy từ bản Zalo, chưa viết lại theo khuôn, chưa áp các quyết định ở `docs/tham-khao/Loi_Tung_ban_Zalo.md`; không code theo bản này, xem US41)
 - Bản: 1
 - Rủi ro: cao
-- Làm sau khi xong: US4, US5, US25
+- Làm sau khi xong: US4, US5, US1
 - Kiểm tay: `tests/kich-ban/US6.md` (19 kịch bản)
 
 ## Mục tiêu
@@ -293,7 +293,7 @@ Sale không đọc bảng `booking`: lịch đi qua hàm `fn_sale_lich` và view
 - `fn_sale_lich`: test ở t_09_sale_doc.sql
 
 ## Ngoài phạm vi
-- Căn của sale, căn tự nhập, sắp xếp (US16-NT1, NT3, NT4): US16.
+- Căn của sale, căn tự nhập, sắp xếp (US16-NT1, US16-NT3, US16-NT4): US16.
 - Chủ nhà đã xóa tài khoản (US22-NT1, US22-NT9): US22.
 - Sale chỉ được chia sẻ một phần căn (US26-NT4): US26.
 - Sale xin lịch từ A5 (US17-NT1, mục "Sale xin chủ nhà cho xem lịch" (US17)): US17.

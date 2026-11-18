@@ -3,7 +3,7 @@ import { MAX_ANH_CAN } from "../services/api";
 import { chonAnh } from "../services/chon-anh";
 import type { BoAnhForm } from "../stores/anh-form";
 
-// Chọn ảnh cho form có mục ảnh (CN5-A1 của US25, CN5-02 của US11).
+// Chọn ảnh cho form có mục ảnh (CN5-A1 của US1, CN5-02 của US1).
 // Quyền ảnh: bị từ chối thì hiện thẻ, bấm "Thêm ảnh" lại không gọi Zalo cho tới khi người dùng đã mở cài đặt (HV4 bước 3b, 4, 5).
 // Chỉ gọi hộp thoại Zalo khi người dùng bấm "Thêm ảnh", không xin quyền khi mở màn.
 export const useChonAnh = (bo: BoAnhForm, toast: (chu: string) => void, onDoi: () => void) => {

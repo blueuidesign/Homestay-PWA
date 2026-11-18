@@ -9,7 +9,7 @@ import { DUONG } from "./duong-dan";
 import { chuMucCong } from "./muc-cong-hien-thi";
 import { ThanhTab } from "./thanh-tab";
 
-// Dòng "Ngày tính giá cuối tuần" (P1 của mục "Ngày tính giá cuối tuần" (US11)), tạm ở tab Cá nhân tới khi US21 làm P1. Ghi các thứ đang chọn, vd "T6, T7".
+// Dòng "Ngày tính giá cuối tuần" (P1 của mục "Ngày tính giá cuối tuần" (US4)), tạm ở tab Cá nhân tới khi US21 làm P1. Ghi các thứ đang chọn, vd "T6, T7".
 const DongDemCuoiTuan = ({ onCham }: { onCham: () => void }) => {
   const [dem, setDem] = useState<number[] | null>(null);
   useEffect(() => {
@@ -140,7 +140,7 @@ export const ManTam = ({
   coBanThu?: boolean;
   vaiSale?: boolean;
   linkP2?: boolean; // tạm tới khi US21 làm tab Cá nhân: lối vào P2 để xem số điện thoại (mục "Số điện thoại hiện trong hồ sơ" (US5))
-  linkP6?: boolean; // tạm tới khi US21 làm P1: lối vào P6 Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US11))
+  linkP6?: boolean; // tạm tới khi US21 làm P1: lối vào P6 Ngày tính giá cuối tuần (mục "Ngày tính giá cuối tuần" (US4))
   linkP11?: boolean; // tạm tới khi US21 làm P1: lối vào P11 Mẫu tin gửi khách (mục "Mẫu tin gửi khách" (US14)), chỉ hiện với sale
   linkP10?: boolean; // tạm tới khi US21 làm P1: lối vào P10 Mức cộng giá mặc định (mục "Mức cộng giá mặc định" (US13)), chỉ hiện với sale
   linkP13?: boolean; // tạm tới khi US21 làm P1: lối vào P13 Thông báo (mục "Thông báo kết quả kết nối cho sale" (US17))

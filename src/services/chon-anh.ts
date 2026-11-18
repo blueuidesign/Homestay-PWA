@@ -1,4 +1,4 @@
-// Lớp bọc chọn ảnh của zmp-sdk (chooseImage) cho thêm ảnh khi tạo căn (US25, mục "Ảnh khi thêm căn" (US25) bước 1).
+// Lớp bọc chọn ảnh của zmp-sdk (chooseImage) cho thêm ảnh khi tạo căn (US1, mục "Ảnh khi thêm căn" (US1) bước 1).
 // Màn không gọi zmp-sdk trực tiếp mà gọi qua đây, để test thay bằng bản giả (datCongAnh).
 // Ảnh chỉ đi từ máy lên server của Home247, không gửi ra ngoài Zalo.
 import { DU_LIEU_GIA } from "./api";
@@ -19,7 +19,7 @@ export type CongAnh = {
   moCaiDatQuyen(): Promise<void>;
 };
 
-// Mã lỗi zmp-sdk khi người dùng từ chối quyền: -201. Mã riêng của chooseImage chưa thử trên máy thật (US25-KB1, KB12).
+// Mã lỗi zmp-sdk khi người dùng từ chối quyền: -201. Mã riêng của chooseImage chưa thử trên máy thật (US1-KB27, US1-KB38).
 const MA_TU_CHOI = [-201, -1401];
 
 const tenTuDuongDan = (d: string) => d.split(/[\\/]/).pop() || d;
