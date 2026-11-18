@@ -26,7 +26,7 @@ YC này gồm: màn đầu tiên của sale chưa có nguồn phòng, lịch 7 n
 
 Không thuộc YC này (dễ tưởng là có):
 - Kết nối với chủ nhà (link, xin lịch), toast khi chủ nhà đồng ý: YC6.
-- Căn của tôi và căn tự nhập: thêm, chi tiết (S6-02), ghi đặt phòng cho căn tự nhập, danh sách nguồn phòng, bỏ nguồn: YC10.
+- Căn của tôi và căn tự nhập: thêm, chi tiết (S6-07, S6-03), ghi đặt phòng cho căn tự nhập, danh sách nguồn phòng, bỏ nguồn: YC10.
 - Gửi cho khách, mẫu tin: YC8. Gửi yêu cầu đặt phòng (S3-02): YC9.
 - Lọc theo số khách: tạm không làm (Tùng, bản Zalo, 03/11/2026: "Tạm thời chưa lọc theo số khách").
 - Tiện ích căn (bếp, máy giặt): bản đầu không làm.
@@ -40,7 +40,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Ô ngày ghi giá bán | Ô ngày trống ở lịch của sale ghi giá bán một đêm (giá chủ nhà + mức cộng, giả định GD16), rút gọn như Giá rút gọn (YC2) | "1,5tr" |
 | Độ tươi lịch | Mỗi căn của chủ nhà ghi lần lịch hay giá đổi gần nhất; căn của chính sale ghi "Lịch của bạn, luôn đúng" | "Lịch cập nhật 2 giờ trước" |
 | Sắp xếp | "Theo tên", "Giá tăng dần" (theo giá đêm đầu, căn không có giá xếp cuối), "Bán nhiều nhất" ([MỞ: CH-071]). Căn của tôi vẫn ở trên | Không |
-| Chạm căn mở đâu | Chạm căn của chủ nhà mở S3; chạm căn của tôi hay căn tự nhập mở S6-02 (YC10) (Tùng, bản Zalo, 04/11/2026, điểm 11) | Không |
+| Chạm căn mở đâu | Chạm căn của chủ nhà mở S3; chạm căn của tôi mở S6-07, căn tự nhập mở S6-03 (YC10) (Tùng, bản Zalo, 04/11/2026, điểm 11; giả định GD22) | Không |
 
 Quy tắc dùng chung: QT2.1 (căn trống khi không đặt phòng nào chiếm đêm trong khoảng), QT1.3 (căn tự nhập), QT3.1 (giá bán), Giá bán của sale (`docs/luat-chung/Nghiep_vu.md` mục 1.4, làm tròn GD13), Căn tự nhập không có lịch (`Nghiep_vu.md`), Quyền sale được xem (QD-007).
 
@@ -142,7 +142,7 @@ Tiêu chí:
 - **YC7.3-NT3** Khi sale tích 3 căn, thì thanh đáy ghi "Đã chọn 3 căn" và nút "Gửi cho khách" bấm được. · unit
 - **YC7.3-NT4** Khi sale chuyển giữa "Danh sách" và "Lịch tuần", thì tập căn trống và điều kiện tìm không đổi. · unit
 - **YC7.3-NT5** Khi căn là căn tự nhập, thì thẻ ghi rõ không có lịch và gợi ý gọi chủ căn. · unit
-- **YC7.3-NT6** Khi Hùng chạm Green Bay 0812 hay Villa Tuần Châu ở kết quả, thì app mở S6-02, không mở S3. · unit
+- **YC7.3-NT6** Khi Hùng chạm Green Bay 0812 hay Villa Tuần Châu ở kết quả, thì app mở S6-07 với Green Bay 0812, S6-03 với Villa Tuần Châu, không mở S3. (giả định GD22) · unit
 
 ## YC7.4 · Chi tiết căn của chủ nhà và giá bán
 
