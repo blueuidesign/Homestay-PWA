@@ -2,7 +2,7 @@
 import { chuPhongNgu, dongThongTin, ngayThang } from './can';
 import { tenHang } from './lichSale';
 import { congNgay, soDem, type Ngay } from './ngay';
-import { vietTien } from './tien';
+import { boChipMucCong, chuMuc, giaBanDem } from './mucCong';
 
 /** Một đêm của khoảng đang xem: giá chủ, giá bán theo mức cộng đang lưu (null khi chưa có giá). */
 export type DemChiTiet = { ngay: Ngay; giaChu: number | null; giaBan: number | null };
@@ -52,15 +52,8 @@ export function chuKhoang(tu: Ngay, den: Ngay): string {
 /** Chip mức cộng: 'mac-dinh' (YC7-H7) hay một mức riêng (0 là "Không cộng"). */
 export type ChonMuc = { loai: 'mac-dinh' } | { loai: 'rieng'; muc: number };
 
-/** Glossary "Mức cộng của sale": Không cộng, +100k … +500k; "Tùy chọn" là ô gõ số. */
-export const MUC_CO_SAN = [0, 100_000, 200_000, 300_000, 400_000, 500_000] as const;
-
-/** "+200k", "+1,2tr" (viết rút gọn như glossary), 0 là "Không cộng". */
-export function chuMuc(muc: number): string {
-  if (muc === 0) return 'Không cộng';
-  if (muc % 1000 === 0 && muc < 1_000_000) return `+${muc / 1000}k`;
-  return `+${vietTien(muc)}`;
-}
+// YC7.5-NT5: bộ chip, chữ mức cộng, giá bán một đêm dùng chung với P10 (src/lib/mucCong.ts).
+export { chuMuc, giaBanDem, MUC_CO_SAN } from './mucCong';
 
 /** YC7-H7: chip "Mặc định" đứng đầu, ghi kèm mức mặc định: "Mặc định +400k". */
 export function chuChipMacDinh(macDinh: number): string {
@@ -69,21 +62,14 @@ export function chuChipMacDinh(macDinh: number): string {
 
 export type ChipMuc = { khoa: string; chu: string; chon: ChonMuc | 'tuy-chon'; dangChon: boolean };
 
-/** YC7.4 bước 4, YC7-H7: hàng chip; đang dùng mặc định thì chip "Mặc định" được chọn sẵn; mức riêng lạ thì "Tùy chọn" sáng. */
+/** YC7.4 bước 4, YC7-H7, YC7.5-NT5: chip "Mặc định" rồi bộ chip chung với P10; đang dùng mặc định thì chip đó được chọn sẵn. */
 export function hangChip(c: Pick<ChiTietCanSale, 'mucCongRieng' | 'mucCongMacDinh'>): ChipMuc[] {
-  const rieng = c.mucCongRieng;
-  const coSan = rieng != null && (MUC_CO_SAN as readonly number[]).includes(rieng);
   return [
-    { khoa: 'mac-dinh', chu: chuChipMacDinh(c.mucCongMacDinh), chon: { loai: 'mac-dinh' }, dangChon: rieng == null },
-    ...MUC_CO_SAN.map((m): ChipMuc => ({ khoa: `m${m}`, chu: chuMuc(m), chon: { loai: 'rieng', muc: m }, dangChon: rieng === m })),
-    { khoa: 'tuy-chon', chu: rieng != null && !coSan ? `Tùy chọn ${chuMuc(rieng)}` : 'Tùy chọn', chon: 'tuy-chon', dangChon: rieng != null && !coSan },
+    { khoa: 'mac-dinh', chu: chuChipMacDinh(c.mucCongMacDinh), chon: { loai: 'mac-dinh' }, dangChon: c.mucCongRieng == null },
+    ...boChipMucCong(c.mucCongRieng).map((x): ChipMuc => ({
+      khoa: x.khoa, chu: x.chu, chon: x.muc === 'tuy-chon' ? 'tuy-chon' : { loai: 'rieng', muc: x.muc }, dangChon: x.dangChon,
+    })),
   ];
-}
-
-/** QT5.4, GD13: giá bán một đêm = giá chủ + mức cộng; bật làm tròn thì làm tròn lên 50.000đ từng đêm. */
-export function giaBanDem(giaChu: number, muc: number, lamTron: boolean): number {
-  const g = giaChu + muc;
-  return lamTron ? Math.ceil(g / 50_000) * 50_000 : g;
 }
 
 /**
