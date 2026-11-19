@@ -2,7 +2,7 @@
 id: US19
 tieu_de: "Xóa căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC3.6@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -71,5 +71,6 @@ Kịch bản test tay: tests/kb/US19-xoa-can.md.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.6@1 (QD21)
+- 2026-11-19 · Claude · tự chốt YC3-H3, H8 (QD25, YC3 r5, thêm NT12); viết kịch bản test tay; giao agent code
 
 ## Bằng chứng
