@@ -52,14 +52,21 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US31-sua-dat-phong.md.
 
 ## Task
-- [ ] US31-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.6-NT2, YC5.6-NT3, YC5.6-NT4, YC5.6-NT5, YC5.6-NT6, YC5.6-NT8, YC5.6-NT9, YC5.6-NT10, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US31-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US31-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4-02, S3-10 theo canvas, test unit, e2e cho YC5.6-NT1, YC5.6-NT2, YC5.6-NT7, YC5.6-NT11
+- [x] US31-TA1 test database tests/db/46_us31_sua_dat_phong.sql · nhánh US31-sua-dat-phong
+- [x] US31-TA2 migration 20261119250000 (fn_sua_booking, kiem_du_lieu_booking, trigger booking_sau_khi_sua), 5 phép thử làm hỏng · nhánh US31-sua-dat-phong
+- [ ] US31-TA3 CN4-02 xong (unit, e2e) · nhánh US31-sua-dat-phong. Còn S3-10 (màn phía sale): chưa có file trong phạm vi, chờ US34/YC5.9
 - [ ] US31-TA4 Test tay · Đức: chạy tests/kb/US31-sua-dat-phong.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- S3-10 (sale xem đặt phòng chủ đã sửa) chưa làm: cần màn chi tiết phía sale (YC5.9, US34), ngoài ô Được sửa. Database đã ghi thông báo chu_sua_dat_phong đủ ngày, căn, tiền cũ và mới cho màn đó.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.6@1 (QD21)
+- 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 phần CN4-02 trên nhánh US31-sua-dat-phong, chưa mở PR · S3-10 ngoài phạm vi file · ~1 giờ
 
 ## Bằng chứng
+- `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (chỉ test) 48 hỏng; sau migration 993 qua, 0 hỏng (1 vòng).
+- `scripts/thu-lam-hong.sh YC5.6`: 5 đạt, 0 không đạt.
+- `npx vitest run`: 405 qua (thêm 17 test YC5.6), xanh ngay lần chạy đầu sau khi code.
+- e2e `tests/e2e/supabase/sua-dat-phong.spec.ts`: lần đầu đỏ 1 (đổi ngày thì ô tiền trống vì căn chưa đặt giá, test phải gõ lại tiền), 1 vòng; cả thư mục 34 qua.
+- `npm run typecheck`, `npm run build`, `python3 scripts/kiem.py --diff origin/main`: qua, không lỗi.

@@ -3,6 +3,7 @@
 // tên sale qua v_nguoi_ket_noi. US27 (YC5.2): giá chủ nhà từng đêm (fn_gia_chu_cac_dem), người đặt (ket_noi, v_nguoi_ket_noi,
 // fn_ten_khach_da_dung), giờ nhận trả trong hồ sơ của mình, lệnh ghi fn_tao_booking.
 // US30 (YC5.5): chi tiết đặt phòng fn_chi_tiet_dat_phong, lệnh fn_da_thu_du, fn_hoan_tac_thu_du (PQ7.CHU, PQ8.CHU, QD11, QD13).
+// US31 (YC5.6): lệnh sửa fn_sua_booking (PQ7.CHU, QT1.2, QT4.2), gửi kèm thời điểm sửa cuối đã đọc (bước 29).
 // US28 (YC5.3 bước 9, HV7 bước 1): phiên hết hạn khi ghi thì làm mới phiên rồi gửi lại một lần, cùng mã lần gửi (QT5.6).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
@@ -17,6 +18,9 @@ export type DatPhongMoi = {
   trangThaiTien: TrangThaiTienForm; tienCoc: number | null;
   soKhach: number | null; gioNhan: string | null; gioTra: string | null; ghiChu: string | null;
 };
+
+/** YC5.6 bước 26: dữ liệu form sửa gửi lệnh fn_sua_booking; suaLuc là thời điểm sửa cuối lúc app đọc (bước 29). */
+export type DatPhongSua = Omit<DatPhongMoi, 'clientId' | 'saleId'> & { id: string; suaLuc: string | null };
 
 /** QT5.5: lỗi P0001 mang câu cho người dùng; lỗi khác để màn hiện câu chung (HV2). */
 function loiDatPhong(e: { code?: string; message?: string }): Error {
@@ -49,13 +53,15 @@ export interface DichVuDatPhong {
   daThuDu?(id: string): Promise<TrangThaiTien>;
   /** YC5.5 bước 21: lệnh hoàn tác thu đủ; trả trạng thái tiền mới. */
   hoanTacThuDu?(id: string): Promise<TrangThaiTien>;
+  /** YC5.6 bước 26: lệnh sửa fn_sua_booking; trả thời điểm sửa cuối mới. Database từ chối thì LoiNguoiDung (QT5.5). */
+  suaDatPhong?(d: DatPhongSua): Promise<string>;
 }
 
 type DongChiTiet = {
   id: string; can_id: string; ma_can: string; ngay_nhan: string; ngay_tra: string; gio_nhan: string | null; gio_tra: string | null;
   tien_phong: number; tien_coc: number | null; trang_thai_tien: TrangThaiTien | null; co_hoan_tac: boolean; trang_thai: string;
   ghi_chu: string | null; sale_id: string | null; ten_sale: string | null; sdt_sale: string | null; sale_da_xoa: boolean;
-  ten_khach: string | null; sdt_khach: string | null; so_khach: number | null;
+  ten_khach: string | null; sdt_khach: string | null; so_khach: number | null; sua_luc?: string | null;
 };
 
 /** YC5.5: đổi một dòng của fn_chi_tiet_dat_phong ra dữ liệu màn. Tiền là số nguyên đồng. */
@@ -66,11 +72,24 @@ export function docChiTiet(d: DongChiTiet): ChiTietDatPhong {
     tienPhong: Number(d.tien_phong), tienCoc: d.tien_coc === null ? null : Number(d.tien_coc),
     trangThaiTien: d.trang_thai_tien, coHoanTac: !!d.co_hoan_tac, daHuy: d.trang_thai === 'da_huy',
     ghiChu: d.ghi_chu, saleId: d.sale_id, tenSale: d.ten_sale, sdtSale: d.sdt_sale, saleDaXoa: !!d.sale_da_xoa,
-    tenKhach: d.ten_khach, sdtKhach: d.sdt_khach, soKhach: d.so_khach,
+    tenKhach: d.ten_khach, sdtKhach: d.sdt_khach, soKhach: d.so_khach, suaLuc: d.sua_luc ?? null,
   };
 }
 
 type Dong = { id: string; can_id: string; ngay_nhan: string; ngay_tra: string; sale_id: string | null };
+
+/** HV7 bước 1, 2: gọi lệnh ghi; phiên hết hạn thì làm mới rồi gửi lại một lần, không được thì LoiHetPhien. */
+async function goiLenhGhi(sb: SupabaseClient, ten: string, thamSo: Record<string, unknown>): Promise<unknown> {
+  let { data, error } = await sb.rpc(ten, thamSo);
+  if (error && laLoiHetPhien(error)) {
+    const lm = await sb.auth.refreshSession().catch(() => ({ error: true }));
+    if (lm.error) throw new LoiHetPhien();
+    ({ data, error } = await sb.rpc(ten, thamSo));
+    if (error && laLoiHetPhien(error)) throw new LoiHetPhien();
+  }
+  if (error) throw loiDatPhong(error);
+  return data;
+}
 
 export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
   return {
@@ -181,6 +200,16 @@ export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
       const { data, error } = await sb.rpc('fn_hoan_tac_thu_du', { p_booking_id: id });
       if (error) throw loiDatPhong(error);
       return data as TrangThaiTien;
+    },
+
+    // YC5.6 bước 26, 28, 29: gửi lại sau mất mạng dùng cùng thời điểm sửa đã đọc; database coi lệnh không đổi gì là đã lưu.
+    async suaDatPhong(d) {
+      const data = await goiLenhGhi(sb, 'fn_sua_booking', {
+        p_booking_id: d.id, p_sua_luc: d.suaLuc, p_can_id: d.canId, p_ngay_nhan: d.ngayNhan, p_ngay_tra: d.ngayTra,
+        p_tien_phong: d.tienPhong, p_trang_thai_tien: d.trangThaiTien, p_tien_coc: d.tienCoc, p_ten_khach: d.tenKhach,
+        p_sdt_khach: d.sdtKhach, p_so_khach: d.soKhach, p_gio_nhan: d.gioNhan, p_gio_tra: d.gioTra, p_ghi_chu: d.ghiChu,
+      });
+      return String(data);
     },
   };
 }

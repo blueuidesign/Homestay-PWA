@@ -5,6 +5,7 @@ import {
   cauChonSale, chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, dongGiaDem, ghiBanNhapDatPhong, kiemNgay,
   loiTienCoc, loiTienPhong, ngayTraTheoSoDem, tenNguoiDatToast, tomTatChiTiet, tongGiaDem, xoaBanNhapDatPhong,
   cauKhachCuaSale, cauSaleDaXoa, dongGioNhanTra, nhanTrangThaiTien, tienConLai, tieuDeChiTiet,
+  chipNguoiDatHienTai, tieuDeSua, trangThaiTienForm,
 } from './datPhong';
 
 afterEach(() => { try { localStorage.clear(); } catch { /* bỏ qua */ } });
@@ -154,5 +155,28 @@ describe('YC5.5 · chi tiết đặt phòng và thu tiền', () => {
     expect(tieuDeChiTiet({ saleId: null, tenSale: null, tenKhach: null })).toBe('Đặt phòng · Khách lẻ');
     expect(cauKhachCuaSale('Sale Hùng')).toBe('Khách do sale Hùng bán. Tên và số điện thoại khách chỉ sale giữ; cần gì về khách thì gọi sale.');
     expect(cauSaleDaXoa('Sale Hùng')).toBe('Sale Hùng đã xóa tài khoản. Đặt phòng vẫn giữ trong lịch của bạn; app không còn số điện thoại của sale này.');
+  });
+});
+
+describe('YC5.6 · form sửa đặt phòng', () => {
+  const ct = { saleId: 'hung', tenSale: 'Sale Hùng', tenKhach: null };
+  it('YC5.6 bước 24 tiêu đề "Sửa đặt phòng · Sale Hùng", khách lẻ có tên, không tên', () => {
+    expect(tieuDeSua(ct)).toBe('Sửa đặt phòng · Sale Hùng');
+    expect(tieuDeSua({ saleId: null, tenSale: null, tenKhach: 'Bà Lan' })).toBe('Sửa đặt phòng · Bà Lan');
+    expect(tieuDeSua({ saleId: null, tenSale: null, tenKhach: null })).toBe('Sửa đặt phòng · Khách lẻ');
+  });
+  it('YC5.6 bước 24 QT6.1 trạng thái tiền đã lưu đổi ra lựa chọn của form', () => {
+    expect(trangThaiTienForm('da_coc')).toBe('da_coc_con_thu');
+    expect(trangThaiTienForm('da_thanh_toan')).toBe('da_thanh_toan');
+    expect(trangThaiTienForm('chua_coc')).toBe('chua_coc');
+  });
+  it('YC5.6-NT11 YC5-H5 chip người đặt hiện tại: sale, khách lẻ có tên, khách lẻ', () => {
+    expect(chipNguoiDatHienTai(ct)).toEqual({ loai: 'sale', khoa: 'sale:hung', chu: 'Sale Hùng', id: 'hung' });
+    expect(chipNguoiDatHienTai({ saleId: null, tenSale: null, tenKhach: 'Bà Lan' })).toMatchObject({ loai: 'khach', chu: 'Bà Lan' });
+    expect(chipNguoiDatHienTai({ saleId: null, tenSale: null, tenKhach: null })).toMatchObject({ loai: 'le', chu: 'Khách lẻ' });
+  });
+  it('YC5.6-NT2 QT1.2 dòng kiểm bỏ chính đặt phòng đang sửa thì không báo trùng với nó', () => {
+    expect(kiemNgay([B1], 'c1509', '2026-10-10', '2026-10-12').loai).toBe('trung');
+    expect(kiemNgay([B1].filter((b) => b.id !== 'B1'), 'c1509', '2026-10-10', '2026-10-12').loai).toBe('khong-trung');
   });
 });

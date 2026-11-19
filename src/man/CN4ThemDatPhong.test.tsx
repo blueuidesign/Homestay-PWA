@@ -1,12 +1,17 @@
-// Test unit màn CN4 Thêm đặt phòng (YC5.1, YC5.2, HV1, HV3). Dịch vụ giả theo DLM.4, không gọi mạng. Hôm nay cố định 07/10/2026 (DLM.1).
+// Test unit màn CN4 Thêm đặt phòng (YC5.1, YC5.2, HV1, HV3) và CN4-02 Sửa đặt phòng (YC5.6). Dịch vụ giả theo DLM.4, không gọi mạng. Hôm nay cố định 07/10/2026 (DLM.1).
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { App } from '../App';
 import { CAU_KHOI_PHUC } from '../chung/nhap';
 import { ToastProvider } from '../chung/Toast';
 import { LoiNguoiDung } from '../chung/matKetNoi';
-import type { DatPhongMoi, DichVuDatPhong } from '../lib/dichVuDatPhong';
+import { CAU_SUA_MAY_KHAC, type ChiTietDatPhong } from '../lib/datPhong';
+import type { DichVuCan } from '../lib/dichVuCan';
+import type { DatPhongMoi, DatPhongSua, DichVuDatPhong } from '../lib/dichVuDatPhong';
+import { homNay as homNayVN } from '../lib/ngay';
 import type { CanLich, DatPhongLich } from '../lib/lich';
-import { CN4ThemDatPhong } from './CN4ThemDatPhong';
+import { CAU_TRUNG_DEM, CN4SuaDatPhong, CN4ThemDatPhong } from './CN4ThemDatPhong';
+import { dichVuGia } from './gia';
 
 afterEach(() => {
   cleanup();
@@ -497,5 +502,177 @@ describe('YC5.3 · CN4 lưu và chặn trùng', () => {
     expect(await screen.findByText('Có lỗi xảy ra. Bạn thử lại sau ít phút.')).toBeInTheDocument();
     expect(screen.queryByText('Không tìm thấy căn')).not.toBeInTheDocument();
     expect(onDaLuu).not.toHaveBeenCalled();
+  });
+});
+
+// US31 · YC5.6 · CN4-02 Sửa đặt phòng. Số theo DLM: B1 1509, 10/10 → 12/10, Sale Hùng, 2.200.000đ, đã cọc 1.000.000đ, 4 khách;
+// B5 1509, 13/10 → 15/10, khách lẻ.
+const CT_B1: ChiTietDatPhong = {
+  id: 'B1', canId: 'c1509', maCan: '1509', ngayNhan: '2026-10-10', ngayTra: '2026-10-12', gioNhan: '14:00', gioTra: '12:00',
+  tienPhong: 2200000, tienCoc: 1000000, trangThaiTien: 'da_coc', coHoanTac: false, daHuy: false, ghiChu: null,
+  saleId: 'hung', tenSale: 'Sale Hùng', sdtSale: '0900000003', saleDaXoa: false, tenKhach: null, sdtKhach: null, soKhach: 4,
+  suaLuc: '2026-10-07T03:00:00.123456+00:00',
+};
+const B5: DatPhongLich = { id: 'B5', canId: 'c1509', ngayNhan: '2026-10-13', ngayTra: '2026-10-15', nguoiDat: { loai: 'le' } };
+const CT_B5: ChiTietDatPhong = {
+  ...CT_B1, id: 'B5', ngayNhan: '2026-10-13', ngayTra: '2026-10-15', tienPhong: 1800000, tienCoc: null, trangThaiTien: 'chua_coc',
+  saleId: null, tenSale: null, sdtSale: null, soKhach: null,
+};
+
+function dichVuSua(them: Partial<DichVuDatPhong> = {}) {
+  return {
+    ...dichVuDu(),
+    layDatPhong: vi.fn(async (canIds: string[]) => [B1, B2, B5].filter((b) => canIds.includes(b.canId))),
+    layChiTiet: vi.fn(async (id: string) => (id === 'B5' ? CT_B5 : CT_B1)),
+    suaDatPhong: vi.fn(async (_d: DatPhongSua) => '2026-10-07T04:00:00+00:00'),
+    ...them,
+  };
+}
+
+function veSua(id: string, dv = dichVuSua(), onDaLuu = vi.fn()) {
+  render(
+    <ToastProvider>
+      <CN4SuaDatPhong id={id} ds={HAI_CAN} dv={dv} homNay="2026-10-07" onDong={vi.fn()} onKhongCon={vi.fn()} onDaLuu={onDaLuu} />
+    </ToastProvider>,
+  );
+  return { dv, onDaLuu };
+}
+const nutLuuSua = () => screen.getByRole('button', { name: 'Lưu thay đổi' });
+const choSua = async () => { await screen.findByRole('button', { name: 'Lưu thay đổi' }); await choKiem(); await screen.findByLabelText('Giá từng đêm'); };
+
+describe('YC5.6 · CN4-02 Sửa đặt phòng', () => {
+  it('YC5.6-NT1 Chị Hoa mở sửa B1 thì mọi ô hiện đúng: 1509, 10/10 → 12/10, Sale Hùng, 2.200.000đ, đã cọc 1.000.000đ', async () => {
+    veSua('B1');
+    await choSua();
+    expect(screen.getByRole('heading', { name: 'Sửa đặt phòng · Sale Hùng' })).toBeInTheDocument();
+    expect(chipCan('1509')).toHaveAttribute('aria-pressed', 'true');
+    expect(oNhan().value).toBe('2026-10-10');
+    expect(oTra().value).toBe('2026-10-12');
+    expect(chipDem('2 đêm')).toHaveAttribute('aria-checked', 'true');
+    expect(chipNguoi('Sale Hùng')).toHaveAttribute('aria-pressed', 'true');
+    expect(oTien().value).toBe('2.200.000');
+    expect(chipTien('Đã cọc · còn thu')).toHaveAttribute('aria-pressed', 'true');
+    expect((screen.getByLabelText('Số tiền cọc (đ)') as HTMLInputElement).value).toBe('1.000.000');
+    expect(screen.getByText('4 khách · 14:00 → 12:00')).toBeInTheDocument();
+    expect(nutLuuSua()).toBeEnabled();
+  });
+
+  it('YC5.6-NT11 Chị Hoa mở sửa B1 thì ô người đặt "Sale Hùng" khóa, không đổi được', async () => {
+    veSua('B1');
+    await choSua();
+    const nhom = within(screen.getByRole('group', { name: 'Khách / Sale' }));
+    expect(nhom.getAllByRole('button')).toHaveLength(1);
+    expect(chipNguoi('Sale Hùng')).toBeDisabled();
+    expect(nhom.queryByRole('button', { name: 'Khách lẻ' })).toBeNull();
+    expect(nhom.queryByRole('button', { name: '+ Sale mới' })).toBeNull();
+  });
+
+  it('YC5.6-NT2 QT1.2 mở sửa B5 không báo trùng với chính nó; đổi thành 11/10 → 15/10 thì dòng báo trùng với B1, không lưu được', async () => {
+    veSua('B5');
+    await choSua();
+    expect(screen.getByText('✓ 13/10 → 15/10 (2 đêm) · không trùng lịch')).toBeInTheDocument();
+    fireEvent.change(oNhan(), { target: { value: '2026-10-11' } });
+    fireEvent.click(chipDem('Tùy chọn'));
+    fireEvent.change(oTra(), { target: { value: '2026-10-15' } });
+    const dong = screen.getByText('Trùng đêm 11/10 với đặt phòng của Sale Hùng (10/10 → 12/10)');
+    expect(dong).toHaveAttribute('role', 'alert');
+    expect(nutLuuSua()).toBeDisabled();
+  });
+
+  it('YC5.6-NT2 database từ chối lệnh sửa vì trùng thì ở lại form, dòng kiểm đỏ "Căn đã có đặt phòng trong những đêm này"', async () => {
+    const sua = vi.fn(async () => { throw new LoiNguoiDung(CAU_TRUNG_DEM); });
+    const { onDaLuu } = veSua('B5', dichVuSua({ suaDatPhong: sua }));
+    await choSua();
+    await act(async () => { fireEvent.click(nutLuuSua()); });
+    expect(sua).toHaveBeenCalledTimes(1);
+    expect(onDaLuu).not.toHaveBeenCalled();
+    expect(screen.getByText(CAU_TRUNG_DEM)).toHaveAttribute('role', 'alert');
+  });
+
+  it('YC5.6 bước 24, 25 mở sửa giữ tiền phòng đã lưu; đổi ngày thì tiền phòng điền lại theo bảng giá', async () => {
+    const dv = dichVuSua({ layChiTiet: vi.fn(async () => ({ ...CT_B1, tienPhong: 2000000 })) });
+    veSua('B1', dv);
+    await choSua();
+    expect(oTien().value).toBe('2.000.000');
+    fireEvent.change(oNhan(), { target: { value: '2026-10-31' } });
+    await screen.findByText('31/10: 1.300.000đ');
+    await waitFor(() => expect(oTien().value).toBe('2.200.000'));
+  });
+
+  it('YC5.6 bước 26 bấm "Lưu thay đổi" thì gửi lệnh sửa kèm thời điểm sửa đã đọc và các ô; lưu được thì báo màn cha', async () => {
+    const { dv, onDaLuu } = veSua('B1');
+    await choSua();
+    fireEvent.change(oTien(), { target: { value: '1.800.000' } });
+    await act(async () => { fireEvent.click(nutLuuSua()); });
+    expect(dv.suaDatPhong).toHaveBeenCalledWith(expect.objectContaining({
+      id: 'B1', suaLuc: '2026-10-07T03:00:00.123456+00:00', canId: 'c1509', ngayNhan: '2026-10-10', ngayTra: '2026-10-12',
+      tienPhong: 1800000, trangThaiTien: 'da_coc_con_thu', tienCoc: 1000000, tenKhach: null, sdtKhach: null, soKhach: 4,
+      gioNhan: '14:00', gioTra: '12:00',
+    }));
+    expect(dv.taoDatPhong).not.toHaveBeenCalled();
+    expect(onDaLuu).toHaveBeenCalledTimes(1);
+  });
+
+  it('YC5.6 bước 29 đặt phòng vừa bị sửa ở máy khác thì ở lại form, toast "Đặt phòng vừa được sửa ở máy khác. Mở lại để xem bản mới."', async () => {
+    const sua = vi.fn(async () => { throw new LoiNguoiDung(CAU_SUA_MAY_KHAC); });
+    const { onDaLuu } = veSua('B1', dichVuSua({ suaDatPhong: sua }));
+    await choSua();
+    await act(async () => { fireEvent.click(nutLuuSua()); });
+    expect(await screen.findByText(CAU_SUA_MAY_KHAC)).toBeInTheDocument();
+    expect(onDaLuu).not.toHaveBeenCalled();
+    expect(screen.getByRole('heading', { name: 'Sửa đặt phòng · Sale Hùng' })).toBeInTheDocument();
+  });
+
+  it('YC5.6 HV5 mở sửa đặt phòng không còn thì toast "Đặt phòng này không còn" và về màn trước', async () => {
+    const onKhongCon = vi.fn();
+    render(
+      <ToastProvider>
+        <CN4SuaDatPhong id="X" ds={HAI_CAN} dv={dichVuSua({ layChiTiet: vi.fn(async () => null) })} homNay="2026-10-07"
+                        onDong={vi.fn()} onKhongCon={onKhongCon} />
+      </ToastProvider>,
+    );
+    expect(await screen.findByText('Đặt phòng này không còn')).toBeInTheDocument();
+    expect(onKhongCon).toHaveBeenCalled();
+  });
+});
+
+describe('YC5.6 · về màn đã mở', () => {
+  beforeEach(() => { sessionStorage.clear(); window.history.replaceState(null, '', '/'); });
+
+  it('YC5.6-NT7 mở sửa từ chi tiết ngày 13 rồi lưu xong thì app về lại chi tiết ngày 13, không về đầu tab Lịch', async () => {
+    const hn = homNayVN();
+    const ng = (n: number) => `${hn.slice(0, 8)}${String(n).padStart(2, '0')}`;
+    const b5: DatPhongLich = { id: 'B5', canId: 'c1509', ngayNhan: ng(13), ngayTra: ng(15), nguoiDat: { loai: 'le' }, tienPhong: 1800000, trangThaiTien: 'chua_coc' };
+    const ct: ChiTietDatPhong = { ...CT_B5, ngayNhan: ng(13), ngayTra: ng(15) };
+    const sua = vi.fn(async () => 'moi');
+    const dvCan: DichVuCan = {
+      layCanCuaToi: vi.fn(async () => [{ id: 'c1509', maCan: '1509', soPhongNgu: 2, soGiuong: null, loaiView: null, tenToa: null, soAnh: 0, anhDaiDien: null, moiThem: false, khachDen: null }]),
+      lich: { layThang: vi.fn(async () => ({ datPhong: [b5], coDatPhong: true })) },
+      datPhong: {
+        layDatPhong: vi.fn(async () => [b5]), layChiTiet: vi.fn(async () => ct), suaDatPhong: sua,
+        layGiaDem: vi.fn(async (_c: string, nhan: string, tra: string) => giaDLM3('c1509', nhan, tra)),
+      },
+    };
+    const auth = dichVuGia({
+      layPhien: vi.fn(async () => ({ email: 'chu1@vidu.test' })),
+      layHoSo: vi.fn(async () => ({ ten: 'Chị Hoa', soDienThoai: '0900000001', vaiChon: 'chu_nha' as const })),
+    });
+    const { container } = render(<App dichVu={auth} dichVuCan={dvCan} />);
+    await waitFor(() => expect(container.querySelector(`[data-ngay="${ng(13)}"]`)).not.toBeNull());
+    fireEvent.click(container.querySelector(`[data-ngay="${ng(13)}"]`)!);
+    const dong = await screen.findByRole('listitem', { name: 'Phòng 1509' });
+    fireEvent.click(within(dong).getByRole('button', { name: 'Phòng 1509' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Sửa đặt phòng' }));
+    expect(window.location.pathname).toBe('/dat-phong/B5/sua');
+    await screen.findByRole('button', { name: 'Lưu thay đổi' });
+    await screen.findByText(/không trùng lịch/);
+    await screen.findByLabelText('Giá từng đêm');
+    fireEvent.change(oTien(), { target: { value: '2.000.000' } });
+    await act(async () => { fireEvent.click(nutLuuSua()); });
+    expect(sua).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(window.location.pathname).toBe('/'));
+    expect(await screen.findByText('Đã lưu đặt phòng')).toBeInTheDocument();
+    expect(await screen.findByRole('region', { name: new RegExp(`${ng(13).slice(8)}/${ng(13).slice(5, 7)}`) })).toBeInTheDocument();
+    expect(container.querySelector(`[data-ngay="${ng(13)}"]`)).toHaveAttribute('aria-pressed', 'true');
   });
 });
