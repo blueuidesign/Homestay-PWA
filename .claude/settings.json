@@ -4,11 +4,76 @@
     "deny": [
       "Bash(git push --force:*)",
       "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
       "Read(./.env)",
-      "Read(./.env.local)",
-      "Read(./.env.*.local)",
+      "Read(./.env.*)",
       "Read(./**/.env)",
-      "Read(./**/.env.local)"
+      "Read(./**/.env.*)",
+      "Read(./supabase/.temp/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hook/truoc-push.sh\"",
+            "timeout": 30,
+            "statusMessage": "Kiểm trước khi đẩy (CL4.7)"
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh pr merge *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hook/truoc-gop.sh\"",
+            "timeout": 60,
+            "statusMessage": "Kiểm CI trước khi gộp PR"
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh api *merge*)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hook/truoc-gop.sh\"",
+            "timeout": 60,
+            "statusMessage": "Kiểm CI trước khi gộp PR"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hook/dau-phien.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/scripts/hook/ghi-log-phien.py\"",
+            "timeout": 20
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/scripts/hook/ghi-log-phien.py\"",
+            "timeout": 30
+          }
+        ]
+      }
     ]
   }
 }

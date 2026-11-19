@@ -1,27 +1,20 @@
-## Làm gì
-<!-- 1–3 dòng -->
+## Item
+<!-- Mã item · tên · mức rủi ro. Ví dụ: US12 · Sale tìm căn trống · cao -->
 
-## Vì sao
-<!-- vấn đề của người dùng; mã quyết định QD-xxx nếu có -->
+## Đổi gì
+<!-- Một đến ba câu -->
 
-## Thay đổi
-- Database: <!-- tên file migration; đã chạy ở staging / production chưa -->
-- Giao diện: <!-- màn nào, mã màn -->
-- Tài liệu: <!-- file nào đã cập nhật -->
+## Mục có mã bị đổi
+<!-- Mỗi mục: mã · tăng bản lên N, hoặc "chỉ sửa chữ" -->
 
-## Đã kiểm
-- <!-- kiểm thử nào, kết quả; ảnh chụp màn hình cỡ điện thoại nếu đổi giao diện -->
+## File ngoài phạm vi của item
+<!-- Không có, hoặc liệt kê kèm lý do -->
 
-## Chưa kiểm
-- <!-- … -->
+## Bằng chứng
+<!-- Test mang mã nào, chạy ở đâu. Ảnh chụp màn (kiem-luong-chinh) hoặc link bản Preview nếu chạm giao diện. Có giả định GD nào thì ghi ở đây -->
 
-## Giả định và câu hỏi
-- <!-- … -->
+## Cần duyệt
+<!-- Không, hoặc mã CL4.3.x. Tùng duyệt bằng nút Approve, tự gộp, hoặc ra lệnh gộp trong phiên (CL4.6) -->
 
-## Checklist
-- [ ] CI xanh
-- [ ] Đổi hàm `fn_*` thì đã có kiểm thử
-- [ ] Đổi giao diện thì đã xem ảnh chụp
-- [ ] Tài liệu bị ảnh hưởng đã cập nhật
-- [ ] Không có bí mật trong code, log, mô tả
-- [ ] Có cách đảo ngược (tắt cờ, hoàn tác, quay bản deploy trước)
+## Người làm
+<!-- Tùng hoặc Đức (hai người dùng chung tài khoản Claude) -->

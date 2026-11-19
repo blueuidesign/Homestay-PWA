@@ -1,83 +1,70 @@
-# CLAUDE.md · Home247 · Lịch phòng Hạ Long (bản PWA)
+# Home247 · Lịch phòng Hạ Long (bản PWA)
 
-App web cài được trên điện thoại (PWA) cho chủ nhà homestay và sale ở Hạ Long. Chủ nhà ghi lịch và giá, chia sẻ cho sale. Sale tra căn trống và giá mà không phải gọi điện, rồi gửi phòng cho khách. Người dùng nhiều người lớn tuổi, dùng một tay. Bản PWA làm trước; bản Zalo Mini App làm sau trên cùng database (QD-003).
+App web cài được trên điện thoại (PWA) cho chủ nhà homestay và sale ở Hạ Long. Chủ nhà ghi lịch và giá, chia sẻ cho sale. Sale tra căn trống, gửi ảnh và giá cho khách mà không phải gọi điện.
+Hai người làm. Tùng quản lý dự án và quyết mọi thứ về sản phẩm. Đức test tay, lo môi trường, việc cần máy thật. Code do Claude Code làm.
+React, Vite, TypeScript, gọi thẳng Supabase (QD4). Bản Zalo Mini App làm sau trên cùng database (QD3). Không chạy sprint: làm theo luồng và thứ tự THU-TU.md (CL1).
 
-Hai người làm: **Tùng** quyết mọi thứ về sản phẩm; **Đức** kiểm tay và lo môi trường. Code do Claude làm.
-
-Repo này tự đủ. Không cần và không được dựa vào repo cũ của bản Zalo hay tài liệu ngoài repo.
+## Bản đồ repo (chi tiết: docs/process/CL11-ban-do-repo.md)
+- docs/   SỰ THẬT: sản phẩm phải làm gì. Mục lục: docs/INDEX.md. docs/_lich-su/ không đọc trừ khi cần
+- work/   VIỆC: backlog/ (thứ tự THU-TU.md), cau-hoi.md (câu hỏi mở), gia-dinh.md (giả định), goi/ (gói việc), thiet-ke/, reviews/, plan/
+- src/, supabase/, tests/   Code, database, test. Chưa có: làm lại từ đầu ở EN dựng nền (QD21). Chạy và test: docs/dev/chay-va-test.md. tests/kb/ là kịch bản test tay
+- scripts/ kiem.py, trich.py, trich-man.py, plan.py, goi.py, hook/
 
 ## Bắt đầu mỗi phiên
+- Câu đầu tiên cho biết ai đang làm (Tùng hoặc Đức). Không có thì hỏi. Hai người dùng chung tài khoản, ghi đúng tên vào nhật ký là bắt buộc.
+- Có mã item thì đọc file item, rồi chỉ đọc những gì item trỏ tới. Không có mã thì chạy skill can-lam-gi.
 
-1. Câu đầu phiên phải cho biết ai đang làm (Tùng hoặc Đức). Không có thì hỏi. Lời Tùng là quyết định; lời Đức là đề xuất.
-2. Chưa biết làm gì: mở `docs/stories/README.md`, lấy story chưa xong đầu tiên theo thứ tự.
-3. Có mã story: đọc file story đó, rồi chỉ đọc thêm những gì nó trỏ tới bằng mã.
-4. Lần đầu vào repo: đọc `docs/QUY_TRINH.md` (luật làm việc) và `docs/Thiet_ke_DB.md` mục 3 (bất biến).
-
-## Bản đồ repo
-
-| Chỗ | Là gì |
-|---|---|
-| `docs/stories/` | **Việc và đặc tả.** Mỗi story một file, chứa đủ để làm. `README.md` là thứ tự và trạng thái |
-| `docs/luat-chung/` | Luật dùng ở nhiều story: `QT.md` tính toán, `PQ.md` quyền, `HV.md` hành vi mọi màn, `Nghiep_vu.md`, `PWA.md`, `Tu_dien.md`, `Du_lieu_mau.md` |
-| `docs/Quyet_dinh.md` | Quyết định và **lý do**. Mâu thuẫn với chỗ khác thì mục mới nhất ở đây đúng |
-| `docs/Cau_hoi_mo.md` | Câu hỏi chờ Tùng, giả định đang dùng |
-| `docs/QUY_TRINH.md` | Luật làm việc. `docs/Nguyen_ly_lam_viec.md` là lý do của các luật |
-| `docs/Thiet_ke_DB.md` | Ý định và bất biến của database. Cột, hàm, policy: `docs/tu-sinh/Bang_va_cot.md` (máy sinh) |
-| `docs/Ghi_chu_code.md` | Cấu trúc app, cách nối Supabase, việc còn dở |
-| `docs/thiet-ke/` | Canvas thiết kế. Xem một màn: `python3 docs/thiet-ke/trich-man.py <mã>`. Không mở cả file canvas |
-| `supabase/` | `migrations/` (database), `seed/`, `staging/` (dữ liệu mẫu) |
-| `src/` | App React. `tests/db` test database, `tests/e2e` Playwright, `tests/kich-ban` kiểm tay |
-| `scripts/` | `test-db.sh`, `thu-lam-hong.sh`, `bang-cot.sh`, `kiem-tai-lieu.py` |
-| `VIEC_TAY_CUA_TUNG.md` | Việc cần tài khoản của Tùng (GitHub, Vercel, Supabase) |
-
-Mục lục tài liệu và cách tìm theo mã: `docs/README.md`.
-
-## Luật không được phá
-
-- **Mỗi thông tin một chỗ.** Hai chỗ nói khác nhau thì dừng phần đó và hỏi Tùng. Không tự chọn bên nào. Thứ tự tin: `Quyet_dinh.md` → `luat-chung/` → story → thiết kế → code.
-- **Chỗ gắn `[MỞ: <mã>]` thì chưa được code.** Hỏi Tùng. Chỗ ghi "(giả định GD…)" thì code được, ghi rõ trong PR.
-- **Đặc tả không nói thì hỏi**, ghi câu hỏi vào `Cau_hoi_mo.md`. Không lấp bằng cách làm phổ biến.
-- **Mỗi tiêu chí (`…-NT<số>`) một test mang mã đó, viết trước code.** Quyền và tiền kiểm ở lớp database.
-- **Không tắt, không xóa, không nới test để cho qua.** Chỉ sửa test khi story nêu tên test đó ở mục "Test bị đổi".
-- **Story đã merge không sửa.** Đổi tính năng đã xong thì viết story mới (`docs/QUY_TRINH.md` mục 5).
-- **Code trên nhánh `US<n>-<tên>` và PR. Claude chỉ merge khi Tùng bảo**, và chỉ khi đủ điều kiện ở `docs/QUY_TRINH.md` mục 10 (QD-017). Không tự merge khi không ai bảo. Không đẩy ép. Tài liệu sống không kèm code được đẩy thẳng `main`.
-- **Hỏi Tùng trước:** migration lên production, xóa dữ liệu, đổi phân quyền, việc không đảo ngược. Chữ "đồng ý" chung chung không tính.
-- **Không đọc dữ liệu production. Không đọc `.env`. Không có bí mật trong repo, chat, log.** Repo công khai: không ghi email, số điện thoại, tên người dùng thật.
-- **Chưa code, chưa test, test đỏ là chưa xong.** Không báo là xong.
-- Khi Tùng chốt một điều trong phiên: ghi ngay vào `Quyet_dinh.md` hoặc mục "Đã trả lời" của `Cau_hoi_mo.md`, kèm ngày và câu nguyên văn.
-
-## Home247 khác app đặt phòng thông thường
-
-- Hai lớp giá: giá chủ nhà và giá sale bán. **Khách không bao giờ thấy giá chủ nhà.** Chủ nhà không thấy mức cộng, giá bán, tiền chênh của sale.
-- Căn đã chia sẻ cho sale nào thì sale đó luôn thấy giá chủ nhà. Không có công tắc tắt giá (QD-007).
-- Mỗi người chỉ thấy tên, số điện thoại khách do mình nhập (QD-011).
-- Giá tính theo đêm. Một lần ở chiếm các đêm từ ngày nhận tới trước ngày trả. Tiền là số nguyên đồng. Ngày theo giờ Việt Nam.
-- Chặn trùng đặt phòng ở database, không chỉ ở giao diện (QD-006).
-- Căn sale tự nhập không có lịch trống: ô ngày hiện "?", không bao giờ hiện "trống".
-- Đặt phòng có sale đứng tên: một bên xin hủy, bên kia đồng ý (QD-012).
-- Xóa tài khoản chỉ xóa số điện thoại, dữ liệu giữ nguyên (QD-013).
-- Chữ trên màn gọi "đặt phòng". Tài liệu và code gọi "booking".
-
-## Database
-
-App gọi thẳng Supabase (QD-004). Đọc qua RLS; ghi qua hàm `fn_*` tự kiểm quyền. Sale không đọc bảng `booking`; quyền của sale chỉ đi qua `my_shared_can_ids()`. Migration chỉ thêm. Đổi hàm, policy, view: thêm test trong `tests/db/` và một dòng trong `scripts/thu-lam-hong.sh` cùng PR, rồi chạy `scripts/bang-cot.sh`.
-
-## Giao diện
-
-Điện thoại trước, một tay. Vùng bấm tối thiểu 44 px. Chữ 14 px ở màn đọc, 12 đến 13 px ở màn dày thông tin, không dưới 12 px. Lỗi luôn nói: chuyện gì, vì sao, làm gì tiếp. Màn trống luôn có việc để làm tiếp. Không bắt đăng nhập hay xin quyền khi vừa mở app.
-
-## Trạng thái hiện tại (sửa dòng này khi đổi)
-
-- App chạy ở **chế độ thử** bằng dữ liệu mẫu trong máy. Chưa nối Supabase, chưa có đăng nhập (`docs/Ghi_chu_code.md`).
-- Database: migration và test đã có, **chưa chạy trên project Supabase nào**. Staging: `<chưa có>`. Production: `<chưa có, chờ CH-002>`.
-- Story đang làm: US38. Đang chặn: CH-001 (đăng nhập), CH-002 (nơi đặt dữ liệu).
-
-## Lệnh
-
-`npm run dev` · `npm run typecheck` · `npm test` · `npm run build` · `npm run e2e` · `scripts/test-db.sh` · `scripts/thu-lam-hong.sh` · `scripts/bang-cot.sh` · `python3 scripts/kiem-tai-lieu.py`
-
-Test database cần Postgres: `PGHOST=localhost PGUSER=postgres PGPASSWORD=… scripts/test-db.sh`.
+## Đọc ít mà đúng
+- Đọc tài liệu bằng `python3 scripts/trich.py <mã>...` (YC5.3, QT1.1, QD21, HV4, PQ7, YC5-H6, "thiet-ke-db.md#3. Bất biến"). Chỉ mở cả file khi trích không đủ, hoặc khi task chạm tiền, quyền, chặn trùng, dữ liệu người dùng.
+- Canvas (2,6 MB) đọc bằng `scripts/trich-man.py <mã màn>`, không mở cả file.
+- Agent phụ làm code là agent `code`, chỉ đọc gói việc work/goi/<mã item>.md (soạn bằng scripts/goi.py) và code.
 
 ## Cách trả lời
+- Tiếng Việt, ngắn như người nói chuyện, kết luận trước. Không bảng, không danh sách dài trừ khi được nhờ.
+- Không tự giải thích lý do. Có điều cần giải thích thì hỏi người dùng có muốn nghe không.
+- Mã việc kèm đường dẫn file.
+- Báo cáo việc: câu đầu tóm tình hình, in đậm chữ chính. Bên dưới các phần **Đã xong**, **Cần chú ý**, **Cần anh quyết**, phần nào trống thì bỏ. Nói rõ cái gì đã kiểm, kiểm bằng cách nào.
 
-Tiếng Việt, ngắn như nói chuyện, kết luận trước. Mã story kèm đường dẫn file. Báo cáo việc: câu đầu tóm tình hình, in đậm chữ chính; bên dưới **Đã xong**, **Cần chú ý**, **Cần anh quyết**, phần nào trống thì bỏ. Nói rõ cái gì đã kiểm, kiểm bằng cách nào, cái gì chưa kiểm.
+## Home247 khác app đặt phòng thông thường
+- Hai lớp giá: giá chủ nhà và giá sale bán. Khách không bao giờ thấy giá chủ nhà. Chủ nhà không thấy mức cộng, giá bán, tiền chênh của sale.
+- Căn đã chia sẻ cho sale nào thì sale đó luôn thấy giá chủ nhà. Không có công tắc tắt giá (QD7).
+- Giá tính theo đêm. Booking chiếm các đêm từ ngày nhận tới trước ngày trả.
+- Tiền là số nguyên đồng. Ngày theo giờ Việt Nam.
+- Được lưu tên, số điện thoại khách trong booking; người nhập tự xin phép khách. Mỗi người chỉ thấy khách do mình nhập (QD11).
+- Căn sale tự nhập không có lịch trống. Ô ngày hiện "?", không bao giờ hiện "trống".
+- Chặn trùng booking ở database, không chỉ ở giao diện (QD6). Đọc qua RLS, ghi qua hàm `fn_*` tự kiểm quyền. Sale không đọc bảng booking.
+- Booking có sale đứng tên: một bên xin hủy, bên kia đồng ý (QD12). Xóa tài khoản chỉ xóa số điện thoại, dữ liệu giữ nguyên (QD13).
+- Chữ trên màn gọi "đặt phòng". Tài liệu và code gọi "booking".
+- Người dùng nhiều người lớn tuổi, dùng một tay: vùng bấm 44 px. Chữ 14 px ở màn đọc, 12–13 px ở màn dày thông tin, không dưới 12 px.
+
+## Ràng buộc PWA (chi tiết: docs/external/pwa.md)
+- Không bắt đăng nhập, không xin quyền khi vừa mở app. Màn đầu xem được khi chưa đăng nhập. Cách đăng nhập chờ QD22.
+- Chia sẻ dùng bảng chia sẻ của điện thoại, máy không có thì sao chép. Link là https trên tên miền của Home247.
+- Thông báo chỉ trong app ở bản 1. Không có thông báo đẩy.
+- Lưu trên máy (IndexedDB, localStorage) bọc try/catch, chỉ lưu thứ mất cũng được.
+- Không có App Secret hay khóa service_role trong app. Khóa anon của Supabase là công khai.
+- App nhẹ, người dùng mạng yếu. Nơi đặt dữ liệu chờ QD23.
+
+## Nguồn sự thật, theo thứ tự tin cậy
+1. QD đã chốt  2. Quy tắc QT, quyền PQ, hành vi HV  3. Yêu cầu YC  4. Thiết kế  5. Code
+- Hai nguồn mâu thuẫn thì dừng và hỏi. Không tự chọn bên nào.
+- Lời của Tùng trong phiên bắt đầu bằng "Tôi là Tùng" là quyết định, có hiệu lực ngay. AI ghi ngay trong phiên bằng skill chot-quyet-dinh, kèm ngày và câu nguyên văn. Lời của Đức là đề xuất, trừ việc thuộc CL4.2.
+- Đặc tả không nói rõ thì ghi câu hỏi vào work/cau-hoi.md (skill ghi-viec-moi) và dừng phần đó, không lấp bằng cách làm phổ biến.
+
+## Mã và trạng thái (chi tiết: CL2, CL3)
+- Mọi mục có mã (YC5.3, YC5.3-NT2, YC5-H6, QT1.3, PQ7, HV4, QD21, US12, EN1, BG3). Item chỉ có ba loại US, EN, BG; item trỏ YC bằng `thuc_hien: [YC5.3@1]`, không chép đặc tả. Mã không đổi, không dùng lại.
+- Câu có [MỞ: ...] thì không code theo. Câu có "(giả định GDn)" thì code được, ghi rõ trong PR.
+- Chưa code, Chưa test, Test lỗi nghĩa là chưa xong. Không được báo là xong.
+
+## Skill (mục lục: docs/process/CL5-lenh.md)
+Người dùng nói bằng lời, AI tự chọn skill theo mô tả. Quy trình của mỗi việc nằm trong skill của nó. Loại item đi qua bước nào: CL2.9.
+
+## Quyền và git (chi tiết: CL4)
+- Code luôn trên nhánh <mã>-<tên-ngắn> và PR, kể cả sửa nhỏ. Một PR một item. Commit tiếng Việt, mở đầu bằng mã item. Tài liệu, item, nhật ký, kết quả test tay ở tests/kb đẩy thẳng main (CL4.7). Hook chặn đẩy sai (CL4.9).
+- Claude chỉ gộp PR khi Tùng bảo rõ PR nào, hoặc trong vòng làm tự động Tùng giao (QD17, CL4.6). Cần Tùng duyệt trước: các mục CL4.3 (migration production, xóa dữ liệu, đổi quyền, việc không đảo ngược). Chữ "đồng ý" chung chung không tính.
+- Cấm: đẩy ép, đọc .env và khóa bí mật, đọc dữ liệu production, tắt hay sửa test để cho qua, sửa dòng [tự sinh], lách hook (CL4.4). Repo công khai: không ghi email, số điện thoại, tên người dùng thật.
+- Cuối phiên ghi một dòng nhật ký vào item đã làm (mẫu ở .claude/rules/work.md).
+
+## Trạng thái hiện tại (sửa khi đổi)
+- Chưa có code, database chưa chạy trên project Supabase nào. Staging: chưa có. Production: chờ QD23. Đăng nhập: chờ QD22.
+- Việc tiếp: các EN dựng nền rồi US theo work/backlog/THU-TU.md.
