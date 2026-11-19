@@ -720,9 +720,10 @@ Gắn ở: PQ8.
 
 ## PQ10
 
-### PQ10-H1 · mo
+### PQ10-H1 · da-tra-loi
 Sale bị ngừng thì yêu cầu đang chờ của sale với chủ nhà đó xử lý thế nào?
 Gắn ở: PQ10.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Theo YC9-H4 và YC9-H3: yêu cầu giữ nguyên trạng thái Chờ chủ; chủ nhà không chấp nhận được (database từ chối), vẫn từ chối được; không ai trả lời thì hết hạn như thường. Sale vẫn đọc và hủy được yêu cầu của mình. Ghi vào PQ r3.
 
 ## PQ17
 

@@ -2,7 +2,7 @@
 id: US50
 tieu_de: "Sale gửi và hủy yêu cầu"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC9.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []

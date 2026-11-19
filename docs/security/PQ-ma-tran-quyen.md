@@ -3,7 +3,7 @@ id: PQ
 tieu_de: Ma trận quyền
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ---
 > Luật chung, sống. Ma trận quyền: nguồn duy nhất cho câu hỏi "ai được thấy, được sửa gì". YC ghi mã ô (PQ5.SALE) ở mục Quyền. Đổi một ô là đổi phân quyền: cần Tùng duyệt và một QD.
 
@@ -114,7 +114,7 @@ Tiền phòng, tiền cọc, trạng thái thu.
 ## PQ10 · Yêu cầu đặt phòng
 Yêu cầu của sale, trạng thái, lý do từ chối.
 - PQ10.CHU: xem yêu cầu gửi tới căn của mình; chấp nhận, từ chối kèm lý do (YC9.2). Không thấy giá bán của sale (PQ11).
-- PQ10.SALE: gửi yêu cầu cho căn được chia sẻ, đêm còn trống (YC9.1); xem, hủy yêu cầu của mình; thấy lý do từ chối (YC9.4). Không thấy yêu cầu của sale khác (YC5, YC9). Bị ngừng: không gửi yêu cầu mới; yêu cầu đang chờ: [MỞ: PQ10-H1].
+- PQ10.SALE: gửi yêu cầu cho căn được chia sẻ, đêm còn trống (YC9.1); xem, hủy yêu cầu của mình; thấy lý do từ chối (YC9.4). Không thấy yêu cầu của sale khác (YC5, YC9). Bị ngừng: không gửi yêu cầu mới; yêu cầu đang chờ giữ nguyên, sale vẫn đọc và hủy được, chủ nhà không chấp nhận được nhưng vẫn từ chối được, không ai trả lời thì hết hạn (PQ10-H1, YC9-H3, YC9-H4, Claude tự chốt QD25). `[r3 · sửa]`
 - PQ10.LINK: không.
 - PQ10.CTV: không áp dụng ở bản đầu (YC14).
 - PQ10.KHACH: không.
@@ -237,3 +237,4 @@ Người dùng xóa tài khoản, server xóa số điện thoại và đánh d�
 | Rev | Ngày | Người | Sửa gì |
 |---|---|---|---|
 | 2 | 2026-11-19 | Claude (QD25) | PQ18.LINK: trả lời PQ18-H1, link xin lịch không hết hạn ở bản 1. |
+| 3 | 2026-11-19 | Claude (QD25) | PQ10.SALE: trả lời PQ10-H1 theo YC9-H3, YC9-H4. |

@@ -2,7 +2,7 @@
 id: US48
 tieu_de: "Gửi thông tin cho khách"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC8.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [56]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -54,9 +54,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md.
 
 ## Task
-- [x] US48-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC8.1-NT2, YC8.1-NT4, YC8.1-NT6, YC8.1-NT7, YC8.1-NT8, YC8.1-NT9, YC8.1-NT10, YC8.1-NT11, YC8.1-NT12, YC8.1-NT13, YC8.1-NT14, YC8.1-NT16, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US48-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US48-TA3 Code · Claude Code (sonnet, CL14.6a): màn S5 theo canvas, test unit, e2e cho YC8.1-NT1 đến NT5, NT12 đến NT15, HV6-NT2
+- [x] US48-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC8.1-NT2, YC8.1-NT4, YC8.1-NT6, YC8.1-NT7, YC8.1-NT8, YC8.1-NT9, YC8.1-NT10, YC8.1-NT11, YC8.1-NT12, YC8.1-NT13, YC8.1-NT14, YC8.1-NT16, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #56
+- [x] US48-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #56
+- [x] US48-TA3 Code · Claude Code (sonnet, CL14.6a): màn S5 theo canvas, test unit, e2e cho YC8.1-NT1 đến NT5, NT12 đến NT15, HV6-NT2 · PR #56
 - [ ] US48-TA4 Test tay · Đức: chạy tests/kb/US48-gui-thong-tin-cho-khach.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -71,6 +71,7 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md.
 - 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
 - 2026-11-19 · Claude (QD25) · tự chốt YC8-H1, H2, H3, H4, H6, H7 (YC8 r4, thêm NT12 đến NT16); viết kịch bản test tay
 - 2026-11-19 · Claude (agent code) · TA1–TA3 trên nhánh US48-gui-khach, chưa mở PR; chữ từng căn soạn ở database, S5 phủ lên S2/S3
+- 2026-11-19 · Claude (QD25) · Gộp PR #56, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC8.1`: lần đầu 43 hỏng, 17 qua (2 vòng sửa lỗi dựng dữ liệu trong chính file test trước khi có migration).
