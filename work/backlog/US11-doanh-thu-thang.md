@@ -2,7 +2,7 @@
 id: US11
 tieu_de: "Doanh thu tháng"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC2.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [38]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US11-doanh-thu-thang.md.
 
 ## Task
-- [ ] US11-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC2.3-NT1, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US11-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US11-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-02 theo canvas, test unit, e2e cho YC2.3-NT1, YC2.3-NT2
+- [x] US11-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC2.3-NT1, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #38
+- [x] US11-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #38
+- [x] US11-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-02 theo canvas, test unit, e2e cho YC2.3-NT1, YC2.3-NT2 · PR #38
 - [ ] US11-TA4 Test tay · Đức: chạy tests/kb/US11-doanh-thu-thang.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US11-doanh-thu-thang.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.3@1 (QD21)
 - 2026-11-19 · Claude · TA1, TA2, TA3 code trên nhánh US11-doanh-thu-thang; test DB, e2e chưa chạy được (máy không có Postgres, Docker)
+- 2026-11-19 · Claude · bật lại DB trên máy, sửa dựng dữ liệu hủy B1 theo QD12, gộp PR #38 theo QD25 · 1039 test DB, 422 unit, 37 e2e xanh
 
 ## Bằng chứng
 - Unit `npx vitest run`: lần đầu xanh 45/45 ở hai file đổi (test viết cùng code TA3), cả bộ 422 qua. `npm run typecheck` (1 vòng sửa kiểu trong test), `npm run build` qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
