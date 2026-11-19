@@ -2,7 +2,7 @@
 id: US31
 tieu_de: "Sửa đặt phòng"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.6@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [36]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -54,7 +54,7 @@ Kịch bản test tay: tests/kb/US31-sua-dat-phong.md.
 ## Task
 - [x] US31-TA1 test database tests/db/46_us31_sua_dat_phong.sql · nhánh US31-sua-dat-phong
 - [x] US31-TA2 migration 20261119250000 (fn_sua_booking, kiem_du_lieu_booking, trigger booking_sau_khi_sua), 5 phép thử làm hỏng · nhánh US31-sua-dat-phong
-- [ ] US31-TA3 Code: màn CN4-02 (unit, e2e); S3-10 chuyển sang US34
+- [x] US31-TA3 Code: màn CN4-02 (unit, e2e); S3-10 chuyển sang US34 · PR #36
 - [ ] US31-TA4 Test tay · Đức: chạy tests/kb/US31-sua-dat-phong.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -63,6 +63,7 @@ Kịch bản test tay: tests/kb/US31-sua-dat-phong.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.6@1 (QD21)
 - 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 phần CN4-02 trên nhánh US31-sua-dat-phong, chưa mở PR · S3-10 ngoài phạm vi file · ~1 giờ
+- 2026-11-19 · Claude · gộp PR #36 theo QD25 · 993 test DB, 405 unit, 34 e2e xanh
 
 ## Bằng chứng
 - `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (chỉ test) 48 hỏng; sau migration 993 qua, 0 hỏng (1 vòng).

@@ -1522,7 +1522,7 @@
    "id": "US31",
    "loai": "US",
    "tieu_de": "\"Sửa đặt phòng\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1532,11 +1532,11 @@
     "US2"
    ],
    "file": "work/backlog/US31-sua-dat-phong.md",
-   "pr": "",
+   "pr": "[36]",
    "task": {
     "Code": {
-     "xong": 0,
-     "tong": 3
+     "xong": 1,
+     "tong": 1
     },
     "Test tay": {
      "xong": 0,
@@ -1547,13 +1547,13 @@
      "tong": 0
     },
     "khác": {
-     "xong": 0,
-     "tong": 0
+     "xong": 2,
+     "tong": 2
     }
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US32",
