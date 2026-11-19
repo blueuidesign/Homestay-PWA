@@ -2,7 +2,7 @@
 id: US49
 tieu_de: "Mẫu tin gửi khách"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC8.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [57]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -53,8 +53,8 @@ YC8-gui-khach.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US49-mau-tin-gui-khach.md.
 
 ## Task
-- [x] US49-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC8.2-NT3, YC8.2-NT4, YC8.2-NT5
-- [x] US49-TA2 Code · Claude Code (sonnet, CL14.6a): màn P11 theo canvas, test unit, e2e cho YC8.2-NT1 đến NT3, NT5
+- [x] US49-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC8.2-NT3, YC8.2-NT4, YC8.2-NT5 · PR #57
+- [x] US49-TA2 Code · Claude Code (sonnet, CL14.6a): màn P11 theo canvas, test unit, e2e cho YC8.2-NT1 đến NT3, NT5 · PR #57
 - [ ] US49-TA3 Test tay · Đức: chạy tests/kb/US49-mau-tin-gui-khach.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -65,6 +65,7 @@ Kịch bản test tay: tests/kb/US49-mau-tin-gui-khach.md.
 - 2026-11-18 · Claude · tạo item từ YC8.2@1 (QD21)
 - 2026-11-19 · Claude (QD25) · tự chốt YC8-H8, H9 (YC8 r5, thêm NT5); viết kịch bản test tay
 - 2026-11-19 · Claude (agent code) · TA1, TA2: fn_mau_tin, fn_dat_mau_tin, P11, dòng ở Cá nhân, e2e; nhánh US49-mau-tin, chưa PR · S5 đã theo mẫu lưu từ US48 · ~1 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #57, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA3.
 
 ## Bằng chứng
 - DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC8.2` lần đầu 32 hỏng/8 qua (chưa có hàm; một vòng đổi t.dem sang t.so vì file dừng ở vai anon), sau migration 40 qua. `scripts/test-db.sh` cả bộ: 1951 qua, 0 hỏng.

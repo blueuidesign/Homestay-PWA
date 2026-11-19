@@ -2220,7 +2220,7 @@
    "id": "US49",
    "loai": "US",
    "tieu_de": "\"Mẫu tin gửi khách\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2230,7 +2230,7 @@
     "US2"
    ],
    "file": "work/backlog/US49-mau-tin-gui-khach.md",
-   "pr": "",
+   "pr": "[57]",
    "task": {
     "Code": {
      "xong": 2,
@@ -2251,7 +2251,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US50",
