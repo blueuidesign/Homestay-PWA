@@ -71,8 +71,8 @@ export function CN1LichThang(props: {
   /** Căn có lịch, chưa ẩn của chủ nhà, theo thứ tự hiện (căn thêm trước đứng trước). */
   ds: CanLich[];
   dv: DichVuLich | undefined;
-  /** YC2.1 bước 5: mở form ghi đặt phòng (YC5). */
-  onDatPhong: () => void;
+  /** YC2.1 bước 5, YC5.1 bước 1a: mở CN4. YC5.1 bước 1b: từ dòng căn trống ở CN3 thì kèm căn và ngày đang xem. */
+  onDatPhong: (chon?: { canId: string; ngay: Ngay }) => void;
   /** YC2.2 bước 9: chạm dòng căn có khách ở chi tiết ngày thì mở chi tiết đặt phòng CN3-02 (YC5). */
   onMoDatPhong?: (id: string) => void;
   /** Tháng đã xem trong phiên; ManChu giữ để mở lại tab Lịch thấy ngay (HV1-NT2). */
@@ -107,7 +107,7 @@ export function CN1LichThang(props: {
 
   const chuTatCa = chuChipTatCa(props.ds.length);
   const nutDatPhong = (
-    <button type="button" className="hh-btn hh-btn--primary hh-btn--pill" onClick={props.onDatPhong}>
+    <button type="button" className="hh-btn hh-btn--primary hh-btn--pill" onClick={() => props.onDatPhong()}>
       <Icon>{ICON_THEM}</Icon>Đặt phòng
     </button>
   );
@@ -191,7 +191,8 @@ export function CN1LichThang(props: {
       {/* YC2.2 bước 7: chi tiết ngày dùng dữ liệu tháng đã đọc; ngày chọn ở tháng khác thì ẩn tới khi quay lại tháng đó. */}
       {hien && chon && chon.slice(0, 7) === `${nam}-${String(thang).padStart(2, '0')}` && (
         <CN3ChiTietNgay ngay={chon} ds={canHien} datPhong={hien.duLieu.datPhong} mau={mau}
-                        onMoDatPhong={(id) => props.onMoDatPhong?.(id)} onDatPhong={props.onDatPhong} />
+                        onMoDatPhong={(id) => props.onMoDatPhong?.(id)}
+                        onDatPhong={(canId, ngay) => props.onDatPhong({ canId, ngay })} />
       )}
 
       {chuaCoDatPhong && (
@@ -199,7 +200,7 @@ export function CN1LichThang(props: {
           <div className="cn1-trong">
             <span className="cn1-trong-ten">Chưa có đặt phòng nào</span>
             <span className="cn1-trong-mo">Bấm "Đặt phòng" để thêm khách đầu tiên. Ngày có khách sẽ tô màu theo phòng.</span>
-            <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onDatPhong}>
+            <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={() => props.onDatPhong()}>
               <Icon>{ICON_THEM}</Icon>Đặt phòng
             </button>
           </div>

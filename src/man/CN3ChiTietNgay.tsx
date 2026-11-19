@@ -46,8 +46,8 @@ export function CN3ChiTietNgay(props: {
   mau: Map<string, string>;
   /** YC2.2 bước 9: mở chi tiết đặt phòng CN3-02 (YC5). */
   onMoDatPhong: (id: string) => void;
-  /** YC2.2 bước 10: form ghi đặt phòng (YC5). */
-  onDatPhong: () => void;
+  /** YC2.2 bước 10, YC5.1 bước 1b: mở CN4 với căn này và ngày đang xem. */
+  onDatPhong: (canId: string, ngay: Ngay) => void;
 }) {
   const tieuDe = tieuDeNgay(props.ngay);
   return (
@@ -60,7 +60,7 @@ export function CN3ChiTietNgay(props: {
           ) : (
             <li key={can.id} className="cn3-dong cn3-dong--trong" aria-label={tenCan(can.maCan)}>
               <span className="cn3-ten">{tenCan(can.maCan)}<span className="cn3-trong"> · Trống ✓</span></span>
-              <button type="button" className="hh-btn hh-btn--text cn3-dat" onClick={props.onDatPhong}>
+              <button type="button" className="hh-btn hh-btn--text cn3-dat" onClick={() => props.onDatPhong(can.id, props.ngay)}>
                 <Icon>{ICON_THEM}</Icon>Đặt phòng
               </button>
             </li>

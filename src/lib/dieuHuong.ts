@@ -1,4 +1,5 @@
 // Bộ chọn màn theo địa chỉ và phiên (YC1.2, YC1 Quy tắc của nhóm, QD8). Không dùng thư viện router (QD25).
+import { laNgay } from './ngay';
 
 export type Vai = 'chu_nha' | 'sale';
 export type HoSo = { ten: string | null; soDienThoai: string | null; vaiChon: Vai | null };
@@ -29,11 +30,17 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
 /** Màn trong các tab của chủ nhà (YC3.1, canvas thanh tab A4, CN5). Đường dẫn khác thì về tab Lịch. */
 export type ManChu =
   | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string } | { tab: 'can-gia'; id: string }
-  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' };
+  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' }
+  | { tab: 'dat-phong-moi'; canId?: string; ngay?: string };
 
 export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke': '/thong-ke', 'ca-nhan': '/ca-nhan' } as const;
 
 /** YC3.1 bước 8, 13, 14: /can/moi là CN5-A1, /can/<mã> là CN5-02 (tab Thông tin). YC4.2 bước 1: /can/<mã>/gia là CN6 tab Giá. */
+/** YC5.1 bước 1a, 1b: địa chỉ mở CN4, kèm căn và ngày nhận khi bấm "Đặt phòng" ở dòng căn trống của CN3. */
+export function duongDanDatPhongMoi(chon?: { canId: string; ngay: string }): string {
+  return chon ? `/dat-phong/moi/${chon.canId}/${chon.ngay}` : '/dat-phong/moi';
+}
+
 export function chonManChu(duongDan: string): ManChu {
   const d = duongDan.replace(/\/+$/, '') || '/';
   if (d === '/can') return { tab: 'can' };
@@ -46,5 +53,9 @@ export function chonManChu(duongDan: string): ManChu {
   if (d === '/thong-ke') return { tab: 'thong-ke' };
   if (d === '/ca-nhan') return { tab: 'ca-nhan' };
   if (d === '/ca-nhan/dem-cuoi-tuan') return { tab: 'dem-cuoi-tuan' }; // YC4.6 bước 1: P6
+  // YC5.1 bước 1a: /dat-phong/moi mở CN4; bước 1b: /dat-phong/moi/<mã căn>/<ngày nhận> từ chi tiết ngày CN3.
+  if (d === '/dat-phong/moi') return { tab: 'dat-phong-moi' };
+  const dp = /^\/dat-phong\/moi\/([A-Za-z0-9-]+)\/(\d{4}-\d{2}-\d{2})$/.exec(d);
+  if (dp && laNgay(dp[2]!)) return { tab: 'dat-phong-moi', canId: dp[1]!, ngay: dp[2]! };
   return { tab: 'lich' };
 }

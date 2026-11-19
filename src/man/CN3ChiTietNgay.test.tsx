@@ -81,4 +81,11 @@ describe('YC2.2 · CN3 Chi tiết một ngày', () => {
     ve('2020-01-01');
     expect(screen.getAllByRole('button', { name: 'Đặt phòng' })).toHaveLength(2);
   });
+
+  it('YC5.1 bước 1b dòng 3402 trống ngày 10/10 bấm "Đặt phòng" thì mở CN4 với căn 3402 và ngày 10/10', () => {
+    const onDatPhong = vi.fn();
+    ve('2026-10-10', HAI_CAN, { onDatPhong });
+    fireEvent.click(within(dong('3402')).getByRole('button', { name: 'Đặt phòng' }));
+    expect(onDatPhong).toHaveBeenCalledWith('c3402', '2026-10-10');
+  });
 });

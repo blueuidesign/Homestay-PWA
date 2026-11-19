@@ -263,4 +263,15 @@ describe('YC2.2 · CN3 chi tiết ngày dưới lưới CN1', () => {
     fireEvent.click(within(screen.getByRole('listitem', { name: 'Phòng 3402' })).getByRole('button', { name: 'Đặt phòng' }));
     expect(onDatPhong).toHaveBeenCalledTimes(1);
   });
+
+  it('YC5.1 bước 1a, 1b nút "Đặt phòng" đầu màn mở CN4 không kèm căn; nút ở dòng căn trống của CN3 kèm căn và ngày đang xem', async () => {
+    const onDatPhong = vi.fn();
+    ve(HAI_CAN, dichVu(), { onDatPhong });
+    await choLuoi();
+    fireEvent.click(screen.getByRole('button', { name: 'Đặt phòng' }));
+    expect(onDatPhong).toHaveBeenLastCalledWith();
+    fireEvent.click(o('2026-10-10'));
+    fireEvent.click(within(screen.getByRole('listitem', { name: 'Phòng 3402' })).getByRole('button', { name: 'Đặt phòng' }));
+    expect(onDatPhong).toHaveBeenLastCalledWith({ canId: 'c3402', ngay: '2026-10-10' });
+  });
 });
