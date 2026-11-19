@@ -3,7 +3,7 @@ id: YC3
 tieu_de: Căn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC3 · Căn
@@ -190,7 +190,7 @@ Bản 1 · rủi ro: thấp · Màn: CN5-A1 (phần mở rộng), CN5-A1b
 | 33 | Chạm "+ Thêm tòa mới …" | Tòa mới được chọn cho căn | Lệnh thêm tòa: thêm tòa vào danh sách chung, không cần duyệt. Tên trùng một tòa đã có (không phân biệt hoa thường) thì trả tòa đã có (giả định GD21) |
 | 34 | Bấm "Thu gọn" | Ẩn phần thêm, giữ giá trị đã nhập | Không |
 
-Phần này không bắt buộc. Số giường không vào dòng "Còn thiếu". Chọn được một loại view cho một căn ([MỞ: YC3-H7]). Khu vực của tòa người dùng thêm: [MỞ: YC3-H5]; tới khi có câu trả lời, tòa mới không có khu vực.
+Phần này không bắt buộc. Số giường không vào dòng "Còn thiếu". `[r3 · sửa]` Chọn một loại view cho một căn; chạm chip đang chọn thì bỏ chọn (trả lời YC3-H7). Tòa Home247 đặt sẵn có khu vực; tòa người dùng thêm không có khu vực, danh sách chỉ hiện tên (trả lời YC3-H5). Cả hai: Claude tự quyết, QD25.
 
 Tiêu chí:
 - **YC3.4-NT1** Khi chủ nhà gõ "green" vào ô tên tòa ở CN5-A1b, thì danh sách chỉ còn "Green Bay" và có dòng "+ Thêm tòa mới "green"". · unit
@@ -267,3 +267,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US1, US25, US11, US27 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9; trả lời YC3-H1 (Claude tự quyết, QD25) | Phạm vi, YC3.2 |
+| r3 | 2026-11-19 | Claude | US17-toa-nha | Trả lời YC3-H5, YC3-H7 (Claude tự quyết, QD25) | YC3.4 |

@@ -3,7 +3,7 @@ id: US17
 tieu_de: "Tòa nhà, loại view, số giường, mô tả"
 loai: US
 trang_thai: moi
-thuc_hien: [YC3.4@1]
+thuc_hien: [YC3.4@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -37,7 +37,7 @@ PQ1, PQ3, PQ13 và các test vi phạm ở mục "Ai được làm gì" của YC
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC3-H7, YC3-H5.
+- YC3-H5, YC3-H7 đã trả lời (YC3 r3, Claude tự quyết QD25).
 - Phần đầu YC3-can.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -48,7 +48,7 @@ YC3-can.md#Dữ liệu
 YC3-can.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US17-toa-nha-loai-view-so.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US17-toa-nha-loai-view-so.md (KB1 đến KB3).
 
 ## Task
 - [ ] US17-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC3.4-NT3, YC3.4-NT4

@@ -107,18 +107,20 @@ Gắn ở: YC3.6.
 Bỏ một ảnh ở CN5-02 có hỏi lại không?
 Gắn ở: YC3.5. Tới khi có câu trả lời: không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi").
 
-### YC3-H5 · mo
+### YC3-H5 · da-tra-loi
 Tòa nhà người dùng tự thêm thì khu vực của tòa ghi gì?
 Gắn ở: YC3.4. Tới khi có câu trả lời: tòa mới không có khu vực.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tòa người dùng thêm không có khu vực, danh sách chỉ hiện tên. Tòa Home247 đặt sẵn có khu vực (cột khu_vuc của toa_nha, nạp bằng seed). Quản trị viên bổ sung khu vực sau ở YC13. Ghi vào YC3.4 r3.
 
 ### YC3-H6 · da-tra-loi
 Tạo căn có dùng mã lần gửi để chống gửi trùng không (hiện chỉ dựa vào luật mã căn không trùng)?
 Gắn ở: YC3.2.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. QT5.6 đã ghi thêm căn dùng mã lần gửi, bảng can đã có cột client_id không trùng theo người giữ. Gửi lại cùng mã thì trả căn đã tạo. Ghi vào YC3.2 r2, tiêu chí YC3.2-NT9.
 
-### YC3-H7 · mo
+### YC3-H7 · da-tra-loi
 Chọn được nhiều loại view cho một căn không?
 Gắn ở: YC3.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Một loại view cho một căn. Bảng can có một cột loai_view, luật kiểm YC3.2 kiểm một giá trị, sale lọc theo một loại; căn nhìn được cả biển và núi thì chủ nhà chọn loại nổi bật nhất. Ghi vào YC3.4 r3.
 
 ### YC3-H8 · mo
 Xóa căn có hỏi lại một lần không? Gợi ý: có, như xóa đặt phòng.
