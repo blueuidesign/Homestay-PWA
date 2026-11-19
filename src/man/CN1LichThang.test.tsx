@@ -235,3 +235,32 @@ describe('YC2 Trạng thái màn · HV1, HV2 trên CN1', () => {
     expect(dv.layThang).toHaveBeenLastCalledWith(['c1509', 'c3402'], 2026, 10);
   });
 });
+
+describe('YC2.2 · CN3 chi tiết ngày dưới lưới CN1', () => {
+  it('YC2.2 bước 6, 7 chạm ô 10/10 thì chi tiết ngày mở dưới lưới, mỗi căn theo chip một dòng', async () => {
+    ve(HAI_CAN);
+    await choLuoi();
+    expect(screen.queryByRole('heading', { name: /^Ngày / })).toBeNull();
+    fireEvent.click(o('2026-10-10'));
+    expect(screen.getByRole('heading', { name: 'Ngày 10/10/2026' })).toBeInTheDocument();
+    expect(screen.getAllByRole('listitem').map((e) => e.getAttribute('aria-label'))).toEqual(['Phòng 1509', 'Phòng 3402']);
+    fireEvent.click(screen.getByRole('button', { name: '3402' }));
+    expect(screen.getAllByRole('listitem').map((e) => e.getAttribute('aria-label'))).toEqual(['Phòng 3402']);
+  });
+
+  it('YC2.2 bước 9, 10 chạm dòng có khách và nút "Đặt phòng" của căn trống gọi lên ManChu', async () => {
+    const onDatPhong = vi.fn();
+    const onMoDatPhong = vi.fn();
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu()} homNay="2026-10-07" onDatPhong={onDatPhong} onMoDatPhong={onMoDatPhong} />
+      </ToastProvider>,
+    );
+    await choLuoi();
+    fireEvent.click(o('2026-10-10'));
+    fireEvent.click(within(screen.getByRole('listitem', { name: 'Phòng 1509' })).getByRole('button', { name: /Phòng 1509/ }));
+    expect(onMoDatPhong).toHaveBeenCalledWith('B1');
+    fireEvent.click(within(screen.getByRole('listitem', { name: 'Phòng 3402' })).getByRole('button', { name: 'Đặt phòng' }));
+    expect(onDatPhong).toHaveBeenCalledTimes(1);
+  });
+});

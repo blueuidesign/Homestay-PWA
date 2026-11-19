@@ -1,8 +1,25 @@
-// Phần tính của lịch tháng chủ nhà (YC2.1, QT2, YC2 Quy tắc "Màu theo căn", "Tuần bắt đầu thứ hai").
-import { congNgay, type Ngay } from './ngay';
+// Phần tính của lịch tháng chủ nhà (YC2.1, QT2, YC2 Quy tắc "Màu theo căn", "Tuần bắt đầu thứ hai")
+// và chi tiết một ngày (YC2.2, QT6.1).
+import { congNgay, soDem, type Ngay } from './ngay';
+import { vietTien } from './tien';
 
-/** Một booking chưa hủy, chỉ phần lịch cần (không tiền, không khách). */
-export type DatPhongLich = { id: string; canId: string; ngayNhan: Ngay; ngayTra: Ngay };
+/** QT6.1: trạng thái tiền của đặt phòng; null khi không có (đặt phòng sale tự ghi cho căn tự nhập). */
+export type TrangThaiTien = 'chua_coc' | 'da_coc' | 'da_thanh_toan';
+
+/**
+ * YC2.2 bước 8: người đặt. Sale đứng tên (tên, số qua v_nguoi_ket_noi; null khi không còn kết nối),
+ * khách chủ nhà nhập có tên (booking_rieng của chính chủ nhà, QD11), hoặc khách lẻ.
+ */
+export type NguoiDat = { loai: 'sale'; ten: string | null; sdt: string | null } | { loai: 'khach'; ten: string } | { loai: 'le' };
+
+/**
+ * Một booking chưa hủy của căn chủ nhà. Phần lịch (YC2.1) luôn có; phần chi tiết ngày (YC2.2: tiền, người đặt,
+ * ghi chú) có khi dịch vụ đọc được.
+ */
+export type DatPhongLich = {
+  id: string; canId: string; ngayNhan: Ngay; ngayTra: Ngay;
+  tienPhong?: number; tienCoc?: number | null; trangThaiTien?: TrangThaiTien | null; nguoiDat?: NguoiDat; ghiChu?: string | null;
+};
 
 /** Căn trên lịch, theo thứ tự hiện (căn thêm trước đứng trước). */
 export type CanLich = { id: string; maCan: string };
@@ -64,4 +81,50 @@ export function canCoKhach(m: Map<Ngay, Set<string>>, ngay: Ngay, canLoc: string
 /** Nhãn ô ngày cho trình đọc màn hình (theo canvas CN1): "Ngày 5, đã đặt phòng 1509, 3402", "Ngày 1, trống". */
 export function nhanO(ngayTrongThang: number, maCan: readonly string[]): string {
   return maCan.length ? `Ngày ${ngayTrongThang}, đã đặt phòng ${maCan.join(', ')}` : `Ngày ${ngayTrongThang}, trống`;
+}
+
+/** "10/10" từ '2026-10-10'. */
+const ngayThangNgan = (ngay: Ngay) => `${ngay.slice(8, 10)}/${ngay.slice(5, 7)}`;
+
+/** YC2.2 bước 7: "Ngày 10/10/2026". */
+export function tieuDeNgay(ngay: Ngay): string {
+  return `Ngày ${ngayThangNgan(ngay)}/${ngay.slice(0, 4)}`;
+}
+
+/** YC2.2 bước 8, QT2.1: "10/10 → 12/10 (2 đêm)"; số đêm từ ngày nhận tới trước ngày trả. */
+export function khoangNgay(nhan: Ngay, tra: Ngay): string {
+  return `${ngayThangNgan(nhan)} → ${ngayThangNgan(tra)} (${soDem(nhan, tra)} đêm)`;
+}
+
+/** YC2.2 bước 8, QT6.1: "2.200.000đ · Cọc: 1.000.000đ", "… · Chưa cọc", "… · Đã thanh toán". */
+export function chuTien(tienPhong: number, trangThai: TrangThaiTien | null | undefined, tienCoc: number | null | undefined): string {
+  const tien = vietTien(tienPhong);
+  if (trangThai === 'da_coc') return `${tien} · Cọc: ${vietTien(tienCoc ?? 0)}`;
+  if (trangThai === 'chua_coc') return `${tien} · Chưa cọc`;
+  if (trangThai === 'da_thanh_toan') return `${tien} · Đã thanh toán`;
+  return tien;
+}
+
+/** YC2.2 bước 8: tên sale, tên khách chủ nhà nhập, hoặc "Khách lẻ". Sale không còn kết nối (không đọc được tên) thì "Sale". */
+export function chuNguoiDat(n: NguoiDat | undefined): string {
+  if (!n || n.loai === 'le') return 'Khách lẻ';
+  if (n.loai === 'khach') return n.ten;
+  return n.ten ?? 'Sale';
+}
+
+/** YC2.2 bước 8 (canvas CN3): số 10 chữ số viết "0912 345 678"; số khác giữ nguyên. */
+export function vietSoDienThoai(so: string): string {
+  const m = /^(\d{4})(\d{3})(\d{3})$/.exec(so);
+  return m ? `${m[1]} ${m[2]} ${m[3]}` : so;
+}
+
+/** Một dòng của chi tiết ngày: căn và booking có khách đêm đó (null là trống). */
+export type DongNgay = { can: CanLich; datPhong: DatPhongLich | null };
+
+/** YC2.2 bước 7, 8, 10, QT2.1: mỗi căn đang hiện (theo chip) một dòng; booking chiếm đêm `ngay` nếu nhận ≤ ngay < trả. */
+export function dongCuaNgay(ds: readonly DatPhongLich[], canHien: readonly CanLich[], ngay: Ngay): DongNgay[] {
+  return canHien.map((can) => ({
+    can,
+    datPhong: ds.find((b) => b.canId === can.id && b.ngayNhan <= ngay && ngay < b.ngayTra) ?? null,
+  }));
 }

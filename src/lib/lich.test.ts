@@ -1,7 +1,8 @@
 // Test unit phần tính của lịch tháng (YC2.1, QT2). Số theo DLM.4 (booking của Chị Hoa).
 import { describe, expect, it } from 'vitest';
 import {
-  canCoKhach, chuChipTatCa, demTheoCan, khoangThang, mauCan, nhanO, tenThang, type DatPhongLich,
+  canCoKhach, chuChipTatCa, chuNguoiDat, chuTien, demTheoCan, dongCuaNgay, khoangNgay, khoangThang, mauCan, nhanO,
+  tenThang, tieuDeNgay, vietSoDienThoai, type DatPhongLich,
 } from './lich';
 
 const b = (id: string, canId: string, ngayNhan: string, ngayTra: string): DatPhongLich => ({ id, canId, ngayNhan, ngayTra });
@@ -98,5 +99,41 @@ describe('YC2.1 · tháng và nhãn', () => {
   it('Nhãn ô ngày đọc được bằng trình đọc màn hình', () => {
     expect(nhanO(5, ['1509', '3402'])).toBe('Ngày 5, đã đặt phòng 1509, 3402');
     expect(nhanO(1, [])).toBe('Ngày 1, trống');
+  });
+});
+
+describe('YC2.2 · chi tiết một ngày', () => {
+  it('YC2.2 bước 7 tiêu đề "Ngày 10/10/2026"', () => {
+    expect(tieuDeNgay('2026-10-10')).toBe('Ngày 10/10/2026');
+    expect(tieuDeNgay('2026-11-01')).toBe('Ngày 01/11/2026');
+  });
+  it('YC2.2 bước 8 QT2.1-VD1 khoảng ngày "10/10 → 12/10 (2 đêm)"; QT2.2-VD1 qua tháng', () => {
+    expect(khoangNgay('2026-10-10', '2026-10-12')).toBe('10/10 → 12/10 (2 đêm)');
+    expect(khoangNgay('2026-10-14', '2026-10-15')).toBe('14/10 → 15/10 (1 đêm)');
+    expect(khoangNgay('2026-11-30', '2026-12-02')).toBe('30/11 → 02/12 (2 đêm)');
+  });
+  it('YC2.2 bước 8 QT6.1 tiền: cọc, chưa cọc, đã thanh toán; không có trạng thái tiền thì chỉ tiền phòng', () => {
+    expect(chuTien(2200000, 'da_coc', 1000000)).toBe('2.200.000đ · Cọc: 1.000.000đ');
+    expect(chuTien(1800000, 'chua_coc', null)).toBe('1.800.000đ · Chưa cọc');
+    expect(chuTien(1600000, 'da_thanh_toan', null)).toBe('1.600.000đ · Đã thanh toán');
+    expect(chuTien(800000, null, null)).toBe('800.000đ');
+  });
+  it('YC2.2 bước 8 người đặt: tên sale, tên khách chủ nhà nhập, hoặc "Khách lẻ"', () => {
+    expect(chuNguoiDat({ loai: 'sale', ten: 'Sale Hùng', sdt: '0912345678' })).toBe('Sale Hùng');
+    expect(chuNguoiDat({ loai: 'khach', ten: 'Chị Mai' })).toBe('Chị Mai');
+    expect(chuNguoiDat({ loai: 'le' })).toBe('Khách lẻ');
+    expect(chuNguoiDat(undefined)).toBe('Khách lẻ');
+    expect(chuNguoiDat({ loai: 'sale', ten: null, sdt: null })).toBe('Sale');
+  });
+  it('YC2.2 bước 8 số điện thoại sale viết "0912 345 678"', () => {
+    expect(vietSoDienThoai('0912345678')).toBe('0912 345 678');
+    expect(vietSoDienThoai('+84912')).toBe('+84912');
+  });
+  it('YC2.2 bước 7, 8, 10 mỗi căn (theo chip) một dòng: 10/10 có B1 ở 1509, 3402 trống; ngày trả không tính', () => {
+    const can = [{ id: 'c1509', maCan: '1509' }, { id: 'c3402', maCan: '3402' }];
+    const d = dongCuaNgay(DLM4, can, '2026-10-10');
+    expect(d.map((x) => [x.can.maCan, x.datPhong?.id ?? null])).toEqual([['1509', 'B1'], ['3402', null]]);
+    expect(dongCuaNgay(DLM4, can, '2026-10-12').map((x) => x.datPhong?.id ?? null)).toEqual([null, null]);
+    expect(dongCuaNgay(DLM4, [can[1]!], '2026-10-05').map((x) => [x.can.maCan, x.datPhong?.id])).toEqual([['3402', 'B4']]);
   });
 });
