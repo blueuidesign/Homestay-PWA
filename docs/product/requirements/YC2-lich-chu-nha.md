@@ -3,7 +3,7 @@ id: YC2
 tieu_de: Lịch chủ nhà
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC2 · Lịch chủ nhà
@@ -113,7 +113,7 @@ Bản 1 · rủi ro: cao · Màn: CN1, CN1-02
 | 12 | Đổi tháng | Khối đổi theo tháng mới | Gọi lại với tháng mới |
 | 13 | Tháng đang xem không có đặt phòng nào | Không hiện khối | Không |
 
-Đổi chip lọc căn thì số tiền và số đêm có đổi theo căn không: [MỞ: YC2-H1]. Tới khi có câu trả lời, khối luôn là tổng mọi căn.
+`[r3 · sửa]` Khối luôn là tổng mọi căn của chủ nhà; đổi chip lọc căn chỉ đổi lưới lịch, không đổi số tiền và số đêm (Claude tự chốt, QD25, trả lời YC2-H1).
 
 Số tháng 9 của bộ mẫu: Tùng (bản Zalo, 04/11/2026) "chưa cần thêm dữ liệu mẫu, cái đó xem sau"; test dùng dữ liệu riêng cho tháng 9.
 
@@ -183,3 +183,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US2, US9 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US10-chi-tiet-ngay | Ngày đã qua mở chi tiết như ngày khác, trả lời YC2-H6 (Claude tự chốt, QD25) | YC2.2 |
+| r3 | 2026-11-19 | Claude | US11 chuẩn bị | Khối doanh thu luôn tổng mọi căn, trả lời YC2-H1 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm đang ghi | YC2.3 |

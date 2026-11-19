@@ -68,9 +68,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC2
 
-### YC2-H1 · mo
+### YC2-H1 · da-tra-loi
 Đổi chip lọc căn thì số tiền và số đêm có đổi theo căn không?
 Gắn ở: YC2.3. Tới khi có câu trả lời: khối luôn là tổng mọi căn.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không. Khối doanh thu luôn là tổng mọi căn của chủ nhà, chip lọc chỉ đổi lưới lịch. Lý do: chủ nhà xem khối này để biết tháng thu bao nhiêu; số đổi theo chip dễ bị đọc nhầm là tổng. Doanh thu từng căn để cho màn Thống kê. Ghi vào YC2.3 r3.
 
 ### YC2-H2 · mo
 Lịch tuần nhiều căn: ô trống của đêm chủ nhà chưa đặt giá hiện gì?

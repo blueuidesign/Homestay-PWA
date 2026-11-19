@@ -2,7 +2,7 @@
 id: US11
 tieu_de: "Doanh thu tháng"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC2.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -37,7 +37,6 @@ PQ4, PQ7, PQ8, PQ9, PQ16 và các test vi phạm ở mục "Ai được làm gì
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC2-H1.
 - Phần đầu YC2-lich-chu-nha.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,7 +48,7 @@ YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US11-doanh-thu-thang.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US11-doanh-thu-thang.md.
 
 ## Task
 - [ ] US11-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC2.3-NT1, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
