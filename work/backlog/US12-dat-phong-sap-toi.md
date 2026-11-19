@@ -65,9 +65,10 @@ Kịch bản test tay: tests/kb/US12-dat-phong-sap-toi.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.4@1 (QD21)
 - 2026-11-19 · Claude (agent phụ) · code US12-TA1 trên nhánh US12-dat-phong-sap-toi; e2e chưa chạy vì Docker tắt
+- 2026-11-19 · Claude (phiên chính) · chạy cả thư mục tests/e2e/supabase: 38 đạt; mở PR
 
 ## Bằng chứng
 - Unit `npx vitest run src/lib/lich.test.ts`: lần đầu đỏ 3 test (YC2.4-NT1, NT2, NT3, chưa có hàm), code 1 vòng thì xanh.
 - Unit màn `npx vitest run src/man/CN1LichThang.test.tsx`: lần đầu đỏ 4 test YC2.4 mới; sau khi code đỏ 1 test cũ YC2.2 bước 6, 7 (đếm mọi listitem), đổi danh sách sắp tới sang nút trong div, 2 vòng, xanh 28/28.
 - `npx vitest run`: 39 file, 430 test xanh. `npm run typecheck`, `npm run build`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
-- e2e `tests/e2e/supabase/lich-thang.spec.ts` (YC2.4-NT1 NT2 NT3 luồng chính): đã viết, CHƯA chạy được vì Docker trên máy không chạy (Supabase local không lên). Cần chạy lại cả thư mục tests/e2e/supabase khi Docker lên.
+- e2e `tests/e2e/supabase/lich-thang.spec.ts` (YC2.4-NT1 NT2 NT3 luồng chính): phiên chính bật lại Docker và Supabase local, chạy cả thư mục tests/e2e/supabase ngày 19/11: 38 test đạt.
