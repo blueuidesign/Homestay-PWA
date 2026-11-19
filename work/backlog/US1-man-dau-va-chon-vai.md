@@ -2,7 +2,7 @@
 id: US1
 tieu_de: "Màn đầu và chọn vai"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.1@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [20]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -50,8 +50,8 @@ YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md (KB1 đến KB3).
 
 ## Task
-- [x] US1-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.1-NT5, YC1.1-NT7
-- [x] US1-TA2 Code · Claude Code (sonnet, CL14.6a): màn A1, A3, A3-00 theo canvas, test unit, e2e cho YC1.1-NT1 đến NT6
+- [x] US1-TA1 Code · PR #20
+- [x] US1-TA2 Code · PR #20
 - [ ] US1-TA3 Test tay · Đức: chạy tests/kb/US1-man-dau-va-chon-vai.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -69,6 +69,7 @@ Thứ tự: test database, migration; test unit, màn; e2e; chạy kiểm.
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
 - 2026-11-19 · Claude · viết kịch bản test tay, sang dang-lam
 - 2026-11-19 · Claude · code TA1, TA2 (fn_chon_vai, A1, A3, A3-00), mở PR · Supabase máy cũ treo do trỏ worktree đã xóa, dựng lại
+- 2026-11-19 · Claude · gộp PR #20 theo QD25 (CI xanh 4 job), sang cho-test chờ Đức TA3
 
 ## Bằng chứng
 - `scripts/test-db.sh`: lần đầu 15 đỏ (chưa có fn_chon_vai), 1 vòng sửa; cuối 344 qua, 0 hỏng.
