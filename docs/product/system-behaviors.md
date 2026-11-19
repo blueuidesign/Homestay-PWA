@@ -3,7 +3,7 @@ id: HV
 tieu_de: Hành vi chung của mọi màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ---
 # HV · Hành vi chung của mọi màn
 
@@ -117,7 +117,7 @@ Rủi ro: thấp. Người dùng lớn tuổi luôn thấy thông báo ngắn �
 
 | Bước | Người dùng | App |
 |---|---|---|
-| 1 | Làm xong một việc có toast (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở YC5.3) | Toast ở đầu màn, ngay dưới thanh tiêu đề, cách mép trái phải 12 px, nổi trên nội dung, nền tối, chữ trắng 14 px đậm, dấu ✓, không có nút ✕ |
+| 1 | Làm xong một việc có toast (ví dụ "Đã thêm đặt phòng Sale Hùng · 1509" ở YC5.3) | Toast ở đầu màn, ngay dưới thanh tiêu đề, cách mép trái phải 12 px, nổi trên nội dung, nền tối, chữ trắng 14 px đậm, dấu ✓, không có nút ✕. `[r5 · thêm]` Toast báo việc chưa làm được (ví dụ "Chưa lưu được vì mất mạng...") cùng chỗ, cùng kiểu nhưng không có dấu ✓ (Claude tự quyết, QD25) |
 | 2 | Không làm gì | Toast tự tắt sau 3 giây |
 | 3 | Đang ở màn xoay giả (S1-05) | Toast đọc theo chiều ngang cùng bảng, vị trí chung tính trên khung ngang |
 
@@ -125,6 +125,7 @@ Tiêu chí:
 - **HV8-NT1** Khi hai màn khác nhau hiện toast, thì hai toast cùng kiểu, cùng chỗ. · unit
 - **HV8-NT2** Khi toast hiện và người dùng không chạm gì, thì toast tự tắt sau 3 giây. · unit
 - **HV8-NT3** Khi đang xoay giả ở S1-05 và có toast, thì toast đọc theo chiều ngang. · unit
+- `[r5 · thêm]` **HV8-NT4** Khi toast báo việc chưa làm được (ví dụ "Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại."), thì toast không có dấu ✓. · unit
 
 Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoại quyền, cập nhật Zalo), không dùng ở bản PWA và không cấp lại.
 
@@ -137,3 +138,4 @@ Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoạ
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: số điện thoại lấy lúc đăng ký | HV4 |
 | r3 | 2026-11-19 | Claude | EN4-hanh-vi-chung | Tên nút "Chia sẻ chữ" theo canvas PWA (chỉ sửa chữ) | HV6 |
 | r4 | 2026-11-19 | Claude | US15-them-can | Trả lời HV3-H1: nháp giữ 7 ngày (Claude tự quyết, QD25) | HV3 |
+| r5 | 2026-11-19 | Claude | BG1-toast-loi-co-dau-tich | Toast báo lỗi không có dấu ✓, thêm HV8-NT4 (Claude tự quyết, QD25) | HV8 |

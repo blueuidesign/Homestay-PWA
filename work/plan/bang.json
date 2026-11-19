@@ -4,6 +4,41 @@
  "ngay_sinh": "2026-11-19",
  "item": [
   {
+   "id": "BG1",
+   "loai": "BG",
+   "tieu_de": "\"Toast báo lỗi vẫn có dấu ✓\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN4",
+    "US15"
+   ],
+   "file": "work/backlog/BG1-toast-loi-co-dau-tich.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN4, US15"
+  },
+  {
    "id": "EN1",
    "loai": "EN",
    "tieu_de": "\"Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview\"",
