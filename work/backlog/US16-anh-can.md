@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 24
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -65,7 +65,7 @@ Kịch bản test tay: tests/kb/US16-anh-can.md (KB1 đến KB4).
 - 2026-11-18 · Claude · tạo item từ YC3.3@1 (QD21)
 - 2026-11-19 · Claude · nhận HV4-NT6 từ EN4 (QD27)
 - 2026-11-19 · Claude · viết tests/kb/US16-anh-can.md, soạn gói việc, sang dang-lam
-- 2026-11-19 · Claude · code TA1 đến TA3, mở PR nháp · bất ngờ: xóa file kho phải qua API kho, fn_don_anh_tam chỉ trả đường dẫn
+- 2026-11-19 · Claude · code TA1 đến TA3, mở PR nháp #24 · bất ngờ: xóa file kho phải qua API kho, fn_don_anh_tam chỉ trả đường dẫn
 
 ## Bằng chứng
 - `scripts/test-db.sh`: lần đầu (chưa migration) 8 hỏng + 1 file lỗi; sau migration xanh ngay; thêm 1 test sau phép thử làm hỏng; cuối: 493 qua, 0 hỏng.
