@@ -2,7 +2,7 @@
 id: EN11
 tieu_de: "Vercel chỉ tự deploy nhánh main"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: []
 truoc: []
 lien_quan: [QD28, QD24]
@@ -13,7 +13,7 @@ uoc_luong: 30 phút
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [34]
 ngay_tao: 2026-11-19
 ---
 ## Mục tiêu
@@ -26,9 +26,10 @@ Không có NT. Kiểm bằng tay: đẩy một nhánh PR thì Vercel không tạ
 - vercel.json: thêm `git.deploymentEnabled` với `"**": false, "main": true`.
 
 ## Task
-- [ ] EN11-TA1 Code · Claude Code: sửa vercel.json, mở PR
+- [x] EN11-TA1 Code · PR #34
 
 ## Nhật ký
 - 2026-11-19 · Claude · tạo item theo QD28 (Claude tự quyết, coordinator báo Vercel quá giới hạn)
+- 2026-11-19 · Claude · gộp PR #34 theo QD25; kiểm deploy chỉ chạy được sau khi Vercel hết chặn (khoảng 15:15 UTC 20/11)
 
 ## Bằng chứng

@@ -381,15 +381,15 @@
    "id": "EN11",
    "loai": "EN",
    "tieu_de": "\"Vercel chỉ tự deploy nhánh main\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
    "file": "work/backlog/EN11-vercel-chi-deploy-main.md",
-   "pr": "",
+   "pr": "[34]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -407,7 +407,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Đang code"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US1",
