@@ -2,7 +2,7 @@
 id: US38
 tieu_de: "Sale xin chủ nhà cho xem lịch"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC6.4@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [46]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,8 +51,8 @@ YC6-ket-noi-sale.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US38-sale-xin-chu-nha-cho.md.
 
 ## Task
-- [x] US38-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC6.4-NT2, YC6.4-NT4, YC6.4-NT5
-- [x] US38-TA2 Code · Claude Code (sonnet, CL14.6a): màn A5, A6, A7, A7-00, A7-01 theo canvas, test unit, e2e cho YC6.4-NT1 đến NT3
+- [x] US38-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC6.4-NT2, YC6.4-NT4, YC6.4-NT5 · PR #46
+- [x] US38-TA2 Code · Claude Code (sonnet, CL14.6a): màn A5, A6, A7, A7-00, A7-01 theo canvas, test unit, e2e cho YC6.4-NT1 đến NT3 · PR #46
 - [ ] US38-TA3 Test tay · Đức: chạy tests/kb/US38-sale-xin-chu-nha-cho.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -65,6 +65,7 @@ Kịch bản test tay: tests/kb/US38-sale-xin-chu-nha-cho.md.
 - 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
 - 2026-11-19 · Claude (QD25) · tự chốt PQ18-H1 (PQ r2: link xin lịch không hết hạn); soạn gói việc; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1, TA2 xong trên nhánh US38-xin-lich, chưa mở PR; hàm đọc đặt tên xin_lich_cua_toi vì fn_* phải security definer
+- 2026-11-19 · Claude (QD25) · Gộp PR #46, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA3.
 
 ## Bằng chứng
 - TA1 `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres CHI_FILE_CO_MA=1 scripts/test-db.sh YC6.4`: lần đầu (chưa migration) 22 đỏ; sau migration 30 qua. Cả bộ lần đầu 1 đỏ (KT-DB.3.3: fn_* phải security definer), đổi tên hàm đọc thành xin_lich_cua_toi, 1 vòng: 1391 qua, 0 hỏng.
