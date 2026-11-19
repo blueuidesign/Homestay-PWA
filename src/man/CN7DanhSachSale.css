@@ -1,0 +1,56 @@
+/* US36 · CN7, CN7-00, CN7-04, CN7-05 Sale của chủ nhà (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px ở màn đọc,
+   13 px ở chữ phụ, không dưới 12 px. */
+.cn7-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.cn7-moi-chu { display: flex; flex-direction: column; gap: 4px; }
+.cn7-moi-tieu-de { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn7-moi-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.cn7-muc { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.cn7-nhom { display: flex; flex-direction: column; gap: 8px; }
+.cn7-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.cn7-ds > li + li { border-top: 1px solid var(--border-subtle); }
+.cn7-dong { width: 100%; min-height: 64px; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.cn7-dong--xoa { cursor: default; }
+.cn7-tron { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.cn7-tron--cho { background: none; border: 1px dashed var(--border-input); color: var(--ink-muted); }
+.cn7-nguoi { display: flex; align-items: center; gap: 12px; }
+.cn7-nguoi-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn7-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+.cn7-phu-chu { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn7-tien { flex: 0 0 auto; font-size: 14px; line-height: 20px; color: var(--ink); }
+/* YC6.2 bước 7: chữ đỏ nhỏ "Đã xoá tài khoản". */
+.cn7-da-xoa { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--danger-text); }
+.cn7-bo-dong { min-height: 44px; padding: 0 12px; font-size: 14px; flex: 0 0 auto; }
+.cn7-cau-them { padding: 0 4px; }
+.cn7-thay { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn7-thay li { padding-left: 24px; position: relative; }
+.cn7-thay-co::before { content: '✓'; position: absolute; left: 0; color: var(--action-ink); font-weight: 700; }
+.cn7-thay-khong::before { content: '✕'; position: absolute; left: 0; color: var(--danger-text); font-weight: 700; }
+
+/* CN7-04, CN7-05: màn phụ, không có thanh tab. */
+.cn7-phu { background: var(--surface-page); }
+.cn7-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 8px; display: flex; align-items: center; gap: 8px; }
+.cn7-dau .hh-iconbtn { min-width: 44px; min-height: 44px; }
+.cn7-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn7-than { flex: 1 1 auto; padding: 12px 12px calc(24px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.cn7-than--form { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); gap: 16px; }
+.cn7-goi { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; flex: 0 0 auto; }
+.cn7-ds-dat { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cn7-dat { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 6px 0; }
+.cn7-dat + .cn7-dat { border-top: 1px solid var(--border-subtle); }
+.cn7-dat-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn7-dat-can { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn7-dat--huy .cn7-dat-can, .cn7-dat--huy .cn7-tien { color: var(--ink-muted); text-decoration: line-through; }
+.cn7-cong-tac { display: flex; align-items: center; gap: 12px; }
+.cn7-switch { flex: 0 0 auto; width: 52px; height: 44px; padding: 0; border: 0; background: none; position: relative; cursor: pointer; }
+.cn7-switch::before { content: ''; position: absolute; left: 0; right: 0; top: 8px; height: 28px; border-radius: 9999px; background: var(--border-input); transition: background 0.15s; }
+.cn7-switch--bat::before { background: var(--action); }
+.cn7-switch-nut { position: absolute; top: 10px; left: 2px; width: 24px; height: 24px; border-radius: 9999px; background: var(--surface); box-shadow: 0 1px 2px rgba(15, 23, 42, 0.3); transition: left 0.15s; }
+.cn7-switch--bat .cn7-switch-nut { left: 26px; }
+.cn7-nut-phu { align-self: center; min-height: 44px; padding: 0 16px; font-size: 14px; }
+.cn7-nut-phu--nguy { color: var(--danger-text); }
+.cn7-man-toi { position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, 0.45); }
+.cn7-hoi { position: fixed; left: 0; right: 0; bottom: 0; z-index: 41; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(20px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 20px; }
+.cn7-hoi-cau { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+.cn7-hoi-nut { display: flex; gap: 12px; }
+.cn7-hoi-nut > * { flex: 1 1 0; min-height: 44px; }
+.cn7-nut-nguy { background: var(--danger); border-color: var(--danger); }

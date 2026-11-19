@@ -80,3 +80,24 @@ export async function dangNhapBangMa(page: Page, email: string): Promise<void> {
   await nhapMa(page, await layMa(email));
   await page.getByRole('button', { name: 'Đăng nhập' }).click();
 }
+
+/** Id người dùng theo email (tài khoản tạo bằng taoTaiKhoan). */
+export function idCua(email: string): string {
+  return sql(`select id from auth.users where email = '${email}'`);
+}
+
+/**
+ * US36: tạo một đặt phòng có sale đứng tên ở căn của chủ, kèm tiền từng đêm khớp tiền phòng (chia đều, phần lẻ dồn đêm cuối, QD10).
+ * Ngày dạng 'YYYY-MM-DD'. Trả id đặt phòng.
+ */
+export function taoDatPhongCuaSale(canId: string, chuId: string, saleId: string, nhan: string, tra: string, tien: number): string {
+  return sql(`with b as (
+         insert into public.booking (can_id, ngay_nhan, ngay_tra, nguon, sale_id, tao_boi, tien_phong, trang_thai_tien)
+         values ('${canId}', '${nhan}', '${tra}', 'chu_ghi', '${saleId}', '${chuId}', ${tien}, 'chua_coc') returning id),
+       n as (select ('${tra}'::date - '${nhan}'::date) as so),
+       d as (insert into public.booking_dem (booking_id, dem, tien)
+             select b.id, g::date,
+                    case when g::date = '${tra}'::date - 1 then ${tien} - (${tien} / n.so) * (n.so - 1) else ${tien} / n.so end
+             from b, n, generate_series('${nhan}'::date, '${tra}'::date - 1, interval '1 day') g)
+       select id from b`).split('\n')[0]!;
+}
