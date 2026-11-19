@@ -48,12 +48,12 @@ YC5-dat-phong.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US27-nguoi-dat-tien-phong-trang.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US27-nguoi-dat-tien-phong-trang.md.
 
 ## Task
-- [ ] US27-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.2-NT1, YC5.2-NT2, YC5.2-NT4, YC5.2-NT7, YC5.2-NT9, YC5.2-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [ ] US27-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.2-NT1, YC5.2-NT2, YC5.2-NT4, YC5.2-NT7, YC5.2-NT9, YC5.2-NT11, YC5.2-NT12, YC5.2-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US27-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US27-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN4-01 theo canvas, test unit, e2e cho YC5.2-NT1, YC5.2-NT3, YC5.2-NT5, YC5.2-NT6, YC5.2-NT7, YC5.2-NT8, YC5.2-NT9, YC5.2-NT10
+- [ ] US27-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN4-01 theo canvas, test unit, e2e cho YC5.2-NT1, YC5.2-NT3, YC5.2-NT5, YC5.2-NT6, YC5.2-NT7, YC5.2-NT8, YC5.2-NT9, YC5.2-NT10, YC5.2-NT12
 - [ ] US27-TA4 Test tay · Đức: chạy tests/kb/US27-nguoi-dat-tien-phong-trang.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
