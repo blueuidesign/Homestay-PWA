@@ -2,7 +2,7 @@
 id: US45
 tieu_de: "Kết quả tìm phòng"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC7.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -62,6 +62,6 @@ Kịch bản test tay: tests/kb/US45-ket-qua-tim-phong.md.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.3@1 (QD21)
-- 2026-11-19 · Claude (QD25) · tự chốt YC7-H4 (YC7 r4); viết kịch bản test tay
+- 2026-11-19 · Claude (QD25) · tự chốt YC7-H4 (YC7 r4); viết kịch bản test tay; soạn gói việc; giao agent code
 
 ## Bằng chứng
