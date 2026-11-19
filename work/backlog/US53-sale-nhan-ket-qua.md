@@ -48,7 +48,7 @@ YC9-yeu-cau-dat-phong.md#Dữ liệu
 YC9-yeu-cau-dat-phong.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md.
 
 ## Task
 - [ ] US53-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC9.4-NT1, YC9.4-NT4, YC9.4-NT5, YC9.4-NT6, YC9.4-NT7
