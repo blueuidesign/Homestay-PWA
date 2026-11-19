@@ -2,7 +2,7 @@
 id: EN9
 tieu_de: "Email báo cáo mỗi lần gộp chức năng mới"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: []
 truoc: []
 lien_quan: [QD25]
@@ -13,7 +13,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [16, 18]
 ngay_tao: 2026-11-19
 ---
 ## Mục tiêu
@@ -40,6 +40,7 @@ Không có NT. Kiểm bằng tay: gộp một PR có mã item, xem thư tới.
 - 2026-11-19 · Claude · tạo item, viết workflow theo yêu cầu của Tùng
 
 - 2026-11-19 · Claude · gộp PR #16, gửi thư thử thành công (Resend 200); sửa để log không in địa chỉ nhận
+- 2026-11-19 · Claude · gộp PR #18, sang cho-test chờ Tùng thêm BAO_CAO_EMAIL (TA2)
 
 ## Bằng chứng
 - Chạy tay bao-cao-email ngày 19/11: Resend trả 200.

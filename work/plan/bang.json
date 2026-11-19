@@ -280,15 +280,15 @@
    "id": "EN9",
    "loai": "EN",
    "tieu_de": "\"Email báo cáo mỗi lần gộp chức năng mới\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
    "file": "work/backlog/EN9-email-bao-cao.md",
-   "pr": "",
+   "pr": "[16, 18]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -306,7 +306,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Đang code"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US1",
