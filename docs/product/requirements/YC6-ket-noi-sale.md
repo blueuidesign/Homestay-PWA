@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 9
+rev: 10
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -184,6 +184,7 @@ Bản 2 · rủi ro: cao · Màn: A8, A8-01
 - Sale đã bỏ nguồn của chủ nhà này (YC10.2) hay kết nối đang "chưa kết nối" (chủ nhà thêm tay ở CN7-05): chuyển thành đã kết nối với quyền cọc theo công tắc, phạm vi tất cả căn. Sale chủ động xin lại nên coi như đồng ý mới.
 - Chủ nhà đã ngừng sale này: A8-01 (bước 4, NT4). Muốn cho xem lại thì dùng CN7-04.
 - Mở link xin lịch của chính mình: A8-01, không tạo gì.
+- [r10 · thêm] Chữ ở A8-01: "Link xin lịch không dùng được: sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch." Canvas ghi "đã hết hạn", bỏ vì link xin lịch không có hạn (PQ18-H1, Claude tự chốt).
 - Người mở chưa chọn vai: chọn sẵn vai chủ nhà rồi mới hiện A8. Đang ở vai sale: vẫn hiện A8; đồng ý xong thì chuyển sang vai chủ nhà.
 
 Tiêu chí:
@@ -277,3 +278,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r7 | 2026-11-19 | Claude | US38 chuẩn bị | Trả lời YC6-H2: sale không thu hồi link xin lịch ở bản 1 (Claude tự chốt, QD25) | YC6.4 |
 | r8 | 2026-11-19 | Claude | US39 chuẩn bị | Trả lời YC6-H12, H17, H18 (Claude tự chốt, QD25); thêm YC6.5-NT6, NT7 | YC6.5 |
 | r9 | 2026-11-19 | Claude | US40 chuẩn bị | Trả lời YC6-H7, H8, H9 (Claude tự chốt, QD25); thêm YC6.6-NT5 đến NT7 | YC6.6 |
+| r10 | 2026-11-19 | Claude | US39 | Chữ A8-01 bỏ "đã hết hạn" cho khớp PQ18-H1 (Claude tự chốt, QD25) | YC6.5 |
