@@ -3,7 +3,7 @@ id: YC4
 tieu_de: Giá
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC4 · Giá
@@ -107,7 +107,7 @@ Bản 1 · rủi ro: cao · Màn: CN6, CN6-00, CN6-04, CN6-09
 
 Căn chưa có giá nào: CN6-00, 12 ô ghi "Chưa đặt", dòng "Căn này chưa có giá. Chọn tháng, nhập giá ngày thường và cuối tuần rồi bấm Áp dụng. Sale chỉ thấy giá sau khi bạn đặt."; mục giá ngày lễ ghi "Chưa có giá ngày lễ. Bấm "Đặt giá ngày lễ, dịp đặc biệt" để thêm, VD: Lễ 30/4 – 1/5."; mục dịp ghi "Chưa có dịp đặc biệt.".
 
-Lưu giá xong thì ở lại tab Giá hay về màn trước: [MỞ: YC4-H5]. Tới khi có câu trả lời, ở lại tab Giá.
+`[r2 · sửa]` Lưu giá xong thì ở lại tab Giá (Claude tự quyết, QD25, trả lời YC4-H5).
 
 Luật kiểm:
 
@@ -239,3 +239,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US4, US7, US8 và màn P6 của US11 (QD20, QD21); áp quyết định 5, 6, 12, 13 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
+| r2 | 2026-11-19 | Claude | US21-gia-thang | Trả lời YC4-H5: ở lại tab Giá (Claude tự quyết, QD25) | YC4.2 |

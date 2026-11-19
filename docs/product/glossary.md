@@ -3,7 +3,7 @@ id: TD
 tieu_de: Từ điển
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # Từ điển Home247
 
@@ -47,4 +47,9 @@ Dùng đúng các từ dưới đây trong màn, tài liệu và tên trong code
 
 **Lý do từ chối yêu cầu:** Đã có khách đặt, Đang sửa phòng, Lý do khác.
 
-**Viết số tiền:** đầy đủ "1.300.000đ". Rút gọn trên lưới lịch, ô giá: dưới một triệu ghi "k" ("900k"), từ một triệu ghi "tr" kèm dấu phẩy ("1,1tr", "1,15tr"). Trên biểu đồ thống kê ghi một số lẻ với dấu chấm ("13.4tr"), theo thiết kế.
+**Viết số tiền:** đầy đủ "1.300.000đ". Rút gọn trên lưới lịch, ô giá: dưới một triệu ghi "k" ("900k"), từ một triệu ghi "tr" kèm dấu phẩy ("1,1tr", "1,15tr"). Trên biểu đồ thống kê ghi một số lẻ với dấu chấm ("13.4tr"), theo thiết kế. `[r2 · thêm]` Làm tròn khi rút gọn (chỉ để hiển thị, không dùng để tính): làm tròn tới nghìn gần nhất (từ 500đ trở lên làm tròn lên), dưới một triệu ghi "k"; từ một triệu ghi triệu với tối đa hai chữ số sau dấu phẩy, làm tròn tới chục nghìn gần nhất, bỏ số 0 thừa. Ví dụ 950.500đ ghi "951k", 999.999đ ghi "1tr", 1.000.000đ ghi "1tr", 1.100.000đ ghi "1,1tr", 1.125.000đ ghi "1,13tr" (Claude tự quyết, QD25, trả lời QT5-H1).
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | US21-gia-thang | Làm tròn khi viết tiền rút gọn, trả lời QT5-H1 (Claude tự quyết, QD25) | Viết số tiền |

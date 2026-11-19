@@ -144,9 +144,10 @@ Gắn ở: YC4.4.
 Lưu ngày tính giá cuối tuần xong thì về Cá nhân với toast "Đã lưu ngày tính giá cuối tuần" phải không (chưa có hình)?
 Gắn ở: YC4.6.
 
-### YC4-H5 · mo
+### YC4-H5 · da-tra-loi
 Sau khi lưu giá ở tab Giá của căn, ở lại tab Giá hay quay về màn trước?
 Gắn ở: YC4.2. Tới khi có câu trả lời: ở lại tab Giá.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ở lại tab Giá. Chủ nhà thường đặt giá nhiều nhóm tháng liền nhau, ở lại thì không phải mở lại; toast và ô tháng đổi theo đã cho biết lưu xong. Ghi vào YC4.2 r2.
 
 ### YC4-H6 · mo
 Bỏ trống tên khi bật "Là ngày lễ" thì tên tự đặt là gì?
@@ -567,9 +568,10 @@ Gắn ở: QT.
 
 ## QT5
 
-### QT5-H1 · mo
+### QT5-H1 · da-tra-loi
 Viết số tiền rút gọn ("900k", "1,1tr", "1,15tr") làm tròn thế nào khi số không chẵn? Ví dụ 950.500đ ghi "950k" hay "951k"; 1.125.000đ ghi "1,12tr", "1,13tr" hay "1,125tr"; 999.999đ ghi "999k" hay "1tr"; 1.000.000đ ghi "1tr" hay "1,0tr".
 Gắn ở: glossary.md mục Viết số tiền (QT5.2). Chặn: hàm viết rút gọn dùng chung, cần cho YC2.5, YC4.1, YC4.2, YC7.1. EN1 chỉ làm cách viết đầy đủ. Hỏi ngày 18/11/2026.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chỉ để hiển thị. Dưới một triệu làm tròn tới nghìn gần nhất, ghi "k"; từ một triệu làm tròn tới chục nghìn, tối đa hai chữ số sau dấu phẩy, bỏ số 0 thừa. 950.500đ "951k", 999.999đ "1tr", 1.000.000đ "1tr", 1.125.000đ "1,13tr". Ghi vào glossary.md r2.
 
 ## HV1
 
