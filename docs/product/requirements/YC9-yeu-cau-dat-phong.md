@@ -3,7 +3,7 @@ id: YC9
 tieu_de: Yêu cầu đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 2
 ---
 # YC9 · Yêu cầu đặt phòng
@@ -32,14 +32,14 @@ Không thuộc YC này (dễ tưởng là có):
 - Đặt phòng sau khi đã nhận (xem, sửa, xin hủy): YC5. Chủ nhà ghi đặt phòng trùng đêm với yêu cầu chờ: YC5.3 gọi quy tắc của YC này.
 - Danh sách thông báo, popup, công tắc từng loại: YC12. Tin Zalo cho chủ nhà (CN9-00): bản sau.
 - Đặt phòng với chủ nhà đã xóa tài khoản (S3-11): YC1.
-- Số "đã bán 12 đặt phòng của bạn" ở CN9: chưa làm ([MỞ: YC9-H9]).
+- Số "đã bán 12 đặt phòng của bạn" ở CN9: bản 1 không làm (YC9-H9, Claude tự chốt QD25). `[r3 · sửa]`
 
 ## Quy tắc của nhóm
 
 | Tên | Quy tắc | Ví dụ |
 |---|---|---|
 | Yêu cầu chưa phải đặt phòng | Yêu cầu chưa chiếm đêm nào. Chỉ khi chủ nhà chấp nhận mới thành đặt phòng. Không có bước giữ phòng hay báo cọc | Y1 chờ, 2208 vẫn trống 10/10 với các sale khác |
-| Trạng thái yêu cầu | Chờ chủ → Đã chốt (chủ nhà chấp nhận), Bị từ chối (chủ nhà từ chối, hay đêm bị đặt phòng khác lấy), Hết hạn (quá 14 ngày từ lúc gửi), Đã hủy (sale hủy). Chỉ yêu cầu Chờ chủ mới đổi được. Bốn trạng thái kia là cuối | Y2 Hết hạn |
+| Trạng thái yêu cầu | `[r3 · sửa]` Chờ chủ → Đã chốt (chủ nhà chấp nhận), Bị từ chối (chủ nhà từ chối, hay đêm bị đặt phòng khác lấy), Hết hạn (quá 14 ngày từ lúc gửi, hay đã qua ngày nhận phòng, YC9-H5), Đã hủy (sale hủy). Chỉ yêu cầu Chờ chủ mới đổi được. Bốn trạng thái kia là cuối | Y2 Hết hạn |
 | Giá chốt lúc gửi | Giá chủ nhà và giá bán của yêu cầu do database tính lúc gửi, không nhận giá từ app. Chấp nhận thì đặt phòng mang đúng giá đó | 2.200.000đ, 2.600.000đ |
 | Một đêm, một bên thắng | Chủ nhà chấp nhận một yêu cầu, hay ghi một đặt phòng (YC5.3), thì mọi yêu cầu chờ của căn đó có đêm chồng chuyển Bị từ chối, lý do "đã nhận đặt phòng khác". Gửi yêu cầu cho đêm đã có đặt phòng thì bị chặn ngay (giả định GD11) | Nhận Sale Hùng 17/10 → 19/10 thì Sale Lan 18/10 → 19/10 bị từ chối |
 | Người xóa tài khoản | Yêu cầu chờ không đổi khi một bên xóa tài khoản; vẫn hết hạn sau 14 ngày. Gửi yêu cầu mới tới căn của chủ nhà đã xóa tài khoản thì bị từ chối (QD13) | "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." |
@@ -62,7 +62,7 @@ Theo `docs/security/PQ-ma-tran-quyen.md`: PQ2, PQ5.SALE, PQ7.CHU, PQ10.CHU, PQ10
 Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bảo đảm:
 - Yêu cầu đặt phòng: căn, sale, ngày nhận, ngày trả, lời nhắn (tối đa 500 ký tự), giá chủ nhà và giá bán từng đêm tính lúc gửi, trạng thái, lý do từ chối, lúc gửi, hạn (lúc gửi + 14 ngày).
 - Chấp nhận là một giao dịch: tạo đặt phòng nguồn "từ yêu cầu" mang giá của yêu cầu, ghi phần riêng của sale (QD11), yêu cầu sang Đã chốt, các yêu cầu chờ chồng đêm sang Bị từ chối, ghi thông báo. Chặn trùng của đặt phòng là chỗ chặn cuối (QD6).
-- Hết hạn: việc chạy định kỳ (mỗi 10 phút) đổi yêu cầu quá hạn sang Hết hạn và ghi một thông báo cho sale; khi đọc, yêu cầu quá hạn cũng coi là Hết hạn. Chạy hai lần không ghi hai thông báo.
+- Hết hạn: `[r3 · sửa]` việc chạy định kỳ (mỗi 10 phút) đổi yêu cầu quá 14 ngày, hay có ngày nhận trước hôm nay, sang Hết hạn và ghi một thông báo cho sale; khi đọc, yêu cầu quá hạn cũng coi là Hết hạn. Chạy hai lần không ghi hai thông báo.
 - Cờ trùng: khi chủ nhà đọc yêu cầu chờ, mỗi dòng biết có chồng đêm với yêu cầu chờ khác của cùng căn không, và của sale nào.
 
 ## Trạng thái màn (mọi mục)
@@ -71,7 +71,7 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Bấm khi yêu cầu vừa đổi ở máy khác: báo "Yêu cầu đã đổi trạng thái" và hiện trạng thái mới (HV3).
 
 ## YC9.1 · Sale gửi và hủy yêu cầu
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: cao · Màn: S3-02, S3-03, S3-07, S3-08
 
@@ -84,17 +84,17 @@ Bản 2 · rủi ro: cao · Màn: S3-02, S3-03, S3-07, S3-08
 | 3b | Gửi tới căn của chủ nhà đã xóa tài khoản | Báo "Không gửi được yêu cầu. Chủ nhà đã xóa tài khoản trên Home247." | Từ chối, không tạo yêu cầu |
 | 4 | Bấm "Hủy yêu cầu" | Nút đổi thành "Xác nhận hủy yêu cầu?"; bấm lần nữa sang S3-08 "Đã hủy yêu cầu", "Chị Hoa không còn thấy yêu cầu này." | Yêu cầu sang Đã hủy |
 
-Chủ nhà chưa cho số thì hai nút "Nhắn chủ nhà qua Zalo", "Gọi chủ nhà" làm gì: [MỞ: YC9-H8]. Tiêu đề màn S3-02 ("Đặt phòng" trùng chữ nút của chủ nhà): [MỞ: YC9-H7].
+Các câu sau Claude tự chốt (QD25). Tiêu đề S3-02 là "Gửi yêu cầu đặt phòng" (YC9-H7). "Nhắn chủ nhà qua Zalo" mở https://zalo.me/<số>, "Gọi chủ nhà" mở tel:<số> (pwa.md P5); chủ nhà đã xóa tài khoản thì ẩn hai nút (YC9-H8). Sale hủy thì chủ nhà không có thông báo mới; chạm thông báo yêu cầu cũ thì CN9 chỉ ghi "Sale đã hủy yêu cầu này.", không có ngày, giá, lời nhắn (YC9-H6).
 
 Luật kiểm:
 
 | Ô | Luật | Sai thì |
 |---|---|---|
 | Căn | Căn có lịch, sale được xem (PQ10.SALE) | Không tìm thấy |
-| Ngày nhận | Ngày nhận trước hôm nay: [MỞ: YC9-H1] | |
+| Ngày nhận | Từ hôm nay (giờ Việt Nam) trở đi (YC9-H1) | "Ngày nhận đã qua" |
 | Ngày trả | Sau ngày nhận, tối đa 366 đêm | "Ngày trả phải sau ngày nhận" |
 | Lời nhắn | Tối đa 500 ký tự; toàn khoảng trắng coi như trống | "Lời nhắn tối đa 500 ký tự" |
-| Giá | Mọi đêm đã có giá chủ nhà. Có đêm "Chưa đặt": [MỞ: YC9-H2] | |
+| Giá | Mọi đêm đã có giá chủ nhà (YC9-H2) | "Căn chưa có giá cho đêm 11/10. Nhắn chủ nhà để hỏi giá." |
 
 Tiêu chí:
 - **YC9.1-NT1** Khi sale gửi yêu cầu, thì app sang S3-03 và ghi giờ đã gửi. · unit, database
@@ -107,9 +107,12 @@ Tiêu chí:
 - **YC9.1-NT8** Khi sale chưa kết nối, căn ngoài phạm vi, căn đã ẩn, căn của chính mình hay căn tự nhập, thì không gửi được và không biết căn có tồn tại; khi sale bị ngừng hay chủ nhà đã xóa tài khoản, thì bị từ chối kèm lý do. · database
 - **YC9.1-NT9** Khi Sale Lan đọc hay hủy yêu cầu của Sale Hùng, hay Hùng tự chấp nhận yêu cầu của mình, thì không được và không lộ yêu cầu có tồn tại. · database
 - **YC9.1-NT10** Khi sale bấm gửi hai lần liền (cùng khóa chống gửi trùng), thì chỉ có một yêu cầu. · database
+- **YC9.1-NT11** `[r3 · thêm]` Khi sale gửi yêu cầu có ngày nhận là hôm qua, thì database từ chối với "Ngày nhận đã qua" và không có yêu cầu mới; ngày nhận là hôm nay thì gửi được. · database
+- **YC9.1-NT12** `[r3 · thêm]` Khi căn chưa có giá đêm 11/10 mà sale gửi 10/10 → 12/10, thì database từ chối, app báo "Căn chưa có giá cho đêm 11/10. Nhắn chủ nhà để hỏi giá." và không có yêu cầu mới. · database, unit
+- **YC9.1-NT13** `[r3 · thêm]` Khi Hùng hủy yêu cầu đang chờ, thì Chị Hoa không có thông báo mới; Chị Hoa mở yêu cầu đó từ thông báo cũ thì CN9 chỉ ghi "Sale đã hủy yêu cầu này." và dữ liệu trả về không có ngày, giá, lời nhắn. · database, unit
 
 ## YC9.2 · Chủ nhà trả lời yêu cầu
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: cao · Màn: CN1-03, CN9, CN9-02, CN9-03
 
@@ -121,7 +124,7 @@ Bản 2 · rủi ro: cao · Màn: CN1-03, CN9, CN9-02, CN9-03
 | 4 | Bấm "Từ chối" | Ba chip "Đã có khách đặt", "Đang sửa phòng", "Lý do khác", nút "Gửi từ chối cho sale", "Quay lại" | Không |
 | 5 | Chọn lý do, bấm "Gửi từ chối cho sale" | CN9-03: "Đã từ chối yêu cầu của Sale Hùng", "Sale Hùng được báo kèm lý do "Đã có khách đặt". Ngày 17/10 → 19/10 vẫn trống trong lịch.", nút "Về lịch" | Yêu cầu sang Bị từ chối kèm lý do, ghi thông báo cho sale |
 
-Bắt buộc chọn lý do không, "Lý do khác" có ô nhập chữ không: [MỞ: YC9-H10]; tới khi có câu trả lời, chỉ có ba chip và lý do không bắt buộc. Chấp nhận khi sale đã bị ngừng hay đã bỏ nguồn sau lúc gửi: [MỞ: YC9-H4]. Chấp nhận khi ngày nhận đã qua: [MỞ: YC9-H5].
+Các câu sau Claude tự chốt (QD25). Chỉ có ba chip, lý do không bắt buộc, "Lý do khác" không có ô nhập chữ; không chọn lý do thì sale thấy "Lý do: Chị Hoa không nhận đặt phòng." (YC9-H10). Chủ nhà đã ngừng sale hay sale đã bỏ nguồn sau lúc gửi thì database từ chối lệnh chấp nhận, app báo "Sale này không còn kết nối với bạn, không nhận được đặt phòng."; chủ nhà vẫn từ chối được (YC9-H4). Yêu cầu có ngày nhận trước hôm nay là Hết hạn, không chấp nhận được; ngày nhận là hôm nay vẫn chấp nhận được (YC9-H5).
 
 Tiêu chí:
 - **YC9.2-NT1** Khi chủ nhà bấm thông báo yêu cầu hay "Xem và trả lời", thì app mở đúng yêu cầu đó ở CN9. · unit
@@ -132,6 +135,9 @@ Tiêu chí:
 - **YC9.2-NT6** `[r2 · bỏ]` Mọi hồ sơ đã có số từ lúc đăng ký (QD22).
 - **YC9.2-NT7** Khi không có yêu cầu chờ, thì CN1 không có khối "YÊU CẦU ĐẶT PHÒNG". · unit
 - **YC9.2-NT8** Khi Anh Tuấn đọc, chấp nhận hay từ chối yêu cầu tới 1509, hay Chị Hoa hủy yêu cầu thay sale, thì không được. · database
+- **YC9.2-NT9** `[r3 · thêm]` Khi Chị Hoa đã ngừng cho Sale Lan xem lịch rồi chấp nhận yêu cầu Lan gửi trước đó, thì database từ chối, không có đặt phòng, app báo "Sale này không còn kết nối với bạn, không nhận được đặt phòng."; Chị Hoa vẫn từ chối được yêu cầu đó. · database
+- **YC9.2-NT10** `[r3 · thêm]` Khi yêu cầu chờ có ngày nhận 10/10 mà hôm nay là 11/10, thì yêu cầu là "Hết hạn", chủ nhà chấp nhận thì bị từ chối, và sale có đúng một thông báo hết hạn. · database
+- **YC9.2-NT11** `[r3 · thêm]` Khi chủ nhà bấm "Gửi từ chối cho sale" mà không chọn lý do, thì yêu cầu vẫn sang "Bị từ chối" và sale thấy "Lý do: Chị Hoa không nhận đặt phòng." · database, unit
 
 ## YC9.3 · Yêu cầu trùng đêm
 
@@ -161,10 +167,11 @@ Bản 1 · rủi ro: tb · Màn: S3-04, S3-04-01, S3-05, S3-09
 | 2 | Chủ nhà từ chối | S3-05: "Yêu cầu bị từ chối", "Lý do: Chị Hoa không nhận đặt phòng · Đã có khách đặt." Mục "CĂN TƯƠNG TỰ TRỐNG CÙNG NGÀY", nút "Xem tất cả căn trống" (YC7.3 cùng ngày) | Căn tương tự |
 | 3 | Bị từ chối vì trùng đêm | S3-05 với lý do "Chị Hoa đã nhận đặt phòng khác cho 10/10 → 12/10." | Như bước 2 |
 | 4 | Hết 14 ngày | S3-09: "Yêu cầu đã hết hạn vì Chị Hoa chưa trả lời trong 2 tuần. Gửi lúc 14:20 ngày 22/09.", cùng mục căn tương tự | Việc hết hạn; một thông báo cho sale |
+| 4a | `[r3 · thêm]` Qua ngày nhận phòng khi chủ nhà chưa trả lời (YC9-H5) | S3-09 ghi "Yêu cầu đã hết hạn vì đã qua ngày nhận phòng 10/10. Gửi lúc 14:20 ngày 06/10.", cùng mục căn tương tự | Như bước 4 |
 
 Căn tương tự: căn sale được xem, trống mọi đêm của yêu cầu, bỏ căn của yêu cầu này; mỗi căn ghi giá bán của sale cho các đêm đó (YC7.4), không ghi giá chủ nhà. Chạm một căn mở S3 của căn đó.
 
-Thông báo cho chủ nhà khi sale hủy yêu cầu, và thông báo yêu cầu cũ chủ nhà đã nhận còn giữ không: [MỞ: YC9-H6]. Sale bị ngừng còn đọc được yêu cầu cũ của mình với chủ nhà đó không: [MỞ: YC9-H3].
+`[r3 · sửa]` Claude tự chốt (QD25): sale hủy thì chủ nhà xem YC9.1 (YC9-H6). Sale bị ngừng vẫn đọc được yêu cầu cũ của mình (căn, ngày, trạng thái, giá đã chốt lúc gửi), nhưng không mở được chi tiết căn (HV5) và không thấy lịch mới (YC9-H3).
 
 Tiêu chí:
 - **YC9.4-NT1** Khi chủ nhà chấp nhận, thì sale thấy S3-04 và 10/10, 11/10 Kín với các sale khác. · database, unit
@@ -173,20 +180,22 @@ Tiêu chí:
 - **YC9.4-NT4** Khi yêu cầu gửi 14:20 ngày 22/09 mà tới 14:20 ngày 06/10 chủ nhà chưa trả lời, thì yêu cầu là "Hết hạn", sale có đúng một thông báo và thấy S3-09. · database, unit
 - **YC9.4-NT5** Khi sale xem căn tương tự ở S3-05 hay S3-09, thì mỗi căn ghi giá bán của sale, dữ liệu trả về không có giá chủ nhà của căn đó, và không có căn của yêu cầu. · database, unit
 - **YC9.4-NT6** Khi chủ nhà xóa tài khoản lúc yêu cầu đang chờ, thì yêu cầu vẫn Chờ chủ và hết hạn sau 14 ngày như thường. · database
+- **YC9.4-NT7** `[r3 · thêm]` Khi Chị Hoa đã ngừng cho Sale Lan xem lịch, thì Lan vẫn đọc được yêu cầu cũ của mình tới 1509 (ngày, trạng thái, giá đã chốt) nhưng không đọc được lịch, giá mới của 1509. · database
+- **YC9.4-NT8** `[r3 · thêm]` Khi yêu cầu hết hạn vì qua ngày nhận phòng 10/10, thì S3-09 ghi "Yêu cầu đã hết hạn vì đã qua ngày nhận phòng 10/10." · unit
 
 ## Màn hình
 `[r2 · sửa]`
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
-- **S3-02 · Gửi yêu cầu.** Tiêu đề trên hình "Đặt phòng" ([MỞ: YC9-H7]).
+- **S3-02 · Gửi yêu cầu.** Tiêu đề "Gửi yêu cầu đặt phòng", hình ghi "Đặt phòng" (YC9-H7). `[r3 · sửa]`
 - **S3-03 · Chờ chủ nhà.** Đúng bố cục.
 - **S3-04, S3-04-01 · Đã chấp nhận.** Đúng bố cục.
 - **S3-05, S3-09 · Bị từ chối, hết hạn.** Giá căn tương tự trên hình chưa theo DLM.
 - **S3-07 · Căn đã được đặt.** Đúng bố cục.
 - **S3-08 · Đã hủy.** Đúng bố cục.
 - **CN1-03 · Lịch có yêu cầu.** Ví dụ trùng 17/10 → 19/10 và 18/10 → 19/10 giữ theo hình.
-- **CN9, CN9-02, CN9-03 · Trả lời yêu cầu.** Bỏ dòng "đã bán 12 đặt phòng của bạn" ([MỞ: YC9-H9]).
+- **CN9, CN9-02, CN9-03 · Trả lời yêu cầu.** Bỏ dòng "đã bán 12 đặt phòng của bạn" (YC9-H9). `[r3 · sửa]`
 - Không làm: CN9-00 (tin Zalo), S3-02-P1/P2, CN9-P1/P2 (popup xin số và hộp thoại của Zalo; bản PWA có số từ lúc đăng ký, QD22).
 
 ## Lịch sử sửa đổi
@@ -194,3 +203,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US15 (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số khi gửi và chấp nhận yêu cầu; bỏ YC9.1-NT6, YC9.2-NT6 | Phạm vi, YC9.1, YC9.2, Màn hình |
+| r3 | 2026-11-19 | Claude (QD25) | main | Claude tự chốt YC9-H1 đến H10; thêm YC9.1-NT11 đến NT13, YC9.2-NT9 đến NT11, YC9.4-NT7, NT8 | Phạm vi, Quy tắc của nhóm, Dữ liệu, YC9.1, YC9.2, YC9.4, Màn hình |

@@ -459,45 +459,55 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC9
 
-### YC9-H1 · mo
+### YC9-H1 · da-tra-loi
 Sale gửi yêu cầu với ngày nhận trước hôm nay thì sao?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ngày nhận trước hôm nay (giờ Việt Nam) thì database từ chối, báo "Ngày nhận đã qua". Ngày nhận là hôm nay vẫn gửi được, vì khách hay đặt phòng trong ngày. Ghi vào YC9.1 r3, thêm YC9.1-NT11.
 
-### YC9-H2 · mo
+### YC9-H2 · da-tra-loi
 Có đêm chủ nhà chưa đặt giá thì sale gửi yêu cầu được không, giá ghi gì?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không gửi được. Giá chốt lúc gửi do database tính, đêm chưa có giá thì không có giá để chốt. Database từ chối, app báo "Căn chưa có giá cho đêm 11/10. Nhắn chủ nhà để hỏi giá." Ghi vào YC9.1 r3, thêm YC9.1-NT12.
 
-### YC9-H3 · mo
+### YC9-H3 · da-tra-loi
 Sale bị ngừng còn đọc được yêu cầu cũ của mình với chủ nhà đó không?
 Gắn ở: YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Yêu cầu là của chính sale, nên sale bị ngừng vẫn đọc được yêu cầu cũ của mình (căn, ngày, trạng thái, giá đã chốt lúc gửi), giống phần riêng của sale trong đặt phòng (QD11). Sale không mở được chi tiết căn nữa (HV5) và không thấy lịch mới. Ghi vào YC9.4 r3, thêm YC9.4-NT7.
 
-### YC9-H4 · mo
+### YC9-H4 · da-tra-loi
 Chấp nhận khi sale đã bị ngừng hay đã bỏ nguồn sau lúc gửi?
 Gắn ở: YC9.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không chấp nhận được. Chủ nhà đã ngừng sale hay sale đã bỏ nguồn thì hai bên không còn làm việc với nhau (QT6.2); database từ chối lệnh chấp nhận, app báo "Sale này không còn kết nối với bạn, không nhận được đặt phòng." Chủ nhà vẫn từ chối được; không từ chối thì yêu cầu hết hạn như thường. Ghi vào YC9.2 r3, thêm YC9.2-NT9.
 
-### YC9-H5 · mo
+### YC9-H5 · da-tra-loi
 Chủ nhà chấp nhận yêu cầu khi ngày nhận đã qua thì sao?
 Gắn ở: YC9.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Yêu cầu chờ mà ngày nhận đã qua (trước hôm nay) thì coi như Hết hạn, giống quá 14 ngày: việc chạy định kỳ đổi trạng thái và báo sale một lần, chủ nhà không chấp nhận được nữa. S3-09 ghi "Yêu cầu đã hết hạn vì đã qua ngày nhận phòng 10/10." Ngày nhận là hôm nay vẫn chấp nhận được. Ghi vào YC9.2, YC9.4 r3, thêm YC9.2-NT10.
 
-### YC9-H6 · mo
+### YC9-H6 · da-tra-loi
 Thông báo cho chủ nhà khi sale hủy yêu cầu, và thông báo yêu cầu cũ chủ nhà đã nhận còn giữ không?
 Gắn ở: YC12, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Sale hủy thì chủ nhà không có thông báo mới, vì yêu cầu chưa chiếm đêm nào và chủ nhà không phải làm gì. Thông báo "yêu cầu mới" cũ vẫn giữ trong danh sách; chạm vào thì CN9 chỉ ghi "Sale đã hủy yêu cầu này.", không còn ngày, giá, lời nhắn. Ghi vào YC9.1 r3, thêm YC9.1-NT13.
 
-### YC9-H7 · mo
+### YC9-H7 · da-tra-loi
 Tiêu đề màn S3-02 ("Đặt phòng" trùng chữ nút của chủ nhà)?
 Gắn ở: YC9.1, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tiêu đề S3-02 là "Gửi yêu cầu đặt phòng", để không trùng nút "Đặt phòng" của chủ nhà. Ghi vào YC9 r3 mục Màn hình.
 
-### YC9-H8 · mo
+### YC9-H8 · da-tra-loi
 Chủ nhà chưa cho số thì hai nút "Nhắn chủ nhà qua Zalo", "Gọi chủ nhà" làm gì?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Từ QD22 mọi hồ sơ có số từ lúc đăng ký, nên hai nút luôn có số khi chủ nhà còn tài khoản: "Nhắn chủ nhà qua Zalo" mở https://zalo.me/<số>, "Gọi chủ nhà" mở tel:<số> (pwa.md P5). Chủ nhà đã xóa tài khoản (số đã xóa, QD13) thì ẩn hai nút. Ghi vào YC9.1 r3.
 
-### YC9-H9 · mo
+### YC9-H9 · da-tra-loi
 "Đã bán 12 đặt phòng của bạn" ở CN9 đếm những đặt phòng nào?
 Gắn ở: YC9, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không làm dòng "đã bán N đặt phòng của bạn" ở CN9. Ghi vào YC9 r3 mục Phạm vi.
 
-### YC9-H10 · mo
+### YC9-H10 · da-tra-loi
 CN9 có ba chip lý do "Đã có khách đặt", "Đang sửa phòng", "Lý do khác" (Tùng duyệt 02/11/2026, bản Zalo). Còn mở: chọn "Lý do khác" có ô nhập chữ không, và có bắt buộc chọn lý do không?
 Gắn ở: YC9.2. Tới khi có câu trả lời: chỉ có ba chip, lý do không bắt buộc.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chỉ ba chip, không bắt buộc chọn, "Lý do khác" không có ô nhập chữ. Không chọn lý do thì sale thấy "Lý do: Chị Hoa không nhận đặt phòng." Chọn "Lý do khác" thì sale thấy "Lý do: Chị Hoa không nhận đặt phòng · Lý do khác." Ít bước cho chủ nhà lớn tuổi; sale cần biết thêm thì nhắn Zalo. Ghi vào YC9.2 r3, thêm YC9.2-NT11.
 
 ## YC10
 
