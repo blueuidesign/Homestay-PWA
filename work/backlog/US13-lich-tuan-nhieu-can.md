@@ -66,5 +66,10 @@ Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.5@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC2-H2, H4, H5 (QD25), thêm NT6, NT7 vào YC2.5 r5; viết kịch bản test tay; giao agent code
+- 2026-11-19 · Claude (agent code) · US13-TA1, TA2 trên nhánh US13-lich-tuan-nhieu-can: fn_gia_tung_dem_cua_toi, màn CN2/CN2-00, nút Tháng/Tuần ở CN1; đẩy nhánh, chưa mở PR
 
 ## Bằng chứng
+- Database: `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC2.5` viết test trước, lần đầu đỏ (2 hỏng, 1 file lỗi vì chưa có hàm); sau migration 23 qua; cả bộ 1062 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC2.5`: 4/4 phép thử làm hỏng đạt. `supabase db reset` qua, `scripts/bang-cot.sh` sinh lại bang-va-cot.md.
+- Unit: `npx vitest run` 41 file, 455 test qua. CN2LichTuan.test.tsx lần đầu đỏ (chưa có màn), sau khi code đỏ 1 test (bấm "Trước" hai lần liền chỉ lùi một tuần), sửa màn 1 vòng thì xanh. lichTuan.test.ts xanh lần đầu chạy sau khi có code. Test CN1 cũ không đổi, chỉ thêm 4 test YC2.5-NT6.
+- e2e: `npx playwright test tests/e2e/supabase --trace off` (Supabase máy, E2E_SUPABASE=1): 38 qua, gồm lich-tuan.spec.ts (YC2.5-NT6, NT2, NT1, NT7 luồng chính) qua lần đầu.
+- `npm run typecheck`, `npm run build` qua; `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
