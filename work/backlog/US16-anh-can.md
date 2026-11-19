@@ -2,7 +2,7 @@
 id: US16
 tieu_de: "Ảnh căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC3.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -63,3 +63,4 @@ Kịch bản test tay: tests/kb/US16-anh-can.md (KB1 đến KB4).
 - 2026-11-19 · Claude · nhận HV4-NT6 từ EN4 (QD27)
 
 ## Bằng chứng
+- 2026-11-19 · Claude · viết tests/kb/US16-anh-can.md, soạn gói việc, sang dang-lam
