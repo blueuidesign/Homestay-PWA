@@ -160,3 +160,33 @@ export function tenDip(d: DipGia): string {
   const ten = d.ten?.trim();
   return ten ? ten : `Dịp đặc biệt ${chuDai(d.tuNgay, d.denNgay)}`;
 }
+
+/** YC4.6 bước 2: tên chip của một đêm (1 là T2, ..., 7 là CN). */
+export function tenDemIso(d: ThuIso): string {
+  return TEN_THU[d];
+}
+
+/** YC4.6 bước 2: chạm chip thì bật hay tắt đêm đó; chỉ còn một đêm thì chip đó không tắt được (YC4.6-NT4). Kết quả sắp xếp. */
+export function doiDemCuoiTuan(dang: readonly number[], d: ThuIso): ThuIso[] {
+  const cu = ([1, 2, 3, 4, 5, 6, 7] as ThuIso[]).filter((x) => dang.includes(x));
+  if (cu.includes(d)) return cu.length <= 1 ? cu : cu.filter((x) => x !== d);
+  return ([...cu, d] as ThuIso[]).sort((a, b) => a - b);
+}
+
+/** Một ô của mẫu "Một tuần của phòng": tên thứ, giá (null là chưa có giá), có phải đêm cuối tuần theo lựa chọn đang chọn. */
+export type OMauTuan = { thu: ThuIso; ten: string; dem: Ngay; gia: number | null; laCuoiTuan: boolean };
+
+/**
+ * YC4.6 bước 3: mẫu một tuần (T2 tới CN của tuần chứa homNay), giá từng đêm tính lại theo lựa chọn đang chọn
+ * từ giá tháng của tháng chứa đêm đó (giaThang theo khóa 'YYYY-MM-01'). Đêm của tháng chưa có giá thì gia null.
+ */
+export function mauMotTuan(homNay: Ngay, giaThang: Readonly<Record<Ngay, GiaThang | null | undefined>>, demCuoiTuan: readonly number[]): OMauTuan[] {
+  const iso = thuTrongTuan(homNay) === 0 ? 7 : thuTrongTuan(homNay);
+  const thuHai = congNgay(homNay, -(iso - 1));
+  return ([1, 2, 3, 4, 5, 6, 7] as ThuIso[]).map((thu) => {
+    const dem = congNgay(thuHai, thu - 1);
+    const g = giaThang[`${dem.slice(0, 7)}-01`];
+    const laCuoiTuan = demCuoiTuan.includes(thu);
+    return { thu, ten: TEN_THU[thu], dem, gia: g ? (laCuoiTuan ? g.cuoiTuan : g.thuong) : null, laCuoiTuan };
+  });
+}
