@@ -46,3 +46,36 @@ describe('YC6.4 · dịch vụ link xin lịch', () => {
     expect(rpc.mock.calls.map((c) => c[0])).toEqual(['xin_lich_cua_toi', 'fn_lay_link_xin_lich', 'fn_gui_link_xin_lich']);
   });
 });
+
+describe('YC6.5 · chủ nhà xem trước và đồng ý link xin lịch', () => {
+  it('YC6.5-NT1 xem trước hợp lệ: tên và số của Lan; số trống thì null (PQ2.CHU)', async () => {
+    const { docLoiXin } = await import('./dichVuXinLich');
+    expect(docLoiXin({ trang_thai: 'hop_le', ten_sale: 'Sale Lan', so_dien_thoai: '0900000004', da_ket_noi: false }))
+      .toEqual({ trangThai: 'hop_le', tenSale: 'Sale Lan', soDienThoai: '0900000004', daKetNoi: false });
+    expect(docLoiXin({ trang_thai: 'hop_le', ten_sale: 'Sale Nga', so_dien_thoai: null }))
+      .toEqual({ trangThai: 'hop_le', tenSale: 'Sale Nga', soDienThoai: null, daKetNoi: false });
+  });
+
+  it('YC6.5-NT4 HV5 link không dùng được thì không giữ tên, số nào', async () => {
+    const { docLoiXin } = await import('./dichVuXinLich');
+    expect(docLoiXin({ trang_thai: 'khong_dung_duoc', ten_sale: 'Sale Lan', so_dien_thoai: '0900000004' }))
+      .toEqual({ trangThai: 'khong_dung_duoc' });
+    expect(docLoiXin(null)).toEqual({ trangThai: 'khong_dung_duoc' });
+  });
+
+  it('YC6.5 bước 2 gọi fn_xem_link_xin_lich, fn_dong_y_xin_lich với mã và công tắc cọc; P0001 thành câu cho người dùng', async () => {
+    const { LoiNguoiDung } = await import('../chung/matKetNoi');
+    const rpc = vi.fn(async (ten: string, _tham?: unknown) => {
+      if (ten === 'fn_xem_link_xin_lich') return { data: { trang_thai: 'hop_le', ten_sale: 'Sale Lan', so_dien_thoai: null }, error: null };
+      if (ten === 'fn_dong_y_xin_lich') return { data: { ket_qua: 'da_co', ten_sale: 'Sale Lan', co_can: true }, error: null };
+      return { data: null, error: { code: 'P0001', message: 'Bạn không còn xem được mục này' } };
+    });
+    const dv = taoDichVuXinLichSupabase({ rpc } as unknown as SupabaseClient);
+    expect((await dv.xemLoiXin!('xinLan')).trangThai).toBe('hop_le');
+    expect(await dv.dongY!('xinLan', false)).toEqual({ ketQua: 'da_co', tenSale: 'Sale Lan', coCan: true });
+    expect(rpc.mock.calls[0]).toEqual(['fn_xem_link_xin_lich', { p_ma: 'xinLan' }]);
+    expect(rpc.mock.calls[1]).toEqual(['fn_dong_y_xin_lich', { p_ma: 'xinLan', p_xem_coc: false }]);
+    rpc.mockImplementationOnce(async () => ({ data: null, error: { code: 'P0001', message: 'Bạn không còn xem được mục này' } }));
+    await expect(dv.dongY!('hong', true)).rejects.toBeInstanceOf(LoiNguoiDung);
+  });
+});

@@ -52,16 +52,24 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US39-chu-nha-duyet-loi-xin.md.
 
 ## Task
-- [ ] US39-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.5-NT1 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US39-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US39-TA3 Code · Claude Code (sonnet, CL14.6a): màn A8, A8-01 theo canvas, test unit, e2e cho YC6.5-NT1
+- [x] US39-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.5-NT1 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US39-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US39-TA3 Code · Claude Code (sonnet, CL14.6a): màn A8, A8-01 theo canvas, test unit, e2e cho YC6.5-NT1
 - [ ] US39-TA4 Test tay · Đức: chạy tests/kb/US39-chu-nha-duyet-loi-xin.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/55 theo hợp đồng fn_xem_link_xin_lich(ma) (chỉ authenticated, link hỏng chỉ trả trang_thai) và fn_dong_y_xin_lich(ma, xem_coc).
+- TA2: migration 20261119340000, hàm chung link_xin_lich_dung_duoc; 5 phép thử làm hỏng.
+- TA3: A8, A8-01 (src/man/A8LoiMoiXemLich.tsx), App nhận /x/<mã>: chưa đăng nhập A1, chưa chọn vai chọn sẵn chủ nhà, đồng ý về /sale kèm toast, chưa có căn A4-01.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.5@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude (QD25) · tự chốt YC6-H12, H17, H18 (YC6 r8, thêm NT6, NT7); viết kịch bản test tay; giao agent code
+- 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 trên nhánh US39-duyet-xin-lich, chưa mở PR · A4-01 dựng ở App vì ManChu ngoài phạm vi
 
 ## Bằng chứng
+- DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC6.5` lần đầu (trước migration) 39 hỏng; sau migration 63 qua, 0 hỏng ngay vòng 1. Cả bộ: 1451 qua, 0 hỏng.
+- Làm hỏng: `scripts/thu-lam-hong.sh YC6.5`: 5/5 đạt (sửa 1 vòng: nhãn dòng NT5 chưa khớp tên test).
+- Unit: `npx vitest run` 579 qua (1 vòng sửa chọn nút trong test mới). e2e: `playwright test tests/e2e/supabase` 54 qua (2 vòng: chờ đăng nhập xong, chữ true/false).
+- `npm run typecheck`, `npm run build` qua; `python3 scripts/kiem.py --diff origin/main` không có lỗi.
