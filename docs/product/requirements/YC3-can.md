@@ -3,7 +3,7 @@ id: YC3
 tieu_de: Căn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC3 · Căn
@@ -223,13 +223,13 @@ Tiêu chí:
 
 ## YC3.6 · Xóa căn
 
-Bản 1 · rủi ro: cao · Màn: chưa có hình
+Bản 1 · rủi ro: cao · Màn: CN5-02 (nút "Xóa phòng" và hộp hỏi lại, chưa vẽ)
 
-Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). Vị trí nút, màn sau khi xóa: [MỞ: YC3-H3]. Có hỏi lại trước khi xóa không: [MỞ: YC3-H8]. Hai câu này chỉ chặn phần giao diện; phần database làm được ngay.
+Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). [r5 · sửa] Nút và màn sau khi xóa (YC3-H3, Claude tự chốt): nút chữ đỏ "Xóa phòng" ở cuối tab "Thông tin" của CN5-02, dưới "Lưu thay đổi". Xóa được thì về tab Căn (CN5), toast "Đã xóa phòng 3402"; bị từ chối thì ở lại CN5-02. Hỏi lại (YC3-H8, Claude tự chốt, quy tắc "Xóa phải bấm hai lần"): hộp "Xóa phòng 3402?", dòng phụ "Căn sẽ không còn ở lịch và với sale. Đặt phòng cũ và doanh thu vẫn giữ.", hai nút "Xóa" và "Không".
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 42 | Bấm xóa căn 3402 | (hỏi lại nếu YC3-H8 trả lời có) | Không |
+| 42 | Bấm "Xóa phòng" ở CN5-02 của 3402, rồi "Xóa" ở hộp hỏi lại | Hộp hỏi "Xóa phòng 3402?"; bấm "Không" thì đóng hộp, không đổi gì | Không |
 | 43 | (căn còn đặt phòng chưa hủy có ngày trả sau hôm nay, hoặc còn yêu cầu đặt phòng đang chờ chưa hết hạn) | Toast đỏ "Căn còn đặt phòng sắp tới", căn giữ nguyên | Lệnh xóa căn từ chối với câu trên. Ngày tính theo giờ Việt Nam |
 | 44 | (không còn) | Căn biến khỏi CN5, lịch CN1 và CN2, chip "Phòng" ở form đặt phòng (CN4), danh sách chọn căn khi đặt giá nhiều căn và sao chép giá (CN6-05, CN6-07) | Lệnh xóa căn ghi lúc ẩn. Đặt phòng, tiền từng đêm, thống kê giữ nguyên. Từ lúc đó căn không còn trong danh sách căn sale được xem (PQ17) nên sale không còn thấy căn ở lịch, tìm phòng, chi tiết căn |
 | 45 | Thêm căn mới cùng mã với căn đã xóa | Thêm được | Mã của căn đã ẩn không tính khi kiểm trùng |
@@ -250,6 +250,7 @@ Tiêu chí:
 - **YC3.6-NT9** Khi chủ nhà đã xóa một căn, thì không có màn hay hàm nào cho hiện lại căn đó. · unit (không có nút), database (không có lệnh bỏ ẩn)
 - **YC3.6-NT10** Khi Anh Tuấn hoặc Sale Hùng gửi lệnh xóa 3402 của Chị Hoa, thì database từ chối và 3402 không bị ẩn. · database
 - **YC3.6-NT11** Khi lệnh ẩn 2105 và lệnh ghi đặt phòng vào 2105 chạy cùng lúc, thì không bao giờ có căn đã ẩn mà còn đặt phòng có ngày trả sau hôm nay. · database
+- **YC3.6-NT12** [r5 · thêm] Khi Chị Hoa bấm "Xóa phòng" ở CN5-02 của 2105, thì hiện hộp "Xóa phòng 2105?" với "Xóa" và "Không"; bấm "Không" thì 2105 còn nguyên; bấm "Xóa" thì về tab Căn với toast "Đã xóa phòng 2105". · unit
 
 ## Màn hình
 
@@ -260,7 +261,7 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **CN5-A1, CN5-A1b, CN5-A2, CN5-A3 · Thêm căn** (trống, phần mở rộng, đang tải ảnh, lỗi khi lưu). Đúng bố cục.
 - **CN5-A4, CN5-A4b · Đã thêm căn.** Vị trí toast trên hình là của bản Zalo; bản PWA theo HV8.
 - **CN5-02 · Sửa căn.** Đúng bố cục. Hình chưa có hộp "Bỏ thay đổi chưa lưu?" và chưa có toast "Đã lưu phòng 1509".
-- Xóa căn: chưa có hình ([MỞ: YC3-H3]).
+- Xóa căn: chưa có hình. [r5 · sửa] Nút "Xóa phòng" và hộp hỏi lại ở CN5-02 theo YC3.6 (YC3-H3, YC3-H8 Claude tự chốt); Design vẽ sau.
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
@@ -269,3 +270,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9; trả lời YC3-H1 (Claude tự quyết, QD25) | Phạm vi, YC3.2 |
 | r3 | 2026-11-19 | Claude | US17-toa-nha | Trả lời YC3-H5, YC3-H7 (Claude tự quyết, QD25) | YC3.4 |
 | r4 | 2026-11-19 | Claude | US18 chuẩn bị | Bỏ ảnh ở CN5-02 không hỏi lại, trả lời YC3-H4 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm | YC3.5 |
+| r5 | 2026-11-19 | Claude | US19 chuẩn bị | Nút "Xóa phòng" ở CN5-02, xóa xong về CN5 (YC3-H3); hỏi lại một lần (YC3-H8); Claude tự chốt, QD25 | YC3.6 |

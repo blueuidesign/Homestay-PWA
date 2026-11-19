@@ -30,13 +30,13 @@ Canvas chưa có hình cho phần "Xóa căn" (YC3.6, dòng "Màn:" ghi "chưa c
 | <mã mới, Design đặt theo CL13> | thêm | Màn và trạng thái cho các bước của YC3.6, chữ đúng như bảng bước | YC3.6 |
 
 ## Làm tiêu chí nào
-YC3.6-NT1 đến NT11
+YC3.6-NT1 đến NT12
 
 ## Quy tắc, hành vi dùng
 QT5.5, QT5.7, QT6.3
 
 ## Màn hình
-chưa có hình
+CN5-02 (nút "Xóa phòng", hộp hỏi lại; chưa vẽ, theo YC3.6 r5)
 
 ## Quyền
 PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC3-can.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
@@ -45,7 +45,8 @@ PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC3-can.md t
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC3-H3, YC3-H8, YC11-H7.
+- YC3-H3, YC3-H8 đã Claude tự chốt (QD25), ghi ở YC3.6 r5.
+- YC11-H7 (mẫu số công suất) thuộc YC11, không làm ở đây.
 - Phần đầu YC3-can.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -57,13 +58,13 @@ YC3-can.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US19-xoa-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US19-xoa-can.md.
 
 ## Task
-- [ ] US19-TA1 Thiết kế · Design: làm theo CL13 bảng "Màn phải làm". Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3)
+- [ ] US19-TA1 Thiết kế · Design: làm theo CL13 bảng "Màn phải làm". Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3). Theo QD25 code đi trước, dùng nút chữ và hộp hỏi lại có sẵn (như CN3-02 xóa đặt phòng); Design vẽ sau
 - [ ] US19-TA2 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.6-NT2, YC3.6-NT3, YC3.6-NT4, YC3.6-NT6, YC3.6-NT7, YC3.6-NT8, YC3.6-NT9, YC3.6-NT10, YC3.6-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US19-TA3 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US19-TA4 Code · Claude Code (sonnet, CL14.6a): màn chưa có hình theo canvas, test unit, e2e cho YC3.6-NT1, YC3.6-NT9
+- [ ] US19-TA4 Code · Claude Code (sonnet, CL14.6a): nút "Xóa phòng" và hộp hỏi lại ở CN5-02 theo YC3.6 r5, test unit, e2e cho YC3.6-NT1, YC3.6-NT5, YC3.6-NT9, YC3.6-NT12
 - [ ] US19-TA5 Test tay · Đức: chạy tests/kb/US19-xoa-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch

@@ -105,9 +105,10 @@ Chủ nhà thêm căn mới khi đã chia sẻ "tất cả căn" cho sale: có b
 Gắn ở: YC12, YC3, YC6.7.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Sale cần biết căn mới để chào khách; YC3.2 bước 18 đã ghi trigger báo. Ghi dòng "Chủ nhà thêm căn" vào YC12 r2: chỉ sale đã kết nối, chia sẻ "tất cả căn"; chữ chỉ có tên chủ nhà và mã căn, không có giá; không có công tắc.
 
-### YC3-H3 · mo
+### YC3-H3 · da-tra-loi
 Nút xóa căn đặt ở đâu, xóa xong về màn nào?
 Gắn ở: YC3.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Nút chữ đỏ "Xóa phòng" ở cuối tab "Thông tin" của CN5-02 (Sửa căn), dưới nút "Lưu thay đổi", vùng bấm 44 px. Xóa được thì về tab Căn (CN5), toast "Đã xóa phòng 3402". Xóa bị từ chối thì ở lại CN5-02, toast đỏ theo bước 43. Lý do: xóa là việc hiếm, đặt cạnh việc sửa căn như xóa đặt phòng ở chi tiết đặt phòng; không để trên thẻ căn để tránh bấm nhầm. Ghi vào YC3.6 r5.
 
 ### YC3-H4 · da-tra-loi
 Bỏ một ảnh ở CN5-02 có hỏi lại không?
@@ -129,9 +130,10 @@ Chọn được nhiều loại view cho một căn không?
 Gắn ở: YC3.4.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Một loại view cho một căn. Bảng can có một cột loai_view, luật kiểm YC3.2 kiểm một giá trị, sale lọc theo một loại; căn nhìn được cả biển và núi thì chủ nhà chọn loại nổi bật nhất. Ghi vào YC3.4 r3.
 
-### YC3-H8 · mo
+### YC3-H8 · da-tra-loi
 Xóa căn có hỏi lại một lần không? Gợi ý: có, như xóa đặt phòng.
 Gắn ở: YC3.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có, theo quy tắc "Xóa phải bấm hai lần" như xóa đặt phòng. Hộp hỏi "Xóa phòng 3402?", dòng phụ "Căn sẽ không còn ở lịch và với sale. Đặt phòng cũ và doanh thu vẫn giữ.", hai nút "Xóa" và "Không". Ghi vào YC3.6 r5.
 
 ## YC4
 
