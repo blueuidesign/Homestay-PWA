@@ -2,7 +2,7 @@
 id: US14
 tieu_de: "Màn đầu tiên và danh sách căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [21]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -62,6 +62,7 @@ Kịch bản test tay: tests/kb/US14-man-dau-tien-va-danh.md (KB1, KB2).
 - 2026-11-18 · Claude · tạo item từ YC3.1@1 (QD21)
 - 2026-11-19 · Claude · viết kịch bản test tay
 - 2026-11-19 · Claude · code TA1, TA2 (view v_can_cua_toi, A4, A4-01, CN5, thanh tab chủ); sửa dòng kiểm "Chủ nhà" của US1 vì tab Lịch thành A4 · khoảng 1 giờ
+- 2026-11-19 · Claude · gộp PR #21 theo QD25 (CI xanh: kiem.py, app, database, e2e-supabase), sang cho-test
 
 ## Bằng chứng
 - `scripts/test-db.sh` (Postgres 16 máy): lần đầu 1 file lỗi (chưa có view), sau migration 365 qua, 0 hỏng; lọc YC3.1 21 qua. `scripts/thu-lam-hong.sh YC3.1`: 3/3 đạt.

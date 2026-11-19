@@ -792,7 +792,7 @@
    "id": "US14",
    "loai": "US",
    "tieu_de": "\"Màn đầu tiên và danh sách căn\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -802,10 +802,10 @@
     "US2"
    ],
    "file": "work/backlog/US14-man-dau-tien-va-danh.md",
-   "pr": "",
+   "pr": "[21]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -823,7 +823,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US15",
