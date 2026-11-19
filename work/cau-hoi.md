@@ -400,6 +400,16 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Gắn ở: YC7.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đếm số đặt phòng chưa hủy của chính sale ở căn đó có ngày nhận trong 90 ngày gần nhất. Sale chỉ thấy đặt phòng của mình (QD7), nên chỉ đếm được của mình; đếm số lần thay vì tiền để không phụ thuộc giá; 90 ngày để căn bán tốt gần đây lên đầu. Bằng nhau thì theo tên. Ghi vào YC7 r2 (Quy tắc Sắp xếp).
 
+### YC7-H10 · da-tra-loi
+Chip "Tùy chọn" của mức cộng nhập thế nào, giới hạn bao nhiêu?
+Gắn ở: YC7.4, YC7.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ô nhập số bằng bàn phím số, theo nghìn đồng, 0 tới 5.000.000đ mỗi đêm. Giá phòng ở Hạ Long vài trăm nghìn tới vài triệu một đêm, 5 triệu là trần rộng mà vẫn chặn gõ nhầm thêm số 0. Database cũng kiểm. Ghi vào YC7.5 r6, thêm NT6.
+
+### YC7-H11 · da-tra-loi
+Ví dụ ở P10 lấy giá căn nào?
+Gắn ở: YC7.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giá cố định 1.100.000đ một đêm, 2 đêm. Sale mới chưa có căn vẫn thấy ví dụ; ví dụ chỉ để hiểu cách cộng, không cần là căn thật. Ghi vào YC7.5 r6.
+
 ## YC8
 
 ### YC8-H1 · mo
