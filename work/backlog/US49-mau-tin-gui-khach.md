@@ -2,7 +2,7 @@
 id: US49
 tieu_de: "Mẫu tin gửi khách"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC8.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
