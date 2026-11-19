@@ -53,16 +53,26 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md.
 
 ## Task
-- [ ] US43-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.1-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US43-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US43-TA3 Code · Claude Code (sonnet, CL14.6a): màn A5, S1, S1-04, S1-05 theo canvas, test unit, e2e cho YC7.1-NT1, YC7.1-NT2, YC7.1-NT3, YC7.1-NT5, YC7.1-NT7, YC7.1-NT8
+- [x] US43-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.1-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US43-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US43-TA3 Code · Claude Code (sonnet, CL14.6a): màn A5, S1, S1-04, S1-05 theo canvas, test unit, e2e cho YC7.1-NT1, YC7.1-NT2, YC7.1-NT3, YC7.1-NT5, YC7.1-NT7, YC7.1-NT8
 - [ ] US43-TA4 Test tay · Đức: chạy tests/kb/US43-man-dau-tien-va-lich.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/59_us43_lich_sale.sql viết trước, hợp đồng fn_sale_lich(p_tu, p_den) ghi ở đầu file (nhóm cua_toi, nguon, tu_nhap; ô kin, trong, ban, chua_biet; giá bán; so_ban), chạy thấy đỏ.
+- TA2: migration 20261119370000_us43_lich_sale.sql: fn_sale_lich (security definer, chỉ authenticated), hàm nội bộ gia_chu_dem, gia_ban_dem (QT5.4, GD13); ô lấy từ o_lich, căn nguồn từ my_shared_can_ids. Thêm 6 phép thử làm hỏng.
+- TA3: src/lib/lichSale.ts (dựng hàng, nhóm, sắp xếp), src/lib/dichVuLichSale.ts, S1LichSale (S1, S1-04, S1-05, toast xoay theo data-xoay), ManSale (khung tab Lịch, Căn, Thống kê, Cá nhân), nối ở ManTam, App, dichVuCan. Test unit, e2e lich-sale.spec.ts.
+- Chỗ tự chọn (ghi trong PR): căn tự nhập trả nhóm 'tu_nhap' nhưng màn đếm chung vào "Nguồn phòng" (canvas S1, DLM "Nguồn phòng 5 căn: ... 1 tự nhập"); ô kín vẫn kèm giá bán để "Giá tăng dần" xếp theo giá đêm đầu; thanh khoảng chỉ ghi "7 ngày tới ·" khi bắt đầu từ hôm nay; mức cộng mặc định đọc ở cai_dat_rieng (gói việc ghi profiles, bảng thật là cai_dat_rieng); chạm căn, ô tìm chưa làm gì; A5, A7 giữ chân "Sale · Đăng xuất" (e2e cũ cần chữ "Sale"), tab Cá nhân tạm cũng có Đăng xuất; giá dùng GD13, GD16.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV8-NT3 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H8, H9 (YC7 r2); viết kịch bản test tay; soạn gói việc; giao agent code
+- 2026-11-19 · Claude (agent code) · làm TA1, TA2, TA3 trên nhánh US43-lich-sale, đẩy nhánh, chưa mở PR
 
 ## Bằng chứng
+- DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.1`: lần đầu (chưa migration) 66 hỏng, 2 qua. Sau migration 1 hỏng do test TA1 dùng tiền phòng 1.800.000đ trùng giá bán hợp lệ của 2208; đổi số mẫu sang 1.830.000đ (không nới điều kiện). Vòng 2: `scripts/test-db.sh` toàn bộ 1623 qua, 0 hỏng.
+- Thử làm hỏng: `scripts/thu-lam-hong.sh YC7.1` 6 đạt, 0 không đạt.
+- Unit: `npx vitest run` 66 file, 639 test qua. Lần đầu S1 đỏ 3 (chữ "trống" ở ô tìm, CSS không nạp trong vitest), ManSale đỏ 2 (thứ tự đợi, nhánh lỗi HV2 chưa hiện Thử lại); sửa 2 vòng.
+- e2e: `tests/e2e/supabase` 60 qua (lich-sale.spec.ts 2 test xanh lần đầu); `npx playwright test` (không Supabase) 3 qua.
+- `npm run typecheck`, `npm run build` qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

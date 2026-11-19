@@ -8,6 +8,7 @@ import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
 import { taoDichVuLinkMoiSupabase, type DichVuLinkMoi } from './dichVuLinkMoi';
 import { taoDichVuXinLichSupabase, type DichVuXinLich } from './dichVuXinLich';
 import { taoDichVuThongBaoSupabase, type DichVuThongBao } from './dichVuThongBao';
+import { taoDichVuLichSaleSupabase, type DichVuLichSale } from './dichVuLichSale';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -101,6 +102,8 @@ export interface DichVuCan {
   xinLich?: DichVuXinLich;
   /** YC6.8: thông báo "chủ đồng ý kết nối" của sale cho toast A9 (src/lib/dichVuThongBao.ts). Thiếu thì không có toast. */
   thongBao?: DichVuThongBao;
+  /** YC7.1: lịch 7 ngày của sale (src/lib/dichVuLichSale.ts). Thiếu thì sale đã có nguồn thấy tab Lịch bản tạm. */
+  lichSale?: DichVuLichSale;
 }
 
 function maNgauNhien(): string {
@@ -155,6 +158,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
     xinLich: taoDichVuXinLichSupabase(sb), // YC6.4
     thongBao: taoDichVuThongBaoSupabase(sb), // YC6.8
+    lichSale: taoDichVuLichSaleSupabase(sb), // YC7.1
 
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')
