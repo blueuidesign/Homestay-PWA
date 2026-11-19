@@ -344,6 +344,40 @@
    "dang_cho": "Đức test tay"
   },
   {
+   "id": "EN10",
+   "loai": "EN",
+   "tieu_de": "\"Xóa file ảnh tạm quá 24 giờ và ảnh bị bỏ khỏi căn trong kho ảnh\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "US16"
+   ],
+   "file": "work/backlog/EN10-xoa-file-anh-tam.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi US16"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",

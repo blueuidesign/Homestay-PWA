@@ -16,6 +16,7 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 | 8 | [US15](US15-them-can.md) | YC3.2 · Thêm căn | Tùng |  |
 | 8b | [BG1](BG1-toast-loi-co-dau-tich.md) | HV8 · Toast báo lỗi không có dấu ✓ | Tùng | Claude thêm theo QD25, sau US15 |
 | 9 | [US16](US16-anh-can.md) | YC3.3 · Ảnh căn | Tùng |  |
+| 9b | [EN10](EN10-xoa-file-anh-tam.md) | Xóa file ảnh tạm và ảnh bị bỏ trong kho ảnh | Tùng | Claude thêm theo QD25, sau US16 |
 | 10 | [US17](US17-toa-nha-loai-view-so.md) | YC3.4 · Tòa nhà, loại view, số giường, mô tả | Tùng |  |
 | 11 | [US21](US21-gia-theo-thang-cua-mot.md) | YC4.2 · Giá theo tháng của một căn | Tùng | |
 | 12 | [US20](US20-gia-tren-the-can.md) | YC4.1 · Giá trên thẻ căn | Tùng |  |
