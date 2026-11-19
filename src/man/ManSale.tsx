@@ -6,11 +6,13 @@
 // tạm, toàn màn. HV5 "Về Lịch" ở S3 (kể cả mở từ kết quả tìm) đóng mọi màn trên và về S1.
 // YC8.1 (US48): "Gửi cho khách" ở S2, S3 mở S5 phủ lên màn đang xem (KhungGuiKhach), quay lại thì về đúng màn đó.
 // YC7.5 (US47): tab Cá nhân có dòng "Mức cộng giá mặc định" mở P10 toàn màn; lưu xong hay Quay lại thì về Cá nhân.
+// YC8.2 (US49): dòng "Mẫu tin gửi khách" mở P11 toàn màn, cùng cách với P10.
 import { useCallback, useState, type ReactNode } from 'react';
 import { khoangTuLich } from '../lib/chiTietCanSale';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
 import type { DichVuGuiKhach } from '../lib/dichVuGuiKhach';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
+import type { DichVuMauTin } from '../lib/dichVuMauTin';
 import type { DichVuMucCong } from '../lib/dichVuMucCong';
 import { manKhiCham } from '../lib/ketQuaTim';
 import type { DichVuTimPhong } from '../lib/dichVuTimPhong';
@@ -18,6 +20,7 @@ import { homNay } from '../lib/ngay';
 import type { DichVuXinLich } from '../lib/dichVuXinLich';
 import { ManLich } from './ManTam';
 import { P10MucCong } from './P10MucCong';
+import { P11MauTin } from './P11MauTin';
 import { MoCanSale, MoTimPhong } from './S1LichSale';
 import { S3ChiTietCan, VeLichSale, type MoS3 } from './S3ChiTietCan';
 import { KhungGuiKhach } from './S5GuiKhach';
@@ -64,11 +67,13 @@ function ManSaleTrong(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin };
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
   dvTim?: DichVuTimPhong;
   /** YC7.5: mức cộng mặc định (P10). Thiếu thì dùng dvLich.mucCong. */
   dvMucCong?: DichVuMucCong;
+  /** YC8.2: mẫu tin gửi khách (P11). Thiếu thì dùng dvLich.mauTin. */
+  dvMauTin?: DichVuMauTin;
   onDangXuat: () => void;
 }) {
   const [tab, datTab] = useState<TabSaleTen>('lich');
@@ -88,6 +93,7 @@ function ManSaleTrong(props: {
     }
   }, [dvCt]);
   const [moP10, datMoP10] = useState(false);
+  const [moP11, datMoP11] = useState(false);
   const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datTab('lich'); }, []);
 
   if (moCan && 's3' in moCan && dvCt) {
@@ -100,6 +106,10 @@ function ManSaleTrong(props: {
   if (moP10) {
     const dong = () => { datMoP10(false); datTab('ca-nhan'); };
     return <P10MucCong dv={props.dvMucCong ?? props.dvLich?.mucCong} onQuayLai={dong} onDaLuu={dong} />;
+  }
+  if (moP11) {
+    const dong = () => { datMoP11(false); datTab('ca-nhan'); };
+    return <P11MauTin dv={props.dvMauTin ?? props.dvLich?.mauTin} tenSale={props.ten} onQuayLai={dong} onDaLuu={dong} />;
   }
   if (moCan && 's6' in moCan) return <S6Tam man={moCan.s6} tenCan={moCan.ten} onQuayLai={() => datMoCan(null)} />;
   if (moTim && dvTim) {
@@ -126,6 +136,7 @@ function ManSaleTrong(props: {
           <>
             <p className="dong-phu">Sale</p>
             <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP10(true)}>Mức cộng giá mặc định</button>
+            <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP11(true)}>Mẫu tin gửi khách</button>
             <button type="button" className="hh-btn hh-btn--text" onClick={props.onDangXuat}>Đăng xuất</button>
           </>
         ) : <p className="dong-phu">Sẽ có ở bản sau</p>}
