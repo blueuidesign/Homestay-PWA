@@ -106,17 +106,17 @@
    "id": "EN4",
    "loai": "EN",
    "tieu_de": "\"Hành vi chung mọi màn: đang tải, mất mạng, quay lại app, quyền, phiên hết hạn, toast\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
     "EN1"
    ],
    "file": "work/backlog/EN4-hanh-vi-chung-moi-man.md",
-   "pr": "",
+   "pr": "[14]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -134,7 +134,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi EN1"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "EN5",

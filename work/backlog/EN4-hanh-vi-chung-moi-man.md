@@ -2,7 +2,7 @@
 id: EN4
 tieu_de: "Hành vi chung mọi màn: đang tải, mất mạng, quay lại app, quyền, phiên hết hạn, toast"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: []
 truoc: [EN1]
 lien_quan: []
@@ -13,7 +13,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [14]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -37,7 +37,7 @@ Code phần đặc tả chưa quyết (câu hỏi đang mở). Ghi bí mật, em
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [x] EN4-TA1 Code · Claude Code (sonnet, CL14.6a): thành phần đang tải, báo lỗi mạng, đọc lại khi quay lại từ nền, thẻ xin quyền, màn không còn quyền, trình duyệt thiếu tính năng, phiên hết hạn, toast; test unit mang mã HV-NT
+- [x] EN4-TA1 Code · PR #14
 - [ ] EN4-TA2 Test tay · Đức: tắt mạng, chuyển app sang nền rồi quay lại, trên iPhone và Android; ghi một dòng biên bản
 
 ## Kế hoạch
@@ -46,6 +46,7 @@ Thành phần dùng chung trong src/chung/, mỗi nhóm một file kèm test: To
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
 - 2026-11-19 · Claude · chia NT gắn màn sang các US (QD27); bắt đầu làm
+- 2026-11-19 · Claude · gộp PR #14 theo QD25 (CI xanh), sang cho-test chờ Đức TA2
 
 ## Bằng chứng
 - `npm test`: lần đầu đỏ 2 test (quên cleanup giữa các test, không phải lỗi code), sửa 1 vòng, cuối xanh 46/46 (10 file). Test mang mã HV1-NT1/NT2, HV2-NT1..3, HV3-NT1/3/4, HV5-NT1/2, HV6-NT2, HV7-NT1/2, HV8-NT1/2 ở lớp unit.
