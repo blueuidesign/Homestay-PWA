@@ -2,7 +2,7 @@
 id: US37
 tieu_de: "Link mời của chủ nhà và sale thêm lịch"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC6.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -62,5 +62,6 @@ Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.3@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
+- 2026-11-19 · Claude · tự chốt YC6-H14, H15, H5, H10, H3, H6 (QD25, YC6 r6, thêm NT9, NT10); viết kịch bản test tay; giao agent code
 
 ## Bằng chứng
