@@ -4,7 +4,7 @@ tieu_de: "Môi trường và phát hành"
 loai: EN
 trang_thai: moi
 thuc_hien: [YC15.1@1]
-truoc: [EN1, EN2, EN3]
+truoc: [EN1, EN2]
 lien_quan: []
 nguon: QD21
 nguoi: tung

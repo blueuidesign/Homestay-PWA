@@ -3,8 +3,8 @@ id: US51
 tieu_de: "Chủ nhà trả lời yêu cầu"
 loai: US
 trang_thai: moi
-thuc_hien: [YC9.2@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC9.2@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Chủ nhà trả lời yêu cầu" đúng như YC9.2 mô tả.
 
 ## Làm tiêu chí nào
-YC9.2-NT1 đến NT8
+YC9.2-NT1 đến NT5, NT7, NT8 (NT6 bỏ)
 
 ## Quy tắc, hành vi dùng
 QT1.1, QT1.4, QT2.1, QT5.6, QT6.2
@@ -54,12 +54,13 @@ Kịch bản test tay: tests/kb/US51-chu-nha-tra-loi-yeu.md, chưa viết. Viế
 ## Task
 - [ ] US51-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC9.2-NT2, YC9.2-NT3, YC9.2-NT4, YC9.2-NT5, YC9.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US51-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US51-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1-03, CN9, CN9-02, CN9-03 theo canvas, test unit, e2e cho YC9.2-NT1, YC9.2-NT2, YC9.2-NT4, YC9.2-NT6, YC9.2-NT7
+- [ ] US51-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1-03, CN9, CN9-02, CN9-03 theo canvas, test unit, e2e cho YC9.2-NT1, YC9.2-NT2, YC9.2-NT4, YC9.2-NT7
 - [ ] US51-TA4 Test tay · Đức: chạy tests/kb/US51-chu-nha-tra-loi-yeu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC9.2@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

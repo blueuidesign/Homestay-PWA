@@ -3,7 +3,7 @@ id: HT-BM
 tieu_de: Bí mật và cấu hình
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # Bí mật và cấu hình · Home247
 
@@ -15,6 +15,7 @@ rev: 1
 3. Claude không giữ, không nhập, không dùng bí mật của người dùng.
 
 ## Danh sách
+`[r2 · sửa]`
 
 | Tên | Dùng để | Cất ở | Ai tạo lại được | Lần thay gần nhất |
 | --- | --- | --- | --- | --- |
@@ -25,8 +26,13 @@ rev: 1
 | `E2E_SUPABASE_URL`, `E2E_SUPABASE_ANON_KEY` | E2E đăng nhập vào staging | GitHub Secrets | Tùng | <ngày> |
 | Mật khẩu database staging, production | Chạy migration bằng Supabase CLI | Trình quản lý mật khẩu của Tùng | Tùng | <ngày> |
 | `service_role` của staging, production | Không dùng ở app. Chỉ Edge Function đọc từ kho bí mật Supabase | Supabase | Tùng | |
-| <khóa SMS hoặc Zalo> | Đăng nhập (QD22) | Kho bí mật Supabase | Tùng | |
+| <tài khoản SMTP gửi mail> | Gửi mã đăng nhập qua email (QD22). Mail sẵn có của Supabase chỉ đủ để thử, bản thật cần SMTP riêng | Cài đặt Auth của Supabase | Tùng | |
 
 ## Lần thay do lộ
 | Ngày | Bí mật | Lộ ở đâu | Đã thu hồi | Đã tạo mới |
 | --- | --- | --- | --- | --- |
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bí mật đăng nhập là SMTP gửi mail | Danh sách |

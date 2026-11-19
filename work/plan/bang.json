@@ -71,7 +71,7 @@
    "id": "EN3",
    "loai": "EN",
    "tieu_de": "\"Đăng nhập tạm trên staging và tài khoản thử\"",
-   "trang_thai": "moi",
+   "trang_thai": "huy",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -100,7 +100,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi EN1, EN2"
+   "dang_cho": "–"
   },
   {
    "id": "EN4",
@@ -145,8 +145,7 @@
    "cha": "",
    "truoc": [
     "EN1",
-    "EN2",
-    "EN3"
+    "EN2"
    ],
    "file": "work/backlog/EN5-moi-truong-va-phat-hanh.md",
    "pr": "",
@@ -170,7 +169,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3"
+   "dang_cho": "Bị chặn bởi EN1, EN2"
   },
   {
    "id": "EN6",
@@ -252,8 +251,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US1-man-dau-va-chon-vai.md",
    "pr": "",
@@ -277,19 +276,18 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US2",
    "loai": "US",
-   "tieu_de": "\"Đăng nhập\"",
+   "tieu_de": "\"Đăng ký và đăng nhập bằng mã email\"",
    "trang_thai": "moi",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
     "EN4"
    ],
    "file": "work/backlog/US2-dang-nhap.md",
@@ -314,7 +312,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4"
   },
   {
    "id": "US3",
@@ -326,8 +324,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US3-tab-ca-nhan-va-dang.md",
    "pr": "",
@@ -351,7 +349,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US4",
@@ -363,8 +361,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US4-ho-so.md",
    "pr": "",
@@ -388,7 +386,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US5",
@@ -400,8 +398,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US5-gio-nhan-tra-phong-mac.md",
    "pr": "",
@@ -425,7 +423,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US6",
@@ -437,8 +435,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US6-xuat-file-csv.md",
    "pr": "",
@@ -462,7 +460,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US7",
@@ -474,8 +472,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US7-huong-dan-va-nhan-home247.md",
    "pr": "",
@@ -499,7 +497,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US8",
@@ -511,8 +509,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US8-xoa-tai-khoan.md",
    "pr": "",
@@ -536,7 +534,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US9",
@@ -548,8 +546,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US9-lich-thang-va-loc-theo.md",
    "pr": "",
@@ -573,7 +571,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US10",
@@ -585,8 +583,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US10-chi-tiet-mot-ngay.md",
    "pr": "",
@@ -610,7 +608,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US11",
@@ -622,8 +620,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US11-doanh-thu-thang.md",
    "pr": "",
@@ -647,7 +645,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US12",
@@ -659,8 +657,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US12-dat-phong-sap-toi.md",
    "pr": "",
@@ -684,7 +682,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US13",
@@ -696,8 +694,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US13-lich-tuan-nhieu-can.md",
    "pr": "",
@@ -721,7 +719,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US14",
@@ -733,8 +731,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US14-man-dau-tien-va-danh.md",
    "pr": "",
@@ -758,7 +756,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US15",
@@ -770,8 +768,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US15-them-can.md",
    "pr": "",
@@ -795,7 +793,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US16",
@@ -807,8 +805,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US16-anh-can.md",
    "pr": "",
@@ -832,7 +830,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US17",
@@ -844,8 +842,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US17-toa-nha-loai-view-so.md",
    "pr": "",
@@ -869,7 +867,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US18",
@@ -881,8 +879,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US18-sua-can.md",
    "pr": "",
@@ -906,7 +904,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US19",
@@ -918,8 +916,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US19-xoa-can.md",
    "pr": "",
@@ -943,7 +941,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US20",
@@ -955,8 +953,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US20-gia-tren-the-can.md",
    "pr": "",
@@ -980,7 +978,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US21",
@@ -992,8 +990,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US21-gia-theo-thang-cua-mot.md",
    "pr": "",
@@ -1017,7 +1015,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US22",
@@ -1029,8 +1027,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US22-gia-ngay-le-va-dip.md",
    "pr": "",
@@ -1054,7 +1052,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US23",
@@ -1066,8 +1064,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US23-dat-gia-nhieu-can.md",
    "pr": "",
@@ -1091,7 +1089,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US24",
@@ -1103,8 +1101,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US24-sao-chep-gia-sang-can.md",
    "pr": "",
@@ -1128,7 +1126,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US25",
@@ -1140,8 +1138,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US25-nhung-dem-tinh-gia-cuoi.md",
    "pr": "",
@@ -1165,7 +1163,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US26",
@@ -1177,8 +1175,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US26-mo-form-chon-can-va.md",
    "pr": "",
@@ -1202,7 +1200,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US27",
@@ -1214,8 +1212,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US27-nguoi-dat-tien-phong-trang.md",
    "pr": "",
@@ -1239,7 +1237,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US28",
@@ -1251,8 +1249,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US28-luu-va-chan-trung.md",
    "pr": "",
@@ -1276,7 +1274,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US29",
@@ -1288,8 +1286,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US29-ghi-dat-phong-cho-sale.md",
    "pr": "",
@@ -1313,7 +1311,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US30",
@@ -1325,8 +1323,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US30-chi-tiet-dat-phong-va.md",
    "pr": "",
@@ -1350,7 +1348,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US31",
@@ -1362,8 +1360,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US31-sua-dat-phong.md",
    "pr": "",
@@ -1387,7 +1385,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US32",
@@ -1399,8 +1397,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US32-xoa-dat-phong-khach-le.md",
    "pr": "",
@@ -1424,7 +1422,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US33",
@@ -1436,8 +1434,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US33-huy-dat-phong-co-sale.md",
    "pr": "",
@@ -1461,7 +1459,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US34",
@@ -1473,8 +1471,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US34-phia-sale-dat-phong-chu.md",
    "pr": "",
@@ -1498,13 +1496,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US35",
    "loai": "US",
    "tieu_de": "\"Xin tên và số điện thoại khi bắt đầu kết nối\"",
-   "trang_thai": "moi",
+   "trang_thai": "huy",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1535,7 +1533,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "–"
   },
   {
    "id": "US36",
@@ -1547,8 +1545,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US36-danh-sach-sale-cua-chu.md",
    "pr": "",
@@ -1572,7 +1570,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US37",
@@ -1584,8 +1582,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US37-link-moi-cua-chu-nha.md",
    "pr": "",
@@ -1609,7 +1607,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US38",
@@ -1621,8 +1619,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US38-sale-xin-chu-nha-cho.md",
    "pr": "",
@@ -1646,7 +1644,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US39",
@@ -1658,8 +1656,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US39-chu-nha-duyet-loi-xin.md",
    "pr": "",
@@ -1683,7 +1681,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US40",
@@ -1695,8 +1693,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US40-chu-nha-gui-lich-theo.md",
    "pr": "",
@@ -1720,7 +1718,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US41",
@@ -1732,8 +1730,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US41-pham-vi-tat-ca-can.md",
    "pr": "",
@@ -1757,7 +1755,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US42",
@@ -1769,8 +1767,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US42-toast-bao-ket-noi-cho.md",
    "pr": "",
@@ -1794,7 +1792,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US43",
@@ -1806,8 +1804,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US43-man-dau-tien-va-lich.md",
    "pr": "",
@@ -1831,7 +1829,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US44",
@@ -1843,8 +1841,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US44-tim-phong-trong-theo-ngay.md",
    "pr": "",
@@ -1868,7 +1866,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US45",
@@ -1880,8 +1878,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US45-ket-qua-tim-phong.md",
    "pr": "",
@@ -1905,7 +1903,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US46",
@@ -1917,8 +1915,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US46-chi-tiet-can-cua-chu.md",
    "pr": "",
@@ -1942,7 +1940,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US47",
@@ -1954,8 +1952,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US47-muc-cong-gia-mac-dinh.md",
    "pr": "",
@@ -1979,7 +1977,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US48",
@@ -1991,8 +1989,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US48-gui-thong-tin-cho-khach.md",
    "pr": "",
@@ -2016,7 +2014,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US49",
@@ -2028,8 +2026,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US49-mau-tin-gui-khach.md",
    "pr": "",
@@ -2053,7 +2051,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US50",
@@ -2065,8 +2063,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US50-sale-gui-va-huy-yeu.md",
    "pr": "",
@@ -2090,7 +2088,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US51",
@@ -2102,8 +2100,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US51-chu-nha-tra-loi-yeu.md",
    "pr": "",
@@ -2127,7 +2125,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US52",
@@ -2139,8 +2137,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US52-yeu-cau-trung-dem.md",
    "pr": "",
@@ -2164,7 +2162,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US53",
@@ -2176,8 +2174,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US53-sale-nhan-ket-qua.md",
    "pr": "",
@@ -2201,7 +2199,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US54",
@@ -2213,8 +2211,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US54-tab-can-cua-sale.md",
    "pr": "",
@@ -2238,7 +2236,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US55",
@@ -2250,8 +2248,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US55-chi-tiet-chu-nha-va.md",
    "pr": "",
@@ -2275,7 +2273,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US56",
@@ -2287,8 +2285,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US56-can-tu-nhap.md",
    "pr": "",
@@ -2312,7 +2310,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US57",
@@ -2324,8 +2322,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US57-ghi-dat-phong-cho-can.md",
    "pr": "",
@@ -2349,7 +2347,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US58",
@@ -2361,8 +2359,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US58-thong-ke-cua-chu-nha.md",
    "pr": "",
@@ -2386,7 +2384,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US59",
@@ -2398,8 +2396,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US59-thong-ke-cua-sale.md",
    "pr": "",
@@ -2423,7 +2421,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US60",
@@ -2435,8 +2433,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US60-dat-phong-va-yeu-cau.md",
    "pr": "",
@@ -2460,7 +2458,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US61",
@@ -2472,8 +2470,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US61-popup-thong-bao-moi.md",
    "pr": "",
@@ -2497,7 +2495,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US62",
@@ -2509,8 +2507,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US62-man-thong-bao.md",
    "pr": "",
@@ -2534,7 +2532,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US63",
@@ -2546,8 +2544,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US63-nhac-dat-phong-chua-coc.md",
    "pr": "",
@@ -2571,7 +2569,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US64",
@@ -2583,8 +2581,8 @@
    "truoc": [
     "EN1",
     "EN2",
-    "EN3",
-    "EN4"
+    "EN4",
+    "US2"
    ],
    "file": "work/backlog/US64-cai-dat-thong-bao.md",
    "pr": "",
@@ -2608,7 +2606,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN3, EN4"
+   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   }
  ]
 }

@@ -4,7 +4,7 @@ tieu_de: "Sale nhận kết quả"
 loai: US
 trang_thai: moi
 thuc_hien: [YC9.4@1]
-truoc: [EN1, EN2, EN3, EN4]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21

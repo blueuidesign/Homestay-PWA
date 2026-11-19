@@ -3,8 +3,8 @@ id: US37
 tieu_de: "Link mời của chủ nhà và sale thêm lịch"
 loai: US
 trang_thai: moi
-thuc_hien: [YC6.3@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC6.3@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.3@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

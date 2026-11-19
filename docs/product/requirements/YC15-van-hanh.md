@@ -3,7 +3,7 @@ id: YC15
 tieu_de: Vận hành
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC15 · Vận hành
@@ -15,12 +15,13 @@ Là chủ dự án, tôi muốn đưa app cho người dùng thật mà dữ li�
 Vì sao quan trọng: một lần mất lịch là chủ nhà nhận trùng khách và không quay lại. Dự án chỉ có hai người, không ai trực đêm, nên sao lưu, báo lỗi và cách khôi phục phải tự chạy và làm theo được khi người chính vắng.
 
 ## Phạm vi
+`[r2 · sửa]`
 
 YC này gồm: hai môi trường (thử và thật), phát hành, sao lưu và khôi phục, theo dõi lỗi, bí mật, trang Điều khoản và Chính sách, quản trị viên đầu tiên.
 
 Không thuộc YC này: người dùng tự tải file sao lưu (bản sau); bản Zalo Mini App (QD3). Cách làm từng bước nằm ở `docs/ha-tang/` (sổ tay); YC này nói phải đạt gì.
 
-Chặn bởi: nơi đặt dữ liệu người dùng [MỞ: QD23] (chưa trả lời thì không tạo môi trường thật); cách đăng nhập [MỞ: QD22]; nội dung Điều khoản và Chính sách [MỞ: YC15-H1].
+Chặn bởi: nơi đặt dữ liệu người dùng [MỞ: QD23] (chưa trả lời thì không tạo môi trường thật); nội dung Điều khoản và Chính sách [MỞ: YC15-H1].
 
 ## Quy tắc của nhóm
 
@@ -84,3 +85,4 @@ Tiêu chí:
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US39 và `docs/ha-tang/` (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | QD22 đã chốt, bỏ khỏi danh sách chặn (chỉ sửa chữ) | Phạm vi |

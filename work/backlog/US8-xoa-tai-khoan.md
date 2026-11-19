@@ -3,8 +3,8 @@ id: US8
 tieu_de: "Xóa tài khoản"
 loai: US
 trang_thai: moi
-thuc_hien: [YC1.8@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC1.8@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -70,5 +70,6 @@ Kịch bản test tay: tests/kb/US8-xoa-tai-khoan.md, chưa viết. Viết trư�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.8@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

@@ -4,7 +4,7 @@ tieu_de: "Giá ngày lễ và dịp đặc biệt"
 loai: US
 trang_thai: moi
 thuc_hien: [YC4.3@1]
-truoc: [EN1, EN2, EN3, EN4]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21

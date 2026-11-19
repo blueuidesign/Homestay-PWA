@@ -3,8 +3,8 @@ id: US38
 tieu_de: "Sale xin chủ nhà cho xem lịch"
 loai: US
 trang_thai: moi
-thuc_hien: [YC6.4@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC6.4@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -59,5 +59,6 @@ Kịch bản test tay: tests/kb/US38-sale-xin-chu-nha-cho.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.4@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

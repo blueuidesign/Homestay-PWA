@@ -2,7 +2,7 @@
 id: EN3
 tieu_de: "Đăng nhập tạm trên staging và tài khoản thử"
 loai: EN
-trang_thai: moi
+trang_thai: huy
 thuc_hien: []
 truoc: [EN1, EN2]
 lien_quan: []
@@ -47,5 +47,6 @@ Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền tr
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
+- 2026-11-19 · Claude · huy: QD22 bỏ hẳn đăng nhập bằng mật khẩu, kể cả staging. PR #8 đóng không gộp. Hàm tạo hồ sơ chuyển sang US2
 
 ## Bằng chứng

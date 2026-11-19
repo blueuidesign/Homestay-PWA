@@ -6,16 +6,16 @@ YC là đặc tả: app phải làm gì. Mỗi nhóm chức năng một file, s�
 
 | YC | Tên | Bản | Nhóm chức năng |
 |---|---|---|---|
-| [YC1](YC1-tai-khoan.md) | Tài khoản | 1 | Màn đầu, đăng nhập, chọn vai, Cá nhân, hồ sơ, giờ nhận trả, xuất CSV, hướng dẫn, xóa tài khoản |
+| [YC1](YC1-tai-khoan.md) | Tài khoản | 2 | Màn đầu, đăng ký và đăng nhập bằng mã email, chọn vai, Cá nhân, hồ sơ, giờ nhận trả, xuất CSV, hướng dẫn, xóa tài khoản |
 | [YC2](YC2-lich-chu-nha.md) | Lịch chủ nhà | 1 | Lịch tháng, chi tiết ngày, doanh thu tháng, đặt phòng sắp tới, lịch tuần |
 | [YC3](YC3-can.md) | Căn | 1 | Danh sách căn, thêm, ảnh, tòa nhà, sửa, xóa |
 | [YC4](YC4-gia.md) | Giá | 1 | Giá theo tháng, ngày lễ, nhiều căn, sao chép, đêm cuối tuần |
 | [YC5](YC5-dat-phong.md) | Đặt phòng | 1 | Chủ nhà ghi, xem, sửa, xóa, thu tiền, xin hủy; phía sale |
-| [YC6](YC6-ket-noi-sale.md) | Kết nối chủ nhà và sale | 1 | Xin số đúng lúc, danh sách sale, link mời, xin lịch, gửi lịch theo căn |
+| [YC6](YC6-ket-noi-sale.md) | Kết nối chủ nhà và sale | 2 | Danh sách sale, link mời, xin lịch, gửi lịch theo căn |
 | [YC7](YC7-lich-va-tim-phong-cua-sale.md) | Lịch, tìm phòng, chi tiết căn của sale | 1 | Lịch 7 ngày, tìm phòng, kết quả, chi tiết căn, mức cộng |
-| [YC8](YC8-gui-khach.md) | Gửi khách | 1 | Gửi chữ và ảnh cho khách, mẫu tin, báo căn đã gửi có người đặt |
-| [YC9](YC9-yeu-cau-dat-phong.md) | Yêu cầu đặt phòng | 1 | Sale gửi, chủ nhà trả lời, trùng đêm, hết hạn |
-| [YC10](YC10-can-tu-nhap-va-nguon-phong.md) | Nguồn phòng và căn tự nhập | 1 | Tab Căn của sale, chi tiết chủ nhà, căn tự nhập, đặt phòng tự ghi |
+| [YC8](YC8-gui-khach.md) | Gửi khách | 2 | Gửi chữ và ảnh cho khách, mẫu tin, báo căn đã gửi có người đặt |
+| [YC9](YC9-yeu-cau-dat-phong.md) | Yêu cầu đặt phòng | 2 | Sale gửi, chủ nhà trả lời, trùng đêm, hết hạn |
+| [YC10](YC10-can-tu-nhap-va-nguon-phong.md) | Nguồn phòng và căn tự nhập | 2 | Tab Căn của sale, chi tiết chủ nhà, căn tự nhập, đặt phòng tự ghi |
 | [YC11](YC11-thong-ke.md) | Thống kê | 1 | Thống kê chủ nhà, thống kê sale, đặt phòng và yêu cầu của sale |
 | [YC12](YC12-thong-bao.md) | Thông báo | 1 | Các loại thông báo, popup, màn Thông báo, nhắc chưa cọc, cài đặt |
 | [YC13](YC13-quan-tri.md) | Quản trị Home247 | sau | Đăng nhập quản trị, dải ngày lễ, tòa nhà |

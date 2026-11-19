@@ -2,7 +2,7 @@
 id: US35
 tieu_de: "Xin tên và số điện thoại khi bắt đầu kết nối"
 loai: US
-trang_thai: moi
+trang_thai: huy
 thuc_hien: [YC6.1@1]
 truoc: [EN1, EN2, EN3, EN4]
 lien_quan: []
@@ -67,5 +67,6 @@ Kịch bản test tay: tests/kb/US35-xin-ten-va-so-dien.md, chưa viết. Viết
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.1@1 (QD21)
+- 2026-11-19 · Claude · huy: YC6.1 bỏ theo QD22 (tên và số xin lúc đăng ký, US2)
 
 ## Bằng chứng

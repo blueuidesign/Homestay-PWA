@@ -3,8 +3,8 @@ id: US48
 tieu_de: "Gửi thông tin cho khách"
 loai: US
 trang_thai: moi
-thuc_hien: [YC8.1@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC8.1@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md, chưa viết. V
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC8.1@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

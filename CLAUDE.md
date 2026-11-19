@@ -38,7 +38,7 @@ React, Vite, TypeScript, gọi thẳng Supabase (QD4). Bản Zalo Mini App làm 
 - Người dùng nhiều người lớn tuổi, dùng một tay: vùng bấm 44 px. Chữ 14 px ở màn đọc, 12–13 px ở màn dày thông tin, không dưới 12 px.
 
 ## Ràng buộc PWA (chi tiết: docs/external/pwa.md)
-- Không bắt đăng nhập, không xin quyền khi vừa mở app. Màn đầu xem được khi chưa đăng nhập. Cách đăng nhập chờ QD22.
+- Không bắt đăng nhập, không xin quyền khi vừa mở app. Màn đầu xem được khi chưa đăng nhập. Đăng nhập bằng mã gửi về email, không có mật khẩu ở môi trường nào; đăng ký phải có tên và số điện thoại mới vào app (QD22).
 - Chia sẻ dùng bảng chia sẻ của điện thoại, máy không có thì sao chép. Link là https trên tên miền của Home247.
 - Thông báo chỉ trong app ở bản 1. Không có thông báo đẩy.
 - Lưu trên máy (IndexedDB, localStorage) bọc try/catch, chỉ lưu thứ mất cũng được.
@@ -66,5 +66,5 @@ Người dùng nói bằng lời, AI tự chọn skill theo mô tả. Quy trình
 - Cuối phiên ghi một dòng nhật ký vào item đã làm (mẫu ở .claude/rules/work.md).
 
 ## Trạng thái hiện tại (sửa khi đổi)
-- Chưa có code, database chưa chạy trên project Supabase nào. Staging: chưa có. Production: chờ QD23. Đăng nhập: chờ QD22.
+- Chưa có code, database chưa chạy trên project Supabase nào. Staging: chưa có. Production: chờ QD23. Đăng nhập: QD22 đã chốt, làm ở US2.
 - Việc tiếp: các EN dựng nền rồi US theo work/backlog/THU-TU.md.
