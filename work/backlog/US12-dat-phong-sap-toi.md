@@ -2,7 +2,7 @@
 id: US12
 tieu_de: "Đặt phòng sắp tới"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC2.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [39]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -53,7 +53,7 @@ YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US12-dat-phong-sap-toi.md.
 
 ## Task
-- [ ] US12-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-01 theo canvas, test unit, e2e cho YC2.4-NT1 đến NT3
+- [x] US12-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-01 theo canvas, test unit, e2e cho YC2.4-NT1 đến NT3 · PR #39
 - [ ] US12-TA2 Test tay · Đức: chạy tests/kb/US12-dat-phong-sap-toi.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US12-dat-phong-sap-toi.md.
 - 2026-11-18 · Claude · tạo item từ YC2.4@1 (QD21)
 - 2026-11-19 · Claude (agent phụ) · code US12-TA1 trên nhánh US12-dat-phong-sap-toi; e2e chưa chạy vì Docker tắt
 - 2026-11-19 · Claude (phiên chính) · chạy cả thư mục tests/e2e/supabase: 38 đạt; mở PR
+- 2026-11-19 · Claude · gộp PR #39 theo QD25 (CI xanh), chuyển chờ test
 
 ## Bằng chứng
 - Unit `npx vitest run src/lib/lich.test.ts`: lần đầu đỏ 3 test (YC2.4-NT1, NT2, NT3, chưa có hàm), code 1 vòng thì xanh.
