@@ -157,13 +157,15 @@ Gắn ở: YC4.3.
 
 ## YC5
 
-### YC5-H1 · mo
+### YC5-H1 · da-tra-loi
 Form đặt phòng: nhập tên một khách mới chưa có trên hàng chip "Khách / Sale" bằng cách nào?
 Gắn ở: YC5.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chọn "Khách lẻ" thì dưới hàng chip hiện ô "Tên khách (không bắt buộc)". Chạm một chip tên đã dùng thì ô này điền sẵn tên đó. Gõ tên mới rồi lưu thì lần sau tên đó thành chip. Ghi vào YC5 r2 (YC5.2 bản 2, NT12).
 
-### YC5-H2 · mo
+### YC5-H2 · da-tra-loi
 Form đặt phòng chưa có ô số điện thoại khách: có thêm ô không?
 Gắn ở: YC5.3.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Cạnh ô tên khách có ô "Số điện thoại khách (không bắt buộc)", chỉ khi người đặt là khách lẻ. Lưu vào phần riêng của chủ nhà, chỉ chủ nhà thấy (QD11). Bỏ khoảng trắng, dấu chấm, gạch ngang rồi phải còn 9 đến 11 chữ số, sai thì "Số điện thoại khách không hợp lệ". Ghi vào YC5 r2 (YC5.2 bản 2, NT13).
 
 ### YC5-H3 · mo
 Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không?
@@ -201,9 +203,10 @@ Gắn ở: YC5.9.
 Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình?
 Gắn ở: YC5.9.
 
-### YC5-H12 · mo
+### YC5-H12 · da-tra-loi
 Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu?
 Gắn ở: YC5.2. Tới khi có câu trả lời: chọn sale thì không nhập được tên khách.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chọn sale thì chủ nhà không nhập tên, số điện thoại khách: khách của đặt phòng có sale do sale giữ (QD11). Chủ nhà cần ghi gì thì dùng ô "Ghi chú". Ghi vào YC5 r2.
 
 ### YC5-H13 · mo
 Giá bán điền sẵn khi chủ nhà ghi giúp sale có làm tròn lên 50.000đ khi sale bật làm tròn không?
@@ -229,9 +232,10 @@ Gắn ở: YC5.8.
 Xin hủy hết hạn sau bao lâu, và hết hạn thì đặt phòng thành gì?
 Chặn: Việc nền tự hết hạn xin hủy. Đang tạm làm: Xin hủy không hết hạn. Hỏi ngày 18/11/2026.
 
-### YC5-H19 · mo
+### YC5-H19 · da-tra-loi
 Chọn "Đã cọc · còn thu" thì số tiền cọc có bắt buộc không?
 Gắn ở: YC5.2. Tới khi có câu trả lời: ô để trống vẫn lưu được.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không bắt buộc. Để trống vẫn lưu được (chủ nhà có khi chưa nhớ số tiền cọc), chi tiết đặt phòng ghi "Đã cọc · còn thu" không kèm số. Ghi vào YC5 r2.
 
 ## YC6
 

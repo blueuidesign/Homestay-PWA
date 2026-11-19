@@ -3,7 +3,7 @@ id: US27
 tieu_de: "Người đặt, tiền phòng, trạng thái tiền"
 loai: US
 trang_thai: moi
-thuc_hien: [YC5.2@1]
+thuc_hien: [YC5.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Người đặt, tiền phòng, trạng thái tiền" đúng như YC5.2 mô tả.
 
 ## Làm tiêu chí nào
-YC5.2-NT1 đến NT11
+YC5.2-NT1 đến NT13
 
 ## Quy tắc, hành vi dùng
 QT1, QT2, QT3.1, QT4, QT4.1, QT4.2, QT5.3, QT5.6, QT6.1, QT6.2
@@ -37,7 +37,6 @@ PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được l�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC5-H1, YC5-H12, YC5-H19.
 - Phần đầu YC5-dat-phong.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc

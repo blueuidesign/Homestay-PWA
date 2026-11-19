@@ -3,7 +3,7 @@ id: US28
 tieu_de: "Lưu và chặn trùng"
 loai: US
 trang_thai: moi
-thuc_hien: [YC5.3@1]
+thuc_hien: [YC5.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -37,7 +37,6 @@ PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được l�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC5-H2.
 - Phần đầu YC5-dat-phong.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc

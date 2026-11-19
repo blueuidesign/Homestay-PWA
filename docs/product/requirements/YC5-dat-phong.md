@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -124,7 +124,7 @@ Tiêu chí:
 
 ## YC5.2 · Người đặt, tiền phòng, trạng thái tiền
 
-Bản 1 · rủi ro: cao · Màn: CN4, CN4-01
+Bản 2 · rủi ro: cao · Màn: CN4, CN4-01
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -133,9 +133,9 @@ Bản 1 · rủi ro: cao · Màn: CN4, CN4-01
 | 6b | Chạm một tên khách đã dùng (ví dụ "Dung Đỗ") | Chọn khách lẻ có tên đó | Không |
 | 6c | Chạm một chip sale (ví dụ "Sale Hùng") | Chọn sale đó làm người đặt. Dòng nhỏ dưới hàng chip: "Đặt phòng của Sale Hùng: Hùng được báo và thấy đặt phòng này như của mình." | Không |
 
-Chưa chọn người đặt thì nút "Thêm đặt phòng" không bấm được. Cách nhập một tên khách mới chưa có trên hàng chip: [MỞ: YC5-H1].
+Chưa chọn người đặt thì nút "Thêm đặt phòng" không bấm được. `[r2 · sửa]` Chọn "Khách lẻ" thì dưới hàng chip hiện ô "Tên khách (không bắt buộc)" và ô "Số điện thoại khách (không bắt buộc)". Chạm chip tên đã dùng thì ô tên điền sẵn tên đó; gõ tên mới rồi lưu thì lần sau tên đó thành chip. Tên và số điện thoại ghi vào phần riêng của chủ nhà, chỉ chủ nhà thấy (QD11) (Claude tự chốt, QD25, trả lời YC5-H1, YC5-H2).
 
-Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu: [MỞ: YC5-H12]. Tới khi có câu trả lời, chọn sale thì không nhập được tên khách. Chip "+ Sale mới": YC6.
+`[r2 · sửa]` Chọn sale thì không có ô tên, số điện thoại khách: khách của đặt phòng có sale do sale giữ (QD11); chủ nhà cần ghi gì thì dùng ô "Ghi chú" (Claude tự chốt, QD25, trả lời YC5-H12). Chip "+ Sale mới": YC6.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -152,7 +152,7 @@ Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu: [MỞ: YC
 | 8b | Chọn "Đã cọc · còn thu" | Hiện ô "Số tiền cọc (đ)". Chọn chip khác thì ô này ẩn và giá trị đã gõ bị bỏ | Không |
 | 8c | Bấm "Thêm chi tiết" | Mở phần chi tiết: số khách (nút − và +, từ 1), giờ nhận và giờ trả điền sẵn theo cài đặt của chủ nhà ("14:00 → 12:00"), ô "Ghi chú". Dòng tóm tắt khi đóng: "4 khách · 14:00 → 12:00 · Ghi chú" | Đọc giờ nhận, giờ trả trong cài đặt của chủ nhà |
 
-Tiền cọc có bắt buộc khi đã chọn "Đã cọc · còn thu" không: [MỞ: YC5-H19]. Tới khi có câu trả lời, ô để trống vẫn lưu được.
+`[r2 · sửa]` Tiền cọc không bắt buộc khi đã chọn "Đã cọc · còn thu": ô để trống vẫn lưu được (Claude tự chốt, QD25, trả lời YC5-H19).
 
 Tiền cọc lớn hơn tiền phòng thì không lưu được, ô cọc viền đỏ, dòng "Tiền cọc không được lớn hơn tiền phòng" (giả định GD20).
 
@@ -168,10 +168,12 @@ Tiêu chí:
 - **YC5.2-NT9** Khi Chị Hoa đã từng ghi khách tên "Dung Đỗ", thì hàng chip có "Dung Đỗ" sau các chip sale; Anh Tuấn mở form của mình thì không thấy "Dung Đỗ". · database (RLS), unit (thứ tự chip)
 - **YC5.2-NT10** Khi chủ nhà mở "Thêm chi tiết", thì thấy số khách, giờ nhận và giờ trả (14:00, 12:00 theo cài đặt) và ô ghi chú. · unit
 - **YC5.2-NT11** Khi chủ nhà không mở "Thêm chi tiết" và lưu, thì giờ nhận, giờ trả của đặt phòng lấy theo cài đặt của chủ nhà lúc lưu. · database
+- `[r2 · thêm]` **YC5.2-NT12** Khi chủ nhà chọn "Khách lẻ", gõ tên "Bà Lan" rồi lưu, thì lần mở form sau hàng chip có "Bà Lan"; chọn sale thì không có ô tên khách. · unit, database
+- `[r2 · thêm]` **YC5.2-NT13** Khi lệnh ghi có số điện thoại khách "0912 345" (7 chữ số), thì database từ chối với câu "Số điện thoại khách không hợp lệ"; số "0912.345.678" thì lưu được và chỉ chủ nhà đọc được. · database
 
 ## YC5.3 · Lưu và chặn trùng
 
-Bản 1 · rủi ro: cao · Màn: CN4, CN4-03
+Bản 2 · rủi ro: cao · Màn: CN4, CN4-03
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -193,7 +195,7 @@ Database là chỗ chặn thật; app chặn trước cho người dùng thấy 
 | Ngày nhận, ngày trả | có | Ngày trả sau ngày nhận; tối đa 365 đêm. Ngày nhận trong quá khứ được phép (ghi bù) | "Ngày trả phải sau ngày nhận" · "Một đặt phòng dài tối đa 365 đêm" |
 | Người đặt | có | Khách lẻ (tên có hoặc không), hoặc sale đang kết nối và được chia sẻ căn này | (app chặn; database coi thiếu sale là khách lẻ) · "Sale này không đang kết nối với bạn" · "Sale này không được xem căn này" |
 | Tên khách | không | Tối đa 100 ký tự, bỏ khoảng trắng đầu cuối | "Tên khách dài tối đa 100 ký tự" |
-| Số điện thoại khách | không | Form chưa có ô (xem [MỞ: YC5-H2]) | |
+| Số điện thoại khách | không | `[r2 · sửa]` Chỉ khi người đặt là khách lẻ. Bỏ khoảng trắng, dấu chấm, gạch ngang rồi còn 9 đến 11 chữ số (YC5-H2) | "Số điện thoại khách không hợp lệ" |
 | Tiền phòng | có | Số nguyên đồng, lớn hơn 0 | "Cần nhập tiền phòng" · "Tiền phòng phải lớn hơn 0" |
 | Trạng thái tiền | có | "chua_coc", "da_coc_con_thu", "da_thanh_toan" | "Trạng thái tiền không hợp lệ" |
 | Tiền cọc | không | Chỉ khi "Đã cọc · còn thu"; số nguyên lớn hơn 0; không lớn hơn tiền phòng (GD20) | "Tiền cọc không được lớn hơn tiền phòng" |
@@ -377,3 +379,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US3, US10, US28, US35 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | US27-nguoi-dat | YC5.2 bản 2: ô tên, số điện thoại khách lẻ, không ô khách khi chọn sale, cọc không bắt buộc (trả lời YC5-H1, H2, H12, H19, Claude tự chốt, QD25) | YC5.2, YC5.3 Luật kiểm |
