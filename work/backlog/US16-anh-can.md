@@ -2,7 +2,7 @@
 id: US16
 tieu_de: "Ảnh căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr: 24
+pr: [24]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US16-anh-can.md (KB1 đến KB4).
 - 2026-11-19 · Claude · nhận HV4-NT6 từ EN4 (QD27)
 - 2026-11-19 · Claude · viết tests/kb/US16-anh-can.md, soạn gói việc, sang dang-lam
 - 2026-11-19 · Claude · code TA1 đến TA3, mở PR nháp #24 · bất ngờ: xóa file kho phải qua API kho, fn_don_anh_tam chỉ trả đường dẫn
+- 2026-11-19 · Claude · gộp PR #24 theo QD25 (CI xanh sau sửa kiểu body e2e), sang cho-test; xóa file ảnh tạm tách sang EN10
 
 ## Bằng chứng
 - `scripts/test-db.sh`: lần đầu (chưa migration) 8 hỏng + 1 file lỗi; sau migration xanh ngay; thêm 1 test sau phép thử làm hỏng; cuối: 493 qua, 0 hỏng.
