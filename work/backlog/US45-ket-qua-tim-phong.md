@@ -53,15 +53,22 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US45-ket-qua-tim-phong.md.
 
 ## Task
-- [ ] US45-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.3-NT1, YC7.3-NT2, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US45-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US45-TA3 Code · Claude Code (sonnet, CL14.6a): màn S2, S4 theo canvas, test unit, e2e cho YC7.3-NT1 đến NT6
+- [x] US45-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.3-NT1, YC7.3-NT2, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US45-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US45-TA3 Code · Claude Code (sonnet, CL14.6a): màn S2, S4 theo canvas, test unit, e2e cho YC7.3-NT1 đến NT6
 - [ ] US45-TA4 Test tay · Đức: chạy tests/kb/US45-ket-qua-tim-phong.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/61_us45_ket_qua_tim.sql: NT1 (5 căn trống, nhóm), NT2 (1509 không có mức cộng riêng: 2.200.000đ, bán 3.000.000đ), vi phạm quyền ở mục "Ai được làm gì", tập căn S4 lấy từ fn_sale_lich khớp kết quả.
+- TA2: fn_sale_tim (US44) đã đủ trường thì không thêm migration; thiếu mới thêm 20261119390000_us45_ket_qua_tim.sql.
+- TA3: src/lib/ketQuaTim.ts (thẻ, nhóm, độ tươi, sắp xếp, ô S4), S2KetQua, S4LichTuanKetQua, S6Tam; ManTimPhong nối S2/S4 thay màn tạm, đọc fn_sale_lich 7 ngày từ ngày nhận; unit NT1–NT6, e2e ket-qua-tim.spec.ts.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.3@1 (QD21)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H4 (YC7 r4); viết kịch bản test tay; soạn gói việc; giao agent code
+- 2026-11-19 · Claude (agent code) · TA1–TA3: test db 61, S2, S4, S6 tạm, unit, e2e; không cần migration · nhánh US45-ket-qua-tim
 
 ## Bằng chứng
+- TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.3`: lần đầu 1 đỏ (số mong sai trong chính test, sửa 1 vòng), rồi 43 qua. Không cần migration (fn_sale_tim, fn_sale_lich đã đủ trường), nên không thêm phép thử làm hỏng.
+- `scripts/test-db.sh`: 1727 qua, 0 hỏng. `npx vitest run`: 681 qua (16 mới, lần đầu xanh). `npm run typecheck`, `npm run build`: qua.
+- e2e `tests/e2e/supabase`: 62 qua (ket-qua-tim.spec.ts mới, tim-phong.spec.ts của US44 vẫn qua). `kiem.py --diff origin/main`: không có lỗi.
