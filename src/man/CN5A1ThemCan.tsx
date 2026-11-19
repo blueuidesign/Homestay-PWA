@@ -113,9 +113,9 @@ export function CN5A1ThemCan(props: {
           datCauDau(e.message);
         }
       } else if (laLoiMang(e)) {
-        hienToast(CAU_MAT_MANG); // YC3.2 bước 21
+        hienToast(CAU_MAT_MANG, 'loi'); // YC3.2 bước 21, HV8-NT4
       } else {
-        hienToast(CAU_LOI_CHUNG); // HV2, QT5.5: lỗi không lường trước
+        hienToast(CAU_LOI_CHUNG, 'loi'); // HV2, QT5.5: lỗi không lường trước, HV8-NT4
       }
     }
   };

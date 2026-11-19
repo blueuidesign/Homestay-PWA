@@ -2,7 +2,7 @@
 id: BG1
 tieu_de: "Toast báo lỗi vẫn có dấu ✓"
 loai: BG
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [HV8@5]
 truoc: [EN4, US15]
 lien_quan: [US15]
@@ -35,11 +35,13 @@ src/chung/Toast.tsx và test, nơi gọi toast lỗi (src/man/CN5A1ThemCan.tsx).
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [ ] BG1-TA1 Code · Claude Code (sonnet, CL14.6a): useToast nhận kiểu "loi" thì không có dấu ✓; test unit HV8-NT4; đổi toast mất mạng ở CN5-A1 sang kiểu lỗi
+- [x] BG1-TA1 Code · Claude Code (sonnet, CL14.6a): useToast nhận kiểu "loi" thì không có dấu ✓; test unit HV8-NT4; đổi toast mất mạng ở CN5-A1 sang kiểu lỗi
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-19 · Claude · tạo từ báo cáo US15: toast mất mạng hiện dấu ✓; HV8 r5 thêm HV8-NT4 (QD25)
+- 2026-11-19 · Claude · toast nhận kiểu 'loi' không có ✓, CN5-A1 dùng cho mất mạng và lỗi chung · 15 phút
 
 ## Bằng chứng
+- `npx vitest run src/chung/Toast.test.tsx`: lần đầu HV8-NT4 đỏ (toast lỗi có ✓), sau sửa 3 qua. `npx vitest run` 131 qua. typecheck, build qua.
