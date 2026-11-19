@@ -24,10 +24,14 @@ export function xoaBanNhapDangKy(): void {
 
 // HV3 bước 1, 3, 5, HV3-H1: nháp form Thêm căn (CN5-A1) trên localStorage, giữ 7 ngày kể từ lần sửa cuối.
 // Giữ cả mã lần gửi để bấm lại sau khi mở lại trang vẫn là cùng một lần gửi (QT5.6).
+// YC3.4: giữ cả phần thêm (tòa, view, số giường, mô tả) và phần thêm đang mở hay thu gọn.
 
 const KHOA_THEM_CAN = 'themCan';
 export const GIU_NHAP_THEM_CAN_MS = 7 * 24 * 60 * 60 * 1000;
-export type BanNhapThemCan = { maCan: string; soPhongNgu: number | null; clientId: string };
+export type BanNhapThemCan = {
+  maCan: string; soPhongNgu: number | null; clientId: string;
+  toaNhaId?: string | null; loaiView?: string | null; soGiuong?: string; moTa?: string; moRong?: boolean;
+};
 
 export function ghiBanNhapThemCan(b: BanNhapThemCan, bay = Date.now()): void {
   luuNhap(KHOA_THEM_CAN, b, bay);
@@ -37,7 +41,12 @@ export function docBanNhapThemCan(bay = Date.now()): BanNhapThemCan | null {
   const b = docNhap<Partial<BanNhapThemCan>>(KHOA_THEM_CAN, bay, GIU_NHAP_THEM_CAN_MS);
   if (!b || typeof b !== 'object') return null;
   const so = typeof b.soPhongNgu === 'number' && b.soPhongNgu >= 0 && b.soPhongNgu <= 4 ? b.soPhongNgu : null;
-  return { maCan: String(b.maCan ?? ''), soPhongNgu: so, clientId: typeof b.clientId === 'string' ? b.clientId : '' };
+  const chu = (v: unknown) => (typeof v === 'string' ? v : '');
+  return {
+    maCan: String(b.maCan ?? ''), soPhongNgu: so, clientId: chu(b.clientId),
+    toaNhaId: chu(b.toaNhaId) || null, loaiView: chu(b.loaiView) || null,
+    soGiuong: chu(b.soGiuong), moTa: chu(b.moTa), moRong: b.moRong === true,
+  };
 }
 
 export function xoaBanNhapThemCan(): void {

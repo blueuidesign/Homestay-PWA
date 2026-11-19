@@ -1,10 +1,11 @@
-// Test unit màn CN5-A1 Thêm căn, CN5-A3 lỗi khi lưu (YC3.2 bước 15 đến 21, QT5.6, HV3).
-import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+// Test unit màn CN5-A1 Thêm căn, CN5-A3 lỗi khi lưu (YC3.2 bước 15 đến 21, QT5.6, HV3), phần mở rộng (YC3.4).
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_KHOI_PHUC } from '../chung/nhap';
 import { ToastProvider } from '../chung/Toast';
 import type { CanMoi } from '../lib/dichVuCan';
+import type { DanhSachToa } from '../lib/toaNha';
 import { docBanNhapThemCan, ghiBanNhapThemCan, GIU_NHAP_THEM_CAN_MS } from './banNhap';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 
@@ -182,5 +183,232 @@ describe('YC3.2 · CN5-A1 Thêm căn', () => {
     fireEvent.click(nut());
     await waitFor(() => expect(tao).toHaveBeenCalled());
     expect(tao.mock.calls[0]![0].clientId).toBe('11111111-1111-4111-8111-111111111111');
+  });
+});
+
+// ===== YC3.4 · CN5-A1 phần mở rộng, CN5-A1b =====
+const TOA: DanhSachToa = {
+  ds: [
+    { id: 't1', ten: 'ICON40', khuVuc: null, home247: true },
+    { id: 't2', ten: 'Sapphire', khuVuc: null, home247: true },
+    { id: 't3', ten: 'À La Carte', khuVuc: null, home247: true },
+    { id: 't4', ten: 'Green Bay', khuVuc: 'Bãi Cháy', home247: true },
+    { id: 't5', ten: 'Mường Thanh', khuVuc: null, home247: true },
+    { id: 't6', ten: 'Bim Hạ Long', khuVuc: null, home247: false },
+  ],
+  daDung: [],
+};
+
+function veDu(p: { taoCan?: (c: CanMoi) => Promise<string>; layToa?: () => Promise<DanhSachToa>; themToa?: (t: string) => Promise<string> } = {}) {
+  const onXong = vi.fn();
+  const layToa = p.layToa ?? vi.fn(async () => TOA);
+  render(<ToastProvider><CN5A1ThemCan taoCan={p.taoCan} layToa={layToa} themToa={p.themToa} onXong={onXong} onQuayLai={vi.fn()} /></ToastProvider>);
+  return { onXong, layToa };
+}
+const moPhanThem = () => fireEvent.click(screen.getByRole('button', { name: /Thêm tòa nhà, mô tả gửi khách, view\.\.\./ }));
+const nhom = (ten: string) => screen.getByRole('group', { name: ten });
+
+describe('YC3.4 · CN5-A1 phần mở rộng', () => {
+  it('YC3.4-NT2 mở hàng chip "Loại view" thì thấy đúng "Biển", "Thành phố", "Núi", không có "Vịnh"', async () => {
+    veDu();
+    moPhanThem();
+    const chipView = within(nhom('Loại view')).getAllByRole('button');
+    expect(chipView.map((b) => b.textContent)).toEqual(['Biển', 'Thành phố', 'Núi']);
+    expect(screen.queryByRole('button', { name: 'Vịnh' })).toBeNull();
+    expect(screen.queryByText('Vịnh')).toBeNull();
+    await screen.findByRole('button', { name: 'ICON40' });
+  });
+
+  it('YC3.4 bước 29 mở phần thêm: chip tòa (tối đa 6 gồm "+ Tòa khác"), view, số giường, mô tả gửi khách, nút "Thu gọn"', async () => {
+    const { layToa } = veDu();
+    expect(layToa).not.toHaveBeenCalled();
+    moPhanThem();
+    await screen.findByRole('button', { name: 'ICON40' });
+    expect(layToa).toHaveBeenCalledTimes(1);
+    const chipToa = within(nhom('Tòa nhà')).getAllByRole('button').map((b) => b.textContent);
+    expect(chipToa).toEqual(['ICON40', 'Sapphire', 'À La Carte', 'Green Bay', 'Mường Thanh', '+ Tòa khác']);
+    expect(screen.getByLabelText('Số giường')).toHaveAttribute('placeholder', 'VD: 3');
+    expect(screen.getByText('Không bắt buộc. Thẻ căn ghi "2PN · 3 giường".')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Mô tả gửi khách/)).toBeInTheDocument();
+    expect(screen.getByText('Sale dùng đoạn này khi gửi thông tin căn cho khách.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Thu gọn' })).toBeInTheDocument();
+  });
+
+  it('YC3.4 bước 29 tòa mình đã dùng đứng trước tòa Home247 đặt sẵn', async () => {
+    veDu({ layToa: async () => ({ ...TOA, daDung: ['t6'] }) });
+    moPhanThem();
+    await screen.findByRole('button', { name: 'Bim Hạ Long' });
+    expect(within(nhom('Tòa nhà')).getAllByRole('button').map((b) => b.textContent))
+      .toEqual(['Bim Hạ Long', 'ICON40', 'Sapphire', 'À La Carte', 'Green Bay', '+ Tòa khác']);
+  });
+
+  it('YC3.4 HV1 HV2 đang tải danh sách tòa thì khung xám; tải lỗi thì "Thử lại" tải lại', async () => {
+    const layToa = vi.fn<() => Promise<DanhSachToa>>().mockRejectedValueOnce(new TypeError('mất mạng')).mockResolvedValue(TOA);
+    veDu({ layToa });
+    moPhanThem();
+    expect(screen.getByLabelText('Đang tải')).toBeInTheDocument();
+    fireEvent.click(await screen.findByRole('button', { name: 'Thử lại' }));
+    await screen.findByRole('button', { name: 'ICON40' });
+    expect(layToa).toHaveBeenCalledTimes(2);
+  });
+
+  it('YC3-H7 chọn một loại view; chạm chip đang chọn thì bỏ chọn', () => {
+    veDu();
+    moPhanThem();
+    fireEvent.click(chip('Biển'));
+    expect(chip('Biển')).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.click(chip('Núi'));
+    expect(chip('Biển')).toHaveAttribute('aria-pressed', 'false');
+    expect(chip('Núi')).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.click(chip('Núi'));
+    expect(chip('Núi')).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('YC3.4 bước 30, 32 chạm "+ Tòa khác" mở CN5-A1b; chọn một tòa thì tòa đó được chọn, lưu cùng căn với view, số giường, mô tả', async () => {
+    const tao = vi.fn(async (_c: CanMoi) => 'id');
+    const { onXong } = veDu({ taoCan: tao });
+    fireEvent.change(oMa(), { target: { value: '0808' } });
+    fireEvent.click(chip('2PN'));
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: '+ Tòa khác' }));
+    expect(chip('+ Tòa khác')).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.change(screen.getByLabelText('Tên tòa nhà'), { target: { value: 'bim' } });
+    fireEvent.click(within(screen.getByRole('list', { name: 'Danh sách tòa' })).getByRole('button', { name: 'Bim Hạ Long' }));
+    expect(screen.queryByLabelText('Tên tòa nhà')).toBeNull();
+    expect(chip('Bim Hạ Long')).toHaveAttribute('aria-pressed', 'true');
+    fireEvent.click(chip('Biển'));
+    fireEvent.change(screen.getByLabelText('Số giường'), { target: { value: ' 3 ' } });
+    fireEvent.change(screen.getByLabelText(/Mô tả gửi khách/), { target: { value: '  Căn góc  ' } });
+    fireEvent.click(nut());
+    await waitFor(() => expect(onXong).toHaveBeenCalled());
+    expect(tao.mock.calls[0]![0]).toMatchObject({ maCan: '0808', soPhongNgu: 2, toaNhaId: 't6', loaiView: 'bien', soGiuong: 3, moTa: 'Căn góc' });
+  });
+
+  it('YC3.4 bước 33 chạm "+ Thêm tòa mới …" thì gọi lệnh thêm tòa và tòa mới được chọn cho căn', async () => {
+    const tao = vi.fn(async (_c: CanMoi) => 'id');
+    const themToa = vi.fn(async (_t: string) => 'moi-1');
+    const { onXong } = veDu({ taoCan: tao, themToa });
+    fireEvent.change(oMa(), { target: { value: '2105' } });
+    fireEvent.click(chip('1PN'));
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: '+ Tòa khác' }));
+    fireEvent.change(screen.getByLabelText('Tên tòa nhà'), { target: { value: 'Flamingo ' } });
+    fireEvent.click(screen.getByRole('button', { name: '+ Thêm tòa mới "Flamingo"' }));
+    await screen.findByRole('button', { name: 'Flamingo', pressed: true });
+    expect(themToa).toHaveBeenCalledWith('Flamingo');
+    fireEvent.click(nut());
+    await waitFor(() => expect(onXong).toHaveBeenCalled());
+    expect(tao.mock.calls[0]![0].toaNhaId).toBe('moi-1');
+  });
+
+  it('YC3.4-NT4 GD21 thêm "icon40" mà database trả tòa ICON40 đã có thì chip ICON40 được chọn, không có chip thứ hai', async () => {
+    veDu({ themToa: async () => 't1' });
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: '+ Tòa khác' }));
+    fireEvent.change(screen.getByLabelText('Tên tòa nhà'), { target: { value: 'icon40' } });
+    fireEvent.click(screen.getByRole('button', { name: '+ Thêm tòa mới "icon40"' }));
+    await screen.findByRole('button', { name: 'ICON40', pressed: true });
+    expect(screen.queryByRole('button', { name: 'icon40' })).toBeNull();
+  });
+
+  it('YC3.4 bước 33 database từ chối tên tòa thì câu hiện dưới ô tên tòa; mất mạng thì toast mất mạng', async () => {
+    const themToa = vi.fn<(t: string) => Promise<string>>()
+      .mockRejectedValueOnce(new LoiNguoiDung('Tên tòa từ 1 đến 100 ký tự'))
+      .mockRejectedValueOnce(new TypeError('Failed to fetch'));
+    veDu({ themToa });
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: '+ Tòa khác' }));
+    fireEvent.change(screen.getByLabelText('Tên tòa nhà'), { target: { value: 'x' } });
+    fireEvent.click(screen.getByRole('button', { name: '+ Thêm tòa mới "x"' }));
+    expect(await screen.findByText(/Tên tòa từ 1 đến 100 ký tự/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: '+ Thêm tòa mới "x"' }));
+    expect(await screen.findByText('Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại.')).toBeInTheDocument();
+  });
+
+  it('YC3.4 số giường không vào dòng "Còn thiếu"; nhập 0, 51, chữ thì câu "Số giường từ 1 đến 50" và không bấm được "Thêm căn"', () => {
+    const tao = vi.fn();
+    veDu({ taoCan: tao });
+    fireEvent.change(oMa(), { target: { value: '2105' } });
+    fireEvent.click(chip('1PN'));
+    moPhanThem();
+    expect(screen.getByText('Đủ thông tin. Ảnh, giá thêm sau cũng được.')).toBeInTheDocument();
+    for (const sai of ['0', '51', 'ba']) {
+      fireEvent.change(screen.getByLabelText('Số giường'), { target: { value: sai } });
+      expect(screen.getByText(/Số giường từ 1 đến 50/)).toBeInTheDocument();
+      expect(nut()).toBeDisabled();
+    }
+    expect(screen.queryByText(/Còn thiếu/)).toBeNull();
+    fireEvent.change(screen.getByLabelText('Số giường'), { target: { value: '50' } });
+    expect(screen.queryByText(/Số giường từ 1 đến 50/)).toBeNull();
+    expect(nut()).toBeEnabled();
+  });
+
+  it('YC3.4 mô tả quá 2.000 ký tự thì câu dưới ô và không bấm được "Thêm căn"', () => {
+    veDu({ taoCan: vi.fn() });
+    fireEvent.change(oMa(), { target: { value: '2105' } });
+    fireEvent.click(chip('1PN'));
+    moPhanThem();
+    fireEvent.change(screen.getByLabelText(/Mô tả gửi khách/), { target: { value: 'a'.repeat(2001) } });
+    expect(screen.getByText(/Mô tả dài tối đa 2\.000 ký tự/)).toBeInTheDocument();
+    expect(nut()).toBeDisabled();
+  });
+
+  it('YC3.4 bước 34 bấm "Thu gọn" thì ẩn phần thêm, giữ giá trị đã nhập', async () => {
+    const tao = vi.fn(async (_c: CanMoi) => 'id');
+    const { onXong, layToa } = veDu({ taoCan: tao });
+    fireEvent.change(oMa(), { target: { value: '2105' } });
+    fireEvent.click(chip('1PN'));
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: 'Sapphire' }));
+    fireEvent.click(chip('Thành phố'));
+    fireEvent.change(screen.getByLabelText('Số giường'), { target: { value: '2' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Thu gọn' }));
+    expect(screen.queryByLabelText('Số giường')).toBeNull();
+    expect(screen.getByRole('button', { name: /Thêm tòa nhà, mô tả gửi khách, view\.\.\./ })).toHaveAttribute('aria-expanded', 'false');
+    moPhanThem();
+    expect(chip('Sapphire')).toHaveAttribute('aria-pressed', 'true');
+    expect(chip('Thành phố')).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByLabelText('Số giường')).toHaveValue('2');
+    expect(layToa).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole('button', { name: 'Thu gọn' }));
+    fireEvent.click(nut());
+    await waitFor(() => expect(onXong).toHaveBeenCalled());
+    expect(tao.mock.calls[0]![0]).toMatchObject({ toaNhaId: 't2', loaiView: 'thanh_pho', soGiuong: 2, moTa: null });
+  });
+
+  it('YC3.4 database từ chối "Không tìm thấy tòa nhà" khi phần thêm đang thu gọn thì mở ra, câu dưới hàng chip tòa', async () => {
+    const tao = vi.fn(async () => { throw new LoiNguoiDung('Không tìm thấy tòa nhà'); });
+    ghiBanNhapThemCan({ maCan: '2105', soPhongNgu: 1, clientId: '11111111-1111-4111-8111-111111111111', toaNhaId: 'mat' });
+    veDu({ taoCan: tao });
+    fireEvent.click(nut());
+    expect(await screen.findByText(/Không tìm thấy tòa nhà/)).toBeInTheDocument();
+    expect(screen.getByText('Chưa thêm được căn. Sửa 1 chỗ bên dưới.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Thu gọn' })).toBeInTheDocument();
+  });
+
+  it('HV3-NT2 YC3.4 nháp giữ cả tòa, view, số giường, mô tả và phần thêm đang mở', async () => {
+    veDu();
+    fireEvent.change(oMa(), { target: { value: '2105' } });
+    moPhanThem();
+    fireEvent.click(await screen.findByRole('button', { name: 'Green Bay' }));
+    fireEvent.click(chip('Núi'));
+    fireEvent.change(screen.getByLabelText('Số giường'), { target: { value: '4' } });
+    fireEvent.change(screen.getByLabelText(/Mô tả gửi khách/), { target: { value: 'Gần biển' } });
+    expect(docBanNhapThemCan()).toMatchObject({ toaNhaId: 't4', loaiView: 'nui', soGiuong: '4', moTa: 'Gần biển', moRong: true });
+    cleanup();
+    veDu();
+    expect(screen.getByText('Đã khôi phục nội dung bạn đang nhập')).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Green Bay', pressed: true })).toBeInTheDocument();
+    expect(chip('Núi')).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByLabelText('Số giường')).toHaveValue('4');
+    expect(screen.getByLabelText(/Mô tả gửi khách/)).toHaveValue('Gần biển');
+  });
+
+  it('HV3 YC3.4 nháp chỉ có phần thêm (chưa có mã căn) cũng được khôi phục, kể cả đang thu gọn', () => {
+    ghiBanNhapThemCan({ maCan: '', soPhongNgu: null, clientId: 'x', loaiView: 'bien', moRong: false });
+    veDu();
+    expect(screen.getByText('Đã khôi phục nội dung bạn đang nhập')).toBeInTheDocument();
+    moPhanThem();
+    expect(chip('Biển')).toHaveAttribute('aria-pressed', 'true');
   });
 });
