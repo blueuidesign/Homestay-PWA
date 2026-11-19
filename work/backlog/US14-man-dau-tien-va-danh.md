@@ -2,7 +2,7 @@
 id: US14
 tieu_de: "Màn đầu tiên và danh sách căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC3.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
