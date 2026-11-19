@@ -1,0 +1,14 @@
+/* US38 · A5, A7, A7-00, A7-01 (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px ở màn đọc, chữ phụ 13 px. */
+.xl-than { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+.xl-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.xl-the-nut { flex-direction: row; align-items: flex-start; min-height: 44px; text-align: left; font: inherit; color: inherit; cursor: pointer; width: 100%; }
+.xl-tieu-de { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.xl-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.xl-tron { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; }
+.xl-tron--cho { background: var(--warning-tint); border: 1px solid var(--warning-border); color: var(--warning-ink); }
+.xl-chu { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.xl-dong-dam { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.xl-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.xl-goi-y { margin: 0; padding: 0 4px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.xl-goi-y b { color: var(--ink-secondary); }
+.xl-chan { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 4px 0; }

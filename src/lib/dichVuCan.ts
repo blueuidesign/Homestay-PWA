@@ -6,6 +6,7 @@
 // Xóa căn (ẩn căn) qua fn_xoa_can (YC3.6 bước 42 đến 44, PQ3.CHU, QT5.5).
 import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
 import { taoDichVuLinkMoiSupabase, type DichVuLinkMoi } from './dichVuLinkMoi';
+import { taoDichVuXinLichSupabase, type DichVuXinLich } from './dichVuXinLich';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -95,6 +96,8 @@ export interface DichVuCan {
   sale?: DichVuSale;
   /** YC6.3: xem trước, thêm lịch từ link mời (src/lib/dichVuLinkMoi.ts). Thiếu thì màn link báo chưa tải được. */
   linkMoi?: DichVuLinkMoi;
+  /** YC6.4: link xin lịch và số đếm của sale (src/lib/dichVuXinLich.ts). Thiếu thì tab Lịch của sale là bản tạm. */
+  xinLich?: DichVuXinLich;
 }
 
 function maNgauNhien(): string {
@@ -147,6 +150,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     sale: taoDichVuSaleSupabase(sb), // YC6.2
     // YC6.3: ảnh xem trước xin từ kho bằng khóa anon (công khai) kèm mã link.
     linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
+    xinLich: taoDichVuXinLichSupabase(sb), // YC6.4
 
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')
