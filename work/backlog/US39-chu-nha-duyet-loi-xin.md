@@ -2,7 +2,7 @@
 id: US39
 tieu_de: "Chủ nhà duyệt lời xin xem lịch"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC6.5@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [47]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US39-chu-nha-duyet-loi-xin.md.
 
 ## Task
-- [x] US39-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.5-NT1 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US39-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US39-TA3 Code · Claude Code (sonnet, CL14.6a): màn A8, A8-01 theo canvas, test unit, e2e cho YC6.5-NT1
+- [x] US39-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.5-NT1 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #47
+- [x] US39-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #47
+- [x] US39-TA3 Code · Claude Code (sonnet, CL14.6a): màn A8, A8-01 theo canvas, test unit, e2e cho YC6.5-NT1 · PR #47
 - [ ] US39-TA4 Test tay · Đức: chạy tests/kb/US39-chu-nha-duyet-loi-xin.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US39-chu-nha-duyet-loi-xin.md.
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude (QD25) · tự chốt YC6-H12, H17, H18 (YC6 r8, thêm NT6, NT7); viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 trên nhánh US39-duyet-xin-lich, chưa mở PR · A4-01 dựng ở App vì ManChu ngoài phạm vi
+- 2026-11-19 · Claude (QD25) · Gộp PR #47, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC6.5` lần đầu (trước migration) 39 hỏng; sau migration 63 qua, 0 hỏng ngay vòng 1. Cả bộ: 1451 qua, 0 hỏng.

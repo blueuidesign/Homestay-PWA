@@ -1850,7 +1850,7 @@
    "id": "US39",
    "loai": "US",
    "tieu_de": "\"Chủ nhà duyệt lời xin xem lịch\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1860,10 +1860,10 @@
     "US2"
    ],
    "file": "work/backlog/US39-chu-nha-duyet-loi-xin.md",
-   "pr": "",
+   "pr": "[47]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1881,7 +1881,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US40",
