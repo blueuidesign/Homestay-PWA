@@ -38,7 +38,7 @@ PQ3, PQ5, PQ11, PQ12, PQ14, PQ19 và các test vi phạm ở mục "Ai được 
 
 ## Ngoài phạm vi
 - YC8-H1, H2, H3, H4, H6, H7 đã Claude tự chốt (QD25, YC8 r4).
-- Mẫu tin (P11, sửa mẫu): US49. US48 dùng mẫu mặc định khi sale chưa có mẫu.
+- Mẫu tin (P11, sửa mẫu): US49. US48 dùng mẫu mặc định (YC8 quy tắc Mẫu tin gửi khách, r5) cho "Sao chép chữ cả N căn".
 - Danh sách thông báo, công tắc tắt loại thông báo: YC12. US48 chỉ ghi dòng thông báo ở database.
 - Phần đầu YC8-gui-khach.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 

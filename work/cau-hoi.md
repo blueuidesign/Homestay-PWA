@@ -447,6 +447,16 @@ Có hiện nhãn "Đã gửi" trên căn đã gửi khách, và có đếm lần
 Gắn ở: YC8.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nhãn "Đã gửi" và không đếm lần gửi cho thống kê. YC11 không có chỉ số nào cần lần gửi; lần gửi chỉ dùng để báo căn có người đặt. Ghi vào YC8 r4 mục Phạm vi.
 
+### YC8-H8 · da-tra-loi
+Mẫu tin có [Danh sách căn] cho cả tin, còn S5 chia sẻ chữ từng căn một. Mẫu áp vào chỗ nào ở S5, và mỗi dòng căn trong [Danh sách căn] ghi thế nào (hình P11 ghi "1. Căn view biển Bãi Cháy, 2PN: 2.600.000đ / 2 đêm", khác chữ khối ở S5)?
+Gắn ở: YC8.1, YC8.2. Hỏi ngày 19/11/2026 khi chuẩn bị US49.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mẫu tin áp cho "Sao chép chữ cả N căn": cả tin theo mẫu, [Danh sách căn] là các dòng căn đánh số theo thứ tự trên màn. "Chia sẻ chữ" và "Sao chép chữ" của một khối chỉ gửi chữ của căn đó, không theo mẫu, vì khách nhận từng căn kèm ảnh. Mỗi dòng căn dùng đúng chữ của khối ở S5 ("ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy", xuống dòng "10/10 → 12/10 (2 đêm): 2.600.000đ"), để hai nơi không lệch nhau; hình P11 lệch thì theo YC. [Ngày] là "10/10 → 12/10", [Số đêm] là "2 đêm", [Số căn] là số, [Tên sale] là tên trong hồ sơ. Mẫu mặc định lấy từ hình P11. Ghi vào YC8 r5.
+
+### YC8-H9 · da-tra-loi
+Sale lưu mẫu rỗng, hoặc mẫu không có [Danh sách căn], thì sao?
+Gắn ở: YC8.2. Hỏi ngày 19/11/2026 khi chuẩn bị US49.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không cho lưu. Mẫu thiếu [Danh sách căn] thì tin gửi khách không có căn nào, chắc chắn là lỗi. Nút Lưu mờ và ghi "Mẫu cần có [Danh sách căn]"; database cũng từ chối mẫu rỗng, thiếu [Danh sách căn] hay quá 2.000 ký tự, mẫu cũ giữ nguyên. Ghi vào YC8.2 r5, thêm YC8.2-NT5.
+
 ## YC9
 
 ### YC9-H1 · mo

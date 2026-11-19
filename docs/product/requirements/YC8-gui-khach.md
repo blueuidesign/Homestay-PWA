@@ -3,7 +3,7 @@ id: YC8
 tieu_de: Gửi khách
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 2
 ---
 # YC8 · Gửi khách
@@ -37,7 +37,7 @@ Không thuộc YC này (dễ tưởng là có):
 |---|---|---|
 | Chỉ giá bán trong tin | Chữ gửi khách chỉ có giá bán của sale (giá chủ nhà + mức cộng), không bao giờ có giá chủ nhà | 2.600.000đ |
 | Chữ và ảnh gửi riêng | Mỗi căn gửi chữ một lần, ảnh một lần (bảng chia sẻ không chắc gửi được chữ và ảnh cùng tin) | 6 ảnh, 4 ảnh |
-| Mẫu tin gửi khách | Tin tạo từ mẫu của sale với các ô điền sẵn: [Ngày], [Số đêm], [Số căn], [Danh sách căn], [Tên sale] | "Em gửi anh chị 3 căn còn trống 10/10 → 12/10 (2 đêm)" |
+| Mẫu tin gửi khách | `[r5 · sửa]` Tin tạo từ mẫu của sale với các ô điền sẵn: [Ngày], [Số đêm], [Số căn], [Danh sách căn], [Tên sale]. Mẫu dùng cho "Sao chép chữ cả N căn"; chia sẻ hay sao chép một khối chỉ gửi chữ của căn đó. [Danh sách căn] là các dòng căn đánh số theo thứ tự trên màn, mỗi dòng đúng chữ của khối ở S5. [Ngày] "10/10 → 12/10", [Số đêm] "2 đêm", [Tên sale] tên trong hồ sơ. Mẫu mặc định: "Em gửi anh chị [Số căn] căn còn trống [Ngày] ([Số đêm]):" xuống dòng "[Danh sách căn]" xuống dòng "Anh chị ưng căn nào báo em giữ phòng nhé." (YC8-H8, Claude tự chốt QD25) | "Em gửi anh chị 3 căn còn trống 10/10 → 12/10 (2 đêm):" |
 | Báo căn đã gửi có người đặt | `[r4 · sửa]` Gửi chữ, gửi ảnh hay sao chép chữ của một căn thì database ghi lần gửi (căn, các đêm, lúc gửi). Đặt phòng mới của người khác, hay chủ nhà đổi ngày một đặt phòng sang ít nhất một đêm đó, thì báo sale một lần cho mỗi căn của mỗi lần gửi. Không báo khi chính sale đặt. Ngừng báo sau ngày nhận phòng của lần gửi. Chỉ ghi căn và ngày (QD11) | "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt" |
 
 Quy tắc dùng chung: Phòng ngủ và số giường (`docs/product/glossary.md`), chia sẻ trên PWA (`docs/external/pwa.md` mục P3).
@@ -110,18 +110,21 @@ Bản 1 · rủi ro: tb · Màn: P11
 | 4 | Bấm "Dùng lại mẫu mặc định" | Ô mẫu về mẫu mặc định | Không |
 | 5 | Bấm "Lưu thay đổi" | Toast "Đã lưu mẫu tin" | Ghi mẫu của người gọi; tối đa 2.000 ký tự |
 
+`[r5 · thêm]` Claude tự chốt (QD25, YC8-H9): mẫu rỗng hay thiếu [Danh sách căn] thì nút Lưu mờ và ghi "Mẫu cần có [Danh sách căn]"; database từ chối mẫu rỗng, thiếu [Danh sách căn] hay quá 2.000 ký tự, mẫu cũ giữ nguyên. Bản xem trước ở bước 3 dùng dòng căn giống S5 (YC8-H8), không theo chữ trên hình.
+
 Tiêu chí:
 - **YC8.2-NT1** Khi sale chạm "[Ngày]", thì mẫu có thêm [Ngày] và bản xem trước hiện ngày thật. · unit
 - **YC8.2-NT2** Khi sale bấm "Dùng lại mẫu mặc định", thì mẫu về nội dung mặc định. · unit
 - **YC8.2-NT3** Khi sale đã lưu mẫu mới, thì chữ ở S5 theo mẫu đó. · database, unit
 - **YC8.2-NT4** Khi Sale Lan đọc hay ghi mẫu tin, thì chỉ chạm tới mẫu của chính Lan; mẫu của Hùng không đổi. · database
+- **YC8.2-NT5** `[r5 · thêm]` Khi sale lưu mẫu không có [Danh sách căn] hay dài 2.001 ký tự, thì database từ chối và mẫu cũ giữ nguyên; ở P11 nút Lưu mờ và ghi "Mẫu cần có [Danh sách căn]". · database, unit
 
 ## Màn hình
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
 - **S5 · Gửi cho khách.** Chữ "Zalo không gửi chữ và ảnh chung một tin" đổi theo bước 2. Bỏ tiện ích căn trên hình.
-- **P11 · Mẫu tin.** Đúng bố cục.
+- **P11 · Mẫu tin.** Đúng bố cục. Dòng căn trong bản xem trước theo YC8-H8, không theo chữ trên hình. `[r5 · sửa]`
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
@@ -130,3 +133,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi gửi khách | YC8.1 |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Nút "Chia sẻ chữ" theo canvas PWA (YC8-H5) | YC8.1 |
 | r4 | 2026-11-19 | Claude (QD25) | main | Claude tự chốt YC8-H1, H2, H3, H4, H6, H7; thêm YC8.1-NT12 đến NT16 | Phạm vi, Quy tắc của nhóm, Dữ liệu, YC8.1 |
+| r5 | 2026-11-19 | Claude (QD25) | main | Claude tự chốt YC8-H8 (mẫu tin dùng ở đâu, dòng căn), H9 (mẫu không hợp lệ); thêm YC8.2-NT5 | Quy tắc của nhóm, YC8.2, Màn hình |
