@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 8
+rev: 10
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -184,6 +184,7 @@ Bản 2 · rủi ro: cao · Màn: A8, A8-01
 - Sale đã bỏ nguồn của chủ nhà này (YC10.2) hay kết nối đang "chưa kết nối" (chủ nhà thêm tay ở CN7-05): chuyển thành đã kết nối với quyền cọc theo công tắc, phạm vi tất cả căn. Sale chủ động xin lại nên coi như đồng ý mới.
 - Chủ nhà đã ngừng sale này: A8-01 (bước 4, NT4). Muốn cho xem lại thì dùng CN7-04.
 - Mở link xin lịch của chính mình: A8-01, không tạo gì.
+- [r10 · thêm] Chữ ở A8-01: "Link xin lịch không dùng được: sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch." Canvas ghi "đã hết hạn", bỏ vì link xin lịch không có hạn (PQ18-H1, Claude tự chốt).
 - Người mở chưa chọn vai: chọn sẵn vai chủ nhà rồi mới hiện A8. Đang ở vai sale: vẫn hiện A8; đồng ý xong thì chuyển sang vai chủ nhà.
 
 Tiêu chí:
@@ -203,18 +204,23 @@ Bản 2 · rủi ro: cao · Màn: CN10, CN10-00, CN10-01, CN10-02
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Bấm "Gửi lịch cho sale" ở tab Lịch | CN10: "Sale nhận link xem lịch trống/kín và giá của các căn đã chọn. Không thấy tên khách và tiền cọc" | Không |
-| 2 | "Bước 1: Chọn căn" | Danh sách căn chưa xóa của mình, nút "Chọn tất cả". Chưa chọn căn nào thì nút gửi không bấm được ([MỞ: YC6-H8]) | Đọc căn của mình |
+| 2 | "Bước 1: Chọn căn" | Danh sách căn chưa xóa của mình, nút "Chọn tất cả". [r9 · sửa] Chưa chọn căn nào thì nút "Chia sẻ lịch" mờ, không bấm được, kèm dòng "Chọn ít nhất một căn" (YC6-H8, Claude tự chốt) | Đọc căn của mình |
 | 3 | "Bước 2: Chọn sale để chia sẻ lịch" | Chọn sale chỉ để nhắc mình gửi cho ai; bảng chia sẻ không mở tin riêng cho từng sale, link dùng được cho bất kỳ sale nào mở (YC8-H5) | Không |
 | 4 | Bấm "Chia sẻ lịch" | Mở bảng chia sẻ với tin và link | Tạo link gửi lịch với các căn đã chọn; tăng số lần gửi |
 | 5 | Quay về app | CN10-02: tab Lịch, toast "Đã gửi lịch". Đóng bảng chia sẻ mà không gửi: CN10-01, không toast | Không |
 
-Chưa có sale nào thì CN10-00. Sale đã kết nối nhận thêm link gửi lịch thì phạm vi có đổi không: [MỞ: YC6-H7]; tới khi có câu trả lời, giữ phạm vi cũ. Thu hồi link gửi lịch: [MỞ: YC6-H9].
+Chưa có sale nào thì CN10-00.
+
+[r9 · sửa] Các câu sau Claude tự chốt (QD25). Sale mở link gửi lịch thấy A10 như link mời (YC6.3), chỉ với các căn trong link còn chưa xóa. Link gửi lịch không bao giờ thu hẹp quyền đã có (YC6-H7): sale đã kết nối "tất cả căn" thì giữ nguyên, thấy A10-01; sale đã kết nối theo danh sách căn thì các căn trong link được thêm vào danh sách, không bớt căn cũ; sale đã bỏ nguồn hay chưa kết nối thì thành đã kết nối, phạm vi đúng các căn trong link, nguồn "gửi lịch"; chủ nhà đã ngừng sale đó thì từ chối như link mời. Mỗi lần "Chia sẻ lịch" tạo một link mới với các căn đã chọn, hết hạn sau 21 ngày; bản 1 không có nút thu hồi link gửi lịch, chủ nhà muốn bỏ một sale thì dùng "Ngừng cho xem lịch" ở CN7-04 (YC6-H9). Các luật link mời khác (vai sai, link của chính mình, người tạo đã xóa tài khoản, 30 lần một phút) áp như YC6.3.
 
 Tiêu chí:
 - **YC6.6-NT1** Khi Chị Hoa chọn 1509 rồi gửi, và một sale chưa kết nối (Sale Phương) bấm "Thêm lịch" từ link đó, thì Phương chỉ thấy 1509, không thấy 3402. · database
 - **YC6.6-NT2** Khi kết nối của Sale Phương chỉ gồm 1509 và Chị Hoa thêm căn mới 2105, thì Phương vẫn chỉ thấy 1509 (QD8). · database
 - **YC6.6-NT3** Khi về app sau khi gửi, thì thấy CN10-02 với toast "Đã gửi lịch" theo HV8. · unit
 - **YC6.6-NT4** Khi Chị Hoa gửi lệnh tạo link gửi lịch có căn Sapphire 1103 của Anh Tuấn, hay căn đã xóa, hay khi Sale Hùng gửi lệnh tạo link gửi lịch, thì database từ chối và không có link mới. · database
+- **YC6.6-NT5** `[r9 · thêm]` Khi Sale Phương đã kết nối chỉ với 1509 thêm lịch từ link gửi lịch có 3402, thì Phương thấy 1509 và 3402; khi Sale Hùng đã kết nối "tất cả căn" mở link đó, thì vẫn là "tất cả căn". · database
+- **YC6.6-NT6** `[r9 · thêm]` Khi Chị Hoa chưa chọn căn nào ở CN10, thì nút "Chia sẻ lịch" không bấm được. · unit
+- **YC6.6-NT7** `[r9 · thêm]` Khi người chưa đăng nhập xem trước link gửi lịch có 1509, thì chỉ thấy 1509, không thấy 3402 và không có giá. · database
 
 ## YC6.7 · Phạm vi "tất cả căn" và căn mới
 
@@ -271,3 +277,5 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r6 | 2026-11-19 | Claude | US37 chuẩn bị | Trả lời YC6-H14, H15, H5, H10, H3, H6 (Claude tự chốt, QD25); thêm YC6.3-NT9, NT10 | YC6.3 |
 | r7 | 2026-11-19 | Claude | US38 chuẩn bị | Trả lời YC6-H2: sale không thu hồi link xin lịch ở bản 1 (Claude tự chốt, QD25) | YC6.4 |
 | r8 | 2026-11-19 | Claude | US39 chuẩn bị | Trả lời YC6-H12, H17, H18 (Claude tự chốt, QD25); thêm YC6.5-NT6, NT7 | YC6.5 |
+| r9 | 2026-11-19 | Claude | US40 chuẩn bị | Trả lời YC6-H7, H8, H9 (Claude tự chốt, QD25); thêm YC6.6-NT5 đến NT7 | YC6.6 |
+| r10 | 2026-11-19 | Claude | US39 | Chữ A8-01 bỏ "đã hết hạn" cho khớp PQ18-H1 (Claude tự chốt, QD25) | YC6.5 |
