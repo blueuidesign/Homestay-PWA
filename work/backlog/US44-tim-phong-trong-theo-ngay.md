@@ -2,7 +2,7 @@
 id: US44
 tieu_de: "Tìm phòng trống theo ngày"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC7.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -62,6 +62,6 @@ Kịch bản test tay: tests/kb/US44-tim-phong-trong-theo-ngay.md.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.2@1 (QD21)
-- 2026-11-19 · Claude (QD25) · tự chốt YC7-H1, H2, H3, H5 (YC7 r3, thêm NT8); viết kịch bản test tay
+- 2026-11-19 · Claude (QD25) · tự chốt YC7-H1, H2, H3, H5 (YC7 r3, thêm NT8); viết kịch bản test tay; soạn gói việc; giao agent code
 
 ## Bằng chứng
