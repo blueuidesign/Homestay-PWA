@@ -57,6 +57,8 @@ Kịch bản test tay: tests/kb/US42-toast-bao-ket-noi-cho.md.
 - [ ] US42-TA3 Test tay · Đức: chạy tests/kb/US42-toast-bao-ket-noi-cho.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+- TA1: test `tests/db/58_us42_toast_ket_noi.sql` trước, rồi migration `20261119360000_us42_toast_ket_noi.sql`: hàm `ghi_thong_bao_dong_y` (security definer, không cấp cho app) ghi hay gom thông báo `chu_dong_y_ket_noi` (khóa theo sale; gom vào dòng chưa đọc tạo chưa quá 10 phút); `fn_dong_y_xin_lich` gọi nó. noi_dung giữ `ten_chu`, `so_can` (US39) và thêm `cac_chu` (tên, tòa + mã tối đa 3 căn theo mã, số căn), `so_chu`, `ket_noi`.
+- TA2: `src/lib/toastKetNoi.ts` dựng chữ, `src/lib/dichVuThongBao.ts` đọc qua RLS, `src/man/A9ToastKetNoi.tsx` lấy khi mở, quay lại từ nền, mỗi 60 giây; nhớ dòng đã hiện ở localStorage; gắn cho sale ở `src/App.tsx`. Unit trước, e2e `toast-ket-noi.spec.ts`.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.8@1 (QD21)
