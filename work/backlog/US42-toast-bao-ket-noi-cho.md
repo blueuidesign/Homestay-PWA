@@ -2,7 +2,7 @@
 id: US42
 tieu_de: "Toast báo kết nối cho sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC6.8@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [50]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,8 +52,8 @@ YC6-ket-noi-sale.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US42-toast-bao-ket-noi-cho.md.
 
 ## Task
-- [x] US42-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC6.8-NT2, YC6.8-NT3
-- [x] US42-TA2 Code · Claude Code (sonnet, CL14.6a): màn A9, A9-02 theo canvas, test unit, e2e cho YC6.8-NT1, YC6.8-NT2, YC6.8-NT4
+- [x] US42-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC6.8-NT2, YC6.8-NT3 · PR #50
+- [x] US42-TA2 Code · Claude Code (sonnet, CL14.6a): màn A9, A9-02 theo canvas, test unit, e2e cho YC6.8-NT1, YC6.8-NT2, YC6.8-NT4 · PR #50
 - [ ] US42-TA3 Test tay · Đức: chạy tests/kb/US42-toast-bao-ket-noi-cho.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US42-toast-bao-ket-noi-cho.md.
 - 2026-11-18 · Claude · tạo item từ YC6.8@1 (QD21)
 - 2026-11-19 · Claude (QD25) · tự chốt YC6-H19, H20 (YC6 r11, thêm NT3, NT4); viết kịch bản test tay; soạn gói việc; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1, TA2 xong trên nhánh US42-toast-ket-noi, chưa mở PR · e2e qua ngay lần đầu
+- 2026-11-19 · Claude (QD25) · Gộp PR #50, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA3.
 
 ## Bằng chứng
 - DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC6.8` lần đầu 14 đỏ (chưa có migration), 1 vòng sửa: 21 qua. Cả bộ `scripts/test-db.sh`: 1546 qua, 0 hỏng (55_us39 vẫn xanh). `scripts/thu-lam-hong.sh YC6.8`: 2/2 đạt.
