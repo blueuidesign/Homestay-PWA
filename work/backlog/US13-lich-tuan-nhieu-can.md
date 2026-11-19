@@ -34,7 +34,10 @@ CN2, CN2-00
 PQ4, PQ7, PQ8, PQ9, PQ16 và các test vi phạm ở mục "Ai được làm gì" của YC2-lich-chu-nha.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+- supabase/migrations/20261119280000_us13_gia_tuan_tung_dem.sql (mới), tests/db/49_us13_gia_tuan_tung_dem.sql (mới), scripts/thu-lam-hong.txt (thêm dòng), supabase/bang-va-cot.md (sinh lại)
+- src/lib/lichTuan.ts (+ .test.ts) mới; src/lib/dichVuLich.ts (thêm layTuan)
+- src/man/CN2LichTuan.tsx (+ .css, .test.tsx) mới; src/man/CN1LichThang.tsx (+ .css, .test.tsx) chỉ thêm nút Tháng/Tuần; src/man/ManChu.tsx
+- tests/e2e/supabase/lich-tuan.spec.ts (mới)
 
 ## Ngoài phạm vi
 - YC2-H2, YC2-H4, YC2-H5 đã Claude tự chốt (QD25), ghi ở YC2.5 r5.
@@ -56,9 +59,17 @@ Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md.
 - [ ] US13-TA3 Test tay · Đức: chạy tests/kb/US13-lich-tuan-nhieu-can.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+1. TA1: viết tests/db/49 trước (YC2.5-NT2 giá 1509 08/10 900.000đ, 3402 09/10 1.100.000đ, đêm chưa giá null, vi phạm: chủ khác, sale, anon), rồi migration fn_gia_tung_dem_cua_toi(p_tu, p_den) dùng lại fn_lich_gia_thang, chỉ căn có lịch chưa ẩn của người gọi. Thêm dòng thu-lam-hong, sinh lại bang-va-cot.md.
+2. TA2: test unit lichTuan.test.ts, CN2LichTuan.test.tsx, thêm test nút Tháng/Tuần ở CN1 trước; rồi src/lib/lichTuan.ts (hàng, cột, thanh, ô giá, tóm tắt, chip), dichVuLich.layTuan, màn CN2/CN2-00, nút Tháng/Tuần ở CN1, ManChu nối hai màn (giữ trạng thái xem tuần trong ManChu vì dieuHuong.ts ngoài phạm vi).
+3. e2e lich-tuan.spec.ts cho NT6; chạy test db, unit, typecheck, build, e2e, kiem.py.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.5@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC2-H2, H4, H5 (QD25), thêm NT6, NT7 vào YC2.5 r5; viết kịch bản test tay; giao agent code
+- 2026-11-19 · Claude (agent code) · US13-TA1, TA2 trên nhánh US13-lich-tuan-nhieu-can: fn_gia_tung_dem_cua_toi, màn CN2/CN2-00, nút Tháng/Tuần ở CN1; đẩy nhánh, chưa mở PR
 
 ## Bằng chứng
+- Database: `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC2.5` viết test trước, lần đầu đỏ (2 hỏng, 1 file lỗi vì chưa có hàm); sau migration 23 qua; cả bộ 1062 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC2.5`: 4/4 phép thử làm hỏng đạt. `supabase db reset` qua, `scripts/bang-cot.sh` sinh lại bang-va-cot.md.
+- Unit: `npx vitest run` 41 file, 455 test qua. CN2LichTuan.test.tsx lần đầu đỏ (chưa có màn), sau khi code đỏ 1 test (bấm "Trước" hai lần liền chỉ lùi một tuần), sửa màn 1 vòng thì xanh. lichTuan.test.ts xanh lần đầu chạy sau khi có code. Test CN1 cũ không đổi, chỉ thêm 4 test YC2.5-NT6.
+- e2e: `npx playwright test tests/e2e/supabase --trace off` (Supabase máy, E2E_SUPABASE=1): 38 qua, gồm lich-tuan.spec.ts (YC2.5-NT6, NT2, NT1, NT7 luồng chính) qua lần đầu.
+- `npm run typecheck`, `npm run build` qua; `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

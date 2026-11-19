@@ -355,6 +355,49 @@ describe('YC2.3 · khối doanh thu tháng dưới lưới CN1', () => {
   });
 });
 
+describe('YC2.5 · nút Tháng / Tuần trên CN1 (YC2-H4)', () => {
+  function veCoTuan(onXemTuan: (t2: string) => void, thangDau?: string) {
+    return render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu()} homNay="2026-10-07" onDatPhong={vi.fn()} onXemTuan={onXemTuan} thangDau={thangDau} />
+      </ToastProvider>,
+    );
+  }
+
+  it('YC2.5-NT6 chủ nhà đang chọn ngày 14/10/2026 ở CN1 rồi bấm "Tuần" thì mở tuần 12 – 18/10/2026', async () => {
+    const onXemTuan = vi.fn();
+    veCoTuan(onXemTuan);
+    await choLuoi();
+    expect(screen.getByRole('button', { name: 'Tháng' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Tuần' })).toHaveAttribute('aria-pressed', 'false');
+    fireEvent.click(o('2026-10-14'));
+    fireEvent.click(screen.getByRole('button', { name: 'Tuần' }));
+    expect(onXemTuan).toHaveBeenCalledWith('2026-10-12');
+  });
+
+  it('YC2.5-NT6 chưa chọn ngày thì bấm "Tuần" mở tuần có hôm nay (05 – 11/10/2026)', async () => {
+    const onXemTuan = vi.fn();
+    veCoTuan(onXemTuan);
+    await choLuoi();
+    fireEvent.click(screen.getByRole('button', { name: 'Tuần' }));
+    expect(onXemTuan).toHaveBeenCalledWith('2026-10-05');
+  });
+
+  it('YC2.5-NT6 từ lịch tuần bấm "Tháng" thì CN1 mở tháng chứa thứ Hai của tuần (thứ Hai 12/10 thì Tháng 10/2026; 28/09 thì Tháng 9/2026)', async () => {
+    veCoTuan(vi.fn(), '2026-10-12');
+    expect(await screen.findByRole('heading', { name: 'Tháng 10/2026' })).toBeInTheDocument();
+    cleanup();
+    veCoTuan(vi.fn(), '2026-09-28');
+    expect(await screen.findByRole('heading', { name: 'Tháng 9/2026' })).toBeInTheDocument();
+  });
+
+  it('YC2.5 không truyền onXemTuan thì CN1 không có cặp nút (màn khác dùng lại CN1)', async () => {
+    ve(HAI_CAN);
+    await choLuoi();
+    expect(screen.queryByRole('button', { name: 'Tuần' })).toBeNull();
+  });
+});
+
 describe('YC2.4 · Đặt phòng sắp tới dưới lịch CN1', () => {
   const sale = (ten: string) => ({ loai: 'sale' as const, ten, sdt: null });
   const tien = (x: DatPhongLich, tienPhong: number, trangThaiTien: DatPhongLich['trangThaiTien'], nguoiDat: DatPhongLich['nguoiDat'],
