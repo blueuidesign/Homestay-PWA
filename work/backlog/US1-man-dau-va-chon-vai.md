@@ -2,7 +2,7 @@
 id: US1
 tieu_de: "Màn đầu và chọn vai"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC1.1@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -47,7 +47,7 @@ YC1-tai-khoan.md#Dữ liệu
 YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md (KB1 đến KB3).
 
 ## Task
 - [ ] US1-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.1-NT5, YC1.1-NT7
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md, chưa viết. Viết
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · nhận HV4-NT5 từ EN4 (QD27)
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
+- 2026-11-19 · Claude · viết kịch bản test tay, sang dang-lam
 
 ## Bằng chứng
