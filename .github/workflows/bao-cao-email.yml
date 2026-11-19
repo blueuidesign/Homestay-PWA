@@ -8,6 +8,16 @@ on:
   pull_request:
     types: [closed]
     branches: [main]
+  # Chạy tay để gửi thư thử. nguoi_nhan để trống thì dùng secret BAO_CAO_EMAIL.
+  workflow_dispatch:
+    inputs:
+      nguoi_nhan:
+        description: Email nhận thư thử (để trống thì dùng BAO_CAO_EMAIL)
+        required: false
+      noi_dung:
+        description: Nội dung thư thử
+        required: false
+        default: Email thử
 
 permissions:
   contents: read
@@ -16,7 +26,7 @@ permissions:
 
 jobs:
   gui:
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Soạn và gửi thư
@@ -30,10 +40,28 @@ jobs:
           MO_TA_PR: ${{ github.event.pull_request.body }}
           LINK_PR: ${{ github.event.pull_request.html_url }}
           SHA_DAU: ${{ github.event.pull_request.head.sha }}
+          SU_KIEN: ${{ github.event_name }}
+          NHAN_TAY: ${{ inputs.nguoi_nhan }}
+          NOI_DUNG_THU: ${{ inputs.noi_dung }}
           GUI_TU: ${{ vars.BAO_CAO_GUI_TU || 'Home247 <no-reply@homestaymail.vxlab.vn>' }}
           LINK_APP: ${{ vars.LINK_APP || 'https://homestay-pwa.vercel.app' }}
         run: |
           set -euo pipefail
+          [ -n "${NHAN_TAY:-}" ] && echo "::add-mask::$NHAN_TAY"
+          if [ "$SU_KIEN" = "workflow_dispatch" ]; then
+            nhan="${NHAN_TAY:-$BAO_CAO_EMAIL}"
+            if [ -z "$RESEND_API_KEY" ] || [ -z "$nhan" ]; then
+              echo "::warning::Thiếu RESEND_API_KEY hoặc địa chỉ nhận."; exit 0
+            fi
+            jq -n --arg from "$GUI_TU" --arg to "$nhan" --arg subject "Home247 · ${NOI_DUNG_THU:-Email thử}" \
+                  --arg text "$(printf '%s\n\nĐây là thư thử của hệ thống báo cáo Home247. Từ nay, mỗi khi một chức năng mới (PR có mã US, EN, BG) được gộp vào main và deploy, anh sẽ nhận một thư như vậy kèm tóm tắt, các chỗ Claude tự quyết, kết quả kiểm và link app.\n\nApp: %s\n' "${NOI_DUNG_THU:-Email thử}" "$LINK_APP")" \
+                  '{from: $from, to: [$to], subject: $subject, text: $text}' > thu.json
+            ma_http=$(curl -sS -o tra_loi.txt -w '%{http_code}' https://api.resend.com/emails \
+              -H "Authorization: Bearer $RESEND_API_KEY" -H 'Content-Type: application/json' --data @thu.json)
+            echo "Resend trả về $ma_http"; head -c 300 tra_loi.txt; echo
+            [ "$ma_http" -lt 300 ] || { echo "::error::Gửi thư thử không được (HTTP $ma_http)."; exit 1; }
+            exit 0
+          fi
           ma=$(printf '%s' "$TEN_PR" | grep -oE '^(US|EN|BG)[0-9]+' || true)
           if [ -z "$ma" ]; then
             echo "PR không mở đầu bằng mã US, EN, BG: không phải chức năng mới, không gửi thư."

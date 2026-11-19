@@ -29,6 +29,7 @@ Không có NT. Kiểm bằng tay: gộp một PR có mã item, xem thư tới.
 - work/cho-tung.md: việc Tùng thêm hai secret.
 
 ## Ngoài phạm vi
+- Chạy tay (workflow_dispatch) để gửi thư thử.
 - PR không mở đầu bằng mã US, EN, BG (tài liệu, quyết định, thiết kế) không gửi thư (Claude tự quyết, QD25: đó không phải chức năng mới).
 - Địa chỉ nhận không ghi vào repo vì repo công khai; để ở secret BAO_CAO_EMAIL.
 
