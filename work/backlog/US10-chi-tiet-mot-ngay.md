@@ -2,7 +2,7 @@
 id: US10
 tieu_de: "Chi tiết một ngày"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC2.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -57,7 +57,7 @@ Kịch bản test tay: tests/kb/US10-chi-tiet-mot-ngay.md.
 ## Kế hoạch
 
 ## Nhật ký
-- 2026-11-19 · Claude · trả lời YC2-H6, viết tests/kb
+- 2026-11-19 · Claude · trả lời YC2-H6, viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC2.2@1 (QD21)
 
 ## Bằng chứng
