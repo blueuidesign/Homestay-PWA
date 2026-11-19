@@ -2,7 +2,7 @@
 id: US28
 tieu_de: "Lưu và chặn trùng"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -59,6 +59,7 @@ Kịch bản test tay: tests/kb/US28-luu-va-chan-trung.md.
 ## Kế hoạch
 
 ## Nhật ký
+- 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.3@1 (QD21)
 - 2026-11-19 · Claude · nhận HV7-NT1, HV7-NT2 từ EN4 (QD27)
 
