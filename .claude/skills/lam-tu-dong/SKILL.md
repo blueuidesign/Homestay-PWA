@@ -13,7 +13,7 @@ Quyền gộp: Tùng ra lệnh làm tự động có phạm vi rõ trong phiên 
    - Mọi item trong `truoc` đã gộp phần code.
    - `thuc_hien` trỏ YC đã chốt. Câu có `[MỞ: ...]` thì bỏ phần đó.
    - Không cần việc chỉ người làm được: tiền, tài khoản, dữ liệu thật, phát hành production, quyết định thuộc CL4.3.
-   - **Trần chờ người (CL1.2):** item có code ở cho-test cộng cho-nghiem-thu đã tới 6 thì không nhận item có code mới. Chỉ làm BG và item không có code. Hết việc đó thì dừng vòng và báo.
+   - **Trần chờ người (CL1.2):** item có code ở cho-test cộng cho-nghiem-thu đã tới 6 thì không nhận item có code mới. Chỉ làm BG và item không có code. Trong thời gian QD25 không áp trần này (CL1.2). Hết việc đó thì dừng vòng và báo.
    Item không làm được thì ghi lý do, sang item khác. Mỗi lần một PR vừa gộp thì xét lại các item đã bỏ qua.
 3. **Một item một agent (CL10.6).** Mỗi item giao cho một agent phụ, agent đó làm hết task Code của item trên một nhánh, một PR. Gói việc soạn theo item bằng skill soan-viec-cho-subagent. Chỉ tách thêm agent khi có lý do ở CL10.6, và ghi lý do vào gói việc. Task rủi ro cao luôn tách: agent thứ nhất viết test từ NT ở đúng lớp (CL14.5), agent thứ hai viết code, không được sửa file test.
 4. **Chọn model** theo CL14.6a, lấy mức cao nhất mà các task của item cần. Gói việc thiếu ô không điền được thì giao opus. Agent báo việc khó hơn dự kiến thì giao lại với model cao hơn.
