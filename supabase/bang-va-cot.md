@@ -463,6 +463,7 @@ Ràng buộc:
 - profiles_pkey: PRIMARY KEY (id)
 - profiles_vai_chon_check: CHECK ((vai_chon = ANY (ARRAY['chu_nha'::text, 'sale'::text])))
 - profiles_xoa_tai_khoan_bo_so: CHECK (((da_xoa_luc IS NULL) OR (so_dien_thoai IS NULL)))
+- profiles_so_khong_trung: CREATE UNIQUE INDEX profiles_so_khong_trung ON public.profiles USING btree (so_dien_thoai) WHERE ((da_xoa_luc IS NULL) AND (so_dien_thoai IS NOT NULL))
 
 Policy:
 - profiles_doc (SELECT, authenticated): (id = ( SELECT auth.uid() AS uid))
@@ -615,6 +616,8 @@ Policy:
 ## Hàm
 
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
+- chuan_hoa_so(p_so text) → text · security definer
+- fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - local_today() → date · security definer · gọi được: authenticated
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated
@@ -624,3 +627,4 @@ Policy:
 - tg_booking_huy_hai_ben() → trigger · security definer
 - tg_booking_nhat_ky() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
+- tg_tao_ho_so() → trigger · security definer

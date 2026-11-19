@@ -22,6 +22,8 @@ export function NutGhi(props: {
   chuDangGhi?: string;
   onGhi: () => Promise<unknown> | unknown;
   disabled?: boolean;
+  /** Lớp CSS thêm (kiểu nút theo canvas), mặc định nút chính. */
+  lop?: string;
 }) {
   const [dangGhi, datDangGhi] = useState(false);
   const khoa = useRef(false); // chặn ngay cả khi bấm hai lần trước lần vẽ lại
@@ -37,7 +39,7 @@ export function NutGhi(props: {
     }
   };
   return (
-    <button type="button" className="nut-ghi" disabled={dangGhi || props.disabled} onClick={bam}>
+    <button type="button" className={'nut-ghi ' + (props.lop ?? 'hh-btn hh-btn--primary hh-btn--block')} disabled={dangGhi || props.disabled} onClick={bam}>
       {dangGhi ? (props.chuDangGhi ?? 'Đang lưu…') : props.chu}
     </button>
   );
