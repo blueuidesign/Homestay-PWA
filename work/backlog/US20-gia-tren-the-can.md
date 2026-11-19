@@ -2,8 +2,8 @@
 id: US20
 tieu_de: "Giá trên thẻ căn"
 loai: US
-trang_thai: moi
-thuc_hien: [YC4.1@1]
+trang_thai: dang-lam
+thuc_hien: [YC4.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -47,7 +47,7 @@ YC4-gia.md#Dữ liệu
 YC4-gia.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US20-gia-tren-the-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US20-gia-tren-the-can.md (KB1, KB2).
 
 ## Task
 - [ ] US20-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN5 theo canvas, test unit, e2e cho YC4.1-NT1, YC4.1-NT2
@@ -57,5 +57,6 @@ Kịch bản test tay: tests/kb/US20-gia-tren-the-can.md, chưa viết. Viết t
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.1@1 (QD21)
+- 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 
 ## Bằng chứng
