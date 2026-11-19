@@ -355,25 +355,29 @@ Toast hiện lại mỗi lần mở app không, tắt khi nào, nút "Xem" đi �
 Gắn ở: YC6.8.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mỗi dòng thông báo hiện toast một lần trên một máy; máy nhớ dòng đã hiện trong bộ nhớ máy (mất thì hiện lại một lần, chấp nhận được). Tự tắt sau 6 giây theo HV8. Hiện toast không phải là đã đọc; đọc ở YC12. Tới khi có YC10.1, "Xem" về lịch của sale. Ghi vào YC6.8 r11, thêm NT4.
 
-### YC7-H1 · mo
+### YC7-H1 · da-tra-loi
 Tìm phòng: có cho chọn ngày nhận trước hôm nay không?
 Gắn ở: YC7.2. Tới khi có câu trả lời: không chọn được ngày trước hôm nay.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không chọn được ngày nhận trước hôm nay (giờ Việt Nam). Tìm phòng là để báo khách đêm sắp tới; đêm đã qua không bán được nữa. Lịch ô ngày trước hôm nay mờ, không bấm được. Ghi vào YC7.2 r3.
 
-### YC7-H2 · mo
+### YC7-H2 · da-tra-loi
 Chip tòa "Khác" ở màn tìm phòng làm gì?
 Gắn ở: YC7.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có chip "Khác". Danh sách tòa chỉ gồm tòa người gọi đã dùng rồi tòa có sẵn; căn không có tòa vẫn ra khi không lọc tòa. Thêm "Khác" để sau khi có nhu cầu thật. Ghi vào YC7.2 r3.
 
-### YC7-H3 · mo
+### YC7-H3 · da-tra-loi
 Lọc "Giá mỗi đêm" ở màn tìm phòng làm gì?
 Gắn ở: YC7.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có lọc "Giá mỗi đêm". Kết quả đã sắp được theo "Giá tăng dần" (YC7.1), đủ để sale tìm căn rẻ; thêm lọc giá làm màn dày hơn với người lớn tuổi. Ghi vào YC7.2 r3.
 
 ### YC7-H4 · mo
 Kết quả tìm phòng: lịch tuần S4 bắt đầu từ ngày nào?
 Gắn ở: YC7.3. Tới khi có câu trả lời: từ ngày nhận.
 
-### YC7-H5 · mo
+### YC7-H5 · da-tra-loi
 "Tìm gần đây": tìm hai lần cùng điều kiện thì ghi hai dòng hay một?
 Gắn ở: YC7.2. Tới khi có câu trả lời: lần tìm trùng đưa lên đầu, không thêm dòng.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Một dòng. Lần tìm trùng hệt điều kiện (ngày nhận, ngày trả, số phòng ngủ, tòa, view) đưa lên đầu, cập nhật lúc tìm, không thêm dòng; nhờ vậy 5 dòng không bị lặp. Ghi vào YC7.2 r3.
 
 ### YC7-H6 · mo
 Mở S3 từ lịch 7 ngày (không có ngày khách hỏi) thì ngày ở là gì?

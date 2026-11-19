@@ -3,7 +3,7 @@ id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC7 · Lịch, tìm phòng và chi tiết căn của sale
@@ -112,7 +112,7 @@ Bản 1 · rủi ro: cao · Màn: S1-02, S1-03, S2-00
 | 5 | Bấm "Tìm phòng trống" | Sang YC7.3 | Lệnh tìm phòng; ghi lần tìm |
 | 6 | Không có căn trống | S2-00: "Không có căn trống", điều kiện đã lọc, mục "GỢI Ý" mỗi dòng kèm số căn trống ("Đổi sang 11/10 → 13/10 · 3 căn trống", "Bỏ lọc tòa nhà · 2 căn trống"), nút "Sửa tìm kiếm", ghi chú "Căn tự nhập không có lịch tự động. Gọi chủ nhà để hỏi." | Gợi ý tính trên căn sale được xem |
 
-Tìm với ngày nhận trước hôm nay: [MỞ: YC7-H1]; tới khi có câu trả lời, không chọn được ngày trước hôm nay. Chip tòa "Khác": [MỞ: YC7-H2]; bản đầu không có. Lọc "Giá mỗi đêm": [MỞ: YC7-H3]; bản đầu không có. Tìm hai lần cùng điều kiện: [MỞ: YC7-H5]; tới khi có câu trả lời, lần tìm trùng đưa lên đầu, không thêm dòng.
+[r3 · sửa] Các câu sau Claude tự chốt (QD25). Không chọn được ngày nhận trước hôm nay, giờ Việt Nam (YC7-H1). Bản 1 không có chip tòa "Khác" (YC7-H2) và không có lọc "Giá mỗi đêm" (YC7-H3). Tìm hai lần cùng điều kiện thì chỉ một dòng "Tìm gần đây": lần trùng đưa lên đầu, không thêm dòng (YC7-H5).
 
 Tiêu chí:
 - **YC7.2-NT1** Khi sale chưa chọn ngày nhận, thì nút "Tìm phòng trống" mờ và ghi "Chọn ngày nhận để tìm phòng". · unit
@@ -122,6 +122,7 @@ Tiêu chí:
 - **YC7.2-NT5** Khi Sale Hùng tìm 6 lần, thì Hùng có đúng 5 lần gần nhất; Sale Lan không đọc được lần tìm nào của Hùng. · database
 - **YC7.2-NT6** Khi Sale Lan tìm 10/10 → 12/10, thì kết quả không có Green Bay 0812, Mường Thanh 1605, Villa Tuần Châu của Sale Hùng, không có căn đã xóa, căn của chủ nhà đã ngừng Lan; số đếm của gợi ý cũng không tính các căn đó. · database
 - **YC7.2-NT7** Khi sale mở lọc "Loại view", thì thấy đúng "Biển", "Thành phố", "Núi", không có "Vịnh". · unit
+- **YC7.2-NT8** `[r3 · thêm]` Khi Sale Hùng tìm hai lần 10/10 → 12/10 · 2PN, thì "Tìm gần đây" chỉ có một dòng cho điều kiện đó, ở đầu danh sách; khi gửi lệnh tìm với ngày nhận trước hôm nay, thì database từ chối. · database
 
 ## YC7.3 · Kết quả tìm phòng
 
@@ -206,3 +207,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US6, US12, US13 và phần "Lịch phòng 7 ngày" của US16 (QD20, QD21); áp quyết định 7, 9, 10, 11 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
 | r2 | 2026-11-19 | Claude | US43 chuẩn bị | Trả lời YC7-H8, H9 (Claude tự chốt, QD25) | YC7.1, Quy tắc của nhóm |
+| r3 | 2026-11-19 | Claude | US44 chuẩn bị | Trả lời YC7-H1, H2, H3, H5 (Claude tự chốt, QD25); thêm YC7.2-NT8 | YC7.2 |
