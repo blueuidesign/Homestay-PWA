@@ -41,6 +41,7 @@ src/
   lib/                  hàm thuần dùng chung, mỗi file một test cạnh nó (*.test.ts)
     ngay.ts             ngày giờ Việt Nam, các đêm của một lần ở (QT5.1, QT2.1)
     tien.ts             tiền số nguyên đồng, viết "1.300.000đ" (QT5.2)
+  chung/                thành phần dùng chung cho HV1 đến HV8 (toast, đang tải, mất mạng, nháp, quyền, phiên), mỗi nhóm một file và test cạnh nó
   pwa/                  đăng ký service worker
   test/setup.ts         nạp matcher cho test unit
 tests/e2e/              test Playwright, khung 390×844
