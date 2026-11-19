@@ -3,7 +3,7 @@ id: YC3
 tieu_de: Căn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC3 · Căn
@@ -212,7 +212,7 @@ Bản 1 · rủi ro: cao · Màn: CN5-02
 | 40 | (database từ chối) | Ở lại, giữ dữ liệu, câu lỗi dưới ô sai như bước 20 | Trả lỗi P0001 kèm câu |
 | 41 | Bấm quay lại khi đã sửa mà chưa lưu | Hỏi "Bỏ thay đổi chưa lưu?" với hai nút "Bỏ thay đổi" và "Ở lại" | Không |
 
-Bỏ một ảnh ở CN5-02 có hỏi lại không: [MỞ: YC3-H4]. Tới khi có câu trả lời, không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi").
+[r4 · sửa] Bỏ một ảnh ở CN5-02 không hỏi lại (YC3-H4, Claude tự chốt): ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi"; bấm quay lại và chọn "Bỏ thay đổi" thì ảnh còn nguyên.
 
 Tiêu chí:
 - **YC3.5-NT1** Khi chủ nhà mở sửa căn 1509, thì các ô hiện đúng mã căn, số phòng ngủ, ảnh theo thứ tự, tòa, loại view, số giường, mô tả hiện có. · unit
@@ -268,3 +268,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US1, US25, US11, US27 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9; trả lời YC3-H1 (Claude tự quyết, QD25) | Phạm vi, YC3.2 |
 | r3 | 2026-11-19 | Claude | US17-toa-nha | Trả lời YC3-H5, YC3-H7 (Claude tự quyết, QD25) | YC3.4 |
+| r4 | 2026-11-19 | Claude | US18 chuẩn bị | Bỏ ảnh ở CN5-02 không hỏi lại, trả lời YC3-H4 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm | YC3.5 |

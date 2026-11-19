@@ -2,7 +2,7 @@
 id: US18
 tieu_de: "Sửa căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC3.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -37,7 +37,7 @@ PQ1, PQ3, PQ13 và các test vi phạm ở mục "Ai được làm gì" của YC
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC3-H4.
+- YC3-H4 đã Claude tự chốt (QD25), ghi ở YC3.5 r4.
 - Phần đầu YC3-can.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,7 +49,7 @@ YC3-can.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US18-sua-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US18-sua-can.md.
 
 ## Task
 - [ ] US18-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US18-sua-can.md, chưa viết. Viết trước k
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.5@1 (QD21)
+- 2026-11-19 · Claude · tự chốt YC3-H4 (QD25, YC3 r4); viết kịch bản test tay; giao agent code
 
 ## Bằng chứng

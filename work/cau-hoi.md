@@ -109,9 +109,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Nút xóa căn đặt ở đâu, xóa xong về màn nào?
 Gắn ở: YC3.6.
 
-### YC3-H4 · mo
+### YC3-H4 · da-tra-loi
 Bỏ một ảnh ở CN5-02 có hỏi lại không?
 Gắn ở: YC3.5. Tới khi có câu trả lời: không hỏi (ảnh chỉ thật sự bị bỏ khi bấm "Lưu thay đổi").
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không hỏi. Ảnh bỏ ở form chỉ mất thật khi bấm "Lưu thay đổi"; muốn lấy lại thì bấm quay lại và chọn "Bỏ thay đổi" (bước 41). Hỏi thêm mỗi lần bỏ ảnh làm chậm người dùng một tay mà không giữ thêm được gì. Ghi vào YC3.5 r4.
 
 ### YC3-H5 · da-tra-loi
 Tòa nhà người dùng tự thêm thì khu vực của tòa ghi gì?
