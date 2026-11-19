@@ -1,14 +1,15 @@
 // CN3-02 · Chi tiết đặt phòng và thu tiền (YC5.5), CN3-02-01 · sale đã xóa tài khoản (YC5.5 bước 22, QD13).
 // Đọc qua fn_chi_tiet_dat_phong (PQ7.CHU, PQ8.CHU, PQ9.CHU): khách do sale nhập không bao giờ có (QD11, QT6.2).
 // Ghi qua fn_da_thu_du, fn_hoan_tac_thu_du (QT6.1). Trạng thái: HV1 khung xám, HV2 chưa tải được thì Thử lại, HV3 quay lại từ
-// nền đọc lại, HV5 đặt phòng không còn thì về màn trước với toast, HV8 toast. Nút Sửa mở CN4-02 (YC5.6 bước 24, US31). Xóa (YC5.7), Xin hủy
-// (YC5.8): US sau.
+// nền đọc lại, HV5 đặt phòng không còn thì về màn trước với toast, HV8 toast. Nút Sửa mở CN4-02 (YC5.6 bước 24, US31).
+// Xóa đặt phòng khách lẻ (YC5.7, US32): hỏi lại rồi gọi fn_xoa_booking (quy tắc "Xóa phải bấm hai lần", PQ7.CHU); đặt phòng
+// có sale không có nút Xóa, chỉ Sửa và Xin hủy (quy tắc "Không xóa đặt phòng của sale", QD12). Xin hủy (YC5.8): US sau.
 import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
 import { useQuayLaiTuNen } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
-import { tenCan } from '../lib/can';
+import { ngayThang, tenCan } from '../lib/can';
 import {
   cauKhachCuaSale, cauSaleDaXoa, dongGioNhanTra, nhanTrangThaiTien, tienConLai, tieuDeChiTiet, type ChiTietDatPhong,
 } from '../lib/datPhong';
@@ -21,6 +22,29 @@ import './CN302ChiTietDatPhong.css';
 /** YC5.5 HV5: đặt phòng vừa bị xóa hay hủy ở máy khác. */
 export const CAU_KHONG_CON = 'Đặt phòng này không còn';
 export const CAU_SE_CO = 'Sẽ có ở bản sau';
+/** YC5.7 bước 31. */
+export const CAU_DA_XOA = 'Đã xóa đặt phòng';
+
+/** YC5.7 bước 30: "Xác nhận xóa đặt phòng? Ngày 13/10 → 15/10 của 1509 trống lại." */
+export function cauHoiXoa(d: Pick<ChiTietDatPhong, 'ngayNhan' | 'ngayTra' | 'maCan'>): string {
+  return `Xác nhận xóa đặt phòng? Ngày ${ngayThang(d.ngayNhan)} → ${ngayThang(d.ngayTra)} của ${d.maCan.trim()} trống lại.`;
+}
+
+/** YC5.7 bước 30, quy tắc "Xóa phải bấm hai lần": hộp hỏi lại với hai nút "Xóa" và "Không". */
+function HoiXoa(props: { cau: string; onXoa: () => Promise<unknown>; onKhong: () => void }) {
+  return (
+    <>
+      <div className="cn302-man-toi" onClick={props.onKhong} aria-hidden="true" />
+      <div className="cn302-hoi" role="alertdialog" aria-modal="true" aria-label="Xác nhận xóa đặt phòng">
+        <p className="cn302-hoi-cau">{props.cau}</p>
+        <div className="cn302-hoi-nut">
+          <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onKhong}>Không</button>
+          <NutGhi chu="Xóa" chuDangGhi="Đang xóa…" lop="hh-btn hh-btn--primary hh-btn--block cn302-nut-xoa" onGhi={props.onXoa} />
+        </div>
+      </div>
+    </>
+  );
+}
 
 const ICON_QUAY_LAI = <path d="m15 18-6-6 6-6" />;
 const ICON_SUA = <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />;
@@ -100,11 +124,14 @@ export function CN302ChiTietDatPhong(props: {
   onKhongCon: () => void;
   /** YC5.6 bước 24: mở form sửa CN4-02. Không có thì báo "Sẽ có ở bản sau". */
   onSua?: () => void;
+  /** YC5.7 bước 31, quy tắc "Về màn đã mở": xóa xong thì về đúng màn đã mở chi tiết đặt phòng. */
+  onDaXoa?: () => void;
 }) {
   const { ct, datCt, loi, tai } = useChiTiet(props.dv, props.id);
   const hienToast = useToast();
   const { onKhongCon } = props;
   useQuayLaiTuNen(() => { void tai(); }); // HV3: quay lại từ nền thì đọc lại
+  const [hoiXoa, datHoiXoa] = useState(false);
 
   useEffect(() => {
     if (ct === null) { hienToast(CAU_KHONG_CON, 'loi'); onKhongCon(); }
@@ -117,6 +144,21 @@ export function CN302ChiTietDatPhong(props: {
       const tt = await lenh(ct.id);
       datCt({ ...ct, trangThaiTien: tt, coHoanTac: !hoanTac && tt === 'da_thanh_toan' });
     } catch (e) {
+      hienToast(cauBaoLoi(e), 'loi');
+    }
+  };
+
+  // YC5.7 bước 31, 32: xóa được thì toast và về màn đã mở; database từ chối thì toast câu lỗi (QT5.5); không còn thì HV5.
+  const xoa = async () => {
+    if (!ct) return;
+    if (!props.dv?.xoaDatPhong) { datHoiXoa(false); hienToast(CAU_SE_CO); return; }
+    try {
+      await props.dv.xoaDatPhong(ct.id);
+      hienToast(CAU_DA_XOA);
+      (props.onDaXoa ?? props.onQuayLai)();
+    } catch (e) {
+      datHoiXoa(false);
+      if ((e as { code?: string }).code === '42501') { datCt(null); return; }
       hienToast(cauBaoLoi(e), 'loi');
     }
   };
@@ -151,6 +193,12 @@ export function CN302ChiTietDatPhong(props: {
             <p className="cn302-ghi-chu">{ct.ghiChu}</p>
           </section>
         )}
+        {!ct.daHuy && (ct.saleId ? (
+          // YC5.7-NT3, NT5: đặt phòng có sale chỉ Sửa hay Xin hủy. Xin hủy (YC5.8) làm ở US sau.
+          <button type="button" className="hh-btn hh-btn--text cn302-nut-phu" onClick={() => hienToast(CAU_SE_CO)}>Xin hủy</button>
+        ) : (
+          <button type="button" className="hh-btn hh-btn--text cn302-nut-phu cn302-nut-phu--xoa" onClick={() => datHoiXoa(true)}>Xóa đặt phòng</button>
+        ))}
       </>
     );
   }
@@ -167,6 +215,7 @@ export function CN302ChiTietDatPhong(props: {
         )}
       </header>
       <div className="cn302-than">{than}</div>
+      {hoiXoa && ct && <HoiXoa cau={cauHoiXoa(ct)} onXoa={xoa} onKhong={() => datHoiXoa(false)} />}
       {chan && ct && (
         <div className="cn302-chan">
           {ct.trangThaiTien === 'da_thanh_toan' ? (

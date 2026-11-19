@@ -4,6 +4,7 @@
 // fn_ten_khach_da_dung), giờ nhận trả trong hồ sơ của mình, lệnh ghi fn_tao_booking.
 // US30 (YC5.5): chi tiết đặt phòng fn_chi_tiet_dat_phong, lệnh fn_da_thu_du, fn_hoan_tac_thu_du (PQ7.CHU, PQ8.CHU, QD11, QD13).
 // US31 (YC5.6): lệnh sửa fn_sua_booking (PQ7.CHU, QT1.2, QT4.2), gửi kèm thời điểm sửa cuối đã đọc (bước 29).
+// US32 (YC5.7): lệnh xóa fn_xoa_booking, chỉ đặt phòng khách lẻ của căn mình (PQ7.CHU, QD12).
 // US28 (YC5.3 bước 9, HV7 bước 1): phiên hết hạn khi ghi thì làm mới phiên rồi gửi lại một lần, cùng mã lần gửi (QT5.6).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
@@ -55,6 +56,8 @@ export interface DichVuDatPhong {
   hoanTacThuDu?(id: string): Promise<TrangThaiTien>;
   /** YC5.6 bước 26: lệnh sửa fn_sua_booking; trả thời điểm sửa cuối mới. Database từ chối thì LoiNguoiDung (QT5.5). */
   suaDatPhong?(d: DatPhongSua): Promise<string>;
+  /** YC5.7 bước 31: lệnh xóa fn_xoa_booking. Đặt phòng có sale thì LoiNguoiDung (bước 32); không còn thì lỗi mã 42501 (HV5). */
+  xoaDatPhong?(id: string): Promise<void>;
 }
 
 type DongChiTiet = {
@@ -210,6 +213,11 @@ export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
         p_sdt_khach: d.sdtKhach, p_so_khach: d.soKhach, p_gio_nhan: d.gioNhan, p_gio_tra: d.gioTra, p_ghi_chu: d.ghiChu,
       });
       return String(data);
+    },
+
+    // YC5.7 bước 31, 32, HV7: phiên hết hạn thì làm mới rồi gửi lại một lần.
+    async xoaDatPhong(id) {
+      await goiLenhGhi(sb, 'fn_xoa_booking', { p_booking_id: id });
     },
   };
 }

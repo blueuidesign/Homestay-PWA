@@ -2,6 +2,7 @@
 // tiền phòng 2.200.000đ, đã cọc 1.000.000đ.
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { LoiNguoiDung } from '../chung/matKetNoi';
 import { ToastProvider } from '../chung/Toast';
 import type { ChiTietDatPhong } from '../lib/datPhong';
 import type { DichVuDatPhong } from '../lib/dichVuDatPhong';
@@ -163,5 +164,95 @@ describe('YC5.6 · nút Sửa ở CN3-02', () => {
     );
     await screen.findByRole('heading', { name: 'Đặt phòng · Sale Hùng' });
     expect(screen.queryByRole('button', { name: 'Sửa đặt phòng' })).toBeNull();
+  });
+});
+
+// US32 · YC5.7 Xóa đặt phòng khách lẻ. B5: khách lẻ 1509, 13/10 → 15/10 (DLM). GH: Chị Hoa ghi giúp Sale Hùng (YC5.4-NT1).
+describe('YC5.7 · CN3-02 Xóa đặt phòng khách lẻ', () => {
+  const B5: ChiTietDatPhong = {
+    ...LE, id: 'B5', canId: 'c1509', maCan: '1509', ngayNhan: '2026-10-13', ngayTra: '2026-10-15', tienPhong: 1800000,
+    tenKhach: 'Khách Lẻ Năm', sdtKhach: null,
+  };
+  const GH: ChiTietDatPhong = { ...B1, id: 'GH', ngayNhan: '2026-10-20', ngayTra: '2026-10-22', tienPhong: 1800000, tienCoc: null, trangThaiTien: 'chua_coc' };
+
+  function veXoa(dv: DichVuDatPhong) {
+    const onDaXoa = vi.fn();
+    const onKhongCon = vi.fn();
+    const onSua = vi.fn();
+    render(
+      <ToastProvider>
+        <CN302ChiTietDatPhong id="B5" dv={dv} onQuayLai={vi.fn()} onKhongCon={onKhongCon} onSua={onSua} onDaXoa={onDaXoa} />
+      </ToastProvider>,
+    );
+    return { onDaXoa, onKhongCon };
+  }
+
+  it('YC5.7-NT1 bấm "Xóa đặt phòng" lần đầu ở B5 thì app hỏi xác nhận và B5 chưa bị xóa', async () => {
+    const xoaDatPhong = vi.fn(async () => undefined);
+    const { onDaXoa } = veXoa(dichVu(B5, { xoaDatPhong }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Xóa đặt phòng' }));
+    const hoi = within(screen.getByRole('alertdialog', { name: 'Xác nhận xóa đặt phòng' }));
+    expect(hoi.getByText('Xác nhận xóa đặt phòng? Ngày 13/10 → 15/10 của 1509 trống lại.')).toBeInTheDocument();
+    expect(hoi.getByRole('button', { name: 'Xóa' })).toBeInTheDocument();
+    expect(hoi.getByRole('button', { name: 'Không' })).toBeInTheDocument();
+    expect(xoaDatPhong).not.toHaveBeenCalled();
+    expect(onDaXoa).not.toHaveBeenCalled();
+    // Bấm "Không" thì đóng hộp, không xóa.
+    fireEvent.click(hoi.getByRole('button', { name: 'Không' }));
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+    expect(xoaDatPhong).not.toHaveBeenCalled();
+  });
+
+  it('YC5.7 bước 31 bấm "Xóa" thì gửi lệnh xóa B5, toast "Đã xóa đặt phòng" và về màn đã mở', async () => {
+    const xoaDatPhong = vi.fn(async () => undefined);
+    const { onDaXoa } = veXoa(dichVu(B5, { xoaDatPhong }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Xóa đặt phòng' }));
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(onDaXoa).toHaveBeenCalledTimes(1));
+    expect(xoaDatPhong).toHaveBeenCalledWith('B5');
+    expect(await screen.findByText('Đã xóa đặt phòng')).toBeInTheDocument();
+  });
+
+  it('YC5.7 bước 32 QT5.5 database từ chối thì toast câu lỗi, ở lại màn', async () => {
+    const cau = 'Đặt phòng của sale không xóa được, hãy xin hủy';
+    const xoaDatPhong = vi.fn(async () => { throw new LoiNguoiDung(cau); });
+    const { onDaXoa } = veXoa(dichVu(B5, { xoaDatPhong }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Xóa đặt phòng' }));
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    expect(await screen.findByText(cau)).toBeInTheDocument();
+    expect(onDaXoa).not.toHaveBeenCalled();
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument();
+  });
+
+  it('YC5.7 HV5 đặt phòng vừa bị xóa ở máy khác thì toast "Đặt phòng này không còn" và về màn trước', async () => {
+    const xoaDatPhong = vi.fn(async () => { throw Object.assign(new Error('Không tìm thấy đặt phòng'), { code: '42501' }); });
+    const { onDaXoa, onKhongCon } = veXoa(dichVu(B5, { xoaDatPhong }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Xóa đặt phòng' }));
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(onKhongCon).toHaveBeenCalledTimes(1));
+    expect(await screen.findByText(CAU_KHONG_CON)).toBeInTheDocument();
+    expect(onDaXoa).not.toHaveBeenCalled();
+  });
+
+  it('YC5.7-NT3 mở B1 (thành từ yêu cầu của Sale Hùng) thì không có nút "Xóa đặt phòng", vẫn có "Sửa" và "Xin hủy"', async () => {
+    veXoa(dichVu(B1));
+    expect(await screen.findByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Xóa đặt phòng' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Sửa đặt phòng' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Xin hủy' })).toBeInTheDocument();
+  });
+
+  it('YC5.7-NT5 mở đặt phòng Chị Hoa ghi giúp Sale Hùng thì không có nút "Xóa đặt phòng"', async () => {
+    veXoa(dichVu(GH));
+    expect(await screen.findByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Xóa đặt phòng' })).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Xin hủy' })).toBeInTheDocument();
+  });
+
+  it('YC5.7 đặt phòng đã hủy thì không có nút "Xóa đặt phòng" hay "Xin hủy"', async () => {
+    veXoa(dichVu({ ...B5, daHuy: true }));
+    expect(await screen.findByText('Phòng 1509')).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Xóa đặt phòng' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Xin hủy' })).not.toBeInTheDocument();
   });
 });

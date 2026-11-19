@@ -74,3 +74,22 @@ describe('YC5.6 · lệnh sửa đặt phòng', () => {
     await expect(taoDichVuDatPhongSupabase(sb).suaDatPhong!(SUA)).rejects.toThrow(new LoiNguoiDung(cau));
   });
 });
+
+describe('YC5.7 · lệnh xóa đặt phòng', () => {
+  it('YC5.7 bước 31 gửi fn_xoa_booking với mã đặt phòng', async () => {
+    const { sb, rpc } = sbGia([{ data: null, error: null }]);
+    await taoDichVuDatPhongSupabase(sb).xoaDatPhong!('B5');
+    expect(rpc).toHaveBeenCalledWith('fn_xoa_booking', { p_booking_id: 'B5' });
+  });
+
+  it('YC5.7 bước 32 QT5.5 database từ chối xóa đặt phòng của sale thì trả câu cho người dùng', async () => {
+    const cau = 'Đặt phòng của sale không xóa được, hãy xin hủy';
+    const { sb } = sbGia([{ data: null, error: { code: 'P0001', message: cau } }]);
+    await expect(taoDichVuDatPhongSupabase(sb).xoaDatPhong!('B1')).rejects.toThrow(new LoiNguoiDung(cau));
+  });
+
+  it('YC5.7 HV5 đặt phòng không còn thì lỗi mang mã 42501, không phải câu cho người dùng', async () => {
+    const { sb } = sbGia([{ data: null, error: { code: '42501', message: 'Không tìm thấy đặt phòng' } }]);
+    await expect(taoDichVuDatPhongSupabase(sb).xoaDatPhong!('B5')).rejects.toMatchObject({ code: '42501' });
+  });
+});

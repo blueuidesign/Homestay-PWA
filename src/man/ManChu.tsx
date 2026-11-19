@@ -7,6 +7,8 @@
 // Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
 // Sửa đặt phòng CN4-02 (YC5.6, US31): mở từ nút Sửa ở CN3-02; lưu được thì toast "Đã lưu đặt phòng" và về đúng màn đã mở
 // đặt phòng (YC5 Quy tắc "Về màn đã mở", YC5.6-NT7): mở từ chi tiết ngày thì về lịch với chi tiết ngày đó mở sẵn.
+// Xóa đặt phòng khách lẻ ở CN3-02 (YC5.7, US32): xóa xong thì toast "Đã xóa đặt phòng" và về đúng màn đã mở chi tiết đặt phòng
+// như khi sửa (YC5 Quy tắc "Về màn đã mở").
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -157,7 +159,15 @@ export function ManChu(props: {
     return (
       <CN302ChiTietDatPhong key={man.id} id={man.id} dv={props.dichVuCan?.datPhong} mau={(canId) => { const i = theoLich.findIndex((c) => c.id === canId); return i < 0 ? undefined : mauCan(i); }}
                             onQuayLai={veManTruoc} onKhongCon={veManTruoc}
-                            onSua={() => { suaTuChiTiet.current = true; props.den(duongDanSuaDatPhong(man.id)); }} />
+                            onSua={() => { suaTuChiTiet.current = true; props.den(duongDanSuaDatPhong(man.id)); }}
+                            onDaXoa={() => {
+                              // YC5.7 bước 31: mở từ lịch thì lùi về lịch (chi tiết ngày mở sẵn); mở thẳng địa chỉ thì về tab Lịch.
+                              boNhoLich.current.clear();
+                              const tuLich = chiTietTuLich.current;
+                              chiTietTuLich.current = false;
+                              if (tuLich) window.history.back();
+                              else props.den('/');
+                            }} />
     );
   }
 
