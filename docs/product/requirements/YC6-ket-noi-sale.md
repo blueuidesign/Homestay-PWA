@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -90,13 +90,13 @@ Bản 1 · rủi ro: cao · Màn: CN7, CN7-00, CN7-04, CN7-05
 |---|---|---|---|
 | 1 | Mở tab Sale | CN7: nút "Chia sẻ link mời", nút "Sao chép link", nhóm "Đã kết nối · 3" và "Chưa kết nối · 1". Mỗi dòng: tên, trạng thái, tổng tiền phòng các đặt phòng của sale với chủ nhà này | Đọc kết nối của chủ nhà, tên sale, tổng tiền phòng theo sale |
 | 2 | Chưa có sale nào | CN7-00: "Chưa có sale nào xem lịch", hai nút gửi link, khung "Sale sẽ thấy: Phòng trống hay đã đặt; Giá từng đêm; Không thấy tên, số điện thoại khách và doanh thu" | Không |
-| 3 | Bấm "Nhắc lại" ở một sale chưa kết nối | [MỞ: YC6-H13]. Bản đầu không có nút này | Không |
-| 4 | Bấm "Thêm sale" | CN7-05: ô "Tên sale *", "Số điện thoại *", nút "Lưu sale". Lưu xong: dòng mới ở nhóm "Chưa kết nối" | Ghi sale thêm tay của chủ nhà. Ghép với tài khoản thật của sale: [MỞ: YC6-H11]; tới khi có câu trả lời, không ghép, không chặn số trùng |
+| 3 | Muốn nhắc một sale chưa kết nối | [r5 · sửa] Không có nút "Nhắc lại" (YC6-H13, Claude tự chốt): chủ nhà bấm lại "Chia sẻ link mời" hoặc "Sao chép link" | Không |
+| 4 | Bấm "Thêm sale" | CN7-05: ô "Tên sale *", "Số điện thoại *", nút "Lưu sale". Lưu xong: dòng mới ở nhóm "Chưa kết nối" | Ghi sale thêm tay của chủ nhà. [r5 · sửa] Không tự ghép với tài khoản có cùng số, không chặn số trùng; chỉ ghép khi sale nhận link mời (YC6-H11, Claude tự chốt) |
 | 5 | Chạm một sale đã kết nối | CN7-04: tên, số điện thoại (nếu sale đã cho), ngày kết nối, nút "Gọi" (`tel:`), danh sách đặt phòng của sale với chủ nhà này (trạng thái, tiền phòng), công tắc "Tình trạng cọc", nút "Ngừng cho xem lịch" | Đọc kết nối, đặt phòng của sale với chủ nhà |
 | 6 | Bấm "Ngừng cho xem lịch" | Hỏi "Xác nhận ngừng cho Sale Hùng xem? Đặt phòng cũ vẫn giữ. Sale không thấy lịch của bạn nữa." Đồng ý thì dòng rời nhóm "Đã kết nối" | Đổi trạng thái kết nối thành chủ ngừng; sale mất quyền xem; thông báo cho sale. Bấm lần hai không ghi lần hai |
 | 7 | Một sale đã kết nối xóa tài khoản | Dòng giữ tên cũ kèm chữ đỏ nhỏ "Đã xoá tài khoản", không số, không nút "Gọi", không mở được; chủ nhà bỏ dòng này được. Đặt phòng đã nhận từ sale đó vẫn ở lịch, vẫn chặn trùng (QD13) | Không trả số của người đã xóa tài khoản |
 
-Chủ nhà cho xem lại sale đã ngừng được không: [MỞ: YC6-H16]. Ngừng sale đã xóa tài khoản: [MỞ: YC6-H1]. Chủ nhà mở dòng chưa kết nối, đã ngừng thì thấy gì: [MỞ: YC6-H4]; tới khi có câu trả lời, mở được với những gì có.
+[r5 · sửa] Các câu sau Claude tự chốt (QD25). Dòng đã ngừng nằm ở nhóm "Đã ngừng" cuối CN7; bản 1 không có nút "Cho xem lại", muốn cho xem lại thì gửi link mời, sale nhận link thì kết nối trở lại (YC6-H16). Sale đã xóa tài khoản không cần ngừng, dòng chỉ có "Bỏ dòng" (YC6-H1). Mở dòng chưa kết nối (thêm tay): tên, số chủ nhà đã nhập, nút "Gọi", nút "Xóa sale này" (hỏi lại một lần, xóa thì dòng biến mất); mở dòng đã ngừng: tên, số nếu sale đã cho, ngày ngừng, đặt phòng cũ, không xóa được; cả hai không có công tắc "Tình trạng cọc" và nút "Ngừng cho xem lịch" (YC6-H4, YC6-H16).
 
 Luật kiểm (thêm sale tay):
 
@@ -113,6 +113,8 @@ Tiêu chí:
 - **YC6.2-NT5** Khi Chị Hoa tắt "Tình trạng cọc" của Sale Hùng, thì Hùng đọc B1 không còn biết đã cọc hay chưa, vẫn thấy lịch và giá từng đêm (QD7). · database
 - **YC6.2-NT6** Khi Anh Tuấn gửi lệnh ngừng hay đổi quyền kết nối giữa Chị Hoa và Sale Hùng, thì database từ chối và kết nối không đổi. · database
 - **YC6.2-NT7** Khi Sale Hùng đã xóa tài khoản, thì dòng của Hùng ở CN7 ghi "Đã xoá tài khoản", không có số và nút "Gọi"; B1 vẫn ở lịch của Chị Hoa. · unit, database
+- **YC6.2-NT8** [r5 · thêm] Khi Chị Hoa mở dòng "Sale Phương" (thêm tay, chưa kết nối) và xác nhận "Xóa sale này", thì dòng biến mất; Anh Tuấn gửi lệnh xóa dòng đó thì database từ chối. · unit, database
+- **YC6.2-NT9** [r5 · thêm] Khi Chị Hoa đã ngừng Sale Hùng, thì Hùng ở nhóm "Đã ngừng"; mở dòng thấy B1, B3, không có công tắc "Tình trạng cọc", không có nút "Ngừng cho xem lịch" và không xóa được. · unit, database
 
 ## YC6.3 · Link mời của chủ nhà và sale thêm lịch
 `[r3 · sửa]`
@@ -152,7 +154,7 @@ Bản 2 · rủi ro: tb · Màn: A5, A6, A7, A7-00, A7-01
 | 2 | Bấm "Chia sẻ" | Mở bảng chia sẻ với tin và link | Tăng số lần gửi, ghi lần gửi cuối |
 | 3 | Bấm "Sao chép tin nhắn" | Sao chép tin, toast "Đã sao chép" | Như bước 2 |
 | 4 | Quay về app | A7: "Đang chờ chủ nhà đồng ý", lần gửi gần nhất, hai số "3 lần đã chia sẻ" và "0 chủ nhà đã đồng ý". Chưa gửi lần nào: A7-00 | Đọc số đếm của chính sale |
-| 5 | Bấm "Gửi link cho chủ nhà khác" ở A7 | [MỞ: YC6-H13]. Tới khi có câu trả lời, mở lại A6 | Không |
+| 5 | Bấm "Gửi link cho chủ nhà khác" ở A7 | [r5 · sửa] Mở lại A6 (YC6-H13, Claude tự chốt) | Không |
 
 Sale thu hồi link xin lịch của mình: [MỞ: YC6-H2]; bản đầu không có.
 
@@ -254,3 +256,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ YC6.1 và quy tắc xin số đúng lúc; bỏ bước "YC6.1 nếu chưa có số" ở YC6.3 đến YC6.6 | Phạm vi, Quy tắc của nhóm, YC6.1, YC6.3, YC6.4, YC6.5, YC6.6, Màn hình |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: nút "Gửi ... qua Zalo" thành "Chia sẻ ..." (YC8-H5); bỏ popup xin số còn sót ở Luồng chính | Luồng chính, YC6.2, YC6.3, YC6.4, YC6.6, Màn hình |
 | r4 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | YC6.7 |
+| r5 | 2026-11-19 | Claude | US36 chuẩn bị | Trả lời YC6-H13, H11, H16, H1, H4 (Claude tự chốt, QD25); thêm NT8, NT9 | YC6.2, YC6.4 |

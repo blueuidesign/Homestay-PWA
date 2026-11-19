@@ -253,9 +253,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC6
 
-### YC6-H1 · mo
+### YC6-H1 · da-tra-loi
 Chủ nhà ngừng được sale đã xóa tài khoản không?
 Gắn ở: YC6.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không cần. Dòng của sale đã xóa tài khoản không mở được và chỉ có nút "Bỏ dòng" (bước 7); tài khoản đã xóa không còn đọc được gì nên không cần ngừng. Ghi vào YC6.2 r5.
 
 ### YC6-H2 · mo
 Sale có thu hồi được link xin lịch của mình không, ở đâu?
@@ -265,9 +266,10 @@ Gắn ở: YC6.4.
 Kết nối đã tạo từ link đã thu hồi còn dùng không?
 Gắn ở: YC6.3.
 
-### YC6-H4 · mo
+### YC6-H4 · da-tra-loi
 Chủ nhà mở dòng chưa kết nối, đã ngừng thì thấy gì?
 Gắn ở: YC6.2. Tới khi có câu trả lời: mở được với những gì có.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mở được với những gì có. Dòng chưa kết nối (thêm tay): tên, số chủ nhà đã nhập, nút "Gọi", nút "Xóa sale này"; không có công tắc "Tình trạng cọc", không có nút "Ngừng cho xem lịch". Dòng đã ngừng: tên, số (nếu sale đã cho), ngày ngừng, danh sách đặt phòng cũ của sale với chủ nhà; không có công tắc, không có nút ngừng. Ghi vào YC6.2 r5.
 
 ### YC6-H5 · mo
 Người tạo link mời đã xóa tài khoản thì người mở link thấy gì?
@@ -293,17 +295,19 @@ Gắn ở: YC6.6.
 Chủ nhà thu hồi link mời ở màn nào; người mở link đã hết hạn hay đã thu hồi thấy gì?
 Chặn: Màn Thêm lịch khi link hỏng. Đang tạm làm: Hiện "Link mời không còn dùng được" hoặc "Link mời đã hết hạn". Hỏi ngày 18/11/2026.
 
-### YC6-H11 · mo
+### YC6-H11 · da-tra-loi
 Sale chủ nhà thêm tay bằng tên và số (CN7-05) ghép với tài khoản thật của sale thế nào? (a) ghép khi số điện thoại trùng; (b) chỉ ghép qua link; (c) chủ gộp tay.
 Gắn ở: YC6.2. Tới khi có câu trả lời: không ghép, không chặn số trùng.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): (b) Chỉ ghép qua link. Sale chủ nhà thêm tay ở CN7-05 là một dòng ghi nhớ của chủ nhà, ở nhóm "Chưa kết nối", không tự ghép với tài khoản có cùng số, không chặn số trùng. Lý do: số điện thoại trong app không được xác minh, ghép tự động theo số có thể cho nhầm người xem lịch; ghép qua link thì chính sale bấm nhận. Ghi vào YC6.2 r5.
 
 ### YC6-H12 · mo
 Chủ nhà từ chối lời xin xem lịch ở A8 thì sale có được báo không?
 Gắn ở: YC6.5.
 
-### YC6-H13 · mo
+### YC6-H13 · da-tra-loi
 Nút "Nhắc lại" ở CN7 và "Gửi link cho chủ nhà khác" ở A7 làm gì?
 Gắn ở: YC6.2, YC6.4. Tới khi có câu trả lời: mở lại A6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nút "Nhắc lại" ở CN7. Muốn nhắc sale chưa kết nối thì chủ nhà bấm lại "Chia sẻ link mời" hoặc "Sao chép link" ở đầu CN7. Nút "Gửi link cho chủ nhà khác" ở A7 mở lại A6 như cách tạm. Lý do: nhắc lại cũng chỉ là gửi lại link, thêm nút riêng cho mỗi dòng không thêm được gì. Ghi vào YC6.2, YC6.4 r5.
 
 ### YC6-H14 · mo
 Tài khoản chọn vai chủ nhà mở link xin lịch của sale, hay vai sale bấm đồng ý ở A8: xử lý thế nào?
@@ -313,9 +317,10 @@ Gắn ở: YC6.3.
 Người tạo link tự bấm link của mình (chủ nhà mở link mời sale của chính họ, sale mở link xin kết nối của chính họ): chặn, bỏ qua, hay coi như thường? Nguồn chưa nói. Thêm ngày 2026-11-04.
 Gắn ở: YC6.3.
 
-### YC6-H16 · mo
+### YC6-H16 · da-tra-loi
 Chủ nhà có xem lại và xóa được dòng kết nối đã dừng (sale thêm tay chưa kết nối, sale đã bị ngừng) không?
 Gắn ở: YC6.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có xem, xóa có điều kiện. Dòng sale thêm tay (chưa kết nối) mở được và có nút "Xóa sale này" (hỏi lại một lần); xóa thì dòng biến mất. Dòng sale đã bị ngừng nằm ở nhóm "Đã ngừng" cuối CN7, mở được để xem đặt phòng cũ, không xóa được (giữ lịch sử đặt phòng). Bản 1 không có nút "Cho xem lại"; muốn cho xem lại thì gửi link mời, sale nhận link thì kết nối trở lại (YC6.3). Ghi vào YC6.2 r5.
 
 ## YC7
 
