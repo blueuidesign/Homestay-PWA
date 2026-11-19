@@ -1,5 +1,6 @@
 // Luật kiểm phía app của form căn (YC3.2 Luật kiểm, bước 16, 17, 20; QT5.5). Database là chỗ chặn thật (fn_tao_can).
 import { LoiNguoiDung } from '../chung/matKetNoi';
+import type { SuaCan } from './dichVuCan';
 
 /** Các ô của form căn. US15 chỉ hiện mã căn và số phòng ngủ; các ô còn lại để YC3.4 (US17) dùng chung luật. */
 export type FormCan = {
@@ -88,4 +89,25 @@ export function loiTuTaoCan(e: { code?: string; message?: string }): Error {
   const loi = new Error(e.message || 'Lỗi tạo căn');
   (loi as Error & { code?: string }).code = e.code;
   return loi;
+}
+
+/** YC3.5 bước 35, 39: giá trị các ô của form sửa căn (số giường đã đọc ra số; anh là id ảnh theo thứ tự). */
+export type GiaTriCan = {
+  maCan: string; soPhongNgu: number | null; soGiuong: number | null; loaiView: string | null;
+  toaNhaId: string | null; moTa: string | null; anh: string[];
+};
+
+/** YC3.5 bước 39: chỉ các ô đã đổi so với lúc mở. Mã bỏ khoảng trắng đầu cuối; mô tả trống là null (bỏ mô tả). */
+export function thayDoiCan(dau: GiaTriCan, nay: GiaTriCan): SuaCan {
+  const s: SuaCan = {};
+  const ma = nay.maCan.trim();
+  if (ma !== dau.maCan.trim()) s.maCan = ma;
+  if (nay.soPhongNgu !== dau.soPhongNgu && nay.soPhongNgu != null) s.soPhongNgu = nay.soPhongNgu;
+  if ((nay.soGiuong ?? null) !== (dau.soGiuong ?? null)) s.soGiuong = nay.soGiuong ?? null;
+  if ((nay.loaiView ?? null) !== (dau.loaiView ?? null)) s.loaiView = nay.loaiView ?? null;
+  if ((nay.toaNhaId ?? null) !== (dau.toaNhaId ?? null)) s.toaNhaId = nay.toaNhaId ?? null;
+  const moTa = nay.moTa?.trim() || null;
+  if (moTa !== (dau.moTa?.trim() || null)) s.moTa = moTa;
+  if (nay.anh.length !== dau.anh.length || nay.anh.some((id, i) => id !== dau.anh[i])) s.anh = [...nay.anh];
+  return s;
 }

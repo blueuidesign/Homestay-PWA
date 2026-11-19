@@ -15,7 +15,7 @@ import { MucAnhCan, useAnhCan } from './MucAnhCan';
 import { MucThemCan, useDanhSachToa } from './MucThemCan';
 import { Icon, ICON_THEM } from './TabChu';
 
-const S: Record<string, CSSProperties> = {
+export const S_FORM_CAN: Record<string, CSSProperties> = {
   the: { background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg, 16px)', padding: 16, display: 'flex', flexDirection: 'column', gap: 12 },
   nhan: { fontSize: 14, lineHeight: '20px', fontWeight: 600, color: 'var(--ink-secondary)' },
   sao: { color: 'var(--danger)', fontWeight: 700 },
@@ -29,8 +29,39 @@ const S: Record<string, CSSProperties> = {
   thanhDuoi: { position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 20, background: 'var(--surface)', borderTop: '1px solid var(--border)', padding: '12px 16px calc(16px + env(safe-area-inset-bottom))', display: 'flex', flexDirection: 'column', gap: 8 },
   dongTT: { fontSize: 13, lineHeight: '18px', color: 'var(--ink-muted)', textAlign: 'center' },
 };
+const S = S_FORM_CAN;
 
-class LoiHetGio extends Error {}
+/** YC3.2 bước 15, YC3.5 bước 35, 38: thẻ ô mã căn và hàng chip số phòng ngủ (dùng chung form thêm và form sửa). */
+export function TheMaVaPhongNgu(props: {
+  maCan: string; onDoiMa: (v: string) => void; soPhongNgu: number | null; onChonPhong: (so: number) => void; loi: LoiCan;
+}) {
+  const { loi } = props;
+  return (
+    <div style={S.the}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <label htmlFor="cn5a1-ma" style={S.nhan}>Mã căn (tên căn hộ)<span style={S.sao} aria-hidden="true"> *</span></label>
+        <input id="cn5a1-ma" type="text" className={'hh-input' + (loi.maCan ? ' hh-input--loi' : '')} placeholder="VD: 1509 hoặc Greenbay"
+               value={props.maCan} onChange={(e) => props.onDoiMa(e.target.value)} aria-invalid={loi.maCan ? true : undefined}
+               aria-describedby={loi.maCan ? 'cn5a1-ma-loi' : undefined} autoComplete="off" />
+        {loi.maCan && <p id="cn5a1-ma-loi" style={S.loi} role="alert">⚠️ {loi.maCan}</p>}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }} role="group" aria-labelledby="cn5a1-pn">
+        <span id="cn5a1-pn" style={S.nhan}>Số phòng ngủ<span style={S.sao} aria-hidden="true"> *</span></span>
+        <div style={S.hangChip}>
+          {CHIP_PHONG_NGU.map((c) => (
+            <button key={c.so} type="button" aria-pressed={props.soPhongNgu === c.so}
+                    style={props.soPhongNgu === c.so ? { ...S.chip, ...S.chipChon } : S.chip} onClick={() => props.onChonPhong(c.so)}>
+              {c.chu}
+            </button>
+          ))}
+        </div>
+        {loi.soPhongNgu && <p style={S.loi} role="alert">⚠️ {loi.soPhongNgu}</p>}
+      </div>
+    </div>
+  );
+}
+
+export class LoiHetGio extends Error {}
 
 function taoMaLanGui(): string {
   try {
@@ -44,7 +75,7 @@ function taoMaLanGui(): string {
 }
 
 /** HV1-H1: quá 15 giây không có trả lời thì coi như mất mạng (YC3.2 bước 21). */
-function choToiDa<T>(p: Promise<T>, ms: number): Promise<T> {
+export function choToiDa<T>(p: Promise<T>, ms: number): Promise<T> {
   return new Promise<T>((xong, hong) => {
     const hen = setTimeout(() => hong(new LoiHetGio('quá giờ')), ms);
     p.then((v) => { clearTimeout(hen); xong(v); }, (e) => { clearTimeout(hen); hong(e); });
@@ -52,7 +83,7 @@ function choToiDa<T>(p: Promise<T>, ms: number): Promise<T> {
 }
 
 /** Lỗi không có mã của database (fetch hỏng, mất mạng) thì là lỗi mạng. */
-function laLoiMang(e: unknown): boolean {
+export function laLoiMang(e: unknown): boolean {
   if (e instanceof LoiHetGio || e instanceof TypeError) return true;
   if (typeof navigator !== 'undefined' && navigator.onLine === false) return true;
   const ma = (e as { code?: unknown } | null)?.code;
@@ -195,27 +226,7 @@ export function CN5A1ThemCan(props: {
         {dau.khoiPhuc && <p style={S.khoiPhuc} role="status">{CAU_KHOI_PHUC}</p>}
         {cauDau && <div style={S.dai} role="alert"><span aria-hidden="true">⚠️</span><span>{cauDau}</span></div>}
 
-        <div style={S.the}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <label htmlFor="cn5a1-ma" style={S.nhan}>Mã căn (tên căn hộ)<span style={S.sao} aria-hidden="true"> *</span></label>
-            <input id="cn5a1-ma" type="text" className={'hh-input' + (loi.maCan ? ' hh-input--loi' : '')} placeholder="VD: 1509 hoặc Greenbay"
-                   value={maCan} onChange={(e) => doiMa(e.target.value)} aria-invalid={loi.maCan ? true : undefined}
-                   aria-describedby={loi.maCan ? 'cn5a1-ma-loi' : undefined} autoComplete="off" />
-            {loi.maCan && <p id="cn5a1-ma-loi" style={S.loi} role="alert">⚠️ {loi.maCan}</p>}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }} role="group" aria-labelledby="cn5a1-pn">
-            <span id="cn5a1-pn" style={S.nhan}>Số phòng ngủ<span style={S.sao} aria-hidden="true"> *</span></span>
-            <div style={S.hangChip}>
-              {CHIP_PHONG_NGU.map((c) => (
-                <button key={c.so} type="button" aria-pressed={soPhongNgu === c.so}
-                        style={soPhongNgu === c.so ? { ...S.chip, ...S.chipChon } : S.chip} onClick={() => chonPhong(c.so)}>
-                  {c.chu}
-                </button>
-              ))}
-            </div>
-            {loi.soPhongNgu && <p style={S.loi} role="alert">⚠️ {loi.soPhongNgu}</p>}
-          </div>
-        </div>
+        <TheMaVaPhongNgu maCan={maCan} onDoiMa={doiMa} soPhongNgu={soPhongNgu} onChonPhong={chonPhong} loi={loi} />
 
         <MucAnhCan ds={anh.ds} soDangTai={anh.soDangTai} soLoi={anh.soLoi}
                    onChon={chonAnh} onThuLai={anh.thuLai} onBo={anh.bo} />

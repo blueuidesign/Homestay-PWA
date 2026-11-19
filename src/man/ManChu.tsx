@@ -1,7 +1,8 @@
 // Các tab của chủ nhà (YC3.1): tab Lịch và tab Căn chưa có căn thì A4, tab Căn có căn thì CN5.
 // Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b).
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
-// Tab Thông tin (Sửa căn CN5-02), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
+// Tab Thông tin là Sửa căn CN5-02 (YC3.5, US18): lưu được thì về CN5 với toast "Đã lưu phòng 1509".
+// Tab Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
 // thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
 // Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
@@ -13,7 +14,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
-import { tenCan, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
+import { tenCan, tenCanGiuaCau, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
 import { mauCan } from '../lib/lich';
 import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi, duongDanSuaDatPhong } from '../lib/dieuHuong';
 import { CAU_DA_LUU_SUA } from '../lib/datPhong';
@@ -24,9 +25,10 @@ import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
 import { CN302ChiTietDatPhong } from './CN302ChiTietDatPhong';
 import { CN4SuaDatPhong, CN4ThemDatPhong } from './CN4ThemDatPhong';
+import { CN502SuaCan } from './CN502SuaCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
-import { CN6GiaCan, KhungCan } from './CN6GiaCan';
+import { CN6GiaCan } from './CN6GiaCan';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
@@ -116,13 +118,19 @@ export function ManChu(props: {
     );
   }
   if (man.tab === 'can-chi-tiet') {
-    // CN5-02 tab Thông tin: sửa căn làm ở US sau.
+    // YC3.5 bước 35 đến 41: CN5-02 tab Thông tin. Lưu được thì về CN5 với toast (bước 39); danh sách đọc lại khi mở tab Căn.
+    const dv = props.dichVuCan;
     const c = ds?.find((x) => x.id === man.id);
     return (
-      <KhungCan tieuDe={c ? tenCan(c.maCan) : 'Căn'} tab="thong-tin" onQuayLai={() => props.den('/can')}
-                onChonTab={(t) => { if (t === 'gia') props.den(`/can/${man.id}/gia`); }}>
-        <p className="dong-mo">Sửa thông tin căn sẽ có ở bản sau.</p>
-      </KhungCan>
+      <CN502SuaCan key={man.id} canId={man.id} tieuDeTam={c ? tenCan(c.maCan) : undefined}
+                   layCan={dv?.layCan ? (id) => dv.layCan!(id) : undefined}
+                   suaCan={dv?.suaCan ? (id, s) => dv.suaCan!(id, s) : undefined}
+                   taiAnh={dv?.taiAnh}
+                   layToa={dv?.layToa ? () => dv.layToa!() : undefined}
+                   themToa={dv?.themToa ? (ten) => dv.themToa!(ten) : undefined}
+                   onQuayLai={() => props.den('/can')} onChonGia={() => props.den(`/can/${man.id}/gia`)}
+                   onVeLich={() => props.den('/')}
+                   onDaLuu={(ma) => { hienToast(`Đã lưu ${tenCanGiuaCau(ma)}`); props.den('/can'); }} />
     );
   }
   if (man.tab === 'can-gia') {

@@ -1,0 +1,9 @@
+/* CN5-02 Sửa căn (YC3.5). Hộp hỏi lại như CN3-02 (CN302ChiTietDatPhong.css), viết riêng để màn không phụ thuộc file kia. */
+.cn502-than { display: flex; flex-direction: column; gap: 12px; padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+.cn502-man-toi { position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, 0.45); }
+.cn502-hoi { position: fixed; left: 0; right: 0; bottom: 0; z-index: 41; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(20px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 20px; }
+.cn502-hoi-cau { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+.cn502-hoi-nut { display: flex; gap: 12px; }
+.cn502-hoi-nut > * { flex: 1 1 0; min-height: 44px; }
+.cn502-khong-con { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 32px 16px; text-align: center; }
+.cn502-khong-con-cau { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }

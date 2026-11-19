@@ -2,6 +2,7 @@
 // Thêm căn qua fn_tao_can (YC3.2 bước 18, QT5.6), kèm ảnh theo thứ tự (YC3.3 bước 23, 24).
 // Ảnh tải lên kho anh-can vào thư mục của người tải, rồi ghi ảnh tạm qua fn_them_anh_tam (YC3.3 bước 23, QT5.7).
 // Danh sách tòa đọc qua RLS (toa_nha_doc), thêm tòa qua fn_them_toa (YC3.4 bước 29, 33, QT6.3).
+// Sửa căn: đọc căn và ảnh qua RLS (can_doc, anh_can_doc), ghi qua fn_sua_can (YC3.5 bước 35, 39, PQ3.CHU).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -25,6 +26,29 @@ export type CanMoi = {
   anh?: string[];
 };
 
+/** YC3.5 bước 35: ảnh đã gắn căn, theo thứ tự; url là đường dẫn có hạn (QT5.7), null khi chưa xin được. */
+export type AnhCoSan = { id: string; url: string | null };
+
+/** YC3.5 bước 35: mọi ô của căn để điền sẵn form sửa. */
+export type CanSua = {
+  id: string; maCan: string; soPhongNgu: number | null; soGiuong: number | null; loaiView: string | null;
+  toaNhaId: string | null; moTa: string | null; anh: AnhCoSan[];
+};
+
+/**
+ * YC3.5 bước 39: chỉ các ô đã đổi. Ô có mà null là bỏ giá trị (xóa trống số giường là bỏ số giường).
+ * anh là danh sách id ảnh mới đầy đủ theo thứ tự (ảnh đầu là ảnh đại diện).
+ */
+export type SuaCan = Partial<{
+  maCan: string; soPhongNgu: number; soGiuong: number | null; loaiView: string | null;
+  toaNhaId: string | null; moTa: string | null; anh: string[];
+}>;
+
+/** HV5, QT5.5: căn không còn của người gọi (đã xóa, mất quyền) nên database từ chối như không thấy. */
+export class LoiKhongConCan extends Error {
+  constructor() { super('Không tìm thấy căn'); this.name = 'LoiKhongConCan'; }
+}
+
 /** YC3.3 bước 23: tải một ảnh. onTienDo nhận 0 đến 100. Hủy bằng tinHieu (rời app, mất mạng: HV3 bước 7). */
 export type TaiAnh = (f: File, onTienDo: (phanTram: number) => void, tinHieu: AbortSignal) => Promise<string>;
 
@@ -45,6 +69,10 @@ export interface DichVuCan {
    * File sai loại, quá cỡ thì ném LoiNguoiDung(CAU_LOI_FILE); database từ chối bằng câu thì LoiNguoiDung kèm câu đó.
    */
   taiAnh?: TaiAnh;
+  /** YC3.5 bước 35: căn có lịch, chưa ẩn của người gọi kèm ảnh theo thứ tự; null khi không còn (HV5). */
+  layCan?(id: string): Promise<CanSua | null>;
+  /** YC3.5 bước 39: sửa căn. P0001 thì LoiNguoiDung kèm câu (QT5.5); căn không còn thì LoiKhongConCan (HV5). */
+  suaCan?(id: string, sua: SuaCan): Promise<void>;
   /** YC3.4 bước 29: danh sách tòa chung và tòa người gọi đã dùng cho căn chưa ẩn của mình (mới dùng trước). */
   layToa?(): Promise<DanhSachToa>;
   /** YC3.4 bước 33: thêm tòa, trả mã tòa; tên trùng thì mã tòa đã có (GD21). Database từ chối thì LoiNguoiDung. */
@@ -135,6 +163,52 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
       });
       if (error) throw loiTuTaoCan(error);
       return data as string;
+    },
+
+    async layCan(id) {
+      const { data: phien } = await sb.auth.getSession();
+      const nguoi = phien.session?.user.id;
+      if (!nguoi) throw new TypeError('chưa đăng nhập');
+      // PQ3.CHU: chỉ căn mình giữ, có lịch, chưa ẩn (sale được chia sẻ cũng đọc được dòng căn, nhưng không sửa).
+      const [can, anh] = await Promise.all([
+        sb.from('can').select('id, ma_can, so_phong_ngu, so_giuong, loai_view, toa_nha_id, mo_ta')
+          .eq('id', id).eq('nguoi_giu', nguoi).eq('loai', 'co_lich').is('an_luc', null).maybeSingle(),
+        sb.from('anh_can').select('id, duong_dan, thu_tu').eq('can_id', id).order('thu_tu', { ascending: true }),
+      ]);
+      if (can.error) throw can.error;
+      if (anh.error) throw anh.error;
+      const c = can.data as { id: string; ma_can: string; so_phong_ngu: number | null; so_giuong: number | null;
+                              loai_view: string | null; toa_nha_id: string | null; mo_ta: string | null } | null;
+      if (!c) return null;
+      const dsAnh = (anh.data ?? []) as { id: string; duong_dan: string }[];
+      const url = new Map<string, string>();
+      if (dsAnh.length) {
+        // Không xin được đường dẫn thì ô ảnh để trống, vẫn sửa được căn.
+        try {
+          const { data: ky } = await sb.storage.from(KHO_ANH).createSignedUrls(dsAnh.map((a) => a.duong_dan), HAN_ANH_GIAY);
+          for (const k of ky ?? []) if (k.path && k.signedUrl) url.set(k.path, k.signedUrl);
+        } catch { /* bỏ qua */ }
+      }
+      return {
+        id: c.id, maCan: c.ma_can, soPhongNgu: c.so_phong_ngu, soGiuong: c.so_giuong, loaiView: c.loai_view,
+        toaNhaId: c.toa_nha_id, moTa: c.mo_ta, anh: dsAnh.map((a) => ({ id: a.id, url: url.get(a.duong_dan) ?? null })),
+      };
+    },
+
+    async suaCan(id, sua) {
+      const p: Record<string, unknown> = {};
+      if ('maCan' in sua) p.ma_can = sua.maCan;
+      if ('soPhongNgu' in sua) p.so_phong_ngu = sua.soPhongNgu;
+      if ('soGiuong' in sua) p.so_giuong = sua.soGiuong;
+      if ('loaiView' in sua) p.loai_view = sua.loaiView;
+      if ('toaNhaId' in sua) p.toa_nha_id = sua.toaNhaId;
+      if ('moTa' in sua) p.mo_ta = sua.moTa;
+      if ('anh' in sua) p.anh = sua.anh;
+      const { error } = await sb.rpc('fn_sua_can', { p_can_id: id, p_sua: p });
+      if (error) {
+        if (error.code === '42501') throw new LoiKhongConCan();
+        throw loiTuTaoCan(error);
+      }
     },
 
     async layToa() {

@@ -57,6 +57,12 @@ export function tenCan(maCan: string): string {
   return /^\d+$/.test(m) ? `Phòng ${m}` : m;
 }
 
+/** YC3.5 bước 35, 39: tên căn giữa câu: "Sửa phòng 1509", "Đã lưu phòng 1509"; mã tự do giữ nguyên ("Sửa Greenbay"). */
+export function tenCanGiuaCau(maCan: string): string {
+  const t = tenCan(maCan);
+  return t.startsWith('Phòng ') ? 'phòng' + t.slice(5) : t;
+}
+
 /** "12/10" từ '2026-10-12'. */
 export function ngayThang(ngay: Ngay): string {
   const [, thang, ngayTrongThang] = ngay.split('-');

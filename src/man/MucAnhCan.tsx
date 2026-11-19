@@ -1,15 +1,17 @@
 // Mục Ảnh của form căn: CN5-A1 (trống), CN5-A2 (đang tải), CN5-A3 (tải lỗi). YC3.3 bước 22 đến 28, QT5.7,
 // HV4-NT6 (ô chọn file, không xin quyền, pwa.md P6), HV3 bước 7 (rời app hay mất mạng khi đang tải thì "Tải lỗi").
+// Form sửa căn CN5-02 (YC3.5 bước 35 đến 37): ảnh đã gắn căn điền sẵn, "Đổi thứ tự" đưa ảnh lên trước, ra sau.
 // Kiểu ô ảnh viết tại chỗ bằng biến màu chung, như CN5A1ThemCan (styles.css ngoài phạm vi).
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { ACCEPT_ANH, CAU_LOI_FILE, chiaChoTrong, kiemFileAnh, TOI_DA_ANH } from '../lib/anh';
-import type { TaiAnh } from '../lib/dichVuCan';
+import type { AnhCoSan, TaiAnh } from '../lib/dichVuCan';
 import { Icon, ICON_THEM } from './TabChu';
 
 /** cho: chờ lượt tải; dang: đang tải; xong: đã tải, có id ảnh tạm; loi: tải lỗi (Thử lại); sai: file sai loại, quá cỡ. */
 export type TrangThaiAnh = 'cho' | 'dang' | 'xong' | 'loi' | 'sai';
-export type OAnh = { khoa: string; file: File; xem: string | null; tt: TrangThaiAnh; phanTram: number; id?: string };
+/** file null là ảnh đã gắn căn từ trước (form sửa căn), xem là đường dẫn có hạn của ảnh đó. */
+export type OAnh = { khoa: string; file: File | null; xem: string | null; tt: TrangThaiAnh; phanTram: number; id?: string };
 
 /** Mạng yếu: tải tối đa 2 ảnh cùng lúc, ảnh còn lại chờ lượt theo thứ tự chọn. */
 const TAI_CUNG_LUC = 2;
@@ -18,14 +20,17 @@ function taoXem(f: File): string | null {
   try { return typeof URL.createObjectURL === 'function' ? URL.createObjectURL(f) : null; } catch { return null; }
 }
 function boXem(u: string | null) {
-  try { if (u) URL.revokeObjectURL(u); } catch { /* bỏ qua */ }
+  try { if (u && u.startsWith('blob:')) URL.revokeObjectURL(u); } catch { /* bỏ qua */ }
 }
 
 let dem = 0;
 
 /** YC3.3 bước 23 đến 28: danh sách ảnh của form, tải lên ngay khi chọn. */
-export function useAnhCan(taiAnh: TaiAnh | undefined, baoLoi: (cau: string) => void) {
-  const [ds, datDs] = useState<OAnh[]>([]);
+/** YC3.5 bước 35: coSan là ảnh đã gắn căn theo thứ tự (form sửa căn), điền sẵn là ảnh đã tải xong. */
+export function useAnhCan(taiAnh: TaiAnh | undefined, baoLoi: (cau: string) => void, coSan?: AnhCoSan[]) {
+  const [ds, datDs] = useState<OAnh[]>(() => (coSan ?? []).map((a) => ({
+    khoa: `anh-${++dem}`, file: null, xem: a.url, tt: 'xong' as const, phanTram: 100, id: a.id,
+  })));
   const dieuKhien = useRef(new Map<string, AbortController>());
   const dsRef = useRef(ds);
   dsRef.current = ds;
@@ -39,7 +44,7 @@ export function useAnhCan(taiAnh: TaiAnh | undefined, baoLoi: (cau: string) => v
     const dk = new AbortController();
     dieuKhien.current.set(o.khoa, dk);
     sua(o.khoa, (x) => ({ ...x, tt: 'dang', phanTram: 0 }));
-    const chay = taiAnh
+    const chay = taiAnh && o.file
       ? taiAnh(o.file, (p) => sua(o.khoa, (x) => (x.tt === 'dang' ? { ...x, phanTram: p } : x)), dk.signal)
       : Promise.reject(new TypeError('chưa nối database'));
     chay.then(
@@ -104,11 +109,23 @@ export function useAnhCan(taiAnh: TaiAnh | undefined, baoLoi: (cau: string) => v
     datDs((cu) => cu.filter((x) => x.khoa !== khoa));
   }, []);
 
+  /** YC3.5 bước 36: đưa ảnh lên trước (buoc -1) hay ra sau (buoc 1); ảnh số 1 là ảnh đại diện. */
+  const doiCho = useCallback((khoa: string, buoc: -1 | 1) => {
+    const cu = dsRef.current;
+    const i = cu.findIndex((x) => x.khoa === khoa);
+    const j = i + buoc;
+    if (i < 0 || j < 0 || j >= cu.length) return;
+    const moi = [...cu];
+    [moi[i], moi[j]] = [moi[j]!, moi[i]!];
+    dsRef.current = moi;
+    datDs(moi);
+  }, []);
+
   const soDangTai = ds.filter((o) => o.tt === 'cho' || o.tt === 'dang').length;
   const soLoi = ds.filter((o) => o.tt === 'loi').length;
   /** YC3.3 bước 24: id ảnh đã tải theo thứ tự chọn. */
   const idDaTai = ds.filter((o) => o.tt === 'xong' && o.id).map((o) => o.id!);
-  return { ds, them, thuLai, bo, soDangTai, soLoi, idDaTai };
+  return { ds, them, thuLai, bo, doiCho, soDangTai, soLoi, idDaTai };
 }
 
 const S: Record<string, CSSProperties> = {
@@ -130,6 +147,10 @@ const S: Record<string, CSSProperties> = {
   giua: { position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4, textAlign: 'center', padding: 4 },
   thuLai: { minHeight: 44, minWidth: 44, background: 'transparent', border: 0, fontSize: 13, fontWeight: 700, color: 'var(--ink)', textDecoration: 'underline', cursor: 'pointer', font: 'inherit' },
   oThem: { aspectRatio: '1 / 1', borderRadius: 'var(--radius-sm, 8px)', border: '2px dashed var(--border-input)', background: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 4, fontSize: 13, color: 'var(--ink-secondary)', cursor: 'pointer', font: 'inherit' },
+  nutDoi: { minHeight: 44, minWidth: 44, padding: '0 8px', background: 'transparent', border: 0, fontSize: 14, fontWeight: 600, color: 'var(--action)', cursor: 'pointer', font: 'inherit' },
+  hangDoi: { position: 'absolute', left: 0, right: 0, top: '50%', transform: 'translateY(-50%)', display: 'flex', justifyContent: 'space-between' },
+  nutMuiTen: { width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', border: 0, padding: 0, cursor: 'pointer', font: 'inherit' },
+  vongMuiTen: { width: 30, height: 30, borderRadius: 999, background: 'var(--surface)', color: 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 700 },
   canhBao: { margin: 0, fontSize: 13, lineHeight: '18px', color: 'var(--danger-text, var(--danger))' },
 };
 
@@ -141,8 +162,11 @@ export function MucAnhCan(props: {
   onChon: (files: File[]) => void;
   onThuLai: (khoa: string) => void;
   onBo: (khoa: string) => void;
+  /** YC3.5 bước 36: có thì hiện nút "Đổi thứ tự" (form sửa căn). */
+  onDoiCho?: (khoa: string, buoc: -1 | 1) => void;
 }) {
   const oChon = useRef<HTMLInputElement>(null);
+  const [doiThuTu, datDoiThuTu] = useState(false);
   const { ds, soDangTai, soLoi } = props;
   const day = ds.length >= TOI_DA_ANH;
   // Ảnh đại diện là ảnh đầu tiên sẽ gắn vào căn (bỏ qua ô file sai, ô đó không tải).
@@ -155,6 +179,9 @@ export function MucAnhCan(props: {
       <div style={S.dau}>
         <span style={S.nhan}>{ds.length ? `Ảnh (${ds.length})` : 'Ảnh'}</span>
         {!ds.length && <span style={S.phu}>Bạn có thể thêm sau</span>}
+        {props.onDoiCho && ds.length > 1 && (
+          <button type="button" style={S.nutDoi} aria-pressed={doiThuTu} onClick={() => datDoiThuTu((d) => !d)}>Đổi thứ tự</button>
+        )}
         {soDangTai > 0 && <span style={{ ...S.phu, color: 'var(--action)' }}>Đang tải {soDangTai} ảnh…</span>}
         {!soDangTai && soLoi > 0 && <span style={{ ...S.phu, color: 'var(--danger)' }}>{soLoi} ảnh tải lỗi</span>}
       </div>
@@ -192,6 +219,18 @@ export function MucAnhCan(props: {
                 </div>
               )}
               {o.khoa === khoaDaiDien && o.tt !== 'loi' && <span style={S.daiDien}>Ảnh đại diện</span>}
+              {doiThuTu && props.onDoiCho && ds.length > 1 && (
+                <div style={S.hangDoi}>
+                  <button type="button" style={{ ...S.nutMuiTen, opacity: i === 0 ? 0.3 : 1 }} aria-label={`Đưa ảnh ${i + 1} lên trước`}
+                          disabled={i === 0} onClick={() => props.onDoiCho!(o.khoa, -1)}>
+                    <span style={S.vongMuiTen} aria-hidden="true">‹</span>
+                  </button>
+                  <button type="button" style={{ ...S.nutMuiTen, opacity: i === ds.length - 1 ? 0.3 : 1 }} aria-label={`Đưa ảnh ${i + 1} ra sau`}
+                          disabled={i === ds.length - 1} onClick={() => props.onDoiCho!(o.khoa, 1)}>
+                    <span style={S.vongMuiTen} aria-hidden="true">›</span>
+                  </button>
+                </div>
+              )}
               <button type="button" style={S.nutBo} aria-label={`Bỏ ảnh ${i + 1}`} onClick={() => props.onBo(o.khoa)}>
                 <span style={S.vongBo} aria-hidden="true">✕</span>
               </button>
