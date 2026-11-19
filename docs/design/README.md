@@ -3,16 +3,19 @@ id: TKE
 tieu_de: Thiết kế, canvas và cách xem màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # Thiết kế
 
 <!-- Tài liệu sống. Luật sửa thiết kế: CL13, CL12. -->
 
-Thiết kế là một file canvas HTML. Không có file mô tả màn bằng chữ: điều hình vẽ không nói được (vào từ đâu, bấm gì sang đâu, trạng thái rỗng và lỗi) nằm trong YC có mục "Màn hình" nhắc mã màn đó.
+Thiết kế là một file canvas HTML. [r2 · sửa] Từ 19/11/2026 canvas trong repo là **bản PWA**; canvas bản Zalo Mini App chỉ còn trên artifact cũ và trong lịch sử git. Không có file mô tả màn bằng chữ: điều hình vẽ không nói được (vào từ đâu, bấm gì sang đâu, trạng thái rỗng và lỗi) nằm trong YC có mục "Màn hình" nhắc mã màn đó.
 
-- `canvas/home247-canvas.html`: canvas đầy đủ, khoảng 2,6 MB, ảnh căn ở `canvas/anh/`. Là hình dựng sẵn, không chạy tương tác. **Không mở cả file**, dùng `trich-man.py`.
-- Bản gốc là một Design artifact trên claude.ai của Tùng. Sửa thiết kế ở đó rồi xuất HTML đè lên file này trong một PR.
+- `canvas/home247-canvas.html`: canvas đầy đủ bản PWA, khoảng 2,2 MB, ảnh căn ở `canvas/anh/`. Là hình dựng sẵn, không chạy tương tác. **Không mở cả file**, dùng `trich-man.py`. [r2 · sửa]
+- `canvas/man/<mã>.webp`: ảnh chụp sẵn từng màn (157 màn), mở xem nhanh không cần chạy gì. [r2 · thêm]
+- `canvas/nguon/`: mã nguồn các bảng của artifact (`*.dc.html`, `canvas.json`, design system `ds/halonghomestay/`), để dựng lại artifact nếu mất. [r2 · thêm]
+- Bản gốc là Design artifact "Home247 · Lịch phòng Hạ Long · bản PWA" trên claude.ai của Tùng (https://claude.ai/artifact/WSMs9QQjh3rPUmMekeGj8T). Sửa thiết kế ở đó, rồi trong một PR: dựng từng bảng bằng runtime của artifact, xuất HTML đè `home247-canvas.html`, chụp lại ảnh `man/`, chép nguồn vào `nguon/`. Cách làm: `docs/design/xuat-canvas.md`. [r2 · sửa]
+- Design system: HalongHomestay (https://claude.ai/artifact/3r9RXytcCoVRREAWSBWXMF), canvas dùng bản chép 1791787623-1a34. README của design system còn ghi luật app cũ (hai phòng, sale không thấy giá, chữ không dưới 14 px); khi lệch thì theo CLAUDE.md và QD7. [r2 · thêm]
 
 ```bash
 python3 scripts/trich-man.py CN4                  # HTML của một màn
@@ -25,13 +28,16 @@ grep -rln "CN4" docs/product/requirements/         # YC nào nói về màn này
 
 A = vào app và kết nối · CN = chủ nhà · S = sale · P = tab Cá nhân. Hậu tố `-00` là trạng thái trống; `-01`, `-02`… là biến thể hay bước tiếp. Mỗi mã có đúng một hình trên canvas. Màn mới phải có mã mới và một dòng trong bảng dưới.
 
-## Canvas vẽ cho Zalo Mini App, bản PWA khác ở đâu
+## Bản PWA khác canvas Zalo cũ ở đâu [r2 · sửa]
 
-Bản PWA dùng lại bố cục, chữ, màu. Các chỗ sau làm khác (bảng đầy đủ: `docs/external/pwa.md`):
-- Không có thanh tiêu đề và cụm "··· ✕" của Zalo.
-- Nút "Bắt đầu với Zalo" và các hộp thoại xin quyền của Zalo: thay theo cách đăng nhập của PWA (QD22, YC1.2).
-- "Gửi qua Zalo", "cửa sổ Zalo": dùng bảng chia sẻ của điện thoại; máy không có thì sao chép (YC8-H5).
-- Màn sao lưu P7, P7-00: không làm ở bản 1 (YC1, bảng Bản sau ở requirements/INDEX.md).
+Bản PWA giữ bố cục, chữ, màu và mã màn của canvas Zalo. Những chỗ đã đổi (bảng đầy đủ Zalo và PWA: `docs/external/pwa.md`; bản kê từng màn: `work/thiet-ke/canvas-pwa.md`):
+- Bỏ thanh "··· ✕" của Zalo trên mọi màn.
+- Đăng ký bằng email có họ tên và số điện thoại; đăng nhập bằng mã 6 số gửi về email, không mật khẩu (Tùng 19/11/2026, QD22). Màn mới A2, A2-01 đến A2-04, A11, A11-01, A11-02. A1 có hai nút "Tạo tài khoản" và "Đăng nhập".
+- Bỏ 18 popup xin tên và số (-P1, -P2 của A6, A8, A10, CN7, CN9, CN10, S3-02, S5, S6) vì tên và số có từ lúc đăng ký. Bỏ HV4-02 (từ chối quyền số điện thoại) cùng lý do.
+- Bỏ 4 màn công tắc giá S1-07, S2-01, S3-12, S6-04-01 (QD7).
+- Nút "Gửi qua Zalo" đổi thành "Chia sẻ": mở bảng chia sẻ của điện thoại; máy không có thì HV6-01 cho sao chép. Sau này có thể gửi thẳng trong app (Tùng 19/11/2026). Tin nhắn Zalo vẫn là nơi người dùng gửi link cho nhau, nên những câu kiểu "mở link trong tin nhắn Zalo" giữ nguyên. CN7-03, CN9-00 là hình minh họa tin nhắn chứa link trong Zalo.
+- P2 sửa được họ tên, tên hiển thị, số điện thoại; email đăng nhập chỉ xem. Cuối P2 có "Xóa tài khoản" mở P14, P14-01 (YC1.8, YC1-H6).
+- Màn sao lưu P7, P7-00: không làm ở bản 1 (YC1, bảng Bản sau ở requirements/INDEX.md), vẫn để trên canvas.
 
 Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 
@@ -39,7 +45,18 @@ Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 
 | Mã | Tên màn | YC nhắc tới (máy dò theo mã, mục "Màn hình" của YC là nguồn) |
 |---|---|---|
-| A1 | Chào mừng và đăng nhập | YC1, YC15 |
+| A1 | Chào mừng: "Tạo tài khoản", "Đăng nhập" [r2 · sửa] | YC1, YC15 |
+| A2 | Tạo tài khoản: họ tên, số điện thoại, email [r2 · thêm] | YC1 |
+| A2-01 | Tạo tài khoản · nhập chưa đúng (thiếu tên, số sai, email đã có) [r2 · thêm] | YC1 |
+| A2-02 | Nhập mã 6 số gửi về email [r2 · thêm] | YC1 |
+| A2-03 | Nhập mã · mã chưa đúng [r2 · thêm] | YC1 |
+| A2-04 | Nhập mã · mã hết hạn hoặc đã dùng [r2 · thêm] | YC1 |
+| A11 | Đăng nhập: nhập email [r2 · thêm] | YC1 |
+| A11-01 | Đăng nhập · email chưa có tài khoản [r2 · thêm] | YC1 |
+| A11-02 | Đăng nhập · nhập mã [r2 · thêm] | YC1 |
+| P14 | Xóa tài khoản: điều gì mất, điều gì còn [r2 · thêm] | YC1 |
+| P14-01 | Xóa tài khoản · bấm lần hai "Xác nhận xóa?" [r2 · thêm] | YC1 |
+| HV6-01 | Trình duyệt chưa chia sẻ được · sao chép [r2 · thêm] | HV6 |
 | A1-link | Mở từ link mời (chưa có mã artboard riêng) | YC6 |
 | A1-link-01 | Link sai hoặc chủ nhà đã xóa tài khoản | YC6 |
 | A3 | Chọn vai trò | YC1 |
@@ -49,15 +66,11 @@ Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 | A5 | Sale mới, chưa có nguồn phòng | YC1, YC6, YC7 |
 | A5-01 | Sale mới · mở từ link không dùng được | chưa YC nào nhắc |
 | A6 | Soạn tin xin link | YC6, YC10 |
-| A6-P1 | Popup giải thích · sale | YC6 |
-| A6-P2 | Hộp thoại của Zalo (minh họa) · sale | YC6 |
 | A7 | Đã gửi, chờ chủ nhà | YC6, YC7 |
 | A7-00 | Chờ chủ nhà · chưa gửi lần nào | YC6 |
-| A7-01 | Chờ chủ nhà · quay lại từ Zalo | YC6 |
+| A7-01 | Chờ chủ nhà · sau khi chia sẻ [r2 · sửa] | YC6 |
 | A8 | Chủ nhà mở link của sale (tiêu đề "Lời mời xem lịch") | YC3, YC6 |
 | A8-01 | Lời mời xem lịch · link hết hạn hoặc sale bị ngừng | YC6 |
-| A8-P1 | Popup giải thích · chủ nhà | YC6 |
-| A8-P2 | Hộp thoại của Zalo (minh họa) · chủ nhà | YC6 |
 | A9 | Chủ nhà đã đồng ý · toast | YC6, YC12 |
 | A10 | Thêm lịch của chủ nhà (QD8) | YC6 |
 | A10-01 | Đã có lịch của chủ nhà này · cảnh báo | YC6 |
@@ -70,12 +83,10 @@ Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 | CN7-04 | Chi tiết một sale | YC6 |
 | CN7-05 | Thêm sale thủ công | YC6 |
 | CN10 | Gửi lịch cho sale | YC2, YC6 |
-| CN10-P1 | Popup giải thích · gửi lịch | YC6 |
-| CN10-P2 | Hộp thoại của Zalo (minh họa) · gửi lịch | YC6 |
 | CN10-02 | Gửi xong: thông báo trên lịch | YC6 |
 | CN10-00 | Gửi lịch · chưa có sale đã lưu | YC6 |
-| CN10-01 | Gửi lịch · đóng Zalo mà không gửi | YC6 |
-| P2 | Thông tin cá nhân (phần số điện thoại và liên kết Zalo) | YC1, YC9 |
+| CN10-01 | Gửi lịch · đóng bảng chia sẻ mà chưa gửi [r2 · sửa] | YC6 |
+| P2 | Thông tin cá nhân (sửa tên, số; email đăng nhập; nút Xóa tài khoản) [r2 · sửa] | YC1, YC9 |
 | P13 | Thông báo (phần thông báo kết nối) | YC6, YC12 |
 | P13-00 | Thông báo · chưa có | YC12 |
 | P13-01 | Thông báo · chủ nhà đã xóa tài khoản | YC12 |
@@ -177,23 +188,12 @@ Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 | P8 | Xuất file Excel | YC1 |
 | P8-00 | Xuất Excel · khoảng chọn không có booking | YC1 |
 | P9 | Hướng dẫn sử dụng | YC1 |
-| A10-P1 | Thêm lịch · giải thích xin tên và số | chưa YC nào nhắc |
-| A10-P2 | Thêm lịch · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
 | CN3-02-02 | Chi tiết booking chủ nhà tự ghi · xóa | chưa YC nào nhắc |
 | CN3-02-03 | Chi tiết đặt phòng · đã thu đủ | chưa YC nào nhắc |
 | CN7-06 | Sale của tôi · vừa cho sale xem lịch | chưa YC nào nhắc |
-| CN7-P1 | Mời sale · giải thích xin tên và số | chưa YC nào nhắc |
-| CN7-P2 | Mời sale · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
-| CN9-P1 | Chấp nhận · giải thích xin tên và số | YC9 |
-| CN9-P2 | Chấp nhận · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
 | P13-02 | Thông báo · chủ nhà ngừng cho xem lịch | YC12 |
-| S1-07 | Lịch · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD7). Xóa hình khỏi canvas khi sửa canvas lần tới |
-| S2-01 | Danh sách · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD7). Xóa hình khỏi canvas khi sửa canvas lần tới |
-| S3-02-P1 | Gửi yêu cầu · giải thích xin tên và số | YC9 |
-| S3-02-P2 | Gửi yêu cầu · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
-| S3-12 | Chi tiết căn · chủ nhà chưa cho xem giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD7). Xóa hình khỏi canvas khi sửa canvas lần tới |
-| S5-P1 | Gửi cho khách · giải thích xin tên và số | chưa YC nào nhắc |
-| S5-P2 | Gửi cho khách · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
-| S6-04-01 | Chi tiết chủ nhà · đã tắt giá | **Bỏ, không làm** (công tắc giá đã bỏ, QD7). Xóa hình khỏi canvas khi sửa canvas lần tới |
-| S6-P1 | Mời chủ căn · giải thích xin tên và số | YC10 |
-| S6-P2 | Mời chủ căn · hộp thoại Zalo | Chỉ bản Zalo (hộp thoại của Zalo). Bản PWA theo `docs/external/pwa.md` |
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude (thread design, Tùng giao) | claude/project-thread-0kxyex | Canvas chuyển sang bản PWA; đăng ký, đăng nhập email; bỏ popup xin số, màn công tắc giá; thêm xóa tài khoản; ảnh từng màn | Đầu file (sửa), Bản PWA khác canvas Zalo cũ ở đâu (sửa), Danh sách màn (thêm, sửa, bỏ) |
