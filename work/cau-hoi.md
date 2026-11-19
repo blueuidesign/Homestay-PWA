@@ -77,9 +77,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Lịch tuần nhiều căn: ô trống của đêm chủ nhà chưa đặt giá hiện gì?
 Gắn ở: YC2.5. Tới khi có câu trả lời: ô để trống.
 
-### YC2-H3 · mo
+### YC2-H3 · da-tra-loi
 Danh sách đặt phòng sắp tới: đặt phòng đã hủy có hiện với nhãn "Đã hủy" không?
 Gắn ở: YC2.4. Tới khi có câu trả lời: không hiện.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không hiện. Danh sách sắp tới là việc chủ nhà sắp phải đón khách; đặt phòng đã hủy không còn việc gì. Xem lại đặt phòng đã hủy ở chi tiết ngày hay chi tiết đặt phòng. Ghi vào YC2.4 r4.
 
 ### YC2-H4 · mo
 Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn.

@@ -3,7 +3,7 @@ id: YC2
 tieu_de: Lịch chủ nhà
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC2 · Lịch chủ nhà
@@ -131,7 +131,7 @@ Bản 1 · rủi ro: tb · Màn: CN1, CN1-01
 | 15 | Chạm một dòng | Mở chi tiết đặt phòng CN3-02 (YC5) | Không |
 | 16 | Không có đặt phòng sắp tới | CN1-01: "Chưa có đặt phòng sắp tới. Bấm "+ Đặt phòng" để ghi khách đầu tiên." | Không |
 
-Với bộ mẫu, tháng 10, hôm nay 07/10, danh sách là B1, B5, B6, B2, B7, B8 (DLM.5). B4 trả phòng hôm nay nên không có; B9 nhận 30/11 nên không có ở tháng 10. Đặt phòng đã hủy có hiện với nhãn "Đã hủy" không: [MỞ: YC2-H3]. Tới khi có câu trả lời, không hiện.
+Với bộ mẫu, tháng 10, hôm nay 07/10, danh sách là B1, B5, B6, B2, B7, B8 (DLM.5). B4 trả phòng hôm nay nên không có; B9 nhận 30/11 nên không có ở tháng 10. `[r4 · sửa]` Đặt phòng đã hủy không hiện trong danh sách sắp tới (Claude tự chốt, QD25, trả lời YC2-H3).
 
 Tiêu chí:
 - **YC2.4-NT1** Khi chủ nhà xem danh sách đặt phòng sắp tới, thì mỗi dòng có người đặt, mã căn, ngày nhận, ngày trả, số đêm, tiền phòng, trạng thái tiền. · unit
@@ -184,3 +184,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US2, US9 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US10-chi-tiet-ngay | Ngày đã qua mở chi tiết như ngày khác, trả lời YC2-H6 (Claude tự chốt, QD25) | YC2.2 |
 | r3 | 2026-11-19 | Claude | US11 chuẩn bị | Khối doanh thu luôn tổng mọi căn, trả lời YC2-H1 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm đang ghi | YC2.3 |
+| r4 | 2026-11-19 | Claude | US12 chuẩn bị | Đặt phòng đã hủy không hiện ở danh sách sắp tới, trả lời YC2-H3 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm | YC2.4 |
