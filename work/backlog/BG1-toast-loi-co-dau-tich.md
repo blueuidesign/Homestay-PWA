@@ -2,7 +2,7 @@
 id: BG1
 tieu_de: "Toast báo lỗi vẫn có dấu ✓"
 loai: BG
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [HV8@5]
 truoc: [EN4, US15]
 lien_quan: [US15]
@@ -13,7 +13,7 @@ uoc_luong: 1 giờ
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [23]
 ngay_tao: 2026-11-19
 ---
 ## Mục tiêu
@@ -42,6 +42,7 @@ Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền tr
 ## Nhật ký
 - 2026-11-19 · Claude · tạo từ báo cáo US15: toast mất mạng hiện dấu ✓; HV8 r5 thêm HV8-NT4 (QD25)
 - 2026-11-19 · Claude · toast nhận kiểu 'loi' không có ✓, CN5-A1 dùng cho mất mạng và lỗi chung · 15 phút
+- 2026-11-19 · Claude · gộp PR #23 theo QD25 (CI xanh), sang cho-test
 
 ## Bằng chứng
 - `npx vitest run src/chung/Toast.test.tsx`: lần đầu HV8-NT4 đỏ (toast lỗi có ✓), sau sửa 3 qua. `npx vitest run` 131 qua. typecheck, build qua.

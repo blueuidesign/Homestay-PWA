@@ -7,7 +7,7 @@
    "id": "BG1",
    "loai": "BG",
    "tieu_de": "\"Toast báo lỗi vẫn có dấu ✓\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -15,10 +15,10 @@
     "US15"
    ],
    "file": "work/backlog/BG1-toast-loi-co-dau-tich.md",
-   "pr": "",
+   "pr": "[23]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -36,7 +36,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi EN4, US15"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "EN1",
