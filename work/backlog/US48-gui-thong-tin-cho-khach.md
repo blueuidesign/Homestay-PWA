@@ -54,9 +54,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md.
 
 ## Task
-- [ ] US48-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC8.1-NT2, YC8.1-NT4, YC8.1-NT6, YC8.1-NT7, YC8.1-NT8, YC8.1-NT9, YC8.1-NT10, YC8.1-NT11, YC8.1-NT12, YC8.1-NT13, YC8.1-NT14, YC8.1-NT16, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US48-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US48-TA3 Code · Claude Code (sonnet, CL14.6a): màn S5 theo canvas, test unit, e2e cho YC8.1-NT1 đến NT5, NT12 đến NT15, HV6-NT2
+- [x] US48-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC8.1-NT2, YC8.1-NT4, YC8.1-NT6, YC8.1-NT7, YC8.1-NT8, YC8.1-NT9, YC8.1-NT10, YC8.1-NT11, YC8.1-NT12, YC8.1-NT13, YC8.1-NT14, YC8.1-NT16, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US48-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US48-TA3 Code · Claude Code (sonnet, CL14.6a): màn S5 theo canvas, test unit, e2e cho YC8.1-NT1 đến NT5, NT12 đến NT15, HV6-NT2
 - [ ] US48-TA4 Test tay · Đức: chạy tests/kb/US48-gui-thong-tin-cho-khach.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -70,5 +70,10 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md.
 - 2026-11-19 · Claude · nhận HV6-NT2 từ EN4 (QD27)
 - 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
 - 2026-11-19 · Claude (QD25) · tự chốt YC8-H1, H2, H3, H4, H6, H7 (YC8 r4, thêm NT12 đến NT16); viết kịch bản test tay
+- 2026-11-19 · Claude (agent code) · TA1–TA3 trên nhánh US48-gui-khach, chưa mở PR; chữ từng căn soạn ở database, S5 phủ lên S2/S3
 
 ## Bằng chứng
+- TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC8.1`: lần đầu 43 hỏng, 17 qua (2 vòng sửa lỗi dựng dữ liệu trong chính file test trước khi có migration).
+- TA2 `scripts/test-db.sh`: 1863 qua, 0 hỏng sau vòng đầu. `scripts/thu-lam-hong.sh`: 229 đạt, 0 không đạt (11 phép thử mới YC8.1; 1 vòng sửa khóa có dấu nháy).
+- TA3 unit: lần đầu 3 file đỏ (chưa có module); `npx vitest run` 77 file, 745 qua. `npm run typecheck`, `npm run build` qua. e2e gui-khach.spec.ts: 1 vòng sửa locator, qua. Cả bộ e2e: 63 qua, 1 hỏng: ket-qua-tim.spec.ts dòng 84 (US45) còn chờ toast tạm "Gửi cho khách sẽ có ở bản sau"; file ngoài phạm vi, chưa sửa.
+- `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

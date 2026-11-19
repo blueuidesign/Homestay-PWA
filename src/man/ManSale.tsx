@@ -4,9 +4,11 @@
 // YC7.2 (US44): ô "Tìm phòng trống theo ngày" ở S1 mở S1-02 toàn màn (không thanh tab), quay lại thì về S1.
 // YC7.4 (US46), YC7 "Chạm căn mở đâu": chạm căn ở S1 mở S3 (căn chủ nhà, ngày đầu đang xem, 1 đêm, YC7-H6), S6-07, S6-03 bản
 // tạm, toàn màn. HV5 "Về Lịch" ở S3 (kể cả mở từ kết quả tìm) đóng mọi màn trên và về S1.
+// YC8.1 (US48): "Gửi cho khách" ở S2, S3 mở S5 phủ lên màn đang xem (KhungGuiKhach), quay lại thì về đúng màn đó.
 import { useCallback, useState, type ReactNode } from 'react';
 import { khoangTuLich } from '../lib/chiTietCanSale';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
+import type { DichVuGuiKhach } from '../lib/dichVuGuiKhach';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
 import { manKhiCham } from '../lib/ketQuaTim';
 import type { DichVuTimPhong } from '../lib/dichVuTimPhong';
@@ -15,6 +17,7 @@ import type { DichVuXinLich } from '../lib/dichVuXinLich';
 import { ManLich } from './ManTam';
 import { MoCanSale, MoTimPhong } from './S1LichSale';
 import { S3ChiTietCan, VeLichSale, type MoS3 } from './S3ChiTietCan';
+import { KhungGuiKhach } from './S5GuiKhach';
 import { S6Tam } from './S6Tam';
 import { ManTimPhong } from './S102TimPhong';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
@@ -48,12 +51,17 @@ export function ThanhTabSale(props: { dangMo: TabSaleTen; onChon: (t: TabSaleTen
 
 const TIEU_DE_TAM: Record<Exclude<TabSaleTen, 'lich'>, string> = { can: 'Căn', 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
 
-export function ManSale(props: {
+/** YC8.1: các tab của sale, bọc trong KhungGuiKhach để S2, S3 mở S5. */
+export function ManSale(props: Parameters<typeof ManSaleTrong>[0]) {
+  return <KhungGuiKhach dv={props.dvLich?.guiKhach}><ManSaleTrong {...props} /></KhungGuiKhach>;
+}
+
+function ManSaleTrong(props: {
   ten?: string | null;
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale; guiKhach?: DichVuGuiKhach };
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
   dvTim?: DichVuTimPhong;
   onDangXuat: () => void;

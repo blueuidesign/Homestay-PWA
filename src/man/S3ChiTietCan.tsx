@@ -18,6 +18,7 @@ import { CAU_GUI_KHACH_SE_CO, chuDoTuoi } from '../lib/ketQuaTim';
 import type { Ngay } from '../lib/ngay';
 import { docSoTienGo, vietSo, vietTien } from '../lib/tien';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
+import { NutGuiKhach } from './S5GuiKhach';
 import { S302Tam } from './S6Tam';
 import { Icon } from './TabChu';
 import './S3ChiTietCan.css';
@@ -195,7 +196,7 @@ function ThanS3(props: {
       </div>
       <div className="s3-chan">
         <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onYeuCau}>Gửi yêu cầu đặt phòng</button>
-        <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={() => hienToast(CAU_GUI_KHACH_SE_CO)}>Gửi cho khách</button>
+        <NutGuiKhach canIds={[ct.canId]} tu={ct.tu} den={ct.den} cauTam={CAU_GUI_KHACH_SE_CO} />
       </div>
     </div>
   );
