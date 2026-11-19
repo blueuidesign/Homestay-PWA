@@ -2,7 +2,7 @@
 id: US36
 tieu_de: "Danh sách sale của chủ nhà"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC6.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [43]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -56,9 +56,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US36-danh-sach-sale-cua-chu.md.
 
 ## Task
-- [ ] US36-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.2-NT1, YC6.2-NT3, YC6.2-NT4, YC6.2-NT5, YC6.2-NT6, YC6.2-NT7, YC6.2-NT8, YC6.2-NT9, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US36-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US36-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN7, CN7-00, CN7-04, CN7-05 theo canvas, test unit, e2e cho YC6.2-NT1, YC6.2-NT2, YC6.2-NT3, YC6.2-NT7, YC6.2-NT8, YC6.2-NT9
+- [x] US36-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.2-NT1, YC6.2-NT3, YC6.2-NT4, YC6.2-NT5, YC6.2-NT6, YC6.2-NT7, YC6.2-NT8, YC6.2-NT9, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #43
+- [x] US36-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #43
+- [x] US36-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN7, CN7-00, CN7-04, CN7-05 theo canvas, test unit, e2e cho YC6.2-NT1, YC6.2-NT2, YC6.2-NT3, YC6.2-NT7, YC6.2-NT8, YC6.2-NT9 · PR #43
 - [ ] US36-TA4 Test tay · Đức: chạy tests/kb/US36-danh-sach-sale-cua-chu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -71,6 +71,7 @@ Claude tự quyết (QD25): tổng tiền phòng ở CN7 tính mọi đặt phò
 - 2026-11-18 · Claude · tạo item từ YC6.2@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC6-H13, H11, H16, H1, H4 (QD25, YC6 r5, thêm NT8, NT9); viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 trên nhánh US36-danh-sach-sale; còn nối dịch vụ sale vào src/lib/dichVuCan.ts (ngoài phạm vi gói việc)
+- 2026-11-19 · Claude · nối dichVuSale vào dichVuCan, gộp main (US19), chạy lại db 1288, unit 514, e2e 46 đạt; gộp PR #43 theo QD25 (CI xanh), chuyển chờ test
 
 ## Bằng chứng
 - `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (trước migration) 75 hỏng, đều của file 52; sau migration 1233 qua, 0 hỏng (một vòng). Phép thử làm hỏng lần đầu 4/6 đạt: hai test NT8, PQ17.CHU rỗng (lấy id bằng vai đã bị RLS chặn), sửa cho chặt; cuối 1234 qua, 0 hỏng.
