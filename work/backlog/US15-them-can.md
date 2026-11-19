@@ -2,7 +2,7 @@
 id: US15
 tieu_de: "Thêm căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr: 22
+pr: [22]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US15-them-can.md (KB1 đến KB5).
 - 2026-11-18 · Claude · tạo item từ YC3.2@1 (QD21)
 - 2026-11-19 · Claude · nhận HV3-NT2 từ EN4 (QD27)
 - 2026-11-19 · Claude · code TA1 đến TA3 trên nhánh US15-them-can, mở PR nháp · tiêu đề YC "Thêm căn" khác canvas "Thêm căn hộ": theo YC
+- 2026-11-19 · Claude · gộp PR #22 theo QD25 (CI xanh sau khi cập nhật bang-va-cot.md), sang cho-test
 
 ## Bằng chứng
 - 2026-11-19 · Claude · trả lời YC3-H6 theo QT5.6 (QD25), YC3 r2 thêm YC3.2-NT9, viết tests/kb/US15-them-can.md, sang dang-lam

@@ -864,7 +864,7 @@
    "id": "US15",
    "loai": "US",
    "tieu_de": "\"Thêm căn\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -874,10 +874,10 @@
     "US2"
    ],
    "file": "work/backlog/US15-them-can.md",
-   "pr": "",
+   "pr": "[22]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -895,7 +895,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US16",
