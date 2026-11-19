@@ -2,7 +2,7 @@
 id: EN1
 tieu_de: "Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: []
 truoc: []
 lien_quan: []
@@ -13,7 +13,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [6]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -38,15 +38,16 @@ Code phần đặc tả chưa quyết (câu hỏi đang mở). Ghi bí mật, em
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [x] EN1-TA1 Code · khung PWA, cấu trúc src/, hàm ngày và tiền (QT5.1, QT5.2). Viết rút gọn chờ QT5-H1 · PR EN1-dung-nen-app
-- [x] EN1-TA2 Code · Vitest, Playwright 390×844, job app trong kiem.yml, phần app của chay-va-test.md · PR EN1-dung-nen-app
+- [x] EN1-TA1 Code · khung PWA, cấu trúc src/, hàm ngày và tiền (QT5.1, QT5.2). Viết rút gọn chờ QT5-H1 · PR #6
+- [x] EN1-TA2 Code · Vitest, Playwright 390×844, job app trong kiem.yml, phần app của chay-va-test.md · PR #6
 - [ ] EN1-TA3 Môi trường · Đức: nối repo vào Vercel, bản Preview theo nhánh (VIEC_TAY_CUA_TUNG.md bước 5); mở bản Preview trên iPhone và Android, cài lên màn hình chính, ghi một dòng biên bản
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
-- 2026-11-18 · Claude (Tùng giao) · TA1, TA2 · PR EN1-dung-nen-app · nhánh đặt trên QD21 vì PR #5 chưa gộp; hỏi QT5-H1 · ~1 giờ
+- 2026-11-18 · Claude (Tùng giao) · TA1, TA2 · PR #6 · nhánh đặt trên QD21 vì PR #5 chưa gộp; hỏi QT5-H1 · ~1 giờ
+- 2026-11-19 · Claude · gộp PR #6 theo lệnh Tùng ("Gộp 6 7") · cho-test, chờ Đức làm TA3 trên điện thoại
 
 ## Bằng chứng
 - `npx vitest run` lần đầu đỏ 2 file (chưa có ngay.ts, tien.ts), viết code 1 vòng, xanh 20/20.

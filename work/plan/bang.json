@@ -7,15 +7,15 @@
    "id": "EN1",
    "loai": "EN",
    "tieu_de": "\"Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
    "file": "work/backlog/EN1-dung-nen-app-khung-pwa.md",
-   "pr": "",
+   "pr": "[6]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -33,7 +33,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "–"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "EN2",
