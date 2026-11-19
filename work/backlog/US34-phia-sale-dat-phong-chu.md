@@ -36,7 +36,7 @@ YC5.9-NT1, YC5.9-NT2
 QT1, QT2, QT3.1, QT4, QT5.6, QT6.1, QT6.2
 
 ## Màn hình
-chưa có hình
+S3-10 (sale xem đặt phòng chủ đã sửa, nhận từ US31, Claude tự quyết QD25). Phần còn lại chưa có hình.
 
 ## Quyền
 PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC5-dat-phong.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
