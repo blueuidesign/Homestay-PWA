@@ -81,3 +81,53 @@ test('YC2.1-NT6 chủ nhà có căn nhưng chưa có đặt phòng nào thì th�
   await page.getByRole('button', { name: 'Đặt phòng' }).last().click();
   await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
 });
+
+/** US11: ghi một booking chủ tự ghi với tiền phòng cho trước, tiền từng đêm chia đều, lẻ dồn đêm cuối (QT4.2). */
+function taoBookingTien(nguoi: string, canId: string, nhan: string, tra: string, tien: number, trangThai: 'hieu_luc' | 'da_huy' = 'hieu_luc') {
+  sql(`with b as (
+         insert into public.booking (can_id, ngay_nhan, ngay_tra, nguon, tao_boi, tien_phong, trang_thai)
+         values ('${canId}', '${nhan}', '${tra}', 'chu_ghi', '${nguoi}', ${tien}, '${trangThai}') returning id, ngay_nhan, ngay_tra)
+       insert into public.booking_dem (booking_id, dem, tien)
+       select b.id, d::date, case when d::date = b.ngay_tra - 1 then ${tien} - (${tien} / (b.ngay_tra - b.ngay_nhan)) * (b.ngay_tra - b.ngay_nhan - 1)
+                                  else ${tien} / (b.ngay_tra - b.ngay_nhan) end
+       from b, generate_series(b.ngay_nhan, b.ngay_tra - 1, interval '1 day') d`);
+}
+
+test('YC2.3-NT1 YC2.3-NT2 khối doanh thu tháng: tổng mọi căn kể cả căn đã ẩn, bỏ đặt phòng đã hủy, không đổi theo chip, tháng trống không có khối', async ({ page }) => {
+  const chu = taoTaiKhoan('chu_nha', 'Chủ Doanh Thu');
+  const nguoi = sql(`select id from auth.users where email = '${chu.email}'`);
+  const c1509 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu, tao_luc) values ('${nguoi}', '1509', 2, now() - interval '1 day') returning id`).split('\n')[0]!;
+  const c3402 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '3402', 1) returning id`).split('\n')[0]!;
+  const c2501 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '2501', 1) returning id`).split('\n')[0]!;
+  const [nam, thang] = sql(`select to_char(public.local_today(), 'YYYY|FMMM')`).split('|').map(Number) as [number, number];
+  const ng = (n: number, t = thang, y = nam) => `${y}-${String(t).padStart(2, '0')}-${String(n).padStart(2, '0')}`;
+  const [namTruoc, thangTruoc] = thang === 1 ? [nam - 1, 12] : [nam, thang - 1];
+  const [namSau, thangSau] = thang === 12 ? [nam + 1, 1] : [nam, thang + 1];
+
+  taoBookingTien(nguoi, c1509, ng(10), ng(12), 2200000); // 2 đêm
+  taoBookingTien(nguoi, c3402, ng(14), ng(15), 800000); // 1 đêm
+  taoBookingTien(nguoi, c3402, ng(20), ng(22), 2000000, 'da_huy'); // QD12: không tính
+  taoBookingTien(nguoi, c2501, ng(5), ng(6), 500000); // căn sẽ ẩn: vẫn tính
+  sql(`update public.can set an_luc = now() where id = '${c2501}'`);
+  taoBookingTien(nguoi, c1509, ng(3, thangTruoc, namTruoc), ng(4, thangTruoc, namTruoc), 1600000); // tháng trước
+
+  await dangNhapBangMa(page, chu.email);
+  await expect(page.getByRole('heading', { name: `Tháng ${thang}/${nam}` })).toBeVisible();
+
+  // YC2.3-NT1: tổng 2.200.000 + 800.000 + 500.000 = 3.500.000đ, 4 đêm; tháng trước 1.600.000đ.
+  const khoi = page.getByRole('region', { name: `Doanh thu tháng ${thang}` });
+  await expect(khoi).toBeVisible();
+  await expect(khoi.getByText('3.500.000đ')).toBeVisible();
+  await expect(khoi.getByText(`4 đêm có khách · tháng ${thangTruoc}: 1.600.000đ`)).toBeVisible();
+
+  // YC2-H1: chip lọc căn không đổi số.
+  await page.getByRole('button', { name: '3402', exact: true }).click();
+  await expect(page.getByRole('button', { name: '3402', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(khoi.getByText('3.500.000đ')).toBeVisible();
+
+  // YC2.3 bước 12, 13, YC2.3-NT2: tháng sau không có đặt phòng thì không có khối.
+  await page.getByRole('button', { name: `T${String(thangSau).padStart(2, '0')}`, exact: true }).click();
+  await expect(page.getByRole('heading', { name: `Tháng ${thangSau}/${namSau}` })).toBeVisible();
+  await expect(page.getByRole('grid')).toBeVisible();
+  await expect(page.getByRole('region', { name: /^Doanh thu tháng/ })).toHaveCount(0);
+});

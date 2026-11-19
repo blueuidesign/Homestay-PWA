@@ -1,8 +1,8 @@
 // Test unit phần tính của lịch tháng (YC2.1, QT2). Số theo DLM.4 (booking của Chị Hoa).
 import { describe, expect, it } from 'vitest';
 import {
-  canCoKhach, chuChipTatCa, chuNguoiDat, chuTien, demTheoCan, dongCuaNgay, khoangNgay, khoangThang, mauCan, nhanO,
-  tenThang, tieuDeNgay, vietSoDienThoai, type DatPhongLich,
+  canCoKhach, chuChipTatCa, chuNguoiDat, chuTien, coKhoiDoanhThu, demTheoCan, dongCuaNgay, dongDoanhThu, khoangNgay,
+  khoangThang, mauCan, nhanO, tenThang, tieuDeDoanhThu, tieuDeNgay, vietSoDienThoai, type DatPhongLich,
 } from './lich';
 
 const b = (id: string, canId: string, ngayNhan: string, ngayTra: string): DatPhongLich => ({ id, canId, ngayNhan, ngayTra });
@@ -135,5 +135,23 @@ describe('YC2.2 · chi tiết một ngày', () => {
     expect(d.map((x) => [x.can.maCan, x.datPhong?.id ?? null])).toEqual([['1509', 'B1'], ['3402', null]]);
     expect(dongCuaNgay(DLM4, can, '2026-10-12').map((x) => x.datPhong?.id ?? null)).toEqual([null, null]);
     expect(dongCuaNgay(DLM4, [can[1]!], '2026-10-05').map((x) => [x.can.maCan, x.datPhong?.id])).toEqual([['3402', 'B4']]);
+  });
+});
+
+describe('YC2.3 · doanh thu tháng', () => {
+  it('YC2.3-NT1 tháng 10 của Chị Hoa (DLM.5): "Doanh thu tháng 10", "13 đêm có khách · tháng 9: 9.600.000đ"', () => {
+    expect(tieuDeDoanhThu(10)).toBe('Doanh thu tháng 10');
+    expect(dongDoanhThu({ doanhThu: 11800000, soDem: 13, thangTruoc: 9600000 }, 10)).toBe('13 đêm có khách · tháng 9: 9.600.000đ');
+  });
+
+  it('YC2.3 bước 11 tháng trước không có doanh thu thì bỏ phần "tháng 9: …"; tháng 1 thì tháng trước là tháng 12', () => {
+    expect(dongDoanhThu({ doanhThu: 9600000, soDem: 10, thangTruoc: 0 }, 9)).toBe('10 đêm có khách');
+    expect(dongDoanhThu({ doanhThu: 800000, soDem: 1, thangTruoc: 800000 }, 1)).toBe('1 đêm có khách · tháng 12: 800.000đ');
+  });
+
+  it('YC2.3-NT2 tháng không có đêm có khách thì không có khối doanh thu', () => {
+    expect(coKhoiDoanhThu({ doanhThu: 0, soDem: 0, thangTruoc: 800000 })).toBe(false);
+    expect(coKhoiDoanhThu(undefined)).toBe(false);
+    expect(coKhoiDoanhThu({ doanhThu: 11800000, soDem: 13, thangTruoc: 0 })).toBe(true);
   });
 });

@@ -631,6 +631,7 @@ Policy:
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
+- fn_doanh_thu_thang(p_thang date) → TABLE(doanh_thu bigint, so_dem integer, doanh_thu_thang_truoc bigint) · security definer · gọi được: authenticated
 - fn_don_anh_tam() → SETOF text · security definer
 - fn_gia_chu_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date) → TABLE(dem date, gia bigint) · security definer · gọi được: authenticated
 - fn_gia_tuan_cua_toi(p_tu date) → TABLE(can_id uuid, gia_thap bigint, gia_cao bigint) · security definer · gọi được: authenticated
