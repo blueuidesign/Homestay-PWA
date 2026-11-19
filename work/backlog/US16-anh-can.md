@@ -48,7 +48,7 @@ YC3-can.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US16-anh-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US16-anh-can.md (KB1 đến KB4).
 
 ## Task
 - [ ] US16-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.3-NT3, YC3.3-NT5, YC3.3-NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
