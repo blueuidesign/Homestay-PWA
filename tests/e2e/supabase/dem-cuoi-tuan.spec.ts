@@ -40,7 +40,9 @@ test('YC4.6-NT2 YC4.6-NT4 YC4.6-NT1 luồng chính: Cá nhân mở P6, chọn T7
   // YC4.6-NT4: chỉ còn một đêm thì chip đó không tắt được.
   await page.getByRole('button', { name: 'T7', exact: true }).click(); // còn CN
   await expect(page.getByRole('button', { name: 'T7', exact: true })).toHaveAttribute('aria-pressed', 'false');
-  await page.getByRole('button', { name: 'CN', exact: true }).click(); // không tắt được
+  // Chip cuối đánh dấu aria-disabled; bấm ép vẫn phải không tắt được.
+  await expect(page.getByRole('button', { name: 'CN', exact: true })).toHaveAttribute('aria-disabled', 'true');
+  await page.getByRole('button', { name: 'CN', exact: true }).click({ force: true }); // không tắt được
   await expect(page.getByRole('button', { name: 'CN', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'T7', exact: true }).click(); // lại T7 và CN
 
