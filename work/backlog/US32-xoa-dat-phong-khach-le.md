@@ -2,7 +2,7 @@
 id: US32
 tieu_de: "Xóa đặt phòng khách lẻ"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.7@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -48,7 +48,7 @@ YC5-dat-phong.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US32-xoa-dat-phong-khach-le.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US32-xoa-dat-phong-khach-le.md.
 
 ## Task
 - [ ] US32-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.7-NT2, YC5.7-NT4, YC5.7-NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
