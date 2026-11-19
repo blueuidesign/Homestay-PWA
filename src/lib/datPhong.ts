@@ -4,6 +4,7 @@ import { docNhap, luuNhap, xoaNhap } from '../chung/nhap';
 import { ngayThang } from './can';
 import { chuNguoiDat, khoangNgay, type DatPhongLich } from './lich';
 import { congNgay, laNgay, type Ngay } from './ngay';
+import { vietTien } from './tien';
 
 /** YC5.3 Luật kiểm: một đặt phòng dài tối đa 365 đêm. */
 export const SO_DEM_TOI_DA = 365;
@@ -92,4 +93,83 @@ export function docBanNhapDatPhong(bay = Date.now()): BanNhapDatPhong | null {
 /** HV3 bước 5, HV3-NT4: lưu xong hay bỏ form thì xóa nháp. */
 export function xoaBanNhapDatPhong(): void {
   xoaNhap(KHOA_NHAP);
+}
+
+// ===== YC5.2 · Người đặt, tiền phòng, trạng thái tiền =====
+
+/** YC5.2 bước 5: sale đang kết nối với chủ nhà (YC6), theo thứ tự đọc về. */
+export type SaleKetNoi = { id: string; ten: string };
+
+/** YC5.2 bước 5: một chip ở hàng "Khách / Sale". */
+export type ChipNguoiDat =
+  | { loai: 'sale-moi'; khoa: 'sale-moi'; chu: string }
+  | { loai: 'le'; khoa: 'le'; chu: string }
+  | { loai: 'sale'; khoa: string; chu: string; id: string }
+  | { loai: 'khach'; khoa: string; chu: string; ten: string };
+
+/** YC5.2 bước 5: tối đa 10 tên khách lẻ đã nhập. */
+export const SO_TEN_KHACH_TOI_DA = 10;
+
+/**
+ * YC5.2 bước 5, YC5.2-NT9: thứ tự chip "+ Sale mới", "Khách lẻ", các sale đang kết nối, rồi tên khách lẻ chủ nhà đã nhập
+ * (danh sách đọc về đã mới nhất trước; tối đa 10, mỗi tên một lần).
+ */
+export function chipNguoiDat(sale: readonly SaleKetNoi[], tenKhach: readonly string[]): ChipNguoiDat[] {
+  const ten = [...new Set(tenKhach.map((t) => t.trim()).filter(Boolean))].slice(0, SO_TEN_KHACH_TOI_DA);
+  return [
+    { loai: 'sale-moi', khoa: 'sale-moi', chu: '+ Sale mới' },
+    { loai: 'le', khoa: 'le', chu: 'Khách lẻ' },
+    ...sale.map((s) => ({ loai: 'sale' as const, khoa: `sale:${s.id}`, chu: s.ten, id: s.id })),
+    ...ten.map((t) => ({ loai: 'khach' as const, khoa: `khach:${t}`, chu: t, ten: t })),
+  ];
+}
+
+/** YC5.2 bước 6c: dòng nhỏ dưới hàng chip khi chọn sale. */
+export function cauChonSale(ten: string): string {
+  const goi = ten.replace(/^Sale\s+/i, '');
+  return `Đặt phòng của ${ten}: ${goi} được báo và thấy đặt phòng này như của mình.`;
+}
+
+/** YC5.2 bước 7, QT5.3: giá chủ nhà của một đêm; null là chưa đặt giá. */
+export type GiaDem = { dem: Ngay; gia: number | null };
+
+/** YC5.2 bước 7, YC5.2-NT1, NT5: dòng "31/10: 1.300.000đ" hay "01/12: chưa đặt giá". */
+export function dongGiaDem(d: GiaDem): string {
+  return `${ngayThang(d.dem)}: ${d.gia === null ? 'chưa đặt giá' : vietTien(d.gia)}`;
+}
+
+/** YC5.2 bước 7, QT4.1, YC5.2-NT5: tổng giá chủ nhà các đêm; có đêm chưa có giá (hay không có đêm) thì null (ô để trống). */
+export function tongGiaDem(ds: readonly GiaDem[]): number | null {
+  if (!ds.length || ds.some((d) => d.gia === null)) return null;
+  return ds.reduce((t, d) => t + (d.gia ?? 0), 0);
+}
+
+/** YC5.2 bước 8a: ba trạng thái tiền của form (QT6.1). */
+export type TrangThaiTienForm = 'chua_coc' | 'da_coc_con_thu' | 'da_thanh_toan';
+export const CHIP_TRANG_THAI_TIEN: { gt: TrangThaiTienForm; chu: string }[] = [
+  { gt: 'chua_coc', chu: 'Chưa cọc' }, { gt: 'da_coc_con_thu', chu: 'Đã cọc · còn thu' }, { gt: 'da_thanh_toan', chu: 'Đã thanh toán' },
+];
+
+export const CAU_CAN_TIEN_PHONG = 'Nhập tiền phòng trước khi lưu';
+export const CAU_COC_QUA_TIEN = 'Tiền cọc không được lớn hơn tiền phòng';
+
+/** YC5.2 bước 7d, CN4-01, YC5.2-NT3: tiền phòng trống (hay 0) thì báo và không lưu được. */
+export function loiTienPhong(tien: number | null): string | null {
+  return tien === null || tien <= 0 ? CAU_CAN_TIEN_PHONG : null;
+}
+
+/** YC5.2 bước 8b, YC5.2-NT7 (giả định GD20): cọc chỉ kiểm khi "Đã cọc · còn thu"; để trống được (YC5-H19). */
+export function loiTienCoc(trangThai: TrangThaiTienForm, coc: number | null, tien: number | null): string | null {
+  if (trangThai !== 'da_coc_con_thu' || coc === null) return null;
+  return tien !== null && coc > tien ? CAU_COC_QUA_TIEN : null;
+}
+
+/** YC5.2 bước 8c: dòng tóm tắt phần chi tiết, ví dụ "4 khách · 14:00 → 12:00 · Ghi chú". */
+export function tomTatChiTiet(soKhach: number, gioNhan: string, gioTra: string, ghiChu: string): string {
+  return `${soKhach} khách · ${gioNhan} → ${gioTra}${ghiChu.trim() ? ' · Ghi chú' : ''}`;
+}
+
+/** YC5.3 bước 10: tên người đặt trong toast "Đã thêm đặt phòng <người đặt> · <căn>". */
+export function tenNguoiDatToast(v: { sale?: string | null; tenKhach?: string | null }): string {
+  return v.sale?.trim() || v.tenKhach?.trim() || 'Khách lẻ';
 }

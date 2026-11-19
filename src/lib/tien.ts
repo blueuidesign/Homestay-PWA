@@ -37,3 +37,21 @@ export function vietKhoangGia(thap: number, cao: number): string {
   const b = vietTienGon(Math.max(thap, cao));
   return a === b ? a : `${a}–${b}`;
 }
+
+/** YC5.2 bước 7: số trong ô tiền có dấu chấm ngăn nghìn, không có "đ", ví dụ 2200000 thành "2.200.000". QT5.2 */
+export function vietSo(soTien: number): string {
+  return vietTien(soTien).slice(0, -1);
+}
+
+/**
+ * YC5.2 bước 7 (ô nhận số nguyên đồng, không nhận số âm, số lẻ): đọc chữ người dùng gõ vào ô tiền.
+ * Trả null khi ô trống; undefined khi chữ gõ không nhận (có dấu trừ, dấu phẩy, quá lớn) để ô giữ số cũ.
+ * Dấu chấm và khoảng trắng là dấu ngăn nghìn, bỏ qua.
+ */
+export function docSoTienGo(chu: string): number | null | undefined {
+  if (/[-,]/.test(chu)) return undefined;
+  const so = chu.replace(/\D/g, '');
+  if (!so) return null;
+  const n = Number(so);
+  return laTienNguyen(n) ? n : undefined;
+}

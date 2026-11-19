@@ -1,6 +1,6 @@
 // Test unit cho tiền số nguyên đồng và cách viết đầy đủ (QT5.2, glossary.md mục Viết số tiền).
 import { describe, expect, it } from 'vitest';
-import { laTienNguyen, vietKhoangGia, vietTien, vietTienGon } from './tien';
+import { docSoTienGo, laTienNguyen, vietKhoangGia, vietSo, vietTien, vietTienGon } from './tien';
 
 describe('QT5.2 · tiền là số nguyên đồng', () => {
   it('QT5.2: số nguyên là tiền hợp lệ', () => {
@@ -47,5 +47,20 @@ describe('QT5-H1 · viết số tiền rút gọn', () => {
   });
   it('QT5-H1: hai giá bằng nhau thì ghi một số', () => {
     expect(vietKhoangGia(700_000, 700_000)).toBe('700k');
+  });
+});
+
+describe('YC5.2 bước 7 · ô tiền nhận số nguyên đồng, có dấu chấm ngăn nghìn', () => {
+  it('YC5.2 bước 7 viết "2.200.000" khi gõ, không có "đ"', () => {
+    expect(vietSo(2200000)).toBe('2.200.000');
+    expect(vietSo(0)).toBe('0');
+  });
+  it('YC5.2 bước 7 đọc chữ gõ: bỏ dấu chấm; trống là null; số âm, số lẻ thì không nhận', () => {
+    expect(docSoTienGo('2.200.000')).toBe(2200000);
+    expect(docSoTienGo('2200000')).toBe(2200000);
+    expect(docSoTienGo('')).toBeNull();
+    expect(docSoTienGo('-500')).toBeUndefined();
+    expect(docSoTienGo('2,5')).toBeUndefined();
+    expect(docSoTienGo('9'.repeat(20))).toBeUndefined();
   });
 });

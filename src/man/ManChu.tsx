@@ -2,7 +2,8 @@
 // Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b).
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin (Sửa căn CN5-02), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
-// Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3.
+// Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
+// thì về tab Lịch với toast.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -114,7 +115,13 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     return (
       <CN4ThemDatPhong key={`${man.canId ?? ''}|${man.ngay ?? ''}`} ds={ds && [...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))}
                        dv={props.dichVuCan?.datPhong} canIdBanDau={man.canId} ngayBanDau={man.ngay}
-                       onDong={() => window.history.back()} />
+                       onDong={() => window.history.back()}
+                       onDaLuu={(v) => {
+                         // YC5.3 bước 10, YC5.3-NT1: về tab Lịch với toast; bỏ tháng đã nhớ để lịch đọc lại có đặt phòng mới.
+                         boNhoLich.current.clear();
+                         hienToast(`Đã thêm đặt phòng ${v.nguoiDat} · ${v.maCan}`);
+                         props.den('/');
+                       }} />
     );
   }
 

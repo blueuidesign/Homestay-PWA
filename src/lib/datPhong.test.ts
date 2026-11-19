@@ -1,8 +1,9 @@
-// Test unit phần tính của form Thêm đặt phòng CN4 (YC5.1). Số theo DLM.4: B1 1509 10/10 → 12/10 của Sale Hùng.
+// Test unit phần tính của form Thêm đặt phòng CN4 (YC5.1, YC5.2). Số theo DLM.4: B1 1509 10/10 → 12/10 của Sale Hùng.
 import { afterEach, describe, expect, it } from 'vitest';
 import type { DatPhongLich } from './lich';
 import {
-  chipCuaSoDem, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, ngayTraTheoSoDem, xoaBanNhapDatPhong,
+  cauChonSale, chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, dongGiaDem, ghiBanNhapDatPhong, kiemNgay,
+  loiTienCoc, loiTienPhong, ngayTraTheoSoDem, tenNguoiDatToast, tomTatChiTiet, tongGiaDem, xoaBanNhapDatPhong,
 } from './datPhong';
 
 afterEach(() => { try { localStorage.clear(); } catch { /* bỏ qua */ } });
@@ -75,5 +76,53 @@ describe('HV3 · nháp form đặt phòng', () => {
     ghiBanNhapDatPhong({ canId: 'c1509', ngayNhan: '2026-10-09', ngayTra: '2026-10-11', tuyChon: false, clientId: 'm1' });
     xoaBanNhapDatPhong();
     expect(docBanNhapDatPhong()).toBeNull();
+  });
+});
+
+describe('YC5.2 · người đặt, tiền phòng, trạng thái tiền (phần tính)', () => {
+  it('YC5.2-NT9 thứ tự chip: "+ Sale mới", "Khách lẻ", sale đang kết nối, rồi tên khách (mỗi tên một lần, tối đa 10)', () => {
+    const ten = ['Dung Đỗ', 'Bà Lan', 'Dung Đỗ', ...Array.from({ length: 12 }, (_, i) => `Khách ${i + 1}`)];
+    const chips = chipNguoiDat([{ id: 'hung', ten: 'Sale Hùng' }], ten);
+    expect(chips.slice(0, 4).map((c) => c.chu)).toEqual(['+ Sale mới', 'Khách lẻ', 'Sale Hùng', 'Dung Đỗ']);
+    expect(chips.filter((c) => c.loai === 'khach')).toHaveLength(10);
+    expect(chips.filter((c) => c.chu === 'Dung Đỗ')).toHaveLength(1);
+  });
+
+  it('YC5.2-NT1 dòng từng đêm "31/10: 1.300.000đ", "01/11: 900.000đ"; tổng 2.200.000đ', () => {
+    const g = [{ dem: '2026-10-31', gia: 1300000 }, { dem: '2026-11-01', gia: 900000 }];
+    expect(g.map(dongGiaDem)).toEqual(['31/10: 1.300.000đ', '01/11: 900.000đ']);
+    expect(tongGiaDem(g)).toBe(2200000);
+  });
+
+  it('YC5.2-NT5 đêm chưa có giá thì dòng ghi "chưa đặt giá" và không có tổng (ô tiền phòng để trống)', () => {
+    const g = [{ dem: '2026-12-31', gia: 900000 }, { dem: '2027-01-01', gia: null }];
+    expect(dongGiaDem(g[1]!)).toBe('01/01: chưa đặt giá');
+    expect(tongGiaDem(g)).toBeNull();
+    expect(tongGiaDem([])).toBeNull();
+  });
+
+  it('YC5.2-NT3 tiền phòng trống hay 0 thì "Nhập tiền phòng trước khi lưu"', () => {
+    expect(loiTienPhong(null)).toBe('Nhập tiền phòng trước khi lưu');
+    expect(loiTienPhong(0)).toBe('Nhập tiền phòng trước khi lưu');
+    expect(loiTienPhong(2200000)).toBeNull();
+  });
+
+  it('YC5.2-NT7 cọc lớn hơn tiền phòng thì "Tiền cọc không được lớn hơn tiền phòng" (GD20); cọc bằng tiền phòng, để trống, hay không phải "Đã cọc" thì được', () => {
+    expect(loiTienCoc('da_coc_con_thu', 3000000, 2200000)).toBe('Tiền cọc không được lớn hơn tiền phòng');
+    expect(loiTienCoc('da_coc_con_thu', 2200000, 2200000)).toBeNull();
+    expect(loiTienCoc('da_coc_con_thu', null, 2200000)).toBeNull();
+    expect(loiTienCoc('da_thanh_toan', 3000000, 2200000)).toBeNull();
+  });
+
+  it('YC5.2-NT10 dòng tóm tắt chi tiết "4 khách · 14:00 → 12:00 · Ghi chú"', () => {
+    expect(tomTatChiTiet(4, '14:00', '12:00', 'Có trẻ nhỏ')).toBe('4 khách · 14:00 → 12:00 · Ghi chú');
+    expect(tomTatChiTiet(1, '14:00', '12:00', '  ')).toBe('1 khách · 14:00 → 12:00');
+  });
+
+  it('YC5.2 bước 6c, YC5.3 bước 10: câu chọn sale và tên người đặt trong toast', () => {
+    expect(cauChonSale('Sale Hùng')).toBe('Đặt phòng của Sale Hùng: Hùng được báo và thấy đặt phòng này như của mình.');
+    expect(tenNguoiDatToast({ sale: 'Sale Hùng' })).toBe('Sale Hùng');
+    expect(tenNguoiDatToast({ tenKhach: ' Bà Lan ' })).toBe('Bà Lan');
+    expect(tenNguoiDatToast({ tenKhach: '' })).toBe('Khách lẻ');
   });
 });
