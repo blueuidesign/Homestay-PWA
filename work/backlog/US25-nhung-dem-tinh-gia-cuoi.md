@@ -2,7 +2,7 @@
 id: US25
 tieu_de: "Những đêm tính giá cuối tuần"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC4.6@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [28]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -68,6 +68,7 @@ Kịch bản test tay: tests/kb/US25-nhung-dem-tinh-gia-cuoi.md (KB1, KB2).
 - 2026-11-18 · Claude · tạo item từ YC4.6@1 (QD21)
 - 2026-11-19 · Claude · trả lời YC4-H4 (QD25), viết tests/kb, sang dang-lam
 - 2026-11-19 · Claude · code TA1 đến TA3 trên nhánh US25-dem-cuoi-tuan, mở PR nháp
+- 2026-11-19 · Claude · gộp main (US20) vào nhánh, sửa e2e bấm chip aria-disabled, gộp PR #28 theo QD25 (CI xanh), sang cho-test · 15 phút
 
 ## Bằng chứng
 - `scripts/test-db.sh` (Postgres 16 máy): lần đầu, trước migration, đỏ 23 test của file 38; migration xong xanh ngay vòng đầu (sửa 0 vòng): 658 qua, 0 hỏng, 0 file lỗi.
