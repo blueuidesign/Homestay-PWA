@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Mở form, chọn căn và ngày, kiểm trùng sớm" đúng như YC5.1 mô tả.
 
 ## Làm tiêu chí nào
-YC5.1-NT1 đến NT6
+YC5.1-NT1 đến NT6; HV3-NT1, HV3-NT4 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1, QT1.1, QT2, QT3.1, QT4, QT5.6, QT6.1, QT6.2
@@ -60,5 +60,6 @@ Kịch bản test tay: tests/kb/US26-mo-form-chon-can-va.md, chưa viết. Viế
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.1@1 (QD21)
+- 2026-11-19 · Claude · nhận HV3-NT1, HV3-NT4 từ EN4 (QD27)
 
 ## Bằng chứng
