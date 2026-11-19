@@ -18,7 +18,9 @@ describe('YC1.1 · App chọn vai', () => {
     });
     render(<App dichVu={dv} />);
     expect(await screen.findByRole('heading', { name: 'Lịch' })).toBeInTheDocument();
-    expect(screen.getByText('Chủ nhà')).toBeInTheDocument();
+    // US14: tab Lịch của chủ nhà chưa có căn là A4 (YC1.1 bước 5, YC3.1), thay dòng vai của màn tạm US1.
+    expect(await screen.findByText('Chưa có căn nào')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Lịch' })).toHaveAttribute('aria-current', 'page');
     expect(screen.queryByRole('button', { name: 'Tạo tài khoản' })).toBeNull();
     expect(screen.queryByRole('heading', { name: 'Bạn dùng app để làm gì?' })).toBeNull();
     expect(dv.chonVai).not.toHaveBeenCalled();

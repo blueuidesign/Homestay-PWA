@@ -102,3 +102,62 @@ body { margin: 0; min-height: 100dvh; }
 .a3-ten { font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
 .a3-mo { font-size: 16px; line-height: 24px; color: var(--ink-secondary); }
 .a3-nhac { text-align: center; }
+
+/* US14 · A4, A4-01, CN5 và thanh tab chủ nhà (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+:root {
+  --action-ink: #047857;
+  --warning-tint: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-ink: #92400e;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+.man-chu { background: var(--surface-page); }
+.chu-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
+.chu-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chu-dem { font-size: 14px; line-height: 20px; color: var(--ink-muted); padding-right: 8px; }
+.chu-than { flex: 1 1 auto; padding: 12px 12px calc(88px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.chu-cap-nhat { position: fixed; top: calc(env(safe-area-inset-top) + 52px); left: 0; right: 0; z-index: 10; text-align: center; }
+.hh-tabbar { display: flex; background: var(--surface); border-top: 1px solid var(--border); padding-bottom: env(safe-area-inset-bottom); }
+.hh-tabbar--fixed { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; }
+.hh-tab { flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 8px 0; border: 0; background: none; cursor: pointer; font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-faint); -webkit-tap-highlight-color: transparent; }
+.hh-tab--on { color: var(--action); }
+.hh-tab:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.hh-btn .hh-icon { flex: 0 0 auto; }
+
+.the-chu { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.a4-dai { flex: 0 0 auto; background: var(--action-tint); border-bottom: 1px solid var(--action-soft); color: var(--action-ink); padding: 10px 16px; font-size: 14px; line-height: 20px; }
+.a4-trong { padding: 32px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.a4-icon { width: 72px; height: 72px; border-radius: 9999px; background: var(--border-subtle); color: var(--ink-secondary); display: grid; place-items: center; }
+.a4-tieu-de { font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.a4-mo { font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+.a4-trong .hh-btn { margin-top: 4px; }
+.a4-buoc { padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+.a4-nhan { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.a4-dong { min-height: 52px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-subtle); text-align: left; }
+.a4-dong--cuoi { border-bottom: 0; }
+.a4-dong--bam { width: 100%; background: none; border-width: 0 0 1px; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+.a4-so { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 9999px; border: 2px solid var(--border-input); color: var(--ink-muted); display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+.a4-so--on { background: var(--action); border-color: var(--action); color: var(--on-action); }
+.a4-chu { display: flex; flex-direction: column; }
+.a4-dong-ten { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.a4-dong-ten--mo { color: var(--ink-secondary); }
+.a4-dong-mo { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.a4-toi, .cn5-toi { margin-left: auto; display: flex; color: var(--ink-faint); }
+.a4-meo { margin: 0; background: var(--warning-tint); border: 1px solid var(--warning-border); border-radius: var(--radius-md); padding: 12px 16px; font-size: 14px; line-height: 20px; color: var(--warning-ink); }
+
+.cn5-ds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.cn5-the { width: 100%; display: block; padding: 0; text-align: left; font: inherit; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn5-anh { position: relative; display: block; aspect-ratio: 5 / 2; background: var(--border-subtle); }
+.cn5-anh img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cn5-chua-anh { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cn5-so-anh, .cn5-moi { position: absolute; bottom: 8px; font-size: 14px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 9999px; }
+.cn5-so-anh { right: 8px; color: var(--ink-body); background: var(--surface); }
+.cn5-moi { left: 8px; color: var(--on-action); background: var(--action); }
+.cn5-noi-dung { padding: 10px 14px 12px; display: flex; flex-direction: column; gap: 4px; }
+.cn5-dau-the { display: flex; align-items: center; gap: 8px; }
+.cn5-ten { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn5-dong { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn5-tinh-trang { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cn5-tinh-trang--trong { color: var(--action); }
+.cn5-goi-y { font-size: 14px; line-height: 20px; color: var(--warning-ink); background: var(--warning-tint); border: 1px solid var(--warning-border); border-radius: var(--radius-sm); padding: 6px 10px; }

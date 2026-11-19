@@ -3,26 +3,29 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { KhungXam } from './chung/dangTai';
 import { ToastProvider } from './chung/Toast';
 import { chonMan, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
-import { dichVuMacDinh } from './lib/supabase';
+import type { DichVuCan } from './lib/dichVuCan';
+import { dichVuCanMacDinh, dichVuMacDinh } from './lib/supabase';
 import type { DichVuXacThuc } from './lib/xacThuc';
 import { A1Chao } from './man/A1Chao';
 import { HoanTatDangKy } from './man/HoanTatDangKy';
 import { LuongDangNhap } from './man/LuongDangNhap';
 import { A3ChonVai } from './man/A3ChonVai';
+import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
 
 type TrangThai = { phien: TrangThaiPhien; email: string; hoSo: HoSo | null | undefined };
 
-export function App(props: { dichVu?: DichVuXacThuc | null }) {
+export function App(props: { dichVu?: DichVuXacThuc | null; dichVuCan?: DichVuCan | null }) {
   const dichVu = props.dichVu === undefined ? dichVuMacDinh() : props.dichVu;
+  const dichVuCan = props.dichVuCan === undefined ? dichVuCanMacDinh() : props.dichVuCan;
   return (
     <ToastProvider>
-      <Goc dichVu={dichVu} />
+      <Goc dichVu={dichVu} dichVuCan={dichVuCan} />
     </ToastProvider>
   );
 }
 
-function Goc({ dichVu }: { dichVu: DichVuXacThuc | null }) {
+function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: DichVuCan | null }) {
   // Không có Supabase (biến build trống) thì chạy như chưa đăng nhập: A1 vẫn xem được.
   const [tt, datTt] = useState<TrangThai>({ phien: dichVu ? 'dang-doc' : 'chua', email: '', hoSo: undefined });
   const [luong, datLuong] = useState<'A2' | 'A11' | null>(null);
@@ -104,6 +107,10 @@ function Goc({ dichVu }: { dichVu: DichVuXacThuc | null }) {
       // YC1.1 bước 5: ghi vai rồi đọc lại hồ sơ, bộ chọn màn sang tab Lịch.
       return <A3ChonVai onChon={async (vai) => { await dichVu!.chonVai(vai); await taiLai(); }} />;
     case 'lich':
+      // YC3.1, YC1.1 bước 5: chủ nhà vào các tab của chủ (A4 khi chưa có căn). Sale: tab Lịch tạm tới YC7.1.
+      if (tt.hoSo?.vaiChon === 'chu_nha') {
+        return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} />;
+      }
       return <ManLich vai={tt.hoSo?.vaiChon ?? null} onDangXuat={dangXuat} />;
   }
 }

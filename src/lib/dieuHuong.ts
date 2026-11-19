@@ -25,3 +25,23 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
   if (link) return 'xem-truoc-link';
   return v.hoSo.vaiChon ? 'lich' : 'A3';
 }
+
+/** Màn trong các tab của chủ nhà (YC3.1, canvas thanh tab A4, CN5). Đường dẫn khác thì về tab Lịch. */
+export type ManChu =
+  | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string }
+  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' };
+
+export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke': '/thong-ke', 'ca-nhan': '/ca-nhan' } as const;
+
+/** YC3.1 bước 8, 13, 14: /can/moi là CN5-A1, /can/<mã> là CN5-02. */
+export function chonManChu(duongDan: string): ManChu {
+  const d = duongDan.replace(/\/+$/, '') || '/';
+  if (d === '/can') return { tab: 'can' };
+  if (d === '/can/moi') return { tab: 'can-moi' };
+  const ct = /^\/can\/([A-Za-z0-9-]+)$/.exec(d);
+  if (ct) return { tab: 'can-chi-tiet', id: ct[1]! };
+  if (d === '/sale') return { tab: 'sale' };
+  if (d === '/thong-ke') return { tab: 'thong-ke' };
+  if (d === '/ca-nhan') return { tab: 'ca-nhan' };
+  return { tab: 'lich' };
+}
