@@ -713,7 +713,7 @@
    "id": "US10",
    "loai": "US",
    "tieu_de": "\"Chi tiết một ngày\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -723,10 +723,10 @@
     "US2"
    ],
    "file": "work/backlog/US10-chi-tiet-mot-ngay.md",
-   "pr": "",
+   "pr": "[30]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -744,7 +744,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US11",
@@ -1305,7 +1305,7 @@
    "id": "US26",
    "loai": "US",
    "tieu_de": "\"Mở form, chọn căn và ngày, kiểm trùng sớm\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [

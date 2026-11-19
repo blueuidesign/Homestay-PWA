@@ -2,7 +2,7 @@
 id: US10
 tieu_de: "Chi tiết một ngày"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC2.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr: 30
+pr: [30]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US10-chi-tiet-mot-ngay.md.
 - 2026-11-19 · Claude · code TA1, TA2 trên nhánh US10-chi-tiet-ngay (không thêm migration), mở PR
 - 2026-11-19 · Claude · trả lời YC2-H6, viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC2.2@1 (QD21)
+- 2026-11-19 · Claude · gộp PR #30 theo QD25 (CI xanh), sang cho-test · 5 phút
 
 ## Bằng chứng
 - Test database: `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh` · tests/db/40 viết trước, xanh ngay lần đầu (RLS có sẵn đủ, không thêm migration) · cuối: 708 qua, 0 hỏng.
