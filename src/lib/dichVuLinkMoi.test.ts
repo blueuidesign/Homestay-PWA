@@ -55,4 +55,19 @@ describe('YC6.3 · dịch vụ link mời', () => {
     expect(y.can[0]!.anh).toBeNull();
     vi.unstubAllGlobals();
   });
+
+  it('YC6.6 bước 4 guiLich gọi fn_gui_lich với các căn đã chọn, trả mã link; YC6.6-NT4 bị từ chối thì ném câu cho người dùng', async () => {
+    const rpc = vi.fn(async () => ({ data: [{ ma: 'MaGuiLich01', so_lan_gui: 1 }], error: null }));
+    const dv = taoDichVuLinkMoiSupabase({ rpc } as never);
+    await expect(dv.guiLich!(['c1509'])).resolves.toEqual({ ma: 'MaGuiLich01' });
+    expect(rpc).toHaveBeenCalledWith('fn_gui_lich', { p_can_ids: ['c1509'] });
+    rpc.mockImplementation(async () => ({ data: null, error: { code: '42501', message: 'Căn không phải của bạn hoặc đã xóa' } }) as never);
+    await expect(dv.guiLich!(['c1103'])).rejects.toBeInstanceOf(LoiNguoiDung);
+  });
+
+  it('YC6.6-NT7 xem trước link gửi lịch đọc loại link', () => {
+    const x = docXemTruoc({ trang_thai: 'hop_le', ten_chu: 'Chị Hoa', so_can: 1, loai: 'gui_lich', can: [] });
+    expect(x).toMatchObject({ trangThai: 'hop_le', loai: 'gui_lich', soCan: 1 });
+    expect(docXemTruoc({ trang_thai: 'hop_le', ten_chu: 'Anh Tuấn', so_can: 2, can: [] })).toMatchObject({ loai: 'moi_sale' });
+  });
 });

@@ -1,5 +1,5 @@
 // Link mời của chủ nhà (YC6.3, QD8, QD4, PQ18). Xem trước qua fn_xem_link_moi (gọi được khi chưa đăng nhập, không giá),
-// thêm lịch qua fn_them_lich_link_moi, lấy link qua fn_lay_link_moi, đổi link qua fn_doi_link_moi. Ảnh xem trước xin đường dẫn
+// thêm lịch qua fn_them_lich_link_moi, link gửi lịch theo căn qua fn_gui_lich (YC6.6), lấy link qua fn_lay_link_moi, đổi link qua fn_doi_link_moi. Ảnh xem trước xin đường dẫn
 // có hạn từ kho kèm header x-link-moi (policy anh_can_xem_truoc_link).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
@@ -15,6 +15,8 @@ export type CanXemTruoc = {
 
 export type XemTruocHopLe = {
   trangThai: 'hop_le'; tenChu: string; soCan: number; can: CanXemTruoc[];
+  /** YC6.6: link gửi lịch (chỉ các căn trong link) hay link mời (mọi căn). Thiếu thì như link mời. */
+  loai?: 'moi_sale' | 'gui_lich';
   /** YC6.3 bước 7: người gọi đã có kết nối với chủ nhà này (A10-01). */
   daThem: boolean;
   /** YC6-H15: người gọi là người tạo link. */
@@ -29,6 +31,8 @@ export interface DichVuLinkMoi {
   xemTruoc(ma: string): Promise<XemTruocLink>;
   /** YC6.3 bước 5. 'da_co' khi đã có kết nối. Link hỏng thì LoiNguoiDung kèm câu A1-link-01. */
   themLich(ma: string): Promise<'da_them' | 'da_co'>;
+  /** YC6.6 bước 4 (US40): chủ nhà tạo link gửi lịch mới với các căn đã chọn (fn_gui_lich). Thiếu thì CN10 báo chưa có. */
+  guiLich?(canIds: string[]): Promise<{ ma: string }>;
 }
 
 /** YC6.3 bước 1, 6: phần của chủ nhà ở CN7. */
@@ -83,14 +87,14 @@ export function cauDaThemLich(soCan: number, tenChu: string): string {
 type CanRpc = { ma_can: string; so_phong_ngu: number | null; so_giuong: number | null; loai_view: string | null; ten_toa: string | null; anh: string | null };
 type XemTruocRpc = {
   trang_thai: 'hop_le' | 'khong_dung_duoc' | 'het_han'; ten_chu?: string | null; so_can?: number; can?: CanRpc[];
-  da_them?: boolean; cua_minh?: boolean; sai_vai?: boolean;
+  da_them?: boolean; cua_minh?: boolean; sai_vai?: boolean; loai?: 'moi_sale' | 'gui_lich';
 };
 
 /** Đổi dữ liệu fn_xem_link_moi sang dạng màn dùng; ảnh là đường dẫn kho chưa ký. */
 export function docXemTruoc(d: XemTruocRpc | null): XemTruocLink {
   if (!d || d.trang_thai !== 'hop_le') return { trangThai: d?.trang_thai === 'het_han' ? 'het_han' : 'khong_dung_duoc' };
   return {
-    trangThai: 'hop_le', tenChu: d.ten_chu ?? 'Chủ nhà', soCan: Number(d.so_can ?? 0),
+    trangThai: 'hop_le', tenChu: d.ten_chu ?? 'Chủ nhà', soCan: Number(d.so_can ?? 0), loai: d.loai === 'gui_lich' ? 'gui_lich' : 'moi_sale',
     can: (d.can ?? []).map((c) => ({
       maCan: c.ma_can, soPhongNgu: c.so_phong_ngu, soGiuong: c.so_giuong, loaiView: c.loai_view, tenToa: c.ten_toa, anh: c.anh,
     })),
@@ -137,6 +141,14 @@ export function taoDichVuLinkMoiSupabase(sb: SupabaseClient, kho?: { url?: strin
       const { data, error } = await sb.rpc('fn_them_lich_link_moi', { p_ma: ma });
       if (error) throw loiTuRpc(error);
       return data === 'da_co' ? 'da_co' : 'da_them';
+    },
+    async guiLich(canIds) {
+      // YC6.6 bước 4, YC6-H9: mỗi lần "Chia sẻ lịch" một link mới; database kiểm căn của người gọi (YC6.6-NT4).
+      const { data, error } = await sb.rpc('fn_gui_lich', { p_can_ids: canIds });
+      if (error) throw loiTuRpc(error);
+      const d = (Array.isArray(data) ? data[0] : data) as { ma: string } | undefined;
+      if (!d) throw new Error('Không có link');
+      return { ma: d.ma };
     },
     async layLinkMoi() {
       const { data, error } = await sb.rpc('fn_lay_link_moi');
