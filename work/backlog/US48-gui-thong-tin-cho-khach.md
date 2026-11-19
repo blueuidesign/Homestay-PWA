@@ -37,7 +37,7 @@ PQ3, PQ5, PQ11, PQ12, PQ14, PQ19 và các test vi phạm ở mục "Ai được 
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC8-H3, YC8-H5, YC8-H6, YC8-H1, YC8-H4.
+- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC8-H3, YC8-H6, YC8-H1, YC8-H4.
 - Phần đầu YC8-gui-khach.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -63,5 +63,6 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md, chưa viết. V
 - 2026-11-18 · Claude · tạo item từ YC8.1@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · nhận HV6-NT2 từ EN4 (QD27)
+- 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
 
 ## Bằng chứng

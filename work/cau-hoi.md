@@ -10,9 +10,10 @@ Cách ghi:
 
 ## YC1
 
-### YC1-H1 · mo
+### YC1-H1 · da-tra-loi
 Ô "Họ và tên" sửa được không?
 Gắn ở: YC1.4. Tới khi có câu trả lời: chỉ xem.
+Trả lời: Claude tự chốt, 19/11/2026 (QD25, Tùng: "những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): sửa được, luật kiểm như ở A2. Canvas PWA vẽ ô sửa được ở P2.
 
 ### YC1-H2 · mo
 Xuất CSV: đặt phòng thuộc khoảng thời gian đã chọn theo ngày nhận, hay theo có đêm nằm trong khoảng?
@@ -30,9 +31,10 @@ Gắn ở: YC1.6.
 Xuất CSV: sale có căn của tôi (QD5) xuất được file cho căn đó không?
 Gắn ở: YC1.6.
 
-### YC1-H6 · mo
+### YC1-H6 · da-tra-loi
 Người dùng xóa tài khoản trên PWA ở đâu, xác nhận thế nào? Bản Zalo nhận sự kiện người dùng gỡ quyền của app từ Zalo, PWA không có.
 Chặn: Màn Cá nhân. Đang tạm làm: `fn_xoa_tai_khoan` đã có, chưa có màn. Hỏi ngày 18/11/2026.
+Trả lời: Claude tự chốt, 19/11/2026 (QD25, Tùng: "những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): nút "Xóa tài khoản" ở cuối P2, mở P14 liệt kê điều gì mất và điều gì còn, bấm lần hai ở P14-01 mới xóa (canvas PWA, PR #10).
 
 ### YC1-H7 · mo
 Chính sách quyền riêng tư phải nói giữ dữ liệu gì sau khi người dùng xóa tài khoản, giữ bao lâu, để làm gì?
@@ -346,9 +348,10 @@ Gắn ở: YC8.1.
 Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì?
 Gắn ở: YC8.1. Tới khi có câu trả lời: ghi "Giá: hỏi lại".
 
-### YC8-H5 · mo
+### YC8-H5 · da-tra-loi
 Sale gửi căn cho khách thế nào trên PWA? Bản Zalo dùng cửa sổ chia sẻ của Zalo (YC8.1). Đề xuất: nút "Gửi cho khách" mở bảng chia sẻ của điện thoại (Web Share API) với chữ và ảnh; sale chọn Zalo trong bảng đó. Điện thoại không hỗ trợ chia sẻ ảnh thì chép chữ và tải ảnh về.
 Chặn: Màn gửi khách. Đang tạm làm: Chưa làm. Hỏi ngày 18/11/2026.
+Trả lời: Tùng, 19/11/2026 (thread design): "Gửi qua Zalo thì thành "Chia sẻ" sau này có thể gửi trong app luôn, bên kia nhận được luôn." Nút gửi đều mở bảng chia sẻ của điện thoại, chữ nút bắt đầu bằng "Chia sẻ". Bước chọn sale ở CN10 chỉ để nhắc người nhận, link dùng được cho sale nào mở (Claude tự chốt, QD25).
 
 ### YC8-H6 · mo
 Số ảnh gửi mỗi lần. Căn có thể có tới 12 ảnh (YC3, YC4), còn S5 ghi "Gửi 6 ảnh qua Zalo". Cửa sổ chia sẻ của Zalo nhận tối đa 10 ảnh một lần. Căn có 12 ảnh thì sale gửi sao: chọn ảnh, chia hai lần, hay chỉ gửi 10 ảnh đầu. Thiết kế chưa vẽ chọn ảnh.
