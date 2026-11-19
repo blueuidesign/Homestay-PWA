@@ -3,7 +3,7 @@ id: HT-BM
 tieu_de: Bí mật và cấu hình
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ---
 # Bí mật và cấu hình · Home247
 
@@ -15,7 +15,7 @@ rev: 2
 3. Claude không giữ, không nhập, không dùng bí mật của người dùng.
 
 ## Danh sách
-`[r2 · sửa]`
+`[r3 · thêm]` RESEND_API_KEY, BAO_CAO_EMAIL (EN9).
 
 | Tên | Dùng để | Cất ở | Ai tạo lại được | Lần thay gần nhất |
 | --- | --- | --- | --- | --- |
@@ -27,6 +27,8 @@ rev: 2
 | Mật khẩu database staging, production | Chạy migration bằng Supabase CLI | Trình quản lý mật khẩu của Tùng | Tùng | <ngày> |
 | `service_role` của staging, production | Không dùng ở app. Chỉ Edge Function đọc từ kho bí mật Supabase | Supabase | Tùng | |
 | <tài khoản SMTP gửi mail> | Gửi mã đăng nhập qua email (QD22). Mail sẵn có của Supabase chỉ đủ để thử, bản thật cần SMTP riêng | Cài đặt Auth của Supabase | Tùng | |
+| `RESEND_API_KEY` | Gửi email báo cáo cho Tùng khi PR của item gộp vào main (EN9), từ no-reply@homestaymail.vxlab.vn | GitHub Secrets | Tùng | |
+| `BAO_CAO_EMAIL` | Địa chỉ nhận email báo cáo (EN9). Để ở secret vì repo công khai | GitHub Secrets | Tùng | |
 
 ## Lần thay do lộ
 | Ngày | Bí mật | Lộ ở đâu | Đã thu hồi | Đã tạo mới |
@@ -36,3 +38,4 @@ rev: 2
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bí mật đăng nhập là SMTP gửi mail | Danh sách |
+| r3 | 2026-11-19 | Claude | EN9-email-bao-cao | Thêm khóa Resend và địa chỉ nhận báo cáo | Danh sách |

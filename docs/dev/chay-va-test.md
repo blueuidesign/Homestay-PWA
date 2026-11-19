@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ---
 # Chạy, test, build và deploy
 
@@ -28,7 +28,7 @@ export PGHOST=localhost PGUSER=postgres PGPASSWORD=<mật khẩu postgres trên 
 ```
 
 ## Cấu trúc thư mục app
-`[r4 · thêm]` src/chung/ (EN4). `[r5 · thêm]` src/man/, src/lib/xacThuc.ts, supabase.ts, dieuHuong.ts, tests/e2e/supabase/ (US2).
+`[r4 · thêm]` src/chung/ (EN4). `[r6 · thêm]` src/man/, src/lib/xacThuc.ts, supabase.ts, dieuHuong.ts, tests/e2e/supabase/ (US2).
 ```
 index.html              trang gốc, gắn manifest và icon
 public/                 file chép nguyên vào bản build
@@ -79,7 +79,7 @@ rollback;
 ```
 Database này là Postgres trần, app chưa nối vào được (app cần API của Supabase). Nối app với database thì dùng Supabase staging (mục Staging, chờ EN3) hoặc Supabase CLI, chưa dựng ở EN2.
 
-### Supabase chạy trên máy (US2) `[r5 · thêm]`
+### Supabase chạy trên máy (US2) `[r6 · thêm]`
 App cần API của Supabase (đăng nhập, gọi hàm). Chạy cả Supabase trên máy bằng Supabase CLI, cần Docker:
 ```sh
 npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,storage-api,postgres-meta,supavisor
@@ -107,7 +107,7 @@ Máy đã có sẵn Chromium khác bản (ví dụ phiên cloud): đặt `PW_CHR
 
 CI (`.github/workflows/kiem.yml`, job `app`) chạy typecheck, unit, build, e2e cho mọi PR.
 
-`[r5 · thêm]` E2E trên Supabase (US2, file `tests/e2e/supabase/*.spec.ts`): cần Supabase đang chạy trên máy (mục trên) và `psql`. Build app với URL, khóa anon local rồi chạy:
+`[r6 · thêm]` E2E trên Supabase (US2, file `tests/e2e/supabase/*.spec.ts`): cần Supabase đang chạy trên máy (mục trên) và `psql`. Build app với URL, khóa anon local rồi chạy:
 ```sh
 export VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_ANON_KEY=<ANON_KEY của supabase status>
 E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e/supabase
@@ -141,6 +141,24 @@ Chưa đặt giới hạn kích thước. Mỗi lần build in cỡ file JS sau 
 Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run build`, thư mục `dist`). Nối repo vào Vercel một lần (VIEC_TAY_CUA_TUNG.md bước 5), rồi mỗi nhánh có PR tự có một bản Preview, link hiện trong PR. Cài thử: mở link bằng Safari (iPhone) hay Chrome (Android), chọn "Thêm vào Màn hình chính".
 <!-- Migration lên Supabase staging, tài khoản thử trên staging: EN2, EN3 điền. -->
 
+### Đăng nhập bằng mã email trên staging
+`[r5 · thêm]`
+
+Project Supabase staging `home247-staging` (ref `wbsocqhpjtgpkvviusrt`, Singapore). Đăng nhập bằng mã gửi qua email (QD22). Cấu hình đặt ngày 2026-11-19 qua Management API (`PATCH /v1/projects/{ref}/config/auth`), xem lại bằng `GET` cùng địa chỉ:
+
+- Thư gửi qua SMTP của Resend (`smtp.resend.com`, cổng 465), người gửi "Hạ Long Homestay" từ tên miền `homestaymail.vxlab.vn`. Khóa SMTP chỉ nằm trong cấu hình Supabase, không ghi vào repo.
+- Mã 6 số (`mailer_otp_length`), hạn 1 giờ (`mailer_otp_exp` = 3600), cùng một email phải chờ 60 giây mới gửi lại được (`smtp_max_frequency`).
+- Mẫu thư Magic Link và Confirm signup viết tiếng Việt, chỉ hiện mã `{{ .Token }}` cỡ chữ to, không có link. Tiêu đề thư mở đầu bằng mã để đọc được ngay ở thông báo của điện thoại.
+- Site URL là `https://homestay-pwa.vercel.app`. Redirect URLs: `https://homestay-pwa.vercel.app/**` và `https://homestay-pwa-*.vercel.app/**` (các bản Preview của Vercel). Không mở cho mọi `*.vercel.app`, vì như vậy trang của người khác trên Vercel cũng nhận được link đăng nhập.
+
+App gửi mã bằng `supabase.auth.signInWithOtp({ email })`, rồi kiểm mã bằng `supabase.auth.verifyOtp({ email, token, type: 'email' })`. Thử gửi mã không cần app:
+```sh
+curl -X POST https://wbsocqhpjtgpkvviusrt.supabase.co/auth/v1/otp \
+  -H "apikey: <khóa anon>" -H "Content-Type: application/json" \
+  -d '{"email":"<email thử>","create_user":true}'
+```
+Trả `{}` là Supabase đã nhận và gửi thư. Trả 429 `over_email_send_rate_limit` là gửi lại quá sớm.
+
 ## Production
 <!-- Chỉ khi Tùng duyệt (CL4.3). Chờ QD23. -->
 
@@ -151,4 +169,5 @@ Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run
 | r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
 | r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
 | r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
-| r5 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Thêm Supabase chạy trên máy, biến build, e2e trên Supabase, thư mục src/man/ | Cấu trúc thư mục app, Chạy app với database thử trên máy, Test |
+| r5 | 2026-11-19 | Claude | #15 | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |
+| r6 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Thêm Supabase chạy trên máy, biến build, e2e trên Supabase, thư mục src/man/ | Cấu trúc thư mục app, Chạy app với database thử trên máy, Test |

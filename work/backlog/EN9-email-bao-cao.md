@@ -1,0 +1,46 @@
+---
+id: EN9
+tieu_de: "Email báo cáo mỗi lần gộp chức năng mới"
+loai: EN
+trang_thai: cho-test
+thuc_hien: []
+truoc: []
+lien_quan: [QD25]
+nguon: QD25
+nguoi: tung
+rui_ro: thap
+uoc_luong:
+thuc_te:
+can_duyet: []
+based_on:
+pr: [16, 18]
+ngay_tao: 2026-11-19
+---
+## Mục tiêu
+Tùng nhận email mỗi khi một PR của item (US, EN, BG) gộp vào main và Vercel deploy: tên PR, item, mô tả PR, các chỗ Claude tự quyết, kết quả kiểm tự động, link app. Tùng yêu cầu 19/11/2026 qua project chat.
+
+## Làm tiêu chí nào
+Không có NT. Kiểm bằng tay: gộp một PR có mã item, xem thư tới.
+
+## Phạm vi
+- .github/workflows/bao-cao-email.yml: chạy khi PR gộp vào main, gọi API Resend. Chạy tay (workflow_dispatch) để gửi thư thử.
+- .github/pull_request_template.md: thêm mục "Claude tự quyết" để thư có chỗ đọc.
+- docs/ha-tang/Bi_mat_va_cau_hinh.md: thêm RESEND_API_KEY, BAO_CAO_EMAIL.
+- work/cho-tung.md: việc Tùng thêm hai secret.
+
+## Ngoài phạm vi
+- PR không mở đầu bằng mã US, EN, BG (tài liệu, quyết định, thiết kế) không gửi thư (Claude tự quyết, QD25: đó không phải chức năng mới).
+- Địa chỉ nhận không ghi vào repo vì repo công khai; để ở secret BAO_CAO_EMAIL.
+
+## Task
+- [x] EN9-TA1 Code · PR #16
+- [ ] EN9-TA2 Việc tay · Tùng: thêm secret RESEND_API_KEY và BAO_CAO_EMAIL ở GitHub (work/cho-tung.md)
+
+## Nhật ký
+- 2026-11-19 · Claude · tạo item, viết workflow theo yêu cầu của Tùng
+
+- 2026-11-19 · Claude · gộp PR #16, gửi thư thử thành công (Resend 200); sửa để log không in địa chỉ nhận
+- 2026-11-19 · Claude · gộp PR #18, sang cho-test chờ Tùng thêm BAO_CAO_EMAIL (TA2)
+
+## Bằng chứng
+- Chạy tay bao-cao-email ngày 19/11: Resend trả 200.

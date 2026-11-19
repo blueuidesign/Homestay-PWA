@@ -277,6 +277,38 @@
    "dang_cho": "–"
   },
   {
+   "id": "EN9",
+   "loai": "EN",
+   "tieu_de": "\"Email báo cáo mỗi lần gộp chức năng mới\"",
+   "trang_thai": "cho-test",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN9-email-bao-cao.md",
+   "pr": "[16, 18]",
+   "task": {
+    "Code": {
+     "xong": 1,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Đức test tay"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
