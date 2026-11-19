@@ -3,7 +3,7 @@ id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC7 · Lịch, tìm phòng và chi tiết căn của sale
@@ -162,7 +162,7 @@ Bản 1 · rủi ro: cao · Màn: S3
 | 7 | Bấm "Gửi yêu cầu đặt phòng" | Mở S3-02 đúng căn và ngày (YC9) | Không |
 | 8 | Bấm "Gửi cho khách" | YC8 với căn này | Không |
 
-Mở S3 từ lịch 7 ngày (không có ngày khách hỏi) thì ngày ở là gì: [MỞ: YC7-H6]; tới khi có câu trả lời, hôm nay, 1 đêm. Quay về mức cộng mặc định cho một căn: [MỞ: YC7-H7]; tới khi có câu trả lời, chip "Mặc định" đầu hàng.
+[r5 · sửa] Mở S3 từ lịch 7 ngày: ngày ở là ngày đầu của khoảng đang xem ở S1 (hôm nay nếu chưa bấm ›), 1 đêm, không tô "Ngày khách hỏi" (YC7-H6, Claude tự chốt). Chip "Mặc định" đứng đầu hàng chip, ghi kèm mức mặc định; chọn thì xóa mức cộng riêng của căn, giá bán tính theo mức mặc định; đang dùng mặc định thì chip này được chọn sẵn (YC7-H7, Claude tự chốt).
 
 Tiêu chí:
 - **YC7.4-NT1** Khi Hùng xem 1509 cho 10/10 → 12/10 và chọn "+200k", thì giá bán là 2.600.000đ (2.200.000đ + 200.000đ × 2). · database, unit
@@ -170,6 +170,7 @@ Tiêu chí:
 - **YC7.4-NT3** Khi sale bấm "Gửi yêu cầu đặt phòng", thì app mở S3-02 với đúng căn và ngày đang xem. · unit
 - **YC7.4-NT4** Khi chủ nhà đã nhập số giường, thì S3 ghi "2PN · 3 giường"; chưa nhập thì chỉ "2PN"; không có "x khách" và không có mục tiện ích. · unit
 - **YC7.4-NT5** Khi Sale Lan đặt mức cộng cho 1509, thì giá bán của Hùng cho 1509 không đổi; khi Chị Hoa gửi lệnh đặt mức cộng cho 1509, thì database từ chối. · database
+- **YC7.4-NT7** `[r5 · thêm]` Khi Hùng đã đặt "+200k" cho 1509 rồi chọn chip "Mặc định" (mặc định +400k), thì mức cộng riêng của 1509 bị xóa và giá bán 1509 cho 10/10 → 12/10 là 3.000.000đ. · database, unit
 - **YC7.4-NT6** Khi Sale Hùng bị ngừng, hay mở căn ngoài phạm vi, căn đã xóa, thì không đọc được chi tiết; số điện thoại chủ nhà trống khi chủ nhà chưa cho số; đường dẫn ảnh quá 1 giờ không mở được. · database
 
 ## YC7.5 · Mức cộng giá mặc định
@@ -209,3 +210,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | US43 chuẩn bị | Trả lời YC7-H8, H9 (Claude tự chốt, QD25) | YC7.1, Quy tắc của nhóm |
 | r3 | 2026-11-19 | Claude | US44 chuẩn bị | Trả lời YC7-H1, H2, H3, H5 (Claude tự chốt, QD25); thêm YC7.2-NT8 | YC7.2 |
 | r4 | 2026-11-19 | Claude | US45 chuẩn bị | Trả lời YC7-H4 (Claude tự chốt, QD25) | YC7.3 |
+| r5 | 2026-11-19 | Claude | US46 chuẩn bị | Trả lời YC7-H6, H7 (Claude tự chốt, QD25); thêm YC7.4-NT7 | YC7.4 |
