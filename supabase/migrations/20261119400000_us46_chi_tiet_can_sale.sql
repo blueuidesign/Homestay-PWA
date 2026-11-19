@@ -93,7 +93,7 @@ begin
 end $$;
 
 -- YC7.4 bước 4, YC7.4-NT1, NT5, PQ11.SALE, KT-DB.3.3, KT-DB.3.6: ghi mức cộng riêng của người gọi cho một căn được xem
--- (0 là "Không cộng"). Mức cộng là số nguyên đồng không âm (QT5.2); trần 50.000.000đ mỗi đêm (Claude tự chọn, chặn gõ nhầm).
+-- (0 là "Không cộng"). Mức cộng là số nguyên đồng không âm (QT5.2); trần 5.000.000đ mỗi đêm, cùng bộ chip với P10 (YC7-H10).
 create or replace function public.fn_dat_muc_cong(p_can_id uuid, p_muc bigint) returns void
 language plpgsql volatile security definer set search_path = ''
 as $$
@@ -103,8 +103,8 @@ begin
   if p_can_id is null or p_can_id not in (select public.my_shared_can_ids()) then
     raise exception 'Bạn không còn xem được mục này' using errcode = '42501';
   end if;
-  if p_muc is null or p_muc < 0 or p_muc > 50000000 then
-    raise exception 'Mức cộng không hợp lệ' using errcode = '22023';
+  if p_muc is null or p_muc < 0 or p_muc > 5000000 then
+    raise exception 'Mức cộng từ 0 đến 5.000.000đ' using errcode = '22023';
   end if;
   insert into public.muc_cong (sale_id, can_id, muc, sua_luc) values (v_nguoi, p_can_id, p_muc, now())
   on conflict (sale_id, can_id) do update set muc = excluded.muc, sua_luc = excluded.sua_luc;
