@@ -33,10 +33,13 @@ Không có NT. Kiểm bằng tay: gộp một PR có mã item, xem thư tới.
 - Địa chỉ nhận không ghi vào repo vì repo công khai; để ở secret BAO_CAO_EMAIL.
 
 ## Task
-- [ ] EN9-TA1 Code · Claude Code: workflow, mẫu PR, tài liệu bí mật
+- [x] EN9-TA1 Code · PR #16
 - [ ] EN9-TA2 Việc tay · Tùng: thêm secret RESEND_API_KEY và BAO_CAO_EMAIL ở GitHub (work/cho-tung.md)
 
 ## Nhật ký
 - 2026-11-19 · Claude · tạo item, viết workflow theo yêu cầu của Tùng
 
+- 2026-11-19 · Claude · gộp PR #16, gửi thư thử thành công (Resend 200); sửa để log không in địa chỉ nhận
+
 ## Bằng chứng
+- Chạy tay bao-cao-email ngày 19/11: Resend trả 200.

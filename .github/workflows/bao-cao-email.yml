@@ -41,13 +41,14 @@ jobs:
           LINK_PR: ${{ github.event.pull_request.html_url }}
           SHA_DAU: ${{ github.event.pull_request.head.sha }}
           SU_KIEN: ${{ github.event_name }}
-          NHAN_TAY: ${{ inputs.nguoi_nhan }}
           NOI_DUNG_THU: ${{ inputs.noi_dung }}
           GUI_TU: ${{ vars.BAO_CAO_GUI_TU || 'Home247 <no-reply@homestaymail.vxlab.vn>' }}
           LINK_APP: ${{ vars.LINK_APP || 'https://homestay-pwa.vercel.app' }}
         run: |
           set -euo pipefail
-          [ -n "${NHAN_TAY:-}" ] && echo "::add-mask::$NHAN_TAY"
+          # Đọc địa chỉ nhận từ file sự kiện, không qua env, để log công khai không in ra.
+          NHAN_TAY=$(jq -r '.inputs.nguoi_nhan // empty' "$GITHUB_EVENT_PATH" 2>/dev/null || true)
+          [ -n "$NHAN_TAY" ] && echo "::add-mask::$NHAN_TAY"
           if [ "$SU_KIEN" = "workflow_dispatch" ]; then
             nhan="${NHAN_TAY:-$BAO_CAO_EMAIL}"
             if [ -z "$RESEND_API_KEY" ] || [ -z "$nhan" ]; then
