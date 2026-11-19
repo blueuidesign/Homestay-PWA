@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 30
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
