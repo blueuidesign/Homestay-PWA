@@ -5,6 +5,7 @@ import { ToastProvider, useToast } from './Toast';
 
 function ManA() { const t = useToast(); return <button onClick={() => t('Đã thêm đặt phòng')}>a</button>; }
 function ManB() { const t = useToast(); return <button onClick={() => t('Đã lưu giá')}>b</button>; }
+function ManLoi() { const t = useToast(); return <button onClick={() => t('Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại.', 'loi')}>c</button>; }
 
 afterEach(cleanup);
 
@@ -33,5 +34,18 @@ describe('HV8 · Toast', () => {
     expect(screen.queryByRole('status')).not.toBeNull();
     act(() => { vi.advanceTimersByTime(1); });
     expect(screen.queryByRole('status')).toBeNull();
+  });
+
+  it('HV8-NT4: toast báo việc chưa làm được thì không có dấu ✓, vẫn cùng chỗ cùng kiểu', () => {
+    const { unmount } = render(<ToastProvider><ManA /></ToastProvider>);
+    act(() => screen.getByText('a').click());
+    const lopThuong = screen.getByRole('status').className;
+    unmount();
+    render(<ToastProvider><ManLoi /></ToastProvider>);
+    act(() => screen.getByText('c').click());
+    const t = screen.getByRole('status');
+    expect(t.textContent).toBe('Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại.');
+    expect(t.textContent).not.toContain('✓');
+    expect(t.className).toBe(lopThuong);
   });
 });
