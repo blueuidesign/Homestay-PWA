@@ -620,12 +620,14 @@ Policy:
 - chuan_hoa_so(p_so text) → text · security definer
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
+- fn_tao_can(p_ma_can text, p_so_phong_ngu integer, p_client_id uuid, p_so_giuong integer, p_loai_view text, p_toa_nha_id uuid, p_mo_ta text) → uuid · security definer · gọi được: authenticated
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - local_today() → date · security definer · gọi được: authenticated
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated
 - my_shared_can_ids() → SETOF uuid · security definer · gọi được: authenticated
 - o_lich(p_can_id uuid, p_dem date) → text · security definer · gọi được: authenticated
 - tach_tien_theo_dem(p_tong bigint, p_so_dem integer) → bigint[] · security definer · gọi được: authenticated
+- tg_bao_chu_them_can() → trigger · security definer
 - tg_booking_huy_hai_ben() → trigger · security definer
 - tg_booking_nhat_ky() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
