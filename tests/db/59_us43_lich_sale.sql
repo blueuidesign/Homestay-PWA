@@ -139,7 +139,7 @@ select t.thoat();
 -- ===== YC7.1-NT4: Chị Hoa vừa lưu đặt phòng 1509 cho khách lẻ =====
 select t.dang_nhap(t.id('hoa'));
 select t.khong_loi($$select public.fn_tao_booking(p_can_id => '00000000-0000-0000-0001-000000001509', p_ngay_nhan => '2026-10-07',
-                     p_ngay_tra => '2026-10-09', p_tien_phong => 1800000, p_ten_khach => 'Khách Minh Thư',
+                     p_ngay_tra => '2026-10-09', p_tien_phong => 1830000, p_ten_khach => 'Khách Minh Thư',
                      p_sdt_khach => '0900000077')$$,
                    'YC7.1-NT4 Chị Hoa lưu đặt phòng 1509 07/10 → 09/10 cho khách lẻ');
 select t.thoat();
@@ -148,14 +148,14 @@ select t.bang(split_part(pg_temp.o(t.can('1509'), '2026-10-07'), '|', 1) || ',' 
               'kin,kin', 'YC7.1-NT4 lần đọc sau của Sale Hùng: 1509 kín 07/10, 08/10');
 select t.bang(split_part(pg_temp.o(t.can('1509'), '2026-10-09'), '|', 1), 'trong', 'YC7.1-NT4 Sale Hùng: 1509 đêm 09/10 (ngày trả) trống');
 select t.bang(t.so($$select * from public.fn_sale_lich('2026-10-07', '2026-10-14') l
-                     where l::text ilike '%Minh Thư%' or l::text like '%0900000077%' or l::text like '%1800000%'$$), 0::bigint,
+                     where l::text ilike '%Minh Thư%' or l::text like '%0900000077%' or l::text like '%1830000%'$$), 0::bigint,
               'YC7.1-NT4 QD11 lịch của Sale Hùng không có tên, số người đặt, tiền phòng');
 select t.thoat();
 select t.dang_nhap(t.id('lan'));
 select t.bang(split_part(pg_temp.o(t.can('1509'), '2026-10-07'), '|', 1) || ',' || split_part(pg_temp.o(t.can('1509'), '2026-10-08'), '|', 1),
               'kin,kin', 'YC7.1-NT4 lần đọc sau của Sale Lan: 1509 kín 07/10, 08/10');
 select t.bang(t.so($$select * from public.fn_sale_lich('2026-10-07', '2026-10-14') l
-                     where l::text ilike '%Minh Thư%' or l::text like '%0900000077%' or l::text like '%1800000%'$$), 0::bigint,
+                     where l::text ilike '%Minh Thư%' or l::text like '%0900000077%' or l::text like '%1830000%'$$), 0::bigint,
               'YC7.1-NT4 QD11 lịch của Sale Lan không có tên, số người đặt, tiền phòng');
 select t.thoat();
 
