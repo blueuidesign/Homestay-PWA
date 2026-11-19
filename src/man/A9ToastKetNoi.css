@@ -1,0 +1,15 @@
+/* YC6.8 · A9, A9-02 (canvas): toast đầu màn, nền đậm, nút "Xem" vùng bấm 44 px. */
+.a9-toast {
+  position: fixed; top: calc(env(safe-area-inset-top) + 64px); left: 12px; right: 12px; z-index: 100;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--ink, #1f2937); color: var(--on-action, #fff);
+  border-radius: var(--radius-md, 12px); padding: 12px 4px 12px 16px;
+}
+.a9-dau { flex: 0 0 auto; font-weight: 700; }
+.a9-chu { flex: 1 1 0; min-width: 0; font-size: 14px; line-height: 20px; font-weight: 700; text-wrap: pretty; }
+.a9-dong2 { display: block; margin-top: 2px; font-size: 13px; line-height: 18px; font-weight: 400; opacity: 0.85; }
+.a9-xem {
+  flex: 0 0 auto; min-width: 44px; min-height: 44px; padding: 0 8px; border: 0; background: transparent;
+  color: #34d399; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+}
+.a9-xem:focus-visible { outline: 2px solid #34d399; outline-offset: -2px; border-radius: 8px; }
