@@ -3,10 +3,10 @@ id: BG1
 tieu_de: "Toast báo lỗi vẫn có dấu ✓"
 loai: BG
 trang_thai: cho-test
-thuc_hien: [HV8@5]
+thuc_hien: []
 truoc: [EN4, US15]
 lien_quan: [US15]
-nguon: US15 (PR #22)
+nguon: US15 (PR #22), HV8@5 (chỉ HV8-NT4; HV8-NT3 ở US làm S1-05 theo QD27)
 nguoi: tung
 rui_ro: thap
 uoc_luong: 1 giờ
