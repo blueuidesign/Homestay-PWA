@@ -3,7 +3,7 @@ id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC7 · Lịch, tìm phòng và chi tiết căn của sale
@@ -137,7 +137,7 @@ Bản 1 · rủi ro: cao · Màn: S2, S4
 | 5 | Chuyển "Lịch tuần" | S4: "10/10 → 12/10", "5 căn trống", bảng căn × 7 ngày (giá, "Kín", "?"), đêm khách hỏi được tô. Không ghi số khách | Cùng điều kiện, trả bảng căn × ngày |
 | 6 | Chạm một căn | Theo quy tắc Chạm căn mở đâu | Không |
 
-Lịch tuần S4 bắt đầu từ ngày nào: [MỞ: YC7-H4]; tới khi có câu trả lời, từ ngày nhận.
+[r4 · sửa] Lịch tuần S4 bắt đầu từ ngày nhận, có ‹ › như S1 (YC7-H4, Claude tự chốt).
 
 Tiêu chí:
 - **YC7.3-NT1** Khi Sale Hùng tìm 10/10 → 12/10 ngày 06/10, thì có "5 căn trống": 1 căn ở "CỦA TÔI", 4 căn ở "NGUỒN PHÒNG", và Villa Tuần Châu ở nhóm "TỰ NHẬP · chưa biết lịch", không tính vào 5. · database, unit
@@ -208,3 +208,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US6, US12, US13 và phần "Lịch phòng 7 ngày" của US16 (QD20, QD21); áp quyết định 7, 9, 10, 11 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
 | r2 | 2026-11-19 | Claude | US43 chuẩn bị | Trả lời YC7-H8, H9 (Claude tự chốt, QD25) | YC7.1, Quy tắc của nhóm |
 | r3 | 2026-11-19 | Claude | US44 chuẩn bị | Trả lời YC7-H1, H2, H3, H5 (Claude tự chốt, QD25); thêm YC7.2-NT8 | YC7.2 |
+| r4 | 2026-11-19 | Claude | US45 chuẩn bị | Trả lời YC7-H4 (Claude tự chốt, QD25) | YC7.3 |

@@ -1998,7 +1998,7 @@
    "id": "US43",
    "loai": "US",
    "tieu_de": "\"Màn đầu tiên và lịch 7 ngày của sale\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2008,6 +2008,43 @@
     "US2"
    ],
    "file": "work/backlog/US43-man-dau-tien-va-lich.md",
+   "pr": "[51]",
+   "task": {
+    "Code": {
+     "xong": 3,
+     "tong": 3
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "khong",
+   "dang_cho": "Đức test tay"
+  },
+  {
+   "id": "US44",
+   "loai": "US",
+   "tieu_de": "\"Tìm phòng trống theo ngày\"",
+   "trang_thai": "dang-lam",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN1",
+    "EN2",
+    "EN4",
+    "US2"
+   ],
+   "file": "work/backlog/US44-tim-phong-trong-theo-ngay.md",
    "pr": "",
    "task": {
     "Code": {
@@ -2030,43 +2067,6 @@
    "co_code": true,
    "nghiem_thu": "khong",
    "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
-  },
-  {
-   "id": "US44",
-   "loai": "US",
-   "tieu_de": "\"Tìm phòng trống theo ngày\"",
-   "trang_thai": "dang-lam",
-   "nguoi": "Tùng",
-   "cha": "",
-   "truoc": [
-    "EN1",
-    "EN2",
-    "EN4",
-    "US2"
-   ],
-   "file": "work/backlog/US44-tim-phong-trong-theo-ngay.md",
-   "pr": "",
-   "task": {
-    "Code": {
-     "xong": 0,
-     "tong": 3
-    },
-    "Test tay": {
-     "xong": 0,
-     "tong": 1
-    },
-    "Nghiệm thu": {
-     "xong": 0,
-     "tong": 0
-    },
-    "khác": {
-     "xong": 0,
-     "tong": 0
-    }
-   },
-   "co_code": true,
-   "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
   },
   {
    "id": "US45",
