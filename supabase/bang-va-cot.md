@@ -176,6 +176,7 @@ RLS: bật
 
 Ràng buộc:
 - cai_dat_rieng_muc_cong_mac_dinh_check: CHECK ((muc_cong_mac_dinh >= 0))
+- cai_dat_rieng_muc_cong_trong_khoang: CHECK (((muc_cong_mac_dinh >= 0) AND (muc_cong_mac_dinh <= 5000000)))
 - cai_dat_rieng_nguoi_id_fkey: FOREIGN KEY (nguoi_id) REFERENCES profiles(id)
 - cai_dat_rieng_pkey: PRIMARY KEY (nguoi_id)
 
@@ -655,6 +656,7 @@ Policy:
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
 - fn_dat_muc_cong(p_can_id uuid, p_muc bigint) → void · security definer · gọi được: authenticated
+- fn_dat_muc_cong_mac_dinh(p_muc bigint, p_lam_tron boolean) → void · security definer · gọi được: authenticated
 - fn_dat_phong_cua_sale(p_sale_id uuid) → TABLE(id uuid, can_id uuid, ma_can text, ngay_nhan date, ngay_tra date, tien_phong bigint, trang_thai text, trang_thai_tien text) · security definer · gọi được: authenticated
 - fn_dat_xem_coc(p_ket_noi_id uuid, p_bat boolean) → boolean · security definer · gọi được: authenticated
 - fn_doanh_thu_thang(p_thang date) → TABLE(doanh_thu bigint, so_dem integer, doanh_thu_thang_truoc bigint) · security definer · gọi được: authenticated
@@ -671,6 +673,7 @@ Policy:
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_lay_link_xin_lich() → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
+- fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated
 - fn_sale_da_coc(p_booking_id uuid) → boolean · security definer · gọi được: authenticated
