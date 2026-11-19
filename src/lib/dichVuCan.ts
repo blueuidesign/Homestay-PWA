@@ -7,6 +7,7 @@
 import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
 import { taoDichVuLinkMoiSupabase, type DichVuLinkMoi } from './dichVuLinkMoi';
 import { taoDichVuXinLichSupabase, type DichVuXinLich } from './dichVuXinLich';
+import { taoDichVuThongBaoSupabase, type DichVuThongBao } from './dichVuThongBao';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -98,6 +99,8 @@ export interface DichVuCan {
   linkMoi?: DichVuLinkMoi;
   /** YC6.4: link xin lịch và số đếm của sale (src/lib/dichVuXinLich.ts). Thiếu thì tab Lịch của sale là bản tạm. */
   xinLich?: DichVuXinLich;
+  /** YC6.8: thông báo "chủ đồng ý kết nối" của sale cho toast A9 (src/lib/dichVuThongBao.ts). Thiếu thì không có toast. */
+  thongBao?: DichVuThongBao;
 }
 
 function maNgauNhien(): string {
@@ -151,6 +154,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     // YC6.3: ảnh xem trước xin từ kho bằng khóa anon (công khai) kèm mã link.
     linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
     xinLich: taoDichVuXinLichSupabase(sb), // YC6.4
+    thongBao: taoDichVuThongBaoSupabase(sb), // YC6.8
 
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')

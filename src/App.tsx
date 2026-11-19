@@ -15,6 +15,7 @@ import { LuongDangNhap } from './man/LuongDangNhap';
 import { A3ChonVai } from './man/A3ChonVai';
 import { ManLinkMoi } from './man/A10ThemLich';
 import { A4ChuaCoCan } from './man/A4ChuaCoCan';
+import { A9ToastKetNoi } from './man/A9ToastKetNoi';
 import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
@@ -45,6 +46,8 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   // YC6.5 bước 2: vừa đồng ý cho sale này xem lịch mà chưa có căn thì tab Lịch là A4-01 (rời tab Lịch thì thôi).
   const [vuaChoXem, datVuaChoXem] = useState<string | null>(null);
   useEffect(() => { if (duongDan !== '/') datVuaChoXem(null); }, [duongDan]);
+  // YC6.8 bước 3: bấm "Xem" ở toast A9 thì dựng lại tab Lịch của sale (Nguồn phòng làm ở YC10.1).
+  const [lanXem, datLanXem] = useState(0);
 
   const taiLai = useCallback(async () => {
     if (!dichVu) return;
@@ -165,6 +168,14 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
       }
       // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch).
-      return <ManLich vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />;
+      // YC6.8: sale đang mở app thấy toast A9, A9-02 khi chủ nhà đồng ý; "Xem" về lịch của sale.
+      return (
+        <>
+          <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />
+          {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
+            <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />
+          )}
+        </>
+      );
   }
 }
