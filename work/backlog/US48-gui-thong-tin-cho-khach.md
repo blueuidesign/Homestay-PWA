@@ -60,6 +60,9 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md.
 - [ ] US48-TA4 Test tay · Đức: chạy tests/kb/US48-gui-thong-tin-cho-khach.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/64 viết trước theo hợp đồng ghi ở đầu file (fn_soan_tin_gui_khach, fn_ghi_lan_gui, trigger sau khi đổi ngày).
+- TA2: migration 20261119420000: hai lệnh (tối đa 10 căn, cả lệnh bị từ chối khi có căn không được gửi), chữ từng căn ở database, trigger after update báo lần gửi khi đêm mới chạm; phép thử làm hỏng.
+- TA3: src/lib/guiKhach.ts (ghép mẫu tin, chữ nút ảnh), dichVuGuiKhach.ts (gọi lệnh, ký ảnh 1 giờ), màn S5, nối nút ở S2, S3; unit rồi e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC8.1@1 (QD21)
