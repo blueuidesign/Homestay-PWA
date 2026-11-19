@@ -34,7 +34,10 @@ CN5-02
 PQ1, PQ3, PQ13 và các test vi phạm ở mục "Ai được làm gì" của YC3-can.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+- supabase/migrations/20261119290000_us18_sua_can.sql, tests/db/50_us18_sua_can.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md
+- src/man/CN502SuaCan.tsx (+ .test.tsx), src/man/CN5A1ThemCan.tsx, src/man/MucAnhCan.tsx, src/man/ManChu.tsx, src/man/CN5DanhSachCan.tsx
+- src/lib/dichVuCan.ts, src/lib/can.ts, src/lib/kiemCan.ts, src/lib/anh.ts (+ test)
+- tests/e2e/supabase/sua-can.spec.ts
 
 ## Ngoài phạm vi
 - YC3-H4 đã Claude tự chốt (QD25), ghi ở YC3.5 r4.
@@ -58,6 +61,9 @@ Kịch bản test tay: tests/kb/US18-sua-can.md.
 - [ ] US18-TA4 Test tay · Đức: chạy tests/kb/US18-sua-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+1. TA1: tests/db/50_us18_sua_can.sql cho NT2 đến NT5 và test vi phạm (sale được chia sẻ, chủ khác, người chưa đăng nhập, căn đã ẩn), viết trước, chạy thấy đỏ.
+2. TA2: migration thêm fn_sua_can(p_can_id, p_sua jsonb): khóa căn, chỉ người giữ và căn chưa ẩn (42501 "Không tìm thấy căn"), chỉ ghi khóa có trong p_sua (có khóa mà null là bỏ giá trị), luật kiểm như fn_tao_can, mã trùng căn chưa ẩn khác của mình thì P0001, "anh" là danh sách mới đầy đủ qua gan_anh_can. Thêm phép thử làm hỏng vào thu-lam-hong.txt, sinh lại bang-va-cot.md.
+3. TA3: dichVuCan thêm layCan (đọc can, anh_can qua RLS) và suaCan; MucAnhCan nhận ảnh có sẵn và chế độ "Đổi thứ tự"; màn CN502SuaCan dùng lại các mục của form thêm, hỏi "Bỏ thay đổi chưa lưu?"; ManChu thay khung tạm. Test unit NT1, NT2, NT4; e2e NT1, NT2, NT4.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.5@1 (QD21)
