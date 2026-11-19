@@ -1,0 +1,57 @@
+/* US46 · S3 Chi tiết căn (canvas home247-canvas.html S3). Màn đọc: chữ thân 14 px, nhãn 12 px; vùng bấm 44 px. */
+.s3 { --action-bright: #34d399; --action-soft: #d1fae5; --action-ink: #065f46; --action-tint: #ecfdf5; position: relative; }
+.s3-an { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.s3-cuon { flex: 1 1 auto; padding-bottom: calc(132px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.s3-dau-anh { position: relative; }
+.s3-anh { position: relative; aspect-ratio: 4 / 3; background: var(--border-subtle); }
+.s3-anh-cuon { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.s3-anh-cuon::-webkit-scrollbar { display: none; }
+.s3-anh-mot { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; display: block; scroll-snap-align: start; }
+.s3-anh-so { position: absolute; right: 10px; bottom: 10px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-body); padding: 2px 10px; border-radius: 9999px; background: var(--surface); }
+.s3-quay-lai { position: absolute; left: 12px; top: 12px; background: var(--surface); border-radius: 8px; }
+.s3-than { display: flex; flex-direction: column; gap: 12px; padding: 0 12px; }
+.s3-the { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.s3-ten { margin: 0; font-size: 22px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.s3-thong-tin { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.s3-tuoi { font-size: 13px; line-height: 18px; color: var(--action); }
+.s3-chu { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+.s3-chu-chu { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.s3-chu-ten { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.s3-chu-ten-chinh { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s3-chu-ten-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s3-goi { flex: 0 0 auto; min-height: 44px; display: inline-flex; align-items: center; gap: 6px; border-radius: 9999px; text-decoration: none; padding: 0 16px; }
+.s3-hang { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.s3-khoang { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s3-gia-chu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s3-nhan { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.s3-chips { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.s3-chips::-webkit-scrollbar { display: none; }
+.s3-chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 14px; border-radius: 9999px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-secondary); font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.s3-chip--on { background: var(--ink); border-color: var(--ink); color: var(--on-action); }
+.s3-chip:disabled { opacity: 0.7; }
+.s3-chip:focus-visible, .s3-goi:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.s3-tuy { display: flex; gap: 8px; align-items: center; }
+.s3-tuy-o { flex: 1 1 0; min-width: 0; }
+.s3-tuy-o input { width: 100%; height: 44px; border: 1px solid var(--border-input); border-radius: 8px; padding: 0 12px; font: inherit; font-size: 16px; color: var(--ink); }
+.s3-tuy-nut { flex: 0 0 auto; min-height: 44px; }
+.s3-gia-ban-nhan { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s3-gia-ban { font-size: 22px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.s3-ghi { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s3-tieu-de-muc { margin: 0; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s3-luoi { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.s3-luoi-thu { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-align: center; }
+.s3-o { min-height: 52px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.s3-o-so { font-size: 12px; line-height: 20px; color: var(--ink-body); }
+.s3-o-chu { font-size: 14px; line-height: 18px; font-weight: 500; color: var(--action); min-height: 18px; }
+.s3-o--kin { background: var(--border-subtle); }
+.s3-o--kin .s3-o-chu { color: var(--ink-faint); }
+.s3-o--qua .s3-o-so { color: var(--ink-faint); }
+.s3-o--hoi { border-color: var(--action-bright); background: var(--action-tint); }
+.s3-o--hoi .s3-o-so { font-weight: 700; }
+.s3-chu-thich { display: flex; gap: 16px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s3-chu-thich span { display: flex; align-items: center; gap: 6px; }
+.s3-mau { width: 16px; height: 12px; border-radius: 4px; display: inline-block; }
+.s3-mau--kin { background: var(--border-subtle); }
+.s3-mau--hoi { border: 1px solid var(--action-bright); background: var(--action-tint); }
+.s3-gio { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s3-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: 1fr; gap: 8px; }

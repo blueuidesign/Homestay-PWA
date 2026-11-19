@@ -53,16 +53,24 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md.
 
 ## Task
-- [ ] US46-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.4-NT1, YC7.4-NT2, YC7.4-NT5, YC7.4-NT6, YC7.4-NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US46-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US46-TA3 Code · Claude Code (sonnet, CL14.6a): màn S3 theo canvas, test unit, e2e cho YC7.4-NT1 đến NT4
+- [x] US46-TA1 Code: tests/db/62_us46_chi_tiet_can_sale.sql (nhánh US46-chi-tiet-can-sale)
+- [x] US46-TA2 Code: migration 20261119400000_us46_chi_tiet_can_sale.sql, 8 phép thử làm hỏng
+- [x] US46-TA3 Code: S3, S3-02 tạm, nối chạm căn ở S1, S2, S4; unit và e2e
 - [ ] US46-TA4 Test tay · Đức: chạy tests/kb/US46-chi-tiet-can-cua-chu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- DB: fn_sale_chi_tiet_can(căn, từ, đến) trả jsonb (căn, ảnh, chủ, giá chủ và giá bán từng đêm, mức cộng, lịch 14 ngày, giờ) hoặc chỉ {khong_con_quyen, ly_do} (HV5); fn_dat_muc_cong, fn_bo_muc_cong (chip "Mặc định"). Chỉ căn trong my_shared_can_ids().
+- App: S3ChiTietCan, ảnh qua createSignedUrls 3600 giây; chạm căn chủ nhà ở S2/S4 (ngày đang tìm, tô ngày hỏi) và S1 (ngày đầu đang xem, 1 đêm) mở S3; S3-02 tạm trong S6Tam.
+- Claude tự chọn (ghi ở PR): lịch 14 ngày bắt đầu thứ Hai của tuần có ngày nhận (theo lưới canvas); ngày đã qua không ghi "Trống"; mức cộng tối đa 50.000.000đ mỗi đêm; căn đã xóa, ngoài phạm vi không có lý do; chạm căn của tôi, tự nhập ở S1 mở S6-07, S6-03 tạm như S2. Không làm [MỞ: PQ2-H1].
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.4@1 (QD21)
 - 2026-11-19 · Claude · nhận HV5-NT1, HV5-NT2 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H6, H7 (YC7 r5, thêm NT7); viết kịch bản test tay; soạn gói việc; giao agent code
+- 2026-11-19 · Claude (agent code) · TA1 đến TA3 trên nhánh US46-chi-tiet-can-sale, chưa mở PR · test xanh một vòng · ~1 giờ
 
 ## Bằng chứng
+- TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.4` trước migration: 55 hỏng, 22 qua (đỏ đúng chỗ). TA2: sau migration 77 qua, 0 hỏng, một vòng; HV5: 11 qua. Cả bộ `scripts/test-db.sh`: 1806 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh YC7.4`: 8 đạt, 0 không đạt.
+- `npx vitest run`: 74 file, 720 test qua (S3 viết màn trước test unit; test qua ngay lần đầu). `npm run typecheck`, `npm run build`: qua.
+- e2e `tests/e2e/supabase/chi-tiet-can-sale.spec.ts` qua lần đầu; cả bộ e2e supabase 63 qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

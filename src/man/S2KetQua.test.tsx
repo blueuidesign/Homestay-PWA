@@ -180,3 +180,18 @@ describe('YC7.3 · S2 kết quả danh sách', () => {
     await waitFor(() => expect(screen.queryByRole('button', { name: 'Thử lại' })).toBeNull());
   });
 });
+
+describe('YC7.4 · chạm căn của chủ nhà ở kết quả tìm mở S3 (US46)', () => {
+  it('YC7.4-NT3 YC7 Quy tắc "Chạm căn mở đâu" chạm 1509 mở S3 với ngày đang tìm, tô ngày khách hỏi; Quay lại về S2', async () => {
+    const chiTietCan = {
+      doc: vi.fn(async () => ({ khongConQuyen: true as const, lyDo: null })),
+      datMuc: vi.fn(async () => undefined),
+    };
+    await moKetQua({ ...dv(), chiTietCan });
+    fireEvent.click(screen.getByRole('button', { name: 'ICON40 1509 · 2PN' }));
+    expect(document.querySelector('[data-man="S3"]')).not.toBeNull();
+    expect(chiTietCan.doc).toHaveBeenCalledWith('1509', '2026-10-10', '2026-10-12');
+    fireEvent.click(await screen.findByRole('button', { name: 'Quay lại' }));
+    expect(await screen.findByText('5 căn trống')).toBeInTheDocument();
+  });
+});

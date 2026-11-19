@@ -1,6 +1,7 @@
 // Tìm phòng của sale (YC7.2, YC7 "Dữ liệu", QD4, KT-DB.3.5): tìm qua fn_sale_tim (database ghi lần tìm), đọc lần tìm gần đây
 // và danh sách tòa qua RLS. App không ghi thẳng bảng nào.
 import type { SupabaseClient } from '@supabase/supabase-js';
+import type { DichVuChiTietCanSale } from './dichVuChiTietCanSale';
 import { docDongLichSale } from './dichVuLichSale';
 import { LOAI_VIEW } from './kiemCan';
 import type { DongLichSale } from './lichSale';
@@ -18,6 +19,8 @@ export interface DichVuTimPhong {
   docToa(): Promise<ToaTim[]>;
   /** YC7.3 bước 5 (S4), Sắp xếp (S2): lịch của sale từ `tu` tới trước `den` qua fn_sale_lich. Thiếu thì S4 không có ô. */
   docLich?(tu: Ngay, den: Ngay): Promise<DongLichSale[]>;
+  /** YC7.4 (US46): chi tiết căn của chủ nhà (S3) khi chạm căn ở kết quả. Thiếu thì chạm căn của chủ nhà không làm gì. */
+  chiTietCan?: DichVuChiTietCanSale;
 }
 
 type BoLoc = { so_phong_ngu?: unknown; toa_nha?: unknown; view?: unknown };

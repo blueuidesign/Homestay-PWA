@@ -16,6 +16,7 @@ import { CACH_XEP, tenHang, type CachXep, type DongLichSale } from '../lib/lichS
 import { congNgay, type Ngay } from '../lib/ngay';
 import { tieuDeKetQua, type CanTim, type DieuKienTim, type KetQuaTim } from '../lib/timPhong';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
+import { S3ChiTietCan, type MoS3 } from './S3ChiTietCan';
 import { S4LichTuanKetQua } from './S4LichTuanKetQua';
 import { S6Tam } from './S6Tam';
 import { Icon } from './TabChu';
@@ -177,7 +178,7 @@ export function S2KetQua(props: {
 /**
  * YC7.3 bước 1 đến 6, YC7.3-NT3, NT4, NT6, HV1, HV2, HV3: một kết quả tìm, hai chế độ dùng chung điều kiện, tập căn, căn đã
  * chọn và cách sắp xếp. Lịch tuần (fn_sale_lich) đọc bảy ngày từ ngày nhận (YC7-H4), ‹ › lùi tiến 7 ngày; quay lại từ nền
- * thì đọc lại lịch (HV3). Chạm căn mở S6-07, S6-03 bản tạm; căn của chủ nhà (S3, US46) chưa làm gì.
+ * thì đọc lại lịch (HV3). Chạm căn mở S6-07, S6-03 bản tạm; căn của chủ nhà mở S3 (YC7.4) với ngày nhận, ngày trả đang tìm.
  */
 export function ManKetQua(props: {
   dv: DichVuTimPhong; dieuKien: DieuKienTim; kq: KetQuaTim; homNay: Ngay; onSua: () => void; onQuayLai: () => void;
@@ -188,6 +189,7 @@ export function ManKetQua(props: {
   const [cach, datCach] = useState<CachXep>('ten');
   const [daChon, datDaChon] = useState<ReadonlySet<string>>(() => new Set());
   const [mo, datMo] = useState<{ man: 'S6-07' | 'S6-03'; ten: string } | null>(null);
+  const [moS3, datMoS3] = useState<MoS3 | null>(null);
   const [tu, datTu] = useState<Ngay>(() => ngayDauTuan(dieuKien) ?? props.homNay);
   const [dong, datDong] = useState<DongLichSale[] | undefined>(undefined);
   const [dongDem, datDongDem] = useState<Ngay | null>(null);
@@ -223,11 +225,19 @@ export function ManKetQua(props: {
   });
   const cham = (c: CanTim) => {
     const man = manKhiCham(c);
-    if (man === 'S3') return; // US46
+    if (man === 'S3') {
+      if (dv.chiTietCan && dieuKien.nhan && dieuKien.tra) {
+        datMoS3({ canId: c.canId, tenTam: tenHang(c), tu: dieuKien.nhan, den: dieuKien.tra, khachHoi: true });
+      }
+      return;
+    }
     datMo({ man, ten: tenHang(c) });
   };
   const gui = () => hienToast(CAU_GUI_KHACH_SE_CO);
 
+  if (moS3 && dv.chiTietCan) {
+    return <S3ChiTietCan {...moS3} dv={dv.chiTietCan} homNay={props.homNay} onQuayLai={() => datMoS3(null)} />;
+  }
   if (mo) return <S6Tam man={mo.man} tenCan={mo.ten} onQuayLai={() => datMo(null)} />;
   if (cheDo === 'lich-tuan') {
     return (

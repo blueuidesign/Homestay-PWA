@@ -2,16 +2,18 @@
 // Mỗi căn một hàng, bảy cột ngày từ ngày đầu; ô trống ghi giá bán rút gọn, kín ghi "Kín", căn tự nhập ghi "?" hay "Bạn".
 // Nhóm "Căn của tôi" luôn trên "Nguồn phòng" (YC7 Quy tắc). Xoay ngang là xoay giả bằng CSS, không theo cảm biến (YC7.1-NT8).
 // HV1 khung xám và "Đang cập nhật…", HV2 Thử lại, HV8 toast đọc theo chiều ngang khi xoay (HV8-NT3, qua thuộc tính data-xoay).
-// Chạm căn (S3, S6-07, S6-03) chưa có màn đích: chưa làm gì. Ô tìm mở S1-02 (YC7.2, US44) qua onTim hay MoTimPhong của ManSale.
+// Chạm căn (YC7 "Chạm căn mở đâu", US46): qua MoCanSale của ManSale, với ngày đầu đang xem (căn chủ nhà mở S3 1 đêm, YC7-H6).
+// Ô tìm mở S1-02 (YC7.2, US44) qua onTim hay MoTimPhong của ManSale.
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { DongDangCapNhat } from '../chung/dangTai';
 import { DaiMatKetNoi } from '../chung/matKetNoi';
 import {
-  bayNgay, CACH_XEP, chiaNhom, cotNgay, dungHang, tenKhoang, type CachXep, type DongLichSale, type OLichSale,
+  bayNgay, CACH_XEP, chiaNhom, cotNgay, dungHang, tenKhoang, type CachXep, type DongLichSale, type HangLichSale, type OLichSale,
 } from '../lib/lichSale';
 import type { Ngay } from '../lib/ngay';
 import { Icon, ICON_LICH } from './TabChu';
 import './S1LichSale.css';
+import './S2KetQua.css';
 
 const ICON_TRUOC = <path d="m15 18-6-6 6-6" />;
 const ICON_SAU = <path d="m9 18 6-6-6-6" />;
@@ -20,6 +22,9 @@ const ICON_DONG = <><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>;
 
 /** YC7.1 bước 10, YC7.2 bước 1: khung tab của sale (ManSale) cho cách mở S1-02 khi S1 không được truyền onTim. */
 export const MoTimPhong = createContext<(() => void) | undefined>(undefined);
+
+/** YC7 Quy tắc "Chạm căn mở đâu": khung tab của sale (ManSale) mở màn của căn; tu là ngày đầu của khoảng đang xem. */
+export const MoCanSale = createContext<((h: Pick<HangLichSale, 'canId' | 'nhom' | 'ten'>, tu: Ngay) => void) | undefined>(undefined);
 
 /** HV8-NT3: thuộc tính trên thẻ html để toast (src/chung/Toast) xoay theo khung ngang. */
 export const THUOC_TINH_XOAY = 'data-xoay';
@@ -69,6 +74,7 @@ export function S1LichSale(props: {
   onTim?: () => void;
 }) {
   const moTim = useContext(MoTimPhong);
+  const moCan = useContext(MoCanSale);
   const [cach, datCach] = useState<CachXep>('ten');
   const [moXep, datMoXep] = useState(false);
   const [ngang, datNgang] = useState(false);
@@ -132,8 +138,17 @@ export function S1LichSale(props: {
           {g.hang.map((h) => (
             <div key={h.canId} className="s1-hang" role="row" data-can={h.canId}>
               <div className="s1-ten" role="rowheader">
-                <span className="s1-ten-chinh">{h.ten}</span>
-                {h.phu && <span className="s1-ten-phu">{h.phu}</span>}
+                {moCan ? (
+                  <button type="button" className="kq-ten-mo" onClick={() => moCan(h, props.tu)}>
+                    <span className="s1-ten-chinh">{h.ten}</span>
+                    {h.phu && <span className="s1-ten-phu">{h.phu}</span>}
+                  </button>
+                ) : (
+                  <>
+                    <span className="s1-ten-chinh">{h.ten}</span>
+                    {h.phu && <span className="s1-ten-phu">{h.phu}</span>}
+                  </>
+                )}
               </div>
               {h.o.map((o) => <O key={o.dem} o={o} homNay={o.dem === props.homNay} />)}
             </div>
