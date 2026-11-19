@@ -1,5 +1,6 @@
 // Các tab của chủ nhà (YC3.1): tab Lịch và tab Căn chưa có căn thì A4, tab Căn có căn thì CN5.
-// Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b). Lịch khi đã có căn (YC5), Sửa căn CN5-02, Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
+// Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b).
+// Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21); tab Thông tin (Sửa căn CN5-02), Lịch khi đã có căn (YC5), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
 import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -10,7 +11,7 @@ import type { DichVuCan } from '../lib/dichVuCan';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
-import { KhungMan } from './khung';
+import { CN6GiaCan, KhungCan } from './CN6GiaCan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
 const TIEU_DE_TAM: Record<'sale' | 'thong-ke' | 'ca-nhan', string> = { sale: 'Sale', 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
@@ -43,9 +44,12 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
   const canDanhSach = man.tab === 'lich' || man.tab === 'can';
+  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia';
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
   useEffect(() => { if (canDanhSach) void tai(); }, [canDanhSach, man.tab, tai]);
+  // Mở thẳng địa chỉ của một căn (chưa qua tab Căn) thì đọc danh sách để có mã căn cho tiêu đề "Phòng 3402".
+  useEffect(() => { if (moCan && ds === undefined && !dangTai) void tai(); }, [moCan, ds, dangTai, tai]);
 
   const themCan = () => props.den('/can/moi');
   const chonTab = (t: TabChuTen) => props.den(DUONG_DAN_TAB[t]);
@@ -64,8 +68,22 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     );
   }
   if (man.tab === 'can-chi-tiet') {
+    // CN5-02 tab Thông tin: sửa căn làm ở US sau.
     const c = ds?.find((x) => x.id === man.id);
-    return <KhungMan tieuDe={c ? tenCan(c.maCan) : 'Căn'} onQuayLai={() => props.den('/can')}><p className="dong-mo">Sửa căn làm ở US sau.</p></KhungMan>;
+    return (
+      <KhungCan tieuDe={c ? tenCan(c.maCan) : 'Căn'} tab="thong-tin" onQuayLai={() => props.den('/can')}
+                onChonTab={(t) => { if (t === 'gia') props.den(`/can/${man.id}/gia`); }}>
+        <p className="dong-mo">Sửa thông tin căn sẽ có ở bản sau.</p>
+      </KhungCan>
+    );
+  }
+  if (man.tab === 'can-gia') {
+    // YC4.2 bước 1: CN6 tab Giá; lưu giá xong ở lại tab Giá (YC4-H5).
+    const c = ds?.find((x) => x.id === man.id);
+    return (
+      <CN6GiaCan key={man.id} canId={man.id} maCan={c?.maCan ?? null} dv={props.dichVuCan?.gia}
+                 onQuayLai={() => props.den('/can')} onThongTin={() => props.den(`/can/${man.id}`)} />
+    );
   }
 
   let than;

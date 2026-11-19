@@ -5,6 +5,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
+import { taoDichVuGiaSupabase, type DichVuGia } from './dichVuGia';
 import type { CanTomTat } from './can';
 import { loiTuTaoCan } from './kiemCan';
 import type { DanhSachToa } from './toaNha';
@@ -46,6 +47,8 @@ export interface DichVuCan {
   layToa?(): Promise<DanhSachToa>;
   /** YC3.4 bước 33: thêm tòa, trả mã tòa; tên trùng thì mã tòa đã có (GD21). Database từ chối thì LoiNguoiDung. */
   themToa?(ten: string): Promise<string>;
+  /** YC4.2: giá theo tháng của một căn (src/lib/dichVuGia.ts). Thiếu thì tab Giá báo như mất mạng. */
+  gia?: DichVuGia;
 }
 
 function maNgauNhien(): string {
@@ -92,6 +95,8 @@ type DongView = {
 
 export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
   return {
+    gia: taoDichVuGiaSupabase(sb), // YC4.2
+
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')
         .select('id, ma_can, so_phong_ngu, so_giuong, loai_view, ten_toa, so_anh, anh_dai_dien, moi_them, khach_den')

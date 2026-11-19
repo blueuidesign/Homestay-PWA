@@ -1,6 +1,6 @@
 // Test unit cho tiền số nguyên đồng và cách viết đầy đủ (QT5.2, glossary.md mục Viết số tiền).
 import { describe, expect, it } from 'vitest';
-import { laTienNguyen, vietTien } from './tien';
+import { laTienNguyen, vietKhoangGia, vietTien, vietTienGon } from './tien';
 
 describe('QT5.2 · tiền là số nguyên đồng', () => {
   it('QT5.2: số nguyên là tiền hợp lệ', () => {
@@ -26,5 +26,26 @@ describe('QT5.2 · viết số tiền đầy đủ', () => {
   });
   it('QT5.2: không viết số có phần lẻ, báo lỗi thay vì làm tròn ngầm', () => {
     expect(() => vietTien(1_300_000.5)).toThrow(RangeError);
+  });
+});
+
+describe('QT5-H1 · viết số tiền rút gọn', () => {
+  it.each([
+    [900_000, '900k'], [950_500, '951k'], [999_999, '1tr'], [1_000_000, '1tr'], [1_100_000, '1,1tr'],
+    [1_150_000, '1,15tr'], [1_125_000, '1,13tr'], [1_300_000, '1,3tr'], [800_000, '800k'], [2_500_000, '2,5tr'],
+    [100_000_000, '100tr'], [499, '0k'], [950_499, '950k'], [1_994_999, '1,99tr'], [1_995_000, '2tr'],
+  ])('glossary Viết số tiền: %i viết "%s"', (dong, chu) => {
+    expect(vietTienGon(dong)).toBe(chu);
+  });
+  it('QT5-H1: số âm, có phần lẻ thì báo lỗi', () => {
+    expect(() => vietTienGon(-1)).toThrow(RangeError);
+    expect(() => vietTienGon(1.5)).toThrow(RangeError);
+  });
+  it('YC4.2-NT1 khoảng giá 800.000đ và 1.100.000đ viết "800k–1,1tr"', () => {
+    expect(vietKhoangGia(800_000, 1_100_000)).toBe('800k–1,1tr');
+    expect(vietKhoangGia(1_100_000, 800_000)).toBe('800k–1,1tr');
+  });
+  it('QT5-H1: hai giá bằng nhau thì ghi một số', () => {
+    expect(vietKhoangGia(700_000, 700_000)).toBe('700k');
   });
 });
