@@ -30,7 +30,7 @@ Canvas bản PWA đã có A2, A2-01 đến A2-04, A11, A11-01, A11-02 (PR #10). 
 | A2, A2-01 đến A2-04, A11, A11-01, A11-02 | đã vẽ | Không | YC1.2 |
 
 ## Làm tiêu chí nào
-YC1.2-NT1 đến NT8, NT10 đến NT13. NT9 bỏ vì trùng YC6.3-NT1, kiểm ở US37 (YC1 r4, QD25).
+YC1.2-NT1 đến NT8, NT10 đến NT13. NT9 bỏ vì trùng tiêu chí link mời của YC6.3, kiểm ở US37 (YC1 r4, QD25).
 
 ## Quy tắc, hành vi dùng
 HV4, HV5, QT6.5
