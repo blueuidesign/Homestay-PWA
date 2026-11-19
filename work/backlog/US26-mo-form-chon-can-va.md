@@ -2,7 +2,7 @@
 id: US26
 tieu_de: "Mở form, chọn căn và ngày, kiểm trùng sớm"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [31]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US26-mo-form-chon-can-va.md.
 
 ## Task
-- [ ] US26-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.1-NT2, YC5.1-NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US26-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US26-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN3 theo canvas, test unit, e2e cho YC5.1-NT1 đến NT4
+- [x] US26-TA1 Code · PR #31
+- [x] US26-TA2 Code · PR #31
+- [x] US26-TA3 Code · PR #31
 - [ ] US26-TA4 Test tay · Đức: chạy tests/kb/US26-mo-form-chon-can-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US26-mo-form-chon-can-va.md.
 - 2026-11-18 · Claude · tạo item từ YC5.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV3-NT1, HV3-NT4 từ EN4 (QD27)
 - 2026-11-19 · Claude · TA1, TA2, TA3 code xong trên nhánh US26-form-dat-phong · e2e lich-thang YC2.1-NT6 cũ đỏ vì CN1 nay mở CN4 (file ngoài phạm vi)
+- 2026-11-19 · Claude · sửa ca e2e YC2.1-NT6 theo YC2.1 bước 5 (mở CN4), gộp PR #31 theo QD25 (CI xanh), sang cho-test · 10 phút
 
 ## Bằng chứng
 - `scripts/test-db.sh` (Postgres 16): lần đầu 18 hỏng + 1 file lỗi (chưa có hàm); vòng 2 còn 3 hỏng (tiền từng đêm khi ràng buộc chạy ngay, sửa ghi một câu lệnh); vòng 3: 740 qua, 0 hỏng.
