@@ -54,6 +54,18 @@ export function kiemFormCan(f: FormCan): LoiCan {
   return l;
 }
 
+/** YC3.4 bước 29: hàng chip "Loại view" (YC3-H7: một view cho một căn). Không có "Vịnh" (YC3.4-NT2). */
+export const CHIP_VIEW: { ma: (typeof LOAI_VIEW)[number]; chu: string }[] = [
+  { ma: 'bien', chu: 'Biển' }, { ma: 'thanh_pho', chu: 'Thành phố' }, { ma: 'nui', chu: 'Núi' },
+];
+
+/** YC3.4 bước 29: ô "Số giường" là chữ người gõ. Trống là null; không phải số nguyên dương thì NaN (kiemFormCan báo lỗi). */
+export function docSoGiuong(chu: string): number | null {
+  const t = chu.trim();
+  if (!t) return null;
+  return /^\d+$/.test(t) ? Number(t) : Number.NaN;
+}
+
 /** YC3.2 bước 20: câu database trả về thuộc ô nào (để hiện ngay dưới ô sai). null là câu chung. */
 export function oCuaCau(cau: string): OCan | null {
   if (/^(Mã căn|Đã có căn)/.test(cau)) return 'maCan';

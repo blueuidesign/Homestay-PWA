@@ -1,11 +1,13 @@
 // Đọc danh sách căn của chủ nhà qua v_can_cua_toi (YC3.1 bước 9, QD4, PQ3.CHU). Ảnh qua đường dẫn có hạn (QT5.7).
 // Thêm căn qua fn_tao_can (YC3.2 bước 18, QT5.6), kèm ảnh theo thứ tự (YC3.3 bước 23, 24).
 // Ảnh tải lên kho anh-can vào thư mục của người tải, rồi ghi ảnh tạm qua fn_them_anh_tam (YC3.3 bước 23, QT5.7).
+// Danh sách tòa đọc qua RLS (toa_nha_doc), thêm tòa qua fn_them_toa (YC3.4 bước 29, 33, QT6.3).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
 import type { CanTomTat } from './can';
 import { loiTuTaoCan } from './kiemCan';
+import type { DanhSachToa } from './toaNha';
 
 /** YC3.2 bước 18: dữ liệu lệnh tạo căn. clientId là mã lần gửi, giữ nguyên khi bấm lại (QT5.6). */
 export type CanMoi = {
@@ -40,6 +42,10 @@ export interface DichVuCan {
    * File sai loại, quá cỡ thì ném LoiNguoiDung(CAU_LOI_FILE); database từ chối bằng câu thì LoiNguoiDung kèm câu đó.
    */
   taiAnh?: TaiAnh;
+  /** YC3.4 bước 29: danh sách tòa chung và tòa người gọi đã dùng cho căn chưa ẩn của mình (mới dùng trước). */
+  layToa?(): Promise<DanhSachToa>;
+  /** YC3.4 bước 33: thêm tòa, trả mã tòa; tên trùng thì mã tòa đã có (GD21). Database từ chối thì LoiNguoiDung. */
+  themToa?(ten: string): Promise<string>;
 }
 
 function maNgauNhien(): string {
@@ -114,6 +120,31 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
         p_so_giuong: c.soGiuong ?? null, p_loai_view: c.loaiView ?? null,
         p_toa_nha_id: c.toaNhaId ?? null, p_mo_ta: c.moTa ?? null, p_anh: c.anh?.length ? c.anh : null,
       });
+      if (error) throw loiTuTaoCan(error);
+      return data as string;
+    },
+
+    async layToa() {
+      const [toa, can] = await Promise.all([
+        sb.from('toa_nha').select('id, ten, khu_vuc, home247_dat_san').order('ten'),
+        // Căn của mình qua v_can_cua_toi (chỉ căn chưa ẩn, có lịch); view không có mã tòa nên khớp theo tên (tên không trùng).
+        sb.from('v_can_cua_toi').select('ten_toa, tao_luc').not('ten_toa', 'is', null).order('tao_luc', { ascending: false }),
+      ]);
+      if (toa.error) throw toa.error;
+      if (can.error) throw can.error;
+      const ds = ((toa.data ?? []) as { id: string; ten: string; khu_vuc: string | null; home247_dat_san: boolean }[])
+        .map((t) => ({ id: t.id, ten: t.ten, khuVuc: t.khu_vuc, home247: t.home247_dat_san }));
+      const theoTen = new Map(ds.map((t) => [t.ten.trim().toLowerCase(), t.id]));
+      const daDung: string[] = [];
+      for (const c of (can.data ?? []) as { ten_toa: string | null }[]) {
+        const id = c.ten_toa ? theoTen.get(c.ten_toa.trim().toLowerCase()) : undefined;
+        if (id && !daDung.includes(id)) daDung.push(id);
+      }
+      return { ds, daDung };
+    },
+
+    async themToa(ten) {
+      const { data, error } = await sb.rpc('fn_them_toa', { p_ten: ten });
       if (error) throw loiTuTaoCan(error);
       return data as string;
     },

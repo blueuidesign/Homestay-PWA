@@ -109,3 +109,11 @@ YC3.3-NT3 lệnh gắn 13 ảnh | create or replace function public.gan_anh_can(
 YC3.3-NT6 danh mục: kho ảnh anh-can chỉ nhận file tới 15 MB | update storage.buckets set file_size_limit = null where id = 'anh-can'
 YC3.3-NT6 danh mục: kho ảnh anh-can chỉ nhận JPEG | update storage.buckets set allowed_mime_types = null where id = 'anh-can'
 
+
+# US17 · tòa nhà: tên tòa không trùng (GD21), tòa người dùng thêm hiện cho mọi người, chỉ người đã đăng nhập thêm,
+# app không ghi thẳng toa_nha (YC3.4-NT3, NT4, YC3 "Ai được làm gì")
+YC3.4-NT4 sau khi thêm | drop index public.toa_nha_ten_khong_trung; create or replace function public.fn_them_toa(p_ten text) returns uuid language plpgsql volatile security definer set search_path = '' as $$ declare v uuid; begin if char_length(btrim(coalesce(p_ten, ''))) not between 1 and 100 then raise exception 'Tên tòa từ 1 đến 100 ký tự' using errcode = 'P0001'; end if; insert into public.toa_nha (ten, tao_boi) values (btrim(p_ten), public.can_dang_nhap()) returning id into v; return v; end $$
+YC3.4-NT3 QT6.3 Anh Tuấn đọc danh sách tòa thấy | drop policy toa_nha_doc on public.toa_nha; create policy toa_nha_doc on public.toa_nha for select to authenticated using (home247_dat_san or tao_boi = auth.uid())
+YC3.4 Ai được làm gì danh mục: người chưa đăng nhập không có quyền gọi fn_them_toa | grant execute on function public.fn_them_toa(text) to anon
+YC3.4 Ai được làm gì Anh Tuấn không sửa được tòa | grant update on public.toa_nha to authenticated; create policy thu_lam_hong on public.toa_nha for update to authenticated using (true) with check (true)
+YC3.4 bước 33 tên tòa 101 ký tự | create or replace function public.fn_them_toa(p_ten text) returns uuid language plpgsql volatile security definer set search_path = '' as $$ declare v uuid; begin insert into public.toa_nha (ten, tao_boi) values (btrim(p_ten), public.can_dang_nhap()) on conflict ((lower(btrim(ten)))) do update set ten = public.toa_nha.ten returning id into v; return v; end $$

@@ -1,5 +1,5 @@
 // CN5-A1 Thêm căn, CN5-A2 đang tải ảnh, CN5-A3 lỗi khi lưu (YC3.2 bước 15 đến 21, YC3.3, QT5.5, QT5.6, QT5.7, HV1, HV2, HV3, HV8).
-// Phần thêm tòa nhà, mô tả, view (YC3.4, US17) chỉ hiện chỗ theo canvas, chưa mở được.
+// Phần thêm tòa nhà, view, số giường, mô tả (CN5-A1 phần mở rộng, CN5-A1b; YC3.4 bước 29 đến 34) ở MucThemCan.
 // Kiểu chip, dải lỗi, thanh dưới viết tại chỗ bằng biến màu chung (styles.css ngoài phạm vi US15).
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { NutGhi, THOI_GIAN_CHO_LOI_MS } from '../chung/dangTai';
@@ -8,9 +8,11 @@ import { CAU_LOI_CHUNG, DaiMatKetNoi, LoiNguoiDung } from '../chung/matKetNoi';
 import { useToast } from '../chung/Toast';
 import { cauBoAnh } from '../lib/anh';
 import type { CanMoi, TaiAnh } from '../lib/dichVuCan';
-import { CAU_MAT_MANG, CHIP_PHONG_NGU, cauDauLoi, dongTrangThai, kiemFormCan, oCuaCau, type LoiCan } from '../lib/kiemCan';
+import { CAU_MAT_MANG, CHIP_PHONG_NGU, cauDauLoi, docSoGiuong, dongTrangThai, kiemFormCan, oCuaCau, type LoiCan, type OCan } from '../lib/kiemCan';
+import type { DanhSachToa } from '../lib/toaNha';
 import { docBanNhapThemCan, ghiBanNhapThemCan, xoaBanNhapThemCan } from './banNhap';
 import { MucAnhCan, useAnhCan } from './MucAnhCan';
+import { MucThemCan, useDanhSachToa } from './MucThemCan';
 import { Icon, ICON_THEM } from './TabChu';
 
 const S: Record<string, CSSProperties> = {
@@ -62,6 +64,10 @@ export function CN5A1ThemCan(props: {
   taoCan?: (c: CanMoi) => Promise<string>;
   /** YC3.3 bước 23. Thiếu (chưa nối database) thì ảnh chọn xong thành "Tải lỗi". */
   taiAnh?: TaiAnh;
+  /** YC3.4 bước 29. Thiếu (chưa nối database) thì hàng chip tòa báo chưa tải được. */
+  layToa?: () => Promise<DanhSachToa>;
+  /** YC3.4 bước 33. Thiếu (chưa nối database) thì thêm tòa báo như mất mạng. */
+  themToa?: (ten: string) => Promise<string>;
   /** YC3.2 bước 19: lưu được, mã căn đã bỏ khoảng trắng. */
   onXong: (maCan: string, id: string) => void;
   onQuayLai: () => void;
@@ -70,12 +76,23 @@ export function CN5A1ThemCan(props: {
   // HV3 bước 3: mở lại form có nháp thì điền lại; mã lần gửi giữ theo nháp (QT5.6), không có thì sinh mới.
   const [dau] = useState(() => {
     const n = docBanNhapThemCan();
-    const coNoiDung = !!n && (n.maCan.trim() !== '' || n.soPhongNgu != null);
-    return { maCan: coNoiDung ? n!.maCan : '', soPhongNgu: coNoiDung ? n!.soPhongNgu : null,
-             clientId: coNoiDung && n!.clientId ? n!.clientId : taoMaLanGui(), khoiPhuc: coNoiDung };
+    const coNoiDung = !!n && (n.maCan.trim() !== '' || n.soPhongNgu != null || !!n.toaNhaId || !!n.loaiView
+                              || !!n.soGiuong?.trim() || !!n.moTa?.trim());
+    const g = coNoiDung ? n! : null;
+    return { maCan: g?.maCan ?? '', soPhongNgu: g?.soPhongNgu ?? null,
+             clientId: g?.clientId || taoMaLanGui(), khoiPhuc: coNoiDung,
+             toaNhaId: g?.toaNhaId ?? null, loaiView: g?.loaiView ?? null, soGiuong: g?.soGiuong ?? '',
+             moTa: g?.moTa ?? '', moRong: !!g?.moRong };
   });
   const [maCan, datMaCan] = useState(dau.maCan);
   const [soPhongNgu, datSoPhongNgu] = useState<number | null>(dau.soPhongNgu);
+  // YC3.4: phần thêm. Thu gọn chỉ ẩn, giữ giá trị (bước 34).
+  const [moRong, datMoRong] = useState(dau.moRong);
+  const [toaNhaId, datToaNhaId] = useState<string | null>(dau.toaNhaId);
+  const [loaiView, datLoaiView] = useState<string | null>(dau.loaiView);
+  const [soGiuongChu, datSoGiuongChu] = useState(dau.soGiuong);
+  const [moTa, datMoTa] = useState(dau.moTa);
+  const dsToa = useDanhSachToa(props.layToa, moRong);
   const [loi, datLoi] = useState<LoiCan>({});
   const [cauDau, datCauDau] = useState<string | null>(null);
   const daSua = useRef(false);
@@ -88,11 +105,38 @@ export function CN5A1ThemCan(props: {
   // HV3 bước 1: lưu nháp mỗi lần sửa.
   useEffect(() => {
     if (!daSua.current) return;
-    ghiBanNhapThemCan({ maCan, soPhongNgu, clientId });
-  }, [maCan, soPhongNgu, clientId]);
+    ghiBanNhapThemCan({ maCan, soPhongNgu, clientId, toaNhaId, loaiView, soGiuong: soGiuongChu, moTa, moRong });
+  }, [maCan, soPhongNgu, clientId, toaNhaId, loaiView, soGiuongChu, moTa, moRong]);
 
   const doiMa = (v: string) => { daSua.current = true; datMaCan(v); datLoi((l) => ({ ...l, maCan: undefined })); };
   const chonPhong = (so: number) => { daSua.current = true; datSoPhongNgu(so); datLoi((l) => ({ ...l, soPhongNgu: undefined })); };
+  // YC3.4: mỗi ô phần thêm sửa thì bỏ câu lỗi database của ô đó.
+  const sua = <T,>(o: OCan, dat: (v: T) => void) => (v: T) => { daSua.current = true; dat(v); datLoi((l) => ({ ...l, [o]: undefined })); };
+  const moPhanThem = (mo: boolean) => { daSua.current = true; datMoRong(mo); };
+
+  /** YC3.4 bước 33: thêm tòa (trùng tên thì database trả tòa đã có, GD21), rồi chọn cho căn. */
+  const themToa = async (ten: string): Promise<string | null> => {
+    try {
+      if (!props.themToa) throw new LoiHetGio('chưa nối database');
+      const id = await choToiDa(props.themToa(ten), THOI_GIAN_CHO_LOI_MS);
+      const cu = dsToa.toa;
+      if (cu && !cu.ds.some((t) => t.id === id)) {
+        dsToa.datToa({ ...cu, ds: [...cu.ds, { id, ten, khuVuc: null, home247: false }] });
+      }
+      sua<string | null>('toaNha', datToaNhaId)(id);
+      return null;
+    } catch (e) {
+      if (e instanceof LoiNguoiDung) return e.message; // QT5.5
+      hienToast(laLoiMang(e) ? CAU_MAT_MANG : CAU_LOI_CHUNG, 'loi'); // HV2, HV8-NT4
+      return null;
+    }
+  };
+
+  const soGiuong = docSoGiuong(soGiuongChu);
+  // YC3.4: số giường, mô tả sai thì câu dưới ô ngay khi gõ, chưa bấm được "Thêm căn".
+  const loiPhanThem = kiemFormCan({ maCan: 'x', soPhongNgu: 0, soGiuong, moTa });
+  const loiHien: LoiCan = { ...loi, soGiuong: loi.soGiuong ?? loiPhanThem.soGiuong, moTa: loi.moTa ?? loiPhanThem.moTa };
+  const phanThemSai = !!(loiPhanThem.soGiuong || loiPhanThem.moTa);
 
   const tt = dongTrangThai({ maCan, soPhongNgu });
   // YC3.3 bước 23, YC3.3-NT1: còn ảnh đang tải thì chưa thêm được căn.
@@ -101,7 +145,7 @@ export function CN5A1ThemCan(props: {
     : { chu: tt.chu, mau: undefined };
 
   const ghi = async () => {
-    const l = kiemFormCan({ maCan, soPhongNgu });
+    const l = kiemFormCan({ maCan, soPhongNgu, soGiuong, loaiView, moTa });
     // YC3.3-NT2, CN5-A3: ảnh tải lỗi là một chỗ phải sửa; căn chưa thêm được tới khi ảnh đó tải lại được hay bị bỏ.
     const soCho = Object.keys(l).length + (anh.soLoi > 0 ? 1 : 0);
     if (soCho) { datLoi(l); datCauDau(cauDauLoi(soCho)); return; }
@@ -109,7 +153,9 @@ export function CN5A1ThemCan(props: {
     const ma = maCan.trim();
     try {
       if (!props.taoCan) throw new LoiHetGio('chưa nối database');
-      const id = await choToiDa(props.taoCan({ maCan: ma, soPhongNgu: soPhongNgu!, clientId, anh: anh.idDaTai }), THOI_GIAN_CHO_LOI_MS);
+      // YC3.4 bước 32: tòa, view, số giường, mô tả lưu cùng căn.
+      const id = await choToiDa(props.taoCan({ maCan: ma, soPhongNgu: soPhongNgu!, clientId, anh: anh.idDaTai,
+                                               toaNhaId, loaiView, soGiuong, moTa: moTa.trim() || null }), THOI_GIAN_CHO_LOI_MS);
       xoaBanNhapThemCan(); // HV3 bước 5
       props.onXong(ma, id);
     } catch (e) {
@@ -117,6 +163,7 @@ export function CN5A1ThemCan(props: {
         // YC3.2 bước 20, CN5-A3: ở lại form, giữ mọi ô, câu lỗi dưới ô sai.
         const o = oCuaCau(e.message);
         if (o) {
+          if (o !== 'maCan' && o !== 'soPhongNgu') datMoRong(true); // câu thuộc phần thêm: mở ra cho thấy ô sai
           const moi = { ...loi, [o]: e.message };
           const so = Object.values(moi).filter(Boolean).length;
           datLoi(moi);
@@ -173,17 +220,28 @@ export function CN5A1ThemCan(props: {
         <MucAnhCan ds={anh.ds} soDangTai={anh.soDangTai} soLoi={anh.soLoi}
                    onChon={chonAnh} onThuLai={anh.thuLai} onBo={anh.bo} />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 4px' }}>
-          <button type="button" className="hh-btn hh-btn--text" style={{ justifyContent: 'flex-start', padding: 0 }} aria-expanded={false}>
-            <Icon>{ICON_THEM}</Icon>Thêm tòa nhà, mô tả gửi khách, view...
-          </button>
-          <span style={S.phu}>Không bắt buộc. Chỉ cần mã căn và số phòng ngủ là dùng được lịch.</span>
-        </div>
+        {moRong ? (
+          <MucThemCan toa={dsToa.toa} dangTaiToa={dsToa.dangTai} loiTaiToa={dsToa.loi} onTaiLaiToa={() => void dsToa.tai()}
+                      toaNhaId={toaNhaId} onChonToa={sua('toaNha', datToaNhaId)} onThemToa={themToa}
+                      loaiView={loaiView} onChonView={sua('loaiView', datLoaiView)}
+                      soGiuong={soGiuongChu} onDoiSoGiuong={sua('soGiuong', datSoGiuongChu)}
+                      moTa={moTa} onDoiMoTa={sua('moTa', datMoTa)} loi={loiHien} onThuGon={() => moPhanThem(false)} />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 4px' }}>
+            <button type="button" className="hh-btn hh-btn--text" style={{ justifyContent: 'flex-start', padding: 0 }}
+                    aria-expanded={false} onClick={() => moPhanThem(true)}>
+              <Icon>{ICON_THEM}</Icon>Thêm tòa nhà, mô tả gửi khách, view...
+            </button>
+            <span style={S.phu}>Không bắt buộc. Chỉ cần mã căn và số phòng ngủ là dùng được lịch.</span>
+            {/* Thu gọn khi số giường, mô tả đang sai: vẫn nói vì sao chưa bấm được "Thêm căn". */}
+            {phanThemSai && <p style={S.loi} role="alert">⚠️ {loiPhanThem.soGiuong ?? loiPhanThem.moTa}</p>}
+          </div>
+        )}
       </div>
 
       <div style={S.thanhDuoi}>
         <span style={dongDuoi.mau ? { ...S.dongTT, color: dongDuoi.mau } : S.dongTT} role="status">{dongDuoi.chu}</span>
-        <NutGhi chu="Thêm căn" chuDangGhi="Đang lưu…" onGhi={ghi} disabled={!tt.du || anh.soDangTai > 0} />
+        <NutGhi chu="Thêm căn" chuDangGhi="Đang lưu…" onGhi={ghi} disabled={!tt.du || anh.soDangTai > 0 || phanThemSai} />
       </div>
     </div>
   );

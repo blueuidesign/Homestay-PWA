@@ -56,6 +56,8 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
       <CN5A1ThemCan
         taoCan={dv?.taoCan ? (c) => dv.taoCan!(c) : undefined}
         taiAnh={dv?.taiAnh} // YC3.3 bước 23
+        layToa={dv?.layToa ? () => dv.layToa!() : undefined} // YC3.4 bước 29
+        themToa={dv?.themToa ? (ten) => dv.themToa!(ten) : undefined} // YC3.4 bước 33, QT6.3
         onQuayLai={() => window.history.back()}
         onXong={(ma) => { datVuaThem(true); hienToast(`Đã thêm phòng ${ma}`); props.den('/can'); }} // YC3.2 bước 19
       />

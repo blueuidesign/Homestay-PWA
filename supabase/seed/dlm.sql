@@ -28,6 +28,8 @@ insert into public.toa_nha (id, ten, home247_dat_san) values
   ('00000000-0000-4000-8000-000000000503', 'À La Carte', true),
   ('00000000-0000-4000-8000-000000000504', 'Green Bay', true),
   ('00000000-0000-4000-8000-000000000505', 'Mường Thanh', true);
+-- YC3-H5: chỉ Green Bay có khu vực (theo canvas CN5-A1b); tòa khác để trống, không bịa.
+update public.toa_nha set khu_vuc = 'Bãi Cháy' where id = '00000000-0000-4000-8000-000000000504';
 
 -- DLM.3
 insert into public.can (id, nguoi_giu, loai, ma_can, so_phong_ngu, so_giuong, loai_view, toa_nha_id,
