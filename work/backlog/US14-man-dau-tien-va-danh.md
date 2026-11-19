@@ -55,6 +55,8 @@ Kịch bản test tay: tests/kb/US14-man-dau-tien-va-danh.md (KB1, KB2).
 - [ ] US14-TA3 Test tay · Đức: chạy tests/kb/US14-man-dau-tien-va-danh.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+- TA1: migration 20261119120000_us14_ds_can.sql thêm view `v_can_cua_toi` (security_invoker, đọc qua RLS sẵn có): căn có lịch, chưa ẩn của người gọi, kèm tên tòa, số ảnh, ảnh đại diện, ngày trả của đặt phòng có đêm hôm nay, cờ "Mới thêm" (GD14). Test tests/db/32_us14_ds_can.sql (YC3.1-NT2, PQ3, PQ13), thêm dòng thu-lam-hong.txt.
+- TA2: src/lib/can.ts (dòng thẻ, tình trạng hôm nay, tên căn), src/lib/dichVuCan.ts (đọc view, xin đường dẫn ảnh 1 giờ), màn src/man/A4ChuaCoCan.tsx (A4, A4-01), src/man/CN5DanhSachCan.tsx, thanh tab chủ nhà src/man/TabChu.tsx, đường dẫn /can, /can/moi, /can/<id> và các tab tạm trong dieuHuong.ts. Test unit mang mã YC3.1-NT1 đến NT5, e2e trên Supabase máy.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.1@1 (QD21)
