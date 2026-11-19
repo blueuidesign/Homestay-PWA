@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -76,7 +76,7 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Phần mọi bên cùng thấy (căn, ngày, người đặt, tiền phòng, trạng thái tiền) tách khỏi phần riêng của từng người (khách người đó nhập; với sale còn có giá bán). Mỗi người chỉ đọc được phần riêng của mình (QD11).
 - Kiểm dữ liệu một chỗ dùng chung cho ghi và sửa, trả câu ở bảng luật kiểm. Căn không phải của người gọi thì trả lỗi quyền chung, không lộ căn có tồn tại hay không.
 - Ghi giúp sale: kiểm sale đang kết nối và được xem căn đó (kết nối "chỉ vài căn"); phần riêng của sale có giá bán điền sẵn = tiền phòng + mức cộng của sale cho căn × số đêm (QT3.1; làm tròn: [MỞ: YC5-H13]).
-- Sửa: từ chối khi đặt phòng đã bị sửa ở máy khác kể từ lúc app đọc. Đổi trạng thái tiền bằng tay thì bỏ trạng thái nhớ để hoàn tác (tạm, tới khi có [MỞ: YC5-H6]).
+- Sửa: từ chối khi đặt phòng đã bị sửa ở máy khác kể từ lúc app đọc. `[r4 · sửa]` Đổi trạng thái tiền bằng tay thì bỏ trạng thái nhớ để hoàn tác (YC5-H6, Claude tự chốt).
 - Mọi lệnh sửa, xóa ghi nhật ký thay đổi (QD2): ai, lúc nào, giá trị cũ và mới.
 - Ghi, sửa, xóa đặt phòng thì cập nhật lúc lịch đổi của căn (YC7 dùng); yêu cầu đang chờ trùng đêm thành bị từ chối (QT1.4, giả định GD11).
 - Thông báo do database sinh khi dữ liệu đổi (YC12): chủ nhà ghi giúp sale, chủ nhà sửa đặt phòng có sale (khi đổi ngày hay tiền phòng), xin hủy, trả lời xin hủy, đặt phòng mới chiếm đêm của căn sale đã gửi khách.
@@ -265,7 +265,7 @@ Tiêu chí:
 
 ## YC5.6 · Sửa đặt phòng
 
-Bản 1 · rủi ro: cao · Màn: CN4-02, S3-10
+Bản 2 · rủi ro: cao · Màn: CN4-02, S3-10
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -278,7 +278,12 @@ Bản 1 · rủi ro: cao · Màn: CN4-02, S3-10
 
 Tên khách, số khách chủ nhà nhập lưu vào phần riêng của chủ nhà, cùng lúc với lưu đặt phòng.
 
-Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không: [MỞ: YC5-H4]. Đổi người đặt (giữa khách lẻ và sale, hay sang sale khác): [MỞ: YC5-H5]; tới khi có câu trả lời, ô người đặt khóa ở form sửa. Đổi trạng thái tiền ở form sửa thì nút "Hoàn tác" còn không: [MỞ: YC5-H6]. Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia lại theo bảng giá lúc nào: [MỞ: YC5-H8]. Chỉ sửa ghi chú hay khách thì sale có được báo không: [MỞ: YC5-H9]; database đang không báo.
+`[r4 · sửa]` Khi sửa (Claude tự chốt, QD25, trả lời YC5-H4, H5, H6, H8, H9):
+- Đặt phòng có sale chỉ đổi sang căn mà sale đó đang được xem; không thì database từ chối "Sale này không được xem căn này" (YC5-H4).
+- Ô người đặt khóa ở form sửa, hiện người đặt hiện tại. Muốn đổi người đặt thì xóa hay xin hủy rồi ghi đặt phòng mới (YC5-H5).
+- Đổi trạng thái tiền ở form sửa thì bỏ trạng thái nhớ để hoàn tác: nút "Hoàn tác: chưa thu đủ" không còn. Giữ nguyên trạng thái tiền thì trạng thái nhớ còn (YC5-H6).
+- Tiền từng đêm tính lại lúc lưu (QT4.2): không đổi căn, ngày, tiền phòng thì giữ nguyên tiền từng đêm cũ; có đổi thì tổng bằng tổng bảng giá các đêm mới thì mỗi đêm theo bảng giá, khác thì chia đều, phần lẻ dồn vào đêm cuối (YC5-H8).
+- Sale chỉ được báo "chủ sửa đặt phòng" khi đổi căn, ngày hay tiền phòng. Sửa ghi chú, khách, số khách, giờ, trạng thái tiền thì không báo (YC5-H9).
 
 Luật kiểm khi sửa, xóa, thu tiền, hủy (dùng cả ở YC5.5, YC5.7, YC5.8, YC5.9):
 
@@ -292,7 +297,7 @@ Luật kiểm khi sửa, xóa, thu tiền, hủy (dùng cả ở YC5.5, YC5.7, Y
 | Trả lời xin hủy | Bên không phải bên xin; đặt phòng đang chờ hủy | "Không có lời xin hủy nào chờ bạn" · "Người kia phải trả lời lời xin hủy của bạn" |
 | Giá bán của sale | Số nguyên đồng lớn hơn 0 | "Giá bán phải lớn hơn 0" |
 
-Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không: [MỞ: YC5-H3]. Tới khi có câu trả lời, database chặn.
+`[r4 · sửa]` Tiền phòng phải lớn hơn 0 cả khi ghi lẫn khi sửa, câu lỗi "Tiền phòng phải lớn hơn 0" (Claude tự chốt, QD25, trả lời YC5-H3).
 
 Tiêu chí:
 - **YC5.6-NT1** Khi Chị Hoa mở sửa B1, thì mọi ô hiện đúng giá trị của B1 (1509, 10/10 → 12/10, Sale Hùng, 2.200.000đ, đã cọc 1.000.000đ). · unit
@@ -303,6 +308,9 @@ Tiêu chí:
 - **YC5.6-NT6** Khi Chị Hoa đổi tiền phòng của B1 từ 2.200.000đ thành 1.800.000đ, thì giá bán của Sale Hùng cho B1 vẫn 2.600.000đ như đã báo khách, và thông báo cho Hùng ghi tiền phòng mới 1.800.000đ. · database
 - **YC5.6-NT7** Khi Chị Hoa mở sửa (hay xóa) đặt phòng từ chi tiết ngày 13/10 rồi lưu (hay xóa) xong, thì app về lại chi tiết ngày 13/10, không về đầu tab Lịch. · unit
 - **YC5.6-NT8** Khi Sale Hùng hay Anh Tuấn gửi lệnh sửa B1, thì database từ chối và B1 không đổi. · database
+- `[r4 · thêm]` **YC5.6-NT9** Khi Chị Hoa đổi căn của B1 (Sale Hùng chỉ được xem 1509) sang 3402, thì database từ chối với câu "Sale này không được xem căn này" và B1 không đổi. · database
+- `[r4 · thêm]` **YC5.6-NT10** Khi Chị Hoa chỉ sửa ghi chú của B1, thì Sale Hùng không có thông báo mới, tiền từng đêm của B1 giữ nguyên. · database
+- `[r4 · thêm]` **YC5.6-NT11** Khi Chị Hoa mở sửa B1, thì ô người đặt "Sale Hùng" khóa, không đổi được. · unit
 
 ## YC5.7 · Xóa đặt phòng khách lẻ
 
@@ -382,3 +390,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US3, US10, US28, US35 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US27-nguoi-dat | YC5.2 bản 2: ô tên, số điện thoại khách lẻ, không ô khách khi chọn sale, cọc không bắt buộc (trả lời YC5-H1, H2, H12, H19, Claude tự chốt, QD25) | YC5.2, YC5.3 Luật kiểm |
 | r3 | 2026-11-19 | Claude | US30-chi-tiet-dat-phong | YC5.5 bản 2: khách lẻ có số thì hiện số và nút Gọi khách (Claude tự quyết, QD25, theo YC5-H2) | YC5.5 |
+| r4 | 2026-11-19 | Claude | US31 chuẩn bị | YC5.6 bản 2: trả lời YC5-H3, H4, H5, H6, H8, H9 (Claude tự chốt, QD25); thêm NT9, NT10, NT11 | YC5.6 |

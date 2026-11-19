@@ -167,33 +167,39 @@ Form đặt phòng chưa có ô số điện thoại khách: có thêm ô không
 Gắn ở: YC5.3.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Cạnh ô tên khách có ô "Số điện thoại khách (không bắt buộc)", chỉ khi người đặt là khách lẻ. Lưu vào phần riêng của chủ nhà, chỉ chủ nhà thấy (QD11). Bỏ khoảng trắng, dấu chấm, gạch ngang rồi phải còn 9 đến 11 chữ số, sai thì "Số điện thoại khách không hợp lệ". Ghi vào YC5 r2 (YC5.2 bản 2, NT13).
 
-### YC5-H3 · mo
+### YC5-H3 · da-tra-loi
 Tiền phòng 0 đồng (chủ nhà cho người quen ở miễn phí) có được ghi không?
 Gắn ở: YC5.6. Tới khi có câu trả lời: database chặn.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không. Tiền phòng phải lớn hơn 0 cả khi ghi lẫn khi sửa, câu lỗi "Tiền phòng phải lớn hơn 0" (giống fn_tao_booking). Cho người quen ở miễn phí là việc hiếm; ghi 0 làm doanh thu và giá bán của sale khó hiểu. Ghi vào YC5.6 bản 2.
 
-### YC5-H4 · mo
+### YC5-H4 · da-tra-loi
 Đổi căn của đặt phòng có sale: căn mới có phải nằm trong các căn sale được xem không?
 Gắn ở: YC5.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Đặt phòng có sale chỉ đổi sang căn mà sale đó đang được xem (chia sẻ tất cả, hay chọn căn có căn đó). Không thì database từ chối với câu "Sale này không được xem căn này". Lý do: sale phải luôn thấy đặt phòng mình đứng tên (PQ7.SALE). Ghi vào YC5.6 bản 2.
 
-### YC5-H5 · mo
+### YC5-H5 · da-tra-loi
 Đổi người đặt (giữa khách lẻ và sale, hay sang sale khác)?
 Gắn ở: YC5.6. Tới khi có câu trả lời: ô người đặt khóa ở form sửa.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không đổi người đặt ở form sửa. Ô người đặt khóa, hiện người đặt hiện tại. Muốn đổi thì xóa (khách lẻ) hay xin hủy (có sale) rồi ghi đặt phòng mới. Lý do: phần riêng (khách, giá bán) gắn với người đã nhập (QD11), đổi người đặt sẽ làm mất hay lộ phần riêng đó. Ghi vào YC5.6 bản 2.
 
-### YC5-H6 · mo
+### YC5-H6 · da-tra-loi
 Đổi trạng thái tiền bằng tay thì bỏ trạng thái nhớ để hoàn tác, hay giữ nút "Hoàn tác"?
 Gắn ở: YC5, YC5.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đổi trạng thái tiền ở form sửa thì bỏ trạng thái nhớ: nút "Hoàn tác: chưa thu đủ" không còn, nhãn theo trạng thái mới. Giữ nguyên trạng thái tiền thì trạng thái nhớ còn. Ghi vào YC5.6 bản 2.
 
 ### YC5-H7 · mo
 Sửa, ghi đã thu đủ khi đặt phòng đang chờ hủy hay đã hủy?
 Gắn ở: YC5.8.
 
-### YC5-H8 · mo
+### YC5-H8 · da-tra-loi
 Chỉ đổi tiền phòng mà giữ ngày thì tiền từng đêm chia lại theo bảng giá lúc nào?
 Gắn ở: YC5.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tính lại lúc lưu, theo QT4.2: không đổi căn, ngày, tiền phòng thì giữ nguyên tiền từng đêm cũ. Có đổi một trong ba: tổng bằng tổng bảng giá hiện tại của các đêm mới thì mỗi đêm theo bảng giá; khác thì chia đều tổng cho các đêm, phần lẻ dồn vào đêm cuối. Ghi vào YC5.6 bản 2.
 
-### YC5-H9 · mo
+### YC5-H9 · da-tra-loi
 Chỉ sửa ghi chú hay khách thì sale có được báo không?
 Gắn ở: YC5.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không báo. Sale chỉ được báo khi chủ nhà đổi căn, ngày hay tiền phòng, vì đó là điều sale đã báo khách. Ghi chú, khách, số khách, giờ, trạng thái tiền của chủ nhà không báo. Ghi vào YC5.6 bản 2.
 
 ### YC5-H10 · mo
 Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không?
