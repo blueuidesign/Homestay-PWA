@@ -1,19 +1,23 @@
 // CN4 · Thêm đặt phòng (YC5.1): chọn căn, ngày, số đêm, kiểm trùng sớm. PQ7.CHU, QT1.1, QT2.1.
 // Trạng thái (YC5 Trạng thái màn): HV1 khung xám tại chỗ khi đọc căn, đặt phòng; HV2 dải mất mạng, vẫn nhập được;
 // HV3 nháp trên máy, quay lại từ nền đọc lại đặt phòng và chạy lại dòng kiểm.
-// Hàng chip người đặt, tiền phòng, phần thêm chi tiết (YC5.2) và lưu (YC5.3) làm ở US27, US28: nút "Thêm đặt phòng"
-// luôn hiện nhưng chưa bấm được (YC5.2: chưa chọn người đặt thì không bấm được).
+// US27 (YC5.2): hàng chip người đặt (CN4NguoiDat), tiền phòng và trạng thái tiền (CN4TienPhong, CN4-01), phần thêm chi
+// tiết; nút "Thêm đặt phòng" gọi fn_tao_booking (YC5.3 bước 9), lưu được thì về tab Lịch với toast (bước 10).
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
-import { DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
+import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
 import { CAU_KHOI_PHUC, useQuayLaiTuNen } from '../chung/nhap';
+import { useToast } from '../chung/Toast';
 import {
-  chipCuaSoDem, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, ngayTraTheoSoDem, soDemGiua,
-  xoaBanNhapDatPhong, type ChipDem,
+  chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, loiTienCoc, loiTienPhong,
+  ngayTraTheoSoDem, SO_DEM_TOI_DA, soDemGiua, tenNguoiDatToast, tomTatChiTiet, tongGiaDem, xoaBanNhapDatPhong,
+  type ChipDem, type ChipNguoiDat, type GiaDem, type SaleKetNoi, type TrangThaiTienForm,
 } from '../lib/datPhong';
 import type { DichVuDatPhong } from '../lib/dichVuDatPhong';
 import { mauCan, type CanLich, type DatPhongLich } from '../lib/lich';
 import { homNay as homNayVN, laNgay, type Ngay } from '../lib/ngay';
+import { CN4NguoiDat } from './CN4NguoiDat';
+import { CN4TienPhong } from './CN4TienPhong';
 import { Icon } from './TabChu';
 import './CN1LichThang.css';
 import './CN4ThemDatPhong.css';
@@ -71,7 +75,10 @@ export function CN4ThemDatPhong(props: {
   /** Hôm nay theo giờ Việt Nam; test truyền ngày cố định. */
   homNay?: Ngay;
   onDong: () => void;
+  /** YC5.3 bước 10: lưu được; ManChu về tab Lịch với toast "Đã thêm đặt phòng <người đặt> · <căn>". */
+  onDaLuu?: (v: { nguoiDat: string; maCan: string; canId: string; ngayNhan: Ngay }) => void;
 }) {
+  const hienToast = useToast();
   const homNay = props.homNay ?? homNayVN();
   // HV3 bước 3: mở lại form (không kèm căn, ngày từ CN3) có nháp thì điền lại. Mở từ CN3 thì theo căn, ngày đã chọn.
   const [dau] = useState(() => {
@@ -142,6 +149,101 @@ export function CN4ThemDatPhong(props: {
 
   const kiem = canHopLe && datPhong ? kiemNgay(datPhong, canId, ngayNhan, ngayTra) : null;
 
+  // ===== YC5.2 · người đặt =====
+  // Bước 5: sale đang kết nối và tên khách lẻ đã nhập, đọc một lần khi mở form. Lỗi thì chỉ còn "+ Sale mới", "Khách lẻ".
+  const [nguoi, datNguoi] = useState<{ sale: SaleKetNoi[]; tenKhach: string[] } | undefined>(undefined);
+  useEffect(() => {
+    const lay = props.dv?.layNguoiDat;
+    if (!lay) { datNguoi({ sale: [], tenKhach: [] }); return; }
+    let huy = false;
+    lay.call(props.dv).then((v) => { if (!huy) datNguoi(v); }, () => { if (!huy) datNguoi({ sale: [], tenKhach: [] }); });
+    return () => { huy = true; };
+  }, [props.dv]);
+  const chips = nguoi && chipNguoiDat(nguoi.sale, nguoi.tenKhach);
+  // Bước 5: chưa chip nào được chọn.
+  const [chon, datChon] = useState<string | null>(null);
+  const [tenKhach, datTenKhach] = useState('');
+  const [sdtKhach, datSdtKhach] = useState('');
+  const chipChon = chips?.find((c) => c.khoa === chon);
+  const laKhachLe = chipChon?.loai === 'le' || chipChon?.loai === 'khach';
+  const chonNguoi = (c: ChipNguoiDat) => {
+    if (c.loai === 'sale-moi') { hienToast('Sẽ có ở bản sau'); return; } // YC6: thêm sale mới
+    datChon(c.khoa);
+    if (c.loai === 'le') datTenKhach(''); // bước 6: khách lẻ không tên
+    if (c.loai === 'khach') datTenKhach(c.ten); // bước 6b: ô tên điền sẵn tên đã dùng
+  };
+
+  // ===== YC5.2 · tiền phòng (bước 7 tới 7d, QT4.1) =====
+  const [giaDem, datGiaDem] = useState<GiaDem[] | undefined>(undefined);
+  const [tien, datTien] = useState<number | null>(null);
+  const demHopLe = canHopLe && soDem !== null && soDem >= 1 && soDem <= SO_DEM_TOI_DA;
+  useEffect(() => {
+    const lay = props.dv?.layGiaDem;
+    if (!demHopLe || !lay) { datGiaDem([]); return; }
+    let huy = false;
+    datGiaDem(undefined);
+    // Bước 7, 7c: điền sẵn tổng giá chủ nhà các đêm; đổi căn hay ngày thì điền lại, bỏ số đã gõ.
+    lay.call(props.dv, canId, ngayNhan, ngayTra).then(
+      (g) => { if (!huy) { datGiaDem(g); datTien(tongGiaDem(g)); } },
+      () => { if (!huy) datGiaDem([]); },
+    );
+    return () => { huy = true; };
+  }, [props.dv, demHopLe, canId, ngayNhan, ngayTra]);
+
+  // ===== YC5.2 · trạng thái tiền (bước 8a, 8b; giả định GD19, GD20) =====
+  const [trangThai, datTrangThai] = useState<TrangThaiTienForm>('chua_coc');
+  const [coc, datCoc] = useState<number | null>(null);
+  const doiTrangThai = (v: TrangThaiTienForm) => { datTrangThai(v); if (v !== 'da_coc_con_thu') datCoc(null); };
+
+  // ===== YC5.2 · thêm chi tiết (bước 8c, YC5.2-NT10, NT11) =====
+  const [moChiTiet, datMoChiTiet] = useState(false);
+  const [daMoChiTiet, datDaMoChiTiet] = useState(false);
+  const [soKhach, datSoKhach] = useState(1);
+  const [gio, datGio] = useState({ gioNhan: '14:00', gioTra: '12:00' });
+  const [ghiChu, datGhiChu] = useState('');
+  useEffect(() => {
+    const lay = props.dv?.layGioMacDinh;
+    if (!lay) return;
+    let huy = false;
+    lay.call(props.dv).then((g) => { if (!huy) datGio(g); }, () => { /* giữ 14:00, 12:00 */ });
+    return () => { huy = true; };
+  }, [props.dv]);
+  const doiChiTiet = () => { datMoChiTiet((m) => !m); datDaMoChiTiet(true); };
+
+  // YC5.2-NT3, NT7, NT8, YC5.1 bước 4: chưa đủ thì nút không bấm được.
+  const loiTien = giaDem === undefined ? null : loiTienPhong(tien);
+  const loiCoc = loiTienCoc(trangThai, coc, tien);
+  const coTheLuu = !!props.dv?.taoDatPhong && kiem?.loai === 'khong-trung' && !!chipChon && chipChon.loai !== 'sale-moi'
+    && giaDem !== undefined && !loiTienPhong(tien) && !loiCoc;
+
+  // YC5.3 bước 9 tới 12: lưu; database từ chối thì ở lại form, toast đỏ là câu database trả về (QT5.5).
+  const luu = async () => {
+    const tao = props.dv?.taoDatPhong;
+    if (!tao || !coTheLuu || !chipChon || tien === null) return;
+    const sale = chipChon.loai === 'sale' ? chipChon : null;
+    try {
+      await tao.call(props.dv, {
+        canId, ngayNhan, ngayTra, tienPhong: tien, clientId,
+        saleId: sale?.id ?? null,
+        tenKhach: laKhachLe ? tenKhach.trim() || null : null,
+        sdtKhach: laKhachLe ? sdtKhach.trim() || null : null,
+        trangThaiTien: trangThai, tienCoc: trangThai === 'da_coc_con_thu' ? coc : null,
+        soKhach: daMoChiTiet ? soKhach : null,
+        gioNhan: daMoChiTiet ? gio.gioNhan : null, gioTra: daMoChiTiet ? gio.gioTra : null,
+        ghiChu: ghiChu.trim() || null,
+      });
+    } catch (e) {
+      hienToast(cauBaoLoi(e), 'loi');
+      void tai(); // bước 11: đọc lại đặt phòng để dòng kiểm đúng với dữ liệu mới
+      return;
+    }
+    xoaBanNhapDatPhong(); // HV3 bước 5
+    props.onDaLuu?.({
+      nguoiDat: tenNguoiDatToast({ sale: sale?.chu ?? null, tenKhach: laKhachLe ? tenKhach : null }),
+      maCan: props.ds?.find((c) => c.id === canId)?.maCan ?? '', canId, ngayNhan,
+    });
+  };
+
   let dongKiem;
   if (loi) dongKiem = <ManChuaTai onThuLai={() => void tai()} />;
   else if (!kiem) dongKiem = <KhungXam soDong={1} />;
@@ -194,11 +296,50 @@ export function CN4ThemDatPhong(props: {
         </div>
         {/* YC5.1 bước 4: báo sớm; chặn thật ở database (QD6). */}
         <div className="cn4-dong-kiem">{dongKiem}</div>
+
+        <CN4NguoiDat chips={chips} chon={chon} onChon={chonNguoi} ten={tenKhach} sdt={sdtKhach}
+                     onTen={datTenKhach} onSdt={datSdtKhach} />
+
+        <CN4TienPhong tien={tien} loiTien={loiTien} giaDem={giaDem} onTien={datTien}
+                      trangThai={trangThai} onTrangThai={doiTrangThai} coc={coc} loiCoc={loiCoc} onCoc={datCoc} />
+
+        <div className="cn4-chi-tiet">
+          <div className="cn4-chi-tiet__dau">
+            <button type="button" className="hh-btn hh-btn--text" aria-expanded={moChiTiet} onClick={doiChiTiet}>Thêm chi tiết</button>
+            {!moChiTiet && <span className="cn4-tom-tat">{tomTatChiTiet(soKhach, gio.gioNhan, gio.gioTra, ghiChu)}</span>}
+          </div>
+          {moChiTiet && (
+            <>
+              <div className="cn4-so-khach" role="group" aria-label="Số khách">
+                <span className="cn4-nhan">Số khách</span>
+                <button type="button" className="hh-btn hh-btn--secondary" aria-label="Bớt một khách" disabled={soKhach <= 1}
+                        onClick={() => datSoKhach((n) => Math.max(1, n - 1))}>−</button>
+                <output aria-label="Số khách">{soKhach}</output>
+                <button type="button" className="hh-btn hh-btn--secondary" aria-label="Thêm một khách" disabled={soKhach >= 99}
+                        onClick={() => datSoKhach((n) => Math.min(99, n + 1))}>+</button>
+              </div>
+              <div className="cn4-gio">
+                <label className="hh-field">
+                  <span className="hh-field__label">Giờ nhận</span>
+                  <input type="time" className="hh-input" value={gio.gioNhan} onChange={(e) => datGio((g) => ({ ...g, gioNhan: e.target.value }))} />
+                </label>
+                <label className="hh-field">
+                  <span className="hh-field__label">Giờ trả</span>
+                  <input type="time" className="hh-input" value={gio.gioTra} onChange={(e) => datGio((g) => ({ ...g, gioTra: e.target.value }))} />
+                </label>
+              </div>
+              <label className="hh-field">
+                <span className="hh-field__label">Ghi chú</span>
+                <textarea className="hh-input" rows={3} maxLength={500} value={ghiChu} onChange={(e) => datGhiChu(e.target.value)} />
+              </label>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="cn4-thanh-duoi">
-        {/* YC5.2, YC5.3: chưa chọn người đặt (US27) thì chưa bấm được; trùng đêm cũng không bấm được (YC5.1 bước 4). */}
-        <NutGhi chu="Thêm đặt phòng" disabled onGhi={() => undefined} />
+        {/* YC5.2-NT3, NT7, NT8, YC5.1 bước 4: chưa chọn người đặt, thiếu tiền phòng, cọc quá tiền, trùng đêm thì không bấm được. */}
+        <NutGhi chu="Thêm đặt phòng" disabled={!coTheLuu} onGhi={luu} />
       </div>
     </div>
   );
