@@ -70,3 +70,13 @@ export function taoTaiKhoan(vai: 'chu_nha' | 'sale' | null, ten = 'Chủ Thử')
        select id, '${ten}', '${ten}', '${so}', ${vaiSql}, now() from u`);
   return { email, so };
 }
+
+/** Đăng nhập tài khoản đã có từ A1 bằng mã gửi về hộp thư giả (A11, YC1.2). */
+export async function dangNhapBangMa(page: Page, email: string): Promise<void> {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Tôi đã có tài khoản · Đăng nhập' }).click();
+  await page.getByLabel('Email').fill(email);
+  await page.getByRole('button', { name: 'Gửi mã đăng nhập' }).click();
+  await nhapMa(page, await layMa(email));
+  await page.getByRole('button', { name: 'Đăng nhập' }).click();
+}
