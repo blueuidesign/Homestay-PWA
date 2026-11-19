@@ -3,7 +3,7 @@ id: YC8
 tieu_de: Gửi khách
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 2
 ---
 # YC8 · Gửi khách
@@ -15,8 +15,9 @@ Là sale, tôi muốn gửi mô tả, giá bán và ảnh của vài căn cho kh
 Vì sao quan trọng: gửi khách là việc sale làm nhiều lần mỗi ngày. Mỗi tin lộ giá chủ nhà là một lần sale mất tiền chênh và mất lòng tin của chủ nhà, nên chữ gửi khách chỉ bao giờ có giá bán. Báo khi căn đã gửi có người đặt giúp sale không hứa với khách một căn vừa hết.
 
 ## Luồng chính
+`[r3 · sửa]`
 
-Ngày 06/10/2026, Sale Hùng đã tích 3 căn ở kết quả tìm 10/10 → 12/10 (YC7.3) và bấm "Gửi cho khách". Màn "Gửi cho khách" ghi "3 căn · 10/10 → 12/10". Khối 1: "ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy / 10/10 → 12/10 (2 đêm): 2.600.000đ", nút "Gửi chữ" và "Gửi 6 ảnh". Hùng bấm "Gửi chữ": bảng chia sẻ của điện thoại mở với đoạn chữ; Hùng chọn Zalo, chọn khách, gửi. Rồi bấm "Gửi 6 ảnh". Làm tiếp với Sapphire 1103 (1.600.000đ) và À La Carte 2208 (3.600.000đ).
+Ngày 06/10/2026, Sale Hùng đã tích 3 căn ở kết quả tìm 10/10 → 12/10 (YC7.3) và bấm "Gửi cho khách". Màn "Gửi cho khách" ghi "3 căn · 10/10 → 12/10". Khối 1: "ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy / 10/10 → 12/10 (2 đêm): 2.600.000đ", nút "Chia sẻ chữ" và "Gửi 6 ảnh". Hùng bấm "Chia sẻ chữ": bảng chia sẻ của điện thoại mở với đoạn chữ; Hùng chọn Zalo, chọn khách, gửi. Rồi bấm "Gửi 6 ảnh". Làm tiếp với Sapphire 1103 (1.600.000đ) và À La Carte 2208 (3.600.000đ).
 
 Lúc 14:20 Hùng gửi yêu cầu đặt 1509 (YC9), Chị Hoa chấp nhận lúc 15:05. Hùng không có thông báo "vừa có người đặt" cho 1509, vì chính Hùng đặt. Nếu Anh Tuấn ghi một đặt phòng cho Sapphire 1103 đêm 11/10, Hùng có thông báo "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt", không có tên người đặt và giá.
 
@@ -61,26 +62,26 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ bảng chia sẻ: HV3, màn giữ nguyên. Không có bảng chia sẻ: sao chép (HV6). Toast: HV8.
 
 ## YC8.1 · Gửi thông tin cho khách
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: cao · Màn: S5
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Bấm "Gửi cho khách" (S2, S3, S6-03, S6-07) | Mở S5 | Không |
-| 2 | Mở màn | Tiêu đề "Gửi cho khách", dòng "3 căn · 10/10 → 12/10. Mỗi căn gửi chữ một lần, ảnh một lần." | Lệnh soạn tin |
+| 2 | Mở màn | Tiêu đề "Gửi cho khách", dòng "3 căn · 10/10 → 12/10. Nhiều điện thoại không chia sẻ chữ và ảnh chung một lần: mỗi căn chia sẻ chữ một lần, ảnh một lần." | Lệnh soạn tin |
 | 3 | Xem một căn | Số thứ tự, tên căn, số ảnh ("6 ảnh"), chữ theo mẫu, không tiện ích căn, không số khách | Không |
-| 4 | Bấm "Gửi chữ" | Bảng chia sẻ của điện thoại với chữ của căn đó | Ghi lần gửi |
+| 4 | Bấm "Chia sẻ chữ" | Bảng chia sẻ của điện thoại với chữ của căn đó | Ghi lần gửi |
 | 5 | Bấm "Gửi 6 ảnh" | Bảng chia sẻ với ảnh nếu trình duyệt cho gửi file; không cho thì tải ảnh về máy, toast "Đã lưu 6 ảnh vào máy. Mở Zalo để gửi ảnh." | Ghi lần gửi |
 | 6 | Bấm "Sao chép chữ" | Sao chép chữ căn đó, toast "Đã sao chép" | Không ghi lần gửi ([MỞ: YC8-H3]) |
 | 7 | Bấm "Sao chép chữ cả 3 căn" | Sao chép chữ cả 3 căn theo thứ tự trên màn | Như bước 6 |
 | 8 | (sau đó) Có đặt phòng mới của người khác chiếm ít nhất một đêm của lần gửi | Thông báo "<tòa> <căn> · <ngày nhận> → <ngày trả> vừa có người đặt" (YC12) | Theo quy tắc Báo căn đã gửi có người đặt |
 
-Chữ trên nút ("Gửi chữ qua Zalo" hay "Gửi chữ"): [MỞ: YC8-H5]. Căn có hơn 10 ảnh: [MỞ: YC8-H6]; tới khi có câu trả lời, gửi 10 ảnh đầu. Mỗi lần gửi tối đa bao nhiêu căn: [MỞ: YC8-H1]; tới khi có câu trả lời, 10 căn. Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì: [MỞ: YC8-H4]; tới khi có câu trả lời, ghi "Giá: hỏi lại".
+Căn có hơn 10 ảnh: [MỞ: YC8-H6]; tới khi có câu trả lời, gửi 10 ảnh đầu. Mỗi lần gửi tối đa bao nhiêu căn: [MỞ: YC8-H1]; tới khi có câu trả lời, 10 căn. Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì: [MỞ: YC8-H4]; tới khi có câu trả lời, ghi "Giá: hỏi lại".
 
 Tiêu chí:
 - **YC8.1-NT1** Khi sale chọn 3 căn, thì S5 có 3 khối, mỗi khối một nút gửi chữ và một nút gửi ảnh. · unit
-- **YC8.1-NT2** Khi sale bấm "Gửi chữ" ở khối 1509, thì bảng chia sẻ mở với chữ của 1509 và database có một lần gửi 1509 cho đêm 10/10, 11/10. · unit, database
+- **YC8.1-NT2** Khi sale bấm "Chia sẻ chữ" ở khối 1509, thì bảng chia sẻ mở với chữ của 1509 và database có một lần gửi 1509 cho đêm 10/10, 11/10. · unit, database
 - **YC8.1-NT3** Khi sale bấm "Sao chép chữ cả 3 căn", thì bộ nhớ tạm có chữ của 3 căn theo thứ tự trên màn. · unit
 - **YC8.1-NT4** Khi Hùng soạn tin 1509 cho 10/10 → 12/10 với mức cộng +200k, thì chữ có "2.600.000đ" và dữ liệu trả về không có 2.200.000đ. · database, unit
 - **YC8.1-NT5** Khi căn có số giường, thì chữ ghi "2PN · 3 giường"; chữ không có "x khách" và không có tiện ích. · unit
@@ -121,3 +122,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US14 (QD21), đổi cách gửi sang bảng chia sẻ của PWA | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi gửi khách | YC8.1 |
+| r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Nút "Chia sẻ chữ" theo canvas PWA (YC8-H5) | YC8.1 |

@@ -3,7 +3,7 @@ item: canvas-pwa   # không có item; Tùng giao trực tiếp trong thread desi
 ngay: 2026-11-19
 nguoi: Claude (thread design, Tùng giao toàn quyền theo khung hiện có)
 canvas: Home247 · Lịch phòng Hạ Long · bản PWA (https://claude.ai/artifact/WSMs9QQjh3rPUmMekeGj8T), bản ngày 2026-11-19
-trang_thai: cho-kiem
+trang_thai: da-kiem
 ---
 # Bản kê thay đổi thiết kế · canvas bản PWA
 
@@ -53,3 +53,5 @@ Không. Các chỗ phải sửa YC theo hình (thread EN đang sửa YC1, YC6.1,
 ## Kết quả kiểm
 | # | Kết quả | Ghi chú | Tùng quyết |
 |---|---|---|---|
+| 1 đến 22 | Khớp | YC đã sửa theo hình ở PR TKE-canvas-pwa-sua-yc: YC1 r3 (YC1.1, YC1.2, YC1.4, YC1.8), YC6 r3, YC8 r3, YC10 r3; YC1-H1, YC1-H6, YC8-H5 đã trả lời | Dòng 12 "Ngoài yêu cầu" (bỏ HV4-02): Claude tự quyết Bỏ theo QD22, QD25 |
+| ghi chú | Lệch nhỏ | A1-link vẫn ghi "Bắt đầu ngay": YC1.2 cho nút này mở A2. Màn nhập lại số sau khi xóa tài khoản chưa vẽ: dùng khối số của A2 | |
