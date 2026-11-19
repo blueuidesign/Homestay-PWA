@@ -275,3 +275,18 @@ describe('YC2.2 · CN3 chi tiết ngày dưới lưới CN1', () => {
     expect(onDatPhong).toHaveBeenLastCalledWith({ canId: 'c3402', ngay: '2026-10-10' });
   });
 });
+
+describe('YC5.3 bước 10 · CN4-03 về tab Lịch sau khi lưu đặt phòng', () => {
+  it('YC5.3 bước 10 CN4-03 lịch mở ở tháng của ngày nhận (30/11), ngày nhận đang chọn và chi tiết ngày đó mở sẵn', async () => {
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu()} homNay="2026-10-07" ngayMoSan="2026-11-30" onDatPhong={vi.fn()} />
+      </ToastProvider>,
+    );
+    await screen.findByRole('grid', { name: 'Tháng 11/2026' });
+    expect(screen.getByRole('heading', { name: 'Tháng 11/2026' })).toBeInTheDocument();
+    expect(o('2026-11-30')).toHaveAttribute('aria-pressed', 'true');
+    expect(toMau('2026-11-30')).toEqual(['3402']);
+    expect(screen.getByRole('region', { name: /Ngày 30\/11\/2026/ })).toBeInTheDocument();
+  });
+});

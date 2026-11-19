@@ -3,7 +3,8 @@
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin (Sửa căn CN5-02), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
-// thì về tab Lịch với toast. Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
+// thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
+// Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -13,7 +14,7 @@ import { mauCan } from '../lib/lich';
 import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi } from '../lib/dieuHuong';
 import type { DichVuCan } from '../lib/dichVuCan';
 import type { ThangLich } from '../lib/dichVuLich';
-import { homNay } from '../lib/ngay';
+import { homNay, type Ngay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
 import { CN302ChiTietDatPhong } from './CN302ChiTietDatPhong';
@@ -59,7 +60,11 @@ function useGiaTuan(dv: DichVuCan | null, mo: boolean) {
   return gia;
 }
 
-export function ManChu(props: { duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void }) {
+export function ManChu(props: {
+  duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void;
+  /** HV7 bước 2: phiên hết mà làm mới không được. */
+  onHetPhien?: () => void;
+}) {
   const man = chonManChu(props.duongDan);
   const { ds, dangTai, loi, tai } = useDanhSachCan(props.dichVuCan);
   const hienToast = useToast();
@@ -69,6 +74,9 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   // CN5-A4, CN5-A4b: vừa thêm căn thì nút dưới danh sách là "Thêm căn khác"; rời tab Căn thì thôi.
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
+  // CN4-03: ngày nhận của đặt phòng vừa lưu; rời tab Lịch thì thôi.
+  const [ngayVuaLuu, datNgayVuaLuu] = useState<Ngay | null>(null);
+  useEffect(() => { if (man.tab !== 'lich' && man.tab !== 'dat-phong-moi') datNgayVuaLuu(null); }, [man.tab]);
   const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
   const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong'; // CN3-02 cần thứ tự căn cho màu
 
@@ -118,9 +126,11 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
       <CN4ThemDatPhong key={`${man.canId ?? ''}|${man.ngay ?? ''}`} ds={ds && [...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))}
                        dv={props.dichVuCan?.datPhong} canIdBanDau={man.canId} ngayBanDau={man.ngay}
                        onDong={() => window.history.back()}
+                       onHetPhien={props.onHetPhien}
                        onDaLuu={(v) => {
                          // YC5.3 bước 10, YC5.3-NT1: về tab Lịch với toast; bỏ tháng đã nhớ để lịch đọc lại có đặt phòng mới.
                          boNhoLich.current.clear();
+                         datNgayVuaLuu(v.ngayNhan);
                          hienToast(`Đã thêm đặt phòng ${v.nguoiDat} · ${v.maCan}`);
                          props.den('/');
                        }} />
@@ -170,7 +180,8 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
     // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC5.5: chạm dòng có khách mở CN3-02.
-    than = <CN1LichThang ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
+    than = <CN1LichThang key={ngayVuaLuu ?? ''} ngayMoSan={ngayVuaLuu ?? undefined}
+                         ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
                          boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
                          onMoDatPhong={(id) => props.den(duongDanDatPhong(id))} />;
   }

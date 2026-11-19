@@ -378,6 +378,38 @@
    "dang_cho": "Bị chặn bởi US16"
   },
   {
+   "id": "EN11",
+   "loai": "EN",
+   "tieu_de": "\"Vercel chỉ tự deploy nhánh main\"",
+   "trang_thai": "dang-lam",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN11-vercel-chi-deploy-main.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Đang code"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
@@ -1379,7 +1411,7 @@
    "id": "US28",
    "loai": "US",
    "tieu_de": "\"Lưu và chặn trùng\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1389,10 +1421,10 @@
     "US2"
    ],
    "file": "work/backlog/US28-luu-va-chan-trung.md",
-   "pr": "",
+   "pr": "[33]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1410,7 +1442,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US29",
@@ -1453,7 +1485,7 @@
    "id": "US30",
    "loai": "US",
    "tieu_de": "\"Chi tiết đặt phòng và thu tiền\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [

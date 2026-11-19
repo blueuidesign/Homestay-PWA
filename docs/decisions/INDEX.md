@@ -30,3 +30,4 @@ Mỗi quyết định một file theo `docs/process/templates/qd.md`. Mới thê
 | QD24 | Gói Vercel cho bản thử và bản phát hành | cho-chot | [QD24-goi-vercel.md](QD24-goi-vercel.md) |
 | QD25 | Chạy tự động 7 ngày, Claude tự quyết phần suy được bằng logic | da-chot | [QD25-chay-tu-dong-7-ngay.md](QD25-chay-tu-dong-7-ngay.md) |
 | QD27 | Tiêu chí của hành vi chung gắn màn cụ thể thì kiểm ở US làm màn đó | da-chot | [QD27-nt-hanh-vi-chung-kiem-o-us.md](QD27-nt-hanh-vi-chung-kiem-o-us.md) |
+| QD28 | Vercel chỉ tự deploy nhánh main, bỏ bản Preview của nhánh PR (Claude tự quyết) | da-chot | [QD28-chi-deploy-nhanh-main.md](QD28-chi-deploy-nhanh-main.md) |

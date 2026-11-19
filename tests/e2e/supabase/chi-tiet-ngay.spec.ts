@@ -43,7 +43,7 @@ test('YC2.2-NT1 chạm ô ngày 10 thì chi tiết ngày mở ngay dưới lư�
   await expect(d1509.getByRole('link')).toHaveAttribute('href', `tel:${sale.so}`);
   await expect(chiTiet.getByRole('listitem', { name: 'Phòng 3402' }).getByText(/Trống ✓/)).toBeVisible();
 
-  // YC2.2 bước 9: chi tiết đặt phòng (YC5) chưa có thì báo.
+  // YC2.2 bước 9, YC5.5 bước 16 (US30): chạm dòng có khách mở chi tiết đặt phòng CN3-02.
   await d1509.getByRole('button', { name: 'Phòng 1509' }).click();
-  await expect(page.getByRole('status').filter({ hasText: 'Sẽ có ở bản sau' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeVisible();
 });
