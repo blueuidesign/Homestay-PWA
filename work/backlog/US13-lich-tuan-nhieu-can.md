@@ -2,7 +2,7 @@
 id: US13
 tieu_de: "Lịch tuần nhiều căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC2.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [40]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -54,8 +54,8 @@ YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md.
 
 ## Task
-- [ ] US13-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC2.5-NT2
-- [ ] US13-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN2, CN2-00 theo canvas, test unit, e2e cho YC2.5-NT1 đến NT7
+- [x] US13-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC2.5-NT2 · PR #40
+- [x] US13-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN2, CN2-00 theo canvas, test unit, e2e cho YC2.5-NT1 đến NT7 · PR #40
 - [ ] US13-TA3 Test tay · Đức: chạy tests/kb/US13-lich-tuan-nhieu-can.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md.
 - 2026-11-18 · Claude · tạo item từ YC2.5@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC2-H2, H4, H5 (QD25), thêm NT6, NT7 vào YC2.5 r5; viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · US13-TA1, TA2 trên nhánh US13-lich-tuan-nhieu-can: fn_gia_tung_dem_cua_toi, màn CN2/CN2-00, nút Tháng/Tuần ở CN1; đẩy nhánh, chưa mở PR
+- 2026-11-19 · Claude · gộp main vào nhánh, chạy lại unit 463 và e2e 39 đạt; gộp PR #40 theo QD25 (CI xanh), chuyển chờ test
 
 ## Bằng chứng
 - Database: `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC2.5` viết test trước, lần đầu đỏ (2 hỏng, 1 file lỗi vì chưa có hàm); sau migration 23 qua; cả bộ 1062 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC2.5`: 4/4 phép thử làm hỏng đạt. `supabase db reset` qua, `scripts/bang-cot.sh` sinh lại bang-va-cot.md.
