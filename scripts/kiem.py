@@ -20,6 +20,7 @@ Luật (mã in trong ngoặc vuông ở mỗi dòng báo):
   xong-ngoai-done  item xong mà chưa nằm trong work/backlog/done/
   rev            file docs/ đổi nội dung mà rev không tăng (chỉ với --diff)
   tu-sinh        dòng có [tự sinh] bị sửa tay (chỉ với --diff)
+  nt-test        item đã mở PR có NT chưa có test mang đúng mã, hoặc thiếu lớp ghi sau dấu · (EN8)
 """
 import argparse, collections, os, re, subprocess, sys, unicodedata
 import yaml
@@ -426,6 +427,105 @@ def kiem_rev(gb, dau, p, bao):
         bao.them(p, 1, 'rev', f'file đổi nội dung mà rev vẫn {rm} (trước là {rc}): tăng rev, thêm dòng Lịch sử sửa đổi (CL12)')
 
 
+
+# ---------- NT phải có test (EN8, QD25) ----------
+
+TT_DA_LAM = {'cho-test', 'cho-nghiem-thu', 'xong'}
+RE_NT_DINH_NGHIA = re.compile(r'^\s*[-*]\s+\*\*((?:YC|HV|QT|PQ)\d+(?:\.\d+)*-NT\d+)\*\*(.*)$')
+RE_NT_TRONG_CAU = re.compile(r'((?:YC|HV|QT|PQ)\d+(?:\.\d+)*)-NT(\d+)((?:\s*(?:,|đến)\s*(?:NT\d+))*)')
+LOP_THU_MUC = {
+    'unit': ('src/', ('.test.ts', '.test.tsx')),
+    'e2e': ('tests/e2e/', ('.spec.ts',)),
+    'database': ('tests/db/', ('.sql',)),
+}
+
+
+def ds_nt(repo):
+    """Mã NT -> (mục cha, tập lớp, đã bỏ?) đọc từ docs/."""
+    out = {}
+    for p, t in repo.files.items():
+        if not p.startswith('docs/') or p.startswith(DOCS_MIEN):
+            continue
+        for line in t.splitlines():
+            m = RE_NT_DINH_NGHIA.match(line)
+            if not m:
+                continue
+            code, du = m.group(1), m.group(2)
+            bo = '· bỏ]' in du
+            lop = set()
+            if '·' in du and not bo:
+                for x in du.rsplit('·', 1)[1].split(','):
+                    x = x.strip().lower().rstrip('.')
+                    if x in LOP_THU_MUC:
+                        lop.add(x)
+            out[code] = (code.rsplit('-', 1)[0], lop, bo)
+    return out
+
+
+def nt_cua_item(text, fm, nt):
+    can = set()
+    for x in as_list(fm.get('thuc_hien')):
+        muc = str(x).split('@')[0].strip()
+        can |= {c for c, (cha, _, bo) in nt.items() if cha == muc and not bo}
+    m = re.search(r'^## Làm tiêu chí nào\n(.*?)(?=^## |\Z)', text, re.S | re.M)
+    if m:
+        for g in RE_NT_TRONG_CAU.finditer(m.group(1)):
+            goc, dau, duoi = g.group(1), int(g.group(2)), g.group(3)
+            so = [dau]
+            for k in re.finditer(r'(,|đến)\s*NT(\d+)', duoi):
+                n = int(k.group(2))
+                if k.group(1) == 'đến':
+                    so += list(range(so[-1] + 1, n + 1))
+                else:
+                    so.append(n)
+            for n in so:
+                c = f'{goc}-NT{n}'
+                if c in nt and not nt[c][2]:
+                    can.add(c)
+    return can
+
+
+def doc_test():
+    """Lớp -> [(đường dẫn, nội dung)] của các file test."""
+    out = {k: [] for k in LOP_THU_MUC}
+    for lop, (goc, duoi) in LOP_THU_MUC.items():
+        d0 = os.path.join(ROOT, goc)
+        for d, dirs, files in os.walk(d0):
+            dirs[:] = [x for x in dirs if x != 'node_modules']
+            for f in files:
+                if f.endswith(duoi):
+                    fp = os.path.join(d, f)
+                    try:
+                        out[lop].append((os.path.relpath(fp, ROOT), doc(os.path.relpath(fp, ROOT))))
+                    except (UnicodeDecodeError, OSError):
+                        pass
+    return out
+
+
+def kiem_nt_test(repo, bao):
+    nt = ds_nt(repo)
+    test = None
+    for code, (p, fm) in sorted(repo.item.items()):
+        fm = fm or {}
+        tt = str(fm.get('trang_thai', ''))
+        if not (tt in TT_DA_LAM or (tt == 'dang-lam' and as_list(fm.get('pr')))):
+            continue
+        can = nt_cua_item(repo.files.get(p, ''), fm, nt)
+        if not can:
+            continue
+        if test is None:
+            test = doc_test()
+        for c in sorted(can):
+            re_c = re.compile(re.escape(c) + r'(?!\d)')
+            co = {lop for lop, ds in test.items() if any(re_c.search(t) for _, t in ds)}
+            if not co:
+                bao.them(p, 1, 'nt-test', f'{c} chưa có test nào mang mã này')
+                continue
+            thieu = sorted(nt[c][1] - co)
+            if thieu:
+                bao.them(p, 1, 'nt-test', f'{c} thiếu test lớp {", ".join(thieu)}')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description='Kiểm repo Home247 (CL2, CL3, CL12).')
     ap.add_argument('paths', nargs='*', help='chỉ kiểm các file này')
@@ -467,6 +567,7 @@ def main(argv=None):
                             bao.them(p, so, 'tu-sinh', f'dòng [tự sinh] bị {"thêm/sửa" if dau == "+" else "xóa"} tay: chạy lại script sinh ra nó')
             kiem_file(repo, p, bao, dm, doc_ma=True)
     kiem_trung(repo, chon, bao)
+    kiem_nt_test(repo, bao)
 
     dem = collections.Counter(l for _, _, l, _ in bao.loi)
     if not a.tom_tat:

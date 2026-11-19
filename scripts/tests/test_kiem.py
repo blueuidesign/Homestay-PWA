@@ -183,5 +183,56 @@ class RepoGia(unittest.TestCase):
         self.assertEqual(ma, 0, out)
 
 
+class LuatNtTest(RepoGia):
+    """EN8: NT của item đã mở PR phải có test đúng mã, đúng lớp."""
+
+    def setUp(self):
+        super().setUp()
+        self.ghi('docs/product/requirements/YC5-gia.md', textwrap.dedent('''\
+            ---
+            id: YC5
+            trang_thai: da-chot
+            rev: 2
+            ---
+            # YC5 · Giá
+            ## YC5.1 · Đặt giá
+            - **YC5.1-NT1** Khi lưu thì thấy. · database, unit
+            - **YC5.1-NT2** Khi sai thì báo. · e2e
+            - **YC5.1-NT3** `[r2 · bỏ]` Không còn.
+            - **YC5.1-NT10** Khi nhiều thì gộp. · unit
+            '''))
+
+    def test_item_moi_khong_kiem(self):
+        self.ghi('work/backlog/US1-a.md', item('US1', 'moi', truoc='[EP1]', thuc_hien='[YC5.1@1]'))
+        self.assertNotIn('[nt-test]', self.chay()[1])
+
+    def test_item_cho_test_thieu_test(self):
+        self.ghi('work/backlog/US1-a.md', item('US1', 'cho-test', truoc='[EP1]', thuc_hien='[YC5.1@1]'))
+        self.ghi('src/a.test.ts', "it('YC5.1-NT10 gộp', () => {})\n")
+        ma, out = self.chay('--chan')
+        self.assertEqual(ma, 1)
+        self.assertIn('YC5.1-NT1 chưa có test', out)   # NT10 không được tính là NT1
+        self.assertIn('YC5.1-NT2 chưa có test', out)
+        self.assertNotIn('YC5.1-NT3', out)               # NT đã bỏ
+        self.assertNotIn('YC5.1-NT10', out)
+
+    def test_thieu_lop(self):
+        self.ghi('work/backlog/US1-a.md', item('US1', 'dang-lam', truoc='[EP1]', thuc_hien='[YC5.1@1]', pr='[3]'))
+        self.ghi('src/a.test.ts', "it('YC5.1-NT1', () => {}); it('YC5.1-NT10', () => {})\n")
+        self.ghi('tests/e2e/a.spec.ts', "test('YC5.1-NT2', async () => {})\n")
+        out = self.chay()[1]
+        self.assertIn('YC5.1-NT1 thiếu test lớp database', out)
+        self.ghi('tests/db/10_gia.sql', "select t.ok(true, 'YC5.1-NT1 lưu');\n")
+        self.assertNotIn('[nt-test]', self.chay()[1])
+
+    def test_ma_ghi_thang_trong_lam_tieu_chi(self):
+        nd = item('EN9', 'cho-test', truoc='[EP1]') + '\n## Làm tiêu chí nào\nYC5.1-NT1 đến NT2\n'
+        self.ghi('work/backlog/EN9-a.md', nd)
+        out = self.chay()[1]
+        self.assertIn('YC5.1-NT1 chưa có test', out)
+        self.assertIn('YC5.1-NT2 chưa có test', out)
+        self.assertNotIn('YC5.1-NT10', out)
+
+
 if __name__ == '__main__':
     unittest.main()
