@@ -2,7 +2,7 @@
 id: US30
 tieu_de: "Chi tiết đặt phòng và thu tiền"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.5@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [35]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US30-chi-tiet-dat-phong-va.md.
 
 ## Task
-- [ ] US30-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US30-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US30-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN3-02, CN3-02-01 theo canvas, test unit, e2e cho YC5.5-NT1, YC5.5-NT2, YC5.5-NT4
+- [x] US30-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #35
+- [x] US30-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #35
+- [x] US30-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN3-02, CN3-02-01 theo canvas, test unit, e2e cho YC5.5-NT1, YC5.5-NT2, YC5.5-NT4 · PR #35
 - [ ] US30-TA4 Test tay · Đức: chạy tests/kb/US30-chi-tiet-dat-phong-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US30-chi-tiet-dat-phong-va.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.5@1 (QD21)
 - 2026-11-19 · Claude (agent phụ) · TA1, TA2, TA3 xong trên nhánh US30-chi-tiet-dat-phong; e2e chi-tiet-ngay.spec.ts (US10) còn chờ sửa theo hành vi mới, ngoài phạm vi
+- 2026-11-19 · Claude · gộp main, sửa e2e US10 theo YC5.5, gộp PR #35 theo QD25 · 922 test DB, 388 unit, 33 e2e xanh
 
 ## Bằng chứng
 - `scripts/test-db.sh YC5.5` (TA1, chưa có migration): 9 qua, 38 hỏng. Sau migration TA2 lần đầu: `scripts/test-db.sh` 859 qua, 0 hỏng (0 vòng sửa).
