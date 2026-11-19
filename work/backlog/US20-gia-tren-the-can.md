@@ -54,9 +54,14 @@ Kịch bản test tay: tests/kb/US20-gia-tren-the-can.md (KB1, KB2).
 - [ ] US20-TA2 Test tay · Đức: chạy tests/kb/US20-gia-tren-the-can.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+Test trước (db 37, unit can/CN5/ManChuGiaTuan), thấy đỏ; rồi migration fn_gia_tuan_cua_toi (gọi lại fn_lich_gia_thang), dichVuGia.layGiaTuan, thẻ CN5, nối ManChu, e2e gia-the-can.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.1@1 (QD21)
 - 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
+- 2026-11-19 · Claude · code US20-TA1 xong, mở PR nháp, e2e 24 qua
 
 ## Bằng chứng
+- `scripts/test-db.sh YC4.1`: lần đầu đỏ 18 test (lệnh chưa có); sau migration `scripts/test-db.sh` 629 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC4.1`: 3 đạt, 0 không đạt.
+- `npx vitest run`: lần đầu đỏ 11 test, sửa 1 vòng (lỗi tên thẻ trong test mới), cuối 244 qua. typecheck, build qua.
+- e2e Supabase máy: `E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e/supabase --trace off` 24 qua.

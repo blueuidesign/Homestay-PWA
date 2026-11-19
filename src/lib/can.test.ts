@@ -47,3 +47,29 @@ describe('YC3.1 · chữ trên thẻ căn', () => {
     expect(tenCan('Greenbay')).toBe('Greenbay');
   });
 });
+
+// US20 · Giá trên thẻ căn (YC4.1).
+import { chuGiaTuan, thuHaiCuaTuan } from './can';
+
+describe('YC4.1 · chữ giá trên thẻ căn', () => {
+  it('YC4.1-NT2 1509 ghi "900.000đ – 1.300.000đ", 3402 ghi "800.000đ – 1.100.000đ"', () => {
+    expect(chuGiaTuan({ thap: 900000, cao: 1300000 })).toBe('Giá tuần này 900.000đ – 1.300.000đ');
+    expect(chuGiaTuan({ thap: 800000, cao: 1100000 })).toBe('Giá tuần này 800.000đ – 1.100.000đ');
+  });
+
+  it('YC4.1 thấp bằng cao thì ghi một số', () => {
+    expect(chuGiaTuan({ thap: 700000, cao: 700000 })).toBe('Giá tuần này 700.000đ');
+  });
+
+  it('YC4.1-NT1 chưa có đêm nào có giá thì không có chữ giá (thẻ ghi "Chưa đặt giá")', () => {
+    expect(chuGiaTuan({ thap: null, cao: null })).toBeNull();
+  });
+
+  it('YC4.1 thứ Hai của tuần chứa ngày đã cho (giờ Việt Nam): 07/10/2026 (T4) là 05/10, Chủ nhật 11/10 vẫn là 05/10', () => {
+    expect(thuHaiCuaTuan('2026-10-05')).toBe('2026-10-05');
+    expect(thuHaiCuaTuan('2026-10-07')).toBe('2026-10-05');
+    expect(thuHaiCuaTuan('2026-10-11')).toBe('2026-10-05');
+    expect(thuHaiCuaTuan('2026-10-12')).toBe('2026-10-12');
+    expect(thuHaiCuaTuan('2026-11-01')).toBe('2026-10-26');
+  });
+});

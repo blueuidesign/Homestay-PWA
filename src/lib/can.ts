@@ -1,5 +1,6 @@
 // Chữ trên thẻ căn (YC3.1 bước 10 đến 12, glossary "Phòng ngủ và số giường", GD14). Không bao giờ ghi số khách.
-import type { Ngay } from './ngay';
+import { congNgay, thuTrongTuan, type Ngay } from './ngay';
+import { vietTien } from './tien';
 
 /** Một dòng của v_can_cua_toi, đã đổi ảnh đại diện sang đường dẫn có hạn (QT5.7). */
 export type CanTomTat = {
@@ -65,4 +66,21 @@ export function ngayThang(ngay: Ngay): string {
 /** YC3.1 bước 10: tình trạng hôm nay. */
 export function tinhTrangHomNay(c: Pick<CanTomTat, 'khachDen'>): { co: boolean; chu: string } {
   return c.khachDen ? { co: true, chu: `Có khách đến ${ngayThang(c.khachDen)}` } : { co: false, chu: 'Trống hôm nay ✓' };
+}
+
+/** YC4.1 bước 1: giá đêm thấp nhất, cao nhất của 7 đêm trong tuần; cả hai null khi không đêm nào có giá. */
+export type GiaTuan = { thap: number | null; cao: number | null };
+
+/** YC4.1 bước 1, YC4.1-NT2, QT5.2: "Giá tuần này 900.000đ – 1.300.000đ"; thấp bằng cao thì một số; chưa có giá thì null (YC4.1-NT1). */
+export function chuGiaTuan(g: GiaTuan): string | null {
+  if (g.thap === null || g.cao === null) return null;
+  const a = vietTien(Math.min(g.thap, g.cao));
+  const b = vietTien(Math.max(g.thap, g.cao));
+  return a === b ? `Giá tuần này ${a}` : `Giá tuần này ${a} – ${b}`;
+}
+
+/** YC4.1 bước 1: thứ Hai của tuần chứa ngày đã cho (tuần từ thứ Hai tới Chủ nhật). */
+export function thuHaiCuaTuan(ngay: Ngay): Ngay {
+  const t = thuTrongTuan(ngay); // 0 là Chủ nhật
+  return congNgay(ngay, t === 0 ? -6 : 1 - t);
 }
