@@ -2,7 +2,7 @@
 id: US21
 tieu_de: "Giá theo tháng của một căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC4.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [26]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US21-gia-theo-thang-cua-mot.md (KB1 đến KB4).
 - 2026-11-18 · Claude · tạo item từ YC4.2@1 (QD21)
 - 2026-11-19 · Claude · trả lời YC4-H5, QT5-H1 (QD25), viết tests/kb, sang dang-lam
 - 2026-11-19 · Claude · code TA1 đến TA3 trên nhánh US21-gia-thang (test database trước, migration, màn CN6), mở PR nháp
+- 2026-11-19 · Claude · gộp PR #26 theo QD25 (CI xanh), sang cho-test
 
 ## Bằng chứng
 - `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (chỉ có test, chưa migration) 59 hỏng; sau migration 611 qua, 0 hỏng, 0 file lỗi (một vòng).
