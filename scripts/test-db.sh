@@ -7,6 +7,8 @@
 #   scripts/test-db.sh --chi-dung      chỉ dựng database và nạp dữ liệu mẫu, không chạy test (để chạy app trên máy)
 # Biến: TEST_DB (tên database, mặc định home247_test). SAU_MIGRATION=<file.sql> chạy thêm file đó ngay sau
 # migration (scripts/thu-lam-hong.sh dùng để cố tình làm hỏng).
+# EN12: TU_MAU=<tên database mẫu> chép database từ mẫu đã chạy migration thay cho chạy lại migration.
+# CHI_FILE_CO_MA=1 (cùng chuỗi lọc) chỉ chạy các file test có chứa chuỗi lọc; không file nào có thì chạy mọi file.
 # Thoát 0 khi mọi test qua; 1 khi có test hỏng hay file lỗi.
 set -euo pipefail
 
@@ -32,10 +34,13 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
 PGOPTIONS="-c client_min_messages=warning" psql -X -q -d postgres -c "drop database if exists \"$DB\" with (force)" >/dev/null
-psql -X -q -d postgres -c "create database \"$DB\"" >/dev/null
-
-for f in "$GOC"/supabase/gia-lap/*.sql; do chay "$f"; done
-for f in "$GOC"/supabase/migrations/*.sql; do chay "$f"; done
+if [ -n "${TU_MAU:-}" ]; then
+  psql -X -q -d postgres -c "create database \"$DB\" template \"$TU_MAU\"" >/dev/null
+else
+  psql -X -q -d postgres -c "create database \"$DB\"" >/dev/null
+  for f in "$GOC"/supabase/gia-lap/*.sql; do chay "$f"; done
+  for f in "$GOC"/supabase/migrations/*.sql; do chay "$f"; done
+fi
 if [ -n "${SAU_MIGRATION:-}" ]; then chay "$SAU_MIGRATION"; fi
 
 if [ "$CHI_DUNG" = 1 ]; then
@@ -51,8 +56,15 @@ fi
 chay "$GOC/tests/db/00_khung.sql"
 [ -e "$GOC/tests/db/01_helpers.sql" ] && chay "$GOC/tests/db/01_helpers.sql"
 
+CAC_FILE=("$GOC"/tests/db/[1-9]*.sql)
+if [ -n "${CHI_FILE_CO_MA:-}" ] && [ -n "$LOC" ]; then
+  CO_MA=()
+  for f in "${CAC_FILE[@]}"; do grep -qF -- "$LOC" "$f" && CO_MA+=("$f"); done
+  [ "${#CO_MA[@]}" -gt 0 ] && CAC_FILE=("${CO_MA[@]}")
+fi
+
 QUA=0; HONG=0; LOI_FILE=0
-for f in "$GOC"/tests/db/[1-9]*.sql; do
+for f in "${CAC_FILE[@]}"; do
   [ "$(basename "$f")" = "01_helpers.sql" ] && continue
   ra="$TMP/ra.txt"
   if ! { echo "begin;"; echo "set client_min_messages = notice;"; cat "$f"; echo; echo "rollback;"; } \
