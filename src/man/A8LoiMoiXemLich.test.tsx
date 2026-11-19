@@ -65,7 +65,7 @@ describe('YC6.5 · A8 Lời mời xem lịch', () => {
     const onVe = vi.fn();
     render(<A801KhongDungDuoc onVeLich={onVe} />);
     expect(screen.getByText('Bạn không còn xem được mục này')).toBeInTheDocument();
-    expect(screen.getByText('Link xin lịch đã hết hạn, sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.')).toBeInTheDocument();
+    expect(screen.getByText('Link xin lịch không dùng được: sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Về Lịch' }));
     expect(onVe).toHaveBeenCalledOnce();
   });
@@ -105,7 +105,7 @@ describe('YC6.5 · màn link xin lịch /x/<mã>', () => {
     };
     render(<ToastProvider><ManLinkXinLich ma="xinLan" dv={d} onVeLich={() => {}} onTuChoi={() => {}} onDaDongY={() => {}} /></ToastProvider>);
     fireEvent.click(await screen.findByRole('button', { name: 'Đồng ý cho xem lịch' }));
-    expect(await screen.findByText('Link xin lịch đã hết hạn, sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.'))
+    expect(await screen.findByText('Link xin lịch không dùng được: sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.'))
       .toBeInTheDocument();
   });
 

@@ -12,7 +12,7 @@ import './CN7DanhSachSale.css'; // .cn7-switch
 import './A8LoiMoiXemLich.css';
 
 /** HV5, canvas A8-01: câu báo không có tên, số của sale. */
-export const CAU_A801 = 'Link xin lịch đã hết hạn, sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.';
+export const CAU_A801 = 'Link xin lịch không dùng được: sale đã xóa tài khoản, hoặc bạn đã ngừng cho sale này xem lịch.';
 
 function DauA8() {
   return (
