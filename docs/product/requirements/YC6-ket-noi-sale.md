@@ -76,7 +76,7 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 ## Trạng thái màn (mọi mục)
 
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ bảng chia sẻ hay từ nền: HV3, đọc lại số đếm và danh sách. Mất quyền giữa chừng: HV5. Toast: HV8.
-- Link hết hạn, đã thu hồi, người tạo đã xóa tài khoản: màn báo theo HV5 ("Link mời không còn dùng được" hoặc "Link mời đã hết hạn", [MỞ: YC6-H10]).
+- Link hết hạn, đã thu hồi, người tạo đã xóa tài khoản: màn báo theo HV5 [r6 · sửa] ("Link mời không còn dùng được." hoặc "Link mời đã hết hạn.", kèm "Nhờ chủ nhà gửi link mới.", YC6-H10 Claude tự chốt, chi tiết ở YC6.3).
 
 ## YC6.1 · Xin tên và số điện thoại khi bắt đầu kết nối
 `[r2 · bỏ]` Theo QD22, tên và số xin ngay lúc đăng ký (YC1.2), nên mọi người đã vào app đều có số. Không còn popup xin số, không còn "Để sau".
