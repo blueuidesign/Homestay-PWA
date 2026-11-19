@@ -55,9 +55,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US18-sua-can.md.
 
 ## Task
-- [x] US18-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US18-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US18-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN5-02 theo canvas, test unit, e2e cho YC3.5-NT1, YC3.5-NT2, YC3.5-NT4
+- [x] US18-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #41
+- [x] US18-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #41
+- [x] US18-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN5-02 theo canvas, test unit, e2e cho YC3.5-NT1, YC3.5-NT2, YC3.5-NT4 · PR #41
 - [ ] US18-TA4 Test tay · Đức: chạy tests/kb/US18-sua-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
