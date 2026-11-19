@@ -1,0 +1,30 @@
+/* US37 · A1-link, A1-link-01, A10, A10-01 (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px ở màn đọc, 13 px chữ phụ. */
+.a1l-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; display: flex; gap: 14px; align-items: center; }
+.a1l-the--hong { border-color: var(--danger-border, var(--border)); }
+.a1l-chu { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.a1l-tieu-de { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.a1l-phu { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+
+.a10 { background: var(--surface-page); }
+.a10-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 16px; display: flex; align-items: center; }
+.a10-tieu-de { margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.a10-than { flex: 1 1 auto; padding: 12px 12px 24px; display: flex; flex-direction: column; gap: 12px; }
+.a10-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.a10-chu { display: flex; gap: 14px; align-items: center; }
+.a10-chu-chu { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.a10-tron { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.a10-tron--lon { width: 48px; height: 48px; font-size: 18px; }
+.a10-ten { font-size: 18px; line-height: 26px; font-weight: 700; color: var(--ink); }
+.a10-phu { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.a10-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.a10-cau--giua { text-align: center; color: var(--ink-muted); }
+.a10-muc { margin: 0; padding: 4px 4px 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.a10-ds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.a10-can { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px; display: flex; gap: 12px; align-items: center; }
+.a10-anh { flex: 0 0 auto; width: 72px; height: 72px; border-radius: var(--radius-md); object-fit: cover; }
+.a10-anh--trong { background: var(--border-subtle); }
+.a10-can-chu { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.a10-can-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.a10-chan { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+.a10-da-co { align-items: center; text-align: center; }
+.a10-dau-xong { width: 48px; height: 48px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; }

@@ -11,6 +11,12 @@ export function laDuongDanLink(duongDan: string): boolean {
   return /^\/[lx]\/[A-Za-z0-9_-]+\/?$/.test(duongDan);
 }
 
+/** YC6.3, pwa.md P4: mã của link mời /l/<mã>; địa chỉ khác (kể cả link xin lịch /x/) thì null. */
+export function maLinkMoi(duongDan: string): string | null {
+  const m = /^\/l\/([A-Za-z0-9_-]+)\/?$/.exec(duongDan);
+  return m ? m[1]! : null;
+}
+
 /**
  * YC1.2-NT1: chưa đăng nhập thì mọi địa chỉ về A1, trừ link mời, link xin lịch.
  * YC1 Quy tắc "Chưa đăng ký xong thì chưa vào app": hồ sơ thiếu tên hoặc số thì về màn nhập số.

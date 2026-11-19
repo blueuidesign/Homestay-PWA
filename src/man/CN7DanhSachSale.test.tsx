@@ -171,3 +171,75 @@ describe('YC6.2 · CN7 Danh sách sale', () => {
     expect(await screen.findByRole('heading', { name: 'Đã kết nối · 4' })).toBeInTheDocument();
   });
 });
+
+// US37 · YC6.3 bước 1, YC6-H10: link mời ở CN7.
+function datNavigator(ten: 'share' | 'clipboard', v: unknown) {
+  Object.defineProperty(navigator, ten, { value: v, configurable: true, writable: true });
+}
+afterEach(() => {
+  delete (navigator as unknown as Record<string, unknown>).share;
+  delete (navigator as unknown as Record<string, unknown>).clipboard;
+});
+
+describe('YC6.3 · CN7 link mời', () => {
+  it('YC6.3 bước 1 YC6.3-NT7 "Chia sẻ link mời" mở bảng chia sẻ với tin mời kèm link /l/<mã> của app', async () => {
+    const share = vi.fn(async () => undefined);
+    datNavigator('share', share);
+    const layLinkMoi = vi.fn(async () => ({ ma: 'MaLinkTuan01', soLanGui: 1 }));
+    ve(dichVu([BON], { layLinkMoi, doiLinkMoi: vi.fn(async () => undefined) }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Chia sẻ link mời' }));
+    await waitFor(() => expect(share).toHaveBeenCalledOnce());
+    const chu = (share.mock.calls[0] as unknown as [{ text: string }])[0].text;
+    expect(chu).toContain(`${window.location.origin}/l/MaLinkTuan01`);
+    expect(layLinkMoi).toHaveBeenCalledOnce();
+  });
+
+  it('YC6.3 bước 1 "Sao chép link" sao chép đúng link và báo đã sao chép', async () => {
+    const viet = vi.fn(async () => undefined);
+    datNavigator('clipboard', { writeText: viet });
+    ve(dichVu([BON], { layLinkMoi: vi.fn(async () => ({ ma: 'MaLinkTuan01', soLanGui: 2 })), doiLinkMoi: vi.fn(async () => undefined) }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Sao chép link' }));
+    await waitFor(() => expect(viet).toHaveBeenCalledWith(`${window.location.origin}/l/MaLinkTuan01`));
+    expect(await screen.findByRole('status')).toHaveTextContent('Đã sao chép, dán vào Zalo để gửi');
+  });
+
+  it('YC6.3-NT9 bấm "Đổi link mời" và đồng ý thì link cũ bị thu hồi, lần chia sẻ sau dùng link khác', async () => {
+    const viet = vi.fn(async () => undefined);
+    datNavigator('clipboard', { writeText: viet });
+    const ma = ['MaCu00000001', 'MaMoi0000002'];
+    const doiLinkMoi = vi.fn(async () => { ma.shift(); });
+    ve(dichVu([BON], { layLinkMoi: vi.fn(async () => ({ ma: ma[0]!, soLanGui: 1 })), doiLinkMoi }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Sao chép link' }));
+    await waitFor(() => expect(viet).toHaveBeenLastCalledWith(`${window.location.origin}/l/MaCu00000001`));
+
+    fireEvent.click(screen.getByRole('button', { name: 'Đổi link mời' }));
+    const hoi = screen.getByRole('alertdialog');
+    expect(hoi).toHaveTextContent('Đổi link mời? Link cũ sẽ không dùng được nữa. Sale đã thêm lịch vẫn giữ.');
+    fireEvent.click(within(hoi).getByRole('button', { name: 'Đổi link' }));
+    await waitFor(() => expect(doiLinkMoi).toHaveBeenCalledOnce());
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
+    // Sale Hùng (đã thêm trước đó) vẫn ở nhóm "Đã kết nối".
+    expect(screen.getByRole('heading', { name: 'Đã kết nối · 4' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Sao chép link' }));
+    await waitFor(() => expect(viet).toHaveBeenLastCalledWith(`${window.location.origin}/l/MaMoi0000002`));
+  });
+
+  it('YC6.3 YC6-H10 bấm "Đổi link mời" rồi "Không" thì không đổi gì', async () => {
+    const doiLinkMoi = vi.fn(async () => undefined);
+    ve(dichVu([BON], { layLinkMoi: vi.fn(async () => ({ ma: 'x', soLanGui: 1 })), doiLinkMoi }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Đổi link mời' }));
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Không' }));
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    expect(doiLinkMoi).not.toHaveBeenCalled();
+  });
+
+  it('YC6.3 HV2 lấy link không được thì báo lỗi, không đứng im', async () => {
+    const share = vi.fn(async () => undefined);
+    datNavigator('share', share);
+    ve(dichVu([BON], { layLinkMoi: vi.fn(async () => { throw new Error('mạng'); }), doiLinkMoi: vi.fn(async () => undefined) }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Chia sẻ link mời' }));
+    expect(await screen.findByRole('status')).toHaveTextContent(/chưa làm được|Mất kết nối|Chưa/);
+    expect(share).not.toHaveBeenCalled();
+  });
+});
