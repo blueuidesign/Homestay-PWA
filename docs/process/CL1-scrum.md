@@ -3,7 +3,7 @@ id: CL1
 tieu_de: Nhịp làm việc theo luồng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # CL1 · Nhịp làm việc theo luồng
 Theo QD21 (lấy lại cách làm theo luồng của bản Zalo). Không chạy sprint. Việc đi theo thứ tự trong work/backlog/THU-TU.md, qua các cột trạng thái của CL2.2, mỗi cột chờ người có trần.
@@ -16,8 +16,9 @@ Theo QD21 (lấy lại cách làm theo luồng của bản Zalo). Không chạy 
 AI là công cụ, không giữ vai nào. Mọi task Code do Claude Code làm (CL2.8).
 
 ## CL1.2 · Luồng và trần
+`[r2 · sửa]`
 Việc chảy qua các cột: `san-sang` → `dang-lam` → `cho-test` → `cho-nghiem-thu` → `xong` (CL2.2).
-- **Trần chờ người:** item có task Code ở `cho-test` cộng `cho-nghiem-thu` tối đa 6. Chạm trần thì không ai nhận item có code mới. Chỉ làm BG, EN chỉ có tài liệu, sửa lỗi Đức tìm ra, và việc giảm tải cho người kiểm.
+- **Trần chờ người:** item có task Code ở `cho-test` cộng `cho-nghiem-thu` tối đa 6. Chạm trần thì không ai nhận item có code mới. Chỉ làm BG, EN chỉ có tài liệu, sửa lỗi Đức tìm ra, và việc giảm tải cho người kiểm. Tùng bỏ trần này trong thời gian chạy tự động 19/11 tới 26/11/2026 (QD25); hết thời gian đó trần có lại, trừ khi Tùng nói khác.
 - **Trần đang làm:** tối đa 2 item có code ở `dang-lam` cùng lúc.
 - **Lỗi trước, việc mới sau:** BG từ test tay đứng đầu hàng đợi.
 - Thứ tự còn lại theo THU-TU.md. Chỉ Tùng sắp (CL4.3.2).
@@ -41,3 +42,4 @@ Nếu sau này cần sprint, viết QD mới.
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Chép từ bản Zalo r2, sửa cho bản PWA (QD21). Lịch sử cũ ở repo zalo-miniapp | Cả file |
+| r2 | 2026-11-19 | Claude | QD25-bo-tran-cho-test | Bỏ trần chờ người trong thời gian chạy tự động (QD25) | CL1.2 |
