@@ -2,7 +2,7 @@
 id: US19
 tieu_de: "Xóa căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.6@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [42]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -64,9 +64,9 @@ Kịch bản test tay: tests/kb/US19-xoa-can.md.
 
 ## Task
 - [ ] US19-TA1 Thiết kế · Design: làm theo CL13 bảng "Màn phải làm". Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3). Theo QD25 code đi trước, dùng nút chữ và hộp hỏi lại có sẵn (như CN3-02 xóa đặt phòng); Design vẽ sau
-- [ ] US19-TA2 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.6-NT2, YC3.6-NT3, YC3.6-NT4, YC3.6-NT6, YC3.6-NT7, YC3.6-NT8, YC3.6-NT9, YC3.6-NT10, YC3.6-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US19-TA3 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US19-TA4 Code · Claude Code (sonnet, CL14.6a): nút "Xóa phòng" và hộp hỏi lại ở CN5-02 theo YC3.6 r5, test unit, e2e cho YC3.6-NT1, YC3.6-NT5, YC3.6-NT9, YC3.6-NT12
+- [x] US19-TA2 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC3.6-NT2, YC3.6-NT3, YC3.6-NT4, YC3.6-NT6, YC3.6-NT7, YC3.6-NT8, YC3.6-NT9, YC3.6-NT10, YC3.6-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #42
+- [x] US19-TA3 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #42
+- [x] US19-TA4 Code · Claude Code (sonnet, CL14.6a): nút "Xóa phòng" và hộp hỏi lại ở CN5-02 theo YC3.6 r5, test unit, e2e cho YC3.6-NT1, YC3.6-NT5, YC3.6-NT9, YC3.6-NT12 · PR #42
 - [ ] US19-TA5 Test tay · Đức: chạy tests/kb/US19-xoa-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -78,6 +78,7 @@ Kịch bản test tay: tests/kb/US19-xoa-can.md.
 - 2026-11-18 · Claude · tạo item từ YC3.6@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC3-H3, H8 (QD25, YC3 r5, thêm NT12); viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · TA2, TA3, TA4 trên nhánh US19-xoa-can, chưa PR · bất ngờ: ghi booking chưa khóa căn, thêm trigger khóa · ~1 giờ
+- 2026-11-19 · Claude · gộp PR #42 theo QD25 (CI xanh), chuyển chờ test; TA1 Thiết kế còn mở
 
 ## Bằng chứng
 - TA2 `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC3.6`: trước migration 31 hỏng, 19 qua (sửa file test 2 vòng vì lỗi cú pháp, không đổi nội dung kiểm).
