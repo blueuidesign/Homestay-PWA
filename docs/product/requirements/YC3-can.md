@@ -33,7 +33,7 @@ Không thuộc YC này (dễ tưởng là có):
 - Sale thêm căn của chính mình, căn tự nhập: YC10.
 - Chọn tỉnh khi vào app, lọc tòa theo tỉnh: bản sau (`docs/product/requirements/README.md`).
 - Người quản trị sửa, gộp danh sách tòa: YC13.
-- Căn mới tự hiện ở lịch của sale: YC7. Báo cho sale khi chủ nhà thêm căn: [MỞ: YC3-H1].
+- Căn mới tự hiện ở lịch của sale: YC7. `[r2 · sửa]` Báo cho sale khi chủ nhà thêm căn: có, chữ và người nhận ở YC12 (trả lời YC3-H1).
 
 ## Quy tắc của nhóm
 
@@ -265,5 +265,5 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
-| r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9 (Claude tự quyết, QD25) | YC3.2 |
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US1, US25, US11, US27 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9; trả lời YC3-H1 (Claude tự quyết, QD25) | Phạm vi, YC3.2 |

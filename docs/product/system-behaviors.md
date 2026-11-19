@@ -3,7 +3,7 @@ id: HV
 tieu_de: Hành vi chung của mọi màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ---
 # HV · Hành vi chung của mọi màn
 
@@ -54,7 +54,7 @@ Rủi ro: cao. Người dùng rời app để gọi điện, chat, chia sẻ r�
 | 6 | Mở một link khác của app khi app đang mở | Chuyển tới màn của link mới; nháp form cũ vẫn giữ |
 | 7 | Chọn ảnh | Tải ảnh lên ngay khi chọn, không giữ ở máy tới lúc bấm lưu |
 
-Nháp chỉ chứa thứ mất cũng được. Nháp đặt phòng được chứa tên, số khách (QD11), xóa khi lưu xong hay hủy. Nháp giữ bao lâu: [MỞ: HV3-H1].
+Nháp chỉ chứa thứ mất cũng được. Nháp đặt phòng được chứa tên, số khách (QD11), xóa khi lưu xong hay hủy. `[r4 · sửa]` Nháp giữ 7 ngày kể từ lần sửa cuối; quá 7 ngày thì bỏ, không khôi phục (Claude tự quyết, QD25, trả lời HV3-H1).
 
 Tiêu chí:
 - **HV3-NT1** Khi chủ nhà đang nhập đặt phòng ở CN4, rời app 5 phút rồi quay lại, thì form còn đủ căn, ngày, số tiền đã nhập. · unit
@@ -129,10 +129,11 @@ Tiêu chí:
 Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoại quyền, cập nhật Zalo), không dùng ở bản PWA và không cấp lại.
 
 ## Câu hỏi còn mở
-Ở `work/cau-hoi.md`: HV1-H1 (chờ bao lâu thì coi là lỗi), HV3-H1 (nháp giữ bao lâu).
+Ở `work/cau-hoi.md`: HV1-H1 (chờ bao lâu thì coi là lỗi).
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: số điện thoại lấy lúc đăng ký | HV4 |
 | r3 | 2026-11-19 | Claude | EN4-hanh-vi-chung | Tên nút "Chia sẻ chữ" theo canvas PWA (chỉ sửa chữ) | HV6 |
+| r4 | 2026-11-19 | Claude | US15-them-can | Trả lời HV3-H1: nháp giữ 7 ngày (Claude tự quyết, QD25) | HV3 |

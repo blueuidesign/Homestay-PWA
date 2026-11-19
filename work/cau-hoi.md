@@ -94,9 +94,10 @@ Gắn ở: YC2.2. Tới khi có câu trả lời: mở chi tiết ngày như ng�
 
 ## YC3
 
-### YC3-H1 · mo
+### YC3-H1 · da-tra-loi
 Chủ nhà thêm căn mới khi đã chia sẻ "tất cả căn" cho sale: có báo cho sale không?
 Gắn ở: YC12, YC3, YC6.7.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Sale cần biết căn mới để chào khách; YC3.2 bước 18 đã ghi trigger báo. Ghi dòng "Chủ nhà thêm căn" vào YC12 r2: chỉ sale đã kết nối, chia sẻ "tất cả căn"; chữ chỉ có tên chủ nhà và mã căn, không có giá; không có công tắc.
 
 ### YC3-H3 · mo
 Nút xóa căn đặt ở đâu, xóa xong về màn nào?
@@ -576,9 +577,10 @@ Gắn ở: HV1.
 
 ## HV3
 
-### HV3-H1 · mo
+### HV3-H1 · da-tra-loi
 Nháp đặt phòng được chứa tên, số khách (QD11), xóa khi lưu xong hay hủy. Nháp giữ bao lâu?
 Gắn ở: HV3.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): 7 ngày kể từ lần sửa cuối, quá hạn thì bỏ. Đủ dài cho người bị ngắt giữa chừng quay lại, không giữ tên, số khách quá lâu trên máy. Ghi vào HV3 r4.
 
 ## PQ1
 

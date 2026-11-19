@@ -3,7 +3,7 @@ id: YC12
 tieu_de: Thông báo
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC12 · Thông báo
@@ -49,13 +49,14 @@ Không thuộc YC này (dễ tưởng là có):
 | Chủ nhà ghi đặt phòng cho sale | Sale | YC5.4 | "Chị Hoa ghi đặt phòng cho bạn" · căn, ngày ở | Chi tiết đặt phòng phía sale (YC5.9) | "Chủ nhà ghi đặt phòng cho bạn" |
 | Chủ nhà sửa đặt phòng của sale | Sale | YC5.6 | "Chị Hoa đã sửa đặt phòng của bạn" · ngày cũ đổi thành ngày mới, tiền phòng cũ đổi thành mới | Chi tiết đặt phòng phía sale (YC5.9) | Không |
 | Căn đã gửi khách có người đặt | Sale | YC8.1 | "Sapphire 1103 · 10/10 → 12/10 vừa có người đặt" | S3 của căn đó (YC7.4) | "Căn bạn đã gửi khách vừa có người đặt" |
+| `[r2 · thêm]` Chủ nhà thêm căn | Sale đã kết nối với chủ nhà, chia sẻ "tất cả căn" | YC3.2 | "Chị Hoa vừa thêm căn 2105" · "Căn đã vào Nguồn phòng của bạn" | S3 của căn đó (YC7.4) | Không |
 | Chủ nhà đã xóa tài khoản | Sale | YC1 | "Chị Hoa đã xóa tài khoản" · "Các căn của Chị Hoa không còn trong lịch. Đặt phòng đã chốt vẫn giữ." | S6-08 (YC10.1) | Không |
 | Sale gửi yêu cầu đặt phòng | Chủ nhà | YC9.1 | "Sale Hùng đặt phòng 1509" · "10/10 → 12/10 (2 đêm) · giá của bạn 2.200.000đ" | CN9 (YC9.2) | "Sale đặt phòng mới" |
 | Đặt phòng chưa cọc | Chủ nhà | YC12.3 | "Đặt phòng chưa cọc" · "Sale Lan · 17/10 → 19/10 · nhận phòng sau 3 ngày" | Chi tiết đặt phòng (YC5.5) | "Đặt phòng chưa cọc" |
 | Xin hủy đặt phòng | Bên kia | YC5.8 | "Sale Hùng xin hủy đặt phòng" · "ICON40 1509 · 10/10 → 12/10" | Chi tiết đặt phòng | Không |
 | Trả lời xin hủy | Bên xin | YC5.8 | "Chị Hoa đã đồng ý hủy" hay "Chị Hoa không đồng ý hủy" · căn, ngày ở | Chi tiết đặt phòng | Không |
 
-Chữ ở cột "Dòng chính · dòng phụ" chưa có trên hình (xin hủy, trả lời xin hủy, ghi đặt phòng cho sale, đặt phòng chưa cọc, sale gửi yêu cầu ở P13): giả định GD27, Design đặt lại được. Báo sale khi chủ nhà thêm căn mới: [MỞ: YC3-H1]. Báo chủ nhà khi sale gửi link xin xem lịch: [MỞ: YC12-H2] (sale gửi link ngoài app, database chưa biết gì cho tới khi chủ nhà mở link). Báo chủ nhà khi sale hủy yêu cầu: [MỞ: YC9-H6].
+Chữ ở cột "Dòng chính · dòng phụ" chưa có trên hình (xin hủy, trả lời xin hủy, ghi đặt phòng cho sale, đặt phòng chưa cọc, sale gửi yêu cầu ở P13): giả định GD27, Design đặt lại được. `[r2 · sửa]` Báo sale khi chủ nhà thêm căn mới: có, dòng "Chủ nhà thêm căn" ở bảng trên (Claude tự quyết, QD25, trả lời YC3-H1). Báo chủ nhà khi sale gửi link xin xem lịch: [MỞ: YC12-H2] (sale gửi link ngoài app, database chưa biết gì cho tới khi chủ nhà mở link). Báo chủ nhà khi sale hủy yêu cầu: [MỞ: YC9-H6].
 
 ## Ai được làm gì
 
@@ -171,3 +172,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US30, phần thông báo của US17, US21 (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | Các loại thông báo |

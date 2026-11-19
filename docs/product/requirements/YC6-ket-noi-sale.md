@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -212,7 +212,7 @@ Bản 1 · rủi ro: cao · Màn: lịch của sale (YC7)
 | 1 | Chủ nhà thêm căn mới (YC3) | | Căn mới tự vào phạm vi của mọi sale có kết nối "tất cả căn" với chủ nhà đó, không ghi thêm gì |
 | 2 | Sale mở lịch | Căn mới hiện trong lịch của sale | Đọc theo quyền sale được xem |
 
-Có báo cho sale khi có căn mới không: [MỞ: YC3-H1].
+`[r4 · sửa]` Có báo cho sale khi có căn mới: có, theo YC12 (trả lời YC3-H1).
 
 Tiêu chí:
 - **YC6.7-NT1** Khi Sale Hùng có kết nối "tất cả căn" với Chị Hoa và Chị Hoa thêm căn 2105, thì Hùng thấy 2105 trong lịch mà không mở lại link. · database
@@ -253,3 +253,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US5, US17, US26 và phần link mời của US6 (QD20, QD21), đổi cách gửi và link sang bản PWA | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ YC6.1 và quy tắc xin số đúng lúc; bỏ bước "YC6.1 nếu chưa có số" ở YC6.3 đến YC6.6 | Phạm vi, Quy tắc của nhóm, YC6.1, YC6.3, YC6.4, YC6.5, YC6.6, Màn hình |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: nút "Gửi ... qua Zalo" thành "Chia sẻ ..." (YC8-H5); bỏ popup xin số còn sót ở Luồng chính | Luồng chính, YC6.2, YC6.3, YC6.4, YC6.6, Màn hình |
+| r4 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | YC6.7 |
