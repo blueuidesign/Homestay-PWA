@@ -380,13 +380,15 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Gắn ở: YC7.2. Tới khi có câu trả lời: lần tìm trùng đưa lên đầu, không thêm dòng.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Một dòng. Lần tìm trùng hệt điều kiện (ngày nhận, ngày trả, số phòng ngủ, tòa, view) đưa lên đầu, cập nhật lúc tìm, không thêm dòng; nhờ vậy 5 dòng không bị lặp. Ghi vào YC7.2 r3.
 
-### YC7-H6 · mo
+### YC7-H6 · da-tra-loi
 Mở S3 từ lịch 7 ngày (không có ngày khách hỏi) thì ngày ở là gì?
 Gắn ở: YC7.4. Tới khi có câu trả lời: hôm nay, 1 đêm.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ngày đầu của khoảng 7 ngày đang xem ở S1 (hôm nay nếu chưa bấm ›), 1 đêm; không tô "Ngày khách hỏi" vì khách chưa hỏi ngày nào. Sale đã lùi tiến tuần là đang nghĩ tới tuần đó, nên mở đúng tuần đó có ích hơn hôm nay. Ghi vào YC7.4 r5.
 
-### YC7-H7 · mo
+### YC7-H7 · da-tra-loi
 Sale đã đặt mức cộng riêng cho một căn: quay về dùng mức cộng mặc định bằng cách nào?
 Gắn ở: YC7.4. Tới khi có câu trả lời: chip "Mặc định" đầu hàng.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chip "Mặc định" đứng đầu hàng chip, ghi kèm mức mặc định (ví dụ "Mặc định +400k"). Chọn nó thì database xóa mức cộng riêng của sale cho căn đó, giá bán tính lại theo mức mặc định. Đang dùng mặc định thì chip này được chọn sẵn. Ghi vào YC7.4 r5.
 
 ### YC7-H8 · da-tra-loi
 Tab Lịch của sale chưa có nguồn phòng nhưng đã gửi link xin lịch: hiện A5 hay A7? YC7.1-NT1 nói A5 khi chưa có nguồn phòng; A7 và A7-00 ghi "Vào từ: tab Lịch của sale chưa có nguồn", A7-00 ghi "gần giống A5, có thể gộp". Thêm: hai nút "Gửi link cho chủ nhà khác", "Thêm căn tự nhập" ở A7 chưa nối màn nào trong A7, còn A7-01 vẽ nút "Gửi link cho chủ nhà khác" mở A6 (YC6.4 bước 5 ghi chưa vẽ). Phương án: a) chưa gửi lần nào thì A5, đã gửi thì A7 (bả
