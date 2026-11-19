@@ -2,7 +2,7 @@
 id: US9
 tieu_de: "Lịch tháng và lọc theo căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC2.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -47,7 +47,7 @@ YC2-lich-chu-nha.md#Dữ liệu
 YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md.
 
 ## Task
 - [ ] US9-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-00, CN1-02 theo canvas, test unit, e2e cho YC2.1-NT1 đến NT6
@@ -58,5 +58,6 @@ Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md, chưa viết. Vi�
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV1-NT2, HV2-NT3 từ EN4 (QD27)
+- 2026-11-19 · Claude · trả lời QT2-H1, viết tests/kb, soạn gói việc, sang dang-lam
 
 ## Bằng chứng

@@ -3,7 +3,7 @@ id: QT2
 tieu_de: Đêm có khách
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # QT2 · Đêm có khách
 
@@ -11,7 +11,7 @@ Một luật chung cho lịch của chủ nhà (CN1), thống kê (CN8) và lị
 
 ## QT2.1 · Booking chiếm những đêm nào
 Rủi ro: cao
-Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. Booking đã xóa không chiếm đêm [MỞ: QT2-H1].
+Booking chiếm các đêm từ ngày nhận tới trước ngày trả. Ngày trả không phải đêm có khách. `[r2 · sửa]` Booking đã hủy (xóa) không chiếm đêm: chỉ booking chưa hủy chiếm đêm (Claude tự chốt, QD25, trả lời QT2-H1).
 
 | Mã | Nhận → trả | Phải ra |
 |---|---|---|
@@ -33,3 +33,4 @@ Các ví dụ dùng số trong `docs/product/du-lieu-mau.md`.
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tách từ docs/luat-chung/QT.md (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | US9-lich-thang | Booking đã hủy không chiếm đêm, trả lời QT2-H1 (Claude tự chốt, QD25) | QT2.1 |

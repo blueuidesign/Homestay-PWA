@@ -563,9 +563,10 @@ Gắn ở: YC15.
 
 ## QT2
 
-### QT2-H1 · mo
+### QT2-H1 · da-tra-loi
 Đặt phòng đã hủy (xóa) có còn chiếm đêm không, hay QT2.1 chỉ tính đặt phòng chưa hủy?
 Gắn ở: QT.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không chiếm. Chỉ đặt phòng chưa hủy chiếm đêm, khớp YC2.1 bước 1 ("đặt phòng chưa hủy"), QD12 và ràng buộc chặn trùng booking_khong_trung (bỏ qua trang_thai da_huy). Ghi vào QT2 r2.
 
 ## QT5
 
