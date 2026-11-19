@@ -2,7 +2,7 @@
 id: US32
 tieu_de: "Xóa đặt phòng khách lẻ"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.7@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [37]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US32-xoa-dat-phong-khach-le.md.
 
 ## Task
-- [ ] US32-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.7-NT2, YC5.7-NT4, YC5.7-NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US32-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US32-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN3-02 theo canvas, test unit, e2e cho YC5.7-NT1, YC5.7-NT3, YC5.7-NT5
+- [x] US32-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.7-NT2, YC5.7-NT4, YC5.7-NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #37
+- [x] US32-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #37
+- [x] US32-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN3-02 theo canvas, test unit, e2e cho YC5.7-NT1, YC5.7-NT3, YC5.7-NT5 · PR #37
 - [ ] US32-TA4 Test tay · Đức: chạy tests/kb/US32-xoa-dat-phong-khach-le.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US32-xoa-dat-phong-khach-le.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.7@1 (QD21)
 - 2026-11-19 · Claude · TA1, TA2, TA3 trên nhánh US32-xoa-dat-phong; e2e chưa chạy vì Supabase trên máy thiếu kong · 1 giờ
+- 2026-11-19 · Claude · sửa bộ chọn toast trong e2e, gộp PR #37 theo QD25 · 1023 test DB, 415 unit, 36 e2e xanh
 
 ## Bằng chứng
 - `scripts/test-db.sh YC5.7`: lần đầu đỏ 19/30 (chưa có hàm); sửa 1 vòng (một test TA1 tính cả dòng xóa 43_us28 để lại, thu hẹp về đặt phòng của file); cuối: cả bộ 1023 qua, 0 hỏng.

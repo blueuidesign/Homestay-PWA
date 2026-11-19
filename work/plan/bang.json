@@ -1559,7 +1559,7 @@
    "id": "US32",
    "loai": "US",
    "tieu_de": "\"Xóa đặt phòng khách lẻ\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1569,10 +1569,10 @@
     "US2"
    ],
    "file": "work/backlog/US32-xoa-dat-phong-khach-le.md",
-   "pr": "",
+   "pr": "[37]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1590,7 +1590,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US33",
