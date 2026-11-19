@@ -258,9 +258,10 @@ Chủ nhà ngừng được sale đã xóa tài khoản không?
 Gắn ở: YC6.2.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không cần. Dòng của sale đã xóa tài khoản không mở được và chỉ có nút "Bỏ dòng" (bước 7); tài khoản đã xóa không còn đọc được gì nên không cần ngừng. Ghi vào YC6.2 r5.
 
-### YC6-H2 · mo
+### YC6-H2 · da-tra-loi
 Sale có thu hồi được link xin lịch của mình không, ở đâu?
 Gắn ở: YC6.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có. Link xin lịch chỉ cho chủ nhà mở lời đồng ý cho sale xem lịch của chính chủ nhà đó (YC6.5); người lạ cầm link cũng chỉ có thể chia sẻ lịch của họ cho sale, không đọc được gì của sale. Sale không muốn xem lịch của ai thì bỏ nguồn đó ở Nguồn phòng (YC10.2). Ghi vào YC6.4 r7.
 
 ### YC6-H3 · da-tra-loi
 Kết nối đã tạo từ link đã thu hồi còn dùng không?
