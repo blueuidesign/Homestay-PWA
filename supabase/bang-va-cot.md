@@ -655,6 +655,7 @@ Policy:
 - fn_doanh_thu_thang(p_thang date) → TABLE(doanh_thu bigint, so_dem integer, doanh_thu_thang_truoc bigint) · security definer · gọi được: authenticated
 - fn_doi_link_moi() → void · security definer · gọi được: authenticated
 - fn_don_anh_tam() → SETOF text · security definer
+- fn_dong_y_xin_lich(p_ma text, p_xem_coc boolean) → jsonb · security definer · gọi được: authenticated
 - fn_ds_sale_cua_toi() → TABLE(id uuid, loai text, sale_id uuid, ten text, so_dien_thoai text, nhom text, da_xoa_tai_khoan boolean, xem_coc boolean, so_dat_phong integer, tong_tien_phong bigint, ket_noi_luc timestamp with time zone, ngung_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_gia_chu_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date) → TABLE(dem date, gia bigint) · security definer · gọi được: authenticated
 - fn_gia_tuan_cua_toi(p_tu date) → TABLE(can_id uuid, gia_thap bigint, gia_cao bigint) · security definer · gọi được: authenticated
@@ -676,6 +677,7 @@ Policy:
 - fn_them_sale_tay(p_ten text, p_so text) → uuid · security definer · gọi được: authenticated
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated
 - fn_xem_link_moi(p_ma text) → jsonb · security definer · gọi được: anon, authenticated
+- fn_xem_link_xin_lich(p_ma text) → jsonb · security definer · gọi được: authenticated
 - fn_xoa_booking(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_can(p_can_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_sale_tay(p_id uuid) → void · security definer · gọi được: authenticated
@@ -683,6 +685,7 @@ Policy:
 - khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
 - kiem_du_lieu_booking(p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_trang_thai_tien text, p_tien_coc bigint, p_ten_khach text, p_sdt_khach text, p_so_khach integer, p_ghi_chu text, OUT o_trang_thai_tien text, OUT o_tien_coc bigint, OUT o_ten_khach text, OUT o_sdt_khach text, OUT o_ghi_chu text) → record
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
+- link_xin_lich_dung_duoc(p_link link_xin_lich, p_nguoi uuid) → boolean · security definer
 - local_today() → date · security definer · gọi được: authenticated
 - ma_link_chu_cai() → text
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated
