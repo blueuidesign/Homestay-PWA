@@ -7,7 +7,7 @@ paths:
 ---
 # Quy ước khi sửa cách làm việc
 
-Mọi thay đổi ở đây thuộc CL4.3.6, nên chỉ mở PR cho Tùng duyệt. AI chỉ gộp khi Tùng ra lệnh gộp rõ PR nào, hoặc trong vòng làm tự động Tùng cho phép (CL4.6).
+Mọi thay đổi ở đây thuộc CL4.3.6, nên chỉ mở PR cho Tùng duyệt. AI chỉ gộp khi Tùng ra lệnh gộp rõ PR nào, hoặc trong vòng làm tự động Tùng cho phép (CL4.6). Từ 19/11 tới hết 26/11/2026, PR CI xanh thì tự gộp (QD25, CL4.6 mục 4).
 
 - Một việc một chỗ. CLAUDE.md chỉ chứa điều phải đọc đầu mỗi phiên và trỏ tới CL. Chi tiết nằm ở docs/process/CLx. Đừng chép chi tiết CL vào CLAUDE.md, rules hay skills.
 - Quy trình của một lệnh có skill nằm trong thân skill ở .claude/skills/<tên>/SKILL.md, viết một lần ở đó. CL5 chỉ giữ mục lục và quy trình của lệnh chưa có skill. Lý do: thân skill chỉ nạp khi gọi đúng lệnh.
