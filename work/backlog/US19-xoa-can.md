@@ -42,7 +42,9 @@ CN5-02 (nút "Xóa phòng", hộp hỏi lại; chưa vẽ, theo YC3.6 r5)
 PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC3-can.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+- supabase/migrations/20261119300000_us19_xoa_can.sql (mới), tests/db/51_us19_xoa_can.sql (mới), scripts/thu-lam-hong.txt, supabase/bang-va-cot.md (sinh lại)
+- src/man/CN502SuaCan.tsx, .test.tsx, .css; src/man/ManChu.tsx; src/lib/dichVuCan.ts
+- tests/e2e/supabase/xoa-can.spec.ts (mới)
 
 ## Ngoài phạm vi
 - YC3-H3, YC3-H8 đã Claude tự chốt (QD25), ghi ở YC3.6 r5.
@@ -68,9 +70,18 @@ Kịch bản test tay: tests/kb/US19-xoa-can.md.
 - [ ] US19-TA5 Test tay · Đức: chạy tests/kb/US19-xoa-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA2: test database 51 viết trước, hai phiên dblink cho NT11 (ẩn trước, ghi trước); "hôm nay" đổi bằng local_today giả trong giao dịch.
+- TA3: fn_xoa_can khóa dòng căn (for update), kiểm booking chưa hủy trả sau hôm nay và yêu cầu chờ chưa hết hạn, ghi an_luc. fn_tao_booking, fn_sua_booking chỉ kiểm căn chưa ẩn bằng exists không khóa (lọt khi chạy cùng lúc), nên thêm trigger trước khi ghi booking (đặt phòng chưa hủy trả sau hôm nay) và yeu_cau_dat_phong (đang chờ): khóa căn "for no key update" rồi kiểm chưa ẩn.
+- TA4: nút chữ đỏ "Xóa phòng" trong thanh dưới, dưới "Lưu thay đổi"; hộp hỏi lại như CN3-02; toast do CN5-02 hiện; 42501 báo "Có lỗi xảy ra. Bạn thử lại sau ít phút."; xóa xong xóa bộ nhớ lịch tháng.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.6@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC3-H3, H8 (QD25, YC3 r5, thêm NT12); viết kịch bản test tay; giao agent code
+- 2026-11-19 · Claude (agent code) · TA2, TA3, TA4 trên nhánh US19-xoa-can, chưa PR · bất ngờ: ghi booking chưa khóa căn, thêm trigger khóa · ~1 giờ
 
 ## Bằng chứng
+- TA2 `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC3.6`: trước migration 31 hỏng, 19 qua (sửa file test 2 vòng vì lỗi cú pháp, không đổi nội dung kiểm).
+- TA3 cùng lệnh, cả bộ: lần đầu sau migration xanh, 1186 qua, 0 hỏng, không sửa vòng nào. `scripts/thu-lam-hong.sh YC3.6`: 9 đạt, 0 không đạt (có phép bỏ trigger khóa căn thì NT11 đỏ). `scripts/bang-cot.sh` sinh lại, `supabase db reset` qua.
+- TA4 `npx vitest run`: 6 test mới trong CN502SuaCan.test.tsx viết trước code, lần đầu 5 đỏ; sau code 1 vòng xanh, cả bộ 483 qua. Không sửa test cũ.
+- `npm run typecheck` qua, `npm run build` qua, `python3 scripts/kiem.py --diff origin/main` không có lỗi.
+- e2e `E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e/supabase --trace off`: 44 qua (2 test mới ở xoa-can.spec.ts cho NT1, NT5, NT9, NT12, lần đầu xanh).
