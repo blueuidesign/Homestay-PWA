@@ -105,7 +105,9 @@ select t.bang(pg_temp.con(t.b('GH')), '1|2|0', 'YC5.7-NT5 đặt phòng ghi giú
 select t.dang_nhap(t.id('hung'));
 select t.loi(pg_temp.cau_xoa(t.b('GH')), '42501', 'YC5.7-NT5 PQ7.SALE Sale Hùng gửi lệnh xóa đặt phòng Chị Hoa ghi giúp thì database từ chối');
 select t.thoat();
-select t.ok(not exists (select 1 from public.audit_log where hanh_dong = 'delete'),
+-- Chỉ xét đặt phòng của file này: 43_us28 dọn dữ liệu đã commit qua dblink nên audit_log có sẵn dòng xóa khác.
+select t.ok(not exists (select 1 from public.audit_log where hanh_dong = 'delete'
+                          and ban_ghi_id in (t.b('B1'), t.b('B5'), t.b('GH'))),
             'YC5.7 QD2 lệnh xóa bị từ chối không ghi nhật ký xóa');
 
 -- ===== YC5.7-NT2: Chị Hoa xác nhận xóa B5 =====
