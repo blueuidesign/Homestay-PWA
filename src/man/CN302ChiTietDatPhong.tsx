@@ -1,7 +1,8 @@
 // CN3-02 · Chi tiết đặt phòng và thu tiền (YC5.5), CN3-02-01 · sale đã xóa tài khoản (YC5.5 bước 22, QD13).
 // Đọc qua fn_chi_tiet_dat_phong (PQ7.CHU, PQ8.CHU, PQ9.CHU): khách do sale nhập không bao giờ có (QD11, QT6.2).
 // Ghi qua fn_da_thu_du, fn_hoan_tac_thu_du (QT6.1). Trạng thái: HV1 khung xám, HV2 chưa tải được thì Thử lại, HV3 quay lại từ
-// nền đọc lại, HV5 đặt phòng không còn thì về màn trước với toast, HV8 toast. Sửa (YC5.6), Xóa (YC5.7), Xin hủy (YC5.8): US sau.
+// nền đọc lại, HV5 đặt phòng không còn thì về màn trước với toast, HV8 toast. Nút Sửa mở CN4-02 (YC5.6 bước 24, US31). Xóa (YC5.7), Xin hủy
+// (YC5.8): US sau.
 import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
@@ -97,6 +98,8 @@ export function CN302ChiTietDatPhong(props: {
   onQuayLai: () => void;
   /** HV5: đặt phòng không còn thì về màn trước. */
   onKhongCon: () => void;
+  /** YC5.6 bước 24: mở form sửa CN4-02. Không có thì báo "Sẽ có ở bản sau". */
+  onSua?: () => void;
 }) {
   const { ct, datCt, loi, tai } = useChiTiet(props.dv, props.id);
   const hienToast = useToast();
@@ -160,7 +163,7 @@ export function CN302ChiTietDatPhong(props: {
         <button type="button" className="hh-iconbtn man-quay-lai" aria-label="Quay lại" onClick={props.onQuayLai}><Icon co={22}>{ICON_QUAY_LAI}</Icon></button>
         <h1 className="cn302-tieu-de">{ct ? tieuDeChiTiet(ct) : 'Đặt phòng'}</h1>
         {ct && !ct.daHuy && (
-          <button type="button" className="hh-iconbtn" aria-label="Sửa đặt phòng" onClick={() => hienToast(CAU_SE_CO)}><Icon>{ICON_SUA}</Icon></button>
+          <button type="button" className="hh-iconbtn" aria-label="Sửa đặt phòng" onClick={() => (props.onSua ? props.onSua() : hienToast(CAU_SE_CO))}><Icon>{ICON_SUA}</Icon></button>
         )}
       </header>
       <div className="cn302-than">{than}</div>

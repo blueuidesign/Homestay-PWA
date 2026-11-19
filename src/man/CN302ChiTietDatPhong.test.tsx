@@ -144,3 +144,24 @@ describe('YC5.5 · CN3-02 Chi tiết đặt phòng', () => {
     expect(await screen.findByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeInTheDocument();
   });
 });
+
+describe('YC5.6 · nút Sửa ở CN3-02', () => {
+  it('YC5.6 bước 24 bấm "Sửa đặt phòng" thì mở form sửa; đặt phòng đã hủy thì không có nút', async () => {
+    const onSua = vi.fn();
+    render(
+      <ToastProvider>
+        <CN302ChiTietDatPhong id="B1" dv={dichVu(B1)} onQuayLai={vi.fn()} onKhongCon={vi.fn()} onSua={onSua} />
+      </ToastProvider>,
+    );
+    fireEvent.click(await screen.findByRole('button', { name: 'Sửa đặt phòng' }));
+    expect(onSua).toHaveBeenCalledTimes(1);
+    cleanup();
+    render(
+      <ToastProvider>
+        <CN302ChiTietDatPhong id="B1" dv={dichVu({ ...B1, daHuy: true })} onQuayLai={vi.fn()} onKhongCon={vi.fn()} onSua={onSua} />
+      </ToastProvider>,
+    );
+    await screen.findByRole('heading', { name: 'Đặt phòng · Sale Hùng' });
+    expect(screen.queryByRole('button', { name: 'Sửa đặt phòng' })).toBeNull();
+  });
+});

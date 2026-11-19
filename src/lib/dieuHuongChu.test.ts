@@ -1,6 +1,6 @@
 // Test unit đường dẫn các tab của chủ nhà (YC3.1 bước 8, 13, 14).
 import { describe, expect, it } from 'vitest';
-import { chonManChu, duongDanDatPhong, duongDanDatPhongMoi } from './dieuHuong';
+import { chonManChu, duongDanDatPhong, duongDanDatPhongMoi, duongDanSuaDatPhong } from './dieuHuong';
 
 describe('YC3.1 · đường dẫn tab chủ nhà', () => {
   it('YC3.1 bước 8, 13, 14 /can, /can/moi, /can/<mã> và các tab', () => {
@@ -28,5 +28,12 @@ describe('YC3.1 · đường dẫn tab chủ nhà', () => {
     expect(chonManChu(d)).toEqual({ tab: 'dat-phong', id: '00000000-0000-0000-0004-000000000001' });
     expect(chonManChu('/dat-phong/moi')).toEqual({ tab: 'dat-phong-moi' });
     expect(chonManChu('/dat-phong/a/b')).toEqual({ tab: 'lich' });
+  });
+
+  it('YC5.6 bước 24 /dat-phong/<mã>/sua mở form sửa CN4-02', () => {
+    const d = duongDanSuaDatPhong('00000000-0000-0000-0004-000000000001');
+    expect(d).toBe('/dat-phong/00000000-0000-0000-0004-000000000001/sua');
+    expect(chonManChu(d)).toEqual({ tab: 'dat-phong-sua', id: '00000000-0000-0000-0004-000000000001' });
+    expect(chonManChu('/dat-phong/moi/sua')).toEqual({ tab: 'lich' });
   });
 });

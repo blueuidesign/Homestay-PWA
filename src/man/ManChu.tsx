@@ -5,20 +5,23 @@
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
 // thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
 // Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
+// Sửa đặt phòng CN4-02 (YC5.6, US31): mở từ nút Sửa ở CN3-02; lưu được thì toast "Đã lưu đặt phòng" và về đúng màn đã mở
+// đặt phòng (YC5 Quy tắc "Về màn đã mở", YC5.6-NT7): mở từ chi tiết ngày thì về lịch với chi tiết ngày đó mở sẵn.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { tenCan, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
 import { mauCan } from '../lib/lich';
-import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi } from '../lib/dieuHuong';
+import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi, duongDanSuaDatPhong } from '../lib/dieuHuong';
+import { CAU_DA_LUU_SUA } from '../lib/datPhong';
 import type { DichVuCan } from '../lib/dichVuCan';
 import type { ThangLich } from '../lib/dichVuLich';
 import { homNay, type Ngay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
 import { CN302ChiTietDatPhong } from './CN302ChiTietDatPhong';
-import { CN4ThemDatPhong } from './CN4ThemDatPhong';
+import { CN4SuaDatPhong, CN4ThemDatPhong } from './CN4ThemDatPhong';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan, KhungCan } from './CN6GiaCan';
@@ -74,11 +77,20 @@ export function ManChu(props: {
   // CN5-A4, CN5-A4b: vừa thêm căn thì nút dưới danh sách là "Thêm căn khác"; rời tab Căn thì thôi.
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
-  // CN4-03: ngày nhận của đặt phòng vừa lưu; rời tab Lịch thì thôi.
+  // CN4-03: ngày nhận của đặt phòng vừa lưu. YC5 Quy tắc "Về màn đã mở": ngày đang xem khi mở một đặt phòng từ chi tiết
+  // ngày, để quay về lịch thì chi tiết ngày đó mở sẵn. Rời tab Lịch và các màn đặt phòng thì thôi.
   const [ngayVuaLuu, datNgayVuaLuu] = useState<Ngay | null>(null);
-  useEffect(() => { if (man.tab !== 'lich' && man.tab !== 'dat-phong-moi') datNgayVuaLuu(null); }, [man.tab]);
+  useEffect(() => {
+    if (man.tab !== 'lich' && man.tab !== 'dat-phong-moi' && man.tab !== 'dat-phong' && man.tab !== 'dat-phong-sua') datNgayVuaLuu(null);
+  }, [man.tab]);
+  // Ô ngày vừa chạm trên CN1 (data-ngay), để biết chi tiết ngày nào đang mở khi chạm một đặt phòng.
+  const ngayDangXem = useRef<Ngay | null>(null);
+  // YC5.6 bước 26: chi tiết đặt phòng mở từ lịch trong app, form sửa mở từ chi tiết; để biết lùi mấy bước khi lưu xong.
+  const chiTietTuLich = useRef(false);
+  const suaTuChiTiet = useRef(false);
   const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
-  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong'; // CN3-02 cần thứ tự căn cho màu
+  // CN3-02 cần thứ tự căn cho màu; CN4-02 cần danh sách căn cho hàng chip.
+  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong' || man.tab === 'dat-phong-sua';
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
   useEffect(() => { if (canDanhSach) void tai(); }, [canDanhSach, man.tab, tai]);
@@ -144,7 +156,30 @@ export function ManChu(props: {
     const veManTruoc = () => { boNhoLich.current.clear(); window.history.back(); };
     return (
       <CN302ChiTietDatPhong key={man.id} id={man.id} dv={props.dichVuCan?.datPhong} mau={(canId) => { const i = theoLich.findIndex((c) => c.id === canId); return i < 0 ? undefined : mauCan(i); }}
-                            onQuayLai={veManTruoc} onKhongCon={veManTruoc} />
+                            onQuayLai={veManTruoc} onKhongCon={veManTruoc}
+                            onSua={() => { suaTuChiTiet.current = true; props.den(duongDanSuaDatPhong(man.id)); }} />
+    );
+  }
+
+  if (man.tab === 'dat-phong-sua') {
+    // YC5.6 bước 24 đến 29: CN4-02. Đóng thì về màn trước. Lưu được (bước 26, YC5.6-NT7): mở từ chi tiết đặt phòng mà chi tiết
+    // mở từ lịch thì lùi hai bước về lịch (chi tiết ngày mở sẵn); chỉ mở từ chi tiết thì lùi một bước; mở thẳng địa chỉ thì
+    // sang chi tiết đặt phòng. Bỏ tháng đã nhớ để lịch đọc lại.
+    const id = man.id;
+    const veSauKhiLuu = () => {
+      boNhoLich.current.clear();
+      hienToast(CAU_DA_LUU_SUA);
+      const lui = suaTuChiTiet.current ? (chiTietTuLich.current ? 2 : 1) : 0;
+      suaTuChiTiet.current = false;
+      chiTietTuLich.current = false;
+      if (lui) window.history.go(-lui);
+      else props.den(duongDanDatPhong(id));
+    };
+    const dong = () => { suaTuChiTiet.current = false; window.history.back(); };
+    return (
+      <CN4SuaDatPhong key={id} id={id} ds={ds && [...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))}
+                      dv={props.dichVuCan?.datPhong} onDong={dong} onKhongCon={dong} onHetPhien={props.onHetPhien}
+                      onDaLuu={veSauKhiLuu} />
     );
   }
 
@@ -180,10 +215,24 @@ export function ManChu(props: {
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
     // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC5.5: chạm dòng có khách mở CN3-02.
-    than = <CN1LichThang key={ngayVuaLuu ?? ''} ngayMoSan={ngayVuaLuu ?? undefined}
-                         ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
-                         boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
-                         onMoDatPhong={(id) => props.den(duongDanDatPhong(id))} />;
+    // YC5 Quy tắc "Về màn đã mở": nhớ ô ngày vừa chạm (chi tiết ngày đang mở) để quay về lịch thì mở lại đúng ngày đó.
+    than = (
+      <div style={{ display: 'contents' }} onClickCapture={(e) => {
+        const o = (e.target as Element).closest?.('[data-ngay]');
+        const n = o?.getAttribute('data-ngay');
+        if (n) ngayDangXem.current = n;
+      }}>
+        <CN1LichThang key={ngayVuaLuu ?? ''} ngayMoSan={ngayVuaLuu ?? undefined}
+                      ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
+                      boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
+                      onMoDatPhong={(id) => {
+                        const ngay = ngayDangXem.current ?? ngayVuaLuu;
+                        if (ngay) datNgayVuaLuu(ngay);
+                        chiTietTuLich.current = true;
+                        props.den(duongDanDatPhong(id));
+                      }} />
+      </div>
+    );
   }
 
   return (

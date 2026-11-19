@@ -186,6 +186,8 @@ export type ChiTietDatPhong = {
   tienPhong: number; tienCoc: number | null; trangThaiTien: TrangThaiTien | null; coHoanTac: boolean; daHuy: boolean;
   ghiChu: string | null; saleId: string | null; tenSale: string | null; sdtSale: string | null; saleDaXoa: boolean;
   tenKhach: string | null; sdtKhach: string | null; soKhach: number | null;
+  /** YC5.6 bước 29: thời điểm sửa cuối lúc app đọc, gửi kèm lệnh sửa. */
+  suaLuc?: string | null;
 };
 
 /** QT6.1: nhãn trạng thái tiền trên CN3-02. */
@@ -228,4 +230,29 @@ export function cauSaleDaXoa(tenSale: string): string {
 export function tieuDeChiTiet(d: Pick<ChiTietDatPhong, 'saleId' | 'tenSale' | 'tenKhach'>): string {
   const ten = d.saleId ? (d.tenSale ?? 'Sale') : (d.tenKhach?.trim() || 'Khách lẻ');
   return `Đặt phòng · ${ten}`;
+}
+
+// ===== YC5.6 · Sửa đặt phòng =====
+
+/** YC5.6 bước 29, Luật kiểm "Sửa": câu database trả khi đặt phòng vừa bị sửa ở máy khác. */
+export const CAU_SUA_MAY_KHAC = 'Đặt phòng vừa được sửa ở máy khác. Mở lại để xem bản mới.';
+/** YC5.6 bước 26: toast khi lưu được. */
+export const CAU_DA_LUU_SUA = 'Đã lưu đặt phòng';
+
+/** YC5.6 bước 24, canvas CN4-02: tiêu đề "Sửa đặt phòng · Sale Hùng". */
+export function tieuDeSua(d: Pick<ChiTietDatPhong, 'saleId' | 'tenSale' | 'tenKhach'>): string {
+  return `Sửa ${tieuDeChiTiet(d).replace(/^Đặt phòng/, 'đặt phòng')}`;
+}
+
+/** YC5.6 bước 24, QT6.1: trạng thái tiền đã lưu đổi ra lựa chọn của form ("da_coc" là "Đã cọc · còn thu"). */
+export function trangThaiTienForm(tt: TrangThaiTien | null): TrangThaiTienForm {
+  if (tt === 'da_coc') return 'da_coc_con_thu';
+  return tt === 'da_thanh_toan' ? 'da_thanh_toan' : 'chua_coc';
+}
+
+/** YC5.6 bước 24, YC5-H5: chip người đặt hiện tại, khóa ở form sửa. */
+export function chipNguoiDatHienTai(d: Pick<ChiTietDatPhong, 'saleId' | 'tenSale' | 'tenKhach'>): ChipNguoiDat {
+  if (d.saleId) return { loai: 'sale', khoa: `sale:${d.saleId}`, chu: d.tenSale ?? 'Sale', id: d.saleId };
+  const ten = d.tenKhach?.trim();
+  return ten ? { loai: 'khach', khoa: `khach:${ten}`, chu: ten, ten } : { loai: 'le', khoa: 'le', chu: 'Khách lẻ' };
 }

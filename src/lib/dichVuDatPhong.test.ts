@@ -49,3 +49,28 @@ describe('HV7 · CN4 lưu khi phiên hết hạn', () => {
     expect(laLoiHetPhien(null)).toBe(false);
   });
 });
+
+describe('YC5.6 · lệnh sửa đặt phòng', () => {
+  const SUA = {
+    id: 'B1', suaLuc: '2026-10-07T03:00:00.123456+00:00', canId: 'c1509', ngayNhan: '2026-10-11', ngayTra: '2026-10-13',
+    tienPhong: 1800000, tenKhach: null, sdtKhach: null, trangThaiTien: 'da_coc_con_thu' as const, tienCoc: 1000000,
+    soKhach: 4, gioNhan: '14:00', gioTra: '12:00', ghiChu: null,
+  };
+
+  it('YC5.6 bước 26, 29 gửi fn_sua_booking kèm thời điểm sửa đã đọc; phiên hết hạn thì làm mới rồi gửi lại cùng lệnh', async () => {
+    const { sb, rpc } = sbGia([
+      { data: null, error: { code: 'PGRST303', message: 'JWT expired' } },
+      { data: '2026-10-07T04:00:00+00:00', error: null },
+    ]);
+    expect(await taoDichVuDatPhongSupabase(sb).suaDatPhong!(SUA)).toBe('2026-10-07T04:00:00+00:00');
+    const calls = rpc.mock.calls as unknown as [string, Record<string, unknown>][];
+    expect(calls[0]![0]).toBe('fn_sua_booking');
+    expect(calls[1]![1]).toMatchObject({ p_booking_id: 'B1', p_sua_luc: SUA.suaLuc, p_ngay_nhan: '2026-10-11', p_tien_phong: 1800000 });
+  });
+
+  it('YC5.6 bước 29 QT5.5 database báo vừa sửa ở máy khác thì trả câu cho người dùng', async () => {
+    const cau = 'Đặt phòng vừa được sửa ở máy khác. Mở lại để xem bản mới.';
+    const { sb } = sbGia([{ data: null, error: { code: 'P0001', message: cau } }]);
+    await expect(taoDichVuDatPhongSupabase(sb).suaDatPhong!(SUA)).rejects.toThrow(new LoiNguoiDung(cau));
+  });
+});

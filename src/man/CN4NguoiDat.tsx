@@ -1,5 +1,6 @@
 // CN4 · hàng chip "Khách / Sale" (YC5.2 bước 5, 6, 6b, 6c; QD11, PQ9.CHU, PQ17.CHU). Chọn khách lẻ thì hiện ô tên, số khách;
 // chọn sale thì không có ô khách, chỉ dòng nhỏ báo sale được báo. Chip "+ Sale mới" mở luồng của YC6.
+// YC5.6 bước 24, YC5-H5, YC5.6-NT11: ở form sửa chỉ hiện người đặt hiện tại, khóa, không đổi được.
 import { KhungXam } from '../chung/dangTai';
 import { cauChonSale, type ChipNguoiDat } from '../lib/datPhong';
 
@@ -12,6 +13,8 @@ export function CN4NguoiDat(props: {
   sdt: string;
   onTen: (v: string) => void;
   onSdt: (v: string) => void;
+  /** YC5-H5: form sửa; chip người đặt khóa. */
+  khoa?: boolean;
 }) {
   const dangChon = props.chips?.find((c) => c.khoa === props.chon);
   const laKhachLe = dangChon?.loai === 'le' || dangChon?.loai === 'khach';
@@ -21,7 +24,7 @@ export function CN4NguoiDat(props: {
       {props.chips === undefined ? <KhungXam soDong={1} /> : (
         <div className="cn4-chips cn4-chips--nguoi" role="group" aria-labelledby="cn4-nguoi-dat">
           {props.chips.map((c) => (
-            <button key={c.khoa} type="button" aria-pressed={c.khoa === props.chon}
+            <button key={c.khoa} type="button" aria-pressed={c.khoa === props.chon} disabled={props.khoa}
                     className={'hh-chip hh-chip--sale' + (c.khoa === props.chon ? ' hh-chip--on' : '')} onClick={() => props.onChon(c)}>
               {c.chu}
             </button>
@@ -36,7 +39,7 @@ export function CN4NguoiDat(props: {
                  placeholder="Số điện thoại khách (không bắt buộc)" value={props.sdt} onChange={(e) => props.onSdt(e.target.value)} />
         </div>
       )}
-      {dangChon?.loai === 'sale' && <p className="cn4-ghi-nho">{cauChonSale(dangChon.chu)}</p>}
+      {dangChon?.loai === 'sale' && !props.khoa && <p className="cn4-ghi-nho">{cauChonSale(dangChon.chu)}</p>}
     </div>
   );
 }
