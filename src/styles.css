@@ -16,3 +16,15 @@ body { margin: 0; min-height: 100dvh; }
 .vo-app { padding: max(16px, env(safe-area-inset-top)) 16px 16px; }
 .vo-app h1 { color: var(--action); font-size: 24px; margin: 0 0 4px; }
 .vo-app p { margin: 0; }
+
+/* Màn Đăng nhập thử (EN3). Vùng bấm 44 px; ô nhập 16 px để iPhone không tự phóng to. */
+.dang-nhap-thu { padding: max(16px, env(safe-area-inset-top)) 16px 16px; max-width: 420px; margin: 0 auto; }
+.dang-nhap-thu h1 { font-size: 20px; margin: 0 0 16px; }
+.dang-nhap-thu form { display: flex; flex-direction: column; gap: 8px; }
+.dang-nhap-thu label { font-size: 14px; }
+.dang-nhap-thu input { min-height: 44px; font-size: 16px; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 8px; }
+.dang-nhap-thu button { min-height: 44px; margin-top: 8px; font-size: 16px; border: 0; border-radius: 8px;
+  background: var(--action); color: #fff; }
+.dang-nhap-thu button:disabled { opacity: 0.6; }
+.dang-nhap-thu .loi { color: #b91c1c; font-size: 14px; margin: 4px 0 0; }
+.dang-nhap-thu .ghi-chu { color: #6b7280; font-size: 13px; margin-top: 16px; }

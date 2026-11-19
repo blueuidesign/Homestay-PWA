@@ -3,7 +3,7 @@ id: HT-BM
 tieu_de: Bí mật và cấu hình
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # Bí mật và cấu hình · Home247
 
@@ -23,6 +23,7 @@ rev: 1
 | `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` | Giao diện gọi Supabase (khóa công khai). Preview dùng của staging, Production dùng của production | Vercel → Environment Variables, tách theo môi trường | Tùng | <ngày> |
 | `E2E_CHU_EMAIL`, `E2E_CHU_MAT_KHAU`, `E2E_SALE_EMAIL`, `E2E_SALE_MAT_KHAU` | Tài khoản thử cho Playwright, **chỉ có trên staging** | GitHub Secrets | Tùng | <ngày> |
 | `E2E_SUPABASE_URL`, `E2E_SUPABASE_ANON_KEY` | E2E đăng nhập vào staging | GitHub Secrets | Tùng | <ngày> |
+| `VITE_DANG_NHAP_THU` `[r2 · thêm]` | Không phải bí mật. Đặt `1` để bật đăng nhập thử bằng email và mật khẩu (EN3, YC1.2). Chỉ đặt cho Preview và Development; build Production có cờ này thì Vite dừng build | Vercel → Environment Variables (Preview, Development) | Tùng | |
 | Mật khẩu database staging, production | Chạy migration bằng Supabase CLI | Trình quản lý mật khẩu của Tùng | Tùng | <ngày> |
 | `service_role` của staging, production | Không dùng ở app. Chỉ Edge Function đọc từ kho bí mật Supabase | Supabase | Tùng | |
 | <khóa SMS hoặc Zalo> | Đăng nhập (QD22) | Kho bí mật Supabase | Tùng | |
@@ -30,3 +31,8 @@ rev: 1
 ## Lần thay do lộ
 | Ngày | Bí mật | Lộ ở đâu | Đã thu hồi | Đã tạo mới |
 | --- | --- | --- | --- | --- |
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | EN3-dang-nhap-tam | Thêm cờ VITE_DANG_NHAP_THU của đăng nhập thử | Danh sách |

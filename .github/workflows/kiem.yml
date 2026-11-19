@@ -60,7 +60,13 @@ jobs:
       - run: npm run build
       - name: Cài Chromium cho Playwright
         run: npx playwright install --with-deps chromium
-      - run: npm run e2e
+      - name: E2E (dự án đăng nhập thử chỉ chạy khi có secret của staging, EN3)
+        run: npm run e2e
+        env:
+          E2E_SUPABASE_URL: ${{ secrets.E2E_SUPABASE_URL }}
+          E2E_SUPABASE_ANON_KEY: ${{ secrets.E2E_SUPABASE_ANON_KEY }}
+          E2E_CHU_EMAIL: ${{ secrets.E2E_CHU_EMAIL }}
+          E2E_CHU_MAT_KHAU: ${{ secrets.E2E_CHU_MAT_KHAU }}
       - name: Giữ báo cáo e2e khi đỏ
         if: failure()
         uses: actions/upload-artifact@v4

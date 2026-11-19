@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ---
 # Chạy, test, build và deploy
 
@@ -85,6 +85,7 @@ npm run e2e -- -g "YC5.1-NT2"            # chỉ test có mã này trong tên
 E2E_BASE_URL=https://<bản Preview> npm run e2e   # chạy trên bản Preview hay staging, không build ở máy
 ```
 Máy đã có sẵn Chromium khác bản (ví dụ phiên cloud): đặt `PW_CHROMIUM_PATH=<đường dẫn chromium>`.
+E2E đăng nhập thử (EN3, `tests/e2e/dang-nhap-thu.spec.ts`) chỉ chạy khi có `E2E_SUPABASE_URL`, `E2E_SUPABASE_ANON_KEY`: Playwright build thêm một bản có bật đăng nhập thử ra `dist-thu/` và chạy ở cổng 4174. Cần thêm `E2E_CHU_EMAIL`, `E2E_CHU_MAT_KHAU`. Trên CI bốn biến này lấy từ GitHub Secrets; chưa có secret thì dự án này không chạy.
 
 CI (`.github/workflows/kiem.yml`, job `app`) chạy typecheck, unit, build, e2e cho mọi PR.
 
@@ -113,7 +114,10 @@ Chưa đặt giới hạn kích thước. Mỗi lần build in cỡ file JS sau 
 
 ## Staging và bản Preview
 Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run build`, thư mục `dist`). Nối repo vào Vercel một lần (VIEC_TAY_CUA_TUNG.md bước 5), rồi mỗi nhánh có PR tự có một bản Preview, link hiện trong PR. Cài thử: mở link bằng Safari (iPhone) hay Chrome (Android), chọn "Thêm vào Màn hình chính".
-<!-- Migration lên Supabase staging, tài khoản thử trên staging: EN2, EN3 điền. -->
+Đăng nhập thử (EN3, chỉ bản thử): đặt ba biến cho môi trường Preview, Development của Vercel: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (của staging) và `VITE_DANG_NHAP_THU=1`. Khi đó mở app chưa đăng nhập thì thấy màn "Đăng nhập thử"; tài khoản thử tạo ở Supabase staging, Authentication → Users → Add user (tên ở `docs/ha-tang/Bi_mat_va_cau_hinh.md`, không ghi mật khẩu vào repo). Không đặt `VITE_DANG_NHAP_THU` cho Production: build Production có cờ này thì Vite dừng với lỗi. Lần đầu đăng nhập, app gọi `fn_tao_ho_so` để tạo hồ sơ; hàm này chỉ có khi staging đã chạy migration mới.
+
+Chạy trên máy với staging: tạo file `.env.local` (đã có trong .gitignore) chứa ba biến trên, rồi `npm run dev`.
+<!-- Migration lên Supabase staging: chưa có cách chạy, chờ Tùng quyết. -->
 
 ## Production
 <!-- Chỉ khi Tùng duyệt (CL4.3). Chờ QD23. -->
@@ -124,3 +128,4 @@ Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo bản nháp, chờ EN dựng nền điền | Cả file |
 | r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
 | r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
+| r4 | 2026-11-19 | Claude | EN3-dang-nhap-tam | Thêm cách bật đăng nhập thử và e2e đăng nhập trên staging | Test, Staging và bản Preview |

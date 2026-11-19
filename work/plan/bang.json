@@ -71,7 +71,7 @@
    "id": "EN3",
    "loai": "EN",
    "tieu_de": "\"Đăng nhập tạm trên staging và tài khoản thử\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -82,7 +82,7 @@
    "pr": "",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 2
     },
     "Test tay": {

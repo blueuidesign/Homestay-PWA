@@ -615,6 +615,7 @@ Policy:
 ## Hàm
 
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
+- fn_tao_ho_so() → profiles · security definer · gọi được: authenticated
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - local_today() → date · security definer · gọi được: authenticated
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated
