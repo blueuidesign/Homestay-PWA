@@ -1,9 +1,9 @@
 // S2 · Kết quả tìm phòng, danh sách (YC7.3 bước 1 đến 4, 6, US45). PQ4.SALE, PQ11.SALE, QT5.4, QT6.4, HV1, HV2, HV3, HV8.
 // Dòng điều kiện kèm "Sửa", "N căn trống", chế độ "Danh sách" / "Lịch tuần", sắp xếp (S1-04). Nhóm "Của tôi", "Nguồn phòng",
 // "Tự nhập · chưa biết lịch". Thẻ: tên, chủ nhà, view, giá chủ · bạn bán, độ tươi; dấu tích chọn căn; thanh đáy "Đã chọn N căn"
-// và "Gửi cho khách" (YC8 ở US48, báo tạm). Chạm căn: của tôi mở S6-07, tự nhập mở S6-03 (bản tạm), căn chủ nhà mở S3 (US46,
+// và "Gửi cho khách" (mở S5 qua MoGuiKhach, YC8.1 ở US48; chưa nối dịch vụ thì báo tạm). Chạm căn: của tôi mở S6-07, tự nhập mở S6-03 (bản tạm), căn chủ nhà mở S3 (US46,
 // chưa làm gì). ManKetQua giữ điều kiện, tập căn, căn đã chọn khi đổi chế độ (YC7.3-NT4) và đọc lịch tuần cho S4.
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { DaiMatKetNoi } from '../chung/matKetNoi';
 import { useQuayLaiTuNen } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
@@ -18,6 +18,7 @@ import { tieuDeKetQua, type CanTim, type DieuKienTim, type KetQuaTim } from '../
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
 import { S3ChiTietCan, type MoS3 } from './S3ChiTietCan';
 import { S4LichTuanKetQua } from './S4LichTuanKetQua';
+import { MoGuiKhach } from './S5GuiKhach';
 import { S6Tam } from './S6Tam';
 import { Icon } from './TabChu';
 import './S1LichSale.css';
@@ -233,7 +234,12 @@ export function ManKetQua(props: {
     }
     datMo({ man, ten: tenHang(c) });
   };
-  const gui = () => hienToast(CAU_GUI_KHACH_SE_CO);
+  // YC8.1 bước 1, YC8.1-NT3: S5 nhận căn đã chọn theo thứ tự trên màn (nhóm rồi cách sắp xếp đang dùng).
+  const moGui = useContext(MoGuiKhach);
+  const gui = () => {
+    if (!moGui || !dieuKien.nhan || !dieuKien.tra) { hienToast(CAU_GUI_KHACH_SE_CO); return; }
+    moGui({ canIds: nhom.flatMap((n) => n.can).filter((c) => daChon.has(c.canId)).map((c) => c.canId), tu: dieuKien.nhan, den: dieuKien.tra });
+  };
 
   if (moS3 && dv.chiTietCan) {
     return <S3ChiTietCan {...moS3} dv={dv.chiTietCan} homNay={props.homNay} onQuayLai={() => datMoS3(null)} />;
