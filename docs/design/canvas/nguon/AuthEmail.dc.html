@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đăng ký và đăng nhập bằng email</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/halonghomestay/tokens/colors.css">
+<link rel="stylesheet" href="ds/halonghomestay/tokens/spacing.css">
+<link rel="stylesheet" href="ds/halonghomestay/tokens/typography.css">
+<link rel="stylesheet" href="ds/halonghomestay/components/components.css">
+<script src="ds/halonghomestay/_ds_bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:var(--border-subtle);font-family:var(--font-sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--link)}a:hover{color:var(--ink)}
+.hh-btn--secondary.hh-btn--block{border:2px solid var(--ink-secondary);color:var(--ink)}
+.otp{width:48px;height:56px;padding:0;text-align:center;font-size:24px;line-height:32px;font-weight:700}
+</style>
+</helmet>
+<section id="auth-email" style="padding:48px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:6px;max-width:960px">
+<div style="font:var(--text-label);color:var(--ink-muted);text-transform:uppercase">01b · Bắt đầu · Chung · bản PWA</div>
+<div style="font:var(--text-stat-xl);color:var(--ink)">Đăng ký và đăng nhập bằng email</div>
+<div style="font:var(--text-body);color:var(--ink-secondary);text-wrap:pretty">Thay nút "Bắt đầu với Zalo" của bản Zalo. A1 xem được khi chưa đăng nhập, có hai nút: "Tạo tài khoản" sang A2, "Đăng nhập" sang A11. Đăng ký: nhập họ tên, số điện thoại, email (A2) → app gửi mã 6 số về email → nhập mã (A2-02) → chọn vai (A3). Đăng nhập: nhập email (A11) → nhập mã (A11-02) → vào thẳng tab Lịch. Không có mật khẩu. Mã dùng một lần; gửi lại được sau 60 giây. Mở từ link mời thì sau khi nhập đúng mã quay về đúng màn của link (YC1.2-NT5). Theo lời anh Tùng 19/11/2026, chưa ghi vào QD22.</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font:var(--text-label);color:var(--ink-muted);text-transform:uppercase">Luồng</span><span style="font:var(--text-title);color:var(--ink)">Tạo tài khoản</span></div>
+<div style="display:flex;gap:24px;align-items:flex-start">
+
+<div id="A2" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A2</span><span style="font:var(--text-body-strong);color:var(--ink)">Tạo tài khoản</span></div>
+<div data-screen-label="A2 Tạo tài khoản" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><a href="Auth.dc.html" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a><span style="font:var(--text-title);color:var(--ink)">Tạo tài khoản</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;padding:20px 20px 24px 20px">
+<span style="font:var(--text-body);color:var(--ink-secondary);text-wrap:pretty">Sale và chủ nhà sẽ thấy tên và số điện thoại này khi kết nối với bạn.</span>
+<label class="hh-field"><span class="hh-field__label">Họ và tên</span><input class="hh-input" type="text" autocomplete="name" placeholder="Ví dụ: Nguyễn Thị Hoa"></label>
+<label class="hh-field"><span class="hh-field__label">Số điện thoại</span><input class="hh-input" type="tel" inputmode="tel" autocomplete="tel" placeholder="Ví dụ: 0912 345 678"></label>
+<label class="hh-field"><span class="hh-field__label">Email</span><input class="hh-input" type="email" inputmode="email" autocomplete="email" placeholder="Ví dụ: tenban@gmail.com"><span class="hh-field__hint">Mỗi lần đăng nhập, app gửi mã về email này. Không cần mật khẩu.</span></label>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+<button type="button" data-go="A2-02" class="hh-btn hh-btn--primary hh-btn--block">Gửi mã xác nhận</button>
+<span style="font:var(--text-caption);color:var(--ink-muted);text-align:center;text-wrap:pretty">Bằng việc tiếp tục, bạn đồng ý với <a href="#" style="color:var(--link);text-decoration:underline">Điều khoản</a> và <a href="#" style="color:var(--link);text-decoration:underline">Chính sách quyền riêng tư</a>.</span>
+<button type="button" data-go="A11" class="hh-btn hh-btn--text">Đã có tài khoản? Đăng nhập</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex:none;align-self:center;font-size:32px;line-height:1;color:var(--ink-faint);padding-top:34px">→</div>
+
+<div id="A2-02" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A2-02</span><span style="font:var(--text-body-strong);color:var(--ink)">Nhập mã gửi về email</span></div>
+<div data-screen-label="A2-02 Nhập mã gửi về email" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><button type="button" data-go="back" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><span style="font:var(--text-title);color:var(--ink)">Nhập mã xác nhận</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 20px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+<span style="width:56px;height:56px;border-radius:var(--radius-full);background:var(--action-tint);color:var(--action-ink);display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
+<span style="font:var(--text-input);color:var(--ink-body);text-wrap:pretty">Mã 6 số đã gửi tới<br><strong style="color:var(--ink)">hoa.nguyen@gmail.com</strong></span>
+</div>
+<div style="display:flex;justify-content:center;gap:8px">
+<input class="hh-input otp" inputmode="numeric" autocomplete="one-time-code" maxlength="1" value="4" aria-label="Số thứ 1">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="8" aria-label="Số thứ 2">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="2" aria-label="Số thứ 3">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 4">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 5">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 6">
+</div>
+<span style="font:var(--text-body);color:var(--ink-muted);text-align:center;text-wrap:pretty">Không thấy thư? Xem thêm trong mục Thư rác hoặc Quảng cáo.</span>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+<a href="Auth.dc.html#A3" class="hh-btn hh-btn--primary hh-btn--block" style="text-decoration:none">Xác nhận</a>
+<button type="button" class="hh-btn hh-btn--secondary hh-btn--block" disabled style="opacity:.6">Gửi lại mã sau 45 giây</button>
+<button type="button" data-go="A2" class="hh-btn hh-btn--text">Đổi email</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex:none;align-self:stretch;width:0;border-left:2px dashed var(--border-input);margin:34px 8px 0 8px"></div>
+
+<div id="A2-01" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A2-01</span><span style="font:var(--text-body-strong);color:var(--ink)">Tạo tài khoản · nhập chưa đúng</span></div>
+<div data-screen-label="A2-01 Tạo tài khoản · nhập chưa đúng" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><a href="Auth.dc.html" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a><span style="font:var(--text-title);color:var(--ink)">Tạo tài khoản</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;padding:20px 20px 24px 20px">
+<label class="hh-field"><span class="hh-field__label">Họ và tên</span><input class="hh-input" type="text" value="" placeholder="Ví dụ: Nguyễn Thị Hoa" style="border-color:var(--danger)"><span style="font:var(--text-body);color:#b91c1c">Nhập họ và tên để sale và chủ nhà biết bạn là ai.</span></label>
+<label class="hh-field"><span class="hh-field__label">Số điện thoại</span><input class="hh-input" type="tel" value="09123" style="border-color:var(--danger)"><span style="font:var(--text-body);color:#b91c1c">Số điện thoại cần từ 9 đến 15 chữ số.</span></label>
+<label class="hh-field"><span class="hh-field__label">Email</span><input class="hh-input" type="email" value="hoa.nguyen@gmail.com" style="border-color:var(--danger)"><span style="font:var(--text-body);color:#b91c1c">Email này đã có tài khoản.</span></label>
+<button type="button" data-go="A11" class="hh-btn hh-btn--secondary hh-btn--block">Đăng nhập bằng email này</button>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+<button type="button" class="hh-btn hh-btn--primary hh-btn--block">Gửi mã xác nhận</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="A2-03" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A2-03</span><span style="font:var(--text-body-strong);color:var(--ink)">Nhập mã · mã chưa đúng</span></div>
+<div data-screen-label="A2-03 Nhập mã · mã chưa đúng" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><button type="button" data-go="A2" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><span style="font:var(--text-title);color:var(--ink)">Nhập mã xác nhận</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 20px">
+<span style="font:var(--text-input);color:var(--ink-body);text-align:center;text-wrap:pretty">Mã 6 số đã gửi tới<br><strong style="color:var(--ink)">hoa.nguyen@gmail.com</strong></span>
+<div style="display:flex;justify-content:center;gap:8px">
+<input class="hh-input otp" maxlength="1" value="4" aria-label="Số thứ 1" style="border-color:var(--danger)">
+<input class="hh-input otp" maxlength="1" value="8" aria-label="Số thứ 2" style="border-color:var(--danger)">
+<input class="hh-input otp" maxlength="1" value="2" aria-label="Số thứ 3" style="border-color:var(--danger)">
+<input class="hh-input otp" maxlength="1" value="1" aria-label="Số thứ 4" style="border-color:var(--danger)">
+<input class="hh-input otp" maxlength="1" value="7" aria-label="Số thứ 5" style="border-color:var(--danger)">
+<input class="hh-input otp" maxlength="1" value="0" aria-label="Số thứ 6" style="border-color:var(--danger)">
+</div>
+<div class="hh-banner hh-banner--danger" style="color:#b91c1c">Mã chưa đúng. Kiểm tra lại thư mới nhất, hoặc bấm "Gửi lại mã".</div>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+<button type="button" class="hh-btn hh-btn--primary hh-btn--block">Xác nhận</button>
+<button type="button" class="hh-btn hh-btn--secondary hh-btn--block" disabled style="opacity:.6">Gửi lại mã sau 12 giây</button>
+</div>
+</div>
+</div>
+</div>
+
+<div id="A2-04" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A2-04</span><span style="font:var(--text-body-strong);color:var(--ink)">Nhập mã · mã hết hạn</span></div>
+<div data-screen-label="A2-04 Nhập mã · mã hết hạn" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><button type="button" data-go="A2" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><span style="font:var(--text-title);color:var(--ink)">Nhập mã xác nhận</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 20px">
+<span style="font:var(--text-input);color:var(--ink-body);text-align:center;text-wrap:pretty">Mã 6 số đã gửi tới<br><strong style="color:var(--ink)">hoa.nguyen@gmail.com</strong></span>
+<div style="display:flex;justify-content:center;gap:8px">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 1">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 2">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 3">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 4">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 5">
+<input class="hh-input otp" maxlength="1" value="" aria-label="Số thứ 6">
+</div>
+<div class="hh-banner hh-banner--danger" style="color:#b91c1c">Mã này đã hết hạn hoặc đã dùng rồi. Bấm "Gửi lại mã" để nhận mã mới.</div>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+<button type="button" data-go="A2-02" class="hh-btn hh-btn--primary hh-btn--block">Gửi lại mã</button>
+<button type="button" data-go="A2" class="hh-btn hh-btn--text">Đổi email</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border)"><span style="font:var(--text-label);color:var(--ink-muted);text-transform:uppercase">Luồng</span><span style="font:var(--text-title);color:var(--ink)">Đăng nhập bằng mã gửi về email</span></div>
+<div style="display:flex;gap:24px;align-items:flex-start">
+
+<div id="A11" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A11</span><span style="font:var(--text-body-strong);color:var(--ink)">Đăng nhập</span></div>
+<div data-screen-label="A11 Đăng nhập" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><a href="Auth.dc.html" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a><span style="font:var(--text-title);color:var(--ink)">Đăng nhập</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;padding:20px 20px 24px 20px">
+<span style="font:var(--text-body);color:var(--ink-secondary);text-wrap:pretty">Nhập email bạn đã dùng khi tạo tài khoản. App gửi mã 6 số về email đó.</span>
+<label class="hh-field"><span class="hh-field__label">Email</span><input class="hh-input" type="email" inputmode="email" autocomplete="email" value="hoa.nguyen@gmail.com"></label>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+<button type="button" data-go="A11-02" class="hh-btn hh-btn--primary hh-btn--block">Gửi mã đăng nhập</button>
+<button type="button" data-go="A2" class="hh-btn hh-btn--text">Chưa có tài khoản? Tạo tài khoản</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex:none;align-self:center;font-size:32px;line-height:1;color:var(--ink-faint);padding-top:34px">→</div>
+
+<div id="A11-02" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A11-02</span><span style="font:var(--text-body-strong);color:var(--ink)">Đăng nhập · nhập mã</span></div>
+<div data-screen-label="A11-02 Đăng nhập · nhập mã" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><button type="button" data-go="A11" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button><span style="font:var(--text-title);color:var(--ink)">Nhập mã đăng nhập</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:20px;padding:24px 20px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+<span style="width:56px;height:56px;border-radius:var(--radius-full);background:var(--action-tint);color:var(--action-ink);display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></span>
+<span style="font:var(--text-input);color:var(--ink-body);text-wrap:pretty">Mã 6 số đã gửi tới<br><strong style="color:var(--ink)">hoa.nguyen@gmail.com</strong></span>
+</div>
+<div style="display:flex;justify-content:center;gap:8px">
+<input class="hh-input otp" inputmode="numeric" autocomplete="one-time-code" maxlength="1" value="" aria-label="Số thứ 1">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 2">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 3">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 4">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 5">
+<input class="hh-input otp" inputmode="numeric" maxlength="1" value="" aria-label="Số thứ 6">
+</div>
+<span style="font:var(--text-body);color:var(--ink-muted);text-align:center;text-wrap:pretty">Không thấy thư? Xem thêm trong mục Thư rác hoặc Quảng cáo. Mã sai hay hết hạn thì báo như A2-03, A2-04.</span>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+<a href="OwnerCalendar.dc.html" class="hh-btn hh-btn--primary hh-btn--block" style="text-decoration:none">Đăng nhập</a>
+<button type="button" class="hh-btn hh-btn--secondary hh-btn--block" disabled style="opacity:.6">Gửi lại mã sau 60 giây</button>
+<button type="button" data-go="A11" class="hh-btn hh-btn--text">Đổi email</button>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex:none;align-self:stretch;width:0;border-left:2px dashed var(--border-input);margin:34px 8px 0 8px"></div>
+
+<div id="A11-01" style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:center;gap:8px"><span style="background:var(--ink);color:var(--on-action);font-size:14px;font-weight:700;padding:3px 10px;border-radius:var(--radius-full)">A11-01</span><span style="font:var(--text-body-strong);color:var(--ink)">Đăng nhập · email chưa có tài khoản</span></div>
+<div data-screen-label="A11-01 Đăng nhập · email chưa có tài khoản" style="width:390px;height:844px;flex:none;background:var(--surface);position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:28px">
+<div style="height:44px;flex:none;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:0 26px 0 34px;font-size:15px;font-weight:600;color:var(--ink)"><span>9:41</span><div style="display:flex;align-items:center;gap:6px"><div style="display:flex;align-items:flex-end;gap:2px;height:11px"><span style="width:3px;height:4px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:6px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:8px;border-radius:1px;background:var(--ink)"></span><span style="width:3px;height:11px;border-radius:1px;background:var(--ink)"></span></div><svg width="16" height="12" viewBox="0 0 16 12" style="display:block"><path d="M8 11.6 5.7 9.3a3.3 3.3 0 0 1 4.6 0zM3.5 7.1a6.4 6.4 0 0 1 9 0l-1.4 1.4a4.4 4.4 0 0 0-6.2 0zM1.2 4.8a9.6 9.6 0 0 1 13.6 0l-1.4 1.4a7.6 7.6 0 0 0-10.8 0z" fill="currentColor"></path></svg><div style="display:flex;align-items:center;gap:1px"><div style="width:24px;height:12px;border:1px solid var(--ink-muted);border-radius:4px;padding:1px"><div style="width:75%;height:100%;border-radius:2px;background:var(--ink)"></div></div><span style="width:2px;height:4px;border-radius:0 1px 1px 0;background:var(--ink-muted)"></span></div></div></div>
+<div style="height:56px;flex:none;display:flex;align-items:center;gap:4px;padding:0 8px;border-bottom:1px solid var(--border-subtle)"><a href="Auth.dc.html" class="hh-iconbtn" style="border:0" aria-label="Quay lại"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></a><span style="font:var(--text-title);color:var(--ink)">Đăng nhập</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;padding:20px 20px 24px 20px">
+<label class="hh-field"><span class="hh-field__label">Email</span><input class="hh-input" type="email" value="hoa.ngyen@gmail.com" style="border-color:var(--danger)"><span style="font:var(--text-body);color:#b91c1c">Email này chưa có tài khoản. Kiểm tra lại chính tả, hoặc tạo tài khoản mới.</span></label>
+<button type="button" data-go="A2" class="hh-btn hh-btn--secondary hh-btn--block">Tạo tài khoản với email này</button>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+<button type="button" class="hh-btn hh-btn--primary hh-btn--block">Gửi mã đăng nhập</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1900,"height":2140}}'>
+class Component extends DCLogic {
+  navTo(id){if(!id)return;this._st=this._st||[];if(this._st[this._st.length-1]!==id)this._st.push(id);try{if(location.hash==='#'+id)location.hash='';location.hash=id;}catch(e){}
+    const w=document.getElementById(id),p=w&&w.querySelector('[data-screen-label]');if(p){p.style.transition='box-shadow .2s';p.style.boxShadow='0 0 0 5px var(--action-bright)';clearTimeout(this._fl);this._fl=setTimeout(()=>{p.style.boxShadow='';},1400);}}
+  backOf(el){const ph=el.closest('[data-screen-label]'),cur=ph&&ph.parentElement&&ph.parentElement.id;const st=this._st||[];
+    if(st.length>1&&st[st.length-1]===cur){st.pop();return st.pop();}
+    let n=ph&&ph.parentElement;while(n&&(n=n.previousElementSibling)){if(n.id&&n.querySelector('[data-screen-label]'))return n.id;}return null;}
+  componentDidMount(){this._nav=e=>{const el=e.target.closest&&e.target.closest('[data-go]');if(!el)return;let t=el.getAttribute('data-go');if(t==='back')t=this.backOf(el);if(t)this.navTo(t);};document.addEventListener('click',this._nav);}
+  componentWillUnmount(){document.removeEventListener('click',this._nav);}
+  renderVals(){return {};}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* HalongHomestay — colors (từ tokens.css gốc). Palette Tailwind. */
+:root {
+  /* Surfaces */
+  --surface-page: #f9fafb;   /* gray-50 */
+  --surface: #ffffff;
+  --border: #e5e7eb;         /* gray-200 */
+  --border-subtle: #f3f4f6;  /* gray-100 */
+  --border-input: #d1d5db;   /* gray-300 */
+  /* Ink */
+  --ink: #1f2937;            /* gray-800 */
+  --ink-body: #374151;       /* gray-700 */
+  --ink-secondary: #4b5563;  /* gray-600 */
+  --ink-muted: #6b7280;      /* gray-500 */
+  --ink-faint: #9ca3af;      /* gray-400 */
+  /* Action (emerald) — màu hành động duy nhất */
+  --action: #059669;
+  --on-action: #ffffff;
+  --action-bright: #10b981;
+  --action-ring: #34d399;
+  --action-tint: #ecfdf5;
+  --action-soft: #d1fae5;
+  --action-ink: #047857;
+  --chart-muted: #a7f3d0;
+  /* Rooms — chỉ dùng để chỉ phòng */
+  --room-1509: #0ea5e9;
+  --room-1509-tint: #e0f2fe;
+  --room-1509-border: #7dd3fc;
+  --room-1509-ink: #0369a1;
+  --room-3402: #f97316;
+  --room-3402-tint: #ffedd5;
+  --room-3402-border: #fdba74;
+  --room-3402-ink: #c2410c;
+  /* Semantic */
+  --link: #2563eb;
+  --danger: #dc2626;
+  --danger-tint: #fef2f2;
+  --danger-border: #fecaca;
+  --warning-tint: #fffbeb;
+  --warning-border: #fde68a;
+  --warning-ink: #92400e;
+  --scrim: rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,135 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-19T10:05:00Z"
+  },
+  "title": "Home247 · Lịch phòng Hạ Long · bản PWA",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 766,
+      "is_interactive": true,
+      "title": "Lịch phòng Hạ Long · bản PWA",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Auth.dc.html": {
+      "h": 5380,
+      "is_interactive": true,
+      "title": "01 · Bắt đầu · Chung — Đăng nhập và chọn vai trò",
+      "w": 2545,
+      "x": 0,
+      "y": 886
+    },
+    "AuthEmail.dc.html": {
+      "h": 2140,
+      "is_interactive": true,
+      "title": "01b · Bắt đầu · bản PWA — Đăng ký và đăng nhập bằng email",
+      "w": 1900,
+      "x": 2625,
+      "y": 886
+    },
+    "OwnerCalendar.dc.html": {
+      "h": 3271,
+      "is_interactive": true,
+      "title": "02 · Chủ nhà · Lịch và đặt phòng — Xem lịch, chi tiết ngày, đặt phòng",
+      "w": 3256,
+      "x": 0,
+      "y": 6386
+    },
+    "OwnerUnits.dc.html": {
+      "h": 7183,
+      "is_interactive": true,
+      "title": "03 · Chủ nhà · Căn và giá — Thêm căn, danh sách căn, sửa căn, đặt giá",
+      "w": 2832,
+      "x": 0,
+      "y": 9777
+    },
+    "OwnerSales.dc.html": {
+      "h": 3255,
+      "is_interactive": true,
+      "title": "04 · Chủ nhà · Sale và thống kê — Mời sale, quyền xem, thống kê",
+      "w": 2165,
+      "x": 0,
+      "y": 17080
+    },
+    "BookingRequests.dc.html": {
+      "h": 3220,
+      "is_interactive": true,
+      "title": "05 · Sale ↔ Chủ nhà — Đặt phòng qua sale",
+      "w": 3301,
+      "x": 0,
+      "y": 20455
+    },
+    "SaleCalendar.dc.html": {
+      "h": 2280,
+      "is_interactive": true,
+      "title": "06 · Sale · Lịch — Lịch phòng và tìm phòng",
+      "w": 3440,
+      "x": 0,
+      "y": 23795
+    },
+    "SaleUnits.dc.html": {
+      "h": 2192,
+      "is_interactive": true,
+      "title": "07 · Sale · Căn — Căn của tôi và Nguồn phòng",
+      "w": 1900,
+      "x": 0,
+      "y": 26195
+    },
+    "SaleShare.dc.html": {
+      "h": 1220,
+      "is_interactive": true,
+      "title": "08 · Sale · Thống kê — Thống kê của sale",
+      "w": 1443,
+      "x": 0,
+      "y": 28507
+    },
+    "Personal.dc.html": {
+      "h": 5400,
+      "is_interactive": true,
+      "title": "09 · Chung · Cá nhân — Tài khoản và cài đặt",
+      "w": 3439,
+      "x": 0,
+      "y": 29847
+    },
+    "States.dc.html": {
+      "h": 8000,
+      "is_interactive": true,
+      "title": "10 · Chung · Trạng thái — Mẫu hành vi hệ thống và trạng thái riêng",
+      "w": 2970,
+      "x": 0,
+      "y": 35367
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Auth.dc.html",
+    "AuthEmail.dc.html",
+    "OwnerCalendar.dc.html",
+    "OwnerUnits.dc.html",
+    "OwnerSales.dc.html",
+    "BookingRequests.dc.html",
+    "SaleCalendar.dc.html",
+    "SaleUnits.dc.html",
+    "SaleShare.dc.html",
+    "Personal.dc.html",
+    "States.dc.html"
+  ],
+  "notes": {},
+  "designSystems": [
+    {
+      "title": "HalongHomestay",
+      "namespace": "halonghomestay",
+      "artifact": "https://claude.ai/artifact/3r9RXytcCoVRREAWSBWXMF",
+      "version": "1791787623-1a34",
+      "copiedAt": "2026-11-19T10:05:00Z"
+    }
+  ]
+}
