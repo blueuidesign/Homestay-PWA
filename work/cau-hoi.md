@@ -663,9 +663,10 @@ Gắn ở: PQ17.
 
 ## PQ18
 
-### PQ18-H1 · mo
+### PQ18-H1 · da-tra-loi
 Link xin lịch của sale có hạn không?
 Gắn ở: PQ18.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không hết hạn ở bản 1. Link xin lịch chỉ cho người mở đồng ý chia sẻ lịch của chính họ cho sale (YC6.5), không lộ dữ liệu của sale, nên hạn dùng không bảo vệ thêm gì; giữ một link cố định để sale gửi lại nhiều lần (YC6.4, mỗi sale một link). Đi cùng YC6-H2 (không thu hồi). Ghi vào PQ r2.
 
 ## PQ20
 

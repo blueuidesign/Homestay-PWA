@@ -2,7 +2,7 @@
 id: US38
 tieu_de: "Sale xin chủ nhà cho xem lịch"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC6.4@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US38-sale-xin-chu-nha-cho.md.
 - 2026-11-18 · Claude · tạo item từ YC6.4@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
+- 2026-11-19 · Claude (QD25) · tự chốt PQ18-H1 (PQ r2: link xin lịch không hết hạn); soạn gói việc; giao agent code
 
 ## Bằng chứng

@@ -3,7 +3,7 @@ id: PQ
 tieu_de: Ma trận quyền
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 > Luật chung, sống. Ma trận quyền: nguồn duy nhất cho câu hỏi "ai được thấy, được sửa gì". YC ghi mã ô (PQ5.SALE) ở mục Quyền. Đổi một ô là đổi phân quyền: cần Tùng duyệt và một QD.
 
@@ -184,7 +184,7 @@ Danh sách sale của chủ nhà, phạm vi chia sẻ (tất cả căn hoặc ch
 Link mời của chủ nhà, link xin lịch của sale, số lần đã gửi.
 - PQ18.CHU: tạo, gửi, thu hồi link mời của mình (QD8). Mở link xin lịch của sale thì thấy A8 (YC6.5).
 - PQ18.SALE: tạo, gửi link xin lịch của mình; xem số lần đã gửi, số chủ nhà đã đồng ý (A7, YC6.4).
-- PQ18.LINK: mở link mời hợp lệ thì thấy A1-link hoặc A10 (PQ3.LINK). Link mời hết hạn sau 21 ngày (QD8). Link hết hạn hay đã thu hồi: không thấy dữ liệu; màn A1-link-01, chữ cụ thể: YC6-H10. Link xin lịch của sale có hạn không: [MỞ: PQ18-H1].
+- PQ18.LINK: mở link mời hợp lệ thì thấy A1-link hoặc A10 (PQ3.LINK). Link mời hết hạn sau 21 ngày (QD8). Link hết hạn hay đã thu hồi: không thấy dữ liệu; màn A1-link-01, chữ cụ thể: YC6-H10. [r2 · sửa] Link xin lịch của sale không hết hạn ở bản 1 (PQ18-H1, Claude tự chốt): mỗi sale một link, người mở link chỉ chia sẻ được lịch của chính họ cho sale, không đọc được gì của sale.
 - PQ18.CTV: không áp dụng ở bản đầu (YC14).
 - PQ18.KHACH: không.
 - PQ18.ADMIN: xem (QD7).
@@ -231,3 +231,9 @@ Người dùng xóa tài khoản, server xóa số điện thoại và đánh d�
 - PQ23.CTV: không áp dụng ở bản đầu (YC14).
 - PQ23.KHACH: không.
 - PQ23.ADMIN: số điện thoại đã xóa không còn để xem, trừ bản sao lưu tự động: [MỞ: PQ23-H1]. Căn, lịch, giá còn ở máy chủ; quản trị viên xem được hay không: [MỞ: PQ23-H1].
+
+## Lịch sử sửa đổi
+
+| Rev | Ngày | Người | Sửa gì |
+|---|---|---|---|
+| 2 | 2026-11-19 | Claude (QD25) | PQ18.LINK: trả lời PQ18-H1, link xin lịch không hết hạn ở bản 1. |
