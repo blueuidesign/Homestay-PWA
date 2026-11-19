@@ -13,6 +13,8 @@
 // như khi sửa (YC5 Quy tắc "Về màn đã mở").
 // Lịch tuần CN2 (YC2.5, US13): cặp nút "Tháng" "Tuần" ở CN1, CN2 đổi qua lại trong tab Lịch (nhớ trong ManChu, địa chỉ vẫn là "/").
 // Bấm tab Lịch luôn mở lịch tháng (YC2-H4). Từ CN2 mở form đặt phòng hay chi tiết đặt phòng rồi quay về thì về lại tuần đang xem.
+// Gửi lịch cho sale CN10 (YC6.6, US40): mở từ ô "Gửi lịch cho sale" ở CN1, trong tab Lịch, không đổi địa chỉ. Gửi xong thì về
+// tab Lịch với toast "Đã gửi lịch" (CN10-02, HV8).
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -35,6 +37,8 @@ import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan } from './CN6GiaCan';
 import { CN7DanhSachSale } from './CN7DanhSachSale';
+import { CN10GuiLich } from './CN10GuiLich';
+import { CAU_DA_GUI_LICH } from '../lib/dichVuGuiLich';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
@@ -104,6 +108,9 @@ export function ManChu(props: {
       datThangTuTuan(null);
     }
   }, [man.tab]);
+  // YC6.6: CN10 đang mở trong tab Lịch; rời tab Lịch thì thôi.
+  const [guiLich, datGuiLich] = useState(false);
+  useEffect(() => { if (man.tab !== 'lich') datGuiLich(false); }, [man.tab]);
   // Ô ngày vừa chạm trên CN1 (data-ngay), để biết chi tiết ngày nào đang mở khi chạm một đặt phòng.
   const ngayDangXem = useRef<Ngay | null>(null);
   // YC5.6 bước 26: chi tiết đặt phòng mở từ lịch trong app, form sửa mở từ chi tiết; để biết lùi mấy bước khi lưu xong.
@@ -235,6 +242,21 @@ export function ManChu(props: {
     return <CN7DanhSachSale dv={dvSale} thanhTab={<ThanhTabChu dangMo="sale" onChon={chonTab} />} />;
   }
 
+  const dvSaleChung = props.dichVuSale !== undefined ? props.dichVuSale
+    : (props.dichVuCan as (DichVuCan & { sale?: DichVuSale }) | null)?.sale;
+
+  if (man.tab === 'lich' && guiLich && ds && ds.length > 0) {
+    // YC6.6 bước 1 đến 5: CN10; căn theo thứ tự tab Lịch. Gửi xong về tab Lịch với toast (CN10-02).
+    const dvLink = props.dichVuCan?.linkMoi;
+    return (
+      <CN10GuiLich ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan, soPhongNgu: c.soPhongNgu }))}
+                   layDanhSachSale={dvSaleChung ? () => dvSaleChung.layDanhSach() : undefined}
+                   guiLich={dvLink?.guiLich ? (ids) => dvLink.guiLich!(ids) : undefined}
+                   onQuayLai={() => datGuiLich(false)}
+                   onDaGui={() => { datGuiLich(false); hienToast(CAU_DA_GUI_LICH); }} />
+    );
+  }
+
   let than;
   if (man.tab === 'thong-ke' || man.tab === 'ca-nhan') {
     than = (
@@ -280,6 +302,7 @@ export function ManChu(props: {
       }}>
         <CN1LichThang key={`${ngayVuaLuu ?? ''}|${thangTuTuan ?? ''}`} ngayMoSan={ngayVuaLuu ?? undefined}
                       thangDau={thangTuTuan ?? undefined} onXemTuan={(t2) => { datThangTuTuan(null); datXemTuan(t2); }}
+                      onGuiLich={() => datGuiLich(true)}
                       ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
                       boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
                       onMoDatPhong={(id) => {

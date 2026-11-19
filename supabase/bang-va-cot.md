@@ -640,6 +640,7 @@ Policy:
 ## Hàm
 
 - can_chia_se_cho_sale(p_sale uuid, p_can uuid) → boolean · security definer
+- can_cua_link(p_link link_moi) → SETOF uuid · security definer
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
 - can_la_sale() → uuid · security definer
 - chuan_hoa_so(p_so text) → text · security definer
@@ -660,6 +661,7 @@ Policy:
 - fn_gia_chu_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date) → TABLE(dem date, gia bigint) · security definer · gọi được: authenticated
 - fn_gia_tuan_cua_toi(p_tu date) → TABLE(can_id uuid, gia_thap bigint, gia_cao bigint) · security definer · gọi được: authenticated
 - fn_gia_tung_dem_cua_toi(p_tu date, p_den date) → TABLE(can_id uuid, dem date, gia bigint) · security definer · gọi được: authenticated
+- fn_gui_lich(p_can_ids uuid[]) → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_gui_link_xin_lich() → TABLE(ma text, so_lan_gui integer, gui_cuoi_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_hoan_tac_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated

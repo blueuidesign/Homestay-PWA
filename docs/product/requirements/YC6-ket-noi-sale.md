@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 10
+rev: 11
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -248,9 +248,17 @@ Bản 1 · rủi ro: thấp · Màn: A9, A9-02
 
 Sale không mở app lúc chủ nhà đồng ý: thấy ở popup thông báo mới khi mở app (YC12).
 
+[r11 · thêm] Các câu sau Claude tự chốt (QD25, YC6-H19, YC6-H20):
+- Dòng thứ hai của toast một chủ nhà: tên tòa và mã căn theo thứ tự mã, tối đa 3 căn, nhiều hơn thì "và N căn khác" ("ICON40 1509, 3402 và 2 căn khác đã vào Nguồn phòng"). Chủ nhà chưa có căn nào: "Chưa có căn nào, căn mới sẽ tự hiện". Thông báo chỉ có tên hiển thị chủ nhà, tên tòa, mã căn, không giá, không số điện thoại.
+- Gom: lần đồng ý mới vào cùng dòng thông báo "chủ đồng ý kết nối" của sale nếu dòng đó tạo chưa quá 10 phút và sale chưa đọc; quá 10 phút hay đã đọc thì tạo dòng mới. Tên chủ nhà trong toast gom: tối đa 3 tên, nhiều hơn thì "và N người khác".
+- Mỗi dòng thông báo hiện toast một lần trên một máy (máy nhớ dòng đã hiện, mất cũng được); dòng được gom thêm sau khi đã hiện thì hiện lại với nội dung mới. Toast tự tắt sau 6 giây hoặc khi bấm "Xem". Hiện toast không đánh dấu đã đọc (đọc là ở YC12).
+- Tới khi có Nguồn phòng (YC10.1), nút "Xem" đưa về lịch của sale.
+
 Tiêu chí:
 - **YC6.8-NT1** Khi Chị Hoa đồng ý lúc Sale Lan đang mở app, thì trong 60 giây Lan thấy toast có tên Chị Hoa và các căn mới. · unit
 - **YC6.8-NT2** Khi ba chủ nhà đồng ý trong 10 phút, thì Lan thấy một toast và có một thông báo gom. · database, unit
+- **YC6.8-NT3** `[r11 · thêm]` Khi Chị Hoa đồng ý lúc 9:00 và Anh Tuấn đồng ý lúc 9:15, hay Lan đã đọc thông báo của Chị Hoa trước khi Anh Tuấn đồng ý, thì có hai dòng thông báo riêng. · database
+- **YC6.8-NT4** `[r11 · thêm]` Khi Lan đã thấy toast của một thông báo rồi mở lại app, thì toast đó không hiện lại. · unit
 
 ## Màn hình
 `[r3 · sửa]`
@@ -279,3 +287,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r8 | 2026-11-19 | Claude | US39 chuẩn bị | Trả lời YC6-H12, H17, H18 (Claude tự chốt, QD25); thêm YC6.5-NT6, NT7 | YC6.5 |
 | r9 | 2026-11-19 | Claude | US40 chuẩn bị | Trả lời YC6-H7, H8, H9 (Claude tự chốt, QD25); thêm YC6.6-NT5 đến NT7 | YC6.6 |
 | r10 | 2026-11-19 | Claude | US39 | Chữ A8-01 bỏ "đã hết hạn" cho khớp PQ18-H1 (Claude tự chốt, QD25) | YC6.5 |
+| r11 | 2026-11-19 | Claude | US42 chuẩn bị | Trả lời YC6-H19, H20 (Claude tự chốt, QD25); thêm YC6.8-NT3, NT4 | YC6.8 |

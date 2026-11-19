@@ -26,9 +26,12 @@ import { CN3ChiTietNgay } from './CN3ChiTietNgay';
 import { NutThangTuan } from './CN2LichTuan';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
 import './CN1LichThang.css';
+import './CN10GuiLich.css';
 
 const ICON_TRUOC = <path d="m15 18-6-6 6-6" />;
 const ICON_SAU = <path d="m9 18 6-6-6-6" />;
+/** Canvas CN10-02: biểu tượng người ở ô "Gửi lịch cho sale". */
+const ICON_SALE = <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>;
 const THU = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
 
 const khoaThang = (canIds: string[], nam: number, thang: number) => `${canIds.join(',')}|${nam}-${thang}`;
@@ -96,6 +99,8 @@ export function CN1LichThang(props: {
   onXemTuan?: (t2: Ngay) => void;
   /** YC2.5 (YC2-H4): từ lịch tuần bấm "Tháng" thì mở tháng chứa ngày này (thứ Hai của tuần đang xem), chưa chọn ngày nào. */
   thangDau?: Ngay;
+  /** YC6.6 bước 1: ô "Gửi lịch cho sale" cạnh khối doanh thu mở CN10. Không truyền thì không có ô. */
+  onGuiLich?: () => void;
 }) {
   const homNay = props.homNay ?? homNayVN();
   const ngayDau = props.ngayMoSan ?? props.thangDau ?? homNay;
@@ -218,13 +223,25 @@ export function CN1LichThang(props: {
       )}
 
       {/* YC2.3 bước 11, 12, 13 (canvas CN1, CN1-02 "hh-stat hh-stat--md hh-stat--action"). Chưa tải: khung xám của lưới (HV1). */}
-      {hien && coKhoiDoanhThu(doanhThu) && (
+      {hien && (coKhoiDoanhThu(doanhThu) || props.onGuiLich) && (
         <div className="cn1-duoi">
-          <section className="hh-stat hh-stat--md hh-stat--action" aria-label={tieuDeDoanhThu(thang)}>
-            <div className="hh-stat__label">{tieuDeDoanhThu(thang)}</div>
-            <div className="hh-stat__value">{vietTien(doanhThu.doanhThu)}</div>
-            <div className="hh-stat__hint">{dongDoanhThu(doanhThu, thang)}</div>
-          </section>
+          {coKhoiDoanhThu(doanhThu) && (
+            <section className="hh-stat hh-stat--md hh-stat--action" aria-label={tieuDeDoanhThu(thang)}>
+              <div className="hh-stat__label">{tieuDeDoanhThu(thang)}</div>
+              <div className="hh-stat__value">{vietTien(doanhThu.doanhThu)}</div>
+              <div className="hh-stat__hint">{dongDoanhThu(doanhThu, thang)}</div>
+            </section>
+          )}
+          {/* YC6.6 bước 1 (canvas CN10-02): ô mở CN10. */}
+          {props.onGuiLich && (
+            <button type="button" className="cn10-o-gui" onClick={props.onGuiLich}>
+              <span className="cn10-o-gui-icon"><Icon co={22}>{ICON_SALE}</Icon></span>
+              <span className="cn10-o-gui-chu">
+                <span className="cn10-o-gui-ten">Gửi lịch cho sale</span>
+                <span className="cn10-o-gui-phu">Lịch chung các căn</span>
+              </span>
+            </button>
+          )}
         </div>
       )}
 
