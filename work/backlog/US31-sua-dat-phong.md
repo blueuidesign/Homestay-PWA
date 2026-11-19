@@ -52,8 +52,8 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US31-sua-dat-phong.md.
 
 ## Task
-- [x] US31-TA1 test database tests/db/46_us31_sua_dat_phong.sql · nhánh US31-sua-dat-phong
-- [x] US31-TA2 migration 20261119250000 (fn_sua_booking, kiem_du_lieu_booking, trigger booking_sau_khi_sua), 5 phép thử làm hỏng · nhánh US31-sua-dat-phong
+- [x] US31-TA1 test database tests/db/46_us31_sua_dat_phong.sql · PR #36
+- [x] US31-TA2 migration 20261119250000 (fn_sua_booking, kiem_du_lieu_booking, trigger booking_sau_khi_sua), 5 phép thử làm hỏng · PR #36
 - [x] US31-TA3 Code: màn CN4-02 (unit, e2e); S3-10 chuyển sang US34 · PR #36
 - [ ] US31-TA4 Test tay · Đức: chạy tests/kb/US31-sua-dat-phong.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
