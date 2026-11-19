@@ -2,7 +2,7 @@
 id: US43
 tieu_de: "Màn đầu tiên và lịch 7 ngày của sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC7.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [51]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -53,9 +53,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md.
 
 ## Task
-- [x] US43-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.1-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US43-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US43-TA3 Code · Claude Code (sonnet, CL14.6a): màn A5, S1, S1-04, S1-05 theo canvas, test unit, e2e cho YC7.1-NT1, YC7.1-NT2, YC7.1-NT3, YC7.1-NT5, YC7.1-NT7, YC7.1-NT8
+- [x] US43-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.1-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #51
+- [x] US43-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #51
+- [x] US43-TA3 Code · Claude Code (sonnet, CL14.6a): màn A5, S1, S1-04, S1-05 theo canvas, test unit, e2e cho YC7.1-NT1, YC7.1-NT2, YC7.1-NT3, YC7.1-NT5, YC7.1-NT7, YC7.1-NT8 · PR #51
 - [ ] US43-TA4 Test tay · Đức: chạy tests/kb/US43-man-dau-tien-va-lich.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -69,6 +69,7 @@ Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md.
 - 2026-11-19 · Claude · nhận HV8-NT3 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H8, H9 (YC7 r2); viết kịch bản test tay; soạn gói việc; giao agent code
 - 2026-11-19 · Claude (agent code) · làm TA1, TA2, TA3 trên nhánh US43-lich-sale, đẩy nhánh, chưa mở PR
+- 2026-11-19 · Claude (QD25) · Gộp PR #51, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - DB: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.1`: lần đầu (chưa migration) 66 hỏng, 2 qua. Sau migration 1 hỏng do test TA1 dùng tiền phòng 1.800.000đ trùng giá bán hợp lệ của 2208; đổi số mẫu sang 1.830.000đ (không nới điều kiện). Vòng 2: `scripts/test-db.sh` toàn bộ 1623 qua, 0 hỏng.
