@@ -610,6 +610,7 @@ Policy:
 ## View
 
 - v_booking_cua_sale: id, can_id, ma_can, chu_id, ten_chu, chu_da_xoa_tai_khoan, ngay_nhan, ngay_tra, nguon, tien_phong, trang_thai, huy_xin_boi, huy_xin_luc, huy_tra_loi, huy_tra_loi_luc, tao_luc
+- v_can_cua_toi: id, ma_can, so_phong_ngu, so_giuong, loai_view, ten_toa, tao_luc, moi_them, so_anh, anh_dai_dien, khach_den
 - v_lich_sale: can_id, dem
 - v_nguoi_ket_noi: id, ten_hien_thi, so_dien_thoai, da_xoa_tai_khoan
 
