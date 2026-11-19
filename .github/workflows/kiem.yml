@@ -73,7 +73,8 @@ jobs:
   database:
     name: database
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Thử làm hỏng chạy lại cả bộ test cho mỗi phép thử nên tăng theo số phép thử (PR #43 hết 13,5 phút, PR #44 quá 15 phút).
+    timeout-minutes: 40
     services:
       postgres:
         image: postgres:16
