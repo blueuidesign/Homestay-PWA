@@ -1,0 +1,33 @@
+/* US40 · CN10, CN10-00, CN10-01 Gửi lịch cho sale và ô "Gửi lịch cho sale" ở CN1 (canvas home247-canvas.html).
+   Vùng bấm 44 px, chữ 14 px ở màn đọc, 12–13 px ở chữ phụ, không dưới 12 px. */
+.cn10 { background: var(--surface-page); }
+.cn10-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 8px; display: flex; align-items: center; gap: 8px; }
+.cn10-dau .hh-iconbtn { min-width: 44px; min-height: 44px; }
+.cn10-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* CN10-01: dải báo dưới tiêu đề. */
+.cn10-chua-gui { flex: 0 0 auto; background: var(--warning-tint); border-bottom: 1px solid var(--warning-border); color: var(--warning-ink); padding: 10px 16px; font-size: 14px; line-height: 20px; display: flex; gap: 8px; align-items: flex-start; }
+.cn10-than { flex: 1 1 auto; padding: 12px 12px calc(140px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.cn10-cau { margin: 0; padding: 0 4px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+.cn10-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.cn10-dau-buoc { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.cn10-buoc-chu { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.cn10-buoc-ten { display: flex; align-items: center; gap: 8px; }
+.cn10-so { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 9999px; background: var(--ink); color: var(--on-action); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.cn10-ten { margin: 0; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.cn10-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn10-buoc-chu .cn10-phu { padding-left: 32px; }
+.cn10-nut-chu { min-height: 44px; flex: 0 0 auto; }
+.cn10-o { min-height: 44px; display: flex; align-items: center; }
+.cn10-hop { display: inline-flex; align-items: center; justify-content: center; color: var(--on-action); }
+.cn10 .hh-check--on .cn10-hop { box-shadow: none; }
+/* Nút dưới cùng cố định. */
+.cn10-day { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 10px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+.cn10-giua { text-align: center; }
+
+/* CN1, CN10-02: ô "Gửi lịch cho sale" cạnh khối doanh thu. */
+.cn10-o-gui { min-height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; text-align: left; font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn10-o-gui:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.cn10-o-gui-icon { display: inline-flex; color: var(--action); }
+.cn10-o-gui-chu { display: flex; flex-direction: column; gap: 2px; }
+.cn10-o-gui-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.cn10-o-gui-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
