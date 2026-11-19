@@ -3,7 +3,7 @@ id: US30
 tieu_de: "Chi tiết đặt phòng và thu tiền"
 loai: US
 trang_thai: moi
-thuc_hien: [YC5.5@1]
+thuc_hien: [YC5.5@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Chi tiết đặt phòng và thu tiền" đúng như YC5.5 mô tả.
 
 ## Làm tiêu chí nào
-YC5.5-NT1 đến NT5
+YC5.5-NT1 đến NT6
 
 ## Quy tắc, hành vi dùng
 QT1, QT2, QT3.1, QT4, QT5.6, QT6.1, QT6.2
@@ -48,7 +48,7 @@ YC5-dat-phong.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US30-chi-tiet-dat-phong-va.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US30-chi-tiet-dat-phong-va.md.
 
 ## Task
 - [ ] US30-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.5-NT2 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)

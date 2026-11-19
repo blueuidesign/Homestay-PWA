@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -237,7 +237,7 @@ Tiêu chí:
 
 ## YC5.5 · Chi tiết đặt phòng và thu tiền
 
-Bản 1 · rủi ro: cao · Màn: CN3-02, CN3-02-01
+Bản 2 · rủi ro: cao · Màn: CN3-02, CN3-02-01
 
 Mở từ dòng căn có khách ở chi tiết ngày, từ danh sách đặt phòng sắp tới (YC2), từ thanh ở lịch tuần (YC2).
 
@@ -245,7 +245,7 @@ Mở từ dòng căn có khách ở chi tiết ngày, từ danh sách đặt ph�
 |---|---|---|---|
 | 16 | Mở chi tiết B1 | CN3-02: tiêu đề "Đặt phòng · Sale Hùng", "Phòng 1509", nhãn trạng thái tiền ("Đã cọc · còn thu"), "10/10 → 12/10 (2 đêm)", "Nhận 14:00 thứ 7 · trả 12:00 thứ 2" | Đọc đặt phòng, tiền từng đêm, phần riêng của chính chủ nhà |
 | 17 | Xem người đặt (đặt phòng có sale) | Tên sale, số điện thoại, số khách (nếu chủ nhà đã nhập), nút "Gọi sale", dòng "Khách do sale Hùng bán. Tên và số điện thoại khách chỉ sale giữ; cần gì về khách thì gọi sale." | Số điện thoại sale của sale đang kết nối. Khách do sale nhập không bao giờ trả về cho chủ nhà (QD11) |
-| 17b | Xem người đặt (khách lẻ) | Tên khách chủ nhà đã nhập, hoặc "Khách lẻ" | Như bước 16 |
+| 17b | Xem người đặt (khách lẻ) | Tên khách chủ nhà đã nhập, hoặc "Khách lẻ". `[r3 · thêm]` Có số điện thoại khách chủ nhà đã nhập (YC5-H2) thì hiện số và nút "Gọi khách" (`tel:`) (Claude tự quyết, QD25) | Như bước 16 |
 | 18 | Bấm "Gọi sale" | Mở cuộc gọi tới số của sale (`tel:`) | Không |
 | 19 | Xem mục "Tiền" | "Tiền phòng 2.200.000đ", "Đã cọc 1.000.000đ", "Còn lại 1.200.000đ" (tiền phòng trừ cọc, tính lúc hiện, không lưu). Mục "Ghi chú" nếu có | Không |
 | 20 | Bấm "Đã thu đủ 1.200.000đ" (chỉ có khi chưa "Đã thanh toán") | Nhãn thành "Đã thanh toán", nút thành "Hoàn tác: chưa thu đủ" | Lệnh ghi đã thu đủ: trạng thái tiền thành đã thanh toán, nhớ trạng thái trước. Tiền cọc giữ nguyên |
@@ -261,6 +261,7 @@ Tiêu chí:
 - **YC5.5-NT3** Khi Chị Hoa bấm "Hoàn tác: chưa thu đủ" ngay sau đó, thì B1 về "Đã cọc · còn thu". · database
 - **YC5.5-NT4** Khi Sale Hùng đã xóa tài khoản và Chị Hoa mở B1, thì thấy tên "Sale Hùng" kèm "đã xóa tài khoản", không có số điện thoại và nút "Gọi sale", còn đêm 10/10, 11/10 vẫn kín. · unit, database (không còn số)
 - **YC5.5-NT5** Khi Sale Hùng gửi lệnh ghi đã thu đủ cho B1, thì database từ chối và trạng thái tiền không đổi. · database
+- `[r3 · thêm]` **YC5.5-NT6** Khi Chị Hoa mở đặt phòng khách lẻ có tên "Bà Lan" và số "0912345678" do chị nhập, thì thấy tên, số và nút "Gọi khách"; khách lẻ không có số thì không có nút. · unit
 
 ## YC5.6 · Sửa đặt phòng
 
@@ -380,3 +381,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US3, US10, US28, US35 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US27-nguoi-dat | YC5.2 bản 2: ô tên, số điện thoại khách lẻ, không ô khách khi chọn sale, cọc không bắt buộc (trả lời YC5-H1, H2, H12, H19, Claude tự chốt, QD25) | YC5.2, YC5.3 Luật kiểm |
+| r3 | 2026-11-19 | Claude | US30-chi-tiet-dat-phong | YC5.5 bản 2: khách lẻ có số thì hiện số và nút Gọi khách (Claude tự quyết, QD25, theo YC5-H2) | YC5.5 |
