@@ -2,7 +2,7 @@
 id: US2
 tieu_de: "Đăng ký và đăng nhập bằng mã email"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC1.2@3]
 truoc: [EN1, EN2, EN4]
 lien_quan: []
@@ -30,7 +30,7 @@ Canvas bản PWA đã có A2, A2-01 đến A2-04, A11, A11-01, A11-02 (PR #10). 
 | A2, A2-01 đến A2-04, A11, A11-01, A11-02 | đã vẽ | Không | YC1.2 |
 
 ## Làm tiêu chí nào
-YC1.2-NT1 đến NT13
+YC1.2-NT1 đến NT8, NT10 đến NT13. NT9 bỏ vì trùng YC6.3-NT1, kiểm ở US37 (YC1 r4, QD25).
 
 ## Quy tắc, hành vi dùng
 HV4, HV5, QT6.5
@@ -56,11 +56,11 @@ YC1-tai-khoan.md#Dữ liệu
 YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US2-dang-nhap.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US2-dang-nhap.md (KB1 đến KB6).
 
 ## Task
 - [x] US2-TA1 Thiết kế · Design: canvas bản PWA, PR #10
-- [ ] US2-TA2 Code · Claude Code (opus, CL14.6a): hàm tạo hồ sơ và lệnh đăng ký kèm test database (YC1.2-NT5, NT6, NT10), màn theo canvas, test unit, e2e cho YC1.2-NT1 đến NT13
+- [ ] US2-TA2 Code · Claude Code (opus, CL14.6a): hàm tạo hồ sơ và lệnh đăng ký kèm test database (YC1.2-NT5, NT6, NT10), màn theo canvas, test unit, e2e cho YC1.2-NT1 đến NT8, NT10 đến NT13. NT9 bỏ vì trùng YC6.3-NT1, kiểm ở US37 (YC1 r4, QD25).
 - [ ] US2-TA3 Test tay · Đức: chạy tests/kb/US2-dang-nhap.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -69,5 +69,7 @@ Kịch bản test tay: tests/kb/US2-dang-nhap.md, chưa viết. Viết trước 
 - 2026-11-18 · Claude · tạo item từ YC1.2@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên YC1.2@2 theo QD22; nhận phần tạo hồ sơ từ EN3 (đã hủy)
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
+
+- 2026-11-19 · Claude · viết tests/kb/US2-dang-nhap.md, bỏ YC1.2-NT9 (trùng YC6.3-NT1), sang dang-lam
 
 ## Bằng chứng

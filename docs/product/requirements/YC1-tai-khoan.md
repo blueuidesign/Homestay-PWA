@@ -3,7 +3,7 @@ id: YC1
 tieu_de: Tài khoản
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 3
 ---
 # YC1 · Tài khoản
@@ -149,7 +149,7 @@ Tiêu chí:
 - **YC1.2-NT6** Khi lệnh đăng ký gửi lên cho hồ sơ đã có số, hay nhắm vào hồ sơ của người khác, thì database từ chối và không gì đổi. · database
 - **YC1.2-NT7** Khi người đã có tài khoản đăng nhập ở A11 và nhập đúng mã, thì vào thẳng tab Lịch (đã chọn vai) và không thấy A2. · e2e
 - **YC1.2-NT8** Khi đã đăng nhập, đóng trình duyệt rồi mở lại, thì vẫn ở trong app. · e2e
-- **YC1.2-NT9** Khi một người mở link mời lúc chưa đăng nhập rồi tạo tài khoản, thì quay lại đúng màn "Thêm lịch" của link đó. · e2e
+- **YC1.2-NT9** `[r4 · bỏ]` Trùng YC6.3-NT1 (mở link mời lúc chưa đăng nhập, tạo tài khoản xong về A10). Kiểm ở US của link mời, vì màn A10 làm ở đó (Claude tự quyết, QD25).
 - **YC1.2-NT10** Khi số điện thoại gửi lên đã thuộc một tài khoản khác chưa xóa, thì database từ chối và hồ sơ của người gọi không đổi. · database
 - **YC1.2-NT11** Khi ở A2 nhập email đã có tài khoản, thì thấy "Email này đã có tài khoản." và nút "Đăng nhập bằng email này". · e2e
 - **YC1.2-NT12** Khi ở A11 nhập email chưa có tài khoản, thì thấy A11-01 và không có tài khoản mới nào được tạo. · e2e
@@ -314,3 +314,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ US1 (vào app, chọn vai), US37, US21 (trừ cài đặt thông báo), US22 (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: đăng nhập bằng mã email, đăng ký xin tên và số ngay. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 2. Thêm và tự chốt YC1-H12, YC1-H13 | Mục tiêu, Luồng chính, Phạm vi, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: YC1.2 hai luồng tạo tài khoản (A2) và đăng nhập (A11), YC1.4 sửa được số và họ tên, YC1.8 nút xóa ở P2 và P14. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 3. Trả lời YC1-H1, YC1-H6 | Luồng chính, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |
+| r4 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Bỏ YC1.2-NT9 vì trùng YC6.3-NT1 (QD25) | YC1.2 |
