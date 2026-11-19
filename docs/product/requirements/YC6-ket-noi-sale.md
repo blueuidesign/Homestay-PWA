@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 6
+rev: 7
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -158,7 +158,7 @@ Bản 2 · rủi ro: tb · Màn: A5, A6, A7, A7-00, A7-01
 | 4 | Quay về app | A7: "Đang chờ chủ nhà đồng ý", lần gửi gần nhất, hai số "3 lần đã chia sẻ" và "0 chủ nhà đã đồng ý". Chưa gửi lần nào: A7-00 | Đọc số đếm của chính sale |
 | 5 | Bấm "Gửi link cho chủ nhà khác" ở A7 | [r5 · sửa] Mở lại A6 (YC6-H13, Claude tự chốt) | Không |
 
-Sale thu hồi link xin lịch của mình: [MỞ: YC6-H2]; bản đầu không có.
+[r7 · sửa] Sale thu hồi link xin lịch của mình: bản 1 không có (YC6-H2, Claude tự chốt). Link chỉ cho chủ nhà đồng ý chia sẻ lịch của chính họ; sale không muốn xem lịch của ai thì bỏ nguồn ở Nguồn phòng (YC10.2).
 
 Tiêu chí:
 - **YC6.4-NT1** Khi sale bấm "Gửi tin nhắn xin lịch đến chủ nhà", thì app mở A6 có tin soạn sẵn và link. · unit
@@ -260,3 +260,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r4 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | YC6.7 |
 | r5 | 2026-11-19 | Claude | US36 chuẩn bị | Trả lời YC6-H13, H11, H16, H1, H4 (Claude tự chốt, QD25); thêm NT8, NT9 | YC6.2, YC6.4 |
 | r6 | 2026-11-19 | Claude | US37 chuẩn bị | Trả lời YC6-H14, H15, H5, H10, H3, H6 (Claude tự chốt, QD25); thêm YC6.3-NT9, NT10 | YC6.3 |
+| r7 | 2026-11-19 | Claude | US38 chuẩn bị | Trả lời YC6-H2: sale không thu hồi link xin lịch ở bản 1 (Claude tự chốt, QD25) | YC6.4 |
