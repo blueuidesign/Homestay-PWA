@@ -53,15 +53,24 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US47-muc-cong-gia-mac-dinh.md.
 
 ## Task
-- [ ] US47-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.5-NT3, YC7.5-NT4, YC7.5-NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US47-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5
+- [x] US47-TA1 Code: tests/db/63_us47_muc_cong_mac_dinh.sql (nhánh US47-muc-cong-mac-dinh)
+- [x] US47-TA2 Code: migration 20261119410000, 6 phép thử làm hỏng (nhánh US47-muc-cong-mac-dinh)
+- [ ] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5. Đã code và test; còn nối dịch vụ ở src/lib/dichVuCan.ts (ngoài ô Được sửa), thiếu thì e2e đỏ
 - [ ] US47-TA4 Test tay · Đức: chạy tests/kb/US47-muc-cong-gia-mac-dinh.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: test database fn_muc_cong_mac_dinh() (jsonb của chính người gọi), fn_dat_muc_cong_mac_dinh(p_muc, p_lam_tron), check bảng 0–5.000.000đ.
+- TA2: migration thêm check, hai hàm security definer dùng can_la_sale(); phép thử làm hỏng cho trần, số âm, check bảng, chủ nhà, ghi lẫn sale, cờ làm tròn.
+- TA3: src/lib/mucCong.ts (bộ chip, giá bán đêm, ô nghìn đồng, ví dụ 1.100.000đ × 2), S3 dùng lại qua chiTietCanSale.ts; P10, dòng ở tab Cá nhân, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.5@1 (QD21)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H10, H11 (YC7 r6, thêm NT6); viết kịch bản test tay
+- 2026-11-19 · Claude · TA1, TA2 xong; TA3 code xong, chờ nối src/lib/dichVuCan.ts (ngoài Được sửa) · chưa PR
 
 ## Bằng chứng
+- TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.5`: lần đầu 38 đỏ, 10 xanh (danh mục quyền đã có). TA2 xanh vòng đầu: 48/48; cả bộ `scripts/test-db.sh` 1854 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh YC7.5`: 6 đạt, 0 không đạt. `scripts/bang-cot.sh` đã chạy.
+- TA3 unit viết trước: 2 test ManSale đỏ, 2 file chưa có module; sửa 1 vòng (nhãn ô Tùy chọn). `npx vitest run`: 743 qua.
+- e2e muc-cong-mac-dinh.spec.ts: 3 vòng sửa chính test (500.000đ, toast có dấu ✓, 'true'); xanh khi nối tạm dichVuCan.ts, cả bộ 64 qua. Không nối thì spec này đỏ.
+- `npm run typecheck`, `npm run build` qua; `python3 scripts/kiem.py --diff origin/main` không lỗi.

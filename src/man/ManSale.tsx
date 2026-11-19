@@ -4,15 +4,18 @@
 // YC7.2 (US44): ô "Tìm phòng trống theo ngày" ở S1 mở S1-02 toàn màn (không thanh tab), quay lại thì về S1.
 // YC7.4 (US46), YC7 "Chạm căn mở đâu": chạm căn ở S1 mở S3 (căn chủ nhà, ngày đầu đang xem, 1 đêm, YC7-H6), S6-07, S6-03 bản
 // tạm, toàn màn. HV5 "Về Lịch" ở S3 (kể cả mở từ kết quả tìm) đóng mọi màn trên và về S1.
+// YC7.5 (US47): tab Cá nhân có dòng "Mức cộng giá mặc định" mở P10 toàn màn; lưu xong hay Quay lại thì về Cá nhân.
 import { useCallback, useState, type ReactNode } from 'react';
 import { khoangTuLich } from '../lib/chiTietCanSale';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
+import type { DichVuMucCong } from '../lib/dichVuMucCong';
 import { manKhiCham } from '../lib/ketQuaTim';
 import type { DichVuTimPhong } from '../lib/dichVuTimPhong';
 import { homNay } from '../lib/ngay';
 import type { DichVuXinLich } from '../lib/dichVuXinLich';
 import { ManLich } from './ManTam';
+import { P10MucCong } from './P10MucCong';
 import { MoCanSale, MoTimPhong } from './S1LichSale';
 import { S3ChiTietCan, VeLichSale, type MoS3 } from './S3ChiTietCan';
 import { S6Tam } from './S6Tam';
@@ -53,9 +56,11 @@ export function ManSale(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale; mucCong?: DichVuMucCong };
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
   dvTim?: DichVuTimPhong;
+  /** YC7.5: mức cộng mặc định (P10). Thiếu thì dùng dvLich.mucCong. */
+  dvMucCong?: DichVuMucCong;
   onDangXuat: () => void;
 }) {
   const [tab, datTab] = useState<TabSaleTen>('lich');
@@ -74,6 +79,7 @@ export function ManSale(props: {
       datMoCan({ s6: man, ten: h.ten });
     }
   }, [dvCt]);
+  const [moP10, datMoP10] = useState(false);
   const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datTab('lich'); }, []);
 
   if (moCan && 's3' in moCan && dvCt) {
@@ -82,6 +88,10 @@ export function ManSale(props: {
         <S3ChiTietCan {...moCan.s3} dv={dvCt} homNay={homNay()} onQuayLai={() => datMoCan(null)} />
       </VeLichSale.Provider>
     );
+  }
+  if (moP10) {
+    const dong = () => { datMoP10(false); datTab('ca-nhan'); };
+    return <P10MucCong dv={props.dvMucCong ?? props.dvLich?.mucCong} onQuayLai={dong} onDaLuu={dong} />;
   }
   if (moCan && 's6' in moCan) return <S6Tam man={moCan.s6} tenCan={moCan.ten} onQuayLai={() => datMoCan(null)} />;
   if (moTim && dvTim) {
@@ -107,6 +117,7 @@ export function ManSale(props: {
         {tab === 'ca-nhan' ? (
           <>
             <p className="dong-phu">Sale</p>
+            <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP10(true)}>Mức cộng giá mặc định</button>
             <button type="button" className="hh-btn hh-btn--text" onClick={props.onDangXuat}>Đăng xuất</button>
           </>
         ) : <p className="dong-phu">Sẽ có ở bản sau</p>}
