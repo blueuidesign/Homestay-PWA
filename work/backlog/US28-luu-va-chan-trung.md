@@ -2,7 +2,7 @@
 id: US28
 tieu_de: "Lưu và chặn trùng"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [33]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US28-luu-va-chan-trung.md.
 
 ## Task
-- [ ] US28-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.3-NT2 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US28-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US28-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN4-03 theo canvas
+- [x] US28-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.3-NT2 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #33
+- [x] US28-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #33
+- [x] US28-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN4-03 theo canvas · PR #33
 - [ ] US28-TA4 Test tay · Đức: chạy tests/kb/US28-luu-va-chan-trung.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US28-luu-va-chan-trung.md.
 - 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.3@1 (QD21)
 - 2026-11-19 · Claude · nhận HV7-NT1, HV7-NT2 từ EN4 (QD27)
+- 2026-11-19 · Claude · sửa lộ thông báo cho sale không còn chia sẻ căn, làm HV7-NT2 (e2e), gộp PR #33 theo QD25 · 875 test DB, 32 e2e xanh
 
 ## Bằng chứng
 - `scripts/test-db.sh`: lần đầu (trước migration) 9 hỏng (NT5, giờ lịch đổi, thông báo); sau migration 1 hỏng do test 43 tự đặt mốc sai, sửa 1 vòng; NT3 phép thử làm hỏng ban đầu xanh vì phiên B rollback, sửa test cho B commit. Cuối: 871 qua, 0 hỏng.
