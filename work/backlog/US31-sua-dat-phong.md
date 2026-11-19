@@ -28,7 +28,7 @@ YC5.6-NT1 đến NT11
 QT1, QT1.2, QT2, QT3.1, QT4, QT4.2, QT5.6, QT6.1, QT6.2
 
 ## Màn hình
-CN4-02, S3-10
+CN4-02. S3-10 (sale xem đặt phòng chủ đã sửa) chuyển sang US34 (Claude tự quyết, QD25): màn đó là chi tiết đặt phòng phía sale (YC5.9), US34 làm.
 
 ## Quyền
 PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC5-dat-phong.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
@@ -54,7 +54,7 @@ Kịch bản test tay: tests/kb/US31-sua-dat-phong.md.
 ## Task
 - [x] US31-TA1 test database tests/db/46_us31_sua_dat_phong.sql · nhánh US31-sua-dat-phong
 - [x] US31-TA2 migration 20261119250000 (fn_sua_booking, kiem_du_lieu_booking, trigger booking_sau_khi_sua), 5 phép thử làm hỏng · nhánh US31-sua-dat-phong
-- [ ] US31-TA3 CN4-02 xong (unit, e2e) · nhánh US31-sua-dat-phong. Còn S3-10 (màn phía sale): chưa có file trong phạm vi, chờ US34/YC5.9
+- [ ] US31-TA3 Code: màn CN4-02 (unit, e2e); S3-10 chuyển sang US34
 - [ ] US31-TA4 Test tay · Đức: chạy tests/kb/US31-sua-dat-phong.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
