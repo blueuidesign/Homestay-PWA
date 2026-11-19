@@ -1,6 +1,8 @@
 // CN5-02 Sửa căn, tab Thông tin (YC3.5 bước 35 đến 41, YC3-H4, QT5.5, QT5.7, HV1, HV2, HV5, HV8).
 // Dùng lại các mục của form Thêm căn: ô mã và số phòng ngủ (CN5A1ThemCan), Ảnh (MucAnhCan), phần thêm (MucThemCan).
 // Tab Giá là CN6 (YC4), khung hai tab dùng chung KhungCan.
+// Xóa căn (YC3.6, US19, YC3-H3, YC3-H8): nút chữ đỏ "Xóa phòng" dưới "Lưu thay đổi", hỏi lại rồi gọi fn_xoa_can; xóa được
+// thì toast và về tab Căn, bị từ chối thì toast lỗi và ở lại (QT5.5, HV8). Không có cách hiện lại căn đã xóa (YC3.6-NT9).
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { NutGhi, KhungXam, THOI_GIAN_CHO_LOI_MS } from '../chung/dangTai';
 import { CAU_LOI_CHUNG, LoiNguoiDung, ManChuaTai } from '../chung/matKetNoi';
@@ -21,6 +23,10 @@ import './CN502SuaCan.css';
 export const CAU_KHONG_CON = 'Bạn không còn xem được mục này';
 /** YC3.5 bước 41. */
 export const CAU_BO_THAY_DOI = 'Bỏ thay đổi chưa lưu?';
+/** YC3.6: dòng phụ của hộp hỏi lại (YC3-H8). */
+export const CAU_PHU_XOA = 'Căn sẽ không còn ở lịch và với sale. Đặt phòng cũ và doanh thu vẫn giữ.';
+/** YC3.6: căn không có, đã xóa, của người khác (42501): không lộ căn có tồn tại hay không. */
+export const CAU_LOI_XOA = 'Có lỗi xảy ra. Bạn thử lại sau ít phút.';
 
 type Props = {
   canId: string;
@@ -35,6 +41,10 @@ type Props = {
   themToa?: (ten: string) => Promise<string>;
   /** YC3.5 bước 39: lưu được, mã căn sau khi sửa (đã bỏ khoảng trắng). */
   onDaLuu: (maCan: string) => void;
+  /** YC3.6 bước 42: xóa (ẩn) căn. Thiếu thì bấm "Xóa" báo như mất mạng. */
+  xoaCan?: (id: string) => Promise<void>;
+  /** YC3.6 bước 44: xóa được (toast đã hiện), về tab Căn. */
+  onDaXoa?: () => void;
   onQuayLai: () => void;
   onChonGia: () => void;
   /** HV5 bước 1: nút "Về Lịch". */
@@ -51,6 +61,25 @@ function HoiBoThayDoi(props: { onBo: () => void; onOLai: () => void }) {
         <div className="cn502-hoi-nut">
           <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onBo}>Bỏ thay đổi</button>
           <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onOLai}>Ở lại</button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/** YC3.6 bước 42, YC3-H8, quy tắc "Xóa phải bấm hai lần": hộp "Xóa phòng 3402?" với "Xóa" và "Không". */
+function HoiXoaCan(props: { cau: string; onXoa: () => Promise<unknown>; onKhong: () => void }) {
+  return (
+    <>
+      <div className="cn502-man-toi" onClick={props.onKhong} aria-hidden="true" />
+      <div className="cn502-hoi" role="alertdialog" aria-modal="true" aria-label={props.cau}>
+        <div className="cn502-hoi-chu">
+          <p className="cn502-hoi-cau">{props.cau}</p>
+          <p className="cn502-hoi-phu">{CAU_PHU_XOA}</p>
+        </div>
+        <div className="cn502-hoi-nut">
+          <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onKhong}>Không</button>
+          <NutGhi chu="Xóa" chuDangGhi="Đang xóa…" lop="hh-btn hh-btn--primary hh-btn--block cn502-nut-xoa" onGhi={props.onXoa} />
         </div>
       </div>
     </>
@@ -112,6 +141,7 @@ function FormSua(props: Props & { can: CanSua }) {
   const [cauDau, datCauDau] = useState<string | null>(null);
   const [khongCon, datKhongCon] = useState(false);
   const [hoi, datHoi] = useState<null | (() => void)>(null);
+  const [hoiXoa, datHoiXoa] = useState(false);
   const baoLoi = useCallback((cau: string) => hienToast(cau, 'loi'), [hienToast]); // HV8-NT4
   const anh = useAnhCan(props.taiAnh, baoLoi, can.anh); // YC3.5 bước 35, 36, 37
   const chonAnh = (files: File[]) => { const bo = anh.them(files); if (bo > 0) hienToast(cauBoAnh(bo)); };
@@ -183,6 +213,22 @@ function FormSua(props: Props & { can: CanSua }) {
     }
   };
 
+  // YC3.6 bước 43, 44: xóa được thì toast và về tab Căn; bị từ chối thì toast lỗi, ở lại CN5-02.
+  const xoa = async () => {
+    try {
+      if (!props.xoaCan) throw new LoiHetGio('chưa nối database');
+      await choToiDa(props.xoaCan(can.id), THOI_GIAN_CHO_LOI_MS);
+      datHoiXoa(false);
+      hienToast(`Đã xóa ${tenCanGiuaCau(can.maCan)}`);
+      props.onDaXoa?.();
+    } catch (e) {
+      datHoiXoa(false);
+      if (e instanceof LoiKhongConCan) hienToast(CAU_LOI_XOA, 'loi'); // QT5.5
+      else if (e instanceof LoiNguoiDung) hienToast(e.message, 'loi'); // bước 43
+      else hienToast(laLoiMang(e) ? CAU_MAT_MANG : CAU_LOI_CHUNG, 'loi'); // HV2, HV8-NT4
+    }
+  };
+
   const tieuDe = `Sửa ${tenCanGiuaCau(can.maCan)}`;
   const khoaNut = anh.soDangTai > 0 || !!loiPhanThem.soGiuong || !!loiPhanThem.moTa;
 
@@ -190,7 +236,7 @@ function FormSua(props: Props & { can: CanSua }) {
     <KhungCan tieuDe={tieuDe} tab="thong-tin" onQuayLai={() => roi(props.onQuayLai)}
               onChonTab={(t) => { if (t === 'gia') roi(props.onChonGia); }}>
       {khongCon ? <KhongCon onVeLich={props.onVeLich} /> : (
-        <div className="cn502-than">
+        <div className="cn502-than cn502-than--co-xoa">
           {cauDau && <div style={S.dai} role="alert"><span aria-hidden="true">⚠️</span><span>{cauDau}</span></div>}
           <TheMaVaPhongNgu maCan={maCan} onDoiMa={sua('maCan', datMaCan)} soPhongNgu={soPhongNgu}
                            onChonPhong={sua('soPhongNgu', datSoPhongNgu)} loi={loi} />
@@ -213,8 +259,10 @@ function FormSua(props: Props & { can: CanSua }) {
       {!khongCon && (
         <div style={S.thanhDuoi}>
           <NutGhi chu="Lưu thay đổi" chuDangGhi="Đang lưu…" onGhi={ghi} disabled={khoaNut} />
+          <button type="button" className="hh-btn hh-btn--text cn502-nut-xoa-phong" onClick={() => datHoiXoa(true)}>Xóa phòng</button>
         </div>
       )}
+      {hoiXoa && <HoiXoaCan cau={`Xóa ${tenCanGiuaCau(can.maCan)}?`} onXoa={xoa} onKhong={() => datHoiXoa(false)} />}
       {hoi && <HoiBoThayDoi onBo={() => { const di = hoi; datHoi(null); di(); }} onOLai={() => datHoi(null)} />}
     </KhungCan>
   );

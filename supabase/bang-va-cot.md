@@ -646,6 +646,7 @@ Policy:
 - fn_them_anh_tam(p_duong_dan text) → uuid · security definer · gọi được: authenticated
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated
 - fn_xoa_booking(p_booking_id uuid) → void · security definer · gọi được: authenticated
+- fn_xoa_can(p_can_id uuid) → void · security definer · gọi được: authenticated
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer
 - khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
 - kiem_du_lieu_booking(p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_trang_thai_tien text, p_tien_coc bigint, p_ten_khach text, p_sdt_khach text, p_so_khach integer, p_ghi_chu text, OUT o_trang_thai_tien text, OUT o_tien_coc bigint, OUT o_ten_khach text, OUT o_sdt_khach text, OUT o_ghi_chu text) → record
@@ -657,6 +658,7 @@ Policy:
 - tach_tien_theo_dem(p_tong bigint, p_so_dem integer) → bigint[] · security definer · gọi được: authenticated
 - tg_bao_chu_them_can() → trigger · security definer
 - tg_bao_yeu_cau_bi_tu_choi() → trigger · security definer
+- tg_booking_can_chua_an() → trigger · security definer
 - tg_booking_huy_hai_ben() → trigger · security definer
 - tg_booking_nhat_ky() → trigger · security definer
 - tg_booking_sau_khi_ghi() → trigger · security definer
@@ -664,5 +666,6 @@ Policy:
 - tg_booking_sau_khi_xoa() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
+- tg_yeu_cau_can_chua_an() → trigger · security definer
 - thong_bao_bat(p_nguoi uuid, p_loai text) → boolean · security definer
 - tien_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tong bigint) → bigint[] · security definer

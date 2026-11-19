@@ -8,6 +8,7 @@ import { LoiKhongConCan, type CanSua, type SuaCan } from '../lib/dichVuCan';
 import { thayDoiCan } from '../lib/kiemCan';
 import type { DanhSachToa } from '../lib/toaNha';
 import { CN502SuaCan } from './CN502SuaCan';
+import { CN5DanhSachCan } from './CN5DanhSachCan';
 
 beforeEach(() => localStorage.clear());
 afterEach(() => cleanup());
@@ -204,5 +205,96 @@ describe('YC3.5 · CN5-02 Sửa căn, tab Thông tin', () => {
     await moXong();
     fireEvent.click(screen.getByRole('button', { name: 'Giá' }));
     expect(onChonGia).toHaveBeenCalledTimes(1);
+  });
+});
+
+// ===== US19 · YC3.6 Xóa căn: nút "Xóa phòng" và hộp hỏi lại ở cuối tab Thông tin (YC3-H3, YC3-H8, QT5.5, HV8) =====
+const CAN_2105: CanSua = { id: 'can-2105', maCan: '2105', soPhongNgu: 1, soGiuong: null, loaiView: null, toaNhaId: null, moTa: null, anh: [] };
+const CAN_3402: CanSua = { id: 'can-3402', maCan: '3402', soPhongNgu: null, soGiuong: null, loaiView: null, toaNhaId: null, moTa: null, anh: [] };
+
+function veXoa(can: CanSua, xoaCan?: (id: string) => Promise<void>) {
+  const xoa = vi.fn(xoaCan ?? (async (_id: string) => {}));
+  const onDaXoa = vi.fn();
+  const onQuayLai = vi.fn();
+  render(
+    <ToastProvider>
+      <CN502SuaCan canId={can.id} layCan={async () => can} suaCan={vi.fn(async () => {})} xoaCan={xoa} layToa={async () => TOA}
+                   onDaLuu={vi.fn()} onDaXoa={onDaXoa} onQuayLai={onQuayLai} onChonGia={vi.fn()} onVeLich={vi.fn()} />
+    </ToastProvider>,
+  );
+  return { xoa, onDaXoa, onQuayLai };
+}
+const nutXoaPhong = () => screen.getByRole('button', { name: 'Xóa phòng' });
+
+describe('YC3.6 · CN5-02 Xóa căn', () => {
+  it('YC3.6-NT12 bấm "Xóa phòng" ở CN5-02 của 2105 thì hiện hộp "Xóa phòng 2105?" với "Xóa" và "Không"; "Không" thì 2105 còn nguyên', async () => {
+    const { xoa, onDaXoa } = veXoa(CAN_2105);
+    await screen.findByDisplayValue('2105');
+    // Nút chữ "Xóa phòng" nằm dưới "Lưu thay đổi" (YC3-H3).
+    const luu = nutLuu();
+    const nut = nutXoaPhong();
+    expect(luu.compareDocumentPosition(nut) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    fireEvent.click(nut);
+    const hoi = screen.getByRole('alertdialog', { name: 'Xóa phòng 2105?' });
+    expect(within(hoi).getByText('Xóa phòng 2105?')).toBeInTheDocument();
+    expect(within(hoi).getByText('Căn sẽ không còn ở lịch và với sale. Đặt phòng cũ và doanh thu vẫn giữ.')).toBeInTheDocument();
+    expect(within(hoi).getByRole('button', { name: 'Xóa' })).toBeInTheDocument();
+    fireEvent.click(within(hoi).getByRole('button', { name: 'Không' }));
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    expect(xoa).not.toHaveBeenCalled();
+    expect(onDaXoa).not.toHaveBeenCalled();
+    expect(screen.getByDisplayValue('2105')).toBeInTheDocument();
+  });
+
+  it('YC3.6-NT12 bấm "Xóa" ở hộp hỏi lại thì gọi lệnh xóa 2105, về tab Căn với toast "Đã xóa phòng 2105"', async () => {
+    const { xoa, onDaXoa } = veXoa(CAN_2105);
+    await screen.findByDisplayValue('2105');
+    fireEvent.click(nutXoaPhong());
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(onDaXoa).toHaveBeenCalledTimes(1));
+    expect(xoa).toHaveBeenCalledWith('can-2105');
+    expect(screen.getByRole('status')).toHaveTextContent('Đã xóa phòng 2105');
+  });
+
+  it('YC3.6-NT1 xóa 3402 lúc còn B2 thì app báo "Căn còn đặt phòng sắp tới" bằng toast lỗi và ở lại CN5-02, 3402 không bị xóa', async () => {
+    const { xoa, onDaXoa } = veXoa(CAN_3402, async () => { throw new LoiNguoiDung('Căn còn đặt phòng sắp tới'); });
+    await screen.findByDisplayValue('3402');
+    fireEvent.click(nutXoaPhong());
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('Căn còn đặt phòng sắp tới'));
+    expect(screen.getByRole('status').textContent).not.toContain('✓');
+    expect(xoa).toHaveBeenCalledWith('can-3402');
+    expect(onDaXoa).not.toHaveBeenCalled();
+    expect(screen.queryByRole('alertdialog')).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Sửa phòng 3402' })).toBeInTheDocument();
+  });
+
+  it('YC3.6 QT5.5 căn không có, đã xóa hay của người khác (42501) thì báo "Có lỗi xảy ra. Bạn thử lại sau ít phút." và ở lại', async () => {
+    const { onDaXoa } = veXoa(CAN_3402, async () => { throw new LoiKhongConCan(); });
+    await screen.findByDisplayValue('3402');
+    fireEvent.click(nutXoaPhong());
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('Có lỗi xảy ra. Bạn thử lại sau ít phút.'));
+    expect(onDaXoa).not.toHaveBeenCalled();
+  });
+
+  it('YC3.6 HV2 mất mạng khi xóa thì báo mất mạng, ở lại CN5-02', async () => {
+    const { onDaXoa } = veXoa(CAN_3402, async () => { throw new TypeError('Failed to fetch'); });
+    await screen.findByDisplayValue('3402');
+    fireEvent.click(nutXoaPhong());
+    fireEvent.click(within(screen.getByRole('alertdialog')).getByRole('button', { name: 'Xóa' }));
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(/mất mạng|thử lại/i));
+    expect(onDaXoa).not.toHaveBeenCalled();
+  });
+
+  it('YC3.6-NT9 CN5-02 và tab Căn không có nút nào cho hiện lại căn đã xóa', async () => {
+    veXoa(CAN_2105);
+    await screen.findByDisplayValue('2105');
+    const nutHienLai = /hiện lại|khôi phục|bỏ xóa|phục hồi|hoàn tác/i;
+    expect(screen.queryAllByRole('button', { name: nutHienLai })).toHaveLength(0);
+    cleanup();
+    render(<CN5DanhSachCan ds={[]} onMoCan={vi.fn()} onThemCan={vi.fn()} />);
+    expect(screen.queryAllByRole('button', { name: nutHienLai })).toHaveLength(0);
+    expect(screen.queryByText(/đã xóa/i)).toBeNull();
   });
 });
