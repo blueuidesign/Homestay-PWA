@@ -2,7 +2,7 @@
 id: US46
 tieu_de: "Chi tiết căn của chủ nhà và giá bán"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC7.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [54]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -53,9 +53,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md.
 
 ## Task
-- [x] US46-TA1 Code: tests/db/62_us46_chi_tiet_can_sale.sql (nhánh US46-chi-tiet-can-sale)
-- [x] US46-TA2 Code: migration 20261119400000_us46_chi_tiet_can_sale.sql, 8 phép thử làm hỏng
-- [x] US46-TA3 Code: S3, S3-02 tạm, nối chạm căn ở S1, S2, S4; unit và e2e
+- [x] US46-TA1 Code: tests/db/62_us46_chi_tiet_can_sale.sql (nhánh US46-chi-tiet-can-sale) · PR #54
+- [x] US46-TA2 Code: migration 20261119400000_us46_chi_tiet_can_sale.sql, 8 phép thử làm hỏng · PR #54
+- [x] US46-TA3 Code: S3, S3-02 tạm, nối chạm căn ở S1, S2, S4; unit và e2e · PR #54
 - [ ] US46-TA4 Test tay · Đức: chạy tests/kb/US46-chi-tiet-can-cua-chu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -68,6 +68,7 @@ Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md.
 - 2026-11-19 · Claude · nhận HV5-NT1, HV5-NT2 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H6, H7 (YC7 r5, thêm NT7); viết kịch bản test tay; soạn gói việc; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1 đến TA3 trên nhánh US46-chi-tiet-can-sale, chưa mở PR · test xanh một vòng · ~1 giờ
+- 2026-11-19 · Claude (QD25) · Gộp PR #54, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.4` trước migration: 55 hỏng, 22 qua (đỏ đúng chỗ). TA2: sau migration 77 qua, 0 hỏng, một vòng; HV5: 11 qua. Cả bộ `scripts/test-db.sh`: 1806 qua, 0 hỏng.

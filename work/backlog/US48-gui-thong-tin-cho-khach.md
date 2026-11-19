@@ -2,7 +2,7 @@
 id: US48
 tieu_de: "Gửi thông tin cho khách"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC8.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []

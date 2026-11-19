@@ -55,7 +55,7 @@ Kịch bản test tay: tests/kb/US47-muc-cong-gia-mac-dinh.md.
 ## Task
 - [x] US47-TA1 Code: tests/db/63_us47_muc_cong_mac_dinh.sql (nhánh US47-muc-cong-mac-dinh)
 - [x] US47-TA2 Code: migration 20261119410000, 6 phép thử làm hỏng (nhánh US47-muc-cong-mac-dinh)
-- [ ] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5. Đã code và test; còn nối dịch vụ ở src/lib/dichVuCan.ts (ngoài ô Được sửa), thiếu thì e2e đỏ
+- [x] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5. Đã code và test; còn nối dịch vụ ở src/lib/dichVuCan.ts (ngoài ô Được sửa), thiếu thì e2e đỏ
 - [ ] US47-TA4 Test tay · Đức: chạy tests/kb/US47-muc-cong-gia-mac-dinh.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
