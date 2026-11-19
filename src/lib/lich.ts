@@ -128,3 +128,26 @@ export function dongCuaNgay(ds: readonly DatPhongLich[], canHien: readonly CanLi
     datPhong: ds.find((b) => b.canId === can.id && b.ngayNhan <= ngay && ngay < b.ngayTra) ?? null,
   }));
 }
+
+/** YC2.3: doanh thu tháng của chủ nhà (fn_doanh_thu_thang); tiền là số nguyên đồng, số đêm đếm từng đêm của từng căn. */
+export type DoanhThuThang = { doanhThu: number; soDem: number; thangTruoc: number };
+
+/** YC2.3 bước 11: "Doanh thu tháng 10". */
+export function tieuDeDoanhThu(thang: number): string {
+  return `Doanh thu tháng ${thang}`;
+}
+
+/**
+ * YC2.3 bước 11: dòng nhỏ "13 đêm có khách · tháng 9: 9.600.000đ"; tháng trước không có doanh thu thì chỉ
+ * "13 đêm có khách". Tháng 1 thì tháng trước là tháng 12.
+ */
+export function dongDoanhThu(dt: DoanhThuThang, thang: number): string {
+  const dem = `${dt.soDem} đêm có khách`;
+  if (dt.thangTruoc <= 0) return dem;
+  return `${dem} · tháng ${thang === 1 ? 12 : thang - 1}: ${vietTien(dt.thangTruoc)}`;
+}
+
+/** YC2.3 bước 13: tháng không có đêm có khách nào thì không hiện khối doanh thu. */
+export function coKhoiDoanhThu(dt: DoanhThuThang | null | undefined): dt is DoanhThuThang {
+  return !!dt && dt.soDem > 0;
+}

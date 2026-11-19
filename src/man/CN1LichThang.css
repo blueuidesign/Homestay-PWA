@@ -31,3 +31,10 @@
 .cn1-trong { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 .cn1-trong-ten { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
 .cn1-trong-mo { font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+/* YC2.3 · khối "Doanh thu tháng N" (canvas CN1, CN1-02: lưới hai cột, khối ở cột trái). */
+.cn1-duoi { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.hh-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; }
+.hh-stat__label { font-size: 14px; line-height: 20px; font-weight: 600; text-transform: uppercase; color: var(--ink-muted); }
+.hh-stat__value { margin-top: 4px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.hh-stat--action .hh-stat__value { color: var(--action); }
+.hh-stat__hint { font-size: 14px; line-height: 20px; color: var(--ink-muted); }

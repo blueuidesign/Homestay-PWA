@@ -57,8 +57,14 @@ Kịch bản test tay: tests/kb/US11-doanh-thu-thang.md.
 - [ ] US11-TA4 Test tay · Đức: chạy tests/kb/US11-doanh-thu-thang.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/48_us11_doanh_thu_thang.sql (DLM.4 + tháng 9 riêng 9.600.000đ, booking đã hủy, căn ẩn, B9 vắt tháng, chủ khác, sale, chưa đăng nhập). Chạy thấy đỏ.
+- TA2: supabase/migrations/20261119270000_us11_doanh_thu_thang.sql: `fn_doanh_thu_thang(p_thang date)` security definer trả một dòng (doanh_thu, so_dem, doanh_thu_thang_truoc) từ booking_dem của căn có lịch người gọi giữ (kể cả đã ẩn), bỏ da_huy. Số đêm có khách = số đêm-căn (dòng booking_dem), khớp DLM.5 (7 + 6 = 13). Phép thử làm hỏng vào scripts/thu-lam-hong.txt; cập nhật supabase/bang-va-cot.md.
+- TA3: dichVuLich.layThang đọc thêm doanh thu tháng (một lần gọi khi đổi tháng); lich.ts hàm viết dòng nhỏ; CN1 khối "Doanh thu tháng N" dưới lưới (hh-stat theo canvas), ẩn khi tháng không có đêm có khách; không đổi theo chip (YC2-H1). Unit + e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.3@1 (QD21)
+- 2026-11-19 · Claude · TA1, TA2, TA3 code trên nhánh US11-doanh-thu-thang; test DB, e2e chưa chạy được (máy không có Postgres, Docker)
 
 ## Bằng chứng
+- Unit `npx vitest run`: lần đầu xanh 45/45 ở hai file đổi (test viết cùng code TA3), cả bộ 422 qua. `npm run typecheck` (1 vòng sửa kiểu trong test), `npm run build` qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
+- Chưa chạy: `scripts/test-db.sh`, `scripts/thu-lam-hong.sh YC2.3`, `scripts/bang-cot.sh`, e2e tests/e2e/supabase. Postgres ở localhost:5432 và Docker (Supabase) đều tắt trong phiên, không được phép bật. supabase/bang-va-cot.md chưa sinh lại.

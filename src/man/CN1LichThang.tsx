@@ -2,7 +2,8 @@
 // Trạng thái (YC2 Trạng thái màn): HV1 khung xám, mở lại thì hiện tháng đã xem kèm "Đang cập nhật…"; HV2 dải mất mạng,
 // đổi tháng không tải được thì báo và giữ tháng đang hiện; HV3 quay lại từ nền đọc lại tháng đang xem.
 // Chạm ngày thì CN3 chi tiết một ngày mở ngay dưới lưới (YC2.2, US10), theo chip đang chọn.
-// Doanh thu tháng, đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
+// Khối "Doanh thu tháng N" dưới lưới (YC2.3, US11, PQ16.CHU): tổng mọi căn, không đổi theo chip (YC2-H1); tháng không có
+// đêm có khách thì không hiện. Đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
 // CN4-03 (YC5.3 bước 10, US28): vừa lưu đặt phòng thì mở ở tháng của ngày nhận, ngày nhận đang chọn, chi tiết ngày mở sẵn.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
@@ -11,7 +12,10 @@ import { useQuayLaiTuNen } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
 import type { DichVuLich, ThangLich } from '../lib/dichVuLich';
 import { cacDemCuaThang, congThang, soOTrongDau, tenThangNgan } from '../lib/gia';
-import { canCoKhach, chuChipTatCa, demTheoCan, mauCan, nhanO, tenThang, type CanLich } from '../lib/lich';
+import {
+  canCoKhach, chuChipTatCa, coKhoiDoanhThu, demTheoCan, dongDoanhThu, mauCan, nhanO, tenThang, tieuDeDoanhThu, type CanLich,
+} from '../lib/lich';
+import { vietTien } from '../lib/tien';
 import { homNay as homNayVN, type Ngay } from '../lib/ngay';
 import { CN3ChiTietNgay } from './CN3ChiTietNgay';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
@@ -125,6 +129,7 @@ export function CN1LichThang(props: {
   const mau = new Map(props.ds.map((c, i) => [c.id, mauCan(i)]));
   const maCan = new Map(props.ds.map((c) => [c.id, c.maCan]));
   const dem = hien ? demTheoCan(hien.duLieu.datPhong, nam, thang) : null;
+  const doanhThu = hien?.duLieu.doanhThu; // YC2.3: tổng mọi căn, không lọc theo canLoc
 
   return (
     <KhungTabChu tieuDe="Lịch" phai={nutDatPhong}>
@@ -197,6 +202,17 @@ export function CN1LichThang(props: {
         <CN3ChiTietNgay ngay={chon} ds={canHien} datPhong={hien.duLieu.datPhong} mau={mau}
                         onMoDatPhong={(id) => props.onMoDatPhong?.(id)}
                         onDatPhong={(canId, ngay) => props.onDatPhong({ canId, ngay })} />
+      )}
+
+      {/* YC2.3 bước 11, 12, 13 (canvas CN1, CN1-02 "hh-stat hh-stat--md hh-stat--action"). Chưa tải: khung xám của lưới (HV1). */}
+      {hien && coKhoiDoanhThu(doanhThu) && (
+        <div className="cn1-duoi">
+          <section className="hh-stat hh-stat--md hh-stat--action" aria-label={tieuDeDoanhThu(thang)}>
+            <div className="hh-stat__label">{tieuDeDoanhThu(thang)}</div>
+            <div className="hh-stat__value">{vietTien(doanhThu.doanhThu)}</div>
+            <div className="hh-stat__hint">{dongDoanhThu(doanhThu, thang)}</div>
+          </section>
+        </div>
       )}
 
       {chuaCoDatPhong && (

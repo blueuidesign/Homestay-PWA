@@ -1,10 +1,10 @@
-// Test unit màn CN1 Lịch tháng (YC2.1): CN1 (2 căn), CN1-02 (3 căn), CN1-00 (chưa có đặt phòng), HV1, HV2.
+// Test unit màn CN1 Lịch tháng (YC2.1, YC2.3 khối doanh thu): CN1 (2 căn), CN1-02 (3 căn), CN1-00 (chưa có đặt phòng), HV1, HV2.
 // Dịch vụ lịch là bản giả theo DLM.4, không gọi mạng. Hôm nay cố định 07/10/2026 (DLM.1).
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ToastProvider } from '../chung/Toast';
 import type { DichVuLich, ThangLich } from '../lib/dichVuLich';
-import { khoangThang, type CanLich, type DatPhongLich } from '../lib/lich';
+import { khoangThang, type CanLich, type DatPhongLich, type DoanhThuThang } from '../lib/lich';
 import { CN1LichThang } from './CN1LichThang';
 
 afterEach(() => {
@@ -288,5 +288,69 @@ describe('YC5.3 bước 10 · CN4-03 về tab Lịch sau khi lưu đặt phòng'
     expect(o('2026-11-30')).toHaveAttribute('aria-pressed', 'true');
     expect(toMau('2026-11-30')).toEqual(['3402']);
     expect(screen.getByRole('region', { name: /Ngày 30\/11\/2026/ })).toBeInTheDocument();
+  });
+});
+
+describe('YC2.3 · khối doanh thu tháng dưới lưới CN1', () => {
+  /** Doanh thu theo tháng như fn_doanh_thu_thang trả (DLM.5; tháng 9 là số riêng của YC2.3). */
+  const DT: Record<string, DoanhThuThang> = {
+    '2026-9': { doanhThu: 9600000, soDem: 10, thangTruoc: 0 },
+    '2026-10': { doanhThu: 11800000, soDem: 13, thangTruoc: 9600000 },
+    '2026-11': { doanhThu: 800000, soDem: 1, thangTruoc: 11800000 },
+    '2027-1': { doanhThu: 0, soDem: 0, thangTruoc: 800000 },
+  };
+  function dichVuDt(): DichVuLich & { layThang: ReturnType<typeof vi.fn> } {
+    const goc = dichVu();
+    return {
+      layThang: vi.fn(async (canIds: string[], nam: number, thang: number): Promise<ThangLich> => ({
+        ...(await goc.layThang(canIds, nam, thang) as ThangLich),
+        doanhThu: DT[`${nam}-${thang}`] ?? { doanhThu: 0, soDem: 0, thangTruoc: 0 },
+      })),
+    };
+  }
+  const khoi = () => screen.queryByRole('region', { name: /^Doanh thu tháng/ });
+
+  it('YC2.3-NT1 Chị Hoa xem tháng 10 thì khối ghi "Doanh thu tháng 10", "11.800.000đ", "13 đêm có khách · tháng 9: 9.600.000đ"', async () => {
+    ve(HAI_CAN, dichVuDt());
+    await choLuoi();
+    const k = await screen.findByRole('region', { name: 'Doanh thu tháng 10' });
+    expect(within(k).getByText('Doanh thu tháng 10')).toBeInTheDocument();
+    expect(within(k).getByText('11.800.000đ')).toBeInTheDocument();
+    expect(within(k).getByText('13 đêm có khách · tháng 9: 9.600.000đ')).toBeInTheDocument();
+  });
+
+  it('YC2.3-NT1 YC2-H1 đổi chip "3402" thì khối vẫn là tổng mọi căn: 11.800.000đ, 13 đêm', async () => {
+    ve(HAI_CAN, dichVuDt());
+    await choLuoi();
+    fireEvent.click(screen.getByRole('button', { name: '3402' }));
+    const k = screen.getByRole('region', { name: 'Doanh thu tháng 10' });
+    expect(within(k).getByText('11.800.000đ')).toBeInTheDocument();
+    expect(within(k).getByText('13 đêm có khách · tháng 9: 9.600.000đ')).toBeInTheDocument();
+  });
+
+  it('YC2.3 bước 12 đổi tháng thì khối đổi theo tháng mới; tháng trước không có doanh thu thì bỏ phần "tháng …"', async () => {
+    ve(HAI_CAN, dichVuDt());
+    await choLuoi();
+    fireEvent.click(screen.getByRole('button', { name: 'T11' }));
+    const k = await screen.findByRole('region', { name: 'Doanh thu tháng 11' });
+    expect(within(k).getByText('800.000đ')).toBeInTheDocument();
+    expect(within(k).getByText('1 đêm có khách · tháng 10: 11.800.000đ')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'T10' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'T09' }));
+    const k9 = await screen.findByRole('region', { name: 'Doanh thu tháng 9' });
+    expect(within(k9).getByText('9.600.000đ')).toBeInTheDocument();
+    expect(within(k9).getByText('10 đêm có khách')).toBeInTheDocument();
+  });
+
+  it('YC2.3-NT2 tháng đang xem không có đặt phòng nào thì không có khối doanh thu', async () => {
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVuDt()} homNay="2027-01-07" onDatPhong={vi.fn()} />
+      </ToastProvider>,
+    );
+    expect(await screen.findByRole('heading', { name: 'Tháng 1/2027' })).toBeInTheDocument();
+    await screen.findByRole('grid', { name: /Tháng/ });
+    expect(khoi()).toBeNull();
+    expect(screen.queryByText(/^Doanh thu tháng/)).toBeNull();
   });
 });
