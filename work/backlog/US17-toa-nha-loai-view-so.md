@@ -2,7 +2,7 @@
 id: US17
 tieu_de: "Tòa nhà, loại view, số giường, mô tả"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.4@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [25]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US17-toa-nha-loai-view-so.md (KB1 đến KB3).
 - 2026-11-18 · Claude · tạo item từ YC3.4@1 (QD21)
 - 2026-11-19 · Claude · trả lời YC3-H5, YC3-H7 (QD25), viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-19 · Claude (agent code) · TA1 xong, TA2 code xong; chờ nối ManChu.tsx (ngoài phạm vi) · PR nháp US17-toa-nha · khoảng 1,5 giờ
+- 2026-11-19 · Claude · nối ManChu (gói việc thiếu file này), gộp PR #25 theo QD25 (CI xanh), sang cho-test
 
 ## Bằng chứng
 - `scripts/test-db.sh` (PG16): lần đầu 5 hỏng, file 35 dừng vì chưa có cột khu_vuc; sau migration 532 qua, 0 hỏng (1 vòng).
