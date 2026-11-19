@@ -669,6 +669,7 @@ Policy:
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
 - fn_sale_da_coc(p_booking_id uuid) → boolean · security definer · gọi được: authenticated
+- fn_sale_lich(p_tu date, p_den date) → TABLE(can_id uuid, nhom text, ma_can text, ten_toa text, ten_chu text, so_phong_ngu smallint, loai_view text, lich_doi_luc timestamp with time zone, so_ban integer, dem date, o text, gia_ban bigint) · security definer · gọi được: authenticated
 - fn_sua_booking(p_booking_id uuid, p_sua_luc timestamp with time zone, p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_trang_thai_tien text, p_tien_coc bigint, p_ten_khach text, p_sdt_khach text, p_so_khach integer, p_gio_nhan time without time zone, p_gio_tra time without time zone, p_ghi_chu text) → timestamp with time zone · security definer · gọi được: authenticated
 - fn_sua_can(p_can_id uuid, p_sua jsonb) → void · security definer · gọi được: authenticated
 - fn_tao_booking(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_client_id uuid, p_sale_id uuid, p_ten_khach text, p_sdt_khach text, p_trang_thai_tien text, p_tien_coc bigint, p_so_khach integer, p_gio_nhan time without time zone, p_gio_tra time without time zone, p_ghi_chu text) → uuid · security definer · gọi được: authenticated
@@ -685,6 +686,8 @@ Policy:
 - fn_xoa_sale_tay(p_id uuid) → void · security definer · gọi được: authenticated
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer
 - ghi_thong_bao_dong_y(p_chu uuid, p_sale uuid, p_ket_noi uuid) → void · security definer
+- gia_ban_dem(p_sale_id uuid, p_can_id uuid, p_dem date) → bigint · security definer
+- gia_chu_dem(p_can_id uuid, p_dem date) → bigint · security definer
 - khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
 - kiem_du_lieu_booking(p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_trang_thai_tien text, p_tien_coc bigint, p_ten_khach text, p_sdt_khach text, p_so_khach integer, p_ghi_chu text, OUT o_trang_thai_tien text, OUT o_tien_coc bigint, OUT o_ten_khach text, OUT o_sdt_khach text, OUT o_ghi_chu text) → record
 - kiem_tien_dem(p_booking_id uuid) → void · security definer

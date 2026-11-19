@@ -19,6 +19,7 @@ import { A9ToastKetNoi } from './man/A9ToastKetNoi';
 import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
+import { ManSale } from './man/ManSale';
 
 type TrangThai = { phien: TrangThaiPhien; email: string; hoSo: HoSo | null | undefined };
 
@@ -167,11 +168,14 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         }
         return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
       }
-      // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch).
+      // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch). YC7.1: có căn thì S1.
       // YC6.8: sale đang mở app thấy toast A9, A9-02 khi chủ nhà đồng ý; "Xem" về lịch của sale.
       return (
         <>
-          <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />
+          {tt.hoSo?.vaiChon === 'sale'
+            // YC7.1: các tab của sale; tab Lịch là A5, A7 hay S1.
+            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} onDangXuat={dangXuat} />
+            : <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />}
           {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
             <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />
           )}
