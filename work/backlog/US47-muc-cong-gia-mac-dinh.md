@@ -2,7 +2,7 @@
 id: US47
 tieu_de: "Mức cộng giá mặc định"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC7.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
