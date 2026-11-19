@@ -2,7 +2,7 @@
 id: US26
 tieu_de: "Mở form, chọn căn và ngày, kiểm trùng sớm"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -59,6 +59,7 @@ Kịch bản test tay: tests/kb/US26-mo-form-chon-can-va.md.
 ## Kế hoạch
 
 ## Nhật ký
+- 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV3-NT1, HV3-NT4 từ EN4 (QD27)
 
