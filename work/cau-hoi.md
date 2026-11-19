@@ -283,17 +283,20 @@ Có thông báo khi sale tự bấm "Thêm lịch" không (cho sale, cho chủ n
 Gắn ở: YC6.3. Tới khi có câu trả lời: không.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giữ cách tạm: không có thông báo. Sale đã thấy toast "Đã thêm lịch …" (A10-02); chủ nhà thấy sale mới ở nhóm "Đã kết nối" của CN7. Thêm thông báo để sau khi có nhu cầu thật. Ghi vào YC6.3 r6.
 
-### YC6-H7 · mo
+### YC6-H7 · da-tra-loi
 Sale đã kết nối nhận thêm link gửi lịch thì phạm vi có đổi không?
 Gắn ở: YC6.6. Tới khi có câu trả lời: giữ phạm vi cũ.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Link gửi lịch chỉ mở rộng, không bao giờ thu hẹp. Đã "tất cả căn" thì giữ. Đang theo danh sách căn thì thêm các căn trong link vào danh sách. Chủ nhà gửi lịch là muốn sale thấy thêm căn; muốn bớt căn thì sửa phạm vi hay ngừng ở CN7-04. Ghi vào YC6.6 r9, thêm NT5.
 
-### YC6-H8 · mo
+### YC6-H8 · da-tra-loi
 Gửi lịch theo căn: chưa chọn căn nào thì nút gửi có bấm được không?
 Gắn ở: YC6.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không bấm được, kèm dòng "Chọn ít nhất một căn". Link không có căn nào mở ra trống, sale không làm được gì. Ghi vào YC6.6 r9, thêm NT6.
 
-### YC6-H9 · mo
+### YC6-H9 · da-tra-loi
 Chủ nhà có thu hồi được link gửi lịch theo căn không?
 Gắn ở: YC6.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nút thu hồi. Mỗi lần gửi tạo một link mới, nên một chủ nhà có thể có nhiều link; làm màn quản lý từng link là việc lớn mà lợi ít. Link hết hạn sau 21 ngày, xem trước không có giá; chủ nhà muốn bỏ một sale đã thêm thì dùng "Ngừng cho xem lịch" ở CN7-04. Ghi vào YC6.6 r9.
 
 ### YC6-H10 · da-tra-loi
 Chủ nhà thu hồi link mời ở màn nào; người mở link đã hết hạn hay đã thu hồi thấy gì?
