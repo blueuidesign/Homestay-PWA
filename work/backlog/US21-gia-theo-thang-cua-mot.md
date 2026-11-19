@@ -58,6 +58,10 @@ Kịch bản test tay: tests/kb/US21-gia-theo-thang-cua-mot.md (KB1 đến KB4).
 - [ ] US21-TA4 Test tay · Đức: chạy tests/kb/US21-gia-theo-thang-cua-mot.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+1. TA1: viết tests/db/36_us21_gia_thang.sql (NT1, NT4, NT6, NT7, NT8, luật tháng, giá tối đa, quyền), "hôm nay" đóng băng 07/10/2026 theo DLM; chạy thấy đỏ.
+2. TA2: migration 20261119160000_us21_gia_thang.sql: fn_dat_gia_thang, fn_lich_gia_thang (QT5.3); phép thử làm hỏng; sinh lại bang-va-cot.md.
+3. TA3: src/lib/tien.ts vietTienGon, khoảng giá; src/lib/gia.ts (khoảng giá tháng, chữ tháng đã chọn, tên ô giá, kiểm giá); src/lib/dichVuGia.ts; dieuHuong /can/<id>/gia; màn CN6GiaCan (CN6, CN6-00, CN6-04, CN6-09) nối vào ManChu; unit NT1 đến NT5; e2e luồng chính.
+4. Chạy test-db, thu-lam-hong, vitest, typecheck, build, kiem.py, e2e; commit, PR nháp.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.2@1 (QD21)
