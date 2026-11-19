@@ -105,3 +105,24 @@ describe('YC7.1 · khung tab của sale', () => {
     expect(await screen.findByText('Chưa có nguồn phòng')).toBeInTheDocument();
   });
 });
+
+describe('YC7.2 · mở tìm phòng từ S1', () => {
+  it('YC7.2 bước 1 chạm "Tìm phòng trống theo ngày" mở S1-02 toàn màn (không thanh tab); Quay lại về S1', async () => {
+    const tim = { tim: vi.fn(), docGanDay: vi.fn(async () => []), docToa: vi.fn(async () => []) };
+    ve({ dvLich: { ...dvLich(), timPhong: tim } });
+    fireEvent.click(await screen.findByRole('button', { name: 'Tìm phòng trống theo ngày' }));
+    expect(screen.getByRole('heading', { name: 'Tìm phòng' })).toBeInTheDocument();
+    expect(screen.getByText('Chọn ngày nhận để tìm phòng')).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
+    await waitFor(() => expect(tim.docGanDay).toHaveBeenCalled());
+    fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
+    expect(await screen.findByText('Nguồn phòng · 1')).toBeInTheDocument();
+    expect(screen.getByRole('navigation', { name: 'Tab' })).toBeInTheDocument();
+  });
+
+  it('YC7.2 chưa có dịch vụ tìm thì chạm ô tìm không làm gì', async () => {
+    ve({ dvLich: dvLich() });
+    fireEvent.click(await screen.findByRole('button', { name: 'Tìm phòng trống theo ngày' }));
+    expect(screen.queryByRole('heading', { name: 'Tìm phòng' })).toBeNull();
+  });
+});

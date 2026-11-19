@@ -1,0 +1,34 @@
+/* US44 · S1-02, S1-03 Tìm phòng, S2-00 Không có căn trống (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px ở màn
+   đọc, chữ phụ 13 px, nhãn 12 px. */
+.tp-than { flex: 1 1 auto; padding: 12px 12px 140px; display: flex; flex-direction: column; gap: 12px; }
+.tp-than--khong { padding-bottom: 24px; }
+.tp-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+.tp-the--danh-sach { padding: 0; gap: 0; overflow: hidden; }
+.tp-gan-day { padding: 12px 16px 4px; gap: 0; }
+.tp-loc { padding: 4px 16px; gap: 0; }
+.tp-hai-o { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+.tp-hang { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.tp-nhan { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink-secondary); }
+.tp-muc { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.tp-muc--ngoai { padding: 0 4px; }
+.tp-phu { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.tp-ghi { padding: 0 4px; }
+.tp-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.tp-lon { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.tp-loc-dau { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 0 10px; }
+.tp-nhom-loc { padding: 14px 0; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 6px; }
+.tp-chip { display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-height: 44px; min-width: 44px; padding: 6px 12px; border-radius: 9999px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-secondary); font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.tp-chip--on { background: var(--action); border-color: var(--action); color: var(--on-action); }
+.tp-chip:focus-visible, .tp-dong-gan-day:focus-visible, .tp-dong-goi-y:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.tp-dong-gan-day, .tp-dong-goi-y { width: 100%; min-height: 52px; display: flex; align-items: center; gap: 12px; background: none; border: 0; border-bottom: 1px solid var(--border-subtle); padding: 0; font: inherit; font-size: 14px; line-height: 20px; color: var(--ink-body); text-align: left; cursor: pointer; }
+.tp-dong-gan-day:last-child, .tp-dong-goi-y:last-child { border-bottom: 0; }
+.tp-dong-goi-y { min-height: 60px; padding: 8px 16px; }
+.tp-dong-chu, .tp-goi-y-chu { flex: 1 1 0; min-width: 0; }
+.tp-goi-y-chu { display: flex; flex-direction: column; gap: 2px; }
+.tp-goi-y-chinh { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.tp-icon-phu { display: inline-flex; flex: 0 0 auto; color: var(--ink-faint); }
+.tp-icon-chinh { display: inline-flex; flex: 0 0 auto; color: var(--action); }
+.tp-goi-y { display: flex; flex-direction: column; gap: 8px; }
+.tp-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 10px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+.tp-ghi-chu { font-size: 13px; line-height: 18px; color: var(--ink-muted); text-align: center; }
+.tp-chan .hh-btn:disabled { opacity: 0.4; }
