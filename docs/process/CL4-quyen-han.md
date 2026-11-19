@@ -3,7 +3,7 @@ id: CL4
 tieu_de: Quyền hạn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # CL4 · Quyền hạn
 
@@ -19,7 +19,7 @@ rev: 1
 | CL4.3.6 | Tùng duyệt trước | Đổi docs/process/, CLAUDE.md, .claude/, .github/ |
 | CL4.3.7 | Tùng duyệt trước | Dịch vụ trả phí, tài khoản, khóa bí mật |
 | CL4.3.8 | Tùng duyệt trước | Liên hệ người dùng thật, đăng gì ra ngoài |
-| CL4.4 | Cấm | Đẩy ép. Đẩy thẳng vào main việc thuộc CL4.3 hoặc code (CL4.7). Lách hook (CL4.9). Đọc .env, khóa bí mật. Đọc dữ liệu production. Tắt, xóa, sửa test để cho qua. Sửa dòng [tự sinh]. Gộp PR khi không có lệnh gộp của Tùng (CL4.6, QD17). Ghi email, số điện thoại, tên người dùng thật vào repo (repo công khai) | 
+| CL4.4 | Cấm | Đẩy ép. Đẩy thẳng vào main việc thuộc CL4.3 hoặc code (CL4.7). Lách hook (CL4.9). Đọc .env, khóa bí mật. Đọc dữ liệu production. Tắt, xóa, sửa test để cho qua. Sửa dòng [tự sinh]. Gộp PR khi không có lệnh gộp của Tùng (CL4.6, QD17), trừ thời gian QD25 (CL4.6 mục 4). Ghi email, số điện thoại, tên người dùng thật vào repo (repo công khai) | 
 ## CL4.5 · Cách xin và cách duyệt
 1. Item ghi quyền cần: can_duyet: [CL4.3.4].
 2. AI dừng, mở PR nháp ghi: xin gì, vì sao, làm gì nếu được duyệt, quay lại thế nào nếu hỏng.
@@ -30,6 +30,8 @@ Hai người dùng chung tài khoản Claude và GitHub, nên máy không phân 
 2. Tùng ra lệnh gộp trong phiên Claude Code: phiên bắt đầu bằng "Tôi là Tùng" và lệnh nêu rõ PR nào (số PR, hoặc "gộp hết" kèm danh sách AI vừa liệt kê). AI gộp đúng các PR đó, không gộp PR khác, và ghi bình luận vào từng PR: "Gộp theo lệnh của Tùng trong phiên Claude Code, ngày ...". PR gộp bằng lệnh vẫn mở để Tùng bình luận sau.
 
 3. Tùng ra lệnh làm tự động trong phiên Claude Code (CL5.16): phiên bắt đầu bằng "Tôi là Tùng", lệnh nêu rõ phạm vi item. Trong phiên đó AI tự ra lệnh gộp, không hỏi lại: gộp PR của các item trong phạm vi khi đã kiểm theo skill /lam-tu-dong mục 6, kể cả PR sửa docs/process, CLAUDE.md, .claude/, .github/; trừ PR ở mục 8 của skill đó. Bình luận trên PR ghi lệnh gốc và ngày. 
+4. `[r2 · thêm]` Từ 19/11 tới hết 26/11/2026 (QD25), PR nào CI xanh thì Claude tự gộp, ở mọi thread của dự án, không chờ lệnh gộp từng PR. Vẫn không gộp PR chạm production, dữ liệu thật hay việc tốn tiền. Bình luận trên PR ghi "Gộp theo QD25" và ngày. Tùng, 19/11/2026: "Sửa CLAUDE.md và CL4: từ nay tới 26/11, PR nào CI xanh thì Claude tự gộ[p]"
+
 AI không bao giờ tự ý gộp PR thuộc CL4.3 khi chưa có lệnh như trên.
 Rủi ro chấp nhận: ai mở phiên Claude Code và gõ "Tôi là Tùng" cũng ra lệnh gộp được. Bình luận trên PR là dấu vết để Tùng kiểm lại. Hết rủi ro này khi tách tài khoản, lúc đó bỏ cách 2. Trước khi gộp, AI soát điều kiện của QD17.
 
@@ -63,3 +65,4 @@ Hook chặn sai thì báo lại nguyên văn lỗi của hook cho người dùng
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Chép từ bản Zalo r9, sửa cho bản PWA (QD21). Lịch sử cũ ở repo zalo-miniapp | Cả file |
+| r2 | 2026-11-19 | Claude | QD25-tu-gop-pr | Tùng cho tự gộp PR khi CI xanh tới 26/11 (QD25) | CL4.4, CL4.6 |

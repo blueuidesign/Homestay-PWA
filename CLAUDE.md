@@ -61,7 +61,7 @@ Người dùng nói bằng lời, AI tự chọn skill theo mô tả. Quy trình
 
 ## Quyền và git (chi tiết: CL4)
 - Code luôn trên nhánh <mã>-<tên-ngắn> và PR, kể cả sửa nhỏ. Một PR một item. Commit tiếng Việt, mở đầu bằng mã item. Tài liệu, item, nhật ký, kết quả test tay ở tests/kb đẩy thẳng main (CL4.7). Hook chặn đẩy sai (CL4.9).
-- Claude chỉ gộp PR khi Tùng bảo rõ PR nào, hoặc trong vòng làm tự động Tùng giao (QD17, CL4.6). Cần Tùng duyệt trước: các mục CL4.3 (migration production, xóa dữ liệu, đổi quyền, việc không đảo ngược). Chữ "đồng ý" chung chung không tính.
+- Claude chỉ gộp PR khi Tùng bảo rõ PR nào, hoặc trong vòng làm tự động Tùng giao (QD17, CL4.6). Từ 19/11 tới hết 26/11/2026, PR nào CI xanh thì Claude tự gộp (Tùng chốt, QD25, CL4.6 mục 4), trừ PR chạm production, dữ liệu thật, việc tốn tiền. Cần Tùng duyệt trước: các mục CL4.3 (migration production, xóa dữ liệu, đổi quyền, việc không đảo ngược). Chữ "đồng ý" chung chung không tính.
 - Cấm: đẩy ép, đọc .env và khóa bí mật, đọc dữ liệu production, tắt hay sửa test để cho qua, sửa dòng [tự sinh], lách hook (CL4.4). Repo công khai: không ghi email, số điện thoại, tên người dùng thật.
 - Cuối phiên ghi một dòng nhật ký vào item đã làm (mẫu ở .claude/rules/work.md).
 
