@@ -3,7 +3,7 @@ id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC7 · Lịch, tìm phòng và chi tiết căn của sale
@@ -41,7 +41,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Nhóm tự nhập riêng ở kết quả tìm | Kết quả tìm tách căn tự nhập thành nhóm riêng "TỰ NHẬP · chưa biết lịch", không chung với "CỦA TÔI", không tính vào số căn trống (Tùng, bản Zalo, 04/11/2026, điểm 7: "Phương án tách") | Không |
 | Ô ngày ghi giá bán | Ô ngày trống ở lịch của sale ghi giá bán một đêm (giá chủ nhà + mức cộng, giả định GD16), viết rút gọn theo `docs/product/glossary.md` | "1,5tr" |
 | Độ tươi lịch | Mỗi căn của chủ nhà ghi lần lịch hay giá đổi gần nhất; căn của chính sale ghi "Lịch của bạn, luôn đúng" | "Lịch cập nhật 2 giờ trước" |
-| Sắp xếp | "Theo tên", "Giá tăng dần" (theo giá đêm đầu, căn không có giá xếp cuối), "Bán nhiều nhất" ([MỞ: YC7-H9]). Căn của tôi vẫn ở trên | Không |
+| Sắp xếp | "Theo tên", "Giá tăng dần" (theo giá đêm đầu, căn không có giá xếp cuối), "Bán nhiều nhất" `[r2 · sửa]` (số đặt phòng chưa hủy của chính sale ở căn đó có ngày nhận trong 90 ngày gần nhất, nhiều xếp trước, bằng nhau thì theo tên; YC7-H9, Claude tự chốt). Căn của tôi vẫn ở trên | Không |
 | Chạm căn mở đâu | Chạm căn của chủ nhà mở S3; chạm căn của tôi mở S6-07, căn tự nhập mở S6-03 (YC10) (Tùng, bản Zalo, 04/11/2026, điểm 11; giả định GD22) | Không |
 
 Quy tắc dùng chung: QT2.1 (căn trống khi không đặt phòng nào chiếm đêm trong khoảng), QT1.3 (căn tự nhập), QT3.1 (giá bán), Giá bán của sale (QT5.4, làm tròn GD13), QT6.4 Căn tự nhập không có lịch, Quyền sale được xem (QD7).
@@ -87,7 +87,7 @@ Bản 1 · rủi ro: cao · Màn: A5, S1, S1-04, S1-05
 | 10 | Chạm ô tìm | Mở YC7.2 | Không |
 | 11 | Một chủ nhà trong nguồn phòng đã xóa tài khoản | Căn của chủ nhà đó biến khỏi bảng và kết quả tìm; số đếm giảm theo (QD13) | Không trả căn, lịch, giá của chủ nhà đã xóa tài khoản |
 
-Sale chưa có nguồn phòng nhưng đã gửi link xin lịch thì thấy A5 hay A7: [MỞ: YC7-H8]; tới khi có câu trả lời, A5.
+[r2 · sửa] Sale chưa có nguồn phòng và chưa có căn: chưa gửi link xin lịch lần nào thì A5, đã gửi thì A7 (YC6.4); vừa chia sẻ xong thì A7-01. Có ít nhất một căn (căn của tôi, căn tự nhập hay căn trong nguồn phòng) thì S1 (YC7-H8, Claude tự chốt, như đã làm ở US38). A5 và A7 có thanh tab của sale như S1, không có tab "Tìm phòng".
 
 Tiêu chí:
 - **YC7.1-NT1** Khi người dùng chọn "Tôi là sale" và chưa có căn nào, thì tab Lịch hiện A5 với hai nút "Gửi tin nhắn xin lịch đến chủ nhà" và "Thêm căn thủ công", và thanh tab không có "Tìm phòng". · unit
@@ -205,3 +205,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US6, US12, US13 và phần "Lịch phòng 7 ngày" của US16 (QD20, QD21); áp quyết định 7, 9, 10, 11 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
+| r2 | 2026-11-19 | Claude | US43 chuẩn bị | Trả lời YC7-H8, H9 (Claude tự chốt, QD25) | YC7.1, Quy tắc của nhóm |
