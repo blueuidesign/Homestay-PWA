@@ -34,7 +34,7 @@ CN7, A1-link, A1-link-01, A10, A10-01, A10-02
 PQ1, PQ2, PQ4, PQ17, PQ18, PQ23 và các test vi phạm ở mục "Ai được làm gì" của YC6-ket-noi-sale.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261119320000_us37_link_moi.sql, tests/db/53_us37_link_moi.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md; src/man/A1Link.tsx, A10ThemLich.tsx (+ test, css), CN7DanhSachSale.tsx (+ test), src/App.tsx (+ test), src/lib/dieuHuong.ts (+ test), src/lib/dichVuLinkMoi.ts (+ test), dichVuSale.ts, dichVuCan.ts; tests/e2e/supabase/link-moi.spec.ts, hoTro.ts.
 
 ## Ngoài phạm vi
 - YC6-H14, H15, H5, H10, H3, H6 đã Claude tự chốt (QD25), ghi ở YC6.3 r6.
@@ -58,6 +58,9 @@ Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md.
 - [ ] US37-TA4 Test tay · Đức: chạy tests/kb/US37-link-moi-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/53 theo hợp đồng fn_lay_link_moi() (chủ nhà; lấy link còn hạn hay tạo mới, tăng số lần gửi), fn_doi_link_moi() (thu hồi), fn_xem_link_moi(ma) (anon + authenticated, jsonb không giá, cờ da_them, cua_minh, sai_vai; 30 lần/phút theo x-forwarded-for), fn_them_lich_link_moi(ma); ảnh xem trước qua policy kho theo header x-link-moi.
+- TA2: migration, bảng đếm xem_link_dem, hàm rieng.anh_cua_link_moi cho policy kho; thêm dòng thu-lam-hong.
+- TA3: dichVuLinkMoi, A1-link, A1-link-01, A10, A10-01, toast A10-02; App tự chọn vai sale khi vào từ link (không qua A3); CN7 nối chia sẻ, sao chép, "Đổi link mời"; unit, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.3@1 (QD21)
