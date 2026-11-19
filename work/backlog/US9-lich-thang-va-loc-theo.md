@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Lịch tháng và lọc theo căn" đúng như YC2.1 mô tả.
 
 ## Làm tiêu chí nào
-YC2.1-NT1 đến NT6
+YC2.1-NT1 đến NT6; HV1-NT2, HV2-NT3 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT2, QT6.1
@@ -57,5 +57,6 @@ Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.1@1 (QD21)
+- 2026-11-19 · Claude · nhận HV1-NT2, HV2-NT3 từ EN4 (QD27)
 
 ## Bằng chứng

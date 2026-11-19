@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là sale, tôi làm được việc "Màn đầu tiên và lịch 7 ngày của sale" đúng như YC7.1 mô tả.
 
 ## Làm tiêu chí nào
-YC7.1-NT1 đến NT8
+YC7.1-NT1 đến NT8; HV8-NT3 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1.3, QT2.1, QT3.1, QT5.4, QT6.4
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.1@1 (QD21)
+- 2026-11-19 · Claude · nhận HV8-NT3 từ EN4 (QD27)
 
 ## Bằng chứng

@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là người dùng (chủ nhà hoặc sale), tôi làm được việc "Màn đầu và chọn vai" đúng như YC1.1 mô tả.
 
 ## Làm tiêu chí nào
-YC1.1-NT1 đến NT7
+YC1.1-NT1 đến NT7; HV4-NT5 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 HV4, HV5, QT6.5
@@ -59,5 +59,6 @@ Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md, chưa viết. Viết
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.1@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
+- 2026-11-19 · Claude · nhận HV4-NT5 từ EN4 (QD27)
 
 ## Bằng chứng

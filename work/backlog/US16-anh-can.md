@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Ảnh căn" đúng như YC3.3 mô tả.
 
 ## Làm tiêu chí nào
-YC3.3-NT1 đến NT6
+YC3.3-NT1 đến NT6; HV4-NT6 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT5.5, QT5.7, QT6.3
@@ -60,5 +60,6 @@ Kịch bản test tay: tests/kb/US16-anh-can.md, chưa viết. Viết trước k
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.3@1 (QD21)
+- 2026-11-19 · Claude · nhận HV4-NT6 từ EN4 (QD27)
 
 ## Bằng chứng

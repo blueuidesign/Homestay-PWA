@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là sale, tôi làm được việc "Ghi đặt phòng cho căn tự nhập" đúng như YC10.4 mô tả.
 
 ## Làm tiêu chí nào
-YC10.4-NT1 đến NT7
+YC10.4-NT1 đến NT7; HV1-NT1, HV2-NT1, HV2-NT2 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1.1, QT1.3, QT3, QT6.3, QT6.4
@@ -60,5 +60,6 @@ Kịch bản test tay: tests/kb/US57-ghi-dat-phong-cho-can.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC10.4@1 (QD21)
+- 2026-11-19 · Claude · nhận HV1-NT1, HV2-NT1, HV2-NT2 từ EN4 (QD27)
 
 ## Bằng chứng

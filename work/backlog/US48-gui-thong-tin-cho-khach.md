@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là sale, tôi làm được việc "Gửi thông tin cho khách" đúng như YC8.1 mô tả.
 
 ## Làm tiêu chí nào
-YC8.1-NT1 đến NT11
+YC8.1-NT1 đến NT11; HV6-NT2 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 Không có.
@@ -62,5 +62,6 @@ Kịch bản test tay: tests/kb/US48-gui-thong-tin-cho-khach.md, chưa viết. V
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC8.1@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
+- 2026-11-19 · Claude · nhận HV6-NT2 từ EN4 (QD27)
 
 ## Bằng chứng

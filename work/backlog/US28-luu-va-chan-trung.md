@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Lưu và chặn trùng" đúng như YC5.3 mô tả.
 
 ## Làm tiêu chí nào
-YC5.3-NT1 đến NT7
+YC5.3-NT1 đến NT7; HV7-NT1, HV7-NT2 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1, QT1.1, QT1.4, QT2, QT3.1, QT4, QT4.2, QT5.5, QT5.6, QT6.1, QT6.2
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US28-luu-va-chan-trung.md, chưa viết. Viết 
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.3@1 (QD21)
+- 2026-11-19 · Claude · nhận HV7-NT1, HV7-NT2 từ EN4 (QD27)
 
 ## Bằng chứng

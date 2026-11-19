@@ -2,7 +2,7 @@
 id: EN4
 tieu_de: "Hành vi chung mọi màn: đang tải, mất mạng, quay lại app, quyền, phiên hết hạn, toast"
 loai: EN
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: []
 truoc: [EN1]
 lien_quan: []
@@ -20,7 +20,7 @@ ngay_tao: 2026-11-18
 Có sẵn thành phần dùng chung cho HV1 đến HV8, để mỗi màn của US chỉ việc gắn vào.
 
 ## Làm tiêu chí nào
-HV1-NT1, HV1-NT2; HV2-NT1 đến NT3; HV3-NT1 đến NT4; HV4-NT1, HV4-NT5, HV4-NT6; HV5-NT1, HV5-NT2; HV6-NT1, HV6-NT2; HV7-NT1, HV7-NT2; HV8-NT1 đến NT3
+HV8-NT1, HV8-NT2. Các NT khác của HV1 đến HV8 gắn với một màn cụ thể nên kiểm ở US làm màn đó (QD27); EN4 làm thành phần dùng chung và test unit của chính thành phần.
 
 ## Đọc
 HV1 HV2 HV3 HV4 HV5 HV6 HV7 HV8
@@ -44,5 +44,6 @@ Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền tr
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
+- 2026-11-19 · Claude · chia NT gắn màn sang các US (QD27); bắt đầu làm
 
 ## Bằng chứng
