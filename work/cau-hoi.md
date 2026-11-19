@@ -412,34 +412,40 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC8
 
-### YC8-H1 · mo
+### YC8-H1 · da-tra-loi
 Gửi khách: mỗi lần gửi tối đa bao nhiêu căn?
 Gắn ở: YC8.1. Tới khi có câu trả lời: 10 căn.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tối đa 10 căn mỗi lần gửi. Lệnh soạn tin quá 10 căn thì database từ chối; S5 ghi "Mỗi lần gửi tối đa 10 căn. Quay lại bỏ bớt căn." 10 căn đã dài cho một khách đọc trên Zalo. Ghi vào YC8.1 r4, thêm YC8.1-NT12.
 
-### YC8-H2 · mo
+### YC8-H2 · da-tra-loi
 Chủ nhà đổi ngày một đặt phòng (YC5.6) sang đêm của lần gửi có tính là "vừa có người đặt" để báo sale không?
 Gắn ở: YC8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Chủ nhà đổi ngày một đặt phòng mà đêm mới chiếm ít nhất một đêm của lần gửi còn hiệu lực thì báo sale như đặt phòng mới, trừ khi sale đó là người đứng tên đặt phòng. Với sale, căn đã hết đêm đó, giống hệt một đặt phòng mới. Ghi vào YC8 r4, thêm YC8.1-NT16.
 
-### YC8-H3 · mo
+### YC8-H3 · da-tra-loi
 Sao chép chữ (không qua bảng chia sẻ) có ghi lần gửi để báo khi căn có người đặt không?
 Gắn ở: YC8.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có ghi. Sao chép chữ là cách gửi thay khi máy không có bảng chia sẻ (HV6), sale vẫn gửi cho khách, nên không ghi thì sale không được báo khi căn có người đặt. Báo thừa một lần ít hại hơn hứa với khách một căn đã hết. "Sao chép chữ cả N căn" ghi lần gửi cho cả N căn. Ghi vào YC8.1 r4, thêm YC8.1-NT13.
 
-### YC8-H4 · mo
+### YC8-H4 · da-tra-loi
 Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì?
 Gắn ở: YC8.1. Tới khi có câu trả lời: ghi "Giá: hỏi lại".
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Căn thiếu giá ít nhất một đêm trong khoảng thì chỗ giá ghi "Giá: hỏi lại", không ghi tổng của các đêm có giá (tổng thiếu đêm sẽ làm khách hiểu sai). Ghi vào YC8.1 r4, thêm YC8.1-NT14.
 
 ### YC8-H5 · da-tra-loi
 Sale gửi căn cho khách thế nào trên PWA? Bản Zalo dùng cửa sổ chia sẻ của Zalo (YC8.1). Đề xuất: nút "Gửi cho khách" mở bảng chia sẻ của điện thoại (Web Share API) với chữ và ảnh; sale chọn Zalo trong bảng đó. Điện thoại không hỗ trợ chia sẻ ảnh thì chép chữ và tải ảnh về.
 Chặn: Màn gửi khách. Đang tạm làm: Chưa làm. Hỏi ngày 18/11/2026.
 Trả lời: Tùng, 19/11/2026 (thread design): "Gửi qua Zalo thì thành "Chia sẻ" sau này có thể gửi trong app luôn, bên kia nhận được luôn." Nút gửi đều mở bảng chia sẻ của điện thoại, chữ nút bắt đầu bằng "Chia sẻ". Bước chọn sale ở CN10 chỉ để nhắc người nhận, link dùng được cho sale nào mở (Claude tự chốt, QD25).
 
-### YC8-H6 · mo
+### YC8-H6 · da-tra-loi
 Số ảnh gửi mỗi lần. Căn có thể có tới 12 ảnh (YC3, YC4), còn S5 ghi "Gửi 6 ảnh qua Zalo". Cửa sổ chia sẻ của Zalo nhận tối đa 10 ảnh một lần. Căn có 12 ảnh thì sale gửi sao: chọn ảnh, chia hai lần, hay chỉ gửi 10 ảnh đầu. Thiết kế chưa vẽ chọn ảnh.
 Gắn ở: YC8.1. Tới khi có câu trả lời: gửi 10 ảnh đầu.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Gửi 10 ảnh đầu theo thứ tự ảnh của căn. Căn có hơn 10 ảnh thì dòng số ảnh ghi "12 ảnh, gửi 10 ảnh đầu", nút ghi "Gửi 10 ảnh". Chưa làm chọn ảnh vì thiết kế chưa vẽ. Ghi vào YC8.1 r4, thêm YC8.1-NT15.
 
-### YC8-H7 · mo
+### YC8-H7 · da-tra-loi
 Có hiện nhãn "Đã gửi" trên căn đã gửi khách, và có đếm lần gửi cho thống kê không?
 Gắn ở: YC8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nhãn "Đã gửi" và không đếm lần gửi cho thống kê. YC11 không có chỉ số nào cần lần gửi; lần gửi chỉ dùng để báo căn có người đặt. Ghi vào YC8 r4 mục Phạm vi.
 
 ## YC9
 
