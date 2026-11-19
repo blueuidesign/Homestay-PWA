@@ -2,7 +2,7 @@
 id: US27
 tieu_de: "Người đặt, tiền phòng, trạng thái tiền"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -59,6 +59,7 @@ Kịch bản test tay: tests/kb/US27-nguoi-dat-tien-phong-trang.md.
 ## Kế hoạch
 
 ## Nhật ký
+- 2026-11-19 · Claude · trả lời YC5-H1, H2, H12, H19, viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.2@1 (QD21)
 
 ## Bằng chứng
