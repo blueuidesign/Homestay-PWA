@@ -249,8 +249,8 @@ Bản 1 · rủi ro: thấp · Màn: A9, A9-02
 Sale không mở app lúc chủ nhà đồng ý: thấy ở popup thông báo mới khi mở app (YC12).
 
 [r11 · thêm] Các câu sau Claude tự chốt (QD25, YC6-H19, YC6-H20):
-- Dòng thứ hai của toast một chủ nhà: tên tòa và mã căn theo thứ tự mã, tối đa 3 căn, nhiều hơn thì "và N căn khác" ("ICON40 1509, 3402 và 2 căn khác đã vào Nguồn phòng"). Chủ nhà chưa có căn nào: "Chưa có căn nào, căn mới sẽ tự hiện". Thông báo chỉ có tên hiển thị chủ nhà, tên tòa, mã căn, không giá, không số điện thoại.
-- Gom: lần đồng ý mới vào cùng dòng thông báo "chủ đồng ý kết nối" của sale nếu dòng đó tạo chưa quá 10 phút và sale chưa đọc; quá 10 phút hay đã đọc thì tạo dòng mới. Tên chủ nhà trong toast gom: tối đa 3 tên, nhiều hơn thì "và N người khác".
+- Dòng thứ hai của toast một chủ nhà: tên tòa và mã căn theo thứ tự mã: tới 3 căn thì ghi đủ ("ICON40 1509 và 3402 đã vào Nguồn phòng"), nhiều hơn thì ghi 2 căn đầu và "N căn khác" ("ICON40 1509, 3402 và 2 căn khác đã vào Nguồn phòng"). Chủ nhà chưa có căn nào: "Chưa có căn nào, căn mới sẽ tự hiện". Thông báo chỉ có tên hiển thị chủ nhà, tên tòa, mã căn, không giá, không số điện thoại.
+- Gom: lần đồng ý mới vào cùng dòng thông báo "chủ đồng ý kết nối" của sale nếu dòng đó tạo chưa quá 10 phút và sale chưa đọc; quá 10 phút hay đã đọc thì tạo dòng mới. Tên chủ nhà trong toast gom: tới 3 tên thì ghi đủ, nhiều hơn thì 2 tên đầu và "N người khác". Chủ nhà đã có trong dòng gom mà đồng ý lại (sau khi sale bỏ nguồn) thì ghi dòng mới, không gom (YC6.5-NT6).
 - Mỗi dòng thông báo hiện toast một lần trên một máy (máy nhớ dòng đã hiện, mất cũng được); dòng được gom thêm sau khi đã hiện thì hiện lại với nội dung mới. Toast tự tắt sau 6 giây hoặc khi bấm "Xem". Hiện toast không đánh dấu đã đọc (đọc là ở YC12).
 - Tới khi có Nguồn phòng (YC10.1), nút "Xem" đưa về lịch của sale.
 
