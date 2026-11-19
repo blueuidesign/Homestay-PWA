@@ -400,78 +400,114 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Gắn ở: YC7.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đếm số đặt phòng chưa hủy của chính sale ở căn đó có ngày nhận trong 90 ngày gần nhất. Sale chỉ thấy đặt phòng của mình (QD7), nên chỉ đếm được của mình; đếm số lần thay vì tiền để không phụ thuộc giá; 90 ngày để căn bán tốt gần đây lên đầu. Bằng nhau thì theo tên. Ghi vào YC7 r2 (Quy tắc Sắp xếp).
 
+### YC7-H10 · da-tra-loi
+Chip "Tùy chọn" của mức cộng nhập thế nào, giới hạn bao nhiêu?
+Gắn ở: YC7.4, YC7.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ô nhập số bằng bàn phím số, theo nghìn đồng, 0 tới 5.000.000đ mỗi đêm. Giá phòng ở Hạ Long vài trăm nghìn tới vài triệu một đêm, 5 triệu là trần rộng mà vẫn chặn gõ nhầm thêm số 0. Database cũng kiểm. Ghi vào YC7.5 r6, thêm NT6.
+
+### YC7-H11 · da-tra-loi
+Ví dụ ở P10 lấy giá căn nào?
+Gắn ở: YC7.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giá cố định 1.100.000đ một đêm, 2 đêm. Sale mới chưa có căn vẫn thấy ví dụ; ví dụ chỉ để hiểu cách cộng, không cần là căn thật. Ghi vào YC7.5 r6.
+
 ## YC8
 
-### YC8-H1 · mo
+### YC8-H1 · da-tra-loi
 Gửi khách: mỗi lần gửi tối đa bao nhiêu căn?
 Gắn ở: YC8.1. Tới khi có câu trả lời: 10 căn.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tối đa 10 căn mỗi lần gửi. Lệnh soạn tin quá 10 căn thì database từ chối; S5 ghi "Mỗi lần gửi tối đa 10 căn. Quay lại bỏ bớt căn." 10 căn đã dài cho một khách đọc trên Zalo. Ghi vào YC8.1 r4, thêm YC8.1-NT12.
 
-### YC8-H2 · mo
+### YC8-H2 · da-tra-loi
 Chủ nhà đổi ngày một đặt phòng (YC5.6) sang đêm của lần gửi có tính là "vừa có người đặt" để báo sale không?
 Gắn ở: YC8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Chủ nhà đổi ngày một đặt phòng mà đêm mới chiếm ít nhất một đêm của lần gửi còn hiệu lực thì báo sale như đặt phòng mới, trừ khi sale đó là người đứng tên đặt phòng. Với sale, căn đã hết đêm đó, giống hệt một đặt phòng mới. Ghi vào YC8 r4, thêm YC8.1-NT16.
 
-### YC8-H3 · mo
+### YC8-H3 · da-tra-loi
 Sao chép chữ (không qua bảng chia sẻ) có ghi lần gửi để báo khi căn có người đặt không?
 Gắn ở: YC8.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có ghi. Sao chép chữ là cách gửi thay khi máy không có bảng chia sẻ (HV6), sale vẫn gửi cho khách, nên không ghi thì sale không được báo khi căn có người đặt. Báo thừa một lần ít hại hơn hứa với khách một căn đã hết. "Sao chép chữ cả N căn" ghi lần gửi cho cả N căn. Ghi vào YC8.1 r4, thêm YC8.1-NT13.
 
-### YC8-H4 · mo
+### YC8-H4 · da-tra-loi
 Căn chưa có giá cho một đêm trong khoảng thì chữ ghi gì?
 Gắn ở: YC8.1. Tới khi có câu trả lời: ghi "Giá: hỏi lại".
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Căn thiếu giá ít nhất một đêm trong khoảng thì chỗ giá ghi "Giá: hỏi lại", không ghi tổng của các đêm có giá (tổng thiếu đêm sẽ làm khách hiểu sai). Ghi vào YC8.1 r4, thêm YC8.1-NT14.
 
 ### YC8-H5 · da-tra-loi
 Sale gửi căn cho khách thế nào trên PWA? Bản Zalo dùng cửa sổ chia sẻ của Zalo (YC8.1). Đề xuất: nút "Gửi cho khách" mở bảng chia sẻ của điện thoại (Web Share API) với chữ và ảnh; sale chọn Zalo trong bảng đó. Điện thoại không hỗ trợ chia sẻ ảnh thì chép chữ và tải ảnh về.
 Chặn: Màn gửi khách. Đang tạm làm: Chưa làm. Hỏi ngày 18/11/2026.
 Trả lời: Tùng, 19/11/2026 (thread design): "Gửi qua Zalo thì thành "Chia sẻ" sau này có thể gửi trong app luôn, bên kia nhận được luôn." Nút gửi đều mở bảng chia sẻ của điện thoại, chữ nút bắt đầu bằng "Chia sẻ". Bước chọn sale ở CN10 chỉ để nhắc người nhận, link dùng được cho sale nào mở (Claude tự chốt, QD25).
 
-### YC8-H6 · mo
+### YC8-H6 · da-tra-loi
 Số ảnh gửi mỗi lần. Căn có thể có tới 12 ảnh (YC3, YC4), còn S5 ghi "Gửi 6 ảnh qua Zalo". Cửa sổ chia sẻ của Zalo nhận tối đa 10 ảnh một lần. Căn có 12 ảnh thì sale gửi sao: chọn ảnh, chia hai lần, hay chỉ gửi 10 ảnh đầu. Thiết kế chưa vẽ chọn ảnh.
 Gắn ở: YC8.1. Tới khi có câu trả lời: gửi 10 ảnh đầu.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Gửi 10 ảnh đầu theo thứ tự ảnh của căn. Căn có hơn 10 ảnh thì dòng số ảnh ghi "12 ảnh, gửi 10 ảnh đầu", nút ghi "Gửi 10 ảnh". Chưa làm chọn ảnh vì thiết kế chưa vẽ. Ghi vào YC8.1 r4, thêm YC8.1-NT15.
 
-### YC8-H7 · mo
+### YC8-H7 · da-tra-loi
 Có hiện nhãn "Đã gửi" trên căn đã gửi khách, và có đếm lần gửi cho thống kê không?
 Gắn ở: YC8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nhãn "Đã gửi" và không đếm lần gửi cho thống kê. YC11 không có chỉ số nào cần lần gửi; lần gửi chỉ dùng để báo căn có người đặt. Ghi vào YC8 r4 mục Phạm vi.
+
+### YC8-H8 · da-tra-loi
+Mẫu tin có [Danh sách căn] cho cả tin, còn S5 chia sẻ chữ từng căn một. Mẫu áp vào chỗ nào ở S5, và mỗi dòng căn trong [Danh sách căn] ghi thế nào (hình P11 ghi "1. Căn view biển Bãi Cháy, 2PN: 2.600.000đ / 2 đêm", khác chữ khối ở S5)?
+Gắn ở: YC8.1, YC8.2. Hỏi ngày 19/11/2026 khi chuẩn bị US49.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mẫu tin áp cho "Sao chép chữ cả N căn": cả tin theo mẫu, [Danh sách căn] là các dòng căn đánh số theo thứ tự trên màn. "Chia sẻ chữ" và "Sao chép chữ" của một khối chỉ gửi chữ của căn đó, không theo mẫu, vì khách nhận từng căn kèm ảnh. Mỗi dòng căn dùng đúng chữ của khối ở S5 ("ICON40 1509 · 2PN · 3 giường, view biển Bãi Cháy", xuống dòng "10/10 → 12/10 (2 đêm): 2.600.000đ"), để hai nơi không lệch nhau; hình P11 lệch thì theo YC. [Ngày] là "10/10 → 12/10", [Số đêm] là "2 đêm", [Số căn] là số, [Tên sale] là tên trong hồ sơ. Mẫu mặc định lấy từ hình P11. Ghi vào YC8 r5.
+
+### YC8-H9 · da-tra-loi
+Sale lưu mẫu rỗng, hoặc mẫu không có [Danh sách căn], thì sao?
+Gắn ở: YC8.2. Hỏi ngày 19/11/2026 khi chuẩn bị US49.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không cho lưu. Mẫu thiếu [Danh sách căn] thì tin gửi khách không có căn nào, chắc chắn là lỗi. Nút Lưu mờ và ghi "Mẫu cần có [Danh sách căn]"; database cũng từ chối mẫu rỗng, thiếu [Danh sách căn] hay quá 2.000 ký tự, mẫu cũ giữ nguyên. Ghi vào YC8.2 r5, thêm YC8.2-NT5.
 
 ## YC9
 
-### YC9-H1 · mo
+### YC9-H1 · da-tra-loi
 Sale gửi yêu cầu với ngày nhận trước hôm nay thì sao?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ngày nhận trước hôm nay (giờ Việt Nam) thì database từ chối, báo "Ngày nhận đã qua". Ngày nhận là hôm nay vẫn gửi được, vì khách hay đặt phòng trong ngày. Ghi vào YC9.1 r3, thêm YC9.1-NT11.
 
-### YC9-H2 · mo
+### YC9-H2 · da-tra-loi
 Có đêm chủ nhà chưa đặt giá thì sale gửi yêu cầu được không, giá ghi gì?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không gửi được. Giá chốt lúc gửi do database tính, đêm chưa có giá thì không có giá để chốt. Database từ chối, app báo "Căn chưa có giá cho đêm 11/10. Nhắn chủ nhà để hỏi giá." Ghi vào YC9.1 r3, thêm YC9.1-NT12.
 
-### YC9-H3 · mo
+### YC9-H3 · da-tra-loi
 Sale bị ngừng còn đọc được yêu cầu cũ của mình với chủ nhà đó không?
 Gắn ở: YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Yêu cầu là của chính sale, nên sale bị ngừng vẫn đọc được yêu cầu cũ của mình (căn, ngày, trạng thái, giá đã chốt lúc gửi), giống phần riêng của sale trong đặt phòng (QD11). Sale không mở được chi tiết căn nữa (HV5) và không thấy lịch mới. Ghi vào YC9.4 r3, thêm YC9.4-NT7.
 
-### YC9-H4 · mo
+### YC9-H4 · da-tra-loi
 Chấp nhận khi sale đã bị ngừng hay đã bỏ nguồn sau lúc gửi?
 Gắn ở: YC9.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không chấp nhận được. Chủ nhà đã ngừng sale hay sale đã bỏ nguồn thì hai bên không còn làm việc với nhau (QT6.2); database từ chối lệnh chấp nhận, app báo "Sale này không còn kết nối với bạn, không nhận được đặt phòng." Chủ nhà vẫn từ chối được; không từ chối thì yêu cầu hết hạn như thường. Ghi vào YC9.2 r3, thêm YC9.2-NT9.
 
-### YC9-H5 · mo
+### YC9-H5 · da-tra-loi
 Chủ nhà chấp nhận yêu cầu khi ngày nhận đã qua thì sao?
 Gắn ở: YC9.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Yêu cầu chờ mà ngày nhận đã qua (trước hôm nay) thì coi như Hết hạn, giống quá 14 ngày: việc chạy định kỳ đổi trạng thái và báo sale một lần, chủ nhà không chấp nhận được nữa. S3-09 ghi "Yêu cầu đã hết hạn vì đã qua ngày nhận phòng 10/10." Ngày nhận là hôm nay vẫn chấp nhận được. Ghi vào YC9.2, YC9.4 r3, thêm YC9.2-NT10.
 
-### YC9-H6 · mo
+### YC9-H6 · da-tra-loi
 Thông báo cho chủ nhà khi sale hủy yêu cầu, và thông báo yêu cầu cũ chủ nhà đã nhận còn giữ không?
 Gắn ở: YC12, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Sale hủy thì chủ nhà không có thông báo mới, vì yêu cầu chưa chiếm đêm nào và chủ nhà không phải làm gì. Thông báo "yêu cầu mới" cũ vẫn giữ trong danh sách; chạm vào thì CN9 chỉ ghi "Sale đã hủy yêu cầu này.", không còn ngày, giá, lời nhắn. Ghi vào YC9.1 r3, thêm YC9.1-NT13.
 
-### YC9-H7 · mo
+### YC9-H7 · da-tra-loi
 Tiêu đề màn S3-02 ("Đặt phòng" trùng chữ nút của chủ nhà)?
 Gắn ở: YC9.1, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Tiêu đề S3-02 là "Gửi yêu cầu đặt phòng", để không trùng nút "Đặt phòng" của chủ nhà. Ghi vào YC9 r3 mục Màn hình.
 
-### YC9-H8 · mo
+### YC9-H8 · da-tra-loi
 Chủ nhà chưa cho số thì hai nút "Nhắn chủ nhà qua Zalo", "Gọi chủ nhà" làm gì?
 Gắn ở: YC9.1.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Từ QD22 mọi hồ sơ có số từ lúc đăng ký, nên hai nút luôn có số khi chủ nhà còn tài khoản: "Nhắn chủ nhà qua Zalo" mở https://zalo.me/<số>, "Gọi chủ nhà" mở tel:<số> (pwa.md P5). Chủ nhà đã xóa tài khoản (số đã xóa, QD13) thì ẩn hai nút. Ghi vào YC9.1 r3.
 
-### YC9-H9 · mo
+### YC9-H9 · da-tra-loi
 "Đã bán 12 đặt phòng của bạn" ở CN9 đếm những đặt phòng nào?
 Gắn ở: YC9, YC9.4.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không làm dòng "đã bán N đặt phòng của bạn" ở CN9. Ghi vào YC9 r3 mục Phạm vi.
 
-### YC9-H10 · mo
+### YC9-H10 · da-tra-loi
 CN9 có ba chip lý do "Đã có khách đặt", "Đang sửa phòng", "Lý do khác" (Tùng duyệt 02/11/2026, bản Zalo). Còn mở: chọn "Lý do khác" có ô nhập chữ không, và có bắt buộc chọn lý do không?
 Gắn ở: YC9.2. Tới khi có câu trả lời: chỉ có ba chip, lý do không bắt buộc.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chỉ ba chip, không bắt buộc chọn, "Lý do khác" không có ô nhập chữ. Không chọn lý do thì sale thấy "Lý do: Chị Hoa không nhận đặt phòng." Chọn "Lý do khác" thì sale thấy "Lý do: Chị Hoa không nhận đặt phòng · Lý do khác." Ít bước cho chủ nhà lớn tuổi; sale cần biết thêm thì nhắn Zalo. Ghi vào YC9.2 r3, thêm YC9.2-NT11.
 
 ## YC10
 

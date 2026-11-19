@@ -3,7 +3,7 @@ id: YC12
 tieu_de: Thông báo
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC12 · Thông báo
@@ -56,7 +56,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Xin hủy đặt phòng | Bên kia | YC5.8 | "Sale Hùng xin hủy đặt phòng" · "ICON40 1509 · 10/10 → 12/10" | Chi tiết đặt phòng | Không |
 | Trả lời xin hủy | Bên xin | YC5.8 | "Chị Hoa đã đồng ý hủy" hay "Chị Hoa không đồng ý hủy" · căn, ngày ở | Chi tiết đặt phòng | Không |
 
-Chữ ở cột "Dòng chính · dòng phụ" chưa có trên hình (xin hủy, trả lời xin hủy, ghi đặt phòng cho sale, đặt phòng chưa cọc, sale gửi yêu cầu ở P13): giả định GD27, Design đặt lại được. `[r2 · sửa]` Báo sale khi chủ nhà thêm căn mới: có, dòng "Chủ nhà thêm căn" ở bảng trên (Claude tự quyết, QD25, trả lời YC3-H1). Báo chủ nhà khi sale gửi link xin xem lịch: [MỞ: YC12-H2] (sale gửi link ngoài app, database chưa biết gì cho tới khi chủ nhà mở link). Báo chủ nhà khi sale hủy yêu cầu: [MỞ: YC9-H6].
+Chữ ở cột "Dòng chính · dòng phụ" chưa có trên hình (xin hủy, trả lời xin hủy, ghi đặt phòng cho sale, đặt phòng chưa cọc, sale gửi yêu cầu ở P13): giả định GD27, Design đặt lại được. `[r2 · sửa]` Báo sale khi chủ nhà thêm căn mới: có, dòng "Chủ nhà thêm căn" ở bảng trên (Claude tự quyết, QD25, trả lời YC3-H1). Báo chủ nhà khi sale gửi link xin xem lịch: [MỞ: YC12-H2] (sale gửi link ngoài app, database chưa biết gì cho tới khi chủ nhà mở link). `[r3 · sửa]` Báo chủ nhà khi sale hủy yêu cầu: không có thông báo mới; thông báo yêu cầu cũ vẫn giữ, chạm vào thì CN9 ghi "Sale đã hủy yêu cầu này." (YC9-H6, Claude tự chốt QD25, YC9.1).
 
 ## Ai được làm gì
 
@@ -173,3 +173,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US30, phần thông báo của US17, US21 (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | Các loại thông báo |
+| r3 | 2026-11-19 | Claude (QD25) | main | Theo YC9-H6: không báo chủ nhà khi sale hủy yêu cầu | Các loại thông báo |

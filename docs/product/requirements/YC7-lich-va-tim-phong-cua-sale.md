@@ -3,7 +3,7 @@ id: YC7
 tieu_de: Lịch, tìm phòng và chi tiết căn của sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ban: 1
 ---
 # YC7 · Lịch, tìm phòng và chi tiết căn của sale
@@ -185,12 +185,15 @@ Bản 1 · rủi ro: cao · Màn: P10
 | 4 | Xem ví dụ | "VÍ DỤ: PHÒNG 1509, 2 ĐÊM": "Giá chủ nhà 2.200.000đ", "Giá gửi khách 3.000.000đ", "Bạn được 800.000đ" | Không |
 | 5 | Bấm "Lưu thay đổi" | Toast "Đã lưu mức cộng". Ghi chú "Khi soạn tin (S3) vẫn sửa được mức cộng cho từng căn." | Ghi cài đặt của sale |
 
+[r6 · thêm] Các câu sau Claude tự chốt (QD25). Chip "Tùy chọn" mở ô nhập số tiền mỗi đêm bằng bàn phím số, từ 0 tới 5.000.000đ, tính theo nghìn đồng (gõ "250" là 250.000đ); ngoài khoảng đó thì nút Lưu mờ và ghi "Mức cộng từ 0 đến 5.000.000đ", database cũng từ chối (YC7-H10). Ví dụ ở P10 dùng giá cố định 1.100.000đ một đêm, 2 đêm, ghi "VÍ DỤ: PHÒNG 1.100.000Đ/ĐÊM, 2 ĐÊM", để ví dụ không phụ thuộc sale có căn nào (YC7-H11). Chưa lưu mà rời P10 thì không hỏi lại, mất thay đổi.
+
 Tiêu chí:
 - **YC7.5-NT1** Khi sale chọn "+400k", thì ví dụ 2 đêm ghi "Bạn được 800.000đ". · unit
 - **YC7.5-NT2** Khi sale chọn "Không cộng", thì giá gửi khách bằng giá chủ nhà. · unit
 - **YC7.5-NT3** Khi sale bật làm tròn và giá một đêm cộng mức cộng là 1.230.000đ, thì giá bán đêm đó là 1.250.000đ; làm tròn từng đêm rồi mới cộng các đêm (GD13). · database
 - **YC7.5-NT4** Khi Sale Hùng đổi mức cộng mặc định, thì giá bán của Sale Lan không đổi; tài khoản chỉ là chủ nhà gửi mức cộng thì bị từ chối. · database
 - **YC7.5-NT5** Khi sale mở P10 và S3, thì hai bộ chip mức cộng giống nhau, theo `docs/product/glossary.md`. · unit
+- **YC7.5-NT6** `[r6 · thêm]` Khi sale gửi mức cộng 5.000.001đ hay số âm, thì database từ chối và mức cũ giữ nguyên. · database
 
 ## Màn hình
 
@@ -211,3 +214,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r3 | 2026-11-19 | Claude | US44 chuẩn bị | Trả lời YC7-H1, H2, H3, H5 (Claude tự chốt, QD25); thêm YC7.2-NT8 | YC7.2 |
 | r4 | 2026-11-19 | Claude | US45 chuẩn bị | Trả lời YC7-H4 (Claude tự chốt, QD25) | YC7.3 |
 | r5 | 2026-11-19 | Claude | US46 chuẩn bị | Trả lời YC7-H6, H7 (Claude tự chốt, QD25); thêm YC7.4-NT7 | YC7.4 |
+| r6 | 2026-11-19 | Claude | US47 chuẩn bị | Trả lời YC7-H10, H11 (Claude tự chốt, QD25); thêm YC7.5-NT6 | YC7.5 |
