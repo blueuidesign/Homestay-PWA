@@ -1,8 +1,8 @@
 // S1-02, S1-03 · Tìm phòng của sale (YC7.2 bước 1 đến 5, US44). PQ4.SALE, PQ11.SALE, QT2.1, QT6.4, HV1, HV2, HV8.
 // Ngày nhận, chip số đêm (ngày trả tự tính, "Tùy chọn" mở ô ngày trả), "Tìm gần đây" (5 lần của chính sale, chạm thì điền
 // sẵn), "Lọc thêm" không bắt buộc. Nút đáy mờ khi chưa có ngày nhận. Không chọn được ngày trước hôm nay (YC7-H1).
-// Không có chip tòa "Khác" (YC7-H2), không có lọc "Giá mỗi đêm" (YC7-H3). ManTimPhong nối form với S2-00 và màn kết quả tạm
-// (S2 làm ở US45).
+// Không có chip tòa "Khác" (YC7-H2), không có lọc "Giá mỗi đêm" (YC7-H3). ManTimPhong nối form với S2-00 và kết quả S2, S4
+// (YC7.3, US45).
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DaiMatKetNoi, cauBaoLoi } from '../chung/matKetNoi';
 import { useToast } from '../chung/Toast';
@@ -13,6 +13,7 @@ import {
   dieuKienTuGanDay, dongGanDay, ngayTra, soDemCua, trangThaiNutTim, type DieuKienTim, type KetQuaTim,
 } from '../lib/timPhong';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
+import { ManKetQua } from './S2KetQua';
 import { S200KhongCoCan } from './S200KhongCoCan';
 import { Icon, ICON_LICH } from './TabChu';
 import './S102TimPhong.css';
@@ -160,32 +161,9 @@ export function S102TimPhong(props: {
   );
 }
 
-/** Màn kết quả tạm khi có căn trống (S2 làm ở US45): số căn trống và nút "Sửa tìm kiếm". */
-function KetQuaTam(props: { kq: KetQuaTim; onSua: () => void; onQuayLai: () => void }) {
-  const tuNhap = props.kq.can.filter((c) => c.nhom === 'tu_nhap').length;
-  return (
-    <div className="man man-chu tp">
-      <DaiMatKetNoi />
-      <header className="chu-dau">
-        <button type="button" className="hh-iconbtn man-quay-lai" aria-label="Quay lại" onClick={props.onQuayLai}>
-          <Icon co={22}>{ICON_QUAY_LAI}</Icon>
-        </button>
-        <h1 className="chu-tieu-de">Kết quả tìm phòng</h1>
-      </header>
-      <div className="tp-than">
-        <section className="tp-the">
-          <p className="tp-lon">{props.kq.soCanTrong} căn trống</p>
-          {tuNhap > 0 && <p className="tp-phu">Thêm {tuNhap} căn tự nhập chưa biết lịch.</p>}
-        </section>
-        <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onSua}>Sửa tìm kiếm</button>
-      </div>
-    </div>
-  );
-}
-
 /**
  * YC7.2 bước 1 đến 6, HV1, HV2, HV8: mở form (đọc tìm gần đây và tòa), bấm tìm thì gọi fn_sale_tim; không có căn trống thì
- * S2-00, có thì màn tạm. Chạm gợi ý thì tìm lại theo gợi ý đó. Đọc tìm gần đây lỗi vẫn tìm được (chỉ không có mục đó).
+ * S2-00, có thì S2 (ManKetQua, YC7.3). Chạm gợi ý thì tìm lại theo gợi ý đó. Đọc tìm gần đây lỗi vẫn tìm được (chỉ không có mục đó).
  */
 export function ManTimPhong(props: { dv: DichVuTimPhong; homNay: Ngay; onQuayLai: () => void }) {
   const { dv } = props;
@@ -224,7 +202,7 @@ export function ManTimPhong(props: { dv: DichVuTimPhong; homNay: Ngay; onQuayLai
       return <S200KhongCoCan dieuKien={dk} kq={kq} tenToa={tenToa} dangTim={dangTim}
                              onQuayLai={sua} onSua={sua} onGoiY={(g) => void tim(g)} />;
     }
-    return <KetQuaTam kq={kq} onSua={sua} onQuayLai={sua} />;
+    return <ManKetQua dv={dv} dieuKien={dk} kq={kq} homNay={props.homNay} onSua={sua} onQuayLai={sua} />;
   }
   return <S102TimPhong key={lanForm} homNay={props.homNay} batDau={dk} ganDay={ganDay} toa={toa} dangTim={dangTim}
                        onQuayLai={props.onQuayLai} onTim={(d) => void tim(d)} />;

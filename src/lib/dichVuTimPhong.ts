@@ -1,7 +1,10 @@
 // Tìm phòng của sale (YC7.2, YC7 "Dữ liệu", QD4, KT-DB.3.5): tìm qua fn_sale_tim (database ghi lần tìm), đọc lần tìm gần đây
 // và danh sách tòa qua RLS. App không ghi thẳng bảng nào.
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { docDongLichSale } from './dichVuLichSale';
 import { LOAI_VIEW } from './kiemCan';
+import type { DongLichSale } from './lichSale';
+import type { Ngay } from './ngay';
 import type { CanTim, DieuKienTim, GoiY, KetQuaTim, LoaiGoiY, MaView } from './timPhong';
 
 export type ToaTim = { id: string; ten: string; home247: boolean };
@@ -13,6 +16,8 @@ export interface DichVuTimPhong {
   docGanDay(): Promise<DieuKienTim[]>;
   /** YC7.2 bước 3: danh sách tòa. */
   docToa(): Promise<ToaTim[]>;
+  /** YC7.3 bước 5 (S4), Sắp xếp (S2): lịch của sale từ `tu` tới trước `den` qua fn_sale_lich. Thiếu thì S4 không có ô. */
+  docLich?(tu: Ngay, den: Ngay): Promise<DongLichSale[]>;
 }
 
 type BoLoc = { so_phong_ngu?: unknown; toa_nha?: unknown; view?: unknown };
@@ -85,6 +90,11 @@ export function taoDichVuTimPhongSupabase(sb: SupabaseClient): DichVuTimPhong {
       if (error) throw error;
       return ((data ?? []) as { id: string; ten: string; home247_dat_san: boolean }[])
         .map((t) => ({ id: t.id, ten: t.ten, home247: t.home247_dat_san }));
+    },
+    async docLich(tu, den) {
+      const { data, error } = await sb.rpc('fn_sale_lich', { p_tu: tu, p_den: den });
+      if (error) throw Object.assign(new Error(error.message ?? 'Lỗi'), { code: error.code });
+      return docDongLichSale(data as Parameters<typeof docDongLichSale>[0]);
     },
   };
 }
