@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 6
+rev: 7
 ---
 # Chạy, test, build và deploy
 
@@ -82,11 +82,11 @@ Database này là Postgres trần, app chưa nối vào được (app cần API 
 ### Supabase chạy trên máy (US2) `[r6 · thêm]`
 App cần API của Supabase (đăng nhập, gọi hàm). Chạy cả Supabase trên máy bằng Supabase CLI, cần Docker:
 ```sh
-npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,storage-api,postgres-meta,supavisor
+npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,postgres-meta,supavisor
 npx -y supabase@2.122.1 status -o env    # API_URL, ANON_KEY (khóa mẫu công khai của CLI), DB_URL, MAILPIT_URL
 npx -y supabase@2.122.1 db reset         # nạp lại migration sau khi thêm file mới
 ```
-Sửa `supabase/config.toml` thì `supabase stop` rồi `start` lại. Cấu hình ở đó: mã 6 số, hạn 1 giờ, 60 giây giữa hai lần gửi (YC1.2), giới hạn gửi thư nới rộng để test, thư dùng mẫu `supabase/templates/ma-6-so.html` (chỉ có mã, không có link).
+`[r7 · sửa]` Bật cả kho file (storage-api) cho ảnh căn (US16); imgproxy vẫn tắt. Sửa `supabase/config.toml` thì `supabase stop` rồi `start` lại. Cấu hình ở đó: mã 6 số, hạn 1 giờ, 60 giây giữa hai lần gửi (YC1.2), giới hạn gửi thư nới rộng để test, thư dùng mẫu `supabase/templates/ma-6-so.html` (chỉ có mã, không có link).
 
 Bật app nối vào Supabase trên máy: chép `.env.example` thành `.env.local`, điền `VITE_SUPABASE_ANON_KEY` bằng ANON_KEY ở trên, rồi `npm run dev`. Đăng nhập không cần email thật: dùng email giả bất kỳ (ví dụ `chu1@vidu.test`), mở hộp thư giả Mailpit ở http://127.0.0.1:54324 để lấy mã.
 
@@ -170,3 +170,4 @@ Trả `{}` là Supabase đã nhận và gửi thư. Trả 429 `over_email_send_r
 | r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
 | r5 | 2026-11-19 | Claude | #15 | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |
 | r6 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Thêm Supabase chạy trên máy, biến build, e2e trên Supabase, thư mục src/man/ | Cấu trúc thư mục app, Chạy app với database thử trên máy, Test |
+| r7 | 2026-11-19 | Claude | US16-anh-can | Bật storage-api trong lệnh chạy Supabase trên máy (kho ảnh căn) | Supabase chạy trên máy |
