@@ -413,15 +413,15 @@
    "id": "EN12",
    "loai": "EN",
    "tieu_de": "\"Thử làm hỏng chạy nhanh hơn trên CI\"",
-   "trang_thai": "moi",
+   "trang_thai": "xong",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
    "file": "work/backlog/EN12-thu-lam-hong-nhanh-hon.md",
-   "pr": "",
+   "pr": "[45]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
