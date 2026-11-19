@@ -277,6 +277,38 @@
    "dang_cho": "–"
   },
   {
+   "id": "EN9",
+   "loai": "EN",
+   "tieu_de": "\"Email báo cáo mỗi lần gộp chức năng mới\"",
+   "trang_thai": "dang-lam",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN9-email-bao-cao.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 1
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Đang code"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
