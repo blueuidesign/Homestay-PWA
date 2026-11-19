@@ -1,7 +1,7 @@
 {
  "tu_sinh": "scripts/plan.py",
  "ghi_chu": "[tự sinh] File này do scripts/plan.py sinh từ item backlog. Không sửa tay.",
- "ngay_sinh": "2026-11-18",
+ "ngay_sinh": "2026-11-19",
  "item": [
   {
    "id": "EN1",
@@ -39,15 +39,15 @@
    "id": "EN2",
    "loai": "EN",
    "tieu_de": "\"Database nền: bảng, bất biến, quyền đọc ghi, dữ liệu mẫu và test database\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
    "file": "work/backlog/EN2-database-nen-bang-bat-bien.md",
-   "pr": "",
+   "pr": "[7]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -65,7 +65,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "–"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "EN3",
