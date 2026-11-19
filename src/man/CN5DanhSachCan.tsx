@@ -32,14 +32,15 @@ function TheCan(props: { c: CanTomTat; onMo: () => void }) {
   );
 }
 
-export function CN5DanhSachCan(props: { ds: CanTomTat[]; onMoCan: (id: string) => void; onThemCan: () => void }) {
+/** vuaThem: vừa thêm căn (CN5-A4, CN5-A4b, YC3.2 bước 19) thì nút ghi "Thêm căn khác". */
+export function CN5DanhSachCan(props: { ds: CanTomTat[]; onMoCan: (id: string) => void; onThemCan: () => void; vuaThem?: boolean }) {
   return (
     <KhungTabChu tieuDe="Căn của tôi" phai={<span className="chu-dem">{props.ds.length} căn</span>}>
       <ul className="cn5-ds">
         {props.ds.map((c) => <TheCan key={c.id} c={c} onMo={() => props.onMoCan(c.id)} />)}
       </ul>
       <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onThemCan}>
-        <Icon>{ICON_THEM}</Icon>Thêm căn
+        <Icon>{ICON_THEM}</Icon>{props.vuaThem ? 'Thêm căn khác' : 'Thêm căn'}
       </button>
     </KhungTabChu>
   );
