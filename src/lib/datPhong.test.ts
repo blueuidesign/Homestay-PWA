@@ -1,0 +1,79 @@
+// Test unit phần tính của form Thêm đặt phòng CN4 (YC5.1). Số theo DLM.4: B1 1509 10/10 → 12/10 của Sale Hùng.
+import { afterEach, describe, expect, it } from 'vitest';
+import type { DatPhongLich } from './lich';
+import {
+  chipCuaSoDem, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, ngayTraTheoSoDem, xoaBanNhapDatPhong,
+} from './datPhong';
+
+afterEach(() => { try { localStorage.clear(); } catch { /* bỏ qua */ } });
+
+const B1: DatPhongLich = { id: 'B1', canId: 'c1509', ngayNhan: '2026-10-10', ngayTra: '2026-10-12', nguoiDat: { loai: 'sale', ten: 'Sale Hùng', sdt: null } };
+const B5: DatPhongLich = { id: 'B5', canId: 'c1509', ngayNhan: '2026-10-13', ngayTra: '2026-10-15', nguoiDat: { loai: 'khach', ten: 'Chị Mai' } };
+const B4: DatPhongLich = { id: 'B4', canId: 'c3402', ngayNhan: '2026-10-05', ngayTra: '2026-10-07', nguoiDat: { loai: 'le' } };
+
+describe('YC5.1 · ngày và số đêm', () => {
+  it('YC5.1-NT3 chọn "2 đêm" thì ngày trả bằng ngày nhận cộng 2', () => {
+    expect(ngayTraTheoSoDem('2026-10-31', 2)).toBe('2026-11-02');
+    expect(ngayTraTheoSoDem('2026-10-09', 1)).toBe('2026-10-10');
+    expect(ngayTraTheoSoDem('2026-12-31', 3)).toBe('2027-01-03');
+  });
+
+  it('YC5.1 bước 3 đổi ngày trả bằng tay thì chip số đêm tương ứng (1, 2, 3) hoặc "Tùy chọn"', () => {
+    expect(chipCuaSoDem(1)).toBe(1);
+    expect(chipCuaSoDem(2)).toBe(2);
+    expect(chipCuaSoDem(3)).toBe(3);
+    expect(chipCuaSoDem(4)).toBe('tuy-chon');
+    expect(chipCuaSoDem(null)).toBe('tuy-chon');
+  });
+
+  it('YC5.1-NT4 đêm trống đầu tiên của 1509 tính từ hôm nay 07/10: chỉ có B1 thì 07/10; thêm 07/10 → 10/10 thì 12/10', () => {
+    expect(demTrongDauTien([B1], 'c1509', '2026-10-07')).toBe('2026-10-07');
+    const them: DatPhongLich = { id: 'X', canId: 'c1509', ngayNhan: '2026-10-07', ngayTra: '2026-10-10' };
+    expect(demTrongDauTien([B1, them], 'c1509', '2026-10-07')).toBe('2026-10-12');
+    // Đặt phòng của căn khác không tính.
+    expect(demTrongDauTien([B4], 'c1509', '2026-10-05')).toBe('2026-10-05');
+  });
+});
+
+describe('YC5.1 bước 4 · dòng kiểm trùng', () => {
+  it('YC5.1-NT1 các đêm chưa có khách trong căn thì dòng "không trùng lịch"', () => {
+    expect(kiemNgay([B1, B5, B4], 'c1509', '2026-10-31', '2026-11-02')).toEqual({ loai: 'khong-trung', chu: '✓ 31/10 → 02/11 (2 đêm) · không trùng lịch' });
+    // QT1.1-VD2: nhận đúng ngày trả của B1 không trùng.
+    expect(kiemNgay([B1], 'c1509', '2026-10-12', '2026-10-13').loai).toBe('khong-trung');
+    // QT1.1-VD3: khác căn không trùng.
+    expect(kiemNgay([B1], 'c3402', '2026-10-10', '2026-10-12').loai).toBe('khong-trung');
+  });
+
+  it('YC5.1-NT2 trùng đêm với một đặt phòng chưa hủy của cùng căn thì dòng đỏ nêu đêm, người đặt, ngày của đặt phòng đó', () => {
+    expect(kiemNgay([B1], 'c1509', '2026-10-11', '2026-10-13')).toEqual({ loai: 'trung', chu: 'Trùng đêm 11/10 với đặt phòng của Sale Hùng (10/10 → 12/10)' });
+  });
+
+  it('YC5.1 bước 4 trùng nhiều đặt phòng: nêu đặt phòng có đêm trùng sớm nhất và "và N đặt phòng khác"; người đặt là khách chủ nhà nhập hoặc "Khách lẻ"', () => {
+    expect(kiemNgay([B5, B1], 'c1509', '2026-10-11', '2026-10-15').chu).toBe('Trùng đêm 11/10 với đặt phòng của Sale Hùng (10/10 → 12/10) và 1 đặt phòng khác');
+    expect(kiemNgay([B5], 'c1509', '2026-10-14', '2026-10-16').chu).toBe('Trùng đêm 14/10 với đặt phòng của Chị Mai (13/10 → 15/10)');
+    expect(kiemNgay([B4], 'c3402', '2026-10-06', '2026-10-07').chu).toBe('Trùng đêm 06/10 với đặt phòng của Khách lẻ (05/10 → 07/10)');
+  });
+
+  it('YC5.1-NT6 app chặn trước: ngày trả không sau ngày nhận, hay dài hơn 365 đêm, thì dòng đỏ đúng câu của database', () => {
+    expect(kiemNgay([], 'c1509', '2026-10-10', '2026-10-10')).toEqual({ loai: 'loi', chu: 'Ngày trả phải sau ngày nhận' });
+    expect(kiemNgay([], 'c1509', '2026-10-10', '2026-10-09')).toEqual({ loai: 'loi', chu: 'Ngày trả phải sau ngày nhận' });
+    expect(kiemNgay([], 'c1509', '2027-01-01', '2028-01-02')).toEqual({ loai: 'loi', chu: 'Một đặt phòng dài tối đa 365 đêm' });
+    expect(kiemNgay([], 'c1509', '2027-01-01', '2028-01-01').loai).toBe('khong-trung'); // đúng 365 đêm
+    expect(kiemNgay([], 'c1509', '', '2026-10-10').loai).toBe('chua-du');
+  });
+});
+
+describe('HV3 · nháp form đặt phòng', () => {
+  it('HV3 bước 1, 3 nháp lưu căn, ngày, mã lần gửi; quá 7 ngày thì bỏ (HV3-H1)', () => {
+    const b = { canId: 'c1509', ngayNhan: '2026-10-09', ngayTra: '2026-10-11', tuyChon: false, clientId: 'm1' };
+    ghiBanNhapDatPhong(b, 1000);
+    expect(docBanNhapDatPhong(1000 + 6 * 24 * 3600 * 1000)).toEqual(b);
+    expect(docBanNhapDatPhong(1000 + 8 * 24 * 3600 * 1000)).toBeNull();
+  });
+
+  it('HV3-NT4 lưu xong (xoaBanNhapDatPhong, CN4 gọi khi lưu thành công) thì mở lại không còn nháp cũ', () => {
+    ghiBanNhapDatPhong({ canId: 'c1509', ngayNhan: '2026-10-09', ngayTra: '2026-10-11', tuyChon: false, clientId: 'm1' });
+    xoaBanNhapDatPhong();
+    expect(docBanNhapDatPhong()).toBeNull();
+  });
+});

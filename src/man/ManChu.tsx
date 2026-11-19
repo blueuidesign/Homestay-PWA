@@ -2,17 +2,19 @@
 // Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b).
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin (Sửa căn CN5-02), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
+// Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { tenCan, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
-import { chonManChu, DUONG_DAN_TAB } from '../lib/dieuHuong';
+import { chonManChu, DUONG_DAN_TAB, duongDanDatPhongMoi } from '../lib/dieuHuong';
 import type { DichVuCan } from '../lib/dichVuCan';
 import type { ThangLich } from '../lib/dichVuLich';
 import { homNay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
+import { CN4ThemDatPhong } from './CN4ThemDatPhong';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan, KhungCan } from './CN6GiaCan';
@@ -64,7 +66,7 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   // CN5-A4, CN5-A4b: vừa thêm căn thì nút dưới danh sách là "Thêm căn khác"; rời tab Căn thì thôi.
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
-  const canDanhSach = man.tab === 'lich' || man.tab === 'can';
+  const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
   const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia';
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
@@ -107,6 +109,15 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     );
   }
 
+  if (man.tab === 'dat-phong-moi') {
+    // YC5.1 bước 1a, 1b: CN4; hàng chip căn theo thứ tự tab Lịch (căn thêm trước đứng trước). Đóng thì về màn trước.
+    return (
+      <CN4ThemDatPhong key={`${man.canId ?? ''}|${man.ngay ?? ''}`} ds={ds && [...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))}
+                       dv={props.dichVuCan?.datPhong} canIdBanDau={man.canId} ngayBanDau={man.ngay}
+                       onDong={() => window.history.back()} />
+    );
+  }
+
   if (man.tab === 'dem-cuoi-tuan') {
     // YC4.6 bước 1, 4: P6 mở từ tab Cá nhân; lưu xong về Cá nhân với toast (YC4-H4).
     return <P6DemCuoiTuan dv={props.dichVuCan?.gia} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
@@ -138,9 +149,9 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
                     onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
-    // Form đặt phòng và chi tiết đặt phòng (YC5) làm ở US sau: báo "Sẽ có ở bản sau".
+    // YC5.1: "Đặt phòng" mở CN4. Chi tiết đặt phòng CN3-02 (YC5) làm ở US sau: báo "Sẽ có ở bản sau".
     than = <CN1LichThang ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
-                         boNho={boNhoLich.current} onDatPhong={() => hienToast('Sẽ có ở bản sau')}
+                         boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
                          onMoDatPhong={() => hienToast('Sẽ có ở bản sau')} />;
   }
 

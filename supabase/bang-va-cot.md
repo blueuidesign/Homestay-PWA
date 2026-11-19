@@ -88,6 +88,7 @@ RLS: bật
 | client_id | uuid | có |  |
 | tao_luc | timestamp with time zone | không | now() |
 | sua_luc | timestamp with time zone | không | now() |
+| ghi_chu | text | có |  |
 
 Ràng buộc:
 - booking_can_id_fkey: FOREIGN KEY (can_id) REFERENCES can(id)
@@ -626,6 +627,7 @@ Policy:
 - fn_don_anh_tam() → SETOF text · security definer
 - fn_gia_tuan_cua_toi(p_tu date) → TABLE(can_id uuid, gia_thap bigint, gia_cao bigint) · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
+- fn_tao_booking(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_client_id uuid, p_sale_id uuid, p_ten_khach text, p_sdt_khach text, p_trang_thai_tien text, p_tien_coc bigint, p_so_khach integer, p_gio_nhan time without time zone, p_gio_tra time without time zone, p_ghi_chu text) → uuid · security definer · gọi được: authenticated
 - fn_tao_can(p_ma_can text, p_so_phong_ngu integer, p_client_id uuid, p_so_giuong integer, p_loai_view text, p_toa_nha_id uuid, p_mo_ta text, p_anh uuid[]) → uuid · security definer · gọi được: authenticated
 - fn_them_anh_tam(p_duong_dan text) → uuid · security definer · gọi được: authenticated
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated

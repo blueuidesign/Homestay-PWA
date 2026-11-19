@@ -5,6 +5,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
+import { taoDichVuDatPhongSupabase, type DichVuDatPhong } from './dichVuDatPhong';
 import { taoDichVuGiaSupabase, type DichVuGia } from './dichVuGia';
 import { taoDichVuLichSupabase, type DichVuLich } from './dichVuLich';
 import type { CanTomTat } from './can';
@@ -52,6 +53,8 @@ export interface DichVuCan {
   gia?: DichVuGia;
   /** YC2.1: lịch tháng các căn (src/lib/dichVuLich.ts). Thiếu thì tab Lịch báo như mất mạng. */
   lich?: DichVuLich;
+  /** YC5.1: đặt phòng các căn cho form CN4 (src/lib/dichVuDatPhong.ts). Thiếu thì dòng kiểm báo chưa tải được. */
+  datPhong?: DichVuDatPhong;
 }
 
 function maNgauNhien(): string {
@@ -100,6 +103,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
   return {
     gia: taoDichVuGiaSupabase(sb), // YC4.2
     lich: taoDichVuLichSupabase(sb), // YC2.1
+    datPhong: taoDichVuDatPhongSupabase(sb), // YC5.1
 
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')

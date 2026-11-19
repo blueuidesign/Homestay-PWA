@@ -77,7 +77,7 @@ test('YC2.1-NT6 chủ nhà có căn nhưng chưa có đặt phòng nào thì th�
   await expect(page.getByText('💡 Mời sale xem lịch để sale tự biết ngày trống, không phải gọi hỏi. Vào tab Sale.')).toBeVisible();
   await expect(page.getByRole('group', { name: 'Lọc theo căn' })).toHaveCount(0); // 1 căn: không có hàng chip
   await expect(page.getByText(/Doanh thu/)).toHaveCount(0);
-  // YC2.1 bước 5: form ghi đặt phòng (YC5) chưa có thì báo.
+  // YC2.1 bước 5: bấm "Đặt phòng" mở form ghi đặt phòng (YC5.1 bước 1a, có từ US26).
   await page.getByRole('button', { name: 'Đặt phòng' }).last().click();
-  await expect(page.getByRole('status').filter({ hasText: 'Sẽ có ở bản sau' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
 });

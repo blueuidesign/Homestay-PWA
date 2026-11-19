@@ -34,7 +34,7 @@ CN4, CN3
 PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC5-dat-phong.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+Theo ô "Được sửa" của work/goi/US26.md: src/man/CN4ThemDatPhong.{tsx,test.tsx,css}, src/lib/datPhong.{ts,test.ts}, src/lib/dichVuDatPhong.ts; sửa ManChu.tsx, dieuHuong.ts (+ test), CN1LichThang.tsx, CN3ChiTietNgay.tsx (+ ca test mới), dichVuCan.ts; supabase/migrations/20261119210000_us26_tao_booking.sql, supabase/bang-va-cot.md, scripts/thu-lam-hong.txt; tests/db/41_us26_tao_booking.sql, tests/e2e/supabase/them-dat-phong.spec.ts.
 
 ## Ngoài phạm vi
 - Phần đầu YC5-dat-phong.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
@@ -57,10 +57,19 @@ Kịch bản test tay: tests/kb/US26-mo-form-chon-can-va.md.
 - [ ] US26-TA4 Test tay · Đức: chạy tests/kb/US26-mo-form-chon-can-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+1. TA1: tests/db/41 (YC5.1-NT2, NT6, vi phạm PQ7 của Anh Tuấn, Sale Hùng, người chưa đăng nhập, căn ẩn, căn tự nhập), chạy đỏ.
+2. TA2: migration fn_tao_booking (kiểm căn, ngày, tiền > 0, mã lần gửi; đặt phòng và tiền từng đêm ghi một câu lệnh; khách lẻ tạm), cột ghi_chu; 5 phép thử làm hỏng.
+3. TA3: datPhong.ts (số đêm, đêm trống đầu, dòng kiểm, nháp HV3), CN4, nối CN1, CN3, ManChu; unit, e2e YC5.1-NT5.
 
 ## Nhật ký
 - 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV3-NT1, HV3-NT4 từ EN4 (QD27)
+- 2026-11-19 · Claude · TA1, TA2, TA3 code xong trên nhánh US26-form-dat-phong · e2e lich-thang YC2.1-NT6 cũ đỏ vì CN1 nay mở CN4 (file ngoài phạm vi)
 
 ## Bằng chứng
+- `scripts/test-db.sh` (Postgres 16): lần đầu 18 hỏng + 1 file lỗi (chưa có hàm); vòng 2 còn 3 hỏng (tiền từng đêm khi ràng buộc chạy ngay, sửa ghi một câu lệnh); vòng 3: 740 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh`: 101 đạt, 0 không đạt (5 phép mới của YC5.1; 2 phép đầu "vẫn xanh" vì file lỗi, sửa test dùng t.gt).
+- `npx vitest run`: CN4 test chạy đầu đỏ (chưa có màn), sau 1 vòng: 37 file, 339 test qua. `npm run typecheck`, `npm run build` qua.
+- `E2E_SUPABASE=1 CI=1 npx playwright test`: 31 qua, 1 đỏ: lich-thang.spec.ts YC2.1-NT6 còn chờ toast "Sẽ có ở bản sau" khi bấm "Đặt phòng" (nay mở CN4); file ngoài "Được sửa", chưa sửa. them-dat-phong.spec.ts (YC5.1-NT5) qua.
+- `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
