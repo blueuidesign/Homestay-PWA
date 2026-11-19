@@ -2,7 +2,7 @@
 id: US27
 tieu_de: "Người đặt, tiền phòng, trạng thái tiền"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [32]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US27-nguoi-dat-tien-phong-trang.md.
 
 ## Task
-- [ ] US27-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.2-NT1, YC5.2-NT2, YC5.2-NT4, YC5.2-NT7, YC5.2-NT9, YC5.2-NT11, YC5.2-NT12, YC5.2-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US27-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US27-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4, CN4-01 theo canvas, test unit, e2e cho YC5.2-NT1, YC5.2-NT3, YC5.2-NT5, YC5.2-NT6, YC5.2-NT7, YC5.2-NT8, YC5.2-NT9, YC5.2-NT10, YC5.2-NT12
+- [x] US27-TA1 Code · PR #32
+- [x] US27-TA2 Code · PR #32
+- [x] US27-TA3 Code · PR #32
 - [ ] US27-TA4 Test tay · Đức: chạy tests/kb/US27-nguoi-dat-tien-phong-trang.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -65,6 +65,7 @@ Kịch bản test tay: tests/kb/US27-nguoi-dat-tien-phong-trang.md.
 - 2026-11-19 · Claude · TA1, TA2, TA3 code xong trên nhánh US27-nguoi-dat-tien, mở PR nháp · bất ngờ: thêm default cho p_tien_phong làm đổi 3 phép thử US26
 - 2026-11-19 · Claude · trả lời YC5-H1, H2, H12, H19, viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.2@1 (QD21)
+- 2026-11-19 · Claude · gộp PR #32 theo QD25 (CI xanh), sang cho-test; CN4-03 mở sẵn ngày để US28 · 5 phút
 
 ## Bằng chứng
 - `scripts/test-db.sh` (Postgres thật): trước migration 33 test YC5.2 đỏ; sau migration 1 đỏ (NT4 bỏ hẳn tham số), sửa 1 vòng; cuối 812 qua, 0 hỏng.
