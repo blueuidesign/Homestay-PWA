@@ -1,7 +1,7 @@
 // Dịch vụ đăng nhập bằng mã email (YC1.2, QD22, QD4). Màn chỉ dùng giao diện này, nên test unit thay được bằng bản giả.
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
-import type { HoSo } from './dieuHuong';
+import type { HoSo, Vai } from './dieuHuong';
 import { CAU_LOI_SO, CAU_LOI_TEN } from './kiemDangKy';
 
 export const CAU_SO_TRUNG = 'Số này đã có tài khoản. Đăng nhập bằng email của tài khoản đó.';
@@ -28,6 +28,8 @@ export interface DichVuXacThuc {
   layHoSo(): Promise<HoSo | null>;
   /** fn_dang_ky; lỗi thì ném LoiDangKy. */
   dangKy(ten: string, so: string): Promise<void>;
+  /** YC1.1 bước 5: fn_chon_vai ghi vai và lúc đồng ý điều khoản; lỗi thì ném LoiNguoiDung. */
+  chonVai(vai: Vai): Promise<void>;
   dangXuat(): Promise<void>;
   /** Gọi lại khi phiên đổi (đăng nhập, đăng xuất, làm mới). Trả hàm hủy. */
   theoDoiPhien(goiLai: () => void): () => void;
@@ -47,6 +49,12 @@ export function loiTuDangKy(e: { code?: string; message?: string }): LoiDangKy {
   if (cau === CAU_LOI_SO) return new LoiDangKy('so', CAU_LOI_SO);
   if (e.code === 'P0001' && cau) return new LoiDangKy('chung', cau);
   return new LoiDangKy('chung', 'Có lỗi, chưa làm được. Bấm Thử lại');
+}
+
+/** YC1.1 Luật kiểm: câu của fn_chon_vai (22023 vai sai, P0001 chưa đăng ký xong) hiện nguyên cho người dùng. */
+export function loiTuChonVai(e: { code?: string; message?: string }): Error {
+  if ((e.code === '22023' || e.code === 'P0001') && e.message) return new LoiNguoiDung(e.message);
+  return new Error(e.message ?? 'fn_chon_vai');
 }
 
 export function taoDichVuSupabase(sb: SupabaseClient): DichVuXacThuc {
@@ -81,6 +89,10 @@ export function taoDichVuSupabase(sb: SupabaseClient): DichVuXacThuc {
     async dangKy(ten, so) {
       const { error } = await sb.rpc('fn_dang_ky', { p_ten: ten, p_so: so });
       if (error) throw loiTuDangKy(error);
+    },
+    async chonVai(vai) {
+      const { error } = await sb.rpc('fn_chon_vai', { p_vai: vai });
+      if (error) throw loiTuChonVai(error);
     },
     async dangXuat() {
       await sb.auth.signOut();

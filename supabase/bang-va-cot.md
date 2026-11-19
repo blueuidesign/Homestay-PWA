@@ -617,6 +617,7 @@ Policy:
 
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
 - chuan_hoa_so(p_so text) → text · security definer
+- fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - local_today() → date · security definer · gọi được: authenticated

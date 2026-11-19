@@ -73,9 +73,32 @@ body { margin: 0; min-height: 100dvh; }
 .hh-btn--text { background: none; color: var(--action); font-weight: 600; }
 .hh-iconbtn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 8px; background: var(--surface); color: var(--ink-body); cursor: pointer; }
 
-.man-a1 { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); }
-.a1-dau { flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
-.a1-dau h1 { color: var(--action); font-size: 28px; line-height: 36px; margin: 0; }
-.a1-ten { font-size: 18px; font-weight: 700; margin: 0; }
-.a1-dau p { margin: 0; color: var(--ink-secondary); }
-.a1-dau ul { margin: 8px 0 0; padding-left: 20px; color: var(--ink-body); line-height: 24px; }
+/* US1 · A1, A3, A3-00 (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+:root {
+  --action-soft: #d1fae5;
+  --action-tint: #ecfdf5;
+  --radius-lg: 16px;
+}
+.man-a1 { padding: 28px 24px calc(24px + env(safe-area-inset-bottom)); gap: 28px; }
+.a1-dau { display: flex; flex-direction: column; gap: 12px; padding-top: 24px; }
+.a1-logo { width: 64px; height: 64px; margin: 0; border-radius: var(--radius-lg); background: var(--action-tint); display: grid; place-items: center; font-size: 32px; line-height: 1; }
+.a1-ten { font-size: 24px; line-height: 32px; font-weight: 700; color: var(--ink); margin: 0; }
+.a1-gioi-thieu { margin: 0; font-size: 16px; line-height: 24px; color: var(--ink-secondary); }
+.a1-ds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.a1-ds li { display: flex; gap: 14px; align-items: center; font-size: 16px; line-height: 24px; color: var(--ink-body); }
+.a1-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 9999px; background: var(--border-subtle); color: var(--ink-secondary); display: grid; place-items: center; }
+.a1-chan { gap: 14px; }
+
+.man-a3 { background: var(--surface-page); }
+.a3-than { flex: 1 1 auto; display: flex; flex-direction: column; gap: 16px; padding: 28px 16px calc(24px + env(safe-area-inset-bottom)); }
+.a3-hoi { margin: 0; padding: 0 4px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.a3-ds { flex: 1 1 auto; display: flex; flex-direction: column; gap: 16px; }
+.a3-the { flex: 1 1 0; min-height: 160px; position: relative; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; padding: 24px 20px; text-align: left; font: inherit; background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-lg); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.a3-the--chon { background: var(--action-tint); border-color: var(--action); }
+.a3-dau-chon { position: absolute; right: 16px; top: 16px; width: 28px; height: 28px; border-radius: 9999px; border: 2px solid var(--border-input); background: var(--surface); color: transparent; display: grid; place-items: center; font-size: 16px; font-weight: 700; }
+.a3-the--chon .a3-dau-chon { background: var(--action); border-color: var(--action); color: var(--on-action); }
+.a3-icon { width: 64px; height: 64px; border-radius: 9999px; background: var(--surface); border: 1px solid var(--border); color: var(--ink-secondary); display: grid; place-items: center; }
+.a3-the--chon .a3-icon { background: var(--action-soft); border-color: var(--action-soft); color: var(--action); }
+.a3-ten { font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.a3-mo { font-size: 16px; line-height: 24px; color: var(--ink-secondary); }
+.a3-nhac { text-align: center; }
