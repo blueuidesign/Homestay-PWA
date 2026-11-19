@@ -2,7 +2,7 @@
 id: US20
 tieu_de: "Giá trên thẻ căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC4.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [27]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -50,7 +50,7 @@ YC4-gia.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US20-gia-tren-the-can.md (KB1, KB2).
 
 ## Task
-- [ ] US20-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN5 theo canvas, test unit, e2e cho YC4.1-NT1, YC4.1-NT2
+- [x] US20-TA1 Code · PR #27
 - [ ] US20-TA2 Test tay · Đức: chạy tests/kb/US20-gia-tren-the-can.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -60,6 +60,7 @@ Test trước (db 37, unit can/CN5/ManChuGiaTuan), thấy đỏ; rồi migration
 - 2026-11-18 · Claude · tạo item từ YC4.1@1 (QD21)
 - 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-19 · Claude · code US20-TA1 xong, mở PR nháp, e2e 24 qua
+- 2026-11-19 · Claude · gộp PR #27 theo QD25 (CI xanh), sang cho-test · 5 phút
 
 ## Bằng chứng
 - `scripts/test-db.sh YC4.1`: lần đầu đỏ 18 test (lệnh chưa có); sau migration `scripts/test-db.sh` 629 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC4.1`: 3 đạt, 0 không đạt.
