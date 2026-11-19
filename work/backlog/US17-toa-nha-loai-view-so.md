@@ -52,7 +52,7 @@ Kịch bản test tay: tests/kb/US17-toa-nha-loai-view-so.md (KB1 đến KB3).
 
 ## Task
 - [x] US17-TA1 Code: migration fn_them_toa, khu_vuc, test database YC3.4-NT3, NT4 (PR nhánh US17-toa-nha)
-- [ ] US17-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN5-A1 (phần mở rộng), CN5-A1b theo canvas, test unit, e2e cho YC3.4-NT1, YC3.4-NT2
+- [x] US17-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN5-A1 (phần mở rộng), CN5-A1b theo canvas, test unit, e2e cho YC3.4-NT1, YC3.4-NT2
 - [ ] US17-TA3 Test tay · Đức: chạy tests/kb/US17-toa-nha-loai-view-so.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
