@@ -2,7 +2,7 @@
 id: US13
 tieu_de: "Lịch tuần nhiều căn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC2.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Lịch tuần nhiều căn" đúng như YC2.5 mô tả.
 
 ## Làm tiêu chí nào
-YC2.5-NT1 đến NT5
+YC2.5-NT1 đến NT7
 
 ## Quy tắc, hành vi dùng
 QT2, QT6.1
@@ -37,7 +37,7 @@ PQ4, PQ7, PQ8, PQ9, PQ16 và các test vi phạm ở mục "Ai được làm gì
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC2-H4, YC2-H2, YC2-H5.
+- YC2-H2, YC2-H4, YC2-H5 đã Claude tự chốt (QD25), ghi ở YC2.5 r5.
 - Phần đầu YC2-lich-chu-nha.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -48,16 +48,17 @@ YC2-lich-chu-nha.md#Dữ liệu
 YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US13-lich-tuan-nhieu-can.md.
 
 ## Task
 - [ ] US13-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC2.5-NT2
-- [ ] US13-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN2, CN2-00 theo canvas, test unit, e2e cho YC2.5-NT1 đến NT5
+- [ ] US13-TA2 Code · Claude Code (sonnet, CL14.6a): màn CN2, CN2-00 theo canvas, test unit, e2e cho YC2.5-NT1 đến NT7
 - [ ] US13-TA3 Test tay · Đức: chạy tests/kb/US13-lich-tuan-nhieu-can.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.5@1 (QD21)
+- 2026-11-19 · Claude · tự chốt YC2-H2, H4, H5 (QD25), thêm NT6, NT7 vào YC2.5 r5; viết kịch bản test tay; giao agent code
 
 ## Bằng chứng

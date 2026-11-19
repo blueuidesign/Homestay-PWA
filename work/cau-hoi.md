@@ -73,22 +73,25 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Gắn ở: YC2.3. Tới khi có câu trả lời: khối luôn là tổng mọi căn.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không. Khối doanh thu luôn là tổng mọi căn của chủ nhà, chip lọc chỉ đổi lưới lịch. Lý do: chủ nhà xem khối này để biết tháng thu bao nhiêu; số đổi theo chip dễ bị đọc nhầm là tổng. Doanh thu từng căn để cho màn Thống kê. Ghi vào YC2.3 r3.
 
-### YC2-H2 · mo
+### YC2-H2 · da-tra-loi
 Lịch tuần nhiều căn: ô trống của đêm chủ nhà chưa đặt giá hiện gì?
 Gắn ở: YC2.5. Tới khi có câu trả lời: ô để trống.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ô hiện dấu "–" màu xám, vẫn chạm được để ghi đặt phòng như ô trống khác. Lý do: ô để trống hẳn dễ bị đọc là lỗi tải; dấu gạch nói rõ "chưa có giá" mà không chiếm chỗ. Chú thích thêm dòng "–: trống, chưa đặt giá". Ghi vào YC2.5 r5.
 
 ### YC2-H3 · da-tra-loi
 Danh sách đặt phòng sắp tới: đặt phòng đã hủy có hiện với nhãn "Đã hủy" không?
 Gắn ở: YC2.4. Tới khi có câu trả lời: không hiện.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không hiện. Danh sách sắp tới là việc chủ nhà sắp phải đón khách; đặt phòng đã hủy không còn việc gì. Xem lại đặt phòng đã hủy ở chi tiết ngày hay chi tiết đặt phòng. Ghi vào YC2.4 r4.
 
-### YC2-H4 · mo
+### YC2-H4 · da-tra-loi
 Chuyển giữa lịch tháng (CN1) và lịch tuần (CN2) bằng gì? (a) nút đổi; (b) tự đổi theo số căn.
 Gắn ở: YC2.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): (a) nút đổi. Dưới tiêu đề CN1 và CN2 có cặp nút "Tháng" "Tuần" (mỗi nút cao 44 px), nút đang xem tô đậm. Mở tab Lịch luôn vào lịch tháng. Sang tuần thì mở tuần chứa ngày đang chọn ở CN1 (chưa chọn thì tuần có hôm nay); về tháng thì mở tháng chứa thứ Hai của tuần đang xem. Lý do: tự đổi theo số căn làm người dùng mất chỗ khi thêm, xóa căn và không xem được kiểu còn lại. Ghi vào YC2.5 r5.
 
-### YC2-H5 · mo
+### YC2-H5 · da-tra-loi
 Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem?
 Gắn ở: YC2.5. Tới khi có câu trả lời: "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giữ đúng cách tạm. "Có khách hôm nay" luôn tính theo hôm nay (giờ Việt Nam) vì chữ ghi "hôm nay"; "Trống tối T7" theo thứ Bảy của tuần đang xem; "Chưa cọc" theo các đặt phòng còn hiệu lực có ít nhất một đêm trong tuần đang xem. Ghi vào YC2.5 r5.
 
 ### YC2-H6 · da-tra-loi
 Chạm một ngày đã qua ở lịch tháng thì mở gì?

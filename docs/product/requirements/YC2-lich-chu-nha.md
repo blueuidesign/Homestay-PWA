@@ -3,7 +3,7 @@ id: YC2
 tieu_de: Lịch chủ nhà
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC2 · Lịch chủ nhà
@@ -142,7 +142,7 @@ Tiêu chí:
 
 Bản 1 · rủi ro: tb · Màn: CN2, CN2-00
 
-Cách vào lịch tuần từ lịch tháng: [MỞ: YC2-H4]. Phần này code được, chỉ chưa nối lối vào.
+[r5 · sửa] Cách vào lịch tuần từ lịch tháng (YC2-H4, Claude tự chốt): dưới tiêu đề CN1 và CN2 có cặp nút "Tháng" "Tuần", nút đang xem tô đậm. Tab Lịch luôn mở lịch tháng. Bấm "Tuần" thì mở tuần chứa ngày đang chọn ở CN1, chưa chọn ngày thì tuần có hôm nay. Bấm "Tháng" thì mở tháng chứa thứ Hai của tuần đang xem.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -156,7 +156,7 @@ Cách vào lịch tuần từ lịch tháng: [MỞ: YC2-H4]. Phần này code đ
 
 Tuần chưa có đặt phòng nào: CN2-00, bảng vẫn hiện đủ giá, thêm dòng "Tuần này chưa có đặt phòng nào. Mọi căn đều trống.".
 
-Ô trống của đêm chưa đặt giá hiện gì: [MỞ: YC2-H2]. Tới khi có câu trả lời, ô để trống. Ba ô tóm tắt tính cho hôm nay hay cho tuần đang xem: [MỞ: YC2-H5]. Tới khi có câu trả lời, "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem.
+[r5 · sửa] Ô trống của đêm chưa đặt giá (YC2-H2, Claude tự chốt): hiện dấu "–" màu xám, chạm được như ô trống khác; chú thích thêm "–: trống, chưa đặt giá". Ba ô tóm tắt (YC2-H5, Claude tự chốt): "Có khách hôm nay" tính theo hôm nay giờ Việt Nam, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng còn hiệu lực có ít nhất một đêm trong tuần đang xem.
 
 Chip lọc sinh theo căn thật: Tùng (bản Zalo, 04/11/2026) "bạn tự quyết nhé, đúng logic là ok".
 
@@ -166,6 +166,8 @@ Tiêu chí:
 - **YC2.5-NT3** Khi chủ nhà chạm chip "ICON40", thì bảng chỉ còn 1509. · unit
 - **YC2.5-NT4** Khi chủ nhà xem tuần 12 – 18/10/2026, thì ô tóm tắt ghi "Chưa cọc 2 đặt phòng" (B5, B2). · unit
 - **YC2.5-NT5** Khi mọi căn của chủ nhà cùng là 2PN, thì không có chip theo số phòng ngủ; có một căn 3PN thì có chip "3 phòng ngủ". · unit
+- **YC2.5-NT6** [r5 · thêm] Khi chủ nhà đang chọn ngày 14/10/2026 ở CN1 rồi bấm "Tuần", thì CN2 mở tuần 12 – 18/10/2026; bấm "Tháng" thì về CN1 tháng 10/2026. · unit, e2e
+- **YC2.5-NT7** [r5 · thêm] Khi một đêm không có khách và chủ nhà chưa đặt giá cho đêm đó, thì ô hiện "–" và chạm ô thì mở form ghi đặt phòng với căn và ngày đó. · unit
 
 ## Màn hình
 
@@ -185,3 +187,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r2 | 2026-11-19 | Claude | US10-chi-tiet-ngay | Ngày đã qua mở chi tiết như ngày khác, trả lời YC2-H6 (Claude tự chốt, QD25) | YC2.2 |
 | r3 | 2026-11-19 | Claude | US11 chuẩn bị | Khối doanh thu luôn tổng mọi căn, trả lời YC2-H1 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm đang ghi | YC2.3 |
 | r4 | 2026-11-19 | Claude | US12 chuẩn bị | Đặt phòng đã hủy không hiện ở danh sách sắp tới, trả lời YC2-H3 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm | YC2.4 |
+| r5 | 2026-11-19 | Claude | US13 chuẩn bị | Nút đổi Tháng/Tuần (YC2-H4), ô chưa có giá hiện "–" (YC2-H2), cách tính ba ô tóm tắt (YC2-H5); Claude tự chốt, QD25 | YC2.5 |
