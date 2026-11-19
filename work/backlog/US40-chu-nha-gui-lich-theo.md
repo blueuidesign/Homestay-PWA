@@ -37,7 +37,7 @@ PQ1, PQ2, PQ4, PQ17, PQ18, PQ23 và các test vi phạm ở mục "Ai được l
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC6-H8, YC8-H5, YC6-H7, YC6-H9.
+- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC6-H8, YC6-H7, YC6-H9.
 - Phần đầu YC6-ket-noi-sale.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -62,5 +62,6 @@ Kịch bản test tay: tests/kb/US40-chu-nha-gui-lich-theo.md, chưa viết. Vi�
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.6@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
+- 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
 
 ## Bằng chứng

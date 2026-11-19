@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -15,8 +15,9 @@ Là chủ nhà, tôi muốn mời sale xem lịch bằng một link, chọn sale
 Vì sao quan trọng: kết nối là cổng của mọi quyền sale có với dữ liệu chủ nhà (QD7). Kết nối sai thì sale thấy lịch của chủ nhà không mời mình, hoặc chủ nhà ngừng rồi mà sale vẫn thấy. Kết nối đi qua tin nhắn Zalo và link, không có hộp thư trong app, vì cả hai bên đã quen nhắn Zalo cho nhau. Số điện thoại chỉ được xin lúc bắt đầu kết nối, vì đó là lúc người dùng hiểu vì sao cần (bên kia nhận ra mình).
 
 ## Luồng chính
+`[r3 · sửa]`
 
-Hôm nay là 07/10/2026. Anh Tuấn mở tab Sale, bấm "Gửi link mời qua Zalo". Hồ sơ của anh chưa có số điện thoại nên popup "Chia sẻ số điện thoại với sale" hiện ra; anh bấm "Đồng ý, tiếp tục" và cho số. Bảng chia sẻ của điện thoại mở với tin mời kèm link; anh chọn Zalo, gửi cho Sale Hùng.
+Hôm nay là 07/10/2026. Anh Tuấn mở tab Sale, bấm "Chia sẻ link mời". Bảng chia sẻ của điện thoại mở với tin mời kèm link; anh chọn Zalo, gửi cho Sale Hùng.
 
 Sale Hùng bấm link trong Zalo. Hùng đã có tài khoản nên app mở màn "Thêm lịch": "Anh Tuấn", "2 căn", ảnh và thông tin sơ lược của Sapphire 1103 và À La Carte 2208, không có giá. Hùng bấm "Thêm lịch của Anh Tuấn". App về lịch của sale, toast "Đã thêm lịch 2 căn của Anh Tuấn"; hai căn hiện trong lịch kèm giá từng đêm. Ở tab Sale của Anh Tuấn, Sale Hùng vào nhóm "Đã kết nối".
 
@@ -81,12 +82,13 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 `[r2 · bỏ]` Theo QD22, tên và số xin ngay lúc đăng ký (YC1.2), nên mọi người đã vào app đều có số. Không còn popup xin số, không còn "Để sau".
 
 ## YC6.2 · Danh sách sale của chủ nhà
+`[r3 · sửa]`
 
 Bản 1 · rủi ro: cao · Màn: CN7, CN7-00, CN7-04, CN7-05
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Mở tab Sale | CN7: nút "Gửi link mời qua Zalo", nút "Sao chép link", nhóm "Đã kết nối · 3" và "Chưa kết nối · 1". Mỗi dòng: tên, trạng thái, tổng tiền phòng các đặt phòng của sale với chủ nhà này | Đọc kết nối của chủ nhà, tên sale, tổng tiền phòng theo sale |
+| 1 | Mở tab Sale | CN7: nút "Chia sẻ link mời", nút "Sao chép link", nhóm "Đã kết nối · 3" và "Chưa kết nối · 1". Mỗi dòng: tên, trạng thái, tổng tiền phòng các đặt phòng của sale với chủ nhà này | Đọc kết nối của chủ nhà, tên sale, tổng tiền phòng theo sale |
 | 2 | Chưa có sale nào | CN7-00: "Chưa có sale nào xem lịch", hai nút gửi link, khung "Sale sẽ thấy: Phòng trống hay đã đặt; Giá từng đêm; Không thấy tên, số điện thoại khách và doanh thu" | Không |
 | 3 | Bấm "Nhắc lại" ở một sale chưa kết nối | [MỞ: YC6-H13]. Bản đầu không có nút này | Không |
 | 4 | Bấm "Thêm sale" | CN7-05: ô "Tên sale *", "Số điện thoại *", nút "Lưu sale". Lưu xong: dòng mới ở nhóm "Chưa kết nối" | Ghi sale thêm tay của chủ nhà. Ghép với tài khoản thật của sale: [MỞ: YC6-H11]; tới khi có câu trả lời, không ghép, không chặn số trùng |
@@ -113,13 +115,13 @@ Tiêu chí:
 - **YC6.2-NT7** Khi Sale Hùng đã xóa tài khoản, thì dòng của Hùng ở CN7 ghi "Đã xoá tài khoản", không có số và nút "Gọi"; B1 vẫn ở lịch của Chị Hoa. · unit, database
 
 ## YC6.3 · Link mời của chủ nhà và sale thêm lịch
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: cao · Màn: CN7, A1-link, A1-link-01, A10, A10-01, A10-02
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Chủ nhà bấm "Gửi link mời qua Zalo" hay "Sao chép link" | Mở bảng chia sẻ của điện thoại với tin mời kèm link (hoặc sao chép link), theo pwa.md mục P3 | Trả link mời đang dùng nếu còn hạn, không thì tạo mới; tăng số lần gửi |
+| 1 | Chủ nhà bấm "Chia sẻ link mời" hay "Sao chép link" | Mở bảng chia sẻ của điện thoại với tin mời kèm link (hoặc sao chép link), theo pwa.md mục P3 | Trả link mời đang dùng nếu còn hạn, không thì tạo mới; tăng số lần gửi |
 | 2 | Người chưa đăng nhập bấm link | A1-link: như màn chào mừng (YC1), thêm thẻ "Anh Tuấn mời bạn xem lịch 2 căn", dòng "Bấm Bắt đầu ngay để xem lịch và giá mới nhất". Không có chữ "Đăng nhập" | Xem trước link không cần đăng nhập: tên chủ nhà, số căn, không giá |
 | 3 | Bấm "Bắt đầu ngay" ở A1-link | Đăng ký hoặc đăng nhập (YC1.2), chọn vai sale, rồi sang thẳng A10, không qua màn chọn vai (QD8) | Hồ sơ mới vai sale |
 | 4 | Người đã đăng nhập, chưa thêm lịch của chủ nhà này, bấm link | A10 "Thêm lịch": tên chủ nhà, số căn, ảnh và thông tin sơ lược từng căn, không giá. Nút dính đáy "Thêm lịch của Anh Tuấn" | Xem trước như bước 2 |
@@ -136,27 +138,27 @@ Tiêu chí:
 - **YC6.3-NT4** Khi Sale Hùng bấm "Thêm lịch của Anh Tuấn", thì Sapphire 1103 và À La Carte 2208 có trong lịch của Hùng và Hùng ở nhóm "Đã kết nối" của Anh Tuấn. · database, E2E
 - **YC6.3-NT5** Khi Hùng đã thêm lịch mở lại link, thì thấy A10-01 và vẫn chỉ có một kết nối với Anh Tuấn. · database, unit
 - **YC6.3-NT6** Khi link mời đã quá 21 ngày hay đã thu hồi, thì xem trước và "Thêm lịch" đều bị từ chối, không có kết nối mới. · database
-- **YC6.3-NT7** Khi chủ nhà bấm "Gửi link mời qua Zalo" hai lần trong hạn link, thì cả hai lần dùng cùng một link và số lần gửi là 2. · database
+- **YC6.3-NT7** Khi chủ nhà bấm "Chia sẻ link mời" hai lần trong hạn link, thì cả hai lần dùng cùng một link và số lần gửi là 2. · database
 - **YC6.3-NT8** Khi một địa chỉ xem trước link quá 30 lần trong một phút, thì các lần sau bị từ chối. · database
 
 ## YC6.4 · Sale xin chủ nhà cho xem lịch
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: tb · Màn: A5, A6, A7, A7-00, A7-01
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Sale bấm "Gửi tin nhắn xin lịch đến chủ nhà" (A5 hay A7) | A6: tin soạn sẵn ("Chào anh/chị, em là Hùng, sale phòng ở Hạ Long…"), link xin lịch của sale, ba bước "Sau khi gửi" | Trả link xin lịch của sale; tạo nếu chưa có (mỗi sale một link) |
-| 2 | Bấm "Gửi qua Zalo" | Mở bảng chia sẻ với tin và link | Tăng số lần gửi, ghi lần gửi cuối |
+| 2 | Bấm "Chia sẻ" | Mở bảng chia sẻ với tin và link | Tăng số lần gửi, ghi lần gửi cuối |
 | 3 | Bấm "Sao chép tin nhắn" | Sao chép tin, toast "Đã sao chép" | Như bước 2 |
-| 4 | Quay về app | A7: "Đang chờ chủ nhà đồng ý", lần gửi gần nhất, hai số "3 lần đã gửi" và "0 chủ nhà đã đồng ý". Chưa gửi lần nào: A7-00 | Đọc số đếm của chính sale |
+| 4 | Quay về app | A7: "Đang chờ chủ nhà đồng ý", lần gửi gần nhất, hai số "3 lần đã chia sẻ" và "0 chủ nhà đã đồng ý". Chưa gửi lần nào: A7-00 | Đọc số đếm của chính sale |
 | 5 | Bấm "Gửi link cho chủ nhà khác" ở A7 | [MỞ: YC6-H13]. Tới khi có câu trả lời, mở lại A6 | Không |
 
-Chữ trên nút ("Gửi qua Zalo" hay "Gửi"): [MỞ: YC8-H5]. Sale thu hồi link xin lịch của mình: [MỞ: YC6-H2]; bản đầu không có.
+Sale thu hồi link xin lịch của mình: [MỞ: YC6-H2]; bản đầu không có.
 
 Tiêu chí:
 - **YC6.4-NT1** Khi sale bấm "Gửi tin nhắn xin lịch đến chủ nhà", thì app mở A6 có tin soạn sẵn và link. · unit
-- **YC6.4-NT2** Khi sale bấm "Gửi qua Zalo" ở A6, thì bảng chia sẻ mở với tin và link, và số lần đã gửi tăng 1. · unit, database
+- **YC6.4-NT2** Khi sale bấm "Chia sẻ" ở A6, thì bảng chia sẻ mở với tin và link, và số lần đã gửi tăng 1. · unit, database
 - **YC6.4-NT3** Khi sale ở A7, thì chỉ thấy hai con số và không có danh sách tên chủ nhà. · unit
 - **YC6.4-NT4** Khi một chủ nhà đồng ý lời xin, thì số "chủ nhà đã đồng ý" ở A7 tăng 1. · database
 - **YC6.4-NT5** Khi Sale Lan đọc link hay số đếm của Sale Hùng, thì không được; link xin lịch không chứa chữ số nào của số điện thoại sale. · database
@@ -181,7 +183,7 @@ Tiêu chí:
 - **YC6.5-NT5** Khi người chưa đăng nhập xem trước link xin lịch, thì bị từ chối, không có tên, số nào. · database
 
 ## YC6.6 · Chủ nhà gửi lịch theo căn đã chọn
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Bản 2 · rủi ro: cao · Màn: CN10, CN10-00, CN10-01, CN10-02
 
@@ -189,8 +191,8 @@ Bản 2 · rủi ro: cao · Màn: CN10, CN10-00, CN10-01, CN10-02
 |---|---|---|---|
 | 1 | Bấm "Gửi lịch cho sale" ở tab Lịch | CN10: "Sale nhận link xem lịch trống/kín và giá của các căn đã chọn. Không thấy tên khách và tiền cọc" | Không |
 | 2 | "Bước 1: Chọn căn" | Danh sách căn chưa xóa của mình, nút "Chọn tất cả". Chưa chọn căn nào thì nút gửi không bấm được ([MỞ: YC6-H8]) | Đọc căn của mình |
-| 3 | "Bước 2: Chọn sale để chia sẻ lịch" | Bản PWA không mở được tin riêng cho từng sale ([MỞ: YC8-H5]). Tới khi có câu trả lời, bước này không có; link dùng cho bất kỳ sale nào mở | Không |
-| 4 | Bấm "Gửi lịch qua Zalo" | Mở bảng chia sẻ với tin và link | Tạo link gửi lịch với các căn đã chọn; tăng số lần gửi |
+| 3 | "Bước 2: Chọn sale để chia sẻ lịch" | Chọn sale chỉ để nhắc mình gửi cho ai; bảng chia sẻ không mở tin riêng cho từng sale, link dùng được cho bất kỳ sale nào mở (YC8-H5) | Không |
+| 4 | Bấm "Chia sẻ lịch" | Mở bảng chia sẻ với tin và link | Tạo link gửi lịch với các căn đã chọn; tăng số lần gửi |
 | 5 | Quay về app | CN10-02: tab Lịch, toast "Đã gửi lịch". Đóng bảng chia sẻ mà không gửi: CN10-01, không toast | Không |
 
 Chưa có sale nào thì CN10-00. Sale đã kết nối nhận thêm link gửi lịch thì phạm vi có đổi không: [MỞ: YC6-H7]; tới khi có câu trả lời, giữ phạm vi cũ. Thu hồi link gửi lịch: [MỞ: YC6-H9].
@@ -232,17 +234,17 @@ Tiêu chí:
 - **YC6.8-NT2** Khi ba chủ nhà đồng ý trong 10 phút, thì Lan thấy một toast và có một thông báo gom. · database, unit
 
 ## Màn hình
-`[r2 · sửa]`
+`[r3 · sửa]`
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
 - **A6-P1, A8-P1, CN10-P1, A6-P2, A8-P2, CN10-P2 · Popup xin số và hộp thoại của Zalo.** Không dùng ở bản PWA: số đã có từ lúc đăng ký (QD22).
-- **A6, A7, A7-00, A7-01.** Link trên hình dạng `zalo.me/s/…`: bản PWA là link https của app (pwa.md mục P4). Chữ "3 lần đã gửi qua Zalo": bản PWA ghi "3 lần đã gửi".
+- **A6, A7, A7-00, A7-01.** Link trên hình dạng `zalo.me/s/…`: bản PWA là link https của app (pwa.md mục P4). Chữ số đếm theo canvas PWA: "3 lần đã chia sẻ".
 - **CN7-03 · Tin Zalo có thẻ "Mở và trả lời".** Bản PWA là tin chữ kèm link.
 - **A8, A8-01.** Đúng bố cục.
 - **CN7, CN7-00, CN7-04, CN7-05.** Đúng bố cục. Nút "Nhắc lại" không làm (YC6-H13).
 - **A1-link, A1-link-01, A10, A10-01, A10-02.** Hình A1-link còn chữ "Đăng nhập" và nút "Bắt đầu với Zalo": theo YC6.3 bước 2.
-- **CN10, CN10-00, CN10-01, CN10-02.** Bước chọn sale theo YC8-H5.
+- **CN10, CN10-00, CN10-01, CN10-02.** Đúng bố cục (canvas bản PWA).
 - **A9, A9-02.** Đúng bố cục.
 
 ## Lịch sử sửa đổi
@@ -250,3 +252,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US5, US17, US26 và phần link mời của US6 (QD20, QD21), đổi cách gửi và link sang bản PWA | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ YC6.1 và quy tắc xin số đúng lúc; bỏ bước "YC6.1 nếu chưa có số" ở YC6.3 đến YC6.6 | Phạm vi, Quy tắc của nhóm, YC6.1, YC6.3, YC6.4, YC6.5, YC6.6, Màn hình |
+| r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: nút "Gửi ... qua Zalo" thành "Chia sẻ ..." (YC8-H5); bỏ popup xin số còn sót ở Luồng chính | Luồng chính, YC6.2, YC6.3, YC6.4, YC6.6, Màn hình |
