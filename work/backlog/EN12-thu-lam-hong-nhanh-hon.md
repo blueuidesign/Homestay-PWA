@@ -2,7 +2,7 @@
 id: EN12
 tieu_de: "Thử làm hỏng chạy nhanh hơn trên CI"
 loai: EN
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: []
 truoc: []
 lien_quan: [EN2]
@@ -31,5 +31,8 @@ Không có NT. Kiểm: cùng một commit, scripts/thu-lam-hong.sh cho cùng s�
 
 ## Nhật ký
 - 2026-11-19 · Claude · tạo item vì job database của PR #44 bị hủy do quá 15 phút
+- 2026-11-19 · Claude · test-db.sh thêm TU_MAU (chép database mẫu) và CHI_FILE_CO_MA (chỉ chạy file test có mã); thu-lam-hong.sh dựng mẫu một lần
 
 ## Bằng chứng
+- Máy cloud, Postgres 16 local, main ngày 19/11 (173 phép thử): `scripts/thu-lam-hong.sh` 173 đạt, 0 không đạt, hết 102 giây. CI trước đó ở PR #43: job database 13,5 phút. `scripts/test-db.sh` vẫn 1288 qua.
+- Lọc file chỉ có thể làm phép thử báo HỎNG (test không chạy), không thể làm báo đạt sai, nên không nới phép thử.

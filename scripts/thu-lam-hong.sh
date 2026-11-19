@@ -16,6 +16,14 @@ LOC="${1:-}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
+# EN12: dựng database mẫu một lần từ migration; mỗi phép thử chép từ mẫu rồi chỉ chạy file test có mã của dòng.
+MAU=home247_thu_hong_mau
+PGOPTIONS="-c client_min_messages=warning" psql -X -q -d postgres -c "drop database if exists \"$MAU\" with (force)" >/dev/null
+psql -X -q -d postgres -c "create database \"$MAU\"" >/dev/null
+for f in "$GOC"/supabase/gia-lap/*.sql "$GOC"/supabase/migrations/*.sql; do
+  psql -X -q -v ON_ERROR_STOP=1 --no-psqlrc -d "$MAU" -f "$f" >/dev/null 2>"$TMP/loi.txt" || { echo "LỖI khi dựng database mẫu ở $f:"; cat "$TMP/loi.txt"; exit 1; }
+done
+
 DAT=0; KHONG_DAT=0; n=0
 while IFS= read -r dong || [ -n "$dong" ]; do
   case "$dong" in ''|'#'*) continue ;; esac
@@ -24,7 +32,7 @@ while IFS= read -r dong || [ -n "$dong" ]; do
   if [ -n "$LOC" ] && [[ "$dong" != *"$LOC"* ]]; then continue; fi
   n=$((n+1))
   echo "$cau" > "$TMP/hong.sql"
-  ra="$(TEST_DB=home247_thu_hong SAU_MIGRATION="$TMP/hong.sql" "$GOC/scripts/test-db.sh" "$ma" 2>&1)"
+  ra="$(TEST_DB=home247_thu_hong TU_MAU="$MAU" CHI_FILE_CO_MA=1 SAU_MIGRATION="$TMP/hong.sql" "$GOC/scripts/test-db.sh" "$ma" 2>&1)"
   if echo "$ra" | grep -q '^HỎNG '; then
     DAT=$((DAT+1)); echo "đạt  [$ma] test đỏ khi phá:$cau"
   else
