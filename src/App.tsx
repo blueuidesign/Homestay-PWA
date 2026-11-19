@@ -137,6 +137,7 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
       if (tt.hoSo?.vaiChon === 'chu_nha') {
         return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
       }
-      return <ManLich vai={tt.hoSo?.vaiChon ?? null} onDangXuat={dangXuat} />;
+      // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch).
+      return <ManLich vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />;
   }
 }

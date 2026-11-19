@@ -1,0 +1,10 @@
+/* US38 · A7, A7-00, A7-01 hai ô số (canvas home247-canvas.html). Chữ không dưới 12 px. */
+.a7-dai { margin: 0; background: var(--action-soft); color: var(--action-ink); border-radius: var(--radius-md); padding: 10px 14px; font-size: 14px; line-height: 20px; font-weight: 600; }
+.a7-tren { display: flex; gap: 12px; align-items: flex-start; }
+.a7-nhom { display: flex; flex-direction: column; gap: 8px; }
+.a7-muc { margin: 0; padding: 0 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.a7-hai-so { display: flex; gap: 8px; }
+.a7-o { flex: 1 1 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
+.a7-so { font-size: 22px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.a7-nhan { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.a7-phu { margin: 0; padding: 0 4px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
