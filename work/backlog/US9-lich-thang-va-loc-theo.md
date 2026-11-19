@@ -2,7 +2,7 @@
 id: US9
 tieu_de: "Lịch tháng và lọc theo căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC2.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [29]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -50,7 +50,7 @@ YC2-lich-chu-nha.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md.
 
 ## Task
-- [ ] US9-TA1 Code · Claude Code (sonnet, CL14.6a): màn CN1, CN1-00, CN1-02 theo canvas, test unit, e2e cho YC2.1-NT1 đến NT6
+- [x] US9-TA1 Code · PR #29
 - [ ] US9-TA2 Test tay · Đức: chạy tests/kb/US9-lich-thang-va-loc-theo.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US9-lich-thang-va-loc-theo.md.
 - 2026-11-19 · Claude · nhận HV1-NT2, HV2-NT3 từ EN4 (QD27)
 - 2026-11-19 · Claude · trả lời QT2-H1, viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-19 · Claude · US9-TA1 code CN1, CN1-00, CN1-02, test unit, database, e2e; không cần migration · PR nháp
+- 2026-11-19 · Claude · gộp main vào nhánh, gộp PR #29 theo QD25 (CI xanh), sang cho-test · 5 phút
 
 ## Bằng chứng
 - `npx vitest run src/lib/lich.test.ts src/man/CN1LichThang.test.tsx`: lần đầu 16 test màn đỏ (chưa có màn), sau đó 2 đỏ (đổi tháng), sửa 1 vòng, 28 xanh. Cả bộ `npx vitest run`: 272 xanh.

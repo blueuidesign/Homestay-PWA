@@ -676,7 +676,7 @@
    "id": "US9",
    "loai": "US",
    "tieu_de": "\"Lịch tháng và lọc theo căn\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -686,10 +686,10 @@
     "US2"
    ],
    "file": "work/backlog/US9-lich-thang-va-loc-theo.md",
-   "pr": "",
+   "pr": "[29]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -707,13 +707,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US10",
    "loai": "US",
    "tieu_de": "\"Chi tiết một ngày\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
