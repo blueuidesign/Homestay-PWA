@@ -178,6 +178,12 @@ select t.bang((select count(*) from public.ket_noi where chu_id = t.id('hoa')), 
               'YC6.2 bước 4 YC6-H11 thêm sale tay không tạo kết nối mới');
 select t.bang((select count(*) from public.sale_them_tay where chu_id = t.id('hoa') and so_dien_thoai = '0900000005'), 1::bigint,
               'YC6.2 bước 4 sale thêm tay lưu tên, số do chủ nhà gõ');
+-- Id của dòng "Sale Phương", lấy bằng vai chủ database (vai khác không đọc được dòng này qua RLS).
+select set_config('t.ma_phuong', (select id from public.sale_them_tay where ten = 'Sale Phương')::text, true);
+select t.dang_nhap(t.id('tuan'));
+select t.bang(t.so($$select * from public.fn_ds_sale_cua_toi() where ten in ('Sale Phương', 'Nga Thêm Tay') or sale_id is not null$$), 0::bigint,
+              'YC6.2 PQ17.CHU Anh Tuấn chỉ thấy sale của mình, không thấy sale thêm tay, kết nối của Chị Hoa');
+select t.thoat();
 select t.khach();
 select t.loi($$select public.fn_them_sale_tay('Sale Phương', '0901234567')$$, '42501',
              'YC6.2 PQ17.LINK người chưa đăng nhập thêm sale bị từ chối');
@@ -186,17 +192,17 @@ select t.thoat();
 -- ===== YC6.2-NT8: Chị Hoa mở dòng "Sale Phương" và xác nhận "Xóa sale này" =====
 -- Anh Tuấn gửi lệnh xóa trước: database từ chối, dòng còn.
 select t.dang_nhap(t.id('tuan'));
-select t.loi(format('select public.fn_xoa_sale_tay(%L)', (select id from public.sale_them_tay where ten = 'Sale Phương')), '42501',
+select t.loi($$select public.fn_xoa_sale_tay(t.b('phuong'))$$, '42501',
              'YC6.2-NT8 Anh Tuấn gửi lệnh xóa dòng "Sale Phương" của Chị Hoa thì database từ chối');
 select t.thoat();
 select t.bang((select count(*) from public.sale_them_tay where ten = 'Sale Phương'), 1::bigint,
               'YC6.2-NT8 sau lệnh của Anh Tuấn dòng "Sale Phương" vẫn còn');
 select t.dang_nhap(t.id('hung'));
-select t.loi(format('select public.fn_xoa_sale_tay(%L)', (select id from public.sale_them_tay where ten = 'Sale Phương')), '42501',
+select t.loi($$select public.fn_xoa_sale_tay(t.b('phuong'))$$, '42501',
              'YC6.2-NT8 PQ17.SALE Sale Hùng gửi lệnh xóa sale thêm tay của Chị Hoa thì database từ chối');
 select t.thoat();
 select t.dang_nhap(t.id('hoa'));
-select t.khong_loi(format('select public.fn_xoa_sale_tay(%L)', (select id from public.sale_them_tay where ten = 'Sale Phương')),
+select t.khong_loi($$select public.fn_xoa_sale_tay(t.b('phuong'))$$,
                    'YC6.2-NT8 Chị Hoa xác nhận "Xóa sale này" thì lệnh qua');
 select t.bang(t.so($$select * from public.fn_ds_sale_cua_toi() where ten = 'Sale Phương'$$), 0::bigint,
               'YC6.2-NT8 dòng "Sale Phương" biến mất khỏi danh sách');
