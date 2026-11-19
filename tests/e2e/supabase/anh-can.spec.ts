@@ -31,7 +31,7 @@ async function taiThang(token: string, duongDan: string, loai: string, than: Buf
   const r = await fetch(`${API}/storage/v1/object/anh-can/${duongDan}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}`, apikey: KHOA_ANON, 'Content-Type': loai, 'x-upsert': 'false' },
-    body: than,
+    body: than.buffer.slice(than.byteOffset, than.byteOffset + than.byteLength) as ArrayBuffer,
   });
   return r.status;
 }
