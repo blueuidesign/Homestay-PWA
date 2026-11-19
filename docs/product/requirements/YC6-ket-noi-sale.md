@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -76,7 +76,7 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 ## Trạng thái màn (mọi mục)
 
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ bảng chia sẻ hay từ nền: HV3, đọc lại số đếm và danh sách. Mất quyền giữa chừng: HV5. Toast: HV8.
-- Link hết hạn, đã thu hồi, người tạo đã xóa tài khoản: màn báo theo HV5 ("Link mời không còn dùng được" hoặc "Link mời đã hết hạn", [MỞ: YC6-H10]).
+- Link hết hạn, đã thu hồi, người tạo đã xóa tài khoản: màn báo theo HV5 [r6 · sửa] ("Link mời không còn dùng được." hoặc "Link mời đã hết hạn.", kèm "Nhờ chủ nhà gửi link mới.", YC6-H10 Claude tự chốt, chi tiết ở YC6.3).
 
 ## YC6.1 · Xin tên và số điện thoại khi bắt đầu kết nối
 `[r2 · bỏ]` Theo QD22, tên và số xin ngay lúc đăng ký (YC1.2), nên mọi người đã vào app đều có số. Không còn popup xin số, không còn "Để sau".
@@ -131,7 +131,7 @@ Bản 2 · rủi ro: cao · Màn: CN7, A1-link, A1-link-01, A10, A10-01, A10-02
 | 6 | Rời A10 không bấm | Về màn trước | Không đổi gì |
 | 7 | Đã thêm lịch của chủ nhà này, bấm link lần nữa | A10-01: "Bạn đã có lịch của Anh Tuấn", nút "Xem lịch" | Xem trước trả "đã thêm" |
 
-Tài khoản đã chọn vai chủ nhà mở link mời: [MỞ: YC6-H14]. Người tạo link tự mở link của mình: [MỞ: YC6-H15]. Người tạo link đã xóa tài khoản: [MỞ: YC6-H5]; tới khi có câu trả lời, coi như link không dùng được. Chủ nhà thu hồi link ở đâu, kết nối đã tạo từ link đã thu hồi còn không: [MỞ: YC6-H10], [MỞ: YC6-H3]. Có thông báo khi sale tự bấm "Thêm lịch" không (cho sale, cho chủ nhà): [MỞ: YC6-H6]; tới khi có câu trả lời, không.
+[r6 · sửa] Các câu sau Claude tự chốt (QD25). Tài khoản vai chủ nhà mở link mời: A10 hiện xem trước, thay nút bằng "Link này dành cho sale. Tài khoản của bạn đang là chủ nhà." và nút "Về lịch của tôi"; database từ chối kết nối khi vai không đúng (YC6-H14). Người tạo link mở link của mình: xem trước kèm "Đây là link mời của bạn. Gửi link này cho sale để họ xem lịch.", không có nút thêm; database từ chối kết nối với chính mình (YC6-H15). Người tạo link đã xóa tài khoản: như link đã thu hồi (YC6-H5). Thu hồi: nút chữ "Đổi link mời" ở CN7 dưới hai nút gửi link, hỏi lại "Đổi link mời? Link cũ sẽ không dùng được nữa. Sale đã thêm lịch vẫn giữ." với "Đổi link" và "Không"; lần gửi sau tạo link mới (YC6-H10). Link hỏng mở ra A1-link-01: thu hồi hoặc người tạo đã xóa tài khoản "Link mời không còn dùng được.", quá 21 ngày "Link mời đã hết hạn.", cả hai kèm "Nhờ chủ nhà gửi link mới." (YC6-H10). Kết nối tạo trước khi thu hồi vẫn giữ (QD8, YC6-H3). Không có thông báo khi sale tự bấm "Thêm lịch" (YC6-H6).
 
 Tiêu chí:
 - **YC6.3-NT1** Khi người chưa đăng nhập mở link mời của Anh Tuấn rồi bấm "Bắt đầu ngay" và đăng nhập, thì app sang A10, không hiện màn chọn vai. · E2E
@@ -142,6 +142,8 @@ Tiêu chí:
 - **YC6.3-NT6** Khi link mời đã quá 21 ngày hay đã thu hồi, thì xem trước và "Thêm lịch" đều bị từ chối, không có kết nối mới. · database
 - **YC6.3-NT7** Khi chủ nhà bấm "Chia sẻ link mời" hai lần trong hạn link, thì cả hai lần dùng cùng một link và số lần gửi là 2. · database
 - **YC6.3-NT8** Khi một địa chỉ xem trước link quá 30 lần trong một phút, thì các lần sau bị từ chối. · database
+- **YC6.3-NT9** [r6 · thêm] Khi Anh Tuấn bấm "Đổi link mời" và đồng ý, thì link cũ bị từ chối khi xem trước và khi thêm, Sale Hùng (đã thêm trước đó) vẫn ở nhóm "Đã kết nối", lần "Chia sẻ link mời" sau trả link khác. · database, unit
+- **YC6.3-NT10** [r6 · thêm] Khi Anh Tuấn mở link mời của chính mình, hoặc Chị Hoa (vai chủ nhà) mở link đó, thì không có nút "Thêm lịch" và database từ chối tạo kết nối. · database, unit
 
 ## YC6.4 · Sale xin chủ nhà cho xem lịch
 `[r3 · sửa]`
@@ -257,3 +259,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: nút "Gửi ... qua Zalo" thành "Chia sẻ ..." (YC8-H5); bỏ popup xin số còn sót ở Luồng chính | Luồng chính, YC6.2, YC6.3, YC6.4, YC6.6, Màn hình |
 | r4 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | YC6.7 |
 | r5 | 2026-11-19 | Claude | US36 chuẩn bị | Trả lời YC6-H13, H11, H16, H1, H4 (Claude tự chốt, QD25); thêm NT8, NT9 | YC6.2, YC6.4 |
+| r6 | 2026-11-19 | Claude | US37 chuẩn bị | Trả lời YC6-H14, H15, H5, H10, H3, H6 (Claude tự chốt, QD25); thêm YC6.3-NT9, NT10 | YC6.3 |

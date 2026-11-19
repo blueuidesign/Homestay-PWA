@@ -3,6 +3,7 @@
 // Ảnh tải lên kho anh-can vào thư mục của người tải, rồi ghi ảnh tạm qua fn_them_anh_tam (YC3.3 bước 23, QT5.7).
 // Danh sách tòa đọc qua RLS (toa_nha_doc), thêm tòa qua fn_them_toa (YC3.4 bước 29, 33, QT6.3).
 // Sửa căn: đọc căn và ảnh qua RLS (can_doc, anh_can_doc), ghi qua fn_sua_can (YC3.5 bước 35, 39, PQ3.CHU).
+// Xóa căn (ẩn căn) qua fn_xoa_can (YC3.6 bước 42 đến 44, PQ3.CHU, QT5.5).
 import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
@@ -74,6 +75,11 @@ export interface DichVuCan {
   layCan?(id: string): Promise<CanSua | null>;
   /** YC3.5 bước 39: sửa căn. P0001 thì LoiNguoiDung kèm câu (QT5.5); căn không còn thì LoiKhongConCan (HV5). */
   suaCan?(id: string, sua: SuaCan): Promise<void>;
+  /**
+   * YC3.6 bước 42: xóa (ẩn) căn. P0001 ("Căn còn đặt phòng sắp tới") thì LoiNguoiDung kèm câu (bước 43, QT5.5);
+   * căn không có, đã xóa, của người khác (42501) thì LoiKhongConCan.
+   */
+  xoaCan?(id: string): Promise<void>;
   /** YC3.4 bước 29: danh sách tòa chung và tòa người gọi đã dùng cho căn chưa ẩn của mình (mới dùng trước). */
   layToa?(): Promise<DanhSachToa>;
   /** YC3.4 bước 33: thêm tòa, trả mã tòa; tên trùng thì mã tòa đã có (GD21). Database từ chối thì LoiNguoiDung. */
@@ -209,6 +215,14 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
       if ('moTa' in sua) p.mo_ta = sua.moTa;
       if ('anh' in sua) p.anh = sua.anh;
       const { error } = await sb.rpc('fn_sua_can', { p_can_id: id, p_sua: p });
+      if (error) {
+        if (error.code === '42501') throw new LoiKhongConCan();
+        throw loiTuTaoCan(error);
+      }
+    },
+
+    async xoaCan(id) {
+      const { error } = await sb.rpc('fn_xoa_can', { p_can_id: id });
       if (error) {
         if (error.code === '42501') throw new LoiKhongConCan();
         throw loiTuTaoCan(error);

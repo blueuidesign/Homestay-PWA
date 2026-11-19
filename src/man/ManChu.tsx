@@ -2,6 +2,7 @@
 // Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b).
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin là Sửa căn CN5-02 (YC3.5, US18): lưu được thì về CN5 với toast "Đã lưu phòng 1509".
+// Xóa căn ở CN5-02 (YC3.6, US19): xóa được thì về CN5 với toast "Đã xóa phòng 3402" (toast do CN5-02 hiện).
 // Tab Sale là CN7 Danh sách sale (YC6.2, US36): CN7-04, CN7-05 mở trong tab, không đổi địa chỉ. Thống kê, Cá nhân: khung tạm, US sau thay.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
 // thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
@@ -149,7 +150,9 @@ export function ManChu(props: {
                    themToa={dv?.themToa ? (ten) => dv.themToa!(ten) : undefined}
                    onQuayLai={() => props.den('/can')} onChonGia={() => props.den(`/can/${man.id}/gia`)}
                    onVeLich={() => props.den('/')}
-                   onDaLuu={(ma) => { hienToast(`Đã lưu ${tenCanGiuaCau(ma)}`); props.den('/can'); }} />
+                   onDaLuu={(ma) => { hienToast(`Đã lưu ${tenCanGiuaCau(ma)}`); props.den('/can'); }}
+                   xoaCan={dv?.xoaCan ? (id) => dv.xoaCan!(id) : undefined} // YC3.6 bước 42
+                   onDaXoa={() => { boNhoLich.current.clear(); props.den('/can'); }} /> // lịch tháng đọc lại, không còn căn đã xóa
     );
   }
   if (man.tab === 'can-gia') {

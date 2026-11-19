@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Link mời của chủ nhà và sale thêm lịch" đúng như YC6.3 mô tả.
 
 ## Làm tiêu chí nào
-YC6.3-NT1 đến NT8
+YC6.3-NT1 đến NT10
 
 ## Quy tắc, hành vi dùng
 Không có.
@@ -37,7 +37,7 @@ PQ1, PQ2, PQ4, PQ17, PQ18, PQ23 và các test vi phạm ở mục "Ai được l
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC6-H14, YC6-H15, YC6-H5, YC6-H10, YC6-H3, YC6-H6.
+- YC6-H14, H15, H5, H10, H3, H6 đã Claude tự chốt (QD25), ghi ở YC6.3 r6.
 - Phần đầu YC6-ket-noi-sale.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,12 +49,12 @@ YC6-ket-noi-sale.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md.
 
 ## Task
-- [ ] US37-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.3-NT2 đến NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [ ] US37-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC6.3-NT2 đến NT10, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US37-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US37-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN7, A1-link, A1-link-01, A10, A10-01, A10-02 theo canvas, test unit, e2e cho YC6.3-NT2, YC6.3-NT5
+- [ ] US37-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN7, A1-link, A1-link-01, A10, A10-01, A10-02 theo canvas, test unit, e2e cho YC6.3-NT1, YC6.3-NT2, YC6.3-NT4, YC6.3-NT5, YC6.3-NT9, YC6.3-NT10
 - [ ] US37-TA4 Test tay · Đức: chạy tests/kb/US37-link-moi-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch

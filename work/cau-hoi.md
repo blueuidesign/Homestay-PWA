@@ -262,22 +262,25 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 Sale có thu hồi được link xin lịch của mình không, ở đâu?
 Gắn ở: YC6.4.
 
-### YC6-H3 · mo
+### YC6-H3 · da-tra-loi
 Kết nối đã tạo từ link đã thu hồi còn dùng không?
 Gắn ở: YC6.3.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Còn dùng, theo QD8 ("sale đã thêm trước đó vẫn giữ kết nối"). Thu hồi link chỉ chặn người mở link sau đó; muốn bỏ một sale thì dùng "Ngừng cho xem lịch" ở CN7-04 (YC6.2). Ghi vào YC6.3 r6.
 
 ### YC6-H4 · da-tra-loi
 Chủ nhà mở dòng chưa kết nối, đã ngừng thì thấy gì?
 Gắn ở: YC6.2. Tới khi có câu trả lời: mở được với những gì có.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mở được với những gì có. Dòng chưa kết nối (thêm tay): tên, số chủ nhà đã nhập, nút "Gọi", nút "Xóa sale này"; không có công tắc "Tình trạng cọc", không có nút "Ngừng cho xem lịch". Dòng đã ngừng: tên, số (nếu sale đã cho), ngày ngừng, danh sách đặt phòng cũ của sale với chủ nhà; không có công tắc, không có nút ngừng. Ghi vào YC6.2 r5.
 
-### YC6-H5 · mo
+### YC6-H5 · da-tra-loi
 Người tạo link mời đã xóa tài khoản thì người mở link thấy gì?
 Gắn ở: YC6.3. Tới khi có câu trả lời: coi như link không dùng được.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giữ cách tạm: link không dùng được. Người mở thấy A1-link-01 với câu "Link mời không còn dùng được." như link đã thu hồi; xem trước không trả tên hay căn của người đã xóa tài khoản. Ghi vào YC6.3 r6.
 
-### YC6-H6 · mo
+### YC6-H6 · da-tra-loi
 Có thông báo khi sale tự bấm "Thêm lịch" không (cho sale, cho chủ nhà)?
 Gắn ở: YC6.3. Tới khi có câu trả lời: không.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Giữ cách tạm: không có thông báo. Sale đã thấy toast "Đã thêm lịch …" (A10-02); chủ nhà thấy sale mới ở nhóm "Đã kết nối" của CN7. Thêm thông báo để sau khi có nhu cầu thật. Ghi vào YC6.3 r6.
 
 ### YC6-H7 · mo
 Sale đã kết nối nhận thêm link gửi lịch thì phạm vi có đổi không?
@@ -291,9 +294,10 @@ Gắn ở: YC6.6.
 Chủ nhà có thu hồi được link gửi lịch theo căn không?
 Gắn ở: YC6.6.
 
-### YC6-H10 · mo
+### YC6-H10 · da-tra-loi
 Chủ nhà thu hồi link mời ở màn nào; người mở link đã hết hạn hay đã thu hồi thấy gì?
 Chặn: Màn Thêm lịch khi link hỏng. Đang tạm làm: Hiện "Link mời không còn dùng được" hoặc "Link mời đã hết hạn". Hỏi ngày 18/11/2026.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Thu hồi ở CN7: nút chữ "Đổi link mời" dưới hai nút gửi link, hỏi lại "Đổi link mời? Link cũ sẽ không dùng được nữa. Sale đã thêm lịch vẫn giữ." với "Đổi link" và "Không". Đổi thì link cũ bị thu hồi, lần gửi sau tạo link mới. Người mở link hỏng thấy A1-link-01: thu hồi hoặc người tạo đã xóa tài khoản "Link mời không còn dùng được.", quá 21 ngày "Link mời đã hết hạn.", cả hai kèm dòng "Nhờ chủ nhà gửi link mới." Ghi vào YC6.3 r6.
 
 ### YC6-H11 · da-tra-loi
 Sale chủ nhà thêm tay bằng tên và số (CN7-05) ghép với tài khoản thật của sale thế nào? (a) ghép khi số điện thoại trùng; (b) chỉ ghép qua link; (c) chủ gộp tay.
@@ -309,13 +313,15 @@ Nút "Nhắc lại" ở CN7 và "Gửi link cho chủ nhà khác" ở A7 làm g�
 Gắn ở: YC6.2, YC6.4. Tới khi có câu trả lời: mở lại A6.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có nút "Nhắc lại" ở CN7. Muốn nhắc sale chưa kết nối thì chủ nhà bấm lại "Chia sẻ link mời" hoặc "Sao chép link" ở đầu CN7. Nút "Gửi link cho chủ nhà khác" ở A7 mở lại A6 như cách tạm. Lý do: nhắc lại cũng chỉ là gửi lại link, thêm nút riêng cho mỗi dòng không thêm được gì. Ghi vào YC6.2, YC6.4 r5.
 
-### YC6-H14 · mo
+### YC6-H14 · da-tra-loi
 Tài khoản chọn vai chủ nhà mở link xin lịch của sale, hay vai sale bấm đồng ý ở A8: xử lý thế nào?
 Gắn ở: YC6.3.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không tạo kết nối, báo rõ. Tài khoản vai chủ nhà mở link mời sale: A10 hiện tên chủ nhà và căn như xem trước, thay nút bằng dòng "Link này dành cho sale. Tài khoản của bạn đang là chủ nhà." và nút "Về lịch của tôi". Ngược lại, tài khoản vai sale mở link xin lịch của sale khác (A8): hiện "Link này dành cho chủ nhà." và nút "Về lịch của tôi". Database từ chối tạo kết nối khi vai người gọi không đúng. Lý do: một tài khoản một vai (YC1); tự đổi vai sẽ làm mất dữ liệu đang dùng. Ghi vào YC6.3 r6.
 
-### YC6-H15 · mo
+### YC6-H15 · da-tra-loi
 Người tạo link tự bấm link của mình (chủ nhà mở link mời sale của chính họ, sale mở link xin kết nối của chính họ): chặn, bỏ qua, hay coi như thường? Nguồn chưa nói. Thêm ngày 2026-11-04.
 Gắn ở: YC6.3.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Coi như xem trước, không cho thêm. Người tạo link mở link của chính mình: thấy xem trước, dòng "Đây là link mời của bạn. Gửi link này cho sale để họ xem lịch." thay nút "Thêm lịch"; database từ chối kết nối với chính mình. Lý do: chủ nhà hay tự bấm thử link trước khi gửi, nên cho xem được để yên tâm. Ghi vào YC6.3 r6.
 
 ### YC6-H16 · da-tra-loi
 Chủ nhà có xem lại và xóa được dòng kết nối đã dừng (sale thêm tay chưa kết nối, sale đã bị ngừng) không?
