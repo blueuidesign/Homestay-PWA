@@ -12,7 +12,7 @@ Cách ghi kết quả: đánh dấu ☑ OK hoặc ☑ NG, ngày, tên. NG thì g
 - **Mục đích:** sale biết ngay khi chủ nhà cho xem lịch, không phải tải lại.
 - **Chuẩn bị:** Lan mở app và để yên ở màn chính.
 - **Làm:** Chị Hoa mở link xin lịch của Lan và bấm "Đồng ý cho xem lịch". Chờ, không chạm vào máy Lan.
-- **Mong đợi:** trong 60 giây máy Lan hiện toast "Chị Hoa đã đồng ý cho bạn xem lịch" và dòng "ICON40 1509, 3402 đã vào Nguồn phòng", có nút "Xem". Toast tự tắt sau vài giây.
+- **Mong đợi:** trong 60 giây máy Lan hiện toast "Chị Hoa đã đồng ý cho bạn xem lịch" và dòng "ICON40 1509 và 3402 đã vào Nguồn phòng", có nút "Xem". Toast tự tắt sau vài giây.
 - **Nguồn:** YC6.8-NT1
 - **Kết quả:** ☐ OK ☐ NG · Ngày: · Người:
 - **Nếu NG, thấy gì:**
