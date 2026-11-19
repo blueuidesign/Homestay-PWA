@@ -3,7 +3,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang } from './gia';
-import type { Ngay } from './ngay';
+import { congNgay, thuTrongTuan, type Ngay } from './ngay';
 
 /** YC4.2 bước 1, 5: giá 12 tháng của một năm (chỉ số 0 là tháng 1; null là chưa đặt), dải dịp phủ năm đó, đêm cuối tuần. */
 export type BangGiaNam = { nam: number; thang: (GiaThang | null)[]; dip: DipGia[]; demCuoiTuan: number[] };
@@ -14,7 +14,16 @@ export interface DichVuGia {
   datGiaThang(canId: string, thang: Ngay[], thuong: number, cuoiTuan: number): Promise<void>;
   /** YC4.2 bước 6: mỗi đêm của tháng chứa ngày thang. */
   layLichGia(canId: string, thang: Ngay): Promise<DemGia[]>;
+  /** YC4.6 bước 1: đêm cuối tuần của chính người gọi (isodow, 1 là T2, 7 là CN). */
+  layDemCuoiTuan?(): Promise<number[]>;
+  /** YC4.6 bước 3: căn đầu tiên của người gọi và giá tháng của các tháng trong tuần chứa homNay; chưa có căn thì null. */
+  layMauTuan?(homNay: Ngay): Promise<MauTuan | null>;
+  /** YC4.6 bước 4: ghi đêm cuối tuần của chính người gọi (fn_dat_dem_cuoi_tuan). Database từ chối thì LoiNguoiDung (QT5.5). */
+  datDemCuoiTuan?(dem: number[]): Promise<void>;
 }
+
+/** Căn mẫu cho "Một tuần của phòng <mã>" và giá tháng theo khóa 'YYYY-MM-01'. */
+export type MauTuan = { maCan: string; giaThang: Record<Ngay, GiaThang | null> };
 
 /** QT5.5: lỗi P0001 mang câu cho người dùng; lỗi khác để màn hiện câu chung (HV2). */
 export function loiGia(e: { code?: string; message?: string }): Error {
@@ -60,6 +69,41 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
       if (error) throw loiGia(error);
       return ((data ?? []) as { dem: string; gia: number | null; loai: DemGia['loai']; co_khach: boolean }[])
         .map((d) => ({ dem: d.dem, gia: d.gia === null ? null : Number(d.gia), loai: d.loai, coKhach: d.co_khach }));
+    },
+
+    // YC4.6 bước 1, PQ6.CHU: hồ sơ của chính mình (profiles_doc).
+    async layDemCuoiTuan() {
+      const { data: u } = await sb.auth.getUser();
+      if (!u.user) throw new TypeError('chưa đăng nhập');
+      const { data, error } = await sb.from('profiles').select('dem_cuoi_tuan').eq('id', u.user.id).maybeSingle();
+      if (error) throw loiGia(error);
+      const d = (data as { dem_cuoi_tuan: number[] | null } | null)?.dem_cuoi_tuan;
+      return d?.length ? d.map(Number) : [...DEM_CUOI_TUAN_MAC_DINH_ISO];
+    },
+
+    // YC4.6 bước 3: căn tạo sớm nhất chưa ẩn của mình (can_doc), giá tháng của các tháng trong tuần (gia_thang_doc).
+    async layMauTuan(homNay) {
+      const thuHai = congNgay(homNay, -((thuTrongTuan(homNay) + 6) % 7));
+      const thang = [...new Set(Array.from({ length: 7 }, (_, i) => `${congNgay(thuHai, i).slice(0, 7)}-01`))];
+      const { data: u } = await sb.auth.getUser();
+      if (!u.user) throw new TypeError('chưa đăng nhập');
+      const can = await sb.from('can').select('id, ma_can').eq('nguoi_giu', u.user.id).is('an_luc', null)
+        .order('tao_luc', { ascending: true }).limit(1).maybeSingle();
+      if (can.error) throw loiGia(can.error);
+      const c = can.data as { id: string; ma_can: string } | null;
+      if (!c) return null;
+      const gt = await sb.from('gia_thang').select('thang, gia_thuong, gia_cuoi_tuan').eq('can_id', c.id).in('thang', thang);
+      if (gt.error) throw loiGia(gt.error);
+      const giaThang: Record<Ngay, GiaThang | null> = {};
+      for (const r of (gt.data ?? []) as { thang: string; gia_thuong: number; gia_cuoi_tuan: number }[]) {
+        giaThang[r.thang] = { thuong: Number(r.gia_thuong), cuoiTuan: Number(r.gia_cuoi_tuan) };
+      }
+      return { maCan: c.ma_can, giaThang };
+    },
+
+    async datDemCuoiTuan(dem) {
+      const { error } = await sb.rpc('fn_dat_dem_cuoi_tuan', { p_dem: dem });
+      if (error) throw loiGia(error);
     },
   };
 }

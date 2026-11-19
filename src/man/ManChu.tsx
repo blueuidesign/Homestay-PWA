@@ -12,6 +12,7 @@ import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan, KhungCan } from './CN6GiaCan';
+import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
 const TIEU_DE_TAM: Record<'sale' | 'thong-ke' | 'ca-nhan', string> = { sale: 'Sale', 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
@@ -86,10 +87,18 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     );
   }
 
+  if (man.tab === 'dem-cuoi-tuan') {
+    // YC4.6 bước 1, 4: P6 mở từ tab Cá nhân; lưu xong về Cá nhân với toast (YC4-H4).
+    return <P6DemCuoiTuan dv={props.dichVuCan?.gia} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
+  }
+
   let than;
   if (man.tab === 'sale' || man.tab === 'thong-ke' || man.tab === 'ca-nhan') {
     than = (
       <KhungTabChu tieuDe={TIEU_DE_TAM[man.tab]}>
+        {man.tab === 'ca-nhan' && (
+          <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => props.den('/ca-nhan/dem-cuoi-tuan')}>Ngày tính giá cuối tuần</button>
+        )}
         {man.tab === 'ca-nhan' && (
           <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onDangXuat}>Đăng xuất</button>
         )}

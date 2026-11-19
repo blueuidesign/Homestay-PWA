@@ -49,3 +49,11 @@ describe('YC4.2 bước 1 · đường dẫn tab Giá của căn', () => {
     expect(chonManChu('/can/moi/gia')).toEqual({ tab: 'lich' });
   });
 });
+
+describe('YC4.6 bước 1 · đường dẫn P6', () => {
+  it('YC4.6 bước 1 /ca-nhan/dem-cuoi-tuan là P6; /ca-nhan vẫn là tab Cá nhân', () => {
+    expect(chonManChu('/ca-nhan/dem-cuoi-tuan')).toEqual({ tab: 'dem-cuoi-tuan' });
+    expect(chonManChu('/ca-nhan/dem-cuoi-tuan/')).toEqual({ tab: 'dem-cuoi-tuan' });
+    expect(chonManChu('/ca-nhan')).toEqual({ tab: 'ca-nhan' });
+  });
+});

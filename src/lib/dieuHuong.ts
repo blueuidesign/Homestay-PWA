@@ -29,7 +29,7 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
 /** Màn trong các tab của chủ nhà (YC3.1, canvas thanh tab A4, CN5). Đường dẫn khác thì về tab Lịch. */
 export type ManChu =
   | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string } | { tab: 'can-gia'; id: string }
-  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' };
+  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' };
 
 export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke': '/thong-ke', 'ca-nhan': '/ca-nhan' } as const;
 
@@ -45,5 +45,6 @@ export function chonManChu(duongDan: string): ManChu {
   if (d === '/sale') return { tab: 'sale' };
   if (d === '/thong-ke') return { tab: 'thong-ke' };
   if (d === '/ca-nhan') return { tab: 'ca-nhan' };
+  if (d === '/ca-nhan/dem-cuoi-tuan') return { tab: 'dem-cuoi-tuan' }; // YC4.6 bước 1: P6
   return { tab: 'lich' };
 }

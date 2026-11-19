@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   CAU_CAN_NHAP_GIA, CAU_CHUA_CHON_THANG, CAU_GIA_LON_HON_0, CAU_GIA_TOI_DA, chuDai, chuOThang, chuThang, congThang,
-  dinhDangOGia, docSoTien, dongDangChon, giaDem, kiemGia, soOTrongDau, tenDip, tenOGia, tenThangNgan, type DipGia,
+  dinhDangOGia, docSoTien, doiDemCuoiTuan, dongDangChon, giaDem, kiemGia, mauMotTuan, soOTrongDau, tenDemIso, tenDip, tenOGia, tenThangNgan, type DipGia,
 } from './gia';
 
 const DIP_3402: DipGia[] = [{ id: 'd1', tuNgay: '2026-10-24', denNgay: '2026-10-25', ten: 'Dịp đặc biệt', gia: 1_300_000, laNgayLe: false }];
@@ -96,5 +96,51 @@ describe('YC4.2 bước 6 · lưới lịch giá', () => {
   it('YC4 Quy tắc tên dịp tự đặt và chữ dải', () => {
     expect(chuDai('2026-04-30', '2026-05-01')).toBe('30/04 – 01/05');
     expect(tenDip({ ...DIP_3402[0]!, ten: null })).toBe('Dịp đặc biệt 24/10 – 25/10');
+  });
+});
+
+describe('YC4.6 · đêm cuối tuần của chủ nhà', () => {
+  it('YC4.6-NT1 chọn T6 và T7 thì ô giá ghi "Cuối tuần (T6, T7)" và "Ngày thường (CN–T5)"', () => {
+    expect(tenOGia([5, 6])).toEqual({ thuong: 'Ngày thường (CN–T5)', cuoiTuan: 'Cuối tuần (T6, T7)' });
+  });
+  it('YC4.6-NT2 chọn T7 và CN thì ô giá ghi "Cuối tuần (T7, CN)" và "Ngày thường (T2–T6)"', () => {
+    expect(tenOGia([6, 7])).toEqual({ thuong: 'Ngày thường (T2–T6)', cuoiTuan: 'Cuối tuần (T7, CN)' });
+  });
+  it('YC4.6-NT2 đêm 11/10 (CN) của 1509 có giá 1.300.000đ khi cuối tuần là T7, CN; đêm 09/10 (T6) về 900.000đ', () => {
+    const g = { thuong: 900_000, cuoiTuan: 1_300_000 };
+    expect(giaDem('2026-10-11', g, [], [6, 7])).toBe(1_300_000);
+    expect(giaDem('2026-10-09', g, [], [6, 7])).toBe(900_000);
+  });
+  it('YC4.6-NT4 chỉ còn một đêm cuối tuần thì chip đó không tắt được', () => {
+    expect(doiDemCuoiTuan([6], 6)).toEqual([6]);
+    expect(doiDemCuoiTuan([7], 7)).toEqual([7]);
+  });
+  it('YC4.6 bước 2 chạm chip thì bật, tắt đêm đó; kết quả sắp xếp theo tuần', () => {
+    expect(doiDemCuoiTuan([5, 6], 7)).toEqual([5, 6, 7]);
+    expect(doiDemCuoiTuan([6, 7], 5)).toEqual([5, 6, 7]);
+    expect(doiDemCuoiTuan([5, 6], 5)).toEqual([6]);
+  });
+  it('YC4.6 bước 2 tên chip T2 đến CN', () => {
+    expect([1, 2, 3, 4, 5, 6, 7].map((d) => tenDemIso(d as 1))).toEqual(['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN']);
+  });
+  it('YC4.6 bước 3 mẫu một tuần của tuần chứa 07/10/2026 (T4): T2 05/10 tới CN 11/10, T6 và T7 là 1,3tr, các đêm khác 900k', () => {
+    const mau = mauMotTuan('2026-10-07', { '2026-10-01': { thuong: 900_000, cuoiTuan: 1_300_000 } }, [5, 6]);
+    expect(mau.map((o) => o.dem)).toEqual(['2026-10-05', '2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09', '2026-10-10', '2026-10-11']);
+    expect(mau.map((o) => o.gia)).toEqual([900_000, 900_000, 900_000, 900_000, 1_300_000, 1_300_000, 900_000]);
+    expect(mau.filter((o) => o.laCuoiTuan).map((o) => o.ten)).toEqual(['T6', 'T7']);
+  });
+  it('YC4.6 bước 3 đổi lựa chọn sang T7, CN thì mẫu tính lại ngay: CN thành giá cuối tuần, T6 thành ngày thường', () => {
+    const mau = mauMotTuan('2026-10-07', { '2026-10-01': { thuong: 900_000, cuoiTuan: 1_300_000 } }, [6, 7]);
+    expect(mau.map((o) => o.gia)).toEqual([900_000, 900_000, 900_000, 900_000, 900_000, 1_300_000, 1_300_000]);
+  });
+  it('YC4.6 bước 3 hôm nay là Chủ nhật thì tuần vẫn bắt đầu từ T2 trước đó', () => {
+    const mau = mauMotTuan('2026-10-11', { '2026-10-01': { thuong: 900_000, cuoiTuan: 1_300_000 } }, [5, 6]);
+    expect(mau[0]!.dem).toBe('2026-10-05');
+    expect(mau[6]!.dem).toBe('2026-10-11');
+  });
+  it('YC4.6 bước 3 tuần vắt qua hai tháng thì mỗi đêm lấy giá của tháng của nó; tháng chưa có giá thì null, không phải 0', () => {
+    const mau = mauMotTuan('2026-10-28', { '2026-10-01': { thuong: 900_000, cuoiTuan: 1_300_000 } }, [5, 6]);
+    expect(mau.map((o) => o.dem)).toEqual(['2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30', '2026-10-31', '2026-11-01']);
+    expect(mau.map((o) => o.gia)).toEqual([900_000, 900_000, 900_000, 900_000, 1_300_000, 1_300_000, null]);
   });
 });
