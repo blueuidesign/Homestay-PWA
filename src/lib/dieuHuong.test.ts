@@ -1,0 +1,42 @@
+// Test unit cho bộ chọn màn theo địa chỉ và phiên (YC1.2, YC1 Quy tắc của nhóm, QD8).
+import { describe, expect, it } from 'vitest';
+import { chonMan, laDuongDanLink } from './dieuHuong';
+
+const daDangKy = { ten: 'Chị Hoa', soDienThoai: '0900000001', vaiChon: 'chu_nha' as const };
+
+describe('YC1.2 · chọn màn', () => {
+  it('YC1.2-NT1 chưa đăng nhập mở địa chỉ nào của app thì về A1', () => {
+    for (const d of ['/', '/lich', '/ca-nhan', '/can/1509', '/dang-ky', '/l/', '/x', '/abc?x=1']) {
+      expect(chonMan({ duongDan: d, phien: 'chua', hoSo: null }), d).toBe('A1');
+    }
+  });
+
+  it('YC1.2-NT1 trừ link mời và link xin lịch: xem trước không cần đăng nhập (QD8)', () => {
+    expect(chonMan({ duongDan: '/l/Ab3xYz9k', phien: 'chua', hoSo: null })).toBe('xem-truoc-link');
+    expect(chonMan({ duongDan: '/x/Ab3xYz9k', phien: 'chua', hoSo: null })).toBe('xem-truoc-link');
+    expect(laDuongDanLink('/l/Ab3xYz9k')).toBe(true);
+    expect(laDuongDanLink('/l/')).toBe(false);
+    expect(laDuongDanLink('/lich')).toBe(false);
+  });
+
+  it('YC1.2 đang đọc phiên thì chưa chọn màn', () => {
+    expect(chonMan({ duongDan: '/', phien: 'dang-doc', hoSo: null })).toBe('dang-tai');
+  });
+
+  it('YC1 Quy tắc: đã đăng nhập mà hồ sơ chưa có tên hoặc số thì mọi màn về màn nhập số', () => {
+    for (const d of ['/', '/lich', '/l/Ab3xYz9k']) {
+      expect(chonMan({ duongDan: d, phien: 'co', hoSo: { ten: null, soDienThoai: null, vaiChon: null } }), d).toBe('hoan-tat');
+      expect(chonMan({ duongDan: d, phien: 'co', hoSo: { ...daDangKy, soDienThoai: null } }), d).toBe('hoan-tat');
+    }
+  });
+
+  it('YC1.2 đăng nhập xong: chưa chọn vai thì A3, đã chọn thì tab Lịch, đến từ link thì màn của link', () => {
+    expect(chonMan({ duongDan: '/', phien: 'co', hoSo: { ...daDangKy, vaiChon: null } })).toBe('A3');
+    expect(chonMan({ duongDan: '/', phien: 'co', hoSo: daDangKy })).toBe('lich');
+    expect(chonMan({ duongDan: '/l/Ab3xYz9k', phien: 'co', hoSo: { ...daDangKy, vaiChon: null } })).toBe('xem-truoc-link');
+  });
+
+  it('YC1.2 đã đăng nhập mà chưa đọc được hồ sơ thì đang tải', () => {
+    expect(chonMan({ duongDan: '/', phien: 'co', hoSo: undefined })).toBe('dang-tai');
+  });
+});

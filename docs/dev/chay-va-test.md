@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ---
 # Chạy, test, build và deploy
 
@@ -28,7 +28,7 @@ export PGHOST=localhost PGUSER=postgres PGPASSWORD=<mật khẩu postgres trên 
 ```
 
 ## Cấu trúc thư mục app
-`[r4 · thêm]` src/chung/ (EN4).
+`[r4 · thêm]` src/chung/ (EN4). `[r6 · thêm]` src/man/, src/lib/xacThuc.ts, supabase.ts, dieuHuong.ts, tests/e2e/supabase/ (US2).
 ```
 index.html              trang gốc, gắn manifest và icon
 public/                 file chép nguyên vào bản build
@@ -37,15 +37,21 @@ public/                 file chép nguyên vào bản build
   icons/                icon 192, 512, maskable 512, apple-touch-icon 180
 src/
   main.tsx              điểm vào, đăng ký service worker ở bản build
-  App.tsx               vỏ app; màn thật thêm ở các US
+  App.tsx               vỏ app, chọn màn theo phiên và hồ sơ (src/lib/dieuHuong.ts, không dùng thư viện router)
+  vite-env.d.ts         biến build VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (mẫu ở .env.example)
+  man/                  các màn (US2: A1 tối thiểu, A2, A11, nhập mã, màn nhập số; A3, Lịch bản tạm), test *.test.tsx cạnh file
   styles.css            biến màu, chữ theo canvas
   lib/                  hàm thuần dùng chung, mỗi file một test cạnh nó (*.test.ts)
     ngay.ts             ngày giờ Việt Nam, các đêm của một lần ở (QT5.1, QT2.1)
     tien.ts             tiền số nguyên đồng, viết "1.300.000đ" (QT5.2)
+    supabase.ts         nối Supabase bằng URL và khóa anon (công khai); thiếu biến build thì app chạy như chưa đăng nhập
+    xacThuc.ts          gửi mã, xác nhận mã, đọc hồ sơ, lệnh đăng ký (YC1.2); màn chỉ dùng giao diện này nên test unit thay bằng bản giả
   chung/                thành phần dùng chung cho HV1 đến HV8 (toast, đang tải, mất mạng, nháp, quyền, phiên), mỗi nhóm một file và test cạnh nó
   pwa/                  đăng ký service worker
   test/setup.ts         nạp matcher cho test unit
 tests/e2e/              test Playwright, khung 390×844
+  supabase/             test cần Supabase chạy trên máy và hộp thư giả Mailpit (US2), chỉ chạy khi E2E_SUPABASE=1
+supabase/templates/     mẫu thư mã 6 số cho Supabase chạy trên máy và CI
 vite.config.ts          build và cấu hình Vitest
 playwright.config.ts    cấu hình e2e
 vercel.json             build trên Vercel, trả index.html cho mọi đường dẫn của app
@@ -73,6 +79,17 @@ rollback;
 ```
 Database này là Postgres trần, app chưa nối vào được (app cần API của Supabase). Nối app với database thì dùng Supabase staging (mục Staging, chờ EN3) hoặc Supabase CLI, chưa dựng ở EN2.
 
+### Supabase chạy trên máy (US2) `[r6 · thêm]`
+App cần API của Supabase (đăng nhập, gọi hàm). Chạy cả Supabase trên máy bằng Supabase CLI, cần Docker:
+```sh
+npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,storage-api,postgres-meta,supavisor
+npx -y supabase@2.122.1 status -o env    # API_URL, ANON_KEY (khóa mẫu công khai của CLI), DB_URL, MAILPIT_URL
+npx -y supabase@2.122.1 db reset         # nạp lại migration sau khi thêm file mới
+```
+Sửa `supabase/config.toml` thì `supabase stop` rồi `start` lại. Cấu hình ở đó: mã 6 số, hạn 1 giờ, 60 giây giữa hai lần gửi (YC1.2), giới hạn gửi thư nới rộng để test, thư dùng mẫu `supabase/templates/ma-6-so.html` (chỉ có mã, không có link).
+
+Bật app nối vào Supabase trên máy: chép `.env.example` thành `.env.local`, điền `VITE_SUPABASE_ANON_KEY` bằng ANON_KEY ở trên, rồi `npm run dev`. Đăng nhập không cần email thật: dùng email giả bất kỳ (ví dụ `chu1@vidu.test`), mở hộp thư giả Mailpit ở http://127.0.0.1:54324 để lấy mã.
+
 ## Test
 Unit (Vitest, không cần database; file `src/**/*.test.ts(x)`):
 ```sh
@@ -89,6 +106,13 @@ E2E_BASE_URL=https://<bản Preview> npm run e2e   # chạy trên bản Preview 
 Máy đã có sẵn Chromium khác bản (ví dụ phiên cloud): đặt `PW_CHROMIUM_PATH=<đường dẫn chromium>`.
 
 CI (`.github/workflows/kiem.yml`, job `app`) chạy typecheck, unit, build, e2e cho mọi PR.
+
+`[r6 · thêm]` E2E trên Supabase (US2, file `tests/e2e/supabase/*.spec.ts`): cần Supabase đang chạy trên máy (mục trên) và `psql`. Build app với URL, khóa anon local rồi chạy:
+```sh
+export VITE_SUPABASE_URL=http://127.0.0.1:54321 VITE_SUPABASE_ANON_KEY=<ANON_KEY của supabase status>
+E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e/supabase
+```
+`CI=1` để Playwright tự build lại, không dùng bản preview cũ đang chạy. Test lấy mã từ Mailpit (`E2E_MAILPIT_URL`, mặc định http://127.0.0.1:54324), đọc và tạo sẵn tài khoản bằng `psql` (`E2E_DB_URL`, mặc định database của Supabase trên máy). CI chạy ở job `e2e-supabase`.
 
 ### Database (EN2)
 | Lệnh | Làm gì |
@@ -141,8 +165,8 @@ Trả `{}` là Supabase đã nhận và gửi thư. Trả 429 `over_email_send_r
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
-| r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo bản nháp, chờ EN dựng nền điền | Cả file |
 | r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
 | r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
 | r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
 | r5 | 2026-11-19 | Claude | #15 | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |
+| r6 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Thêm Supabase chạy trên máy, biến build, e2e trên Supabase, thư mục src/man/ | Cấu trúc thư mục app, Chạy app với database thử trên máy, Test |
