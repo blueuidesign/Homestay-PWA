@@ -57,7 +57,7 @@ test('YC5.7-NT1 YC5.7-NT2 xóa khách lẻ từ chi tiết ngày 13: hỏi lại
   await page.getByRole('group', { name: 'Khách / Sale' }).getByRole('button', { name: 'Khách lẻ' }).click();
   await page.getByLabel('Tiền phòng (đ)').fill('1800000');
   await page.getByRole('button', { name: 'Thêm đặt phòng' }).click();
-  await expect(page.getByText(/^Đã thêm đặt phòng/)).toBeVisible();
+  await expect(page.getByRole('status').filter({ hasText: 'Đã thêm đặt phòng Khách lẻ · 1509' })).toBeVisible();
   expect(sql(`select count(*) from public.booking where can_id = '${c1509}' and ngay_nhan = '${ng(13)}' and ngay_tra = '${ng(15)}'`)).toBe('1');
 });
 
