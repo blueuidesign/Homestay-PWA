@@ -2,10 +2,11 @@
 // Đọc thẳng bảng booking qua RLS booking_doc (chỉ căn của người gọi), tên khách chính mình nhập qua booking_rieng (QD11),
 // tên sale qua v_nguoi_ket_noi. US27 (YC5.2): giá chủ nhà từng đêm (fn_gia_chu_cac_dem), người đặt (ket_noi, v_nguoi_ket_noi,
 // fn_ten_khach_da_dung), giờ nhận trả trong hồ sơ của mình, lệnh ghi fn_tao_booking.
+// US30 (YC5.5): chi tiết đặt phòng fn_chi_tiet_dat_phong, lệnh fn_da_thu_du, fn_hoan_tac_thu_du (PQ7.CHU, PQ8.CHU, QD11, QD13).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
-import type { GiaDem, SaleKetNoi, TrangThaiTienForm } from './datPhong';
-import type { DatPhongLich, NguoiDat } from './lich';
+import type { ChiTietDatPhong, GiaDem, SaleKetNoi, TrangThaiTienForm } from './datPhong';
+import type { DatPhongLich, NguoiDat, TrangThaiTien } from './lich';
 
 /** YC5.3 bước 9: dữ liệu form gửi lệnh ghi. Tiền là số nguyên đồng. */
 export type DatPhongMoi = {
@@ -34,6 +35,31 @@ export interface DichVuDatPhong {
   layGioMacDinh?(): Promise<{ gioNhan: string; gioTra: string }>;
   /** YC5.3 bước 9: lệnh ghi fn_tao_booking; trả id đặt phòng. Database từ chối thì LoiNguoiDung (QT5.5). */
   taoDatPhong?(d: DatPhongMoi): Promise<string>;
+  /** YC5.5 bước 16: chi tiết một đặt phòng của căn mình; null khi không còn (HV5). */
+  layChiTiet?(id: string): Promise<ChiTietDatPhong | null>;
+  /** YC5.5 bước 20: lệnh ghi đã thu đủ; trả trạng thái tiền mới. */
+  daThuDu?(id: string): Promise<TrangThaiTien>;
+  /** YC5.5 bước 21: lệnh hoàn tác thu đủ; trả trạng thái tiền mới. */
+  hoanTacThuDu?(id: string): Promise<TrangThaiTien>;
+}
+
+type DongChiTiet = {
+  id: string; can_id: string; ma_can: string; ngay_nhan: string; ngay_tra: string; gio_nhan: string | null; gio_tra: string | null;
+  tien_phong: number; tien_coc: number | null; trang_thai_tien: TrangThaiTien | null; co_hoan_tac: boolean; trang_thai: string;
+  ghi_chu: string | null; sale_id: string | null; ten_sale: string | null; sdt_sale: string | null; sale_da_xoa: boolean;
+  ten_khach: string | null; sdt_khach: string | null; so_khach: number | null;
+};
+
+/** YC5.5: đổi một dòng của fn_chi_tiet_dat_phong ra dữ liệu màn. Tiền là số nguyên đồng. */
+export function docChiTiet(d: DongChiTiet): ChiTietDatPhong {
+  return {
+    id: d.id, canId: d.can_id, maCan: d.ma_can, ngayNhan: d.ngay_nhan, ngayTra: d.ngay_tra,
+    gioNhan: d.gio_nhan ? d.gio_nhan.slice(0, 5) : null, gioTra: d.gio_tra ? d.gio_tra.slice(0, 5) : null,
+    tienPhong: Number(d.tien_phong), tienCoc: d.tien_coc === null ? null : Number(d.tien_coc),
+    trangThaiTien: d.trang_thai_tien, coHoanTac: !!d.co_hoan_tac, daHuy: d.trang_thai === 'da_huy',
+    ghiChu: d.ghi_chu, saleId: d.sale_id, tenSale: d.ten_sale, sdtSale: d.sdt_sale, saleDaXoa: !!d.sale_da_xoa,
+    tenKhach: d.ten_khach, sdtKhach: d.sdt_khach, soKhach: d.so_khach,
+  };
 }
 
 type Dong = { id: string; can_id: string; ngay_nhan: string; ngay_tra: string; sale_id: string | null };
@@ -119,6 +145,25 @@ export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
       });
       if (error) throw loiDatPhong(error);
       return String(data);
+    },
+
+    async layChiTiet(id) {
+      const { data, error } = await sb.rpc('fn_chi_tiet_dat_phong', { p_booking_id: id });
+      if (error) throw loiDatPhong(error);
+      const dong = ((data ?? []) as DongChiTiet[])[0];
+      return dong ? docChiTiet(dong) : null;
+    },
+
+    async daThuDu(id) {
+      const { data, error } = await sb.rpc('fn_da_thu_du', { p_booking_id: id });
+      if (error) throw loiDatPhong(error);
+      return data as TrangThaiTien;
+    },
+
+    async hoanTacThuDu(id) {
+      const { data, error } = await sb.rpc('fn_hoan_tac_thu_du', { p_booking_id: id });
+      if (error) throw loiDatPhong(error);
+      return data as TrangThaiTien;
     },
   };
 }

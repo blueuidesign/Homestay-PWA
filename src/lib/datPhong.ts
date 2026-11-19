@@ -2,8 +2,8 @@
 // Kiểm ở đây chỉ để báo sớm; chặn thật ở database (QD6, QT1.1, fn_tao_booking). Nháp form theo HV3.
 import { docNhap, luuNhap, xoaNhap } from '../chung/nhap';
 import { ngayThang } from './can';
-import { chuNguoiDat, khoangNgay, type DatPhongLich } from './lich';
-import { congNgay, laNgay, type Ngay } from './ngay';
+import { chuNguoiDat, khoangNgay, type DatPhongLich, type TrangThaiTien } from './lich';
+import { congNgay, laNgay, thuTrongTuan, type Ngay } from './ngay';
 import { vietTien } from './tien';
 
 /** YC5.3 Luật kiểm: một đặt phòng dài tối đa 365 đêm. */
@@ -172,4 +172,60 @@ export function tomTatChiTiet(soKhach: number, gioNhan: string, gioTra: string, 
 /** YC5.3 bước 10: tên người đặt trong toast "Đã thêm đặt phòng <người đặt> · <căn>". */
 export function tenNguoiDatToast(v: { sale?: string | null; tenKhach?: string | null }): string {
   return v.sale?.trim() || v.tenKhach?.trim() || 'Khách lẻ';
+}
+
+// ===== YC5.5 · Chi tiết đặt phòng và thu tiền =====
+
+/**
+ * YC5.5 bước 16, 17, 17b, 19, 22: chi tiết một đặt phòng mà chủ nhà đọc qua fn_chi_tiet_dat_phong.
+ * Khách (tenKhach, sdtKhach, soKhach) là phần chủ nhà tự nhập; khách do sale nhập không bao giờ có ở đây (QD11).
+ * sdtSale chỉ có khi sale đang kết nối và chưa xóa tài khoản (QD13).
+ */
+export type ChiTietDatPhong = {
+  id: string; canId: string; maCan: string; ngayNhan: Ngay; ngayTra: Ngay; gioNhan: string | null; gioTra: string | null;
+  tienPhong: number; tienCoc: number | null; trangThaiTien: TrangThaiTien | null; coHoanTac: boolean; daHuy: boolean;
+  ghiChu: string | null; saleId: string | null; tenSale: string | null; sdtSale: string | null; saleDaXoa: boolean;
+  tenKhach: string | null; sdtKhach: string | null; soKhach: number | null;
+};
+
+/** QT6.1: nhãn trạng thái tiền trên CN3-02. */
+export function nhanTrangThaiTien(tt: TrangThaiTien | null): string | null {
+  if (tt === 'chua_coc') return 'Chưa cọc';
+  if (tt === 'da_coc') return 'Đã cọc · còn thu';
+  if (tt === 'da_thanh_toan') return 'Đã thanh toán';
+  return null;
+}
+
+/**
+ * YC5 Quy tắc "Tiền còn lại", QT6.1, YC5.5-NT1: còn lại = tiền phòng − tiền cọc, tính lúc hiện, không lưu.
+ * Đã thanh toán thì không còn thu gì: 0đ (Claude tự quyết, QD25).
+ */
+export function tienConLai(tienPhong: number, tienCoc: number | null, tt: TrangThaiTien | null): number {
+  if (tt === 'da_thanh_toan') return 0;
+  return Math.max(0, tienPhong - (tienCoc ?? 0));
+}
+
+const TEN_THU = ['chủ nhật', 'thứ 2', 'thứ 3', 'thứ 4', 'thứ 5', 'thứ 6', 'thứ 7'] as const;
+
+/** YC5.5 bước 16, canvas CN3-02: "Nhận 14:00 thứ 7 · trả 12:00 thứ 2". Không có giờ thì 14:00, 12:00 (YC5 Quy tắc "Giờ nhận trả mặc định"). */
+export function dongGioNhanTra(nhan: Ngay, tra: Ngay, gioNhan: string | null, gioTra: string | null): string {
+  const gio = (g: string | null, md: string) => (g ?? md).slice(0, 5);
+  return `Nhận ${gio(gioNhan, '14:00')} ${TEN_THU[thuTrongTuan(nhan)]} · trả ${gio(gioTra, '12:00')} ${TEN_THU[thuTrongTuan(tra)]}`;
+}
+
+/** YC5.5 bước 17, canvas CN3-02: "Khách do sale Hùng bán. …" (tên bỏ chữ "Sale" đầu, như canvas). */
+export function cauKhachCuaSale(tenSale: string): string {
+  const goi = tenSale.replace(/^Sale\s+/i, '');
+  return `Khách do sale ${goi} bán. Tên và số điện thoại khách chỉ sale giữ; cần gì về khách thì gọi sale.`;
+}
+
+/** YC5.5 bước 22, CN3-02-01. */
+export function cauSaleDaXoa(tenSale: string): string {
+  return `${tenSale} đã xóa tài khoản. Đặt phòng vẫn giữ trong lịch của bạn; app không còn số điện thoại của sale này.`;
+}
+
+/** YC5.5 bước 16: tiêu đề "Đặt phòng · Sale Hùng", "Đặt phòng · Bà Lan" hay "Đặt phòng · Khách lẻ". */
+export function tieuDeChiTiet(d: Pick<ChiTietDatPhong, 'saleId' | 'tenSale' | 'tenKhach'>): string {
+  const ten = d.saleId ? (d.tenSale ?? 'Sale') : (d.tenKhach?.trim() || 'Khách lẻ');
+  return `Đặt phòng · ${ten}`;
 }

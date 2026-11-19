@@ -3,18 +3,20 @@
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin (Sửa căn CN5-02), Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
-// thì về tab Lịch với toast.
+// thì về tab Lịch với toast. Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { tenCan, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
-import { chonManChu, DUONG_DAN_TAB, duongDanDatPhongMoi } from '../lib/dieuHuong';
+import { mauCan } from '../lib/lich';
+import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi } from '../lib/dieuHuong';
 import type { DichVuCan } from '../lib/dichVuCan';
 import type { ThangLich } from '../lib/dichVuLich';
 import { homNay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
+import { CN302ChiTietDatPhong } from './CN302ChiTietDatPhong';
 import { CN4ThemDatPhong } from './CN4ThemDatPhong';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
@@ -68,7 +70,7 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
   const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
-  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia';
+  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong'; // CN3-02 cần thứ tự căn cho màu
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
   useEffect(() => { if (canDanhSach) void tai(); }, [canDanhSach, man.tab, tai]);
@@ -125,6 +127,17 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     );
   }
 
+  if (man.tab === 'dat-phong') {
+    // YC5.5, YC2.2 bước 9: CN3-02; màu căn theo thứ tự tab Lịch. Quay lại hay đặt phòng không còn (HV5) thì về màn trước.
+    // Thu đủ, hoàn tác đổi trạng thái tiền: bỏ tháng đã nhớ để CN3 đọc lại.
+    const theoLich = ds ? [...ds].reverse() : [];
+    const veManTruoc = () => { boNhoLich.current.clear(); window.history.back(); };
+    return (
+      <CN302ChiTietDatPhong key={man.id} id={man.id} dv={props.dichVuCan?.datPhong} mau={(canId) => { const i = theoLich.findIndex((c) => c.id === canId); return i < 0 ? undefined : mauCan(i); }}
+                            onQuayLai={veManTruoc} onKhongCon={veManTruoc} />
+    );
+  }
+
   if (man.tab === 'dem-cuoi-tuan') {
     // YC4.6 bước 1, 4: P6 mở từ tab Cá nhân; lưu xong về Cá nhân với toast (YC4-H4).
     return <P6DemCuoiTuan dv={props.dichVuCan?.gia} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
@@ -156,10 +169,10 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
                     onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
-    // YC5.1: "Đặt phòng" mở CN4. Chi tiết đặt phòng CN3-02 (YC5) làm ở US sau: báo "Sẽ có ở bản sau".
+    // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC5.5: chạm dòng có khách mở CN3-02.
     than = <CN1LichThang ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
                          boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
-                         onMoDatPhong={() => hienToast('Sẽ có ở bản sau')} />;
+                         onMoDatPhong={(id) => props.den(duongDanDatPhong(id))} />;
   }
 
   return (

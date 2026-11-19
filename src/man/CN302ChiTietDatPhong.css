@@ -1,0 +1,33 @@
+/* US30 · CN3-02, CN3-02-01 Chi tiết đặt phòng (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px (màn đọc), không dưới 12 px. */
+.cn302 { background: var(--surface-page); }
+.cn302-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 8px; display: flex; align-items: center; gap: 8px; }
+.cn302-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn302-dau .hh-iconbtn { min-width: 44px; min-height: 44px; }
+.cn302-than { flex: 1 1 auto; padding: 12px 12px calc(110px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.cn302-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.cn302-the--dau { gap: 6px; }
+.cn302-dong-can { display: flex; align-items: center; gap: 10px; }
+.cn302-cham { width: 10px; height: 10px; border-radius: 9999px; background: var(--mau-can, var(--action)); flex: 0 0 auto; }
+.cn302-can { flex: 1 1 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn302-nhan { font-size: 14px; line-height: 20px; font-weight: 700; padding: 2px 10px; border-radius: 9999px; }
+.cn302-nhan--da_coc { background: var(--warning-tint); color: var(--warning-ink); }
+.cn302-nhan--chua_coc { background: var(--danger-tint, #fef2f2); color: var(--danger-text); }
+.cn302-nhan--da_thanh_toan { background: var(--action-tint); color: var(--action-ink); }
+.cn302-ngay { font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.cn302-gio { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn302-nguoi { display: flex; align-items: center; gap: 12px; }
+.cn302-tron { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.cn302-nguoi-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn302-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+/* YC5.5 bước 22: chữ đỏ nhỏ "đã xóa tài khoản". */
+.cn302-da-xoa { display: inline-block; margin-left: 6px; font-size: 12px; line-height: 18px; font-weight: 600; color: var(--danger-text); background: var(--danger-tint, #fef2f2); border: 1px solid var(--danger-border, #fecaca); padding: 0 8px; border-radius: 9999px; }
+.cn302-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn302-goi { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; flex: 0 0 auto; }
+.cn302-cau { margin: 0; padding-top: 12px; border-top: 1px solid var(--border-subtle); font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn302-muc { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.cn302-hang { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.cn302-hang b { color: var(--ink); text-align: right; }
+.cn302-hang--con { padding-top: 8px; border-top: 1px solid var(--border-subtle); }
+.cn302-con-lai { font-size: 20px; line-height: 28px; color: var(--danger) !important; }
+.cn302-ghi-chu { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-body); overflow-wrap: anywhere; }
+.cn302-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }

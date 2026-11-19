@@ -31,7 +31,7 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
 export type ManChu =
   | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string } | { tab: 'can-gia'; id: string }
   | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' }
-  | { tab: 'dat-phong-moi'; canId?: string; ngay?: string };
+  | { tab: 'dat-phong-moi'; canId?: string; ngay?: string } | { tab: 'dat-phong'; id: string };
 
 export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke': '/thong-ke', 'ca-nhan': '/ca-nhan' } as const;
 
@@ -39,6 +39,11 @@ export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke'
 /** YC5.1 bước 1a, 1b: địa chỉ mở CN4, kèm căn và ngày nhận khi bấm "Đặt phòng" ở dòng căn trống của CN3. */
 export function duongDanDatPhongMoi(chon?: { canId: string; ngay: string }): string {
   return chon ? `/dat-phong/moi/${chon.canId}/${chon.ngay}` : '/dat-phong/moi';
+}
+
+/** YC5.5, YC2.2 bước 9: địa chỉ chi tiết đặt phòng CN3-02. */
+export function duongDanDatPhong(id: string): string {
+  return `/dat-phong/${id}`;
 }
 
 export function chonManChu(duongDan: string): ManChu {
@@ -57,5 +62,8 @@ export function chonManChu(duongDan: string): ManChu {
   if (d === '/dat-phong/moi') return { tab: 'dat-phong-moi' };
   const dp = /^\/dat-phong\/moi\/([A-Za-z0-9-]+)\/(\d{4}-\d{2}-\d{2})$/.exec(d);
   if (dp && laNgay(dp[2]!)) return { tab: 'dat-phong-moi', canId: dp[1]!, ngay: dp[2]! };
+  // YC5.5: /dat-phong/<mã đặt phòng> mở CN3-02.
+  const ctdp = /^\/dat-phong\/([A-Za-z0-9-]+)$/.exec(d);
+  if (ctdp && ctdp[1] !== 'moi') return { tab: 'dat-phong', id: ctdp[1]! };
   return { tab: 'lich' };
 }
