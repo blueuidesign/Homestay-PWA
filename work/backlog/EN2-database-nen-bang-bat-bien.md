@@ -2,7 +2,7 @@
 id: EN2
 tieu_de: "Database nền: bảng, bất biến, quyền đọc ghi, dữ liệu mẫu và test database"
 loai: EN
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: []
 truoc: []
 lien_quan: []
@@ -43,14 +43,19 @@ Code phần đặc tả chưa quyết (câu hỏi đang mở). Ghi bí mật, em
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [ ] EN2-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho từng bất biến ở thiet-ke-db.md mục 3, kể cả phép thử làm hỏng (scripts/thu-lam-hong.sh). Task sau không sửa file test này (CL14.5)
-- [ ] EN2-TA2 Code · Claude Code (opus, CL14.6a): migration bảng, ràng buộc chặn trùng (QD6), RLS, hàm my_shared_can_ids() và khung hàm fn_* tự kiểm người gọi; script dựng database và chạy test (scripts/test-db.sh), sinh bảng cột (scripts/bang-cot.sh)
-- [ ] EN2-TA3 Code · Claude Code (sonnet, CL14.6a): seed dữ liệu mẫu DLM cho máy dev và staging (tên giả), job database trong CI, điền docs/dev/chay-va-test.md mục "Chạy app với database thử trên máy"
+- [x] EN2-TA1 Code · Claude Code (opus, agent riêng, CL14.6a): test database bất biến 1–12 và phép thử làm hỏng. PR EN2
+- [x] EN2-TA2 Code · Claude Code (opus, CL14.6a): migration, RLS, hàm dùng chung, test-db.sh, bang-cot.sh. PR EN2
+- [x] EN2-TA3 Code · Claude Code (opus, CL14.6a): seed DLM cho máy dev, job database trong CI, điền docs/dev/chay-va-test.md. PR EN2
 - [ ] EN2-TA4 Môi trường · Đức: chạy lại database và dữ liệu mẫu trên máy mình theo docs/dev/chay-va-test.md, báo chỗ hướng dẫn thiếu
 
 ## Kế hoạch
+Hợp đồng tên bảng, cột, hàm: work/goi/EN2.md. Một agent riêng viết test từ hợp đồng và bất biến, không đọc migration; phiên chính viết migration song song, không sửa file test. Ngoài EN2 (để US sau): hàm fn_* nghiệp vụ, trigger thông báo, pg_cron, Storage, fn_xem_link_moi.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item (QD21)
+- 2026-11-18 · Claude (Tùng giao) · TA1–TA3 trên nhánh EN2-database-nen, PR EN2 · test lệch hợp đồng 3 chỗ, sửa migration 1 vòng · khoảng 1 giờ
 
 ## Bằng chứng
+- `scripts/test-db.sh` lần đầu (sau khi có migration): 259 qua, 3 hỏng, 1 file lỗi. Sửa migration 1 vòng (gio_nhan cho null, cấp can_dang_nhap cho authenticated, không xin hủy lại sau từ chối, bỏ giới hạn độ dài mã link). Cuối: 285 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh`: 54 đạt, 0 không đạt.
+- `python3 scripts/kiem.py --diff 55d89dd`: không có lỗi.
