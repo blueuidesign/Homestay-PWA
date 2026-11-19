@@ -2,7 +2,7 @@
 id: US42
 tieu_de: "Toast báo kết nối cho sale"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC6.8@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -60,6 +60,6 @@ Kịch bản test tay: tests/kb/US42-toast-bao-ket-noi-cho.md.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.8@1 (QD21)
-- 2026-11-19 · Claude (QD25) · tự chốt YC6-H19, H20 (YC6 r11, thêm NT3, NT4); viết kịch bản test tay
+- 2026-11-19 · Claude (QD25) · tự chốt YC6-H19, H20 (YC6 r11, thêm NT3, NT4); viết kịch bản test tay; soạn gói việc; giao agent code
 
 ## Bằng chứng
