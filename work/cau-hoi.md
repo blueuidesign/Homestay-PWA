@@ -110,9 +110,10 @@ Gắn ở: YC3.5. Tới khi có câu trả lời: không hỏi (ảnh chỉ th�
 Tòa nhà người dùng tự thêm thì khu vực của tòa ghi gì?
 Gắn ở: YC3.4. Tới khi có câu trả lời: tòa mới không có khu vực.
 
-### YC3-H6 · mo
+### YC3-H6 · da-tra-loi
 Tạo căn có dùng mã lần gửi để chống gửi trùng không (hiện chỉ dựa vào luật mã căn không trùng)?
 Gắn ở: YC3.2.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. QT5.6 đã ghi thêm căn dùng mã lần gửi, bảng can đã có cột client_id không trùng theo người giữ. Gửi lại cùng mã thì trả căn đã tạo. Ghi vào YC3.2 r2, tiêu chí YC3.2-NT9.
 
 ### YC3-H7 · mo
 Chọn được nhiều loại view cho một căn không?

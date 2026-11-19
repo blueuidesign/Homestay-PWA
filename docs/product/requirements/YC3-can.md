@@ -3,7 +3,7 @@ id: YC3
 tieu_de: Căn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC3 · Căn
@@ -117,7 +117,7 @@ Bản 1 · rủi ro: cao · Màn: CN5-A1, CN5-A3, CN5-A4, CN5-A4b
 | 20 | (database từ chối) | CN5-A3: ở lại form, giữ mọi ô, dòng đầu "Chưa thêm được căn. Sửa <số> chỗ bên dưới.", câu lỗi ngay dưới ô sai (ví dụ "Đã có căn 1509. Kiểm tra lại mã căn.") | Trả lỗi P0001 kèm câu |
 | 21 | (mất mạng hay quá 15 giây không có trả lời) | Ở lại form, giữ dữ liệu, toast "Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại." | Xem dòng dưới bảng |
 
-Bấm lại sau mất mạng có thể tạo căn hai lần nếu lần trước thực ra đã lưu. Lần thứ hai bị chặn bởi luật mã căn không trùng và báo "Đã có căn 1509". Chống gửi trùng bằng mã lần gửi cho tạo căn: [MỞ: YC3-H6].
+`[r2 · sửa]` Chống gửi trùng theo QT5.6: mỗi lần mở form "Thêm căn" app sinh một mã lần gửi và giữ nguyên mã đó khi bấm lại. Mạng rớt mà lần trước thực ra đã lưu, bấm lại với cùng mã thì database trả căn đã tạo, không tạo căn thứ hai, và app đi tiếp như lưu được (bước 19). Cùng mã lần gửi mà khác mã căn vẫn trả căn đã tạo (Claude tự quyết, QD25, trả lời YC3-H6).
 
 Còn ảnh đang tải hay tải lỗi thì không bấm được "Thêm căn" (mục Ảnh căn).
 
@@ -142,6 +142,7 @@ Tiêu chí:
 - **YC3.2-NT6** Khi thêm căn 2105 xong, thì thấy toast "Đã thêm phòng 2105" và thẻ 2105 đứng đầu tab Căn với nhãn "Mới thêm". · E2E
 - **YC3.2-NT7** Khi Anh Tuấn đọc bảng căn, thì không thấy căn nào của Chị Hoa; khi người chưa đăng nhập gửi lệnh tạo căn, thì bị từ chối. · database
 - **YC3.2-NT8** Khi lệnh tạo căn có số phòng ngủ 5, số giường 0, loại view "vinh" hay mô tả dài 2.001 ký tự, thì database từ chối với câu tiếng Việt nêu đúng ô sai (mục Luật kiểm), không phải lỗi chung. · database
+- `[r2 · thêm]` **YC3.2-NT9** Khi lệnh tạo căn 2105 được gửi hai lần với cùng mã lần gửi, thì database trả cùng một căn và chỉ có một căn 2105. · database
 
 ## YC3.3 · Ảnh căn
 
@@ -264,4 +265,5 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H6 theo QT5.6: tạo căn dùng mã lần gửi; thêm YC3.2-NT9 (Claude tự quyết, QD25) | YC3.2 |
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US1, US25, US11, US27 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
