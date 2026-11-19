@@ -31,3 +31,12 @@
 .cn302-con-lai { font-size: 20px; line-height: 28px; color: var(--danger) !important; }
 .cn302-ghi-chu { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-body); overflow-wrap: anywhere; }
 .cn302-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+/* US32 · YC5.7: nút Xóa đặt phòng (khách lẻ), Xin hủy (có sale) cuối màn; hộp hỏi lại "Xóa phải bấm hai lần". Vùng bấm 44 px. */
+.cn302-nut-phu { align-self: center; min-height: 44px; padding: 0 16px; font-size: 14px; }
+.cn302-nut-phu--xoa { color: var(--danger-text); }
+.cn302-man-toi { position: fixed; inset: 0; z-index: 40; background: rgba(15, 23, 42, 0.45); }
+.cn302-hoi { position: fixed; left: 0; right: 0; bottom: 0; z-index: 41; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(20px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 20px; }
+.cn302-hoi-cau { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+.cn302-hoi-nut { display: flex; gap: 12px; }
+.cn302-hoi-nut > * { flex: 1 1 0; min-height: 44px; }
+.cn302-nut-xoa { background: var(--danger); border-color: var(--danger); }

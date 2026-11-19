@@ -57,8 +57,16 @@ Kịch bản test tay: tests/kb/US32-xoa-dat-phong-khach-le.md.
 - [ ] US32-TA4 Test tay · Đức: chạy tests/kb/US32-xoa-dat-phong-khach-le.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/47_us32_xoa_dat_phong.sql (NT2, NT4, NT5, vi phạm PQ7.SALE, PQ7.CHU, PQ7.LINK, nhật ký, giờ lịch đổi, không báo ai).
+- TA2: migration 20261119260000: fn_xoa_booking (chỉ người giữ căn, chỉ sale_id null và nguồn chu_ghi), trigger sau khi xóa cập nhật can.lich_doi_luc; nhật ký qua trigger booking_nhat_ky có sẵn; 6 phép thử làm hỏng.
+- TA3: CN3-02 nút "Xóa đặt phòng" (khách lẻ) với hộp hỏi lại, "Xin hủy" (có sale, toast "Sẽ có ở bản sau" tới YC5.8); ManChu về đúng màn đã mở như US31; dichVuDatPhong.xoaDatPhong; unit, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.7@1 (QD21)
+- 2026-11-19 · Claude · TA1, TA2, TA3 trên nhánh US32-xoa-dat-phong; e2e chưa chạy vì Supabase trên máy thiếu kong · 1 giờ
 
 ## Bằng chứng
+- `scripts/test-db.sh YC5.7`: lần đầu đỏ 19/30 (chưa có hàm); sửa 1 vòng (một test TA1 tính cả dòng xóa 43_us28 để lại, thu hẹp về đặt phòng của file); cuối: cả bộ 1023 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh YC5.7`: lần đầu 5/6 (sửa nhãn một dòng), cuối 6/6 đạt.
+- `npx vitest run`: 415 qua (unit YC5.7 viết cùng code, xanh lần đầu). `npm run typecheck`, `npm run build` qua. `kiem.py --diff origin/main`: không lỗi.
+- e2e tests/e2e/supabase/xoa-dat-phong.spec.ts: chưa chạy được, Supabase trên máy thiếu kong (mount từ worktree hs-us20 đã xóa).
