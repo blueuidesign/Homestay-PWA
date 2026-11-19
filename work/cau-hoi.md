@@ -88,9 +88,10 @@ Gắn ở: YC2.5.
 Ô "Có khách hôm nay", "Trống tối T7" ở CN2 tính cho hôm nay hay cho tuần đang xem?
 Gắn ở: YC2.5. Tới khi có câu trả lời: "Có khách hôm nay" tính theo hôm nay, "Trống tối T7" theo thứ Bảy của tuần đang xem, "Chưa cọc" theo các đặt phòng có đêm trong tuần đang xem.
 
-### YC2-H6 · mo
+### YC2-H6 · da-tra-loi
 Chạm một ngày đã qua ở lịch tháng thì mở gì?
 Gắn ở: YC2.2. Tới khi có câu trả lời: mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có (ghi bù được, YC5).
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có để chủ nhà ghi bù khách đã ở (doanh thu, thống kê mới đủ). Ghi vào YC2 r2.
 
 ## YC3
 

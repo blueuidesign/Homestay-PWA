@@ -3,7 +3,7 @@ id: YC2
 tieu_de: Lịch chủ nhà
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ban: 1
 ---
 # YC2 · Lịch chủ nhà
@@ -96,7 +96,7 @@ Bản 1 · rủi ro: tb · Màn: CN3
 | 9 | Chạm dòng căn có khách | Mở chi tiết đặt phòng CN3-02 (YC5) | Không |
 | 10 | Căn trống đêm đó | "Phòng 3402 · Trống ✓" và nút "Đặt phòng" (bấm: YC5) | Không |
 
-Chạm một ngày đã qua thì mở gì: [MỞ: YC2-H6]. Tới khi có câu trả lời, mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có (ghi bù được, YC5).
+`[r2 · sửa]` Chạm một ngày đã qua thì mở chi tiết ngày như ngày khác, nút "Đặt phòng" vẫn có để ghi bù (YC5) (Claude tự chốt, QD25, trả lời YC2-H6).
 
 Tiêu chí:
 - **YC2.2-NT1** Khi chủ nhà chạm ô 10/10, thì phần chi tiết mở ngay dưới lưới với tiêu đề "Ngày 10/10/2026". · E2E
@@ -182,3 +182,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US2, US9 đã gộp (QD20) và tách đặc tả khỏi việc (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | US10-chi-tiet-ngay | Ngày đã qua mở chi tiết như ngày khác, trả lời YC2-H6 (Claude tự chốt, QD25) | YC2.2 |
