@@ -56,7 +56,7 @@ Kịch bản test tay: tests/kb/US38-sale-xin-chu-nha-cho.md.
 - [ ] US38-TA3 Test tay · Đức: chạy tests/kb/US38-sale-xin-chu-nha-cho.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
-- TA1: test `tests/db/54_us38_xin_lich.sql` trước, rồi migration `20261119330000_us38_xin_lich.sql`: `fn_lay_link_xin_lich()` (sale, lấy hay tạo, mã 32 chữ cái không chữ số), `fn_gui_link_xin_lich()` (tăng số lần gửi, ghi lần gửi cuối), `fn_xin_lich_cua_toi()` (security invoker, đọc qua RLS: mã, số lần gửi, lần gửi cuối, số chủ đã đồng ý, có nguồn chưa). Thêm dòng thử làm hỏng ở scripts/thu-lam-hong.txt.
+- TA1: test `tests/db/54_us38_xin_lich.sql` trước, rồi migration `20261119330000_us38_xin_lich.sql`: `fn_lay_link_xin_lich()` (sale, lấy hay tạo, mã 32 chữ cái không chữ số), `fn_gui_link_xin_lich()` (tăng số lần gửi, ghi lần gửi cuối), `xin_lich_cua_toi()` (security invoker, đọc qua RLS: mã, số lần gửi, lần gửi cuối, số chủ đã đồng ý, có nguồn chưa). Thêm dòng thử làm hỏng ở scripts/thu-lam-hong.txt.
 - TA2: `src/lib/dichVuXinLich.ts`, màn A5, A6, A7 (A7-00, A7-01) trong `src/man/`, nối ở ManTam (tab Lịch của sale chưa có nguồn), `dichVuCan.ts`, e2e `xin-lich.spec.ts`. "Thêm căn thủ công" chờ US56: toast tạm.
 
 ## Nhật ký
