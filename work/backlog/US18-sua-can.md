@@ -2,7 +2,7 @@
 id: US18
 tieu_de: "Sửa căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC3.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [41]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -69,6 +69,7 @@ Kịch bản test tay: tests/kb/US18-sua-can.md.
 - 2026-11-18 · Claude · tạo item từ YC3.5@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC3-H4 (QD25, YC3 r4); viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · làm TA1 đến TA3 trên nhánh US18-sua-can, chưa mở PR · tự quyết: fn_sua_can nhận p_sua jsonb để phân biệt "không gửi" với "bỏ giá trị"; lỗi quyền, căn đã ẩn trả 42501 và màn hiện câu HV5; tiêu đề lúc đang đọc căn giữ "Phòng 1509" như trước (test cũ AppChu YC3.1-NT2); chuyển tab Giá khi đã sửa cũng hỏi "Bỏ thay đổi chưa lưu?"; file ảnh bị bỏ khỏi căn chưa xóa khỏi kho (EN10)
+- 2026-11-19 · Claude · gộp main (US13) vào nhánh, chạy lại db 1132, unit 477, e2e 42 đạt; gộp PR #41 theo QD25 (CI xanh), chuyển chờ test
 
 ## Bằng chứng
 - TA1 `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh YC3.5`: trước migration 52 hỏng, 18 qua (tests/db/50_us18_sua_can.sql, 70 test).
