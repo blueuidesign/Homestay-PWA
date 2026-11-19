@@ -2,7 +2,7 @@
 id: US2
 tieu_de: "Đăng ký và đăng nhập bằng mã email"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.2@3]
 truoc: [EN1, EN2, EN4]
 lien_quan: []
@@ -60,7 +60,7 @@ Kịch bản test tay: tests/kb/US2-dang-nhap.md (KB1 đến KB6).
 
 ## Task
 - [x] US2-TA1 Thiết kế · Design: canvas bản PWA, PR #10
-- [x] US2-TA2 Code · Claude Code (opus, CL14.6a): hàm tạo hồ sơ và lệnh đăng ký kèm test database (YC1.2-NT5, NT6, NT10), màn theo canvas, test unit, e2e cho YC1.2-NT1 đến NT8, NT10 đến NT13. NT9 bỏ vì trùng YC6.3-NT1, kiểm ở US37 (YC1 r4, QD25).
+- [x] US2-TA2 Code · PR #19
 - [ ] US2-TA3 Test tay · Đức: chạy tests/kb/US2-dang-nhap.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -77,6 +77,7 @@ Tự quyết thêm: kiểm email đã có ở A2 bằng signInWithOtp(shouldCrea
 
 - 2026-11-19 · Claude · viết tests/kb/US2-dang-nhap.md, bỏ YC1.2-NT9 (trùng YC6.3-NT1), sang dang-lam
 - 2026-11-19 · Claude · code TA2: fn_dang_ky, màn A2, A11, nhập mã, e2e trên Supabase máy · bất ngờ: anon không được gọi hàm mới (KT-DB.3.1)
+- 2026-11-19 · Claude · gộp PR #19 theo QD25 (CI xanh 4 job), sang cho-test chờ Đức TA3
 
 ## Bằng chứng
 - `scripts/test-db.sh` (Postgres 16): lần đầu file 30_ đỏ 28 test và lỗi file (chưa có hàm); thêm migration thì 2 test bất biến cũ đỏ (KT-DB.3.1, KT-DB.3.3: anon gọi fn_email_da_co), bỏ hàm đó; vòng 3: 320 qua, 0 hỏng. `scripts/thu-lam-hong.sh`: 54/54 đạt.
