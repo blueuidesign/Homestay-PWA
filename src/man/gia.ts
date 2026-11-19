@@ -9,6 +9,7 @@ export function dichVuGia(ghiDe: Partial<DichVuXacThuc> = {}): DichVuXacThuc {
     xacNhanMa: vi.fn(async () => 'dung' as const),
     layHoSo: vi.fn(async () => null),
     dangKy: vi.fn(async () => {}),
+    chonVai: vi.fn(async () => {}),
     dangXuat: vi.fn(async () => {}),
     theoDoiPhien: vi.fn(() => () => {}),
     ...ghiDe,

@@ -50,11 +50,17 @@ YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md (KB1 đến KB3).
 
 ## Task
-- [ ] US1-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.1-NT5, YC1.1-NT7
-- [ ] US1-TA2 Code · Claude Code (sonnet, CL14.6a): màn A1, A3, A3-00 theo canvas, test unit, e2e cho YC1.1-NT1 đến NT6
+- [x] US1-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.1-NT5, YC1.1-NT7
+- [x] US1-TA2 Code · Claude Code (sonnet, CL14.6a): màn A1, A3, A3-00 theo canvas, test unit, e2e cho YC1.1-NT1 đến NT6
 - [ ] US1-TA3 Test tay · Đức: chạy tests/kb/US1-man-dau-va-chon-vai.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+Phạm vi (theo gói việc work/goi/US1.md, ô Được sửa):
+- supabase/migrations/20261119110000_us1_chon_vai.sql: `fn_chon_vai(p_vai text)` security definer cho authenticated; vai khác 'chu_nha', 'sale' thì 'Vai không hợp lệ' (22023); hồ sơ chưa có tên hoặc số thì từ chối; ghi vai_chon và dong_y_dieu_khoan_luc = coalesce(cũ, now()) của chính người gọi.
+- tests/db/31_us1_chon_vai.sql (YC1.1-NT5, NT7, PQ1, vi phạm quyền); scripts/thu-lam-hong.txt thêm dòng cho fn_chon_vai và fn_dang_ky (bỏ kiểm số trùng).
+- src/man/A1Chao.tsx làm đủ theo canvas A1; src/man/A3ChonVai.tsx (A3, A3-00) thay bản tạm trong ManTam.tsx; tab Lịch tạm có tiêu đề "Lịch" và vai đang dùng; src/lib/xacThuc.ts thêm `chonVai`; App.tsx nối A3.
+- Test unit: src/man/A1Chao.test.tsx (NT1), src/man/A3ChonVai.test.tsx (NT3, NT4), src/AppChonVai.test.tsx (NT6). e2e: tests/e2e/supabase/chon-vai.spec.ts (NT2, NT5, HV4-NT5).
+Thứ tự: test database, migration; test unit, màn; e2e; chạy kiểm.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.1@1 (QD21)
@@ -62,5 +68,11 @@ Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md (KB1 đến KB3).
 - 2026-11-19 · Claude · nhận HV4-NT5 từ EN4 (QD27)
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
 - 2026-11-19 · Claude · viết kịch bản test tay, sang dang-lam
+- 2026-11-19 · Claude · code TA1, TA2 (fn_chon_vai, A1, A3, A3-00), mở PR · Supabase máy cũ treo do trỏ worktree đã xóa, dựng lại
 
 ## Bằng chứng
+- `scripts/test-db.sh`: lần đầu 15 đỏ (chưa có fn_chon_vai), 1 vòng sửa; cuối 344 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh`: thêm 3 dòng (fn_chon_vai nhận vai lạ, bỏ kiểm chưa đăng ký, fn_dang_ky bỏ kiểm số trùng); lần đầu 1 dòng không chạy vì khóa có dấu ngoặc kép, sửa 1 vòng; cuối 57 đạt, 0 không đạt.
+- `npm test`: lần đầu 2 đỏ (AppChonVai NT6, bước 5) và 1 file lỗi (chưa có A3ChonVai); 1 vòng; cuối 84 qua.
+- `E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e/supabase` (Supabase máy): 11 qua (NT2, NT5, HV4-NT5 và 8 test US2). `CI=1 npx playwright test`: 3 qua.
+- `npm run typecheck`, `npm run build`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi. `scripts/bang-cot.sh` sinh lại supabase/bang-va-cot.md.

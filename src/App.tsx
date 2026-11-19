@@ -8,7 +8,8 @@ import type { DichVuXacThuc } from './lib/xacThuc';
 import { A1Chao } from './man/A1Chao';
 import { HoanTatDangKy } from './man/HoanTatDangKy';
 import { LuongDangNhap } from './man/LuongDangNhap';
-import { A3ChonVai, ManLich, XemTruocLink } from './man/ManTam';
+import { A3ChonVai } from './man/A3ChonVai';
+import { ManLich, XemTruocLink } from './man/ManTam';
 
 type TrangThai = { phien: TrangThaiPhien; email: string; hoSo: HoSo | null | undefined };
 
@@ -100,8 +101,9 @@ function Goc({ dichVu }: { dichVu: DichVuXacThuc | null }) {
                        onXong={() => { datLoiDangKy(undefined); void taiLai(); }} onDungEmailKhac={dangXuat} />
       );
     case 'A3':
-      return <A3ChonVai onDangXuat={dangXuat} />;
+      // YC1.1 bước 5: ghi vai rồi đọc lại hồ sơ, bộ chọn màn sang tab Lịch.
+      return <A3ChonVai onChon={async (vai) => { await dichVu!.chonVai(vai); await taiLai(); }} />;
     case 'lich':
-      return <ManLich onDangXuat={dangXuat} />;
+      return <ManLich vai={tt.hoSo?.vaiChon ?? null} onDangXuat={dangXuat} />;
   }
 }
