@@ -91,6 +91,7 @@ RLS: bật
 | ghi_chu | text | có |  |
 | gio_nhan | time without time zone | có |  |
 | gio_tra | time without time zone | có |  |
+| trang_thai_tien_truoc | text | có |  |
 
 Ràng buộc:
 - booking_can_id_fkey: FOREIGN KEY (can_id) REFERENCES can(id)
@@ -109,6 +110,7 @@ Ràng buộc:
 - booking_tien_phong_check: CHECK ((tien_phong >= 0))
 - booking_trang_thai_check: CHECK ((trang_thai = ANY (ARRAY['hieu_luc'::text, 'da_huy'::text])))
 - booking_trang_thai_tien_check: CHECK ((trang_thai_tien = ANY (ARRAY['chua_coc'::text, 'da_coc'::text, 'da_thanh_toan'::text])))
+- booking_trang_thai_tien_truoc_check: CHECK ((trang_thai_tien_truoc = ANY (ARRAY['chua_coc'::text, 'da_coc'::text])))
 - booking_yeu_cau_id_fkey: FOREIGN KEY (yeu_cau_id) REFERENCES yeu_cau_dat_phong(id)
 - booking_sale: CREATE INDEX booking_sale ON public.booking USING btree (sale_id)
 
@@ -623,13 +625,16 @@ Policy:
 - can_chia_se_cho_sale(p_sale uuid, p_can uuid) → boolean · security definer
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
 - chuan_hoa_so(p_so text) → text · security definer
+- fn_chi_tiet_dat_phong(p_booking_id uuid) → TABLE(id uuid, can_id uuid, ma_can text, ngay_nhan date, ngay_tra date, gio_nhan time without time zone, gio_tra time without time zone, tien_phong bigint, tien_coc bigint, trang_thai_tien text, co_hoan_tac boolean, trang_thai text, nguon text, ghi_chu text, sale_id uuid, ten_sale text, sdt_sale text, sale_da_xoa boolean, ten_khach text, sdt_khach text, so_khach integer, sua_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
+- fn_da_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
 - fn_don_anh_tam() → SETOF text · security definer
 - fn_gia_chu_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date) → TABLE(dem date, gia bigint) · security definer · gọi được: authenticated
 - fn_gia_tuan_cua_toi(p_tu date) → TABLE(can_id uuid, gia_thap bigint, gia_cao bigint) · security definer · gọi được: authenticated
+- fn_hoan_tac_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
 - fn_tao_booking(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_client_id uuid, p_sale_id uuid, p_ten_khach text, p_sdt_khach text, p_trang_thai_tien text, p_tien_coc bigint, p_so_khach integer, p_gio_nhan time without time zone, p_gio_tra time without time zone, p_ghi_chu text) → uuid · security definer · gọi được: authenticated
 - fn_tao_can(p_ma_can text, p_so_phong_ngu integer, p_client_id uuid, p_so_giuong integer, p_loai_view text, p_toa_nha_id uuid, p_mo_ta text, p_anh uuid[]) → uuid · security definer · gọi được: authenticated
@@ -637,6 +642,7 @@ Policy:
 - fn_them_anh_tam(p_duong_dan text) → uuid · security definer · gọi được: authenticated
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer
+- khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - local_today() → date · security definer · gọi được: authenticated
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated

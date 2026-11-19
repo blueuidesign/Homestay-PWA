@@ -57,8 +57,17 @@ Kịch bản test tay: tests/kb/US30-chi-tiet-dat-phong-va.md.
 - [ ] US30-TA4 Test tay · Đức: chạy tests/kb/US30-chi-tiet-dat-phong-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/45_us30_chi_tiet_dat_phong.sql: hàm đọc chi tiết fn_chi_tiet_dat_phong, lệnh fn_da_thu_du, fn_hoan_tac_thu_du (NT2, NT3, NT4 không còn số, NT5, vi phạm quyền sale khác, chủ khác, khách chưa đăng nhập).
+- TA2: migration 20261119240000: cột booking.trang_thai_tien_truoc; ba hàm security definer, tự kiểm người gọi giữ căn (PQ7.CHU, PQ8.SALE); hàm đọc không trả khách do sale nhập (QD11), số sale chỉ khi đang kết nối và chưa xóa tài khoản (QD13). Phép thử làm hỏng vào scripts/thu-lam-hong.txt.
+- TA3: màn CN3-02, CN3-02-01 (src/man/CN302ChiTietDatPhong.tsx), đường dẫn /dat-phong/<id>, ManChu mở từ CN3; tính tiền còn lại ở src/lib/datPhong.ts; test unit, e2e mở từ CN3, thu đủ, hoàn tác.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.5@1 (QD21)
+- 2026-11-19 · Claude (agent phụ) · TA1, TA2, TA3 xong trên nhánh US30-chi-tiet-dat-phong; e2e chi-tiet-ngay.spec.ts (US10) còn chờ sửa theo hành vi mới, ngoài phạm vi
 
 ## Bằng chứng
+- `scripts/test-db.sh YC5.5` (TA1, chưa có migration): 9 qua, 38 hỏng. Sau migration TA2 lần đầu: `scripts/test-db.sh` 859 qua, 0 hỏng (0 vòng sửa).
+- `scripts/thu-lam-hong.sh YC5.5`: 9 đạt / 9 phép thử.
+- `npx vitest run` (CN302ChiTietDatPhong.test.tsx, datPhong.test.ts, dieuHuongChu.test.ts): xanh lần đầu; cả bộ 377 qua.
+- e2e `tests/e2e/supabase/chi-tiet-dat-phong.spec.ts`: lần đầu đỏ 1 (bộ chọn trùng chữ), sửa 1 vòng, qua. `chi-tiet-ngay.spec.ts` (US10) đỏ vì còn chờ toast "Sẽ có ở bản sau" ở bước 9, nay mở CN3-02; file ngoài phạm vi, chưa sửa.
+- `npm run typecheck`, `npm run build`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

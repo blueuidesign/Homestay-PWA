@@ -4,6 +4,7 @@ import type { DatPhongLich } from './lich';
 import {
   cauChonSale, chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, dongGiaDem, ghiBanNhapDatPhong, kiemNgay,
   loiTienCoc, loiTienPhong, ngayTraTheoSoDem, tenNguoiDatToast, tomTatChiTiet, tongGiaDem, xoaBanNhapDatPhong,
+  cauKhachCuaSale, cauSaleDaXoa, dongGioNhanTra, nhanTrangThaiTien, tienConLai, tieuDeChiTiet,
 } from './datPhong';
 
 afterEach(() => { try { localStorage.clear(); } catch { /* bỏ qua */ } });
@@ -124,5 +125,34 @@ describe('YC5.2 · người đặt, tiền phòng, trạng thái tiền (phần 
     expect(tenNguoiDatToast({ sale: 'Sale Hùng' })).toBe('Sale Hùng');
     expect(tenNguoiDatToast({ tenKhach: ' Bà Lan ' })).toBe('Bà Lan');
     expect(tenNguoiDatToast({ tenKhach: '' })).toBe('Khách lẻ');
+  });
+});
+
+describe('YC5.5 · chi tiết đặt phòng và thu tiền', () => {
+  it('YC5.5-NT1 YC5 Quy tắc "Tiền còn lại": 2.200.000đ trừ cọc 1.000.000đ còn 1.200.000đ', () => {
+    expect(tienConLai(2200000, 1000000, 'da_coc')).toBe(1200000);
+    expect(tienConLai(1800000, null, 'chua_coc')).toBe(1800000);
+    expect(tienConLai(2200000, 1000000, 'da_thanh_toan')).toBe(0);
+  });
+
+  it('YC5.5 QT6.1 nhãn trạng thái tiền', () => {
+    expect(nhanTrangThaiTien('chua_coc')).toBe('Chưa cọc');
+    expect(nhanTrangThaiTien('da_coc')).toBe('Đã cọc · còn thu');
+    expect(nhanTrangThaiTien('da_thanh_toan')).toBe('Đã thanh toán');
+    expect(nhanTrangThaiTien(null)).toBeNull();
+  });
+
+  it('YC5.5 bước 16 "Nhận 14:00 thứ 7 · trả 12:00 thứ 2"; không có giờ thì 14:00, 12:00', () => {
+    expect(dongGioNhanTra('2026-10-10', '2026-10-12', '14:00', '12:00')).toBe('Nhận 14:00 thứ 7 · trả 12:00 thứ 2');
+    expect(dongGioNhanTra('2026-10-11', '2026-10-12', null, null)).toBe('Nhận 14:00 chủ nhật · trả 12:00 thứ 2');
+    expect(dongGioNhanTra('2026-10-10', '2026-10-12', '15:30:00', '11:00:00')).toBe('Nhận 15:30 thứ 7 · trả 11:00 thứ 2');
+  });
+
+  it('YC5.5 bước 16, 17, 22 tiêu đề và câu về người đặt', () => {
+    expect(tieuDeChiTiet({ saleId: 'h', tenSale: 'Sale Hùng', tenKhach: null })).toBe('Đặt phòng · Sale Hùng');
+    expect(tieuDeChiTiet({ saleId: null, tenSale: null, tenKhach: 'Bà Lan' })).toBe('Đặt phòng · Bà Lan');
+    expect(tieuDeChiTiet({ saleId: null, tenSale: null, tenKhach: null })).toBe('Đặt phòng · Khách lẻ');
+    expect(cauKhachCuaSale('Sale Hùng')).toBe('Khách do sale Hùng bán. Tên và số điện thoại khách chỉ sale giữ; cần gì về khách thì gọi sale.');
+    expect(cauSaleDaXoa('Sale Hùng')).toBe('Sale Hùng đã xóa tài khoản. Đặt phòng vẫn giữ trong lịch của bạn; app không còn số điện thoại của sale này.');
   });
 });
