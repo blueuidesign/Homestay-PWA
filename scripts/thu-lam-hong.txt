@@ -1,0 +1,81 @@
+# Phép thử làm hỏng (thiet-ke-db.md mục 3), chạy bằng scripts/thu-lam-hong.sh.
+# Mỗi dòng: <chuỗi có trong tên test phải đỏ> | <một câu SQL làm hỏng, chạy ngay sau migration>
+# Chỉ dùng tên có trong hợp đồng database (work/goi/EN2.md), không dựa vào tên policy, trigger, index.
+
+# KT-DB.3.1 · khách chưa đăng nhập không đọc được giá
+KT-DB.3.1 anon không có quyền select | grant select on public.gia_thang to anon
+KT-DB.3.1 PQ5.LINK anon đọc gia_thang | grant select on public.gia_thang to anon; create policy thu_lam_hong on public.gia_thang for select to anon using (true)
+KT-DB.3.1 mọi bảng public bật RLS | alter table public.gia_thang disable row level security
+KT-DB.3.1 anon không execute hàm public | grant execute on function public.my_shared_can_ids() to anon
+KT-DB.3.1 can_dang_nhap khi chưa có người gọi | create or replace function public.can_dang_nhap() returns uuid language sql stable security definer set search_path = '' as $$ select auth.uid() $$
+
+# KT-DB.3.2 · chặn trùng
+KT-DB.3.2 QT1.1-VD1 | alter table public.booking drop constraint booking_khong_trung
+KT-DB.3.2 QT1.3-VD1 | alter table public.booking drop constraint booking_khong_trung
+KT-DB.3.2 đêm của booking đã hủy ghi lại được | alter table public.booking drop constraint booking_khong_trung; alter table public.booking add constraint booking_khong_trung exclude using gist (can_id with =, dem with &&)
+KT-DB.3.2 QT1.1-VD2 | alter table public.booking drop constraint booking_khong_trung; alter table public.booking add constraint booking_khong_trung exclude using gist (can_id with =, daterange(ngay_nhan, ngay_tra, '[]') with &&) where (trang_thai <> 'da_huy')
+
+# KT-DB.3.3 · sale chỉ thấy căn được chia sẻ, qua my_shared_can_ids
+KT-DB.3.3 PQ3.SALE Lan | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select id from public.can $$
+KT-DB.3.3 PQ Luật chung 3 Nga | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select id from public.can where loai = 'co_lich' $$
+KT-DB.3.3 PQ3.SALE Lan (chọn căn) | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select c.id from public.can c join public.ket_noi k on k.chu_id = c.nguoi_giu join public.profiles p on p.id = c.nguoi_giu where k.sale_id = auth.uid() and k.trang_thai = 'da_ket_noi' and c.loai = 'co_lich' and c.an_luc is null and p.da_xoa_luc is null $$
+KT-DB.3.3 căn đã ẩn không còn trong my_shared_can_ids | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select c.id from public.can c join public.ket_noi k on k.chu_id = c.nguoi_giu join public.profiles p on p.id = c.nguoi_giu where k.sale_id = auth.uid() and k.trang_thai = 'da_ket_noi' and c.loai = 'co_lich' and p.da_xoa_luc is null and (k.pham_vi = 'tat_ca' or exists (select 1 from public.ket_noi_can kc where kc.ket_noi_id = k.id and kc.can_id = c.id)) $$
+KT-DB.3.3 PQ3.SALE chủ ngừng cho xem | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select c.id from public.can c join public.ket_noi k on k.chu_id = c.nguoi_giu join public.profiles p on p.id = c.nguoi_giu where k.sale_id = auth.uid() and c.loai = 'co_lich' and c.an_luc is null and p.da_xoa_luc is null and (k.pham_vi = 'tat_ca' or exists (select 1 from public.ket_noi_can kc where kc.ket_noi_id = k.id and kc.can_id = c.id)) $$
+KT-DB.3.3 PQ3.SALE Nga không đọc ảnh | create policy thu_lam_hong on public.anh_can for select to authenticated using (true)
+KT-DB.3.3 danh mục: mọi hàm public fn_* là security definer | create function public.fn_thu_lam_hong() returns void language sql as $$ select $$
+KT-DB.3.3 danh mục: hàm fn_* không cho anon và public gọi | create function public.fn_thu_lam_hong() returns void language sql security definer set search_path = '' as $$ select $$
+KT-DB.3.3 PQ17.SALE Nga không đọc kết nối | create policy thu_lam_hong on public.ket_noi for select to authenticated using (true)
+
+# KT-DB.3.4 · sale luôn thấy giá chủ nhà, không có công tắc tắt giá
+KT-DB.3.4 QD7 ket_noi không có cột nào về giá | alter table public.ket_noi add column xem_gia boolean not null default true
+KT-DB.3.4 QD7 tắt xem_coc thì Hùng vẫn thấy giá | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select c.id from public.can c join public.ket_noi k on k.chu_id = c.nguoi_giu join public.profiles p on p.id = c.nguoi_giu where k.sale_id = auth.uid() and k.trang_thai = 'da_ket_noi' and k.xem_coc and c.loai = 'co_lich' and c.an_luc is null and p.da_xoa_luc is null and (k.pham_vi = 'tat_ca' or exists (select 1 from public.ket_noi_can kc where kc.ket_noi_id = k.id and kc.can_id = c.id)) $$
+KT-DB.3.4 PQ5.SALE Nga chưa kết nối không đọc giá | create policy thu_lam_hong on public.gia_thang for select to authenticated using (true)
+KT-DB.3.4 hai dải giá dịp của một căn chồng ngày | alter table public.gia_dip drop constraint gia_dip_khong_chong
+
+# KT-DB.3.5 · sale không đọc bảng booking
+KT-DB.3.5 Hùng không đọc bảng booking | create policy thu_lam_hong on public.booking for select to authenticated using (true)
+KT-DB.3.5 Lan không đọc bảng booking | create policy thu_lam_hong on public.booking for select to authenticated using (sale_id = auth.uid())
+KT-DB.3.5 PQ8.SALE v_booking_cua_sale không có tiền cọc | drop view public.v_booking_cua_sale; create view public.v_booking_cua_sale as select b.id, b.can_id, c.ma_can, c.nguoi_giu as chu_id, p.ten_hien_thi as ten_chu, b.ngay_nhan, b.ngay_tra, b.nguon, b.tien_phong, b.trang_thai, b.huy_xin_boi, b.huy_tra_loi, b.tien_coc from public.booking b join public.can c on c.id = b.can_id join public.profiles p on p.id = c.nguoi_giu where b.sale_id = auth.uid(); grant select on public.v_booking_cua_sale to authenticated
+KT-DB.3.5 PQ7.SALE Nga không thấy booking của sale khác | drop view public.v_booking_cua_sale; create view public.v_booking_cua_sale as select b.id, b.can_id, c.ma_can, c.nguoi_giu as chu_id, p.ten_hien_thi as ten_chu, b.ngay_nhan, b.ngay_tra, b.nguon, b.tien_phong, b.trang_thai, b.huy_xin_boi, b.huy_tra_loi from public.booking b join public.can c on c.id = b.can_id join public.profiles p on p.id = c.nguoi_giu; grant select on public.v_booking_cua_sale to authenticated
+KT-DB.3.5 PQ4.SALE v_lich_sale chỉ có can_id, dem | drop view public.v_lich_sale; create view public.v_lich_sale as select b.can_id, d::date as dem, b.sale_id from public.booking b, generate_series(b.ngay_nhan, b.ngay_tra - 1, '1 day') d where b.trang_thai <> 'da_huy' and b.can_id in (select public.my_shared_can_ids()); grant select on public.v_lich_sale to authenticated
+KT-DB.3.5 PQ4.SALE booking đã hủy | drop view public.v_lich_sale; create view public.v_lich_sale as select b.can_id, d::date as dem from public.booking b, generate_series(b.ngay_nhan, b.ngay_tra - 1, '1 day') d where b.can_id in (select public.my_shared_can_ids()); grant select on public.v_lich_sale to authenticated
+
+# KT-DB.3.6 · mỗi người chỉ thấy khách, giá bán của mình
+KT-DB.3.6 PQ9.CHU Chị Hoa không đọc khách | create policy thu_lam_hong on public.booking_rieng for select to authenticated using (true)
+KT-DB.3.6 PQ11.CHU Chị Hoa không đọc giá bán | create policy thu_lam_hong on public.yeu_cau_rieng for select to authenticated using (true)
+KT-DB.3.6 PQ11.CHU Chị Hoa không đọc mức cộng | create policy thu_lam_hong on public.muc_cong for select to authenticated using (true)
+KT-DB.3.6 PQ11.CHU yeu_cau_dat_phong không có cột giá bán | alter table public.yeu_cau_dat_phong add column gia_ban_dem bigint[]
+KT-DB.3.6 authenticated không có insert | grant insert on public.booking to authenticated
+KT-DB.3.6 PQ9.CHU Chị Hoa sửa thẳng khách | grant update on public.booking_rieng to authenticated; create policy thu_lam_hong on public.booking_rieng for update to authenticated using (true)
+
+# KT-DB.3.7 · căn tự nhập không có lịch trống
+KT-DB.3.7 căn tự nhập: mọi ô | create or replace function public.o_lich(p_can_id uuid, p_dem date) returns text language sql stable security definer set search_path = '' as $$ select case when exists (select 1 from public.booking b where b.can_id = p_can_id and b.trang_thai <> 'da_huy' and b.dem @> p_dem) then 'kin' else 'trong' end $$
+KT-DB.3.7 booking căn tự nhập đã hủy | create or replace function public.o_lich(p_can_id uuid, p_dem date) returns text language sql stable security definer set search_path = '' as $$ select 'trong'::text $$
+KT-DB.3.7 PQ14.CHU Chị Hoa không có quyền | create or replace function public.o_lich(p_can_id uuid, p_dem date) returns text language sql stable security definer set search_path = '' as $$ select case when c.loai = 'tu_nhap' then 'chua_biet' else 'trong' end from public.can c where c.id = p_can_id $$
+
+# KT-DB.3.8 · booking có sale đứng tên không bên nào tự xóa
+KT-DB.3.8 QD12 xóa booking có sale đứng tên | alter table public.booking disable trigger user
+KT-DB.3.8 QD12 người xin (Chị Hoa) tự đồng ý | alter table public.booking disable trigger user
+KT-DB.3.8 PQ7.CHU app xóa thẳng booking | grant delete on public.booking to authenticated; create policy thu_lam_hong on public.booking for delete to authenticated using (true)
+
+# KT-DB.3.9 · xóa tài khoản chỉ xóa số điện thoại, sale thôi thấy căn của chủ đã xóa
+KT-DB.3.9 PQ23.SALE chủ đã xóa tài khoản: không còn căn | create or replace function public.my_shared_can_ids() returns setof uuid language sql stable security definer set search_path = '' as $$ select c.id from public.can c join public.ket_noi k on k.chu_id = c.nguoi_giu where k.sale_id = auth.uid() and k.trang_thai = 'da_ket_noi' and c.loai = 'co_lich' and c.an_luc is null and (k.pham_vi = 'tat_ca' or exists (select 1 from public.ket_noi_can kc where kc.ket_noi_id = k.id and kc.can_id = c.id)) $$
+KT-DB.3.9 PQ23.SALE v_nguoi_ket_noi | drop view public.v_nguoi_ket_noi; create view public.v_nguoi_ket_noi as select p.id, p.ten_hien_thi, coalesce(p.so_dien_thoai, '0900000001') as so_dien_thoai, false as da_xoa_tai_khoan from public.ket_noi k join public.profiles p on p.id = case when k.chu_id = auth.uid() then k.sale_id else k.chu_id end where k.trang_thai = 'da_ket_noi' and auth.uid() in (k.chu_id, k.sale_id); grant select on public.v_nguoi_ket_noi to authenticated
+KT-DB.3.9 PQ1.SALE Hùng chỉ đọc hồ sơ | create policy thu_lam_hong on public.profiles for select to authenticated using (true)
+
+# KT-DB.3.10 · tiền phòng bằng tổng tiền các đêm
+KT-DB.3.10 tổng tiền các đêm | alter table public.booking_dem disable trigger user; alter table public.booking disable trigger user
+KT-DB.3.10 sửa tiền phòng không sửa đêm | alter table public.booking disable trigger user
+KT-DB.3.10 QT4.2-VD2 | create or replace function public.tach_tien_theo_dem(p_tong bigint, p_so_dem int) returns bigint[] language sql immutable as $$ select array_agg(case when i = 1 then p_tong - (p_tong / p_so_dem) * (p_so_dem - 1) else p_tong / p_so_dem end order by i) from generate_series(1, p_so_dem) i $$
+KT-DB.3.10 cột tiền là bigint | alter table public.muc_cong alter column muc type numeric
+
+# KT-DB.3.11 · thống kê chủ không có giá bán; thống kê sale không có tiền cọc
+KT-DB.3.11 PQ11.CHU chủ không đọc mức cộng | create policy thu_lam_hong on public.muc_cong for select to authenticated using (true)
+KT-DB.3.11 PQ15.CHU chủ không đọc tiền thu khách | create policy thu_lam_hong on public.booking_rieng for select to authenticated using (true)
+KT-DB.3.11 PQ11.CHU yeu_cau_dat_phong không có cột giá bán | alter table public.yeu_cau_dat_phong add column gia_ban_dem bigint[]
+KT-DB.3.11 PQ8.SALE Hùng không đọc được tiền cọc | create policy thu_lam_hong on public.booking for select to authenticated using (sale_id = auth.uid())
+
+# KT-DB.3.12 · chỉ quản trị viên đầu tiên quản lý người đồng quản trị
+KT-DB.3.12 app (kể cả chính quản trị viên) không đọc admins | grant select on public.admins to authenticated; create policy thu_lam_hong on public.admins for select to authenticated using (true)
+KT-DB.3.12 danh mục: authenticated, anon không có quyền nào trên admins | grant select on public.admins to authenticated
+KT-DB.3.12 thêm dòng la_goc thứ hai | do $$ declare r record; begin for r in select conname from pg_constraint where conrelid = 'public.admins'::regclass and contype in ('u', 'x', 'c') loop execute format('alter table public.admins drop constraint %I', r.conname); end loop; for r in select i.indexrelid::regclass::text as ten from pg_index i where i.indrelid = 'public.admins'::regclass and not i.indisprimary loop execute 'drop index ' || r.ten; end loop; execute 'alter table public.admins disable trigger user'; end $$
