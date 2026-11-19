@@ -451,7 +451,7 @@ Không có.
 ## Quy ước code
 # Quy ước khi viết code
 
-- Chỉ code theo mục YC có trong `thuc_hien` của item. Câu có [MỞ: ...] thì không code phần đó. Câu có "(giả định GDn)" thì code được và ghi rõ trong PR.
+- Chỉ code theo mục YC có trong `thuc_hien` của item. Câu có `[MỞ: ...]` thì không code phần đó. Câu có "(giả định GDn)" thì code được và ghi rõ trong PR.
 - Code luôn trên nhánh <mã>-<tên-ngắn> và PR (CL4.7). Hook trước khi đẩy chặn commit code lên main.
 - Đọc gói việc (work/goi/<mã item>.md, soạn bằng scripts/goi.py) nếu có, không thì đọc item. Tài liệu đọc bằng scripts/trich.py, không mở cả file. Canvas đọc bằng scripts/trich-man.py.
 - Chỉ sửa file trong mục Phạm vi của item hoặc ô "Được sửa" của gói việc. File ngoài phạm vi thì dừng và tạo item mới.
