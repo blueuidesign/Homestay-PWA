@@ -23,13 +23,12 @@ Tùng nhận email mỗi khi một PR của item (US, EN, BG) gộp vào main v�
 Không có NT. Kiểm bằng tay: gộp một PR có mã item, xem thư tới.
 
 ## Phạm vi
-- .github/workflows/bao-cao-email.yml: chạy khi PR gộp vào main, gọi API Resend.
+- .github/workflows/bao-cao-email.yml: chạy khi PR gộp vào main, gọi API Resend. Chạy tay (workflow_dispatch) để gửi thư thử.
 - .github/pull_request_template.md: thêm mục "Claude tự quyết" để thư có chỗ đọc.
 - docs/ha-tang/Bi_mat_va_cau_hinh.md: thêm RESEND_API_KEY, BAO_CAO_EMAIL.
 - work/cho-tung.md: việc Tùng thêm hai secret.
 
 ## Ngoài phạm vi
-- Chạy tay (workflow_dispatch) để gửi thư thử.
 - PR không mở đầu bằng mã US, EN, BG (tài liệu, quyết định, thiết kế) không gửi thư (Claude tự quyết, QD25: đó không phải chức năng mới).
 - Địa chỉ nhận không ghi vào repo vì repo công khai; để ở secret BAO_CAO_EMAIL.
 
