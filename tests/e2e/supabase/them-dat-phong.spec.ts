@@ -2,7 +2,7 @@
 // Tên, email, số đều giả. Chạy: E2E_SUPABASE=1 npx playwright test tests/e2e/supabase (docs/dev/chay-va-test.md).
 // Ngày đặt theo tháng hiện tại (giờ Việt Nam), vì lịch mở sẵn ở tháng của hôm nay.
 import { expect, test } from '@playwright/test';
-import { dangNhapBangMa, sql, taoTaiKhoan } from './hoTro';
+import { dangNhapBangMa, layMa, nhapMa, sql, taoTaiKhoan } from './hoTro';
 
 test('YC5.1-NT5 chi tiết ngày 10: dòng 3402 "Trống" có nút "Đặt phòng"; bấm thì CN4 mở với căn 3402 và ngày nhận 10', async ({ page }) => {
   const chu = taoTaiKhoan('chu_nha', 'Chủ Thêm Đặt Phòng');
@@ -141,4 +141,57 @@ test('YC5.3-NT1 CN4-03 lưu khách lẻ tháng sau: về tab Lịch đúng thán
   await expect(page.getByLabel('Tiền phòng (đ)')).toHaveValue('1.800.000');
   await expect(page.getByRole('button', { name: 'Thêm đặt phòng' })).toBeDisabled();
   expect(sql(`select count(*) from public.booking where can_id = '${c1509}'`)).toBe('2');
+});
+
+// US28 · HV7 bước 2: hết phiên lúc bấm "Thêm đặt phòng" mà làm mới không được (phiên đã bị thu hồi) thì về màn đăng nhập;
+// đăng nhập lại xong quay về đúng form CN4 với căn, ngày đã nhập, rồi lưu được với cùng mã lần gửi.
+test('HV7-NT2 làm mới phiên không được: đăng nhập lại thì form CN4 còn căn và ngày đã nhập', async ({ page }) => {
+  const chu = taoTaiKhoan('chu_nha', 'Chủ Hết Phiên');
+  const nguoi = sql(`select id from auth.users where email = '${chu.email}'`);
+  const c1509 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '1509', 2) returning id`).split('\n')[0]!;
+  const [nam, thang] = sql(`select to_char(date_trunc('month', public.local_today()) + interval '1 month', 'YYYY|FMMM')`)
+    .split('|').map(Number) as [number, number];
+  const ng = (n: number) => `${nam}-${String(thang).padStart(2, '0')}-${String(n).padStart(2, '0')}`;
+  const t2 = String(thang).padStart(2, '0');
+
+  await dangNhapBangMa(page, chu.email);
+  await page.getByRole('banner').getByRole('button', { name: 'Đặt phòng' }).click();
+  await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
+  await page.getByLabel('Ngày nhận phòng').fill(ng(10));
+  await page.getByRole('checkbox', { name: '3 đêm' }).click();
+  await expect(page.getByText(`✓ 10/${t2} → 13/${t2} (3 đêm) · không trùng lịch`)).toBeVisible();
+  await page.getByRole('group', { name: 'Khách / Sale' }).getByRole('button', { name: 'Khách lẻ' }).click();
+  await page.getByLabel('Tiền phòng (đ)').fill('2700000');
+
+  // Phiên hết: PostgREST từ chối vì JWT hết hạn; phiên trên máy chủ đã bị thu hồi nên làm mới không được.
+  await page.route('**/rest/v1/rpc/fn_tao_booking', (r) => r.fulfill({
+    status: 401, contentType: 'application/json', body: JSON.stringify({ code: 'PGRST301', message: 'JWT expired' }),
+  }));
+  sql(`delete from auth.refresh_tokens where user_id = '${nguoi}'; delete from auth.sessions where user_id = '${nguoi}'`);
+  await page.getByRole('button', { name: 'Thêm đặt phòng' }).click();
+
+  // HV7 bước 2: về màn đăng nhập (YC1.2); chưa có đặt phòng nào được ghi.
+  await expect(page.getByLabel('Email')).toBeVisible();
+  await page.unroute('**/rest/v1/rpc/fn_tao_booking');
+  expect(sql(`select count(*) from public.booking where can_id = '${c1509}'`)).toBe('0');
+  // Cho phép xin mã lần hai ngay (giới hạn 60 giây giữa hai lần gửi là của YC1.2, không phải của test này).
+  sql(`update auth.users set recovery_sent_at = now() - interval '2 minutes', confirmation_sent_at = now() - interval '2 minutes'
+       where id = '${nguoi}'`);
+  await page.getByLabel('Email').fill(chu.email);
+  await page.getByRole('button', { name: 'Gửi mã đăng nhập' }).click();
+  await nhapMa(page, await layMa(chu.email, 2));
+  await page.getByRole('button', { name: 'Đăng nhập' }).click();
+
+  // HV7-NT2: quay lại đúng form CN4, căn và ngày đã nhập còn nguyên.
+  await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
+  await expect(page.getByRole('button', { name: '1509' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByLabel('Ngày nhận phòng')).toHaveValue(ng(10));
+  await expect(page.getByText(`✓ 10/${t2} → 13/${t2} (3 đêm) · không trùng lịch`)).toBeVisible();
+
+  // Lưu tiếp được, đúng một đặt phòng.
+  await page.getByRole('group', { name: 'Khách / Sale' }).getByRole('button', { name: 'Khách lẻ' }).click();
+  await page.getByLabel('Tiền phòng (đ)').fill('2700000');
+  await page.getByRole('button', { name: 'Thêm đặt phòng' }).click();
+  await expect(page.getByText('Đã thêm đặt phòng Khách lẻ · 1509')).toBeVisible();
+  expect(sql(`select count(*) from public.booking where can_id = '${c1509}'`)).toBe('1');
 });

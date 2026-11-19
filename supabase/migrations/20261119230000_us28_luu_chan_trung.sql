@@ -11,12 +11,33 @@ as $$
   select not exists (select 1 from public.cai_dat_rieng cd where cd.nguoi_id = p_nguoi and p_loai = any (cd.thong_bao_tat))
 $$;
 
+-- YC5.3 bước 9, PQ4.SALE, PQ17.CHU: căn còn chia sẻ cho sale này không (cùng điều kiện my_shared_can_ids, nhận id sale).
+-- Hàm nội bộ, app không gọi.
+create or replace function public.can_chia_se_cho_sale(p_sale uuid, p_can uuid) returns boolean
+language sql stable security definer set search_path = ''
+as $$
+  select exists (
+    select 1
+    from public.ket_noi k
+    join public.profiles chu on chu.id = k.chu_id
+    join public.can c on c.nguoi_giu = k.chu_id
+    where k.sale_id = p_sale
+      and c.id = p_can
+      and k.trang_thai = 'da_ket_noi'
+      and chu.da_xoa_luc is null
+      and c.loai = 'co_lich'
+      and c.an_luc is null
+      and (k.pham_vi = 'tat_ca'
+           or exists (select 1 from public.ket_noi_can kc where kc.ket_noi_id = k.id and kc.can_id = c.id))
+  )
+$$;
+
 -- YC5.3 bước 9, QT1.4 (giả định GD11), QD6, YC12, YC8 "Báo căn đã gửi có người đặt", QD11, PQ19.
 -- Sau khi ghi một đặt phòng chưa hủy:
 --   1. cập nhật giờ lịch đổi của căn (YC7 dùng);
 --   2. yêu cầu đang chờ của căn có đêm trùng thành bị từ chối, trừ yêu cầu thành ra chính đặt phòng này;
 --   3. sale đã gửi khách căn này có đêm trùng: một thông báo cho mỗi lần gửi, chỉ căn và ngày; không báo người ghi, không báo
---      sale đứng tên đặt phòng, không báo khi lần gửi đã qua ngày nhận phòng; theo công tắc của sale;
+--      sale đứng tên đặt phòng, không báo khi lần gửi đã qua ngày nhận phòng, chỉ sale còn được chia sẻ căn; theo công tắc;
 --   4. chủ nhà ghi đặt phòng có sale đứng tên: báo sale đó, theo công tắc của sale.
 -- Thông báo "Yêu cầu bị từ chối" ghi ở tg_bao_yeu_cau_bi_tu_choi.
 create or replace function public.tg_booking_sau_khi_ghi() returns trigger
@@ -52,6 +73,7 @@ begin
     and lg.sale_id is distinct from new.sale_id
     and public.local_today() <= lower(lg.dem)
     and public.thong_bao_bat(lg.sale_id, 'can_da_gui_co_nguoi_dat')
+    and public.can_chia_se_cho_sale(lg.sale_id, new.can_id)
     and not exists (select 1 from public.thong_bao tb
                     where tb.nguoi_nhan = lg.sale_id and tb.loai = 'can_da_gui_co_nguoi_dat'
                       and tb.noi_dung ->> 'lan_gui_id' = lg.id::text);
@@ -93,5 +115,5 @@ create trigger yeu_cau_bao_bi_tu_choi
   for each row when (old.trang_thai = 'cho' and new.trang_thai = 'bi_tu_choi')
   execute function public.tg_bao_yeu_cau_bi_tu_choi();
 
-revoke execute on function public.thong_bao_bat(uuid, text), public.tg_booking_sau_khi_ghi(),
+revoke execute on function public.thong_bao_bat(uuid, text), public.can_chia_se_cho_sale(uuid, uuid), public.tg_booking_sau_khi_ghi(),
   public.tg_bao_yeu_cau_bi_tu_choi() from public, anon, authenticated;

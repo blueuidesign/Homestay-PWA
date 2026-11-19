@@ -60,6 +60,9 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
 
   const den = (d: string) => { window.history.pushState(null, '', d); datDuongDan(d); };
   const dangXuat = async () => { await dichVu?.dangXuat(); datLuong(null); await taiLai(); };
+  // HV7 bước 2: làm mới phiên không được thì bỏ phiên trên máy, mở thẳng màn đăng nhập (A11, YC1.2). Địa chỉ giữ nguyên
+  // nên đăng nhập xong bộ chọn màn quay lại đúng màn cũ; form tự điền lại từ nháp (HV3).
+  const hetPhien = async () => { await dichVu?.dangXuat().catch(() => undefined); datLuong('A11'); await taiLai(); };
 
   const man = chonMan({ duongDan, phien: tt.phien, hoSo: tt.hoSo });
 
@@ -109,7 +112,7 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
     case 'lich':
       // YC3.1, YC1.1 bước 5: chủ nhà vào các tab của chủ (A4 khi chưa có căn). Sale: tab Lịch tạm tới YC7.1.
       if (tt.hoSo?.vaiChon === 'chu_nha') {
-        return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} />;
+        return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
       }
       return <ManLich vai={tt.hoSo?.vaiChon ?? null} onDangXuat={dangXuat} />;
   }

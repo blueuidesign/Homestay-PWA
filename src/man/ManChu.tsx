@@ -57,7 +57,11 @@ function useGiaTuan(dv: DichVuCan | null, mo: boolean) {
   return gia;
 }
 
-export function ManChu(props: { duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void }) {
+export function ManChu(props: {
+  duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void;
+  /** HV7 bước 2: phiên hết mà làm mới không được. */
+  onHetPhien?: () => void;
+}) {
   const man = chonManChu(props.duongDan);
   const { ds, dangTai, loi, tai } = useDanhSachCan(props.dichVuCan);
   const hienToast = useToast();
@@ -119,6 +123,7 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
       <CN4ThemDatPhong key={`${man.canId ?? ''}|${man.ngay ?? ''}`} ds={ds && [...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))}
                        dv={props.dichVuCan?.datPhong} canIdBanDau={man.canId} ngayBanDau={man.ngay}
                        onDong={() => window.history.back()}
+                       onHetPhien={props.onHetPhien}
                        onDaLuu={(v) => {
                          // YC5.3 bước 10, YC5.3-NT1: về tab Lịch với toast; bỏ tháng đã nhớ để lịch đọc lại có đặt phòng mới.
                          boNhoLich.current.clear();

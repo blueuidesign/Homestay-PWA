@@ -5,10 +5,12 @@
 // tiết; nút "Thêm đặt phòng" gọi fn_tao_booking (YC5.3 bước 9), lưu được thì về tab Lịch với toast (bước 10).
 // US28 (YC5.3 bước 11 tới 13, QT5.5, QT5.6, HV5): trùng đêm thì dòng kiểm đỏ và đọc lại đặt phòng; lỗi dữ liệu toast đỏ;
 // mất mạng hay quá 15 giây thì toast mất mạng, bấm lại gửi cùng mã lần gửi; mất quyền với căn thì câu chung của HV5.
+// HV7: hết phiên mà làm mới không được thì giữ nháp, đưa về đăng nhập, đăng nhập xong mở lại đúng form.
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { DaiMatKetNoi, LoiNguoiDung, ManChuaTai } from '../chung/matKetNoi';
 import { CAU_KHOI_PHUC, useQuayLaiTuNen } from '../chung/nhap';
+import { LoiHetPhien } from '../chung/phien';
 import { useToast } from '../chung/Toast';
 import {
   chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, loiTienCoc, loiTienPhong,
@@ -104,13 +106,18 @@ export function CN4ThemDatPhong(props: {
   onDong: () => void;
   /** YC5.3 bước 10: lưu được; ManChu về tab Lịch với toast "Đã thêm đặt phòng <người đặt> · <căn>". */
   onDaLuu?: (v: { nguoiDat: string; maCan: string; canId: string; ngayNhan: Ngay }) => void;
+  /** HV7 bước 2: làm mới phiên không được; nháp đã ghi, App đưa về đăng nhập rồi quay lại đúng địa chỉ này. */
+  onHetPhien?: () => void;
 }) {
   const hienToast = useToast();
   const homNay = props.homNay ?? homNayVN();
   // HV3 bước 3: mở lại form (không kèm căn, ngày từ CN3) có nháp thì điền lại. Mở từ CN3 thì theo căn, ngày đã chọn.
   const [dau] = useState(() => {
     const tuCN3 = !!props.canIdBanDau && !!props.ngayBanDau && laNgay(props.ngayBanDau);
-    const nhap = tuCN3 ? null : docBanNhapDatPhong();
+    // HV7 bước 2: mở lại đúng địa chỉ từ CN3 sau khi đăng nhập lại thì nháp cùng căn, cùng ngày nhận vẫn được dùng.
+    const docNhap = docBanNhapDatPhong();
+    const nhap = !tuCN3 ? docNhap
+      : docNhap && docNhap.canId === props.canIdBanDau && docNhap.ngayNhan === props.ngayBanDau ? docNhap : null;
     if (nhap) return { ...nhap, khoiPhuc: true };
     return {
       canId: tuCN3 ? props.canIdBanDau! : '',
@@ -265,6 +272,12 @@ export function CN4ThemDatPhong(props: {
         ghiChu: ghiChu.trim() || null,
       }), THOI_GIAN_CHO_LUU_MS);
     } catch (e) {
+      if (e instanceof LoiHetPhien) {
+        // HV7 bước 2, HV7-NT2: giữ nội dung đang nhập (HV3) cùng mã lần gửi, rồi đưa về đăng nhập.
+        ghiBanNhapDatPhong({ canId, ngayNhan, ngayTra, tuyChon, clientId });
+        props.onHetPhien?.();
+        return;
+      }
       if (e instanceof LoiNguoiDung && e.message === CAU_TRUNG_DEM) {
         // Bước 11: ở lại form, dòng kiểm đỏ; đọc lại đặt phòng để dòng kiểm ở bước 4 đúng với dữ liệu mới.
         datLoiTrung(true);

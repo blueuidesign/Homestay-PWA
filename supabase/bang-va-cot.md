@@ -620,6 +620,7 @@ Policy:
 
 ## Hàm
 
+- can_chia_se_cho_sale(p_sale uuid, p_can uuid) → boolean · security definer
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
 - chuan_hoa_so(p_so text) → text · security definer
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated

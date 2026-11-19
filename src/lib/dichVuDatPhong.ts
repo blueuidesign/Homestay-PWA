@@ -5,6 +5,7 @@
 // US28 (YC5.3 bước 9, HV7 bước 1): phiên hết hạn khi ghi thì làm mới phiên rồi gửi lại một lần, cùng mã lần gửi (QT5.6).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
+import { LoiHetPhien } from '../chung/phien';
 import type { GiaDem, SaleKetNoi, TrangThaiTienForm } from './datPhong';
 import type { DatPhongLich, NguoiDat } from './lich';
 
@@ -127,8 +128,11 @@ export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
       let { data, error } = await sb.rpc('fn_tao_booking', thamSo);
       // HV7 bước 1, HV7-NT1: phiên hết hạn thì làm mới rồi gửi lại một lần với cùng mã lần gửi.
       if (error && laLoiHetPhien(error)) {
-        const lm = await sb.auth.refreshSession();
-        if (!lm.error) ({ data, error } = await sb.rpc('fn_tao_booking', thamSo));
+        const lm = await sb.auth.refreshSession().catch(() => ({ error: true }));
+        // HV7 bước 2: làm mới không được, hay gửi lại vẫn bị từ chối vì phiên, thì báo cần đăng nhập lại.
+        if (lm.error) throw new LoiHetPhien();
+        ({ data, error } = await sb.rpc('fn_tao_booking', thamSo));
+        if (error && laLoiHetPhien(error)) throw new LoiHetPhien();
       }
       if (error) throw loiDatPhong(error);
       return String(data);

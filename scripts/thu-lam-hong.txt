@@ -176,3 +176,5 @@ YC5.3-NT6 PQ7.SALE Sale Hùng (được chia sẻ 1509) | create or replace func
 YC5.3-NT7 KT-DB.3.5 PQ8.SALE | create policy thu_lam_hong on public.booking for select to authenticated using (can_id in (select public.my_shared_can_ids()))
 YC5.3-NT7 PQ9.SALE | create policy thu_lam_hong on public.booking_rieng for select to authenticated using (true)
 YC5.3 bước 9 ghi đặt phòng thì cập nhật giờ lịch đổi | alter table public.booking disable trigger user
+YC5.3 bước 9 PQ4.SALE Sale Lan (không còn được xem 3402) | create or replace function public.can_chia_se_cho_sale(p_sale uuid, p_can uuid) returns boolean language sql stable security definer set search_path = '' as $$ select true $$
+YC5.3 bước 9 PQ17.CHU Sale Lan (chủ đã ngừng kết nối) | create or replace function public.can_chia_se_cho_sale(p_sale uuid, p_can uuid) returns boolean language sql stable security definer set search_path = '' as $$ select true $$
