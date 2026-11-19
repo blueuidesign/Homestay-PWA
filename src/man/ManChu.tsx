@@ -10,6 +10,8 @@
 // đặt phòng (YC5 Quy tắc "Về màn đã mở", YC5.6-NT7): mở từ chi tiết ngày thì về lịch với chi tiết ngày đó mở sẵn.
 // Xóa đặt phòng khách lẻ ở CN3-02 (YC5.7, US32): xóa xong thì toast "Đã xóa đặt phòng" và về đúng màn đã mở chi tiết đặt phòng
 // như khi sửa (YC5 Quy tắc "Về màn đã mở").
+// Lịch tuần CN2 (YC2.5, US13): cặp nút "Tháng" "Tuần" ở CN1, CN2 đổi qua lại trong tab Lịch (nhớ trong ManChu, địa chỉ vẫn là "/").
+// Bấm tab Lịch luôn mở lịch tháng (YC2-H4). Từ CN2 mở form đặt phòng hay chi tiết đặt phòng rồi quay về thì về lại tuần đang xem.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -23,6 +25,7 @@ import type { ThangLich } from '../lib/dichVuLich';
 import { homNay, type Ngay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN1LichThang } from './CN1LichThang';
+import { CN2LichTuan } from './CN2LichTuan';
 import { CN302ChiTietDatPhong } from './CN302ChiTietDatPhong';
 import { CN4SuaDatPhong, CN4ThemDatPhong } from './CN4ThemDatPhong';
 import { CN502SuaCan } from './CN502SuaCan';
@@ -87,6 +90,15 @@ export function ManChu(props: {
   useEffect(() => {
     if (man.tab !== 'lich' && man.tab !== 'dat-phong-moi' && man.tab !== 'dat-phong' && man.tab !== 'dat-phong-sua') datNgayVuaLuu(null);
   }, [man.tab]);
+  // YC2.5 (YC2-H4): thứ Hai của tuần đang xem ở CN2 (null là đang xem lịch tháng); tháng mở lại CN1 khi bấm "Tháng" ở CN2.
+  const [xemTuan, datXemTuan] = useState<Ngay | null>(null);
+  const [thangTuTuan, datThangTuTuan] = useState<Ngay | null>(null);
+  useEffect(() => {
+    if (man.tab !== 'lich' && man.tab !== 'dat-phong-moi' && man.tab !== 'dat-phong' && man.tab !== 'dat-phong-sua') {
+      datXemTuan(null);
+      datThangTuTuan(null);
+    }
+  }, [man.tab]);
   // Ô ngày vừa chạm trên CN1 (data-ngay), để biết chi tiết ngày nào đang mở khi chạm một đặt phòng.
   const ngayDangXem = useRef<Ngay | null>(null);
   // YC5.6 bước 26: chi tiết đặt phòng mở từ lịch trong app, form sửa mở từ chi tiết; để biết lùi mấy bước khi lưu xong.
@@ -102,7 +114,10 @@ export function ManChu(props: {
   useEffect(() => { if (moCan && ds === undefined && !dangTai) void tai(); }, [moCan, ds, dangTai, tai]);
 
   const themCan = () => props.den('/can/moi');
-  const chonTab = (t: TabChuTen) => props.den(DUONG_DAN_TAB[t]);
+  const chonTab = (t: TabChuTen) => {
+    if (t === 'lich') { datXemTuan(null); datThangTuTuan(null); } // YC2-H4: tab Lịch luôn mở lịch tháng
+    props.den(DUONG_DAN_TAB[t]);
+  };
 
   if (man.tab === 'can-moi') {
     const dv = props.dichVuCan;
@@ -230,6 +245,15 @@ export function ManChu(props: {
     than = <CN5DanhSachCan ds={ds} onMoCan={(id) => props.den(`/can/${id}`)} onThemCan={themCan} vuaThem={vuaThem}
                     giaTuan={giaTuan} onDatGia={(id) => props.den(`/can/${id}/gia`)} // YC4.1 bước 1, 2
                     onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
+  } else if (xemTuan) {
+    // YC2.5: CN2. Ô trống mở CN4 với căn và ngày (bước 23), thanh mở CN3-02. "Tháng" về CN1 tháng chứa thứ Hai của tuần.
+    than = (
+      <CN2LichTuan ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan, soPhongNgu: c.soPhongNgu, tenToa: c.tenToa }))}
+                   dv={props.dichVuCan?.lich} ngayDau={xemTuan} onDoiTuan={datXemTuan}
+                   onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
+                   onMoDatPhong={(id) => { chiTietTuLich.current = true; props.den(duongDanDatPhong(id)); }}
+                   onXemThang={(t2) => { datXemTuan(null); datNgayVuaLuu(null); datThangTuTuan(t2); }} />
+    );
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
     // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC2.4 bước 15, YC5.5: chạm dòng có khách (chi tiết ngày, đặt phòng sắp tới) mở CN3-02.
@@ -240,7 +264,8 @@ export function ManChu(props: {
         const n = o?.getAttribute('data-ngay');
         if (n) ngayDangXem.current = n;
       }}>
-        <CN1LichThang key={ngayVuaLuu ?? ''} ngayMoSan={ngayVuaLuu ?? undefined}
+        <CN1LichThang key={`${ngayVuaLuu ?? ''}|${thangTuTuan ?? ''}`} ngayMoSan={ngayVuaLuu ?? undefined}
+                      thangDau={thangTuTuan ?? undefined} onXemTuan={(t2) => { datThangTuTuan(null); datXemTuan(t2); }}
                       ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
                       boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
                       onMoDatPhong={(id) => {

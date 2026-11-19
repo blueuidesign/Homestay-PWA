@@ -7,6 +7,7 @@
 // Khối "Đặt phòng sắp tới" dưới cùng (YC2.4, US12, QT2.1, QT6.1, PQ7.CHU, PQ8.CHU, PQ9.CHU): mọi căn, chạm dòng mở CN3-02;
 // không có dòng nào thì CN1-01. Chưa có đặt phòng nào (CN1-00) thì không hiện khối.
 // CN4-03 (YC5.3 bước 10, US28): vừa lưu đặt phòng thì mở ở tháng của ngày nhận, ngày nhận đang chọn, chi tiết ngày mở sẵn.
+// Cặp nút "Tháng" "Tuần" dưới tiêu đề (YC2.5, YC2-H4, US13): "Tuần" mở tuần chứa ngày đang chọn, chưa chọn thì tuần có hôm nay.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { CAU_CHUA_TAI, ManChuaTai } from '../chung/matKetNoi';
@@ -20,7 +21,9 @@ import {
 } from '../lib/lich';
 import { vietTien } from '../lib/tien';
 import { homNay as homNayVN, type Ngay } from '../lib/ngay';
+import { thuHaiTuan } from '../lib/lichTuan';
 import { CN3ChiTietNgay } from './CN3ChiTietNgay';
+import { NutThangTuan } from './CN2LichTuan';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
 import './CN1LichThang.css';
 
@@ -89,9 +92,13 @@ export function CN1LichThang(props: {
   homNay?: Ngay;
   /** YC5.3 bước 10, CN4-03: ngày nhận của đặt phòng vừa lưu; lịch mở ở tháng đó, ngày đó đang chọn. */
   ngayMoSan?: Ngay;
+  /** YC2.5 (YC2-H4): bấm "Tuần" mở lịch tuần từ thứ Hai này. Không truyền thì không có cặp nút Tháng / Tuần. */
+  onXemTuan?: (t2: Ngay) => void;
+  /** YC2.5 (YC2-H4): từ lịch tuần bấm "Tháng" thì mở tháng chứa ngày này (thứ Hai của tuần đang xem), chưa chọn ngày nào. */
+  thangDau?: Ngay;
 }) {
   const homNay = props.homNay ?? homNayVN();
-  const ngayDau = props.ngayMoSan ?? homNay;
+  const ngayDau = props.ngayMoSan ?? props.thangDau ?? homNay;
   const hienToast = useToast();
   const boNhoRieng = useRef(new Map<string, ThangLich>());
   const boNho = props.boNho ?? boNhoRieng.current;
@@ -137,7 +144,8 @@ export function CN1LichThang(props: {
   const sapToi = hien ? datPhongSapToi(hien.duLieu.sapToi ?? hien.duLieu.datPhong, homNay, nam, thang) : [];
 
   return (
-    <KhungTabChu tieuDe="Lịch" phai={nutDatPhong}>
+    <KhungTabChu tieuDe="Lịch" phai={nutDatPhong}
+                 dai={props.onXemTuan && <NutThangTuan dangXem="thang" onThang={() => {}} onTuan={() => props.onXemTuan!(thuHaiTuan(chon ?? homNay))} />}>
       {dangTai && hien && <DongDangCapNhat />}
       <section className="cn1-lich" aria-label="Lịch tháng">
         <div className="cn1-thang">

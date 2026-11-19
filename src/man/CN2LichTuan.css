@@ -1,0 +1,47 @@
+/* CN2 · Lịch tuần nhiều căn (canvas home247-canvas.html CN2, CN2-00). Vùng bấm 44 px, chữ không dưới 12 px. */
+/* Cặp nút Tháng / Tuần dưới tiêu đề (YC2-H4), dùng chung CN1. */
+.cn2-kieu { display: flex; gap: 0; margin: 8px 16px 0; padding: 2px; border: 1px solid var(--border); border-radius: 9999px; background: var(--surface); align-self: flex-start; }
+.cn2-kieu-nut { min-height: 44px; min-width: 72px; padding: 0 16px; border: 0; border-radius: 9999px; background: transparent; font: inherit; font-size: 14px; line-height: 20px; font-weight: 500; color: var(--ink-secondary); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn2-kieu-nut--on { background: var(--ink); color: var(--on-action); font-weight: 700; }
+.cn2-kieu-nut:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.cn2-dai-trong { background: var(--action-tint); border-top: 1px solid var(--action-soft); border-bottom: 1px solid var(--action-soft); color: var(--action-ink); padding: 10px 16px; margin-top: 8px; font-size: 14px; line-height: 20px; }
+
+.cn2-tuan { display: flex; align-items: center; justify-content: space-between; }
+.cn2-chuyen { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; gap: 6px; padding: 0 4px; border: 0; background: none; cursor: pointer; font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); -webkit-tap-highlight-color: transparent; }
+.cn2-chuyen .hh-icon { color: var(--ink-body); }
+.cn2-ten-tuan { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn2-chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+
+.cn2-tom-tat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.cn2-o-tom { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md, 12px); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cn2-o-tom-nhan { font-size: 12px; line-height: 16px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn2-o-tom-so { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--ink); }
+
+.cn2-cuon { margin: 0 -12px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.cn2-bang { min-width: 390px; }
+.cn2-hang { display: grid; grid-template-columns: 84px repeat(7, minmax(0, 1fr)); min-height: 60px; border-bottom: 1px solid var(--border-subtle); }
+.cn2-hang:last-child { border-bottom: 0; }
+.cn2-hang--dau { min-height: 48px; background: var(--surface-page); border-bottom: 1px solid var(--border); }
+.cn2-dau-can { position: sticky; left: 0; z-index: 2; background: var(--surface-page); display: flex; align-items: center; padding: 0 12px; font-size: 12px; line-height: 16px; color: var(--ink-muted); text-transform: uppercase; }
+.cn2-dau-ngay { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; line-height: 15px; font-weight: 600; color: var(--ink-secondary); }
+.cn2-dau-ngay--nay { font-weight: 700; color: var(--action); }
+.cn2-ten { grid-column: 1; position: sticky; left: 0; z-index: 2; background: var(--surface); display: flex; flex-direction: column; justify-content: center; padding: 0 12px; border-right: 1px solid var(--border-subtle); min-width: 0; }
+.cn2-hang-ma { font-size: 13px; line-height: 17px; font-weight: 700; color: var(--ink); }
+.cn2-hang-phu { font-size: 12px; line-height: 16px; color: var(--ink-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn2-hang-phu:empty { display: none; }
+.cn2-o { grid-row: 1; display: flex; align-items: center; justify-content: center; min-height: 44px; padding: 0; border: 0; border-left: 1px solid var(--border-subtle); background: none; font: inherit; font-size: 12px; line-height: 16px; color: var(--ink-muted); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn2-o:active { background: var(--border-subtle); }
+.cn2-o--chua-gia { color: var(--ink-muted); opacity: 0.7; }
+.cn2-o-thanh { grid-row: 1; display: flex; padding: 6px 3px; border: 0; background: none; font: inherit; cursor: pointer; min-width: 0; text-align: left; -webkit-tap-highlight-color: transparent; }
+.cn2-o:focus-visible, .cn2-o-thanh:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.cn2-thanh { flex: 1 1 0%; min-width: 0; background: var(--ink-secondary); border: 2px solid var(--ink-secondary); border-radius: var(--radius-sm, 6px); padding: 4px 8px; display: flex; flex-direction: column; justify-content: center; color: var(--on-action); }
+.cn2-thanh--chua-coc { background: var(--border-subtle); color: var(--ink); }
+.cn2-thanh-nguoi { font-size: 12px; line-height: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn2-thanh-nhan { font-size: 12px; line-height: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cn2-thanh--chua-coc .cn2-thanh-nhan { color: var(--danger); }
+
+.cn2-chu-thich { display: flex; gap: 4px 16px; flex-wrap: wrap; padding: 0 4px; font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.cn2-chu-thich-muc { display: flex; align-items: center; gap: 6px; }
+.cn2-mau { width: 20px; height: 12px; border-radius: 4px; display: inline-block; }
+.cn2-mau--da-tra { background: var(--ink-secondary); }
+.cn2-mau--chua-coc { background: var(--border-subtle); border: 2px solid var(--ink-secondary); }
