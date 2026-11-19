@@ -37,7 +37,7 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 | 27 | [US35](US35-xin-ten-va-so-dien.md) | YC6.1 · Xin tên và số điện thoại khi bắt đầu kết nối | Tùng | Hủy (YC6.1 bỏ theo QD22) |
 | 28 | [US36](US36-danh-sach-sale-cua-chu.md) | YC6.2 · Danh sách sale của chủ nhà | Tùng |  |
 | 29 | [US37](US37-link-moi-cua-chu-nha.md) | YC6.3 · Link mời của chủ nhà và sale thêm lịch | Tùng |  |
-| 29a | [EN12](EN12-thu-lam-hong-nhanh-hon.md) | Thử làm hỏng chạy nhanh hơn trên CI | Tùng |  |
+| 29a | [EN12](done/EN12-thu-lam-hong-nhanh-hon.md) | Thử làm hỏng chạy nhanh hơn trên CI | Tùng |  |
 | 30 | [US38](US38-sale-xin-chu-nha-cho.md) | YC6.4 · Sale xin chủ nhà cho xem lịch | Tùng |  |
 | 31 | [US39](US39-chu-nha-duyet-loi-xin.md) | YC6.5 · Chủ nhà duyệt lời xin xem lịch | Tùng |  |
 | 32 | [US40](US40-chu-nha-gui-lich-theo.md) | YC6.6 · Chủ nhà gửi lịch theo căn đã chọn | Tùng |  |
