@@ -136,7 +136,8 @@ begin
   select count(*) into v_so from dblink_get_result('us28_b', false) as x(id uuid);
   v_loi_b := case when v_so > 0 then 'qua' else dblink_error_message('us28_b') end;
   perform * from dblink_get_result('us28_b', false) as x(id uuid);
-  perform dblink_exec('us28_b', 'rollback');
+  -- B lưu được thì commit như app thật, để phép đếm dưới thấy cả hai nếu ràng buộc không chặn.
+  perform dblink_exec('us28_b', case when v_loi_b = 'qua' then 'commit' else 'rollback' end);
   perform t.ok(v_loi_b ilike '%Căn đã có đặt phòng trong những đêm này%',
                'YC5.3-NT3 bước 11 phiên B nhận lỗi trùng đêm "Căn đã có đặt phòng trong những đêm này" (ra: ' || v_loi_b || ')');
 
@@ -305,7 +306,7 @@ select t.bang(t.dem($$select * from public.booking_rieng where booking_id = t.b(
 select t.thoat();
 
 -- ===== YC5.3 bước 9: cập nhật giờ lịch đổi của căn =====
-update public.can set lich_doi_luc = '2026-01-01 00:00+07' where id = t.can('3402');
+update public.can set lich_doi_luc = '2026-01-01 00:00+07' where id in (t.can('3402'), t.can('1509'));
 select t.dang_nhap(t.id('hoa'));
 select pg_temp.ghi('lich', $$select public.fn_tao_booking(p_can_id => t.can('3402'), p_ngay_nhan => '2026-11-10', p_ngay_tra => '2026-11-11',
                                                           p_tien_phong => 800000, p_client_id => gen_random_uuid())$$);

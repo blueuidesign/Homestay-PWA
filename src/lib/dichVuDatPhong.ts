@@ -2,6 +2,7 @@
 // Đọc thẳng bảng booking qua RLS booking_doc (chỉ căn của người gọi), tên khách chính mình nhập qua booking_rieng (QD11),
 // tên sale qua v_nguoi_ket_noi. US27 (YC5.2): giá chủ nhà từng đêm (fn_gia_chu_cac_dem), người đặt (ket_noi, v_nguoi_ket_noi,
 // fn_ten_khach_da_dung), giờ nhận trả trong hồ sơ của mình, lệnh ghi fn_tao_booking.
+// US28 (YC5.3 bước 9, HV7 bước 1): phiên hết hạn khi ghi thì làm mới phiên rồi gửi lại một lần, cùng mã lần gửi (QT5.6).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import type { GiaDem, SaleKetNoi, TrangThaiTienForm } from './datPhong';
@@ -21,6 +22,12 @@ function loiDatPhong(e: { code?: string; message?: string }): Error {
   const loi = new Error(e.message || 'Lỗi đặt phòng');
   (loi as Error & { code?: string }).code = e.code;
   return loi;
+}
+
+/** HV7: PostgREST từ chối vì phiên (JWT) hết hạn hay không hợp lệ. */
+export function laLoiHetPhien(e: { code?: string; message?: string } | null | undefined): boolean {
+  if (!e) return false;
+  return e.code === 'PGRST301' || e.code === 'PGRST303' || /jwt expired/i.test(e.message ?? '');
 }
 
 export interface DichVuDatPhong {
@@ -112,11 +119,17 @@ export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
     },
 
     async taoDatPhong(d) {
-      const { data, error } = await sb.rpc('fn_tao_booking', {
+      const thamSo = {
         p_can_id: d.canId, p_ngay_nhan: d.ngayNhan, p_ngay_tra: d.ngayTra, p_tien_phong: d.tienPhong, p_client_id: d.clientId,
         p_sale_id: d.saleId, p_ten_khach: d.tenKhach, p_sdt_khach: d.sdtKhach, p_trang_thai_tien: d.trangThaiTien,
         p_tien_coc: d.tienCoc, p_so_khach: d.soKhach, p_gio_nhan: d.gioNhan, p_gio_tra: d.gioTra, p_ghi_chu: d.ghiChu,
-      });
+      };
+      let { data, error } = await sb.rpc('fn_tao_booking', thamSo);
+      // HV7 bước 1, HV7-NT1: phiên hết hạn thì làm mới rồi gửi lại một lần với cùng mã lần gửi.
+      if (error && laLoiHetPhien(error)) {
+        const lm = await sb.auth.refreshSession();
+        if (!lm.error) ({ data, error } = await sb.rpc('fn_tao_booking', thamSo));
+      }
       if (error) throw loiDatPhong(error);
       return String(data);
     },

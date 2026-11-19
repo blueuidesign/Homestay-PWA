@@ -94,3 +94,51 @@ test('YC5.2-NT1 YC5.2-NT12 YC5.3-NT1 lưu khách lẻ có tên: tiền phòng đ
               from public.booking b join public.booking_rieng r on r.booking_id = b.id and r.nguoi_id = '${nguoi}'
               where b.can_id = '${c1509}'`)).toBe(`${tong}|${tong}|Khách Thử E2E|14:00|chua_coc`);
 });
+
+// US28 · YC5.3 bước 10 (CN4-03) và bước 11: lưu xong về tháng của ngày nhận, chi tiết ngày mở sẵn; database từ chối trùng
+// (đặt phòng trùng ghi ở máy khác sau khi form đã đọc lịch) thì ở lại form với dòng kiểm đỏ.
+test('YC5.3-NT1 CN4-03 lưu khách lẻ tháng sau: về tab Lịch đúng tháng ngày nhận, ngày nhận đang chọn, chi tiết mở sẵn; bước 11 trùng ở database thì dòng đỏ', async ({ page }) => {
+  const chu = taoTaiKhoan('chu_nha', 'Chủ Chặn Trùng');
+  const nguoi = sql(`select id from auth.users where email = '${chu.email}'`);
+  const c1509 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '1509', 2) returning id`).split('\n')[0]!;
+  const [nam, thang] = sql(`select to_char(date_trunc('month', public.local_today()) + interval '1 month', 'YYYY|FMMM')`)
+    .split('|').map(Number) as [number, number];
+  const ng = (n: number) => `${nam}-${String(thang).padStart(2, '0')}-${String(n).padStart(2, '0')}`;
+  const t2 = String(thang).padStart(2, '0');
+
+  await dangNhapBangMa(page, chu.email);
+  await page.getByRole('banner').getByRole('button', { name: 'Đặt phòng' }).click();
+  await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
+  await page.getByLabel('Ngày nhận phòng').fill(ng(5));
+  await expect(page.getByText(`✓ 05/${t2} → 06/${t2} (1 đêm) · không trùng lịch`)).toBeVisible();
+  await page.getByRole('group', { name: 'Khách / Sale' }).getByRole('button', { name: 'Khách lẻ' }).click();
+  await page.getByLabel('Tiền phòng (đ)').fill('900000');
+  await page.getByRole('button', { name: 'Thêm đặt phòng' }).click();
+
+  // YC5.3-NT1, bước 10: toast; lịch ở tháng của ngày nhận, ô ngày nhận tô màu và đang chọn, chi tiết ngày đó mở sẵn.
+  await expect(page.getByText('Đã thêm đặt phòng Khách lẻ · 1509')).toBeVisible();
+  await expect(page.getByRole('heading', { name: `Tháng ${thang}/${nam}` })).toBeVisible();
+  const o5 = page.locator(`[data-ngay="${ng(5)}"]`);
+  await expect(o5).toHaveAttribute('aria-label', 'Ngày 5, đã đặt phòng 1509');
+  await expect(o5).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('region', { name: `Ngày 05/${t2}/${nam}` })).toBeVisible();
+
+  // Bước 11: mở form, chọn 10 → 12; trong lúc đó máy khác ghi 1509 đêm 11. Database từ chối, form giữ dữ liệu, dòng đỏ.
+  await page.getByRole('banner').getByRole('button', { name: 'Đặt phòng' }).click();
+  await page.getByLabel('Ngày nhận phòng').fill(ng(10));
+  await page.getByRole('checkbox', { name: '2 đêm' }).click();
+  await expect(page.getByText(`✓ 10/${t2} → 12/${t2} (2 đêm) · không trùng lịch`)).toBeVisible();
+  await page.getByRole('group', { name: 'Khách / Sale' }).getByRole('button', { name: 'Khách lẻ' }).click();
+  await page.getByLabel('Tiền phòng (đ)').fill('1800000');
+  sql(`with b as (
+         insert into public.booking (can_id, ngay_nhan, ngay_tra, nguon, tao_boi, tien_phong, trang_thai_tien)
+         values ('${c1509}', '${ng(11)}', '${ng(12)}', 'chu_ghi', '${nguoi}', 900000, 'chua_coc') returning id)
+       insert into public.booking_dem (booking_id, dem, tien) select b.id, '${ng(11)}', 900000 from b`);
+  await page.getByRole('button', { name: 'Thêm đặt phòng' }).click();
+  await expect(page.getByRole('alert').filter({ hasText: 'Căn đã có đặt phòng trong những đêm này' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeVisible();
+  await expect(page.getByLabel('Ngày nhận phòng')).toHaveValue(ng(10));
+  await expect(page.getByLabel('Tiền phòng (đ)')).toHaveValue('1.800.000');
+  await expect(page.getByRole('button', { name: 'Thêm đặt phòng' })).toBeDisabled();
+  expect(sql(`select count(*) from public.booking where can_id = '${c1509}'`)).toBe('2');
+});

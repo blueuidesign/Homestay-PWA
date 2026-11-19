@@ -34,7 +34,7 @@ CN4, CN4-03
 PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC5-dat-phong.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261119230000_us28_luu_chan_trung.sql, supabase/bang-va-cot.md, scripts/thu-lam-hong.txt, tests/db/43_us28_luu_chan_trung.sql, src/man/CN4ThemDatPhong.tsx, src/man/ManChu.tsx, src/man/CN1LichThang.tsx, src/lib/dichVuDatPhong.ts và test của các file đó, tests/e2e/supabase/them-dat-phong.spec.ts.
 
 ## Ngoài phạm vi
 - Phần đầu YC5-dat-phong.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
@@ -57,10 +57,19 @@ Kịch bản test tay: tests/kb/US28-luu-va-chan-trung.md.
 - [ ] US28-TA4 Test tay · Đức: chạy tests/kb/US28-luu-va-chan-trung.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/43 NT2 tới NT7 (NT3 hai phiên thật qua dblink, không có thì nối tiếp), test vi phạm PQ7, PQ8, PQ9, PQ4, PQ11, PQ17.
+- TA2: fn_tao_booking của US27 đã đủ chặn trùng, mã lần gửi, quyền; thêm trigger sau khi ghi booking: lich_doi_luc, yêu cầu chờ trùng thành bị từ chối (GD11), thông báo cho sale (YC12); trigger báo "Yêu cầu bị từ chối". Phép thử làm hỏng YC5.3.
+- TA3: CN4 bước 11 tới 13 (trùng dòng đỏ, lỗi dữ liệu, mất mạng/15 giây cùng mã lần gửi, HV5), HV7-NT1 làm mới phiên rồi gửi lại; CN4-03 về đúng tháng, chi tiết ngày mở sẵn.
 
 ## Nhật ký
+- 2026-11-19 · Claude · TA1, TA2, TA3 trên nhánh US28-luu-chan-trung · HV7-NT2 dừng: gói ghi unit, HV7 ghi e2e
 - 2026-11-19 · Claude · viết tests/kb, soạn gói việc, sang dang-lam
 - 2026-11-18 · Claude · tạo item từ YC5.3@1 (QD21)
 - 2026-11-19 · Claude · nhận HV7-NT1, HV7-NT2 từ EN4 (QD27)
 
 ## Bằng chứng
+- `scripts/test-db.sh`: lần đầu (trước migration) 9 hỏng (NT5, giờ lịch đổi, thông báo); sau migration 1 hỏng do test 43 tự đặt mốc sai, sửa 1 vòng; NT3 phép thử làm hỏng ban đầu xanh vì phiên B rollback, sửa test cho B commit. Cuối: 871 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh YC5.3`: 10/10 đạt.
+- `npx vitest run`: 372 qua (lần đầu đỏ typecheck 2 lỗi trong test mới, sửa 1 vòng). `npm run typecheck`, `npm run build`: qua.
+- `E2E_SUPABASE=1 CI=1 npx playwright test --trace off` (sau `supabase db reset`): 34 qua, lần đầu.
+- `python3 scripts/kiem.py --diff origin/main`: không có lỗi.

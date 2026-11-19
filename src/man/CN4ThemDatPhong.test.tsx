@@ -2,6 +2,7 @@
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { CAU_KHOI_PHUC } from '../chung/nhap';
+import { ToastProvider } from '../chung/Toast';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import type { DatPhongMoi, DichVuDatPhong } from '../lib/dichVuDatPhong';
 import type { CanLich, DatPhongLich } from '../lib/lich';
@@ -401,5 +402,100 @@ describe('YC5.2 · CN4 người đặt, tiền phòng, trạng thái tiền', ()
     expect(tao).toHaveBeenCalledTimes(1);
     expect(onDaLuu).not.toHaveBeenCalled();
     expect(screen.getByRole('heading', { name: 'Thêm đặt phòng' })).toBeInTheDocument();
+  });
+});
+
+// US28 · YC5.3 bước 9 tới 13: lưu, trùng đêm, lỗi dữ liệu, mất mạng, gửi lại cùng mã lần gửi (QT5.6), HV5.
+async function chon3110HaiToast(dv = dichVuDu(), onDaLuu = vi.fn()) {
+  render(<ToastProvider><CN4ThemDatPhong ds={HAI_CAN} dv={dv} homNay="2026-10-07" onDong={vi.fn()} onDaLuu={onDaLuu} /></ToastProvider>);
+  await choKiem();
+  await choGia();
+  fireEvent.change(oNhan(), { target: { value: '2026-10-31' } });
+  fireEvent.click(chipDem('2 đêm'));
+  await screen.findByText('31/10: 1.300.000đ');
+  fireEvent.click(chipNguoi('Khách lẻ'));
+  return { dv, onDaLuu };
+}
+
+describe('YC5.3 · CN4 lưu và chặn trùng', () => {
+  it('YC5.3 bước 9 bấm "Thêm đặt phòng" thì nút chuyển "Đang lưu…", không bấm lại được; chỉ một lệnh ghi', async () => {
+    let xong: (v: string) => void = () => {};
+    const tao = vi.fn(() => new Promise<string>((r) => { xong = r; }));
+    const { onDaLuu } = await chon3110HaiToast(dichVuDu({ taoDatPhong: tao }));
+    fireEvent.click(nutLuu());
+    const dang = await screen.findByRole('button', { name: 'Đang lưu…' });
+    expect(dang).toBeDisabled();
+    fireEvent.click(dang);
+    expect(tao).toHaveBeenCalledTimes(1);
+    await act(async () => { xong('moi'); });
+    expect(onDaLuu).toHaveBeenCalledWith(expect.objectContaining({ nguoiDat: 'Khách lẻ', maCan: '1509', canId: 'c1509', ngayNhan: '2026-10-31' }));
+  });
+
+  it('YC5.3 bước 11 database từ chối vì trùng thì ở lại form, giữ ô đã nhập, dòng kiểm đỏ "Căn đã có đặt phòng trong những đêm này", đọc lại đặt phòng', async () => {
+    const tao = vi.fn(async () => { throw new LoiNguoiDung('Căn đã có đặt phòng trong những đêm này'); });
+    const dv = dichVuDu({ taoDatPhong: tao });
+    const { onDaLuu } = await chon3110HaiToast(dv);
+    const lanDoc = vi.mocked(dv.layDatPhong).mock.calls.length;
+    await act(async () => { fireEvent.click(nutLuu()); });
+    expect(onDaLuu).not.toHaveBeenCalled();
+    const dong = screen.getByText('Căn đã có đặt phòng trong những đêm này');
+    expect(dong).toHaveAttribute('role', 'alert');
+    expect(dong.className).toContain('cn4-kiem--do');
+    expect(vi.mocked(dv.layDatPhong).mock.calls.length).toBeGreaterThan(lanDoc);
+    expect(oNhan().value).toBe('2026-10-31');
+    expect(oTra().value).toBe('2026-11-02');
+    expect(oTien().value).toBe('2.200.000');
+    expect(chipNguoi('Khách lẻ')).toHaveAttribute('aria-pressed', 'true');
+    expect(nutLuu()).toBeDisabled();
+    // Đổi ngày thì dòng kiểm chạy lại theo dữ liệu mới.
+    fireEvent.change(oNhan(), { target: { value: '2026-11-05' } });
+    expect(screen.queryByText('Căn đã có đặt phòng trong những đêm này')).not.toBeInTheDocument();
+  });
+
+  it('YC5.3 bước 12 lỗi dữ liệu thì ở lại form, toast đỏ là nguyên câu database trả về', async () => {
+    const tao = vi.fn(async () => { throw new LoiNguoiDung('Ngày trả phải sau ngày nhận'); });
+    const { onDaLuu } = await chon3110HaiToast(dichVuDu({ taoDatPhong: tao }));
+    await act(async () => { fireEvent.click(nutLuu()); });
+    expect(onDaLuu).not.toHaveBeenCalled();
+    const toast = await screen.findByText('Ngày trả phải sau ngày nhận');
+    expect(toast.closest('[data-kieu="toast"]')).not.toBeNull();
+  });
+
+  it('YC5.3 bước 13 QT5.6 mất mạng thì ở lại form, toast mất mạng; bấm lại thì gửi cùng mã lần gửi và lưu được', async () => {
+    let lan = 0;
+    const tao = vi.fn(async (_d: DatPhongMoi) => { lan += 1; if (lan === 1) throw new TypeError('Failed to fetch'); return 'moi'; });
+    const { onDaLuu } = await chon3110HaiToast(dichVuDu({ taoDatPhong: tao }));
+    await act(async () => { fireEvent.click(nutLuu()); });
+    expect(await screen.findByText('Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại.')).toBeInTheDocument();
+    expect(onDaLuu).not.toHaveBeenCalled();
+    expect(oTien().value).toBe('2.200.000');
+    await act(async () => { fireEvent.click(nutLuu()); });
+    expect(tao).toHaveBeenCalledTimes(2);
+    expect(tao.mock.calls[1]![0].clientId).toBe(tao.mock.calls[0]![0].clientId);
+    expect(onDaLuu).toHaveBeenCalledTimes(1);
+  });
+
+  it('YC5.3 bước 13 quá 15 giây không có trả lời thì toast mất mạng, giữ dữ liệu', async () => {
+    const tao = vi.fn(() => new Promise<string>(() => {}));
+    const { onDaLuu } = await chon3110HaiToast(dichVuDu({ taoDatPhong: tao }));
+    vi.useFakeTimers();
+    try {
+      fireEvent.click(nutLuu());
+      await act(async () => { await vi.advanceTimersByTimeAsync(15000); });
+      expect(screen.getByText('Chưa lưu được vì mất mạng. Kiểm tra mạng rồi bấm lại.')).toBeInTheDocument();
+    } finally {
+      vi.useRealTimers();
+    }
+    expect(onDaLuu).not.toHaveBeenCalled();
+    expect(nutLuu()).toBeEnabled();
+  });
+
+  it('YC5 Trạng thái màn HV5 căn bị ẩn hay mất quyền trong lúc nhập thì toast "Có lỗi xảy ra. Bạn thử lại sau ít phút."', async () => {
+    const tao = vi.fn(async () => { throw Object.assign(new Error('Không tìm thấy căn'), { code: '42501' }); });
+    const { onDaLuu } = await chon3110HaiToast(dichVuDu({ taoDatPhong: tao }));
+    await act(async () => { fireEvent.click(nutLuu()); });
+    expect(await screen.findByText('Có lỗi xảy ra. Bạn thử lại sau ít phút.')).toBeInTheDocument();
+    expect(screen.queryByText('Không tìm thấy căn')).not.toBeInTheDocument();
+    expect(onDaLuu).not.toHaveBeenCalled();
   });
 });
