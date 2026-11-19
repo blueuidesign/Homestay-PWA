@@ -3,6 +3,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang } from './gia';
+import type { GiaTuan } from './can';
 import type { Ngay } from './ngay';
 
 /** YC4.2 bước 1, 5: giá 12 tháng của một năm (chỉ số 0 là tháng 1; null là chưa đặt), dải dịp phủ năm đó, đêm cuối tuần. */
@@ -14,6 +15,8 @@ export interface DichVuGia {
   datGiaThang(canId: string, thang: Ngay[], thuong: number, cuoiTuan: number): Promise<void>;
   /** YC4.2 bước 6: mỗi đêm của tháng chứa ngày thang. */
   layLichGia(canId: string, thang: Ngay): Promise<DemGia[]>;
+  /** YC4.1 bước 1: giá thấp nhất, cao nhất của 7 đêm từ thứ Hai `tu`, theo mã căn, cho mọi căn có lịch của người gọi. */
+  layGiaTuan?(tu: Ngay): Promise<Record<string, GiaTuan>>;
 }
 
 /** QT5.5: lỗi P0001 mang câu cho người dùng; lỗi khác để màn hiện câu chung (HV2). */
@@ -60,6 +63,17 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
       if (error) throw loiGia(error);
       return ((data ?? []) as { dem: string; gia: number | null; loai: DemGia['loai']; co_khach: boolean }[])
         .map((d) => ({ dem: d.dem, gia: d.gia === null ? null : Number(d.gia), loai: d.loai, coKhach: d.co_khach }));
+    },
+
+    // YC4.1 bước 1, QT5.3, PQ5.CHU: lệnh fn_gia_tuan_cua_toi.
+    async layGiaTuan(tu) {
+      const { data, error } = await sb.rpc('fn_gia_tuan_cua_toi', { p_tu: tu });
+      if (error) throw loiGia(error);
+      const kq: Record<string, GiaTuan> = {};
+      for (const r of (data ?? []) as { can_id: string; gia_thap: number | null; gia_cao: number | null }[]) {
+        kq[r.can_id] = { thap: r.gia_thap === null ? null : Number(r.gia_thap), cao: r.gia_cao === null ? null : Number(r.gia_cao) };
+      }
+      return kq;
     },
   };
 }
