@@ -2,7 +2,7 @@
 id: US40
 tieu_de: "Chủ nhà gửi lịch theo căn đã chọn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC6.6@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -63,6 +63,6 @@ Kịch bản test tay: tests/kb/US40-chu-nha-gui-lich-theo.md.
 - 2026-11-18 · Claude · tạo item từ YC6.6@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · YC8-H5 đã trả lời (nút Chia sẻ)
-- 2026-11-19 · Claude (QD25) · tự chốt YC6-H7, H8, H9 (YC6 r9, thêm NT5 đến NT7); viết kịch bản test tay
+- 2026-11-19 · Claude (QD25) · tự chốt YC6-H7, H8, H9 (YC6 r9, thêm NT5 đến NT7); viết kịch bản test tay; soạn gói việc; giao agent code
 
 ## Bằng chứng
