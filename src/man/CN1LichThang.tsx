@@ -3,7 +3,9 @@
 // đổi tháng không tải được thì báo và giữ tháng đang hiện; HV3 quay lại từ nền đọc lại tháng đang xem.
 // Chạm ngày thì CN3 chi tiết một ngày mở ngay dưới lưới (YC2.2, US10), theo chip đang chọn.
 // Khối "Doanh thu tháng N" dưới lưới (YC2.3, US11, PQ16.CHU): tổng mọi căn, không đổi theo chip (YC2-H1); tháng không có
-// đêm có khách thì không hiện. Đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
+// đêm có khách thì không hiện.
+// Khối "Đặt phòng sắp tới" dưới cùng (YC2.4, US12, QT2.1, QT6.1, PQ7.CHU, PQ8.CHU, PQ9.CHU): mọi căn, chạm dòng mở CN3-02;
+// không có dòng nào thì CN1-01. Chưa có đặt phòng nào (CN1-00) thì không hiện khối.
 // CN4-03 (YC5.3 bước 10, US28): vừa lưu đặt phòng thì mở ở tháng của ngày nhận, ngày nhận đang chọn, chi tiết ngày mở sẵn.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
@@ -13,7 +15,8 @@ import { useToast } from '../chung/Toast';
 import type { DichVuLich, ThangLich } from '../lib/dichVuLich';
 import { cacDemCuaThang, congThang, soOTrongDau, tenThangNgan } from '../lib/gia';
 import {
-  canCoKhach, chuChipTatCa, coKhoiDoanhThu, demTheoCan, dongDoanhThu, mauCan, nhanO, tenThang, tieuDeDoanhThu, type CanLich,
+  canCoKhach, chuChipTatCa, coKhoiDoanhThu, datPhongSapToi, demTheoCan, dongDoanhThu, dongSapToi, mauCan, nhanO, tenThang,
+  tieuDeDoanhThu, type CanLich,
 } from '../lib/lich';
 import { vietTien } from '../lib/tien';
 import { homNay as homNayVN, type Ngay } from '../lib/ngay';
@@ -130,6 +133,8 @@ export function CN1LichThang(props: {
   const maCan = new Map(props.ds.map((c) => [c.id, c.maCan]));
   const dem = hien ? demTheoCan(hien.duLieu.datPhong, nam, thang) : null;
   const doanhThu = hien?.duLieu.doanhThu; // YC2.3: tổng mọi căn, không lọc theo canLoc
+  // YC2.4 bước 14: dịch vụ trả sẵn danh sách sắp tới; thiếu thì chọn từ booking của tháng (đủ khi hôm nay thuộc tháng này).
+  const sapToi = hien ? datPhongSapToi(hien.duLieu.sapToi ?? hien.duLieu.datPhong, homNay, nam, thang) : [];
 
   return (
     <KhungTabChu tieuDe="Lịch" phai={nutDatPhong}>
@@ -213,6 +218,35 @@ export function CN1LichThang(props: {
             <div className="hh-stat__hint">{dongDoanhThu(doanhThu, thang)}</div>
           </section>
         </div>
+      )}
+
+      {/* YC2.4 bước 14, 15, 16 (canvas CN1, CN1-01). Chưa tải: khung xám của lưới (HV1). */}
+      {hien && !chuaCoDatPhong && (
+        <section className="cn1-sap-toi" aria-label="Đặt phòng sắp tới">
+          <h2 className="cn1-sap-toi-ten">Đặt phòng sắp tới</h2>
+          {sapToi.length === 0 ? (
+            <p className="cn1-sap-toi-trong">Chưa có đặt phòng sắp tới. Bấm "+ Đặt phòng" để ghi khách đầu tiên.</p>
+          ) : (
+            <div className="cn1-sap-toi-ds">
+              {sapToi.map((b) => {
+                const d = dongSapToi(b, maCan);
+                return (
+                  <button key={b.id} type="button" className="cn1-sap-toi-dong" onClick={() => props.onMoDatPhong?.(b.id)}>
+                    <span className="cn1-sap-toi-cham" style={{ background: mau.get(b.canId) }} aria-hidden="true" />
+                    <span className="cn1-sap-toi-giua">
+                      <span className="cn1-sap-toi-nguoi">{d.nguoiDat}</span>
+                      <span className="cn1-sap-toi-phu">{d.canNgay}</span>
+                    </span>
+                    <span className="cn1-sap-toi-phai">
+                      <span className="cn1-sap-toi-tien">{d.tien}</span>
+                      {d.trangThai && <span className="cn1-sap-toi-phu">{d.trangThai}</span>}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </section>
       )}
 
       {chuaCoDatPhong && (

@@ -38,3 +38,18 @@
 .hh-stat__value { margin-top: 4px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
 .hh-stat--action .hh-stat__value { color: var(--action); }
 .hh-stat__hint { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+/* YC2.4 · khối "Đặt phòng sắp tới" (canvas CN1, CN1-01). Cả dòng là nút, cao tối thiểu 44 px. */
+.cn1-sap-toi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; }
+.cn1-sap-toi-ten { margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; text-transform: uppercase; color: var(--ink-muted); }
+.cn1-sap-toi-trong { margin: 0; padding: 0 4px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+.cn1-sap-toi-ds { display: flex; flex-direction: column; }
+.cn1-sap-toi-dong + .cn1-sap-toi-dong { border-top: 1px solid var(--border-subtle); }
+.cn1-sap-toi-dong { width: 100%; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 10px 0; border: 0; background: none; font: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn1-sap-toi-dong:active { background: var(--border-subtle); }
+.cn1-sap-toi-dong:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.cn1-sap-toi-cham { width: 10px; height: 10px; border-radius: 9999px; flex: 0 0 auto; }
+.cn1-sap-toi-giua { flex: 1 1 0%; min-width: 0; display: flex; flex-direction: column; }
+.cn1-sap-toi-phai { display: flex; flex-direction: column; align-items: flex-end; flex: none; }
+.cn1-sap-toi-nguoi { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn1-sap-toi-tien { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.cn1-sap-toi-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
