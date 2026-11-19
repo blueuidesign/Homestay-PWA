@@ -25,6 +25,6 @@ Mỗi quyết định một file theo `docs/process/templates/qd.md`. Mới thê
 | QD19 | Story sống suốt dự án, mỗi nhóm chức năng một story | da-chot | [QD19-story-song-suot-du-an-moi.md](QD19-story-song-suot-du-an-moi.md) |
 | QD20 | Gộp story theo nhóm chức năng, đánh số lại mã | da-chot | [QD20-gop-story-theo-nhom-chuc-nang.md](QD20-gop-story-theo-nhom-chuc-nang.md) |
 | QD21 | Tách đặc tả (YC) và việc (US); xóa code, dựng lại từ tài liệu | da-chot | [QD21-tach-dac-ta-yc-va-viec.md](QD21-tach-dac-ta-yc-va-viec.md) |
-| QD22 | Người dùng đăng nhập bản PWA bằng gì | cho-chot | [QD22-dang-nhap-ban-pwa.md](QD22-dang-nhap-ban-pwa.md) |
+| QD22 | Người dùng đăng nhập bản PWA bằng gì | da-chot | [QD22-dang-nhap-ban-pwa.md](QD22-dang-nhap-ban-pwa.md) |
 | QD23 | Dữ liệu người dùng đặt ở đâu | cho-chot | [QD23-noi-dat-du-lieu.md](QD23-noi-dat-du-lieu.md) |
 | QD24 | Gói Vercel cho bản thử và bản phát hành | cho-chot | [QD24-goi-vercel.md](QD24-goi-vercel.md) |

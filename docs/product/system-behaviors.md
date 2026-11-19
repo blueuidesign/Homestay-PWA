@@ -3,7 +3,7 @@ id: HV
 tieu_de: Hành vi chung của mọi màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # HV · Hành vi chung của mọi màn
 
@@ -63,7 +63,8 @@ Tiêu chí:
 - **HV3-NT4** Khi lưu đặt phòng thành công, thì mở lại form CN4 không còn nháp cũ. · unit
 
 ## HV4 · Xin quyền của trình duyệt
-Rủi ro: tb. Không xin quyền gì khi vừa mở app. Bản 1 không cần quyền nào: chọn ảnh dùng ô chọn file (pwa.md P6), số điện thoại theo YC6.1, thông báo chỉ trong app. Khi sau này cần quyền (thông báo đẩy, vị trí), làm theo bảng dưới.
+`[r2 · sửa]`
+Rủi ro: tb. Không xin quyền gì khi vừa mở app. Bản 1 không cần quyền nào: chọn ảnh dùng ô chọn file (pwa.md P6), số điện thoại nhập ở bước đăng ký (YC1.2), thông báo chỉ trong app. Khi sau này cần quyền (thông báo đẩy, vị trí), làm theo bảng dưới.
 
 | Bước | Người dùng | App |
 |---|---|---|
@@ -128,3 +129,8 @@ Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoạ
 
 ## Câu hỏi còn mở
 Ở `work/cau-hoi.md`: HV1-H1 (chờ bao lâu thì coi là lỗi), HV3-H1 (nháp giữ bao lâu).
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: số điện thoại lấy lúc đăng ký | HV4 |

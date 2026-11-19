@@ -3,8 +3,8 @@ id: YC10
 tieu_de: Nguồn phòng và căn tự nhập
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
-ban: 1
+rev: 2
+ban: 2
 ---
 # YC10 · Nguồn phòng và căn tự nhập
 
@@ -68,15 +68,16 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ nền: HV3. Không có quyền: HV5 (sale bị ngừng, chủ nhà xóa tài khoản).
 
 ## YC10.1 · Tab Căn của sale
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: tb · Màn: S6, S6-00, S6-07, S6-08
+Bản 2 · rủi ro: tb · Màn: S6, S6-00, S6-07, S6-08
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Mở tab Căn | Nhóm "CĂN CỦA TÔI · 2" kèm nút "+ Thêm căn" (YC3.2). Mỗi căn: tên, "2PN · view biển", tình trạng hôm nay ("Trống hôm nay ✓", "Có khách 12/10") | Căn của người gọi, tình trạng hôm nay |
 | 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước" ([MỞ: YC10-H2]), các căn ("ICON40 1509 · 2PN · 3 giường", "view biển"), không có số khách | Căn trong phạm vi các kết nối đang dùng |
 | 3 | Xem căn tự nhập | Nhóm "CĂN TỰ NHẬP · 1": "Villa Tuần Châu", "Chú Bình · chưa dùng app · gọi hỏi lịch", không có "Trống hôm nay". Dòng gợi ý "Mời chú Bình dùng app để lịch tự cập nhật, không cần gọi hỏi.", nút "Gửi lời mời qua Zalo" | Căn tự nhập của người gọi |
-| 4 | Bấm "Gửi lời mời qua Zalo" | YC6.1 nếu hồ sơ chưa có số, rồi bảng chia sẻ với tin mời chung có link mở app (pwa.md P3). App không tự gửi tin | Không |
+| 4 | Bấm "Gửi lời mời qua Zalo" | Mở bảng chia sẻ với tin mời chung có link mở app (pwa.md P3). App không tự gửi tin | Không |
 | 5 | Chạm tên chủ nhà | S6-04 (YC10.2) | Không |
 | 6 | Chạm căn của chủ nhà | S3 (YC7.4). Không mở S6-07: sale không ghi đặt phòng hay sửa giá trên căn của chủ nhà | Không |
 | 7 | Chạm căn của tôi | S6-07: nhãn "Căn của tôi", "Bạn tự ghi lịch và giá cho căn này, như chủ nhà.", "7 ngày tới · giá đêm của bạn" (Green Bay 0812: 750k, Kín, Kín, 900k, 750k, 750k, 750k), ba việc "Đặt phòng" (YC5), "Sửa căn và giá" (YC3.5, YC4.2), "Gửi cho khách" (YC8) | Chi tiết căn của người gọi |
@@ -185,6 +186,7 @@ Tiêu chí:
 - **YC10.4-NT7** Khi Hùng đã ghi V2, thì lịch 7 ngày ghi "Bạn" ở 08/10, các ô khác vẫn "?". · database, unit
 
 ## Màn hình
+`[r2 · sửa]`
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
@@ -192,9 +194,10 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 - **S6-00, S6-02, S6-03, S6-03-00, S6-05, S6-07, S6-08.** Đúng bố cục.
 - **S6-04 · Chi tiết chủ nhà.** Canvas chưa có hình chi tiết; làm theo YC10.2.
 - **S6-06 · Đã lưu.** Toast theo HV8.
-- Không làm: S6-P1, S6-P2 (hộp thoại của Zalo; bản PWA xin số theo YC6.1).
+- Không làm: S6-P1, S6-P2 (popup xin số và hộp thoại của Zalo; bản PWA có số từ lúc đăng ký, QD22).
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US16 trừ phần "Lịch phòng 7 ngày" (đã vào YC7.1) (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi mời chủ căn tự nhập | YC10.1, Màn hình |

@@ -54,6 +54,14 @@ Gắn ở: YC1.7.
 Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn).
 Gắn ở: YC1.
 
+### YC1-H12 · mo
+Mã đăng nhập gửi về email: mấy chữ số, còn hạn bao lâu, bao lâu mới được bấm "Gửi lại mã", nhập sai mấy lần thì phải xin mã mới? Đề xuất theo mặc định của Supabase: 6 chữ số, hạn 1 giờ, gửi lại sau 60 giây.
+Gắn ở: YC1.2 bước 2, 3. Chặn: màn nhập mã (US2). Hỏi ngày 19/11/2026.
+
+### YC1-H13 · mo
+Số điện thoại nhập lúc đăng ký trùng với số của một tài khoản khác thì sao: cho đăng ký (hai tài khoản cùng số), hay báo "Số này đã có tài khoản" và không cho? Số không xác minh bằng mã (QD22).
+Gắn ở: YC1.2 bước 4. Chặn: lệnh đăng ký (US2). Hỏi ngày 19/11/2026.
+
 ## YC2
 
 ### YC2-H1 · mo

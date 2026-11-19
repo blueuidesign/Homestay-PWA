@@ -3,8 +3,8 @@ id: YC8
 tieu_de: Gửi khách
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
-ban: 1
+rev: 2
+ban: 2
 ---
 # YC8 · Gửi khách
 
@@ -61,12 +61,13 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ bảng chia sẻ: HV3, màn giữ nguyên. Không có bảng chia sẻ: sao chép (HV6). Toast: HV8.
 
 ## YC8.1 · Gửi thông tin cho khách
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: cao · Màn: S5
+Bản 2 · rủi ro: cao · Màn: S5
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Bấm "Gửi cho khách" (S2, S3, S6-03, S6-07) | YC6.1 nếu hồ sơ chưa có số; "Để sau" vẫn mở S5 | Không |
+| 1 | Bấm "Gửi cho khách" (S2, S3, S6-03, S6-07) | Mở S5 | Không |
 | 2 | Mở màn | Tiêu đề "Gửi cho khách", dòng "3 căn · 10/10 → 12/10. Mỗi căn gửi chữ một lần, ảnh một lần." | Lệnh soạn tin |
 | 3 | Xem một căn | Số thứ tự, tên căn, số ảnh ("6 ảnh"), chữ theo mẫu, không tiện ích căn, không số khách | Không |
 | 4 | Bấm "Gửi chữ" | Bảng chia sẻ của điện thoại với chữ của căn đó | Ghi lần gửi |
@@ -119,3 +120,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US14 (QD21), đổi cách gửi sang bảng chia sẻ của PWA | Cả file |
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi gửi khách | YC8.1 |

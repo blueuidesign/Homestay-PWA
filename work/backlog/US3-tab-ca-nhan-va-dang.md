@@ -3,8 +3,8 @@ id: US3
 tieu_de: "Tab Cá nhân và đăng xuất"
 loai: US
 trang_thai: moi
-thuc_hien: [YC1.3@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC1.3@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -37,7 +37,7 @@ PQ1, PQ2, PQ6, PQ9, PQ11, PQ20, PQ23 và các test vi phạm ở mục "Ai đư�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: QD22.
+- Chỗ chưa quyết trong mục: không còn (QD22 đã chốt).
 - Phần đầu YC1-tai-khoan.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -58,5 +58,6 @@ Kịch bản test tay: tests/kb/US3-tab-ca-nhan-va-dang.md, chưa viết. Viết
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.3@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

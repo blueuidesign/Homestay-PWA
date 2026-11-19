@@ -4,7 +4,7 @@ tieu_de: "Hướng dẫn và nhắn Home247"
 loai: US
 trang_thai: moi
 thuc_hien: [YC1.7@1]
-truoc: [EN1, EN2, EN3, EN4]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21

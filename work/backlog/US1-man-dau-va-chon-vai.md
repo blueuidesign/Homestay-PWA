@@ -3,8 +3,8 @@ id: US1
 tieu_de: "Màn đầu và chọn vai"
 loai: US
 trang_thai: moi
-thuc_hien: [YC1.1@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC1.1@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -58,5 +58,6 @@ Kịch bản test tay: tests/kb/US1-man-dau-va-chon-vai.md, chưa viết. Viết
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.1@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

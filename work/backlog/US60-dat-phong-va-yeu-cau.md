@@ -4,7 +4,7 @@ tieu_de: "Đặt phòng và yêu cầu của sale"
 loai: US
 trang_thai: moi
 thuc_hien: [YC11.3@1]
-truoc: [EN1, EN2, EN3, EN4]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21

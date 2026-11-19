@@ -3,7 +3,7 @@ id: MT
 tieu_de: Mô tả dự án
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
+rev: 2
 ---
 # Mô tả dự án · Home247 · Lịch phòng Hạ Long
 
@@ -50,11 +50,12 @@ Nhiều người dùng trung niên, lớn tuổi, dùng một tay, hay vừa ngh
 - **Thống kê tháng**: chủ nhà xem doanh thu, công suất, theo người bán; sale xem doanh số và tiền chênh (nhóm Thống kê).
 
 ## Nguyên tắc không đổi
+`[r2 · sửa]`
 
 - Khách không bao giờ thấy giá chủ nhà.
 - Sale được chia sẻ căn nào thì luôn thấy giá chủ nhà của căn đó.
 - Mỗi người chỉ thấy khách và tiền thu khách do mình nhập. Được lưu tên và số khách; người nhập tự xin phép khách.
-- Không bắt đăng ký bằng email.
+- Đăng ký bằng email, nhập tên và số điện thoại; đăng nhập bằng mã gửi về email, không có mật khẩu (QD22).
 - Không bắt đăng nhập, không xin gì khi vừa mở app; chỉ hỏi khi người dùng làm việc cần tới.
 - Dữ liệu người dùng được đặt ở đâu: QD23.
 
@@ -74,3 +75,8 @@ Thu phí sale khoảng 100.000đ mỗi tháng, không thu chủ nhà. Có thể 
 ## Người làm
 
 Tùng là Product Owner: phạm vi, nghiệp vụ, thiết kế, ưu tiên. Đức test tay trên điện thoại thật và lo môi trường. Claude viết code và test.
+
+## Lịch sử sửa đổi
+| Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
+|---|---|---|---|---|---|
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ nguyên tắc không đăng ký bằng email | Nguyên tắc không đổi |

@@ -3,8 +3,8 @@ id: US4
 tieu_de: "Hồ sơ"
 loai: US
 trang_thai: moi
-thuc_hien: [YC1.4@1]
-truoc: [EN1, EN2, EN3, EN4]
+thuc_hien: [YC1.4@2]
+truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
 nguon: QD21
@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là người dùng (chủ nhà hoặc sale), tôi làm được việc "Hồ sơ" đúng như YC1.4 mô tả.
 
 ## Làm tiêu chí nào
-YC1.4-NT1 đến NT4
+YC1.4-NT1, NT2, NT4 (NT3 bỏ)
 
 ## Quy tắc, hành vi dùng
 HV4, HV5, QT6.5
@@ -52,12 +52,13 @@ Kịch bản test tay: tests/kb/US4-ho-so.md, chưa viết. Viết trước khi 
 
 ## Task
 - [ ] US4-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.4-NT1, YC1.4-NT4
-- [ ] US4-TA2 Code · Claude Code (sonnet, CL14.6a): màn P2 theo canvas, test unit, e2e cho YC1.4-NT1 đến NT3
+- [ ] US4-TA2 Code · Claude Code (sonnet, CL14.6a): màn P2 theo canvas, test unit, e2e cho YC1.4-NT1, YC1.4-NT2
 - [ ] US4-TA3 Test tay · Đức: chạy tests/kb/US4-ho-so.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC1.4@1 (QD21)
+- 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 ## Bằng chứng

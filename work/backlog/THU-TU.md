@@ -8,7 +8,7 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 |---|---|---|---|---|
 | 1 | [EN1](EN1-dung-nen-app-khung-pwa.md) | Dựng nền app: khung PWA, cấu trúc thư mục, công cụ test, CI và bản Preview | Tùng | Làm song song với EN2 |
 | 2 | [EN2](EN2-database-nen-bang-bat-bien.md) | Database nền: bảng, bất biến, quyền đọc ghi, dữ liệu mẫu và test database | Tùng |  |
-| 3 | [EN3](EN3-dang-nhap-tam-tren-staging.md) | Đăng nhập tạm trên staging và tài khoản thử | Tùng | Chỉ trên staging, chờ Tùng tạo staging (VIEC_TAY_CUA_TUNG.md) |
+| 3 | [EN3](EN3-dang-nhap-tam-tren-staging.md) | Đăng nhập tạm trên staging và tài khoản thử | Tùng | Hủy (QD22 bỏ mật khẩu) |
 | 4 | [EN4](EN4-hanh-vi-chung-moi-man.md) | Hành vi chung mọi màn: đang tải, mất mạng, quay lại app, quyền, phiên hết hạn, toast | Tùng |  |
 | 5 | [US1](US1-man-dau-va-chon-vai.md) | YC1.1 · Màn đầu và chọn vai | Tùng |  |
 | 6 | [US14](US14-man-dau-tien-va-danh.md) | YC3.1 · Màn đầu tiên và danh sách căn | Tùng |  |
@@ -31,7 +31,7 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 | 23 | [US13](US13-lich-tuan-nhieu-can.md) | YC2.5 · Lịch tuần nhiều căn | Tùng |  |
 | 24 | [US18](US18-sua-can.md) | YC3.5 · Sửa căn | Tùng |  |
 | 25 | [US19](US19-xoa-can.md) | YC3.6 · Xóa căn | Tùng |  |
-| 26 | [US35](US35-xin-ten-va-so-dien.md) | YC6.1 · Xin tên và số điện thoại khi bắt đầu kết nối | Tùng |  |
+| 26 | [US35](US35-xin-ten-va-so-dien.md) | YC6.1 · Xin tên và số điện thoại khi bắt đầu kết nối | Tùng | Hủy (YC6.1 bỏ theo QD22) |
 | 27 | [US36](US36-danh-sach-sale-cua-chu.md) | YC6.2 · Danh sách sale của chủ nhà | Tùng |  |
 | 28 | [US37](US37-link-moi-cua-chu-nha.md) | YC6.3 · Link mời của chủ nhà và sale thêm lịch | Tùng |  |
 | 29 | [US38](US38-sale-xin-chu-nha-cho.md) | YC6.4 · Sale xin chủ nhà cho xem lịch | Tùng |  |
@@ -73,7 +73,7 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 | 65 | [US6](US6-xuat-file-csv.md) | YC1.6 · Xuất file CSV | Tùng |  |
 | 66 | [US7](US7-huong-dan-va-nhan-home247.md) | YC1.7 · Hướng dẫn và nhắn Home247 | Tùng |  |
 | 67 | [US8](US8-xoa-tai-khoan.md) | YC1.8 · Xóa tài khoản | Tùng | Chờ YC1-H6 (màn chưa có) |
-| 68 | [US2](US2-dang-nhap.md) | YC1.2 · Đăng nhập | Tùng | Chờ QD22 |
+| 68 | [US2](US2-dang-nhap.md) | YC1.2 · Đăng ký và đăng nhập bằng mã email | Tùng | Chờ thiết kế, YC1-H12, YC1-H13 |
 | 69 | [EN5](EN5-moi-truong-va-phat-hanh.md) | YC15.1 · Môi trường và phát hành | Tùng | Chờ QD23 |
 | 70 | [EN6](EN6-sao-luu-va-khoi-phuc.md) | YC15.2 · Sao lưu và khôi phục | Tùng |  |
 | 71 | [EN7](EN7-theo-doi-loi-va-phap.md) | YC15.3 · Theo dõi lỗi và pháp lý | Tùng |  |

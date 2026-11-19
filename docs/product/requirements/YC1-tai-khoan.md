@@ -3,45 +3,49 @@ id: YC1
 tieu_de: Tài khoản
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 1
-ban: 1
+rev: 2
+ban: 2
 ---
 # YC1 · Tài khoản
 
 ## Mục tiêu
 
-Là người dùng, tôi muốn vào app mà không phải đăng ký rườm rà, chọn mình là chủ nhà hay sale, sửa cách người khác thấy mình, lấy dữ liệu của mình ra file, và xóa tài khoản khi thôi dùng, để dùng app như một cuốn sổ của riêng mình mà người khác không xem được.
+Là người dùng, tôi muốn vào app chỉ bằng email, tên và số điện thoại, không phải nhớ mật khẩu, chọn mình là chủ nhà hay sale, sửa cách người khác thấy mình, lấy dữ liệu của mình ra file, và xóa tài khoản khi thôi dùng, để dùng app như một cuốn sổ của riêng mình mà người khác không xem được.
 
 Vì sao quan trọng: người dùng lớn tuổi bỏ app ngay nếu màn đầu hỏi nhiều. Nhưng mọi quyền trong app dựa vào việc biết đúng ai đang dùng, nên đăng nhập phải chắc mà vẫn ít bước. Xóa tài khoản chạm tới dữ liệu của người khác (đặt phòng đã chốt với họ), nên phải giữ những gì người kia cần và chỉ bỏ số điện thoại (QD13).
 
 ## Luồng chính
+`[r2 · sửa]`
 
-Chị Hoa mở app lần đầu, thấy A1 "Lịch phòng Hạ Long", bấm "Bắt đầu ngay", đăng nhập (YC1.2), chọn "Tôi là chủ nhà", bấm "Tiếp tục" và vào tab Lịch (A4 vì chưa có căn, YC3.1). Không có hộp thoại nào hỏi tên hay số điện thoại; số chỉ được xin khi Chị Hoa bắt đầu chia lịch cho sale (YC6.1).
+Chị Hoa mở app lần đầu, thấy A1 "Lịch phòng Hạ Long", bấm "Bắt đầu ngay", nhập email, nhập mã gửi về email, rồi nhập tên và số điện thoại để hoàn tất đăng ký (YC1.2). Chị chọn "Tôi là chủ nhà", bấm "Tiếp tục" và vào tab Lịch (A4 vì chưa có căn, YC3.1). Từ đó tới khi đăng xuất, Chị Hoa mở app là vào thẳng, không phải nhập lại gì.
 
 Ngày 07/10/2026, Chị Hoa vào Cá nhân (P1): "Chị Hoa · Chủ nhà", "Thông báo 2", "Cài đặt thông báo · 3 loại đang bật", "Giờ nhận, trả phòng mặc định · 14:00 · 12:00", "Ngày tính giá cuối tuần · T6, T7". Chị mở "Xuất file Excel (CSV)", giữ "Tháng này" và "Tất cả": "8 đặt phòng" (B1 đến B8, DLM.8), bấm xuất và nhận file.
 
 ## Phạm vi
+`[r2 · sửa]`
 
-YC này gồm: màn đầu, đăng nhập, chọn vai, tab Cá nhân, đăng xuất, hồ sơ, giờ nhận trả mặc định, xuất file CSV, hướng dẫn và nhắn Home247, xóa tài khoản.
+YC này gồm: màn đầu, đăng ký và đăng nhập, chọn vai, tab Cá nhân, đăng xuất, hồ sơ, giờ nhận trả mặc định, xuất file CSV, hướng dẫn và nhắn Home247, xóa tài khoản.
 
 Không thuộc YC này (dễ tưởng là có):
-- Xin số điện thoại khi bắt đầu kết nối: YC6.1. Ngày tính giá cuối tuần (P6): YC4.6. Mức cộng mặc định: YC7.5. Mẫu tin gửi khách: YC8.2. Thông báo, cài đặt thông báo: YC12. Link xin xem lịch: YC6.4.
+- Ngày tính giá cuối tuần (P6): YC4.6. Mức cộng mặc định: YC7.5. Mẫu tin gửi khách: YC8.2. Thông báo, cài đặt thông báo: YC12. Link xin xem lịch: YC6.4.
 - Hiện "Đã xoá tài khoản" ở từng màn của người còn lại: YC của màn đó theo quy tắc dùng chung "QT6.5 Người đã xóa tài khoản". YC này nói lệnh xóa và các tiêu chí chung.
 - Sao lưu và khôi phục bằng file, đội nhóm: bản sau (`docs/product/requirements/README.md`).
 - Đăng nhập trang quản trị: YC13.
 
 ## Quy tắc của nhóm
+`[r2 · sửa]`
 
 | Tên | Quy tắc | Ví dụ |
 |---|---|---|
-| Không hỏi khi vừa mở | Màn đầu và đăng nhập không hỏi tên, số điện thoại, không xin quyền gì (HV4) | A1 chỉ có "Bắt đầu ngay" |
+| Không hỏi khi vừa mở | A1 không hỏi gì, không xin quyền gì (HV4). Tên và số chỉ hỏi ở bước đăng ký, sau khi người dùng bấm "Bắt đầu ngay" và nhập đúng mã (QD22) | A1 chỉ có "Bắt đầu ngay" |
+| Chưa đăng ký xong thì chưa vào app | Hồ sơ chưa có tên hoặc số thì mọi màn của app đều về màn đăng ký, trừ màn xem trước của link mời, link xin lịch (QD8) (QD22) | Tắt app giữa chừng, mở lại thấy màn đăng ký |
 | Vai chỉ chọn màn mở đầu | Vai quyết định tab và màn đầu; quyền với căn tính theo quan hệ người với căn (QD5). Bản đầu không có màn đổi vai | Sale có căn của tôi vẫn ghi lịch căn đó |
 | Menu theo vai | Chủ nhà thấy nhóm TÀI KHOẢN, CÀI ĐẶT, DỮ LIỆU, HỖ TRỢ; sale thấy TÀI KHOẢN, BÁN PHÒNG, CÀI ĐẶT, HỖ TRỢ | |
-| Số điện thoại chỉ database ghi | Số trên hồ sơ chỉ có qua bước xin số (YC6.1); app không gửi số lên để sửa | "Từ Zalo ✓" |
+| Số điện thoại chỉ ghi lúc đăng ký | Số do người dùng nhập ở bước đăng ký (YC1.2), database kiểm định dạng (pwa.md P2) rồi mới ghi; sau đó lệnh sửa hồ sơ không nhận số (YC1.4) | Ô số ở P2 chỉ xem |
 | Giờ nhận trả mặc định | Một giờ nhận và một giờ trả cho mọi căn của chủ nhà, mặc định 14:00 và 12:00. Đổi giờ không đổi đặt phòng đã có ([MỞ: YC1-H11] với sale đã gửi khách) | "Khách nhận phòng từ 14:00, trả phòng trước 12:00 hôm sau." |
 | File của chủ nhà | File xuất chỉ có đặt phòng ở căn của chủ nhà, tiền là số nguyên đồng không dấu chấm, khách chỉ do chính chủ nhà nhập (QD11), không có giá bán, tiền chênh; UTF-8 có BOM để Excel đọc đúng tiếng Việt | 2200000 |
 
-Quy tắc dùng chung: QT6.5 Người đã xóa tài khoản, Xin số điện thoại đúng lúc (YC6); HV4, HV5; pwa.md P1, P2, P5, P8.
+Quy tắc dùng chung: QT6.5 Người đã xóa tài khoản; HV4, HV5; pwa.md P1, P2, P5, P8.
 
 ## Ai được làm gì
 
@@ -52,11 +56,13 @@ Theo `docs/security/PQ-ma-tran-quyen.md`: PQ1, PQ2, PQ6, PQ9.CHU, PQ11.CHU, PQ20
 - Sau khi xóa tài khoản: không ai đọc được số điện thoại của người đó (YC1.8-NT1).
 
 ## Dữ liệu
+`[r2 · sửa]`
 
 Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bảo đảm:
-- Mỗi người đăng nhập có một hồ sơ, tạo ở lần đầu: tên, tên hiển thị, ảnh, số điện thoại (chỉ database ghi), vai đã chọn, lúc đồng ý điều khoản, giờ nhận trả mặc định, lúc xóa tài khoản.
+- Mỗi người đăng nhập có một hồ sơ, tạo ở lần đầu: tên, tên hiển thị, ảnh, số điện thoại (ghi bằng lệnh đăng ký, YC1.2), vai đã chọn, lúc đồng ý điều khoản, giờ nhận trả mặc định, lúc xóa tài khoản.
 - Lệnh xóa tài khoản: trong một giao dịch bỏ số điện thoại, ghi lúc xóa, ghi thông báo "chủ nhà đã xóa tài khoản" cho mỗi sale đang kết nối (YC12). Không xóa căn, ảnh căn, lịch, giá, tiền, đặt phòng, yêu cầu.
-- Người đã xóa tài khoản nhập lại số (YC6.1) thì bỏ dấu đã xóa; kết nối cũ dùng lại, không phải mời lại.
+- Lệnh đăng ký: ghi tên và số vào hồ sơ của chính người gọi sau khi kiểm (YC1.2). Hồ sơ đã có số thì từ chối, không ghi đè.
+- Người đã xóa tài khoản đăng nhập lại và nhập lại số ở bước đăng ký (YC1.2) thì bỏ dấu đã xóa; kết nối cũ dùng lại, không phải mời lại.
 - Lệnh đếm và lệnh xuất file dùng cùng một bộ lọc, nên ra cùng số dòng.
 
 ## Trạng thái màn (mọi mục)
@@ -64,13 +70,14 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Đang tải: HV1. Mất mạng: HV2. Quay lại từ nền: HV3. Không có quyền: HV5.
 
 ## YC1.1 · Màn đầu và chọn vai
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: tb · Màn: A1, A3, A3-00
+Bản 2 · rủi ro: tb · Màn: A1, A3, A3-00
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Mở app lần đầu, chưa đăng nhập | A1: "Lịch phòng Hạ Long", "Lịch phòng và giá homestay, chia sẻ cho sale trong một chạm.", ba dòng "Ghi lịch các phòng nhanh hơn sổ tay", "Sale tự xem phòng trống, không cần gọi hỏi", "Gửi ảnh và giá phòng cho khách trong vài giây", nút "Bắt đầu ngay", dòng "Bằng việc tiếp tục, bạn đồng ý với Điều khoản và Chính sách quyền riêng tư" (hai link, nội dung ở YC15) | Không |
-| 2 | Bấm "Bắt đầu ngay" | Đăng nhập (YC1.2), xong sang A3. Không có popup hỏi tên, số | Tạo hồ sơ ở lần đầu |
+| 2 | Bấm "Bắt đầu ngay" | Đăng ký hoặc đăng nhập (YC1.2), xong sang A3 | Tạo hồ sơ ở lần đầu |
 | 3 | Ở A3 | "Bạn dùng app để làm gì?", thẻ "Tôi là chủ nhà" ("Ghi lịch phòng, đặt giá, mời sale xem lịch.") và "Tôi là sale" ("Tìm phòng trống, gửi ảnh và giá cho khách."). Chưa chọn: nút "Tiếp tục" mờ, "Chọn một mục để tiếp tục" (A3-00) | Không |
 | 4 | Chạm một thẻ | Thẻ đó đổi nền, viền, có ✓; thẻ kia bỏ chọn; "Tiếp tục" sáng | Không |
 | 5 | Bấm "Tiếp tục" | Chủ nhà: tab Lịch (A4 khi chưa có căn, YC3.1). Sale: tab Lịch (A5 khi chưa có nguồn phòng, YC7.1) | Ghi vai và lúc đồng ý điều khoản |
@@ -86,43 +93,60 @@ Luật kiểm:
 
 Tiêu chí:
 - **YC1.1-NT1** Khi người chưa đăng nhập mở app, thì thấy A1 với nút "Bắt đầu ngay" và hai link "Điều khoản", "Chính sách quyền riêng tư"; không có ô hay hộp thoại hỏi tên, số điện thoại. · unit
-- **YC1.1-NT2** Khi người dùng đăng nhập xong sau "Bắt đầu ngay", thì app sang A3, không có popup hỏi tên, số. · e2e
+- **YC1.1-NT2** Khi người dùng mới đăng ký xong (đã có tên và số) sau "Bắt đầu ngay", thì app sang A3. · e2e
 - **YC1.1-NT3** Khi người dùng chạm "Tôi là sale" rồi "Tôi là chủ nhà", thì chỉ thẻ chủ nhà ở trạng thái chọn. · unit
 - **YC1.1-NT4** Khi chưa chạm thẻ nào, thì "Tiếp tục" không bấm được và có dòng "Chọn một mục để tiếp tục". · unit
 - **YC1.1-NT5** Khi người dùng chọn "Tôi là chủ nhà" và bấm "Tiếp tục", thì hồ sơ có vai chủ nhà và lúc đồng ý điều khoản, app mở tab Lịch. · database, e2e
 - **YC1.1-NT6** Khi Chị Hoa đã chọn vai mở lại app, thì vào thẳng tab Lịch, không thấy A1, A3. · unit
 - **YC1.1-NT7** Khi lệnh chọn vai có giá trị khác "chủ nhà", "sale", thì database từ chối với câu "Vai không hợp lệ". · database
 
-## YC1.2 · Đăng nhập
+## YC1.2 · Đăng ký và đăng nhập
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: cao · Màn: chưa có
+Bản 2 · rủi ro: cao · Màn: chưa có (Design vẽ màn đăng ký, đăng nhập cho bản PWA)
 
-Cách đăng nhập thật (mã qua SMS, mã qua email, Zalo trên web): [MỞ: QD22]. Giữ các điều sau dù chọn cách nào: không form đăng ký dài; không xin quyền khi vừa mở; số điện thoại chỉ xin khi người dùng bấm việc cần số (YC6.1).
-
-Tới khi có câu trả lời, bản thử (staging) có đăng nhập tạm bằng email và mật khẩu, chỉ bật ở project thử, không bao giờ bật ở production:
+Đăng nhập bằng mã gửi về email, không có mật khẩu ở bất kỳ môi trường nào, kể cả staging. Người mới phải nhập tên và số điện thoại xong mới vào được app (QD22). Một luồng cho cả người mới và người cũ: app không hỏi "đã có tài khoản chưa", người cũ nhập đúng mã là vào thẳng.
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Mở app khi chưa đăng nhập | Màn "Đăng nhập thử": ô Email, ô Mật khẩu, nút "Đăng nhập", dòng "Chỉ dùng cho bản thử." | Không |
-| 2 | Nhập đúng, bấm "Đăng nhập" | Chưa chọn vai thì A3, đã chọn thì tab Lịch. Đến từ link mời thì về đúng màn của link (YC6.3) | Cấp phiên; tạo hồ sơ ở lần đầu |
-| 3 | Nhập sai | "Email hoặc mật khẩu chưa đúng." Ở lại màn | Không |
-| 4 | Đóng rồi mở lại app | Vào thẳng app | Phiên giữ trên máy, tự làm mới |
+| 1 | Bấm "Bắt đầu ngay" ở A1 | Màn nhập email: ô email, nút gửi mã | Không |
+| 2 | Nhập email, bấm gửi mã | Sang màn nhập mã: báo mã đã gửi tới email vừa nhập, ô nhập mã, nút gửi lại mã, nút đổi email. Số chữ số của mã, hạn của mã, bao lâu được gửi lại: [MỞ: YC1-H12] | Supabase Auth gửi mã tới email |
+| 3 | Nhập đúng mã | Hồ sơ đã có tên và số: chưa chọn vai thì A3, đã chọn thì tab Lịch, đến từ link mời hay link xin lịch thì về đúng màn của link (YC6.3, YC6.5). Hồ sơ chưa có tên hoặc số: màn đăng ký | Cấp phiên; tạo hồ sơ trống ở lần đầu |
+| 4 | Ở màn đăng ký, nhập tên và số điện thoại, bấm hoàn tất | Đúng luật kiểm: đi tiếp như bước 3 khi hồ sơ đã đủ. Sai: báo ngay dưới ô, ở lại màn. Số đã thuộc tài khoản khác: [MỞ: YC1-H13] | Lệnh đăng ký ghi tên, số vào hồ sơ của người gọi (mục Dữ liệu) |
+| 5 | Nhập sai mã, hay mã hết hạn | Báo mã chưa đúng hoặc đã hết hạn, ở lại màn nhập mã | Không |
+| 6 | Đóng app ở màn đăng ký rồi mở lại | Về màn đăng ký, không vào được màn nào khác (Quy tắc của nhóm) | Phiên còn giữ |
+| 7 | Đã đăng ký xong, đóng rồi mở lại app | Vào thẳng app | Phiên giữ trên máy, tự làm mới |
+
+Chữ trên các màn này theo màn Design vẽ, Tùng duyệt rồi mới ghi vào đây.
+
+Luật kiểm:
+
+| Ô | Luật | Sai thì |
+|---|---|---|
+| Email | Có dạng email | Báo email chưa đúng |
+| Tên | Bỏ khoảng trắng đầu cuối, không trống | Báo phải nhập tên |
+| Số điện thoại | 9 đến 15 chữ số, cho phép dấu + ở đầu (pwa.md P2). App kiểm để báo sớm, database kiểm lại | Báo số chưa đúng |
 
 Tiêu chí:
-- **YC1.2-NT1** Khi người dùng chưa đăng nhập mở địa chỉ nào của app, thì về màn đăng nhập, trừ địa chỉ link mời và link xin lịch (xem trước không cần đăng nhập, QD8). · unit
-- **YC1.2-NT2** Khi tài khoản thử của Chị Hoa đăng nhập đúng ở staging, thì vào app và thấy 1509, 3402. · e2e
-- **YC1.2-NT3** Khi nhập sai mật khẩu, thì thấy "Email hoặc mật khẩu chưa đúng." và không vào app. · e2e
-- **YC1.2-NT4** Khi đã đăng nhập, đóng trình duyệt rồi mở lại, thì vẫn ở trong app. · e2e
-- **YC1.2-NT5** Khi một người mở link mời lúc chưa đăng nhập rồi đăng nhập, thì quay lại đúng màn "Thêm lịch" của link đó. · e2e
+- **YC1.2-NT1** Khi người dùng chưa đăng nhập mở địa chỉ nào của app, thì về A1, trừ địa chỉ link mời và link xin lịch (xem trước không cần đăng nhập, QD8). · unit
+- **YC1.2-NT2** Khi người dùng nhập email và bấm gửi mã, thì app sang màn nhập mã và hộp thư của email đó nhận được mã. · e2e
+- **YC1.2-NT3** Khi nhập sai mã, thì app báo mã chưa đúng và không vào app. · e2e
+- **YC1.2-NT4** Khi người mới nhập đúng mã, thì app mở màn đăng ký và không mở được A3 hay tab nào cho tới khi ghi xong tên và số. · e2e
+- **YC1.2-NT5** Khi lệnh đăng ký có tên trống hoặc số sai luật kiểm, thì database từ chối và hồ sơ không đổi. · database
+- **YC1.2-NT6** Khi lệnh đăng ký gửi lên cho hồ sơ đã có số, hay gửi mã của người khác, thì database từ chối và không gì đổi. · database
+- **YC1.2-NT7** Khi người đã đăng ký nhập đúng mã ở lần đăng nhập sau, thì vào thẳng app, không thấy màn đăng ký. · e2e
+- **YC1.2-NT8** Khi đã đăng nhập, đóng trình duyệt rồi mở lại, thì vẫn ở trong app. · e2e
+- **YC1.2-NT9** Khi một người mở link mời lúc chưa đăng nhập rồi đăng ký hoặc đăng nhập, thì quay lại đúng màn "Thêm lịch" của link đó. · e2e
 
 ## YC1.3 · Tab Cá nhân và đăng xuất
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: thấp · Màn: P1, P4
+Bản 2 · rủi ro: thấp · Màn: P1, P4
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Mở tab Cá nhân | Đầu trang: ảnh hay chữ cái đầu, tên, số điện thoại (nếu có), vai ("Chủ nhà", "Sale") | Hồ sơ, số thông báo chưa đọc |
-| 2 | Nhóm "TÀI KHOẢN" | "Thông báo" kèm số chưa đọc (YC12.2), "Thông tin cá nhân" (YC1.4), dòng cách đăng nhập đang dùng ([MỞ: QD22]) | |
+| 2 | Nhóm "TÀI KHOẢN" | "Thông báo" kèm số chưa đọc (YC12.2), "Thông tin cá nhân" (YC1.4), dòng đăng nhập bằng email kèm địa chỉ email đang dùng (QD22) | |
 | 3 | Chủ nhà (P1) | "CÀI ĐẶT": "Cài đặt thông báo · 3 loại đang bật" (YC12.4), "Giờ nhận, trả phòng mặc định · 14:00 · 12:00" (YC1.5), "Ngày tính giá cuối tuần · T6, T7" (YC4.6). "DỮ LIỆU": "Xuất file Excel (CSV)" (YC1.6) | Cài đặt |
 | 4 | Sale (P4) | "BÁN PHÒNG": "Link xin xem lịch · Gửi chủ nhà" (YC6.4), "Mức cộng giá mặc định · +400k" (YC7.5), "Mẫu tin gửi khách" (YC8.2). "CÀI ĐẶT": "Cài đặt thông báo" | Cài đặt |
 | 5 | Nhóm "HỖ TRỢ" | "Hướng dẫn sử dụng", "Nhắn Zalo cho Home247" (YC1.7) | Không |
@@ -139,12 +163,13 @@ Tiêu chí:
 - **YC1.3-NT5** Khi đăng nhập lại sau khi đăng xuất, thì dữ liệu của tài khoản còn nguyên. · e2e
 
 ## YC1.4 · Hồ sơ
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: tb · Màn: P2
+Bản 2 · rủi ro: tb · Màn: P2
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Mở "Thông tin cá nhân" | Ảnh hay chữ cái đầu, nút "Đổi ảnh đại diện", ô "Họ và tên", ô "Tên hiển thị" ("Sale thấy tên này trong Nguồn phòng."), số điện thoại chỉ xem; chưa có số thì "Chưa có · app sẽ hỏi khi bạn kết nối lần đầu" | Hồ sơ, ảnh qua đường dẫn có hạn |
+| 1 | Mở "Thông tin cá nhân" | Ảnh hay chữ cái đầu, nút "Đổi ảnh đại diện", ô "Họ và tên", ô "Tên hiển thị" ("Sale thấy tên này trong Nguồn phòng."), số điện thoại nhập lúc đăng ký, chỉ xem | Hồ sơ, ảnh qua đường dẫn có hạn |
 | 2 | Bấm "Đổi ảnh đại diện" | Chọn ảnh (pwa.md P6) | Ảnh tải lên ngay |
 | 3 | Sửa tên hiển thị, bấm "Lưu thay đổi" | Lưu, ở lại màn | Ghi tên hiển thị, ảnh |
 
@@ -159,7 +184,7 @@ Luật kiểm:
 Tiêu chí:
 - **YC1.4-NT1** Khi Chị Hoa sửa tên hiển thị và lưu, thì Sale Hùng thấy tên mới ở Nguồn phòng. · database, unit
 - **YC1.4-NT2** Khi hồ sơ có số điện thoại, thì ô số không sửa được. · unit
-- **YC1.4-NT3** Khi hồ sơ chưa có số, thì ô ghi "Chưa có · app sẽ hỏi khi bạn kết nối lần đầu". · unit
+- **YC1.4-NT3** `[r2 · bỏ]` Hồ sơ đã đăng ký xong luôn có số (QD22).
 - **YC1.4-NT4** Khi Sale Lan gửi lệnh sửa hồ sơ của Chị Hoa, hay gửi số điện thoại, vai, mã người khác trong lệnh sửa của mình, thì database từ chối và không gì đổi. · database
 
 ## YC1.5 · Giờ nhận, trả phòng mặc định
@@ -225,15 +250,16 @@ Tiêu chí:
 - **YC1.7-NT2** Khi người dùng bấm "Nhắn Zalo cho Home247", thì app mở đường dẫn chat Zalo của Home247. · unit
 
 ## YC1.8 · Xóa tài khoản
+`[r2 · sửa]`
 
-Bản 1 · rủi ro: cao · Màn: chưa có ([MỞ: YC1-H6])
+Bản 2 · rủi ro: cao · Màn: chưa có ([MỞ: YC1-H6])
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Bấm xóa tài khoản, xác nhận (chỗ đặt nút, chữ xác nhận: [MỞ: YC1-H6]) | Về A1 | Lệnh xóa tài khoản (mục Dữ liệu) |
 | 2 | Bấm hủy ở bước xác nhận | Không gì đổi | Không |
-| 3 | Đăng nhập lại cùng tài khoản | Thấy lại căn, lịch, giá, đặt phòng của mình. Chưa có số thì xin lại khi bấm việc cần số (YC6.1) | Hồ sơ cũ |
-| 4 | Nhập lại số (YC6.1) | Dùng như trước; người khác không còn thấy "Đã xoá tài khoản" | Bỏ dấu đã xóa |
+| 3 | Đăng nhập lại cùng email | Hồ sơ không còn số nên vào màn đăng ký (YC1.2 bước 4) | Hồ sơ cũ |
+| 4 | Nhập lại tên và số ở màn đăng ký | Thấy lại căn, lịch, giá, đặt phòng của mình. Dùng như trước; người khác không còn thấy "Đã xoá tài khoản" | Bỏ dấu đã xóa |
 
 Phía người còn lại theo quy tắc QT6.5 Người đã xóa tài khoản; tiêu chí ở từng YC: YC5.5-NT4, YC6.2-NT7, YC7.1-NT6, YC9.1-NT8, YC9.4-NT6, YC10.1-NT7, YC10.1-NT8, YC11.2-NT7. Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không: [MỞ: YC1-H8]. Chính sách quyền riêng tư nói giữ gì, bao lâu: [MỞ: YC1-H7].
 
@@ -249,12 +275,14 @@ Tiêu chí:
 - **YC1.8-NT9** Khi Sale Hùng đã xóa tài khoản, thì Chị Hoa không đổi được phạm vi hay quyền xem cho Hùng; Hùng nhập lại số thì kết nối dùng lại ngay. · database
 
 ## Màn hình
+`[r2 · sửa]`
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
 - **A1, A3, A3-00.** Đúng bố cục.
-- **P1, P4 · Cá nhân.** Dòng "Đăng nhập bằng Zalo · Đã liên kết" đổi theo QD22. Bỏ dòng "Đội nhóm" ở bản 1.
-- **P2 · Hồ sơ.** Nhãn "Từ Zalo ✓" và mục "ĐĂNG NHẬP · Zalo" đổi theo QD22.
+- **P1, P4 · Cá nhân.** Dòng "Đăng nhập bằng Zalo · Đã liên kết" đổi thành dòng đăng nhập bằng email (YC1.3, QD22). Bỏ dòng "Đội nhóm" ở bản 1.
+- **P2 · Hồ sơ.** Bỏ nhãn "Từ Zalo ✓". Mục "ĐĂNG NHẬP · Zalo" đổi thành email đang dùng (QD22).
+- **Đăng ký, đăng nhập.** Canvas cũ là của Zalo, không có màn nào. Design vẽ mới cho bản PWA (YC1.2).
 - **P5, P8, P8-00, P9.** Đúng bố cục.
 - Không làm: P7, P7-00 (sao lưu, bản sau).
 
@@ -262,3 +290,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ US1 (vào app, chọn vai), US37, US21 (trừ cài đặt thông báo), US22 (QD21) | Cả file |
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: đăng nhập bằng mã email, đăng ký xin tên và số ngay. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 2. Thêm YC1-H12, YC1-H13 | Mục tiêu, Luồng chính, Phạm vi, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |
