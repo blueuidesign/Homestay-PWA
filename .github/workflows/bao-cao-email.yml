@@ -1,0 +1,64 @@
+# EN9: gửi email báo cáo cho Tùng mỗi khi một PR của item (US, EN, BG) gộp vào main.
+# Vercel tự deploy main sau khi gộp, nên thư này là báo "đã lên chức năng mới".
+# Cần hai secret: RESEND_API_KEY (khóa Resend) và BAO_CAO_EMAIL (địa chỉ nhận, không ghi vào repo vì repo công khai).
+# Thiếu secret thì bỏ qua bước gửi, không làm CI đỏ.
+name: bao-cao-email
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: read
+
+jobs:
+  gui:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Soạn và gửi thư
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          BAO_CAO_EMAIL: ${{ secrets.BAO_CAO_EMAIL }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SO_PR: ${{ github.event.pull_request.number }}
+          TEN_PR: ${{ github.event.pull_request.title }}
+          MO_TA_PR: ${{ github.event.pull_request.body }}
+          LINK_PR: ${{ github.event.pull_request.html_url }}
+          SHA_DAU: ${{ github.event.pull_request.head.sha }}
+          GUI_TU: ${{ vars.BAO_CAO_GUI_TU || 'Home247 <no-reply@homestaymail.vxlab.vn>' }}
+          LINK_APP: ${{ vars.LINK_APP || 'https://homestay-pwa.vercel.app' }}
+        run: |
+          set -euo pipefail
+          ma=$(printf '%s' "$TEN_PR" | grep -oE '^(US|EN|BG)[0-9]+' || true)
+          if [ -z "$ma" ]; then
+            echo "PR không mở đầu bằng mã US, EN, BG: không phải chức năng mới, không gửi thư."
+            exit 0
+          fi
+          if [ -z "$RESEND_API_KEY" ] || [ -z "$BAO_CAO_EMAIL" ]; then
+            echo "::notice::Chưa có secret RESEND_API_KEY hoặc BAO_CAO_EMAIL, bỏ qua gửi thư."
+            exit 0
+          fi
+          # Các dòng "(Claude tự quyết" hoặc "Claude tự chốt" mới thêm trong PR.
+          tu_quyet=$(gh pr diff "$SO_PR" -R "$REPO" 2>/dev/null \
+            | grep -E '^\+[^+]' | grep -E 'Claude tự (quyết|chốt)' | sed 's/^+//' | cut -c1-300 | head -20 || true)
+          [ -z "$tu_quyet" ] && tu_quyet="Không có."
+          # Kết quả các bước kiểm của lần chạy cuối trên nhánh.
+          kiem=$(gh api "repos/$REPO/commits/$SHA_DAU/check-runs" \
+            --jq '.check_runs[] | "- \(.name): \(.conclusion // .status)"' 2>/dev/null || echo "- Không đọc được kết quả kiểm.")
+          noi_dung=$(printf 'Đã gộp vào main và đang deploy: %s\n\nItem: %s\nPR: %s\nApp: %s\n\nCHI TIẾT TRONG PR\n%s\n\nCLAUDE TỰ QUYẾT TRONG PR NÀY\n%s\n\nKẾT QUẢ KIỂM TỰ ĐỘNG\n%s\n' \
+            "$TEN_PR" "$ma" "$LINK_PR" "$LINK_APP" "${MO_TA_PR:-Không có mô tả.}" "$tu_quyet" "$kiem")
+          jq -n --arg from "$GUI_TU" --arg to "$BAO_CAO_EMAIL" \
+                --arg subject "Home247 · $ma đã lên: $TEN_PR" --arg text "$noi_dung" \
+                '{from: $from, to: [$to], subject: $subject, text: $text}' > thu.json
+          ma_http=$(curl -sS -o tra_loi.txt -w '%{http_code}' https://api.resend.com/emails \
+            -H "Authorization: Bearer $RESEND_API_KEY" -H 'Content-Type: application/json' --data @thu.json)
+          echo "Resend trả về $ma_http"
+          if [ "$ma_http" -ge 300 ]; then
+            echo "::warning::Gửi thư không được (HTTP $ma_http). Xem lại khóa Resend và tên miền gửi."
+            head -c 500 tra_loi.txt
+          fi
