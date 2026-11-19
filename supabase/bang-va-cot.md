@@ -620,6 +620,7 @@ Policy:
 
 ## Hàm
 
+- can_chia_se_cho_sale(p_sale uuid, p_can uuid) → boolean · security definer
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
 - chuan_hoa_so(p_so text) → text · security definer
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
@@ -643,8 +644,11 @@ Policy:
 - o_lich(p_can_id uuid, p_dem date) → text · security definer · gọi được: authenticated
 - tach_tien_theo_dem(p_tong bigint, p_so_dem integer) → bigint[] · security definer · gọi được: authenticated
 - tg_bao_chu_them_can() → trigger · security definer
+- tg_bao_yeu_cau_bi_tu_choi() → trigger · security definer
 - tg_booking_huy_hai_ben() → trigger · security definer
 - tg_booking_nhat_ky() → trigger · security definer
+- tg_booking_sau_khi_ghi() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
+- thong_bao_bat(p_nguoi uuid, p_loai text) → boolean · security definer
 - tien_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tong bigint) → bigint[] · security definer

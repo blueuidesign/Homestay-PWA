@@ -3,6 +3,7 @@
 // đổi tháng không tải được thì báo và giữ tháng đang hiện; HV3 quay lại từ nền đọc lại tháng đang xem.
 // Chạm ngày thì CN3 chi tiết một ngày mở ngay dưới lưới (YC2.2, US10), theo chip đang chọn.
 // Doanh thu tháng, đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
+// CN4-03 (YC5.3 bước 10, US28): vừa lưu đặt phòng thì mở ở tháng của ngày nhận, ngày nhận đang chọn, chi tiết ngày mở sẵn.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { CAU_CHUA_TAI, ManChuaTai } from '../chung/matKetNoi';
@@ -79,16 +80,19 @@ export function CN1LichThang(props: {
   boNho?: Map<string, ThangLich>;
   /** Hôm nay theo giờ Việt Nam; test truyền ngày cố định. */
   homNay?: Ngay;
+  /** YC5.3 bước 10, CN4-03: ngày nhận của đặt phòng vừa lưu; lịch mở ở tháng đó, ngày đó đang chọn. */
+  ngayMoSan?: Ngay;
 }) {
   const homNay = props.homNay ?? homNayVN();
+  const ngayDau = props.ngayMoSan ?? homNay;
   const hienToast = useToast();
   const boNhoRieng = useRef(new Map<string, ThangLich>());
   const boNho = props.boNho ?? boNhoRieng.current;
   const canIdsChu = props.ds.map((c) => c.id).join(',');
   const canIds = useMemo(() => (canIdsChu ? canIdsChu.split(',') : []), [canIdsChu]);
-  const [muon, datMuon] = useState<[number, number]>([Number(homNay.slice(0, 4)), Number(homNay.slice(5, 7))]);
+  const [muon, datMuon] = useState<[number, number]>([Number(ngayDau.slice(0, 4)), Number(ngayDau.slice(5, 7))]);
   const [canLoc, datCanLoc] = useState<string | null>(null);
-  const [chon, datChon] = useState<Ngay | null>(null);
+  const [chon, datChon] = useState<Ngay | null>(props.ngayMoSan ?? null);
   // HV2: đổi tháng không tải được thì báo, quay về tháng đang hiện (lần bấm sau tính từ tháng đó).
   const { hien, dangTai, loi, tai } = useThang(props.dv, canIds, muon, boNho, (dangHien) => {
     hienToast(CAU_CHUA_TAI, 'loi');

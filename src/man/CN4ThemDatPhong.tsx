@@ -3,10 +3,14 @@
 // HV3 nháp trên máy, quay lại từ nền đọc lại đặt phòng và chạy lại dòng kiểm.
 // US27 (YC5.2): hàng chip người đặt (CN4NguoiDat), tiền phòng và trạng thái tiền (CN4TienPhong, CN4-01), phần thêm chi
 // tiết; nút "Thêm đặt phòng" gọi fn_tao_booking (YC5.3 bước 9), lưu được thì về tab Lịch với toast (bước 10).
+// US28 (YC5.3 bước 11 tới 13, QT5.5, QT5.6, HV5): trùng đêm thì dòng kiểm đỏ và đọc lại đặt phòng; lỗi dữ liệu toast đỏ;
+// mất mạng hay quá 15 giây thì toast mất mạng, bấm lại gửi cùng mã lần gửi; mất quyền với căn thì câu chung của HV5.
+// HV7: hết phiên mà làm mới không được thì giữ nháp, đưa về đăng nhập, đăng nhập xong mở lại đúng form.
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
-import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
+import { DaiMatKetNoi, LoiNguoiDung, ManChuaTai } from '../chung/matKetNoi';
 import { CAU_KHOI_PHUC, useQuayLaiTuNen } from '../chung/nhap';
+import { LoiHetPhien } from '../chung/phien';
 import { useToast } from '../chung/Toast';
 import {
   chipCuaSoDem, chipNguoiDat, demTrongDauTien, docBanNhapDatPhong, ghiBanNhapDatPhong, kiemNgay, loiTienCoc, loiTienPhong,
@@ -14,6 +18,7 @@ import {
   type ChipDem, type ChipNguoiDat, type GiaDem, type SaleKetNoi, type TrangThaiTienForm,
 } from '../lib/datPhong';
 import type { DichVuDatPhong } from '../lib/dichVuDatPhong';
+import { CAU_MAT_MANG } from '../lib/kiemCan';
 import { mauCan, type CanLich, type DatPhongLich } from '../lib/lich';
 import { homNay as homNayVN, laNgay, type Ngay } from '../lib/ngay';
 import { CN4NguoiDat } from './CN4NguoiDat';
@@ -26,6 +31,30 @@ const ICON_DONG = <><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>;
 const CHIP_DEM: { gt: ChipDem; chu: string }[] = [
   { gt: 1, chu: '1 đêm' }, { gt: 2, chu: '2 đêm' }, { gt: 3, chu: '3 đêm' }, { gt: 'tuy-chon', chu: 'Tùy chọn' },
 ];
+
+/** YC5.3 bước 11: câu database trả khi trùng đêm (QD6). */
+export const CAU_TRUNG_DEM = 'Căn đã có đặt phòng trong những đêm này';
+/** YC5 Trạng thái màn, HV5: căn bị ẩn hay chủ nhà mất quyền với căn trong lúc nhập. */
+export const CAU_LOI_QUYEN = 'Có lỗi xảy ra. Bạn thử lại sau ít phút.';
+/** YC5.3 bước 13, HV1-H1: quá 15 giây không có trả lời thì coi như mất mạng. */
+export const THOI_GIAN_CHO_LUU_MS = 15000;
+
+class LoiHetGio extends Error {}
+
+function choToiDa<T>(p: Promise<T>, ms: number): Promise<T> {
+  return new Promise<T>((xong, hong) => {
+    const hen = setTimeout(() => hong(new LoiHetGio('quá giờ')), ms);
+    p.then((v) => { clearTimeout(hen); xong(v); }, (e) => { clearTimeout(hen); hong(e); });
+  });
+}
+
+/** YC5.3 bước 13: lỗi không có mã của database (fetch hỏng, mất mạng, quá giờ) là lỗi mạng. */
+function laLoiMang(e: unknown): boolean {
+  if (e instanceof LoiHetGio || e instanceof TypeError) return true;
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return true;
+  const ma = (e as { code?: unknown } | null)?.code;
+  return ma === undefined || ma === null || ma === '';
+}
 
 function taoMaLanGui(): string {
   try {
@@ -77,13 +106,18 @@ export function CN4ThemDatPhong(props: {
   onDong: () => void;
   /** YC5.3 bước 10: lưu được; ManChu về tab Lịch với toast "Đã thêm đặt phòng <người đặt> · <căn>". */
   onDaLuu?: (v: { nguoiDat: string; maCan: string; canId: string; ngayNhan: Ngay }) => void;
+  /** HV7 bước 2: làm mới phiên không được; nháp đã ghi, App đưa về đăng nhập rồi quay lại đúng địa chỉ này. */
+  onHetPhien?: () => void;
 }) {
   const hienToast = useToast();
   const homNay = props.homNay ?? homNayVN();
   // HV3 bước 3: mở lại form (không kèm căn, ngày từ CN3) có nháp thì điền lại. Mở từ CN3 thì theo căn, ngày đã chọn.
   const [dau] = useState(() => {
     const tuCN3 = !!props.canIdBanDau && !!props.ngayBanDau && laNgay(props.ngayBanDau);
-    const nhap = tuCN3 ? null : docBanNhapDatPhong();
+    // HV7 bước 2: mở lại đúng địa chỉ từ CN3 sau khi đăng nhập lại thì nháp cùng căn, cùng ngày nhận vẫn được dùng.
+    const docNhap = docBanNhapDatPhong();
+    const nhap = !tuCN3 ? docNhap
+      : docNhap && docNhap.canId === props.canIdBanDau && docNhap.ngayNhan === props.ngayBanDau ? docNhap : null;
     if (nhap) return { ...nhap, khoiPhuc: true };
     return {
       canId: tuCN3 ? props.canIdBanDau! : '',
@@ -98,6 +132,8 @@ export function CN4ThemDatPhong(props: {
   const [tuyChon, datTuyChon] = useState(dau.tuyChon);
   const [moTra, datMoTra] = useState(dau.tuyChon);
   const [clientId] = useState(dau.clientId || taoMaLanGui());
+  // YC5.3 bước 11: database từ chối vì trùng đêm; dòng kiểm đỏ tới khi đổi căn hay ngày.
+  const [loiTrung, datLoiTrung] = useState(false);
   const daSua = useRef(dau.khoiPhuc);
 
   const canIds = (props.ds ?? []).map((c) => c.id);
@@ -127,10 +163,11 @@ export function CN4ThemDatPhong(props: {
   const chipSang: ChipDem = tuyChon ? 'tuy-chon' : chipCuaSoDem(soDem);
 
   // YC5.1 bước 2: đổi căn giữ ngày; dòng kiểm tự chạy lại.
-  const chonCan = (id: string) => { daSua.current = true; datCanId(id); };
+  const chonCan = (id: string) => { daSua.current = true; datLoiTrung(false); datCanId(id); };
   // YC5.1 bước 3: chip số đêm đặt ngày trả; "Tùy chọn" mở ô ngày trả.
   const chonDem = (c: ChipDem) => {
     daSua.current = true;
+    datLoiTrung(false);
     if (c === 'tuy-chon') { datTuyChon(true); datMoTra(true); return; }
     datTuyChon(false);
     datMoTra(false);
@@ -139,11 +176,12 @@ export function CN4ThemDatPhong(props: {
   // YC5.1 bước 3b: đổi ngày nhận giữ số đêm đang chọn, dời ngày trả theo.
   const doiNhan = (v: string) => {
     daSua.current = true;
+    datLoiTrung(false);
     datNgayNhan(v);
     if (laNgay(v)) datNgayTra(ngayTraTheoSoDem(v, soDem && soDem > 0 ? soDem : 1));
   };
   // YC5.1 bước 3: đổi ngày trả bằng tay thì chip tương ứng tự sáng.
-  const doiTra = (v: string) => { daSua.current = true; datTuyChon(false); datNgayTra(v); };
+  const doiTra = (v: string) => { daSua.current = true; datLoiTrung(false); datTuyChon(false); datNgayTra(v); };
   // HV3 bước 5: bỏ form thì xóa nháp.
   const dong = () => { xoaBanNhapDatPhong(); props.onDong(); };
 
@@ -213,7 +251,7 @@ export function CN4ThemDatPhong(props: {
   // YC5.2-NT3, NT7, NT8, YC5.1 bước 4: chưa đủ thì nút không bấm được.
   const loiTien = giaDem === undefined ? null : loiTienPhong(tien);
   const loiCoc = loiTienCoc(trangThai, coc, tien);
-  const coTheLuu = !!props.dv?.taoDatPhong && kiem?.loai === 'khong-trung' && !!chipChon && chipChon.loai !== 'sale-moi'
+  const coTheLuu = !!props.dv?.taoDatPhong && !loiTrung && kiem?.loai === 'khong-trung' && !!chipChon && chipChon.loai !== 'sale-moi'
     && giaDem !== undefined && !loiTienPhong(tien) && !loiCoc;
 
   // YC5.3 bước 9 tới 12: lưu; database từ chối thì ở lại form, toast đỏ là câu database trả về (QT5.5).
@@ -222,7 +260,8 @@ export function CN4ThemDatPhong(props: {
     if (!tao || !coTheLuu || !chipChon || tien === null) return;
     const sale = chipChon.loai === 'sale' ? chipChon : null;
     try {
-      await tao.call(props.dv, {
+      // YC5.3 bước 13, QT5.6: bấm lại sau mất mạng gửi cùng mã lần gửi (clientId giữ suốt form).
+      await choToiDa(tao.call(props.dv, {
         canId, ngayNhan, ngayTra, tienPhong: tien, clientId,
         saleId: sale?.id ?? null,
         tenKhach: laKhachLe ? tenKhach.trim() || null : null,
@@ -231,10 +270,26 @@ export function CN4ThemDatPhong(props: {
         soKhach: daMoChiTiet ? soKhach : null,
         gioNhan: daMoChiTiet ? gio.gioNhan : null, gioTra: daMoChiTiet ? gio.gioTra : null,
         ghiChu: ghiChu.trim() || null,
-      });
+      }), THOI_GIAN_CHO_LUU_MS);
     } catch (e) {
-      hienToast(cauBaoLoi(e), 'loi');
-      void tai(); // bước 11: đọc lại đặt phòng để dòng kiểm đúng với dữ liệu mới
+      if (e instanceof LoiHetPhien) {
+        // HV7 bước 2, HV7-NT2: giữ nội dung đang nhập (HV3) cùng mã lần gửi, rồi đưa về đăng nhập.
+        ghiBanNhapDatPhong({ canId, ngayNhan, ngayTra, tuyChon, clientId });
+        props.onHetPhien?.();
+        return;
+      }
+      if (e instanceof LoiNguoiDung && e.message === CAU_TRUNG_DEM) {
+        // Bước 11: ở lại form, dòng kiểm đỏ; đọc lại đặt phòng để dòng kiểm ở bước 4 đúng với dữ liệu mới.
+        datLoiTrung(true);
+        void tai();
+      } else if (e instanceof LoiNguoiDung) {
+        hienToast(e.message, 'loi'); // bước 12, QT5.5: nguyên câu database trả về
+      } else if (laLoiMang(e)) {
+        hienToast(CAU_MAT_MANG, 'loi'); // bước 13, HV8-NT4
+      } else {
+        hienToast(CAU_LOI_QUYEN, 'loi'); // YC5 Trạng thái màn, HV5: mất quyền với căn
+        void tai();
+      }
       return;
     }
     xoaBanNhapDatPhong(); // HV3 bước 5
@@ -245,7 +300,8 @@ export function CN4ThemDatPhong(props: {
   };
 
   let dongKiem;
-  if (loi) dongKiem = <ManChuaTai onThuLai={() => void tai()} />;
+  if (loiTrung) dongKiem = <p className="cn4-kiem cn4-kiem--do" role="alert">{CAU_TRUNG_DEM}</p>;
+  else if (loi) dongKiem = <ManChuaTai onThuLai={() => void tai()} />;
   else if (!kiem) dongKiem = <KhungXam soDong={1} />;
   else if (kiem.loai === 'khong-trung') dongKiem = <p className="cn4-kiem">{kiem.chu}</p>;
   else if (kiem.loai !== 'chua-du') dongKiem = <p className="cn4-kiem cn4-kiem--do" role="alert">{kiem.chu}</p>;
