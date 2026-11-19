@@ -2,7 +2,7 @@
 id: US31
 tieu_de: "Sửa đặt phòng"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.6@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
