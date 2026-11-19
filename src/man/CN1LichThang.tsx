@@ -1,7 +1,8 @@
 // CN1 · Lịch tháng của chủ nhà (YC2.1): CN1 hai căn, CN1-02 từ ba căn, CN1-00 chưa có đặt phòng nào. PQ4.CHU, QT2.
 // Trạng thái (YC2 Trạng thái màn): HV1 khung xám, mở lại thì hiện tháng đã xem kèm "Đang cập nhật…"; HV2 dải mất mạng,
 // đổi tháng không tải được thì báo và giữ tháng đang hiện; HV3 quay lại từ nền đọc lại tháng đang xem.
-// Chi tiết một ngày (US10), doanh thu tháng, đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
+// Chạm ngày thì CN3 chi tiết một ngày mở ngay dưới lưới (YC2.2, US10), theo chip đang chọn.
+// Doanh thu tháng, đặt phòng sắp tới (mục khác của YC2) làm ở US sau.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { CAU_CHUA_TAI, ManChuaTai } from '../chung/matKetNoi';
@@ -11,6 +12,7 @@ import type { DichVuLich, ThangLich } from '../lib/dichVuLich';
 import { cacDemCuaThang, congThang, soOTrongDau, tenThangNgan } from '../lib/gia';
 import { canCoKhach, chuChipTatCa, demTheoCan, mauCan, nhanO, tenThang, type CanLich } from '../lib/lich';
 import { homNay as homNayVN, type Ngay } from '../lib/ngay';
+import { CN3ChiTietNgay } from './CN3ChiTietNgay';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
 import './CN1LichThang.css';
 
@@ -71,6 +73,8 @@ export function CN1LichThang(props: {
   dv: DichVuLich | undefined;
   /** YC2.1 bước 5: mở form ghi đặt phòng (YC5). */
   onDatPhong: () => void;
+  /** YC2.2 bước 9: chạm dòng căn có khách ở chi tiết ngày thì mở chi tiết đặt phòng CN3-02 (YC5). */
+  onMoDatPhong?: (id: string) => void;
   /** Tháng đã xem trong phiên; ManChu giữ để mở lại tab Lịch thấy ngay (HV1-NT2). */
   boNho?: Map<string, ThangLich>;
   /** Hôm nay theo giờ Việt Nam; test truyền ngày cố định. */
@@ -183,6 +187,12 @@ export function CN1LichThang(props: {
           </div>
         )}
       </section>
+
+      {/* YC2.2 bước 7: chi tiết ngày dùng dữ liệu tháng đã đọc; ngày chọn ở tháng khác thì ẩn tới khi quay lại tháng đó. */}
+      {hien && chon && chon.slice(0, 7) === `${nam}-${String(thang).padStart(2, '0')}` && (
+        <CN3ChiTietNgay ngay={chon} ds={canHien} datPhong={hien.duLieu.datPhong} mau={mau}
+                        onMoDatPhong={(id) => props.onMoDatPhong?.(id)} onDatPhong={props.onDatPhong} />
+      )}
 
       {chuaCoDatPhong && (
         <>

@@ -1,0 +1,21 @@
+/* CN3 · Chi tiết một ngày (canvas home247-canvas.html CN3). Vùng bấm 44 px, chữ 14 px (màn đọc), không dưới 12 px. */
+.cn3 { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.cn3-tieu-de { margin: 0; font-size: 18px; line-height: 26px; font-weight: 700; color: var(--ink); }
+.cn3-ds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.cn3-dong { position: relative; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn3-dong--co { border-left: 4px solid var(--mau-can, var(--border)); }
+.cn3-dong--trong { flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; padding: 0 0 0 12px; }
+/* Nút mở chi tiết đặt phòng phủ cả dòng (YC2.2 bước 9); số điện thoại đứng trên để bấm gọi riêng. */
+.cn3-mo { min-height: 44px; display: flex; align-items: center; padding: 0; margin: -12px 0 -4px; border: 0; background: none; font: inherit; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn3-mo::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.cn3-mo:focus-visible { outline: none; }
+.cn3-mo:focus-visible::after { outline: 2px solid var(--ink); outline-offset: 1px; }
+.cn3-dong--co:active { background: var(--border-subtle); }
+.cn3-hang { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cn3-hang .hh-icon { flex: none; color: var(--ink-muted); }
+.cn3-nguoi { font-weight: 600; color: var(--ink); }
+.cn3-so { position: relative; z-index: 1; display: inline-flex; align-items: center; min-height: 44px; margin: -12px 0; color: var(--link); font-weight: 600; text-decoration: none; }
+.cn3-ghi-chu { color: var(--ink-secondary); font-style: italic; overflow-wrap: anywhere; }
+.cn3-ten { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn3-trong { font-weight: 600; color: var(--action); }
+.cn3-dat { flex: none; }

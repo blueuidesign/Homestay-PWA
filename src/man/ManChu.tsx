@@ -137,9 +137,11 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
                     giaTuan={giaTuan} onDatGia={(id) => props.den(`/can/${id}/gia`)} // YC4.1 bước 1, 2
                     onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
   } else {
-    // YC2.1: CN1. Căn thêm trước đứng trước (danh sách đọc về căn mới trước). Form đặt phòng (YC5), chi tiết ngày (US10) làm ở US sau.
+    // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
+    // Form đặt phòng và chi tiết đặt phòng (YC5) làm ở US sau: báo "Sẽ có ở bản sau".
     than = <CN1LichThang ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
-                         boNho={boNhoLich.current} onDatPhong={() => hienToast('Sẽ có ở bản sau')} />;
+                         boNho={boNhoLich.current} onDatPhong={() => hienToast('Sẽ có ở bản sau')}
+                         onMoDatPhong={() => hienToast('Sẽ có ở bản sau')} />;
   }
 
   return (
