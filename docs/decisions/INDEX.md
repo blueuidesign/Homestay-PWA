@@ -28,3 +28,4 @@ Mỗi quyết định một file theo `docs/process/templates/qd.md`. Mới thê
 | QD22 | Người dùng đăng nhập bản PWA bằng gì | da-chot | [QD22-dang-nhap-ban-pwa.md](QD22-dang-nhap-ban-pwa.md) |
 | QD23 | Dữ liệu người dùng đặt ở đâu | cho-chot | [QD23-noi-dat-du-lieu.md](QD23-noi-dat-du-lieu.md) |
 | QD24 | Gói Vercel cho bản thử và bản phát hành | cho-chot | [QD24-goi-vercel.md](QD24-goi-vercel.md) |
+| QD25 | Chạy tự động 7 ngày, Claude tự quyết phần suy được bằng logic | da-chot | [QD25-chay-tu-dong-7-ngay.md](QD25-chay-tu-dong-7-ngay.md) |

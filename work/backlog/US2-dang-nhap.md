@@ -30,7 +30,7 @@ Canvas chưa có hình cho phần "Đăng ký và đăng nhập" (YC1.2, dòng "
 | <mã mới, Design đặt theo CL13> | thêm | Màn và trạng thái cho các bước của YC1.2, chữ đúng như bảng bước | YC1.2 |
 
 ## Làm tiêu chí nào
-YC1.2-NT1 đến NT9
+YC1.2-NT1 đến NT10
 
 ## Quy tắc, hành vi dùng
 HV4, HV5, QT6.5
@@ -45,7 +45,6 @@ PQ1, PQ2, PQ6, PQ9, PQ11, PQ20, PQ23 và các test vi phạm ở mục "Ai đư�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC1-H12 (mã mấy số, hạn, gửi lại), YC1-H13 (số trùng tài khoản khác).
 - Đăng nhập bằng mật khẩu: không làm ở môi trường nào (QD22).
 - Phần đầu YC1-tai-khoan.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
@@ -61,7 +60,7 @@ Kịch bản test tay: tests/kb/US2-dang-nhap.md, chưa viết. Viết trước 
 
 ## Task
 - [ ] US2-TA1 Thiết kế · Design: làm theo CL13 bảng "Màn phải làm". Xong thì Design tự thêm task kiểm cho Claude Code (CL13.3)
-- [ ] US2-TA2 Code · Claude Code (opus, CL14.6a): hàm tạo hồ sơ và lệnh đăng ký kèm test database (YC1.2-NT5, NT6), màn theo canvas, test unit, e2e cho YC1.2-NT1 đến NT9
+- [ ] US2-TA2 Code · Claude Code (opus, CL14.6a): hàm tạo hồ sơ và lệnh đăng ký kèm test database (YC1.2-NT5, NT6, NT10), màn theo canvas, test unit, e2e cho YC1.2-NT1 đến NT10
 - [ ] US2-TA3 Test tay · Đức: chạy tests/kb/US2-dang-nhap.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch

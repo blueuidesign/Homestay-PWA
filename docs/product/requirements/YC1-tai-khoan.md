@@ -110,9 +110,9 @@ Bản 2 · rủi ro: cao · Màn: chưa có (Design vẽ màn đăng ký, đăng
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Bấm "Bắt đầu ngay" ở A1 | Màn nhập email: ô email, nút gửi mã | Không |
-| 2 | Nhập email, bấm gửi mã | Sang màn nhập mã: báo mã đã gửi tới email vừa nhập, ô nhập mã, nút gửi lại mã, nút đổi email. Số chữ số của mã, hạn của mã, bao lâu được gửi lại: [MỞ: YC1-H12] | Supabase Auth gửi mã tới email |
+| 2 | Nhập email, bấm gửi mã | Sang màn nhập mã: báo mã đã gửi tới email vừa nhập, ô nhập mã, nút gửi lại mã, nút đổi email. Mã 6 chữ số, còn hạn 1 giờ; nút gửi lại mã bấm được sau 60 giây (YC1-H12, tự chốt) | Supabase Auth gửi mã tới email |
 | 3 | Nhập đúng mã | Hồ sơ đã có tên và số: chưa chọn vai thì A3, đã chọn thì tab Lịch, đến từ link mời hay link xin lịch thì về đúng màn của link (YC6.3, YC6.5). Hồ sơ chưa có tên hoặc số: màn đăng ký | Cấp phiên; tạo hồ sơ trống ở lần đầu |
-| 4 | Ở màn đăng ký, nhập tên và số điện thoại, bấm hoàn tất | Đúng luật kiểm: đi tiếp như bước 3 khi hồ sơ đã đủ. Sai: báo ngay dưới ô, ở lại màn. Số đã thuộc tài khoản khác: [MỞ: YC1-H13] | Lệnh đăng ký ghi tên, số vào hồ sơ của người gọi (mục Dữ liệu) |
+| 4 | Ở màn đăng ký, nhập tên và số điện thoại, bấm hoàn tất | Đúng luật kiểm: đi tiếp như bước 3 khi hồ sơ đã đủ. Sai: báo ngay dưới ô, ở lại màn. Số đã thuộc tài khoản khác: báo số đã có tài khoản, ở lại màn (YC1-H13, tự chốt) | Lệnh đăng ký ghi tên, số vào hồ sơ của người gọi (mục Dữ liệu) |
 | 5 | Nhập sai mã, hay mã hết hạn | Báo mã chưa đúng hoặc đã hết hạn, ở lại màn nhập mã | Không |
 | 6 | Đóng app ở màn đăng ký rồi mở lại | Về màn đăng ký, không vào được màn nào khác (Quy tắc của nhóm) | Phiên còn giữ |
 | 7 | Đã đăng ký xong, đóng rồi mở lại app | Vào thẳng app | Phiên giữ trên máy, tự làm mới |
@@ -134,6 +134,7 @@ Tiêu chí:
 - **YC1.2-NT4** Khi người mới nhập đúng mã, thì app mở màn đăng ký và không mở được A3 hay tab nào cho tới khi ghi xong tên và số. · e2e
 - **YC1.2-NT5** Khi lệnh đăng ký có tên trống hoặc số sai luật kiểm, thì database từ chối và hồ sơ không đổi. · database
 - **YC1.2-NT6** Khi lệnh đăng ký gửi lên cho hồ sơ đã có số, hay gửi mã của người khác, thì database từ chối và không gì đổi. · database
+- **YC1.2-NT10** Khi số điện thoại gửi lên đã thuộc một tài khoản khác chưa xóa, thì database từ chối và hồ sơ của người gọi không đổi. · database
 - **YC1.2-NT7** Khi người đã đăng ký nhập đúng mã ở lần đăng nhập sau, thì vào thẳng app, không thấy màn đăng ký. · e2e
 - **YC1.2-NT8** Khi đã đăng nhập, đóng trình duyệt rồi mở lại, thì vẫn ở trong app. · e2e
 - **YC1.2-NT9** Khi một người mở link mời lúc chưa đăng nhập rồi đăng ký hoặc đăng nhập, thì quay lại đúng màn "Thêm lịch" của link đó. · e2e
@@ -290,4 +291,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ US1 (vào app, chọn vai), US37, US21 (trừ cài đặt thông báo), US22 (QD21) | Cả file |
-| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: đăng nhập bằng mã email, đăng ký xin tên và số ngay. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 2. Thêm YC1-H12, YC1-H13 | Mục tiêu, Luồng chính, Phạm vi, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |
+| r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: đăng nhập bằng mã email, đăng ký xin tên và số ngay. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 2. Thêm và tự chốt YC1-H12, YC1-H13 | Mục tiêu, Luồng chính, Phạm vi, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |

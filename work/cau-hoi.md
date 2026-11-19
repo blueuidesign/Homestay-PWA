@@ -54,13 +54,15 @@ Gắn ở: YC1.7.
 Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn).
 Gắn ở: YC1.
 
-### YC1-H12 · mo
+### YC1-H12 · da-tra-loi
 Mã đăng nhập gửi về email: mấy chữ số, còn hạn bao lâu, bao lâu mới được bấm "Gửi lại mã", nhập sai mấy lần thì phải xin mã mới? Đề xuất theo mặc định của Supabase: 6 chữ số, hạn 1 giờ, gửi lại sau 60 giây.
 Gắn ở: YC1.2 bước 2, 3. Chặn: màn nhập mã (US2). Hỏi ngày 19/11/2026.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết. Tôi muốn app lên nhanh nhất có thể, tôi sẽ test và điều chỉnh lại sau. Miễn là bạn update tài liệu đầy đủ là được."): Mã 6 chữ số, còn hạn 1 giờ, gửi lại sau 60 giây (mặc định của Supabase). Nhập sai thì nhập lại được tới khi mã hết hạn, theo giới hạn sẵn có của Supabase.
 
-### YC1-H13 · mo
+### YC1-H13 · da-tra-loi
 Số điện thoại nhập lúc đăng ký trùng với số của một tài khoản khác thì sao: cho đăng ký (hai tài khoản cùng số), hay báo "Số này đã có tài khoản" và không cho? Số không xác minh bằng mã (QD22).
 Gắn ở: YC1.2 bước 4. Chặn: lệnh đăng ký (US2). Hỏi ngày 19/11/2026.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết. Tôi muốn app lên nhanh nhất có thể, tôi sẽ test và điều chỉnh lại sau. Miễn là bạn update tài liệu đầy đủ là được."): Một số điện thoại chỉ đăng ký một tài khoản. Số đã có tài khoản khác thì database từ chối và màn đăng ký báo số đã có tài khoản.
 
 ## YC2
 
