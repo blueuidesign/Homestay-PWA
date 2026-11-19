@@ -2,8 +2,8 @@
 id: US25
 tieu_de: "Những đêm tính giá cuối tuần"
 loai: US
-trang_thai: moi
-thuc_hien: [YC4.6@1]
+trang_thai: dang-lam
+thuc_hien: [YC4.6@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
 thay_cho: []
@@ -37,7 +37,7 @@ PQ5, PQ6, PQ21 và các test vi phạm ở mục "Ai được làm gì" của YC
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC4-H4.
+- YC4-H4 đã trả lời (YC4 r3).
 - Phần đầu YC4-gia.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,7 +49,7 @@ YC4-gia.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US25-nhung-dem-tinh-gia-cuoi.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US25-nhung-dem-tinh-gia-cuoi.md (KB1, KB2).
 
 ## Task
 - [ ] US25-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.6-NT2 đến NT4, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US25-nhung-dem-tinh-gia-cuoi.md, chưa viết. V
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.6@1 (QD21)
+- 2026-11-19 · Claude · trả lời YC4-H4 (QD25), viết tests/kb, sang dang-lam
 
 ## Bằng chứng

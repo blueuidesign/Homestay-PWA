@@ -140,9 +140,10 @@ Gắn ở: YC4.3.
 Đặt giá ngày lễ, dịp đặc biệt cho nhiều căn: chưa có màn?
 Gắn ở: YC4.4.
 
-### YC4-H4 · mo
+### YC4-H4 · da-tra-loi
 Lưu ngày tính giá cuối tuần xong thì về Cá nhân với toast "Đã lưu ngày tính giá cuối tuần" phải không (chưa có hình)?
 Gắn ở: YC4.6.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đúng. Lưu xong về Cá nhân, toast "Đã lưu ngày tính giá cuối tuần" theo HV8, giống các màn cài đặt khác. Ghi vào YC4.6 r3.
 
 ### YC4-H5 · da-tra-loi
 Sau khi lưu giá ở tab Giá của căn, ở lại tab Giá hay quay về màn trước?

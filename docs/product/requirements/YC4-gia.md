@@ -3,7 +3,7 @@ id: YC4
 tieu_de: Giá
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC4 · Giá
@@ -216,7 +216,7 @@ Bản 1 · rủi ro: cao · Màn: P6
 | 1 | Vào Cá nhân, chạm "Ngày tính giá cuối tuần" (YC1) | P6: "Chọn những đêm tính giá cuối tuần. Các đêm còn lại tính giá ngày thường.", hàng chip "Đêm cuối tuần" T2 đến CN, đêm đang chọn sáng | Đọc cài đặt đêm cuối tuần của chủ nhà |
 | 2 | Chạm chip | Bật, tắt đêm đó. Ghi chú "Tính theo đêm ở. VD: nhận phòng T6, trả phòng CN là 2 đêm cuối tuần." Chỉ còn một đêm thì chip đó không tắt được | Không |
 | 3 | Xem mẫu | "Một tuần của phòng 1509" ghi giá từng đêm; ô xanh là đêm cuối tuần. Ghi chú "Tên ô giá ở mục Giá của căn đổi theo lựa chọn này." | Không |
-| 4 | Bấm "Lưu thay đổi" | Về Cá nhân, toast "Đã lưu ngày tính giá cuối tuần" ([MỞ: YC4-H4]) | Ghi đêm cuối tuần của chủ nhà; từ chối khi không còn đêm nào |
+| 4 | Bấm "Lưu thay đổi" | `[r3 · sửa]` Về Cá nhân, toast "Đã lưu ngày tính giá cuối tuần" (trả lời YC4-H4, Claude tự quyết QD25) | Ghi đêm cuối tuần của chủ nhà; từ chối khi không còn đêm nào |
 
 Tiêu chí:
 - **YC4.6-NT1** Khi chủ nhà chọn T6 và T7 rồi lưu, thì ô giá ở tab Giá ghi "Cuối tuần (T6, T7)" và "Ngày thường (CN–T5)". · unit
@@ -240,3 +240,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US4, US7, US8 và màn P6 của US11 (QD20, QD21); áp quyết định 5, 6, 12, 13 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
 | r2 | 2026-11-19 | Claude | US21-gia-thang | Trả lời YC4-H5: ở lại tab Giá (Claude tự quyết, QD25) | YC4.2 |
+| r3 | 2026-11-19 | Claude | US25-dem-cuoi-tuan | Trả lời YC4-H4 (Claude tự quyết, QD25) | YC4.6 |
