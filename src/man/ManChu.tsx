@@ -1,5 +1,5 @@
 // Các tab của chủ nhà (YC3.1): tab Lịch và tab Căn chưa có căn thì A4, tab Căn có căn thì CN5.
-// Thêm căn CN5-A1 (YC3.2, US15): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b). Lịch khi đã có căn (YC5), Sửa căn CN5-02, Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
+// Thêm căn CN5-A1 (YC3.2, US15), ảnh căn CN5-A2, CN5-A3 (YC3.3, US16): lưu được thì về CN5 với toast (CN5-A4, CN5-A4b). Lịch khi đã có căn (YC5), Sửa căn CN5-02, Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
 import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -55,6 +55,7 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
     return (
       <CN5A1ThemCan
         taoCan={dv?.taoCan ? (c) => dv.taoCan!(c) : undefined}
+        taiAnh={dv?.taiAnh} // YC3.3 bước 23
         onQuayLai={() => window.history.back()}
         onXong={(ma) => { datVuaThem(true); hienToast(`Đã thêm phòng ${ma}`); props.den('/can'); }} // YC3.2 bước 19
       />

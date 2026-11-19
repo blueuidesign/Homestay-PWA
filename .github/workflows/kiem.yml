@@ -115,7 +115,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Bật Supabase (migration trong supabase/migrations chạy lúc bật)
-        run: npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,storage-api,postgres-meta,supavisor
+        run: npx -y supabase@2.122.1 start -x studio,imgproxy,edge-runtime,logflare,vector,realtime,postgres-meta,supavisor
       - name: Đặt URL, khóa anon, địa chỉ database cho build và test
         run: |
           npx -y supabase@2.122.1 status -o env > "$RUNNER_TEMP/sb.env"

@@ -1,6 +1,9 @@
 // Đọc danh sách căn của chủ nhà qua v_can_cua_toi (YC3.1 bước 9, QD4, PQ3.CHU). Ảnh qua đường dẫn có hạn (QT5.7).
-// Thêm căn qua fn_tao_can (YC3.2 bước 18, QT5.6).
+// Thêm căn qua fn_tao_can (YC3.2 bước 18, QT5.6), kèm ảnh theo thứ tự (YC3.3 bước 23, 24).
+// Ảnh tải lên kho anh-can vào thư mục của người tải, rồi ghi ảnh tạm qua fn_them_anh_tam (YC3.3 bước 23, QT5.7).
 import type { SupabaseClient } from '@supabase/supabase-js';
+import { LoiNguoiDung } from '../chung/matKetNoi';
+import { CAU_LOI_FILE, thuAnh } from './anh';
 import type { CanTomTat } from './can';
 import { loiTuTaoCan } from './kiemCan';
 
@@ -13,7 +16,12 @@ export type CanMoi = {
   loaiView?: string | null;
   toaNhaId?: string | null;
   moTa?: string | null;
+  /** YC3.3 bước 24: id ảnh đã tải, theo thứ tự chọn; ảnh đầu là ảnh đại diện. */
+  anh?: string[];
 };
+
+/** YC3.3 bước 23: tải một ảnh. onTienDo nhận 0 đến 100. Hủy bằng tinHieu (rời app, mất mạng: HV3 bước 7). */
+export type TaiAnh = (f: File, onTienDo: (phanTram: number) => void, tinHieu: AbortSignal) => Promise<string>;
 
 /** QD16: kho ảnh riêng tư anh-can. QT5.7: đường dẫn có hạn 1 giờ. */
 export const KHO_ANH = 'anh-can';
@@ -27,6 +35,48 @@ export interface DichVuCan {
    * Không bắt buộc để chỗ chỉ đọc danh sách (test của US14) không phải giả lệnh này; thiếu thì form báo như mất mạng.
    */
   taoCan?(c: CanMoi): Promise<string>;
+  /**
+   * YC3.3 bước 23: thu ảnh, tải vào thư mục của người gọi, ghi ảnh tạm; trả id ảnh tạm.
+   * File sai loại, quá cỡ thì ném LoiNguoiDung(CAU_LOI_FILE); database từ chối bằng câu thì LoiNguoiDung kèm câu đó.
+   */
+  taiAnh?: TaiAnh;
+}
+
+function maNgauNhien(): string {
+  try {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  } catch { /* máy cũ */ }
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+}
+
+class LoiTaiAnh extends Error {
+  constructor(public trangThai: number) { super('Tải ảnh lỗi ' + trangThai); }
+}
+
+/** Tải file thẳng lên API kho bằng XHR để có tiến độ (thư viện supabase-js không báo tiến độ). */
+function guiFile(url: string, khoaAnon: string, token: string, duongDan: string, d: { blob: Blob; loai: string },
+                 onTienDo: (p: number) => void, tinHieu: AbortSignal): Promise<void> {
+  return new Promise((xong, hong) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `${url}/storage/v1/object/${KHO_ANH}/${duongDan}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    xhr.setRequestHeader('apikey', khoaAnon);
+    xhr.setRequestHeader('x-upsert', 'false');
+    xhr.setRequestHeader('Content-Type', d.loai);
+    xhr.upload.onprogress = (e) => { if (e.lengthComputable) onTienDo(Math.min(99, Math.round((e.loaded / e.total) * 100))); };
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) { xong(); return; }
+      // Kho trả 400 kèm statusCode thật trong thân (413 quá cỡ, 415 sai loại) ở một số bản.
+      let ma = xhr.status;
+      try { const m = Number((JSON.parse(xhr.responseText) as { statusCode?: unknown }).statusCode); if (m) ma = m; } catch { /* thân không phải JSON */ }
+      hong(new LoiTaiAnh(ma));
+    };
+    xhr.onerror = () => hong(new TypeError('mất mạng'));
+    xhr.onabort = () => hong(new DOMException('đã hủy', 'AbortError'));
+    if (tinHieu.aborted) { hong(new DOMException('đã hủy', 'AbortError')); return; }
+    tinHieu.addEventListener('abort', () => xhr.abort(), { once: true });
+    xhr.send(d.blob);
+  });
 }
 
 type DongView = {
@@ -62,9 +112,31 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
       const { data, error } = await sb.rpc('fn_tao_can', {
         p_ma_can: c.maCan, p_so_phong_ngu: c.soPhongNgu, p_client_id: c.clientId,
         p_so_giuong: c.soGiuong ?? null, p_loai_view: c.loaiView ?? null,
-        p_toa_nha_id: c.toaNhaId ?? null, p_mo_ta: c.moTa ?? null,
+        p_toa_nha_id: c.toaNhaId ?? null, p_mo_ta: c.moTa ?? null, p_anh: c.anh?.length ? c.anh : null,
       });
       if (error) throw loiTuTaoCan(error);
+      return data as string;
+    },
+
+    async taiAnh(f, onTienDo, tinHieu) {
+      const url = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+      const khoa = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+      const { data: phien } = await sb.auth.getSession();
+      const nguoi = phien.session?.user.id;
+      if (!url || !khoa || !phien.session || !nguoi) throw new TypeError('chưa nối database');
+      const d = await thuAnh(f);
+      // QT5.7, YC3.3-NT5: thư mục đầu là uid người tải (policy anh_can_tai_len).
+      const duongDan = `${nguoi}/${maNgauNhien()}.${d.duoi}`;
+      try {
+        await guiFile(url, khoa, phien.session.access_token, duongDan, d, onTienDo, tinHieu);
+      } catch (e) {
+        // YC3.3-NT6: kho từ chối vì cỡ hay loại file.
+        if (e instanceof LoiTaiAnh && (e.trangThai === 413 || e.trangThai === 415)) throw new LoiNguoiDung(CAU_LOI_FILE);
+        throw e;
+      }
+      const { data, error } = await sb.rpc('fn_them_anh_tam', { p_duong_dan: duongDan });
+      if (error) throw loiTuTaoCan(error);
+      onTienDo(100);
       return data as string;
     },
   };

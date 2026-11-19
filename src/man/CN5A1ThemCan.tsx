@@ -1,14 +1,16 @@
-// CN5-A1 Thêm căn, CN5-A3 lỗi khi lưu (YC3.2 bước 15 đến 21, QT5.5, QT5.6, HV1, HV2, HV3, HV8).
-// Ảnh (YC3.3, US16) và phần thêm tòa nhà, mô tả, view (YC3.4, US17) chỉ hiện chỗ theo canvas, chưa mở được.
+// CN5-A1 Thêm căn, CN5-A2 đang tải ảnh, CN5-A3 lỗi khi lưu (YC3.2 bước 15 đến 21, YC3.3, QT5.5, QT5.6, QT5.7, HV1, HV2, HV3, HV8).
+// Phần thêm tòa nhà, mô tả, view (YC3.4, US17) chỉ hiện chỗ theo canvas, chưa mở được.
 // Kiểu chip, dải lỗi, thanh dưới viết tại chỗ bằng biến màu chung (styles.css ngoài phạm vi US15).
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { NutGhi, THOI_GIAN_CHO_LOI_MS } from '../chung/dangTai';
 import { CAU_KHOI_PHUC } from '../chung/nhap';
 import { CAU_LOI_CHUNG, DaiMatKetNoi, LoiNguoiDung } from '../chung/matKetNoi';
 import { useToast } from '../chung/Toast';
-import type { CanMoi } from '../lib/dichVuCan';
+import { cauBoAnh } from '../lib/anh';
+import type { CanMoi, TaiAnh } from '../lib/dichVuCan';
 import { CAU_MAT_MANG, CHIP_PHONG_NGU, cauDauLoi, dongTrangThai, kiemFormCan, oCuaCau, type LoiCan } from '../lib/kiemCan';
 import { docBanNhapThemCan, ghiBanNhapThemCan, xoaBanNhapThemCan } from './banNhap';
+import { MucAnhCan, useAnhCan } from './MucAnhCan';
 import { Icon, ICON_THEM } from './TabChu';
 
 const S: Record<string, CSSProperties> = {
@@ -19,10 +21,7 @@ const S: Record<string, CSSProperties> = {
   chip: { minHeight: 44, minWidth: 56, padding: '0 14px', borderRadius: 999, border: '1px solid var(--border-input)', background: 'var(--surface)', color: 'var(--ink-body)', fontSize: 14, fontWeight: 600, font: 'inherit', cursor: 'pointer' },
   chipChon: { background: 'var(--action-tint)', borderColor: 'var(--action)', color: 'var(--action-ink, var(--action))' },
   loi: { margin: 0, fontSize: 13, lineHeight: '18px', color: 'var(--danger-text)' },
-  dauAnh: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, minHeight: 32 },
-  nhanAnh: { fontSize: 13, fontWeight: 700, color: 'var(--ink-muted)', textTransform: 'uppercase' },
   phu: { fontSize: 13, lineHeight: '18px', color: 'var(--ink-muted)' },
-  oAnh: { minHeight: 72, borderRadius: 12, border: '2px dashed var(--border-input)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 8, color: 'var(--ink)' },
   dai: { display: 'flex', gap: 8, alignItems: 'flex-start', padding: '10px 12px', borderRadius: 12, background: 'var(--danger-tint, #fef2f2)', color: 'var(--danger-text)', fontSize: 14, lineHeight: '20px' },
   khoiPhuc: { margin: 0, padding: '10px 12px', borderRadius: 12, background: 'var(--action-tint)', color: 'var(--action-ink, var(--ink))', fontSize: 14, lineHeight: '20px' },
   thanhDuoi: { position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 20, background: 'var(--surface)', borderTop: '1px solid var(--border)', padding: '12px 16px calc(16px + env(safe-area-inset-bottom))', display: 'flex', flexDirection: 'column', gap: 8 },
@@ -61,6 +60,8 @@ function laLoiMang(e: unknown): boolean {
 export function CN5A1ThemCan(props: {
   /** YC3.2 bước 18. Thiếu (chưa nối database) thì bấm "Thêm căn" báo như mất mạng. */
   taoCan?: (c: CanMoi) => Promise<string>;
+  /** YC3.3 bước 23. Thiếu (chưa nối database) thì ảnh chọn xong thành "Tải lỗi". */
+  taiAnh?: TaiAnh;
   /** YC3.2 bước 19: lưu được, mã căn đã bỏ khoảng trắng. */
   onXong: (maCan: string, id: string) => void;
   onQuayLai: () => void;
@@ -79,6 +80,10 @@ export function CN5A1ThemCan(props: {
   const [cauDau, datCauDau] = useState<string | null>(null);
   const daSua = useRef(false);
   const clientId = dau.clientId;
+  const baoLoi = useCallback((cau: string) => hienToast(cau, 'loi'), [hienToast]); // HV8-NT4
+  const anh = useAnhCan(props.taiAnh, baoLoi);
+  // YC3.3 bước 26: nhận tới đủ 12 ảnh, bỏ phần thừa; toast báo (kiểu thường).
+  const chonAnh = (files: File[]) => { const bo = anh.them(files); if (bo > 0) hienToast(cauBoAnh(bo)); };
 
   // HV3 bước 1: lưu nháp mỗi lần sửa.
   useEffect(() => {
@@ -90,14 +95,21 @@ export function CN5A1ThemCan(props: {
   const chonPhong = (so: number) => { daSua.current = true; datSoPhongNgu(so); datLoi((l) => ({ ...l, soPhongNgu: undefined })); };
 
   const tt = dongTrangThai({ maCan, soPhongNgu });
+  // YC3.3 bước 23, YC3.3-NT1: còn ảnh đang tải thì chưa thêm được căn.
+  const dongDuoi = anh.soDangTai > 0
+    ? { chu: `Đang tải ${anh.soDangTai} ảnh. Chờ tải xong mới thêm được căn.`, mau: 'var(--warning-ink, var(--ink-muted))' }
+    : { chu: tt.chu, mau: undefined };
 
   const ghi = async () => {
     const l = kiemFormCan({ maCan, soPhongNgu });
-    if (Object.keys(l).length) { datLoi(l); datCauDau(cauDauLoi(Object.keys(l).length)); return; }
+    // YC3.3-NT2, CN5-A3: ảnh tải lỗi là một chỗ phải sửa; căn chưa thêm được tới khi ảnh đó tải lại được hay bị bỏ.
+    const soCho = Object.keys(l).length + (anh.soLoi > 0 ? 1 : 0);
+    if (soCho) { datLoi(l); datCauDau(cauDauLoi(soCho)); return; }
+    if (anh.soDangTai > 0) return; // YC3.3-NT1
     const ma = maCan.trim();
     try {
       if (!props.taoCan) throw new LoiHetGio('chưa nối database');
-      const id = await choToiDa(props.taoCan({ maCan: ma, soPhongNgu: soPhongNgu!, clientId }), THOI_GIAN_CHO_LOI_MS);
+      const id = await choToiDa(props.taoCan({ maCan: ma, soPhongNgu: soPhongNgu!, clientId, anh: anh.idDaTai }), THOI_GIAN_CHO_LOI_MS);
       xoaBanNhapThemCan(); // HV3 bước 5
       props.onXong(ma, id);
     } catch (e) {
@@ -158,17 +170,8 @@ export function CN5A1ThemCan(props: {
           </div>
         </div>
 
-        <div style={S.the}>
-          <div style={S.dauAnh}>
-            <span style={S.nhanAnh}>Ảnh</span>
-            <span style={S.phu}>Bạn có thể thêm sau</span>
-          </div>
-          <div style={S.oAnh} aria-disabled="true">
-            <Icon>{ICON_THEM}</Icon>
-            <span style={{ fontSize: 14, fontWeight: 600 }}>Thêm ảnh</span>
-            <span style={S.phu}>· chọn nhiều ảnh cùng lúc</span>
-          </div>
-        </div>
+        <MucAnhCan ds={anh.ds} soDangTai={anh.soDangTai} soLoi={anh.soLoi}
+                   onChon={chonAnh} onThuLai={anh.thuLai} onBo={anh.bo} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '0 4px' }}>
           <button type="button" className="hh-btn hh-btn--text" style={{ justifyContent: 'flex-start', padding: 0 }} aria-expanded={false}>
@@ -179,8 +182,8 @@ export function CN5A1ThemCan(props: {
       </div>
 
       <div style={S.thanhDuoi}>
-        <span style={S.dongTT} role="status">{tt.chu}</span>
-        <NutGhi chu="Thêm căn" chuDangGhi="Đang lưu…" onGhi={ghi} disabled={!tt.du} />
+        <span style={dongDuoi.mau ? { ...S.dongTT, color: dongDuoi.mau } : S.dongTT} role="status">{dongDuoi.chu}</span>
+        <NutGhi chu="Thêm căn" chuDangGhi="Đang lưu…" onGhi={ghi} disabled={!tt.du || anh.soDangTai > 0} />
       </div>
     </div>
   );
