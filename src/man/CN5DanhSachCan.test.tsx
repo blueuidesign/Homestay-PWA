@@ -83,3 +83,49 @@ describe('YC3.1 · CN5 Danh sách căn', () => {
     expect(screen.getByRole('button', { name: 'Thêm căn' }).className).toContain('hh-btn--block');
   });
 });
+
+describe('YC4.1 · CN5 giá trên thẻ căn', () => {
+  const theCua = (ma: string) => screen.getByRole('button', { name: new RegExp(`^(Phòng )?${ma}$`) }).closest('li') as HTMLElement;
+  const GIA = { c1509: { thap: 900000, cao: 1300000 }, c3402: { thap: 800000, cao: 1100000 } };
+
+  it('YC4.1-NT2 xem tuần 05/10 – 11/10/2026 thì thẻ 1509 ghi "900.000đ – 1.300.000đ", thẻ 3402 ghi "800.000đ – 1.100.000đ"', () => {
+    render(<CN5DanhSachCan ds={CUA_HOA} onMoCan={vi.fn()} onThemCan={vi.fn()} giaTuan={GIA} />);
+    expect(within(theCua('1509')).getByText('Giá tuần này 900.000đ – 1.300.000đ')).toBeInTheDocument();
+    expect(within(theCua('3402')).getByText('Giá tuần này 800.000đ – 1.100.000đ')).toBeInTheDocument();
+    expect(screen.queryByText('Chưa đặt giá')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Đặt giá cho căn này' })).toBeNull();
+  });
+
+  it('YC4.1-NT1 căn chưa có giá đêm nào trong tuần thì thẻ ghi "Chưa đặt giá" và có nút "Đặt giá cho căn này"', () => {
+    const ds = [...CUA_HOA, can({ id: 'cgb', maCan: 'Greenbay', soPhongNgu: 3, soAnh: 0, anhDaiDien: null })];
+    render(<CN5DanhSachCan ds={ds} onMoCan={vi.fn()} onThemCan={vi.fn()} giaTuan={{ ...GIA, cgb: { thap: null, cao: null } }} />);
+    const the = theCua('Greenbay');
+    expect(within(the).getByText('Chưa đặt giá')).toBeInTheDocument();
+    expect(within(the).getByRole('button', { name: 'Đặt giá cho căn này' })).toBeInTheDocument();
+    expect(screen.getAllByRole('button', { name: 'Đặt giá cho căn này' })).toHaveLength(1);
+  });
+
+  it('YC4.1 bước 2 bấm "Đặt giá cho căn này" thì mở tab Giá của căn đó, không mở chi tiết căn', () => {
+    const moGia = vi.fn();
+    const mo = vi.fn();
+    render(<CN5DanhSachCan ds={[can({ id: 'cgb', maCan: 'Greenbay' })]} onMoCan={mo} onThemCan={vi.fn()} onDatGia={moGia}
+                           giaTuan={{ cgb: { thap: null, cao: null } }} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Đặt giá cho căn này' }));
+    expect(moGia).toHaveBeenCalledWith('cgb');
+    expect(mo).not.toHaveBeenCalled();
+  });
+
+  it('YC4.1 đọc giá tuần lỗi (chưa có số) thì thẻ vẫn hiện, không ghi giá, không ghi "Chưa đặt giá"', () => {
+    render(<CN5DanhSachCan ds={CUA_HOA} onMoCan={vi.fn()} onThemCan={vi.fn()} />);
+    expect(screen.getAllByRole('button', { name: /^Phòng / })).toHaveLength(2);
+    expect(screen.queryByText(/Giá tuần này/)).toBeNull();
+    expect(screen.queryByText('Chưa đặt giá')).toBeNull();
+  });
+
+  it('YC4.1 bước 3 bấm "Đặt giá nhiều căn" ở đầu tab Căn thì báo cho màn cha', () => {
+    const nhieu = vi.fn();
+    render(<CN5DanhSachCan ds={CUA_HOA} onMoCan={vi.fn()} onThemCan={vi.fn()} onDatGiaNhieu={nhieu} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Đặt giá nhiều căn' }));
+    expect(nhieu).toHaveBeenCalledTimes(1);
+  });
+});

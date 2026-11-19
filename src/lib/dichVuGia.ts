@@ -3,6 +3,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang } from './gia';
+import type { GiaTuan } from './can';
 import { congNgay, thuTrongTuan, type Ngay } from './ngay';
 
 /** YC4.2 bước 1, 5: giá 12 tháng của một năm (chỉ số 0 là tháng 1; null là chưa đặt), dải dịp phủ năm đó, đêm cuối tuần. */
@@ -20,6 +21,8 @@ export interface DichVuGia {
   layMauTuan?(homNay: Ngay): Promise<MauTuan | null>;
   /** YC4.6 bước 4: ghi đêm cuối tuần của chính người gọi (fn_dat_dem_cuoi_tuan). Database từ chối thì LoiNguoiDung (QT5.5). */
   datDemCuoiTuan?(dem: number[]): Promise<void>;
+  /** YC4.1 bước 1: giá thấp nhất, cao nhất của 7 đêm từ thứ Hai `tu`, theo mã căn, cho mọi căn có lịch của người gọi. */
+  layGiaTuan?(tu: Ngay): Promise<Record<string, GiaTuan>>;
 }
 
 /** Căn mẫu cho "Một tuần của phòng <mã>" và giá tháng theo khóa 'YYYY-MM-01'. */
@@ -104,6 +107,17 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
     async datDemCuoiTuan(dem) {
       const { error } = await sb.rpc('fn_dat_dem_cuoi_tuan', { p_dem: dem });
       if (error) throw loiGia(error);
+    },
+
+    // YC4.1 bước 1, QT5.3, PQ5.CHU: lệnh fn_gia_tuan_cua_toi.
+    async layGiaTuan(tu) {
+      const { data, error } = await sb.rpc('fn_gia_tuan_cua_toi', { p_tu: tu });
+      if (error) throw loiGia(error);
+      const kq: Record<string, GiaTuan> = {};
+      for (const r of (data ?? []) as { can_id: string; gia_thap: number | null; gia_cao: number | null }[]) {
+        kq[r.can_id] = { thap: r.gia_thap === null ? null : Number(r.gia_thap), cao: r.gia_cao === null ? null : Number(r.gia_cao) };
+      }
+      return kq;
     },
   };
 }

@@ -147,7 +147,8 @@ body { margin: 0; min-height: 100dvh; }
 .a4-meo { margin: 0; background: var(--warning-tint); border: 1px solid var(--warning-border); border-radius: var(--radius-md); padding: 12px 16px; font-size: 14px; line-height: 20px; color: var(--warning-ink); }
 
 .cn5-ds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
-.cn5-the { width: 100%; display: block; padding: 0; text-align: left; font: inherit; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cn5-muc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.cn5-the { width: 100%; display: block; padding: 0; text-align: left; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .cn5-anh { position: relative; display: block; aspect-ratio: 5 / 2; background: var(--border-subtle); }
 .cn5-anh img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cn5-chua-anh { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
@@ -158,6 +159,10 @@ body { margin: 0; min-height: 100dvh; }
 .cn5-dau-the { display: flex; align-items: center; gap: 8px; }
 .cn5-ten { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
 .cn5-dong { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn5-gia { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn5-gia--chua { color: var(--ink-muted); font-weight: 400; }
+.cn5-dat-gia { margin: 0 14px 12px; min-height: 44px; }
+.cn5-gia-nhieu { align-self: flex-end; min-height: 44px; }
 .cn5-tinh-trang { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .cn5-tinh-trang--trong { color: var(--action); }
 .cn5-goi-y { font-size: 14px; line-height: 20px; color: var(--warning-ink); background: var(--warning-tint); border: 1px solid var(--warning-border); border-radius: var(--radius-sm); padding: 6px 10px; }

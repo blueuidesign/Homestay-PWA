@@ -5,9 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
-import { tenCan, type CanTomTat } from '../lib/can';
+import { tenCan, thuHaiCuaTuan, type CanTomTat, type GiaTuan } from '../lib/can';
 import { chonManChu, DUONG_DAN_TAB } from '../lib/dieuHuong';
 import type { DichVuCan } from '../lib/dichVuCan';
+import { homNay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
@@ -37,10 +38,24 @@ function useDanhSachCan(dv: DichVuCan | null) {
   return { ds, dangTai, loi, tai };
 }
 
+/** YC4.1 bước 1: giá tuần này của các căn, đọc mỗi lần mở tab Căn. Lỗi thì để trống, thẻ vẫn hiện (giá không phải dữ liệu chính của thẻ). */
+function useGiaTuan(dv: DichVuCan | null, mo: boolean) {
+  const [gia, datGia] = useState<Record<string, GiaTuan> | undefined>(undefined);
+  useEffect(() => {
+    const doc = dv?.gia?.layGiaTuan;
+    if (!mo || !doc) return;
+    let huy = false;
+    doc.call(dv!.gia, thuHaiCuaTuan(homNay())).then((g) => { if (!huy) datGia(g); }, () => { /* để trống */ });
+    return () => { huy = true; };
+  }, [dv, mo]);
+  return gia;
+}
+
 export function ManChu(props: { duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void }) {
   const man = chonManChu(props.duongDan);
   const { ds, dangTai, loi, tai } = useDanhSachCan(props.dichVuCan);
   const hienToast = useToast();
+  const giaTuan = useGiaTuan(props.dichVuCan, man.tab === 'can');
   // CN5-A4, CN5-A4b: vừa thêm căn thì nút dưới danh sách là "Thêm căn khác"; rời tab Căn thì thôi.
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
@@ -113,7 +128,9 @@ export function ManChu(props: { duongDan: string; den: (d: string) => void; dich
   } else if (ds.length === 0) {
     than = <A4ChuaCoCan onThemCan={themCan} tieuDe={man.tab === 'lich' ? 'Lịch' : 'Căn của tôi'} />;
   } else if (man.tab === 'can') {
-    than = <CN5DanhSachCan ds={ds} onMoCan={(id) => props.den(`/can/${id}`)} onThemCan={themCan} vuaThem={vuaThem} />;
+    than = <CN5DanhSachCan ds={ds} onMoCan={(id) => props.den(`/can/${id}`)} onThemCan={themCan} vuaThem={vuaThem}
+                    giaTuan={giaTuan} onDatGia={(id) => props.den(`/can/${id}/gia`)} // YC4.1 bước 1, 2
+                    onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
   } else {
     than = <KhungTabChu tieuDe="Lịch"><p className="dong-mo">Lịch các căn làm ở YC5.</p></KhungTabChu>;
   }
