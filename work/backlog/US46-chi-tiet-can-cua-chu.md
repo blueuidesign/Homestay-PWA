@@ -2,7 +2,7 @@
 id: US46
 tieu_de: "Chi tiết căn của chủ nhà và giá bán"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC7.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -63,6 +63,6 @@ Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.4@1 (QD21)
 - 2026-11-19 · Claude · nhận HV5-NT1, HV5-NT2 từ EN4 (QD27)
-- 2026-11-19 · Claude (QD25) · tự chốt YC7-H6, H7 (YC7 r5, thêm NT7); viết kịch bản test tay
+- 2026-11-19 · Claude (QD25) · tự chốt YC7-H6, H7 (YC7 r5, thêm NT7); viết kịch bản test tay; soạn gói việc; giao agent code
 
 ## Bằng chứng
