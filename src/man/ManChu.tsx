@@ -248,7 +248,7 @@ export function ManChu(props: {
     );
   } else {
     // YC2.1: CN1, chạm ngày mở CN3 (YC2.2). Căn thêm trước đứng trước (danh sách đọc về căn mới trước).
-    // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC5.5: chạm dòng có khách mở CN3-02.
+    // YC5.1: "Đặt phòng" mở CN4. YC2.2 bước 9, YC2.4 bước 15, YC5.5: chạm dòng có khách (chi tiết ngày, đặt phòng sắp tới) mở CN3-02.
     // YC5 Quy tắc "Về màn đã mở": nhớ ô ngày vừa chạm (chi tiết ngày đang mở) để quay về lịch thì mở lại đúng ngày đó.
     than = (
       <div style={{ display: 'contents' }} onClickCapture={(e) => {

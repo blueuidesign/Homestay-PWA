@@ -397,3 +397,80 @@ describe('YC2.5 · nút Tháng / Tuần trên CN1 (YC2-H4)', () => {
     expect(screen.queryByRole('button', { name: 'Tuần' })).toBeNull();
   });
 });
+
+describe('YC2.4 · Đặt phòng sắp tới dưới lịch CN1', () => {
+  const sale = (ten: string) => ({ loai: 'sale' as const, ten, sdt: null });
+  const tien = (x: DatPhongLich, tienPhong: number, trangThaiTien: DatPhongLich['trangThaiTien'], nguoiDat: DatPhongLich['nguoiDat'],
+                tienCoc: number | null = null): DatPhongLich => ({ ...x, tienPhong, tienCoc, trangThaiTien, nguoiDat });
+  const LE = { loai: 'le' as const };
+  // DLM.4 đủ tiền và người đặt.
+  const DU: DatPhongLich[] = [
+    tien(DLM4[0]!, 2200000, 'da_coc', sale('Sale Hùng'), 1000000), tien(DLM4[1]!, 1900000, 'chua_coc', sale('Sale Lan')),
+    tien(DLM4[2]!, 1800000, 'da_thanh_toan', sale('Sale Hùng')), tien(DLM4[3]!, 1600000, 'da_thanh_toan', sale('Sale Lan')),
+    tien(DLM4[4]!, 1800000, 'chua_coc', LE), tien(DLM4[5]!, 800000, 'da_thanh_toan', LE),
+    tien(DLM4[6]!, 900000, 'da_thanh_toan', sale('Sale Minh')), tien(DLM4[7]!, 800000, 'da_thanh_toan', sale('Sale Minh')),
+    tien(DLM4[8]!, 1600000, 'da_thanh_toan', sale('Sale Minh')),
+  ];
+  const khoi = () => screen.findByRole('region', { name: 'Đặt phòng sắp tới' });
+
+  it('YC2.4-NT1 YC2.4-NT2 YC2.4-NT3 tháng 10, hôm nay 07/10: dòng B1, B5, B6, B2, B7, B8 đủ người đặt, căn, ngày, tiền, trạng thái', async () => {
+    ve(HAI_CAN, dichVu(DU));
+    const k = await khoi();
+    const dong = within(k).getAllByRole('button');
+    expect(dong.map((d) => d.textContent)).toEqual([
+      'Sale HùngPhòng 1509 · 10/10 → 12/10 (2 đêm)2.200.000đCọc 1.000.000đ',
+      'Khách lẻPhòng 1509 · 13/10 → 15/10 (2 đêm)1.800.000đChưa cọc',
+      'Khách lẻPhòng 3402 · 14/10 → 15/10 (1 đêm)800.000đĐã thanh toán',
+      'Sale LanPhòng 3402 · 17/10 → 19/10 (2 đêm)1.900.000đChưa cọc',
+      'Sale MinhPhòng 1509 · 19/10 → 20/10 (1 đêm)900.000đĐã thanh toán',
+      'Sale MinhPhòng 3402 · 21/10 → 22/10 (1 đêm)800.000đĐã thanh toán',
+    ]);
+    expect(within(k).getByText('Đặt phòng sắp tới')).toBeInTheDocument();
+  });
+
+  it('YC2.4 bước 15 chạm một dòng thì mở chi tiết đặt phòng CN3-02 của dòng đó', async () => {
+    const mo = vi.fn();
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu(DU)} homNay="2026-10-07" onDatPhong={vi.fn()} onMoDatPhong={mo} />
+      </ToastProvider>,
+    );
+    const k = await khoi();
+    fireEvent.click(within(k).getAllByRole('button')[1]!);
+    expect(mo).toHaveBeenCalledWith('B5');
+  });
+
+  it('YC2.4 bước 14 dùng danh sách sắp tới dịch vụ trả khi xem tháng sau (B9 nhận 30/11 có ở tháng 11)', async () => {
+    const goc = dichVu(DU);
+    const dv: DichVuLich = {
+      layThang: async (canIds, nam, thang) => ({
+        ...(await goc.layThang(canIds, nam, thang) as ThangLich),
+        sapToi: DU.filter((x) => x.ngayTra > '2026-10-07' && x.ngayNhan < khoangThang(nam, thang).den),
+      }),
+    };
+    ve(HAI_CAN, dv);
+    await khoi();
+    fireEvent.click(screen.getByRole('button', { name: 'T11' }));
+    await screen.findByRole('heading', { name: 'Tháng 11/2026' });
+    const k = await khoi();
+    await within(k).findByText('Phòng 3402 · 30/11 → 02/12 (2 đêm)');
+    expect(within(k).getAllByRole('button')).toHaveLength(7);
+  });
+
+  it('YC2.4 bước 16 CN1-01 có đặt phòng nhưng không có đặt phòng sắp tới thì ghi câu mời', async () => {
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu(DU)} homNay="2026-12-05" onDatPhong={vi.fn()} />
+      </ToastProvider>,
+    );
+    const k = await khoi();
+    expect(within(k).getByText('Chưa có đặt phòng sắp tới. Bấm "+ Đặt phòng" để ghi khách đầu tiên.')).toBeInTheDocument();
+    expect(within(k).queryAllByRole('button')).toHaveLength(0);
+  });
+
+  it('YC2.4 CN1-00 chưa có đặt phòng nào thì không có khối đặt phòng sắp tới', async () => {
+    ve(HAI_CAN, dichVu([]));
+    await screen.findByText('Chưa có đặt phòng nào');
+    expect(screen.queryByRole('region', { name: 'Đặt phòng sắp tới' })).toBeNull();
+  });
+});

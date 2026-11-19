@@ -131,3 +131,58 @@ test('YC2.3-NT1 YC2.3-NT2 khối doanh thu tháng: tổng mọi căn kể cả c
   await expect(page.getByRole('grid')).toBeVisible();
   await expect(page.getByRole('region', { name: /^Doanh thu tháng/ })).toHaveCount(0);
 });
+
+/** US12: booking theo hôm nay (local_today() + lệch ngày), tiền từng đêm chia đều, lẻ dồn đêm cuối (QT4.2). */
+function taoBookingSapToi(nguoi: string, canId: string, nhan: number, tra: number, tien: number,
+                          them: { saleId?: string; trangThaiTien?: string; tienCoc?: number; trangThai?: 'hieu_luc' | 'da_huy' } = {}) {
+  sql(`with b as (
+         insert into public.booking (can_id, ngay_nhan, ngay_tra, nguon, sale_id, tao_boi, tien_phong, trang_thai_tien, tien_coc, trang_thai)
+         values ('${canId}', public.local_today() + ${nhan}, public.local_today() + ${tra}, 'chu_ghi',
+                 ${them.saleId ? `'${them.saleId}'` : 'null'}, '${nguoi}', ${tien}, '${them.trangThaiTien ?? 'chua_coc'}',
+                 ${them.tienCoc ?? 'null'}, '${them.trangThai ?? 'hieu_luc'}') returning id, ngay_nhan, ngay_tra)
+       insert into public.booking_dem (booking_id, dem, tien)
+       select b.id, d::date, case when d::date = b.ngay_tra - 1 then ${tien} - (${tien} / (b.ngay_tra - b.ngay_nhan)) * (b.ngay_tra - b.ngay_nhan - 1)
+                                  else ${tien} / (b.ngay_tra - b.ngay_nhan) end
+       from b, generate_series(b.ngay_nhan, b.ngay_tra - 1, interval '1 day') d`);
+}
+
+test('YC2.4-NT1 YC2.4-NT2 YC2.4-NT3 luồng chính: kéo xuống thấy đặt phòng sắp tới xếp theo ngày nhận, chạm dòng mở CN3-02', async ({ page }) => {
+  const chu = taoTaiKhoan('chu_nha', 'Chủ Sắp Tới');
+  const sale = taoTaiKhoan('sale', 'Sale Hùng');
+  const nguoi = sql(`select id from auth.users where email = '${chu.email}'`);
+  const saleId = sql(`select id from auth.users where email = '${sale.email}'`);
+  const c1509 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu, tao_luc) values ('${nguoi}', '1509', 2, now() - interval '1 day') returning id`).split('\n')[0]!;
+  const c3402 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '3402', 1) returning id`).split('\n')[0]!;
+  sql(`insert into public.ket_noi (chu_id, sale_id, trang_thai, nguon) values ('${nguoi}', '${saleId}', 'da_ket_noi', 'link_moi')`);
+  const [nam, thang] = sql(`select to_char(public.local_today(), 'YYYY|FMMM')`).split('|').map(Number) as [number, number];
+  /** "dd/mm" của hôm nay + n (giờ Việt Nam). */
+  const dm = (n: number) => sql(`select to_char(public.local_today() + ${n}, 'DD/MM')`);
+
+  // Ngày nhận từ hôm nay trở về trước nên luôn thuộc tháng đang xem (tháng của hôm nay).
+  taoBookingSapToi(nguoi, c3402, 0, 1, 800000); // khách lẻ, chưa cọc: nhận hôm nay
+  taoBookingSapToi(nguoi, c1509, -1, 1, 2200000, { saleId, trangThaiTien: 'da_coc', tienCoc: 1000000 }); // đang ở
+  taoBookingSapToi(nguoi, c3402, -2, 0, 1600000, { trangThaiTien: 'da_thanh_toan' }); // như B4: trả hôm nay, không có
+  taoBookingSapToi(nguoi, c1509, 1, 3, 1800000, { trangThai: 'da_huy' }); // YC2-H3: đã hủy, không có
+
+  await dangNhapBangMa(page, chu.email);
+  await expect(page.getByRole('heading', { name: `Tháng ${thang}/${nam}` })).toBeVisible();
+
+  // YC2.4 bước 14: kéo xuống thấy danh sách.
+  const khoi = page.getByRole('region', { name: 'Đặt phòng sắp tới' });
+  await khoi.scrollIntoViewIfNeeded();
+  await expect(khoi).toBeInViewport();
+  const dong = khoi.getByRole('button');
+  await expect(dong).toHaveCount(2);
+  await expect(dong.nth(0)).toContainText('Sale Hùng');
+  await expect(dong.nth(0)).toContainText(`Phòng 1509 · ${dm(-1)} → ${dm(1)} (2 đêm)`);
+  await expect(dong.nth(0)).toContainText('2.200.000đ');
+  await expect(dong.nth(0)).toContainText('Cọc 1.000.000đ');
+  await expect(dong.nth(1)).toContainText('Khách lẻ');
+  await expect(dong.nth(1)).toContainText(`Phòng 3402 · ${dm(0)} → ${dm(1)} (1 đêm)`);
+  await expect(dong.nth(1)).toContainText('800.000đ');
+  await expect(dong.nth(1)).toContainText('Chưa cọc');
+
+  // YC2.4 bước 15: chạm dòng mở chi tiết đặt phòng CN3-02.
+  await dong.nth(0).click();
+  await expect(page.getByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeVisible();
+});
