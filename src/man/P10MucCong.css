@@ -1,0 +1,30 @@
+/* US47 · P10 Mức cộng giá mặc định (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.p10 { background: var(--surface-page); }
+.p10-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 16px 4px 8px; display: flex; align-items: center; gap: 8px; }
+.p10-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p10-than { flex: 1 1 auto; padding: 12px 12px 100px; display: flex; flex-direction: column; gap: 12px; }
+.p10-gioi-thieu { margin: 0; padding: 0 4px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+.p10-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.p10-nhan { margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); }
+.p10-nhan--hoa { font-size: 12px; line-height: 16px; color: var(--ink-muted); text-transform: uppercase; }
+.p10-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.p10-chip { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 44px; box-sizing: border-box; padding: 6px 12px; border-radius: 9999px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-secondary); font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; cursor: pointer; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+.p10-chip--on { background: var(--ink); border-color: var(--ink); color: var(--on-action); }
+.p10-chip:focus-visible, .p10-check:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.p10-tuy { display: flex; flex-direction: column; gap: 6px; }
+.p10-tuy-o { display: flex; align-items: center; gap: 4px; }
+.p10-tuy-o input { flex: 1 1 0; min-width: 0; height: 44px; box-sizing: border-box; border: 1px solid var(--border-input); border-radius: 8px; padding: 0 12px; font: inherit; font-size: 16px; color: var(--ink); text-align: right; }
+.p10-tuy-duoi { font-size: 16px; color: var(--ink-secondary); }
+.p10-an { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.p10-loi { margin: 0; font-size: 13px; line-height: 18px; color: var(--danger-text); }
+.p10-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px; border: 0; background: none; font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-body); cursor: pointer; align-self: flex-start; -webkit-tap-highlight-color: transparent; }
+.p10-check-hop { width: 20px; height: 20px; flex: none; box-sizing: border-box; border: 2px solid var(--border-input); border-radius: 6px; background: var(--surface); display: inline-flex; align-items: center; justify-content: center; color: var(--on-action); }
+.p10-check--on .p10-check-hop { background: var(--action); border-color: var(--action); }
+.p10-vd { margin: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.p10-vd > div { display: flex; justify-content: space-between; }
+.p10-vd dt { margin: 0; }
+.p10-vd dd { margin: 0; font-weight: 700; color: var(--ink); }
+.p10-vd .p10-vd-duoc { padding-top: 6px; border-top: 1px solid var(--border-subtle); }
+.p10-vd .p10-vd-duoc dd { color: var(--action); }
+.p10-ghi-chu { margin: 0; font-size: 13px; line-height: 18px; color: var(--ink-muted); text-wrap: pretty; }
+.p10-chan { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); }

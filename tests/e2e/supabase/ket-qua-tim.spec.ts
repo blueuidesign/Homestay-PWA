@@ -80,8 +80,10 @@ test('YC7.3-NT1 YC7.3-NT2 YC7.3-NT3 YC7.3-NT4 YC7.3-NT5 YC7.3-NT6 Sale Hùng xem
   for (const ten of ['Green Bay 0812', '3402 · 1PN', 'ICON40 1509 · 2PN']) await page.getByRole('checkbox', { name: `Chọn ${ten}` }).click();
   await expect(page.getByText('Đã chọn 3 căn')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Gửi cho khách' })).toBeEnabled();
+  // Từ US48 nút này mở S5 (YC8.1); Quay lại thì về S2, vẫn giữ 3 căn đã chọn.
   await page.getByRole('button', { name: 'Gửi cho khách' }).click();
-  await expect(page.getByText('Gửi cho khách sẽ có ở bản sau')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Gửi cho khách' })).toBeVisible();
+  await page.getByRole('button', { name: 'Quay lại' }).click();
 
   // YC7.3-NT4: "Lịch tuần" cùng điều kiện, cùng tập căn; bảy ngày từ ngày nhận; căn tự nhập "?".
   await page.getByRole('button', { name: 'Lịch tuần' }).click();

@@ -150,3 +150,31 @@ describe('YC7.4 · chạm căn ở S1 (US46)', () => {
     expect(document.querySelector('[data-man="S3"]')).toBeNull();
   });
 });
+
+describe('YC7.5 · dòng "Mức cộng giá mặc định" ở tab Cá nhân (US47)', () => {
+  it('YC7.5 bước 1 tab Cá nhân có "Mức cộng giá mặc định" (vẫn có Đăng xuất), chạm mở P10 toàn màn; lưu xong về Cá nhân', async () => {
+    const mucCong = { doc: vi.fn(async () => ({ muc: 400_000, lamTron: false })), luu: vi.fn(async () => undefined) };
+    ve({ dvMucCong: mucCong });
+    await screen.findByText('Chưa có nguồn phòng');
+    fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
+    expect(screen.getByRole('button', { name: 'Đăng xuất' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Mức cộng giá mặc định' }));
+    expect(await screen.findByRole('heading', { name: 'Mức cộng giá mặc định' })).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: '+200k' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu thay đổi' }));
+    await waitFor(() => expect(mucCong.luu).toHaveBeenCalledWith(200_000, false));
+    expect(await screen.findByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
+    expect(screen.getByText('Đã lưu mức cộng')).toBeInTheDocument();
+  });
+
+  it('YC7.5 P10 Quay lại về tab Cá nhân', async () => {
+    ve({ dvMucCong: { doc: vi.fn(async () => ({ muc: 0, lamTron: false })), luu: vi.fn() } });
+    await screen.findByText('Chưa có nguồn phòng');
+    fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Mức cộng giá mặc định' }));
+    await screen.findByRole('heading', { name: 'Mức cộng giá mặc định' });
+    fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
+    expect(screen.getByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
+  });
+});

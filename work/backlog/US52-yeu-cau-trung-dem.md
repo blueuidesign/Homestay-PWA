@@ -48,7 +48,7 @@ YC9-yeu-cau-dat-phong.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US52-yeu-cau-trung-dem.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US52-yeu-cau-trung-dem.md.
 
 ## Task
 - [ ] US52-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC9.3-NT1 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)

@@ -2,7 +2,7 @@
 // Bộ ảnh "1/N", tên căn, dòng phòng ngủ · giường · view · khu vực (không số khách, không tiện ích: YC7.4-NT4), độ tươi lịch,
 // chủ nhà và nút "Gọi" (tel:, chỉ khi có số), giá chủ, chip mức cộng ("Mặc định" đầu hàng, YC7-H7) và giá bán đổi ngay,
 // "Lịch 2 tuần tới" tô ngày khách hỏi (YC7-H6), giờ nhận trả, "Gửi yêu cầu đặt phòng" (S3-02 tạm, YC9 ở US50),
-// "Gửi cho khách" (YC8 ở US48, báo tạm). HV1 khung xám, HV2 Thử lại, HV3 đọc lại khi quay lại, HV5 không còn quyền, HV8 toast.
+// "Gửi cho khách" mở S5 (YC8.1, US48). HV1 khung xám, HV2 Thử lại, HV3 đọc lại khi quay lại, HV5 không còn quyền, HV8 toast.
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { KhungXam, DongDangCapNhat } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, LoiNguoiDung, ManChuaTai } from '../chung/matKetNoi';
