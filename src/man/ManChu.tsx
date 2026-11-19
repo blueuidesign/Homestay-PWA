@@ -3,7 +3,7 @@
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin là Sửa căn CN5-02 (YC3.5, US18): lưu được thì về CN5 với toast "Đã lưu phòng 1509".
 // Xóa căn ở CN5-02 (YC3.6, US19): xóa được thì về CN5 với toast "Đã xóa phòng 3402" (toast do CN5-02 hiện).
-// Tab Sale, Thống kê, Cá nhân: khung tạm, US sau thay.
+// Tab Sale là CN7 Danh sách sale (YC6.2, US36): CN7-04, CN7-05 mở trong tab, không đổi địa chỉ. Thống kê, Cá nhân: khung tạm, US sau thay.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
 // thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
 // Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
@@ -22,6 +22,7 @@ import { mauCan } from '../lib/lich';
 import { chonManChu, DUONG_DAN_TAB, duongDanDatPhong, duongDanDatPhongMoi, duongDanSuaDatPhong } from '../lib/dieuHuong';
 import { CAU_DA_LUU_SUA } from '../lib/datPhong';
 import type { DichVuCan } from '../lib/dichVuCan';
+import type { DichVuSale } from '../lib/dichVuSale';
 import type { ThangLich } from '../lib/dichVuLich';
 import { homNay, type Ngay } from '../lib/ngay';
 import { A4ChuaCoCan } from './A4ChuaCoCan';
@@ -33,10 +34,11 @@ import { CN502SuaCan } from './CN502SuaCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan } from './CN6GiaCan';
+import { CN7DanhSachSale } from './CN7DanhSachSale';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
-const TIEU_DE_TAM: Record<'sale' | 'thong-ke' | 'ca-nhan', string> = { sale: 'Sale', 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
+const TIEU_DE_TAM: Record<'thong-ke' | 'ca-nhan', string> = { 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
 
 /** HV1: lần đầu khung xám; có dữ liệu cũ thì hiện ngay kèm "Đang cập nhật…". HV2: chưa tải được thì Thử lại. */
 function useDanhSachCan(dv: DichVuCan | null) {
@@ -73,6 +75,8 @@ function useGiaTuan(dv: DichVuCan | null, mo: boolean) {
 
 export function ManChu(props: {
   duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void;
+  /** YC6.2: danh sách sale (src/lib/dichVuSale.ts). Không truyền thì lấy dichVuCan.sale khi dịch vụ căn có gắn. */
+  dichVuSale?: DichVuSale | null;
   /** HV7 bước 2: phiên hết mà làm mới không được. */
   onHetPhien?: () => void;
 }) {
@@ -224,8 +228,15 @@ export function ManChu(props: {
     return <P6DemCuoiTuan dv={props.dichVuCan?.gia} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
   }
 
+  if (man.tab === 'sale') {
+    // YC6.2 bước 1: CN7 (CN7-00 khi chưa có sale); thanh tab chỉ hiện ở danh sách.
+    const dvSale = props.dichVuSale !== undefined ? props.dichVuSale
+      : (props.dichVuCan as (DichVuCan & { sale?: DichVuSale }) | null)?.sale;
+    return <CN7DanhSachSale dv={dvSale} thanhTab={<ThanhTabChu dangMo="sale" onChon={chonTab} />} />;
+  }
+
   let than;
-  if (man.tab === 'sale' || man.tab === 'thong-ke' || man.tab === 'ca-nhan') {
+  if (man.tab === 'thong-ke' || man.tab === 'ca-nhan') {
     than = (
       <KhungTabChu tieuDe={TIEU_DE_TAM[man.tab]}>
         {man.tab === 'ca-nhan' && (

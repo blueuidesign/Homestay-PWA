@@ -34,7 +34,11 @@ CN7, CN7-00, CN7-04, CN7-05
 PQ1, PQ2, PQ4, PQ17, PQ18, PQ23 và các test vi phạm ở mục "Ai được làm gì" của YC6-ket-noi-sale.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+- supabase/migrations/20261119310000_us36_ds_sale.sql, tests/db/52_us36_ds_sale.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md
+- src/man/CN7DanhSachSale.tsx, CN704ChiTietSale.tsx, CN705ThemSale.tsx (+ .test.tsx), CN7DanhSachSale.css, src/man/ManChu.tsx
+- src/lib/dichVuSale.ts, src/lib/kiemSale.ts (+ .test.ts)
+- tests/e2e/supabase/ds-sale.spec.ts, tests/e2e/supabase/hoTro.ts (thêm idCua, taoDatPhongCuaSale)
+- Còn thiếu, ngoài ô "Được sửa" của gói việc: nối dịch vụ sale vào src/lib/dichVuCan.ts (thêm `sale?: DichVuSale` và `sale: taoDichVuSaleSupabase(sb)`). Chưa nối thì tab Sale báo chưa tải được và e2e ds-sale đỏ.
 
 ## Ngoài phạm vi
 - YC6-H13, H11, H16, H1, H4 đã Claude tự chốt (QD25), ghi ở YC6.2 r5.
@@ -58,9 +62,19 @@ Kịch bản test tay: tests/kb/US36-danh-sach-sale-cua-chu.md.
 - [ ] US36-TA4 Test tay · Đức: chạy tests/kb/US36-danh-sach-sale-cua-chu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+1. TA1: test database tests/db/52_us36_ds_sale.sql cho NT1, NT3 đến NT9 và vi phạm (chủ khác, sale, người chưa đăng nhập) trước migration.
+2. TA2: migration thêm cột ket_noi.ngung_luc và tám hàm security definer: fn_ds_sale_cua_toi, fn_dat_phong_cua_sale, fn_them_sale_tay, fn_xoa_sale_tay, fn_ngung_cho_xem (ghi thông báo chu_ngung_cho_xem một lần), fn_dat_xem_coc, fn_bo_dong_sale, fn_sale_da_coc. Sáu phép thử làm hỏng.
+3. TA3: test unit trước, rồi màn CN7/CN7-00, CN7-04, CN7-05 (mở trong tab Sale, không đổi địa chỉ), dịch vụ, luật kiểm; e2e ds-sale.
+Claude tự quyết (QD25): tổng tiền phòng ở CN7 tính mọi đặt phòng chưa hủy, không lọc tháng như canvas; "đã thanh toán" tính là đã cọc khi sale đọc tình trạng cọc; "Bỏ dòng" xóa dòng kết nối, đặt phòng giữ; kết nối "sale bỏ" nằm ở nhóm "Đã ngừng", không trả số; thông báo ngừng luôn ghi (YC12.4 không có công tắc cho loại này); CN7-00 dùng chữ của YC6.2 bước 2 (canvas ghi "Giá từng đêm (bạn tắt được)" trái QD7); hai nút link mời báo tạm "Link mời sẽ có ở bản sau" (US37).
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC6.2@1 (QD21)
 - 2026-11-19 · Claude · tự chốt YC6-H13, H11, H16, H1, H4 (QD25, YC6 r5, thêm NT8, NT9); viết kịch bản test tay; giao agent code
+- 2026-11-19 · Claude (agent code) · TA1, TA2, TA3 trên nhánh US36-danh-sach-sale; còn nối dịch vụ sale vào src/lib/dichVuCan.ts (ngoài phạm vi gói việc)
 
 ## Bằng chứng
+- `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (trước migration) 75 hỏng, đều của file 52; sau migration 1233 qua, 0 hỏng (một vòng). Phép thử làm hỏng lần đầu 4/6 đạt: hai test NT8, PQ17.CHU rỗng (lấy id bằng vai đã bị RLS chặn), sửa cho chặt; cuối 1234 qua, 0 hỏng.
+- `scripts/thu-lam-hong.sh YC6.2`: 6 đạt, 0 không đạt. `npx supabase db reset`: qua. `scripts/bang-cot.sh`: đã ghi.
+- `npx vitest run` 5 file mới: lần đầu 3 đỏ (nhãn ô bọc cả câu lỗi), sửa một vòng; toàn bộ 47 file, 508 test qua.
+- `npm run typecheck`, `npm run build`, `npm run e2e` (3 qua), `python3 scripts/kiem.py --diff origin/main` (không có lỗi).
+- e2e Supabase cả thư mục: 44 qua, nhưng chạy với bản nối tạm dịch vụ sale trong src/lib/dichVuCan.ts (không commit). Không có bản nối thì ds-sale.spec.ts đỏ.
