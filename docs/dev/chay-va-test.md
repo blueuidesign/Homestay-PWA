@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ---
 # Chạy, test, build và deploy
 
@@ -28,6 +28,7 @@ export PGHOST=localhost PGUSER=postgres PGPASSWORD=<mật khẩu postgres trên 
 ```
 
 ## Cấu trúc thư mục app
+`[r4 · thêm]` src/chung/ (EN4).
 ```
 index.html              trang gốc, gắn manifest và icon
 public/                 file chép nguyên vào bản build
@@ -125,3 +126,4 @@ Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo bản nháp, chờ EN dựng nền điền | Cả file |
 | r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
 | r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
+| r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
