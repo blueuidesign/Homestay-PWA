@@ -3,7 +3,7 @@ id: HV
 tieu_de: Hành vi chung của mọi màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ---
 # HV · Hành vi chung của mọi màn
 
@@ -89,6 +89,7 @@ Tiêu chí:
 - **HV5-NT2** Khi Chị Hoa đã xóa tài khoản và Hùng mở 1509 từ thông báo cũ, thì lý do là "Chủ nhà đã xóa tài khoản". · database, unit
 
 ## HV6 · Trình duyệt thiếu tính năng
+`[r3 · sửa]`
 Rủi ro: thấp. Người dùng trên trình duyệt cũ hay trình duyệt trong Zalo vẫn làm được việc, chỉ bằng cách khác.
 
 | Bước | Người dùng | App |
@@ -97,7 +98,7 @@ Rủi ro: thấp. Người dùng trên trình duyệt cũ hay trình duyệt tro
 | 2 | Không có cách khác | Báo "Trình duyệt này chưa làm được việc này. Mở app bằng Chrome hay Safari." Không đứng im |
 
 Tiêu chí:
-- **HV6-NT2** Khi trình duyệt không có bảng chia sẻ và người dùng bấm "Gửi chữ", thì chữ được sao chép và có toast "Đã sao chép, dán vào Zalo để gửi". · unit
+- **HV6-NT2** Khi trình duyệt không có bảng chia sẻ và người dùng bấm "Chia sẻ chữ", thì chữ được sao chép và có toast "Đã sao chép, dán vào Zalo để gửi". · unit
 
 ## HV7 · Phiên đăng nhập hết hạn
 Rủi ro: tb. Người dùng không phải đăng nhập lại giữa chừng.
@@ -134,3 +135,4 @@ Mã HV4-NT1 đến NT4 và HV6-NT1 là tiêu chí của bản Zalo (hộp thoạ
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: số điện thoại lấy lúc đăng ký | HV4 |
+| r3 | 2026-11-19 | Claude | EN4-hanh-vi-chung | Tên nút "Chia sẻ chữ" theo canvas PWA (chỉ sửa chữ) | HV6 |

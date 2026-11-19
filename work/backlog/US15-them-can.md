@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Thêm căn" đúng như YC3.2 mô tả.
 
 ## Làm tiêu chí nào
-YC3.2-NT1 đến NT8
+YC3.2-NT1 đến NT8; HV3-NT2 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT5.5, QT5.7, QT6.3
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US15-them-can.md, chưa viết. Viết trước 
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.2@1 (QD21)
+- 2026-11-19 · Claude · nhận HV3-NT2 từ EN4 (QD27)
 
 ## Bằng chứng

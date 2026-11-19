@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là sale, tôi làm được việc "Sale nhận kết quả" đúng như YC9.4 mô tả.
 
 ## Làm tiêu chí nào
-YC9.4-NT1 đến NT6
+YC9.4-NT1 đến NT6; HV3-NT3 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1.1, QT1.4, QT2.1, QT5.6, QT6.2
@@ -59,5 +59,6 @@ Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md, chưa viết. Viết 
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC9.4@1 (QD21)
+- 2026-11-19 · Claude · nhận HV3-NT3 từ EN4 (QD27)
 
 ## Bằng chứng

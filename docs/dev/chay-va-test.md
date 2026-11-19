@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ---
 # Chạy, test, build và deploy
 
@@ -28,6 +28,7 @@ export PGHOST=localhost PGUSER=postgres PGPASSWORD=<mật khẩu postgres trên 
 ```
 
 ## Cấu trúc thư mục app
+`[r4 · thêm]` src/chung/ (EN4).
 ```
 index.html              trang gốc, gắn manifest và icon
 public/                 file chép nguyên vào bản build
@@ -41,6 +42,7 @@ src/
   lib/                  hàm thuần dùng chung, mỗi file một test cạnh nó (*.test.ts)
     ngay.ts             ngày giờ Việt Nam, các đêm của một lần ở (QT5.1, QT2.1)
     tien.ts             tiền số nguyên đồng, viết "1.300.000đ" (QT5.2)
+  chung/                thành phần dùng chung cho HV1 đến HV8 (toast, đang tải, mất mạng, nháp, quyền, phiên), mỗi nhóm một file và test cạnh nó
   pwa/                  đăng ký service worker
   test/setup.ts         nạp matcher cho test unit
 tests/e2e/              test Playwright, khung 390×844
@@ -116,7 +118,7 @@ Bản Preview: Vercel đọc `vercel.json` (cài bằng `npm ci`, build `npm run
 <!-- Migration lên Supabase staging, tài khoản thử trên staging: EN2, EN3 điền. -->
 
 ### Đăng nhập bằng mã email trên staging
-`[r4 · thêm]`
+`[r5 · thêm]`
 
 Project Supabase staging `home247-staging` (ref `wbsocqhpjtgpkvviusrt`, Singapore). Đăng nhập bằng mã gửi qua email (QD22). Cấu hình đặt ngày 2026-11-19 qua Management API (`PATCH /v1/projects/{ref}/config/auth`), xem lại bằng `GET` cùng địa chỉ:
 
@@ -142,4 +144,5 @@ Trả `{}` là Supabase đã nhận và gửi thư. Trả 429 `over_email_send_r
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo bản nháp, chờ EN dựng nền điền | Cả file |
 | r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
 | r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
-| r4 | 2026-11-19 | Claude | claude/project-thread-6ac0ge | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |
+| r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
+| r5 | 2026-11-19 | Claude | #15 | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |

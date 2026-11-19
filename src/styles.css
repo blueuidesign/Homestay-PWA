@@ -16,3 +16,11 @@ body { margin: 0; min-height: 100dvh; }
 .vo-app { padding: max(16px, env(safe-area-inset-top)) 16px 16px; }
 .vo-app h1 { color: var(--action); font-size: 24px; margin: 0 0 4px; }
 .vo-app p { margin: 0; }
+
+/* EN4 · thành phần chung (src/chung) */
+.toast { position: fixed; top: calc(env(safe-area-inset-top) + 56px); left: 12px; right: 12px; z-index: 100; background: #1f2937; color: #fff; font-size: 14px; font-weight: 700; padding: 12px; border-radius: 8px; }
+.khung-xam-dong { height: 16px; margin: 12px 0; border-radius: 4px; background: #e5e7eb; }
+.dong-cap-nhat { font-size: 12px; color: #6b7280; margin: 0 0 8px; }
+.dai-mat-ket-noi { background: #fef3c7; color: #92400e; font-size: 13px; padding: 8px 16px; }
+.man-loi, .the-quyen { padding: 24px 16px; text-align: center; }
+.man-loi button, .the-quyen button, .nut-ghi { min-height: 44px; min-width: 44px; padding: 0 16px; }

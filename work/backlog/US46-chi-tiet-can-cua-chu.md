@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là sale, tôi làm được việc "Chi tiết căn của chủ nhà và giá bán" đúng như YC7.4 mô tả.
 
 ## Làm tiêu chí nào
-YC7.4-NT1 đến NT6
+YC7.4-NT1 đến NT6; HV5-NT1, HV5-NT2 (hành vi chung gắn màn này, QD27)
 
 ## Quy tắc, hành vi dùng
 QT1.3, QT2.1, QT3.1, QT5.4, QT6.4
@@ -61,5 +61,6 @@ Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.4@1 (QD21)
+- 2026-11-19 · Claude · nhận HV5-NT1, HV5-NT2 từ EN4 (QD27)
 
 ## Bằng chứng
