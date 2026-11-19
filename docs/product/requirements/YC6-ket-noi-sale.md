@@ -3,7 +3,7 @@ id: YC6
 tieu_de: Kết nối chủ nhà và sale
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 7
+rev: 8
 ban: 2
 ---
 # YC6 · Kết nối chủ nhà và sale
@@ -176,8 +176,15 @@ Bản 2 · rủi ro: cao · Màn: A8, A8-01
 |---|---|---|---|
 | 1 | Chủ nhà bấm link xin lịch trong tin của sale | Chưa đăng nhập: đăng nhập (YC1) trước. Rồi A8: tên và số điện thoại sale (nếu sale đã cho), công tắc "Tình trạng cọc" (đã cọc hay chưa, không có số tiền, mặc định bật), dòng "Luôn thấy ngày đã có người đặt và giá từng đêm" không có công tắc (QD7), dòng "Không bao giờ thấy tên, số điện thoại khách và doanh thu", nút "Đồng ý cho xem lịch", "Từ chối" | Xem trước link xin lịch, cần đăng nhập |
 | 2 | Bấm "Đồng ý cho xem lịch" | Về tab Sale, toast "Đã cho Sale Lan xem lịch". Chưa có căn thì về A4-01 (YC3) | Tạo kết nối đã kết nối, nguồn sale xin, phạm vi tất cả căn, quyền cọc theo công tắc; thông báo "chủ đồng ý kết nối" cho sale |
-| 3 | Bấm "Từ chối" | Về tab Sale | Không ghi gì. Sale có được báo không: [MỞ: YC6-H12] |
+| 3 | Bấm "Từ chối" | Về tab Sale | [r8 · sửa] Không ghi gì, sale không được báo (YC6-H12, Claude tự chốt): số "chủ nhà đã đồng ý" ở A7 không tăng là đủ |
 | 4 | Link không dùng được (sai, sale đã xóa tài khoản, chủ nhà đã ngừng sale này) | A8-01 theo HV5 | Từ chối, không trả tên, số nào |
+
+[r8 · thêm] Các ca khác khi bấm "Đồng ý cho xem lịch" (YC6-H17, YC6-H18, Claude tự chốt):
+- Đã kết nối với sale này rồi: không tạo kết nối mới, giữ phạm vi và quyền cọc cũ, vẫn về tab Sale với toast như bước 2.
+- Sale đã bỏ nguồn của chủ nhà này (YC10.2) hay kết nối đang "chưa kết nối" (chủ nhà thêm tay ở CN7-05): chuyển thành đã kết nối với quyền cọc theo công tắc, phạm vi tất cả căn. Sale chủ động xin lại nên coi như đồng ý mới.
+- Chủ nhà đã ngừng sale này: A8-01 (bước 4, NT4). Muốn cho xem lại thì dùng CN7-04.
+- Mở link xin lịch của chính mình: A8-01, không tạo gì.
+- Người mở chưa chọn vai: chọn sẵn vai chủ nhà rồi mới hiện A8. Đang ở vai sale: vẫn hiện A8; đồng ý xong thì chuyển sang vai chủ nhà.
 
 Tiêu chí:
 - **YC6.5-NT1** Khi Chị Hoa mở link xin lịch của Sale Lan, thì A8 có tên và số của Lan. · database, unit
@@ -185,6 +192,8 @@ Tiêu chí:
 - **YC6.5-NT3** Khi Chị Hoa đồng ý, thì Lan ở nhóm "Đã kết nối" của Chị Hoa và có thông báo đồng ý. · database
 - **YC6.5-NT4** Khi Chị Hoa đã ngừng Sale Lan mà mở lại link xin lịch của Lan, thì thấy A8-01 và không có kết nối mới. · database
 - **YC6.5-NT5** Khi người chưa đăng nhập xem trước link xin lịch, thì bị từ chối, không có tên, số nào. · database
+- **YC6.5-NT6** `[r8 · thêm]` Khi Chị Hoa đã kết nối với Sale Lan mà đồng ý lại qua link xin lịch, thì vẫn chỉ có một kết nối, phạm vi và quyền cọc giữ như cũ; khi Lan đã bỏ nguồn Chị Hoa rồi Chị Hoa đồng ý, thì kết nối trở lại đã kết nối. · database
+- **YC6.5-NT7** `[r8 · thêm]` Khi Sale Lan mở link xin lịch của chính mình, thì thấy A8-01 và không có kết nối nào được tạo. · database
 
 ## YC6.6 · Chủ nhà gửi lịch theo căn đã chọn
 `[r3 · sửa]`
@@ -261,3 +270,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r5 | 2026-11-19 | Claude | US36 chuẩn bị | Trả lời YC6-H13, H11, H16, H1, H4 (Claude tự chốt, QD25); thêm NT8, NT9 | YC6.2, YC6.4 |
 | r6 | 2026-11-19 | Claude | US37 chuẩn bị | Trả lời YC6-H14, H15, H5, H10, H3, H6 (Claude tự chốt, QD25); thêm YC6.3-NT9, NT10 | YC6.3 |
 | r7 | 2026-11-19 | Claude | US38 chuẩn bị | Trả lời YC6-H2: sale không thu hồi link xin lịch ở bản 1 (Claude tự chốt, QD25) | YC6.4 |
+| r8 | 2026-11-19 | Claude | US39 chuẩn bị | Trả lời YC6-H12, H17, H18 (Claude tự chốt, QD25); thêm YC6.5-NT6, NT7 | YC6.5 |

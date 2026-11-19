@@ -305,9 +305,10 @@ Sale chủ nhà thêm tay bằng tên và số (CN7-05) ghép với tài khoản
 Gắn ở: YC6.2. Tới khi có câu trả lời: không ghép, không chặn số trùng.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): (b) Chỉ ghép qua link. Sale chủ nhà thêm tay ở CN7-05 là một dòng ghi nhớ của chủ nhà, ở nhóm "Chưa kết nối", không tự ghép với tài khoản có cùng số, không chặn số trùng. Lý do: số điện thoại trong app không được xác minh, ghép tự động theo số có thể cho nhầm người xem lịch; ghép qua link thì chính sale bấm nhận. Ghi vào YC6.2 r5.
 
-### YC6-H12 · mo
+### YC6-H12 · da-tra-loi
 Chủ nhà từ chối lời xin xem lịch ở A8 thì sale có được báo không?
 Gắn ở: YC6.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không báo. Báo từ chối dễ làm hai bên khó xử, chủ nhà ở Hạ Long thường quen biết sale; sale đã thấy số "chủ nhà đã đồng ý" ở A7 không tăng. Từ chối không ghi gì nên chủ nhà đổi ý vẫn bấm lại link được. Ghi vào YC6.5 r8.
 
 ### YC6-H13 · da-tra-loi
 Nút "Nhắc lại" ở CN7 và "Gửi link cho chủ nhà khác" ở A7 làm gì?
@@ -330,6 +331,16 @@ Gắn ở: YC6.2.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có xem, xóa có điều kiện. Dòng sale thêm tay (chưa kết nối) mở được và có nút "Xóa sale này" (hỏi lại một lần); xóa thì dòng biến mất. Dòng sale đã bị ngừng nằm ở nhóm "Đã ngừng" cuối CN7, mở được để xem đặt phòng cũ, không xóa được (giữ lịch sử đặt phòng). Bản 1 không có nút "Cho xem lại"; muốn cho xem lại thì gửi link mời, sale nhận link thì kết nối trở lại (YC6.3). Ghi vào YC6.2 r5.
 
 ## YC7
+
+### YC6-H17 · da-tra-loi
+Chủ nhà bấm Đồng ý ở A8 khi đã có kết nối với sale đó (đã kết nối, sale đã bỏ nguồn, chưa kết nối, chủ đã ngừng), hoặc mở link của chính mình thì sao?
+Gắn ở: YC6.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đã kết nối thì giữ nguyên, không tạo dòng mới (mỗi cặp chủ nhà, sale một dòng). Sale đã bỏ nguồn hay chưa kết nối thì chuyển thành đã kết nối, vì sale chủ động xin. Chủ đã ngừng thì A8-01 như NT4, cho xem lại dùng CN7-04. Link của chính mình thì A8-01. Ghi vào YC6.5 r8, thêm NT6, NT7.
+
+### YC6-H18 · da-tra-loi
+Người mở link xin lịch chưa chọn vai, hoặc đang ở vai sale thì sao?
+Gắn ở: YC6.5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chưa chọn vai thì chọn sẵn vai chủ nhà (giống link mời chọn sẵn vai sale, YC6.3). Đang ở vai sale vẫn thấy A8, đồng ý xong chuyển sang vai chủ nhà, vì người bấm link xin lịch là người có phòng. Ghi vào YC6.5 r8.
 
 ### YC7-H1 · mo
 Tìm phòng: có cho chọn ngày nhận trước hôm nay không?
