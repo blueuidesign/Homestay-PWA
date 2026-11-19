@@ -345,6 +345,16 @@ Người mở link xin lịch chưa chọn vai, hoặc đang ở vai sale thì s
 Gắn ở: YC6.5.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chưa chọn vai thì chọn sẵn vai chủ nhà (giống link mời chọn sẵn vai sale, YC6.3). Đang ở vai sale vẫn thấy A8, đồng ý xong chuyển sang vai chủ nhà, vì người bấm link xin lịch là người có phòng. Ghi vào YC6.5 r8.
 
+### YC6-H19 · da-tra-loi
+Toast "chủ nhà đã đồng ý" ghi căn thế nào khi chủ nhà có nhiều căn hay chưa có căn; gom thông báo tính 10 phút từ lúc nào?
+Gắn ở: YC6.8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ghi tên tòa và mã căn, tối đa 3 căn rồi "và N căn khác", để toast không dài quá hai dòng trên điện thoại. Chưa có căn: "Chưa có căn nào, căn mới sẽ tự hiện" (YC6.7). Gom vào dòng chưa đọc tạo chưa quá 10 phút (GD15); đã đọc thì dòng mới, để sale không bỏ sót lần đồng ý sau khi đã xem. Ghi vào YC6.8 r11, thêm NT3.
+
+### YC6-H20 · da-tra-loi
+Toast hiện lại mỗi lần mở app không, tắt khi nào, nút "Xem" đi đâu khi chưa có Nguồn phòng?
+Gắn ở: YC6.8.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mỗi dòng thông báo hiện toast một lần trên một máy; máy nhớ dòng đã hiện trong bộ nhớ máy (mất thì hiện lại một lần, chấp nhận được). Tự tắt sau 6 giây theo HV8. Hiện toast không phải là đã đọc; đọc ở YC12. Tới khi có YC10.1, "Xem" về lịch của sale. Ghi vào YC6.8 r11, thêm NT4.
+
 ### YC7-H1 · mo
 Tìm phòng: có cho chọn ngày nhận trước hôm nay không?
 Gắn ở: YC7.2. Tới khi có câu trả lời: không chọn được ngày trước hôm nay.
