@@ -22,7 +22,7 @@ ngay_tao: 2026-11-18
 Là chủ nhà, tôi làm được việc "Link mời của chủ nhà và sale thêm lịch" đúng như YC6.3 mô tả.
 
 ## Làm tiêu chí nào
-YC6.3-NT1 đến NT8
+YC6.3-NT1 đến NT10
 
 ## Quy tắc, hành vi dùng
 Không có.
@@ -37,7 +37,7 @@ PQ1, PQ2, PQ4, PQ17, PQ18, PQ23 và các test vi phạm ở mục "Ai được l
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC6-H14, YC6-H15, YC6-H5, YC6-H10, YC6-H3, YC6-H6.
+- YC6-H14, H15, H5, H10, H3, H6 đã Claude tự chốt (QD25), ghi ở YC6.3 r6.
 - Phần đầu YC6-ket-noi-sale.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
