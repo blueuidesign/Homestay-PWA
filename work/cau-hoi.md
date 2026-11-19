@@ -383,13 +383,15 @@ Gắn ở: YC7.4. Tới khi có câu trả lời: hôm nay, 1 đêm.
 Sale đã đặt mức cộng riêng cho một căn: quay về dùng mức cộng mặc định bằng cách nào?
 Gắn ở: YC7.4. Tới khi có câu trả lời: chip "Mặc định" đầu hàng.
 
-### YC7-H8 · mo
+### YC7-H8 · da-tra-loi
 Tab Lịch của sale chưa có nguồn phòng nhưng đã gửi link xin lịch: hiện A5 hay A7? YC7.1-NT1 nói A5 khi chưa có nguồn phòng; A7 và A7-00 ghi "Vào từ: tab Lịch của sale chưa có nguồn", A7-00 ghi "gần giống A5, có thể gộp". Thêm: hai nút "Gửi link cho chủ nhà khác", "Thêm căn tự nhập" ở A7 chưa nối màn nào trong A7, còn A7-01 vẽ nút "Gửi link cho chủ nhà khác" mở A6 (YC6.4 bước 5 ghi chưa vẽ). Phương án: a) chưa gửi lần nào thì A5, đã gửi thì A7 (bả
 Gắn ở: YC7.1. Tới khi có câu trả lời: A5.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Phương án a. Chưa gửi lần nào thì A5, đã gửi thì A7, vừa chia sẻ thì A7-01; có căn thì S1. A7 cho sale thấy lời xin đang chờ, A5 thì chưa có gì để chờ. US38 đã làm đúng như vậy. Ghi vào YC7.1 r2.
 
-### YC7-H9 · mo
+### YC7-H9 · da-tra-loi
 "Bán nhiều nhất" (sắp xếp) đếm theo gì: booking đã chấp nhận, doanh số hay số lần gửi khách.
 Gắn ở: YC7.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đếm số đặt phòng chưa hủy của chính sale ở căn đó có ngày nhận trong 90 ngày gần nhất. Sale chỉ thấy đặt phòng của mình (QD7), nên chỉ đếm được của mình; đếm số lần thay vì tiền để không phụ thuộc giá; 90 ngày để căn bán tốt gần đây lên đầu. Bằng nhau thì theo tên. Ghi vào YC7 r2 (Quy tắc Sắp xếp).
 
 ## YC8
 

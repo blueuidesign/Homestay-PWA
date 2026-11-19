@@ -37,7 +37,8 @@ PQ2, PQ3, PQ4, PQ5, PQ6, PQ11, PQ13, PQ14, PQ23 và các test vi phạm ở mụ
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC7-H8.
+- YC7-H8, YC7-H9 đã Claude tự chốt (QD25, YC7 r2).
+- Chạm căn mở S3 (YC7.4, US46), S6-07, S6-03 (YC10, US54, US56): chưa có màn thì chạm căn chưa làm gì, ghi trong PR. Ô tìm mở YC7.2 (US44): chưa có thì chưa làm gì. Mức cộng do sale đặt (YC7.5, US47): chưa có thì dùng mức cộng đã có trong database (bảng muc_cong).
 - Phần đầu YC7-lich-va-tim-phong-cua-sale.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,7 +50,7 @@ YC7-lich-va-tim-phong-cua-sale.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md.
 
 ## Task
 - [ ] US43-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC7.1-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
@@ -62,5 +63,6 @@ Kịch bản test tay: tests/kb/US43-man-dau-tien-va-lich.md, chưa viết. Vi�
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.1@1 (QD21)
 - 2026-11-19 · Claude · nhận HV8-NT3 từ EN4 (QD27)
+- 2026-11-19 · Claude (QD25) · tự chốt YC7-H8, H9 (YC7 r2); viết kịch bản test tay
 
 ## Bằng chứng
