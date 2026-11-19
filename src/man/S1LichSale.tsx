@@ -2,8 +2,8 @@
 // Mỗi căn một hàng, bảy cột ngày từ ngày đầu; ô trống ghi giá bán rút gọn, kín ghi "Kín", căn tự nhập ghi "?" hay "Bạn".
 // Nhóm "Căn của tôi" luôn trên "Nguồn phòng" (YC7 Quy tắc). Xoay ngang là xoay giả bằng CSS, không theo cảm biến (YC7.1-NT8).
 // HV1 khung xám và "Đang cập nhật…", HV2 Thử lại, HV8 toast đọc theo chiều ngang khi xoay (HV8-NT3, qua thuộc tính data-xoay).
-// Chạm căn (S3, S6-07, S6-03) và ô tìm (YC7.2) chưa có màn đích: chưa làm gì (Ngoài phạm vi của US43).
-import { useEffect, useMemo, useState } from 'react';
+// Chạm căn (S3, S6-07, S6-03) chưa có màn đích: chưa làm gì. Ô tìm mở S1-02 (YC7.2, US44) qua onTim hay MoTimPhong của ManSale.
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { DongDangCapNhat } from '../chung/dangTai';
 import { DaiMatKetNoi } from '../chung/matKetNoi';
 import {
@@ -17,6 +17,9 @@ const ICON_TRUOC = <path d="m15 18-6-6 6-6" />;
 const ICON_SAU = <path d="m9 18 6-6-6-6" />;
 const ICON_XOAY = <><rect x="3" y="7" width="18" height="10" rx="2" /><path d="M8 3h8" /><path d="M12 21v-4" /></>;
 const ICON_DONG = <><path d="M18 6 6 18" /><path d="m6 6 12 12" /></>;
+
+/** YC7.1 bước 10, YC7.2 bước 1: khung tab của sale (ManSale) cho cách mở S1-02 khi S1 không được truyền onTim. */
+export const MoTimPhong = createContext<(() => void) | undefined>(undefined);
 
 /** HV8-NT3: thuộc tính trên thẻ html để toast (src/chung/Toast) xoay theo khung ngang. */
 export const THUOC_TINH_XOAY = 'data-xoay';
@@ -62,9 +65,10 @@ export function S1LichSale(props: {
   onDoiNgay: (soNgay: number) => void;
   /** YC7.1 bước 8: báo khung tab ẩn, hiện thanh tab. */
   onXoay?: (ngang: boolean) => void;
-  /** YC7.1 bước 10: mở YC7.2 (US44). Chưa có thì chạm không làm gì. */
+  /** YC7.1 bước 10: mở YC7.2 (US44). Thiếu thì dùng MoTimPhong; cả hai thiếu thì chạm không làm gì. */
   onTim?: () => void;
 }) {
+  const moTim = useContext(MoTimPhong);
   const [cach, datCach] = useState<CachXep>('ten');
   const [moXep, datMoXep] = useState(false);
   const [ngang, datNgang] = useState(false);
@@ -82,7 +86,7 @@ export function S1LichSale(props: {
   useEffect(() => () => { document.documentElement.removeAttribute(THUOC_TINH_XOAY); }, []);
 
   const tim = (
-    <button type="button" className="s1-tim" onClick={props.onTim}>
+    <button type="button" className="s1-tim" onClick={props.onTim ?? moTim}>
       <Icon co={20}>{ICON_LICH}</Icon><span>Tìm phòng trống theo ngày</span>
     </button>
   );

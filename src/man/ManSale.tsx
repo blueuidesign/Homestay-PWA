@@ -1,10 +1,15 @@
 // Các tab của sale (YC7.1, canvas S1, A5: Lịch, Căn, Thống kê, Cá nhân). Không có tab "Tìm phòng" (YC7.1 bước 1, YC7.1-NT1).
 // Tab Lịch: A5, A7 khi chưa có căn (YC6.4), S1 khi có căn (YC7.1). Căn, Thống kê, Cá nhân: khung tạm, US sau thay
 // (Cá nhân giữ nút Đăng xuất). S1-05 xoay ngang thì ẩn thanh tab (YC7.1 bước 8). Tab nhớ trong phiên, địa chỉ vẫn là "/".
+// YC7.2 (US44): ô "Tìm phòng trống theo ngày" ở S1 mở S1-02 toàn màn (không thanh tab), quay lại thì về S1.
 import { useCallback, useState, type ReactNode } from 'react';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
+import type { DichVuTimPhong } from '../lib/dichVuTimPhong';
+import { homNay } from '../lib/ngay';
 import type { DichVuXinLich } from '../lib/dichVuXinLich';
 import { ManLich } from './ManTam';
+import { MoTimPhong } from './S1LichSale';
+import { ManTimPhong } from './S102TimPhong';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
 
 export type TabSaleTen = 'lich' | 'can' | 'thong-ke' | 'ca-nhan';
@@ -41,16 +46,27 @@ export function ManSale(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale;
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong };
+  /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
+  dvTim?: DichVuTimPhong;
   onDangXuat: () => void;
 }) {
   const [tab, datTab] = useState<TabSaleTen>('lich');
   const [ngang, datNgang] = useState(false);
   const onXoay = useCallback((x: boolean) => datNgang(x), []);
+  const dvTim = props.dvTim ?? props.dvLich?.timPhong;
+  const [moTim, datMoTim] = useState(false);
+  const mo = useCallback(() => datMoTim(true), []);
+
+  if (moTim && dvTim) return <ManTimPhong dv={dvTim} homNay={homNay()} onQuayLai={() => datMoTim(false)} />;
 
   let than: ReactNode;
   if (tab === 'lich') {
-    than = <ManLich vai="sale" ten={props.ten} dv={props.dv} dvLich={props.dvLich} onDangXuat={props.onDangXuat} onXoay={onXoay} />;
+    than = (
+      <MoTimPhong.Provider value={dvTim ? mo : undefined}>
+        <ManLich vai="sale" ten={props.ten} dv={props.dv} dvLich={props.dvLich} onDangXuat={props.onDangXuat} onXoay={onXoay} />
+      </MoTimPhong.Provider>
+    );
   } else {
     than = (
       <KhungTabChu tieuDe={TIEU_DE_TAM[tab]}>
