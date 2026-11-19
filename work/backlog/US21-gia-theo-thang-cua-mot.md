@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US21-gia-theo-thang-cua-mot.md (KB1 đến KB4).
 
 ## Task
-- [ ] US21-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.2-NT1, YC4.2-NT4, YC4.2-NT6, YC4.2-NT7, YC4.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US21-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US21-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6, CN6-00, CN6-04, CN6-09 theo canvas, test unit, e2e cho YC4.2-NT1 đến NT5
+- [x] US21-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.2-NT1, YC4.2-NT4, YC4.2-NT6, YC4.2-NT7, YC4.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US21-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US21-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6, CN6-00, CN6-04, CN6-09 theo canvas, test unit, e2e cho YC4.2-NT1 đến NT5
 - [ ] US21-TA4 Test tay · Đức: chạy tests/kb/US21-gia-theo-thang-cua-mot.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -66,5 +66,11 @@ Kịch bản test tay: tests/kb/US21-gia-theo-thang-cua-mot.md (KB1 đến KB4).
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.2@1 (QD21)
 - 2026-11-19 · Claude · trả lời YC4-H5, QT5-H1 (QD25), viết tests/kb, sang dang-lam
+- 2026-11-19 · Claude · code TA1 đến TA3 trên nhánh US21-gia-thang (test database trước, migration, màn CN6), mở PR nháp
 
 ## Bằng chứng
+- `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (chỉ có test, chưa migration) 59 hỏng; sau migration 611 qua, 0 hỏng, 0 file lỗi (một vòng).
+- `scripts/thu-lam-hong.sh YC4.2` và `"YC4 Dữ liệu Sale"`: 5 phép thử mới đều đạt (test đỏ khi phá).
+- `npx vitest run`: lần đầu 7 test CN6 đỏ (tên nút ô tháng dính chữ), sửa 1 vòng; 1 test cũ AppChu đỏ vì đổi đường mở căn sang tab Giá, bỏ thay đổi đó (mở căn vẫn vào /can/<id>); cuối 30 file, 231 test qua.
+- `npm run typecheck`, `npm run build`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
+- E2E trên Supabase máy: `E2E_SUPABASE=1 CI=1 npx playwright test tests/e2e --trace off` (kèm VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY của supabase status): lần đầu đỏ vì thiếu biến build, đặt biến xong 26 qua (có gia-thang.spec.ts).

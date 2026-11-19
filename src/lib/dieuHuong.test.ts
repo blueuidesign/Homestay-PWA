@@ -1,6 +1,6 @@
 // Test unit cho bộ chọn màn theo địa chỉ và phiên (YC1.2, YC1 Quy tắc của nhóm, QD8).
 import { describe, expect, it } from 'vitest';
-import { chonMan, laDuongDanLink } from './dieuHuong';
+import { chonMan, chonManChu, laDuongDanLink } from './dieuHuong';
 
 const daDangKy = { ten: 'Chị Hoa', soDienThoai: '0900000001', vaiChon: 'chu_nha' as const };
 
@@ -38,5 +38,14 @@ describe('YC1.2 · chọn màn', () => {
 
   it('YC1.2 đã đăng nhập mà chưa đọc được hồ sơ thì đang tải', () => {
     expect(chonMan({ duongDan: '/', phien: 'co', hoSo: undefined })).toBe('dang-tai');
+  });
+});
+
+describe('YC4.2 bước 1 · đường dẫn tab Giá của căn', () => {
+  it('YC4.2 bước 1 /can/<mã>/gia là CN6 tab Giá; /can/<mã> vẫn là tab Thông tin', () => {
+    expect(chonManChu('/can/00000000-0000-4000-8000-000000000102/gia')).toEqual({ tab: 'can-gia', id: '00000000-0000-4000-8000-000000000102' });
+    expect(chonManChu('/can/c3402/gia/')).toEqual({ tab: 'can-gia', id: 'c3402' });
+    expect(chonManChu('/can/c3402')).toEqual({ tab: 'can-chi-tiet', id: 'c3402' });
+    expect(chonManChu('/can/moi/gia')).toEqual({ tab: 'lich' });
   });
 });
