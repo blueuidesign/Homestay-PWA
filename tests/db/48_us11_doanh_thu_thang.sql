@@ -67,7 +67,10 @@ select t.bang(pg_temp.dt('2027-01-01'), '0|0|800000',
 select t.thoat();
 
 -- ===== QD12: đặt phòng đã hủy không tính; hủy B1 thì tháng 10 giảm đúng tiền B1 =====
-update public.booking set trang_thai = 'da_huy' where id = t.b('B1');
+-- B1 có Sale Hùng đứng tên: hủy theo QD12 (chủ xin, sale đồng ý), trigger tg_booking_huy_hai_ben chặn hủy thẳng.
+update public.booking set huy_xin_boi = t.id('hoa'), huy_xin_luc = now(), huy_tra_loi = 'dong_y',
+       huy_tra_loi_boi = t.id('hung'), huy_tra_loi_luc = now(), trang_thai = 'da_huy'
+ where id = t.b('B1');
 select t.dang_nhap(t.id('hoa'));
 select t.bang(pg_temp.dt('2026-10-01'), '9600000|11|9600000',
               'YC2.3-NT1 QD12 bỏ đặt phòng đã hủy: hủy B1 thì tháng 10 còn 9.600.000đ, 11 đêm');
