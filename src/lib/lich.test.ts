@@ -1,7 +1,7 @@
 // Test unit phần tính của lịch tháng (YC2.1, QT2). Số theo DLM.4 (booking của Chị Hoa).
 import { describe, expect, it } from 'vitest';
 import {
-  canCoKhach, chuChipTatCa, chuNguoiDat, chuTien, coKhoiDoanhThu, demTheoCan, dongCuaNgay, dongDoanhThu, khoangNgay,
+  canCoKhach, chuChipTatCa, chuNguoiDat, chuTien, coKhoiDoanhThu, datPhongSapToi, demTheoCan, dongCuaNgay, dongDoanhThu, dongSapToi, khoangNgay,
   khoangThang, mauCan, nhanO, tenThang, tieuDeDoanhThu, tieuDeNgay, vietSoDienThoai, type DatPhongLich,
 } from './lich';
 
@@ -153,5 +153,54 @@ describe('YC2.3 · doanh thu tháng', () => {
     expect(coKhoiDoanhThu({ doanhThu: 0, soDem: 0, thangTruoc: 800000 })).toBe(false);
     expect(coKhoiDoanhThu(undefined)).toBe(false);
     expect(coKhoiDoanhThu({ doanhThu: 11800000, soDem: 13, thangTruoc: 0 })).toBe(true);
+  });
+});
+
+// YC2.4 · Đặt phòng sắp tới. DLM.4 đủ tiền, người đặt, trạng thái tiền; hôm nay 07/10/2026 (DLM.1).
+const sale = (ten: string) => ({ loai: 'sale' as const, ten, sdt: null });
+const LE = { loai: 'le' as const };
+const DLM4_DU: DatPhongLich[] = [
+  { ...DLM4[0]!, tienPhong: 2200000, tienCoc: 1000000, trangThaiTien: 'da_coc', nguoiDat: sale('Sale Hùng') },
+  { ...DLM4[1]!, tienPhong: 1900000, tienCoc: null, trangThaiTien: 'chua_coc', nguoiDat: sale('Sale Lan') },
+  { ...DLM4[2]!, tienPhong: 1800000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: sale('Sale Hùng') },
+  { ...DLM4[3]!, tienPhong: 1600000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: sale('Sale Lan') },
+  { ...DLM4[4]!, tienPhong: 1800000, tienCoc: null, trangThaiTien: 'chua_coc', nguoiDat: LE },
+  { ...DLM4[5]!, tienPhong: 800000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: LE },
+  { ...DLM4[6]!, tienPhong: 900000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: sale('Sale Minh') },
+  { ...DLM4[7]!, tienPhong: 800000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: sale('Sale Minh') },
+  { ...DLM4[8]!, tienPhong: 1600000, tienCoc: null, trangThaiTien: 'da_thanh_toan', nguoiDat: sale('Sale Minh') },
+];
+const MA_CAN = new Map([['c1509', '1509'], ['c3402', '3402']]);
+const theoMa = (id: string) => DLM4_DU.find((x) => x.id === id)!;
+
+describe('YC2.4 · Đặt phòng sắp tới', () => {
+  it('YC2.4-NT1 mỗi dòng có người đặt, mã căn, ngày nhận, ngày trả, số đêm, tiền phòng, trạng thái tiền', () => {
+    expect(dongSapToi(theoMa('B1'), MA_CAN)).toEqual({
+      nguoiDat: 'Sale Hùng', canNgay: 'Phòng 1509 · 10/10 → 12/10 (2 đêm)', tien: '2.200.000đ', trangThai: 'Cọc 1.000.000đ',
+    });
+    expect(dongSapToi(theoMa('B6'), MA_CAN)).toEqual({
+      nguoiDat: 'Khách lẻ', canNgay: 'Phòng 3402 · 14/10 → 15/10 (1 đêm)', tien: '800.000đ', trangThai: 'Đã thanh toán',
+    });
+    // Khách chủ nhà nhập có tên thì hiện tên khách (YC2.2 bước 8, QD11).
+    expect(dongSapToi({ ...theoMa('B5'), nguoiDat: { loai: 'khach', ten: 'Khách Mẫu' } }, MA_CAN).nguoiDat).toBe('Khách Mẫu');
+  });
+
+  it('YC2.4-NT2 đặt phòng chưa cọc (B5, B2) thì dòng ghi "Chưa cọc"', () => {
+    expect(dongSapToi(theoMa('B5'), MA_CAN)).toEqual({
+      nguoiDat: 'Khách lẻ', canNgay: 'Phòng 1509 · 13/10 → 15/10 (2 đêm)', tien: '1.800.000đ', trangThai: 'Chưa cọc',
+    });
+    expect(dongSapToi(theoMa('B2'), MA_CAN)).toEqual({
+      nguoiDat: 'Sale Lan', canNgay: 'Phòng 3402 · 17/10 → 19/10 (2 đêm)', tien: '1.900.000đ', trangThai: 'Chưa cọc',
+    });
+  });
+
+  it('YC2.4-NT3 tháng 10, hôm nay 07/10: B1, B5, B6, B2, B7, B8; không có B3, B4, B9', () => {
+    // Đầu vào xáo thứ tự để thấy hàm tự xếp theo ngày nhận.
+    const vao = [...DLM4_DU].reverse();
+    expect(datPhongSapToi(vao, '2026-10-07', 2026, 10).map((x) => x.id)).toEqual(['B1', 'B5', 'B6', 'B2', 'B7', 'B8']);
+    // B4 trả phòng hôm nay nên không có; B9 nhận 30/11 thì có khi xem tháng 11.
+    expect(datPhongSapToi(vao, '2026-10-07', 2026, 11).map((x) => x.id)).toEqual(['B1', 'B5', 'B6', 'B2', 'B7', 'B8', 'B9']);
+    // Tháng 9: chưa có đặt phòng nào nhận từ tháng 9 trở về trước mà trả sau hôm nay.
+    expect(datPhongSapToi(vao, '2026-10-07', 2026, 9)).toEqual([]);
   });
 });

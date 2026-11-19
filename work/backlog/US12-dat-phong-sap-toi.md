@@ -34,7 +34,10 @@ CN1, CN1-01
 PQ4, PQ7, PQ8, PQ9, PQ16 và các test vi phạm ở mục "Ai được làm gì" của YC2-lich-chu-nha.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+- src/man/CN1LichThang.tsx (+ .test.tsx, .css), src/man/ManChu.tsx
+- src/lib/dichVuLich.ts, src/lib/lich.ts (+ .test.ts)
+- tests/e2e/supabase/lich-thang.spec.ts (thêm test mới)
+- Không có migration: đọc bảng booking qua RLS booking_doc có sẵn.
 
 ## Ngoài phạm vi
 - Phần đầu YC2-lich-chu-nha.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
@@ -54,8 +57,18 @@ Kịch bản test tay: tests/kb/US12-dat-phong-sap-toi.md.
 - [ ] US12-TA2 Test tay · Đức: chạy tests/kb/US12-dat-phong-sap-toi.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+1. lich.ts: hàm thuần `datPhongSapToi(ds, homNay, nam, thang)` (chưa hủy, trả > hôm nay, nhận < ngày 1 tháng sau, xếp theo ngày nhận) và `dongSapToi(b, maCan)` (người đặt, "Phòng 1509 · 10/10 → 12/10 (2 đêm)", tiền phòng, "Cọc 1.000.000đ" / "Chưa cọc" / "Đã thanh toán"). Test unit YC2.4-NT1..NT3 trước, thấy đỏ.
+2. dichVuLich.ts: `layThang` nhận thêm hôm nay, đọc thêm booking chưa hủy có ngày trả sau hôm nay và ngày nhận trước tháng sau (qua RLS), gắn người đặt như CN3, trả `sapToi`.
+3. CN1LichThang.tsx: khối "Đặt phòng sắp tới" dưới khối doanh thu, chạm dòng gọi onMoDatPhong (CN3-02); rỗng thì CN1-01. CN1-00 (chưa có đặt phòng nào) giữ như cũ, không hiện khối.
+4. e2e trong lich-thang.spec.ts: kéo xuống thấy danh sách đúng thứ tự, chạm dòng mở CN3-02.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC2.4@1 (QD21)
+- 2026-11-19 · Claude (agent phụ) · code US12-TA1 trên nhánh US12-dat-phong-sap-toi; e2e chưa chạy vì Docker tắt
+- 2026-11-19 · Claude (phiên chính) · chạy cả thư mục tests/e2e/supabase: 38 đạt; mở PR
 
 ## Bằng chứng
+- Unit `npx vitest run src/lib/lich.test.ts`: lần đầu đỏ 3 test (YC2.4-NT1, NT2, NT3, chưa có hàm), code 1 vòng thì xanh.
+- Unit màn `npx vitest run src/man/CN1LichThang.test.tsx`: lần đầu đỏ 4 test YC2.4 mới; sau khi code đỏ 1 test cũ YC2.2 bước 6, 7 (đếm mọi listitem), đổi danh sách sắp tới sang nút trong div, 2 vòng, xanh 28/28.
+- `npx vitest run`: 39 file, 430 test xanh. `npm run typecheck`, `npm run build`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
+- e2e `tests/e2e/supabase/lich-thang.spec.ts` (YC2.4-NT1 NT2 NT3 luồng chính): phiên chính bật lại Docker và Supabase local, chạy cả thư mục tests/e2e/supabase ngày 19/11: 38 test đạt.

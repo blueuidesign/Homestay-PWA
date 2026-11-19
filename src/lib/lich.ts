@@ -1,6 +1,7 @@
 // Phần tính của lịch tháng chủ nhà (YC2.1, QT2, YC2 Quy tắc "Màu theo căn", "Tuần bắt đầu thứ hai")
-// và chi tiết một ngày (YC2.2, QT6.1).
+// và chi tiết một ngày (YC2.2, QT6.1), đặt phòng sắp tới (YC2.4, QT6.1).
 import { congNgay, soDem, type Ngay } from './ngay';
+import { tenCan } from './can';
 import { vietTien } from './tien';
 
 /** QT6.1: trạng thái tiền của đặt phòng; null khi không có (đặt phòng sale tự ghi cho căn tự nhập). */
@@ -150,4 +151,36 @@ export function dongDoanhThu(dt: DoanhThuThang, thang: number): string {
 /** YC2.3 bước 13: tháng không có đêm có khách nào thì không hiện khối doanh thu. */
 export function coKhoiDoanhThu(dt: DoanhThuThang | null | undefined): dt is DoanhThuThang {
   return !!dt && dt.soDem > 0;
+}
+
+/**
+ * YC2.4 bước 14: đặt phòng sắp tới khi xem tháng [nam, thang]: ngày trả sau hôm nay (giờ Việt Nam) và ngày nhận
+ * trong tháng đang xem trở về trước, xếp theo ngày nhận. Danh sách vào chỉ có booking chưa hủy (database lọc, YC2-H3).
+ */
+export function datPhongSapToi(ds: readonly DatPhongLich[], homNay: Ngay, nam: number, thang: number): DatPhongLich[] {
+  const { den } = khoangThang(nam, thang);
+  return ds
+    .filter((b) => b.ngayTra > homNay && b.ngayNhan < den)
+    .sort((a, b) => (a.ngayNhan < b.ngayNhan ? -1 : a.ngayNhan > b.ngayNhan ? 1 : a.ngayTra < b.ngayTra ? -1 : a.ngayTra > b.ngayTra ? 1 : 0));
+}
+
+/** YC2.4 bước 14, QT6.1: nhãn trạng thái tiền ở dòng sắp tới: "Cọc 1.000.000đ", "Chưa cọc", "Đã thanh toán"; không có thì rỗng. */
+export function chuTrangThaiTien(trangThai: TrangThaiTien | null | undefined, tienCoc: number | null | undefined): string {
+  if (trangThai === 'da_coc') return `Cọc ${vietTien(tienCoc ?? 0)}`;
+  if (trangThai === 'chua_coc') return 'Chưa cọc';
+  if (trangThai === 'da_thanh_toan') return 'Đã thanh toán';
+  return '';
+}
+
+/** Chữ một dòng "Đặt phòng sắp tới" (YC2.4-NT1). */
+export type DongSapToi = { nguoiDat: string; canNgay: string; tien: string; trangThai: string };
+
+/** YC2.4 bước 14: người đặt, "Phòng 1509 · 10/10 → 12/10 (2 đêm)", tiền phòng, trạng thái tiền (QT2.1, QT6.1). */
+export function dongSapToi(b: DatPhongLich, maCan: ReadonlyMap<string, string>): DongSapToi {
+  return {
+    nguoiDat: chuNguoiDat(b.nguoiDat),
+    canNgay: `${tenCan(maCan.get(b.canId) ?? '')} · ${khoangNgay(b.ngayNhan, b.ngayTra)}`,
+    tien: b.tienPhong === undefined ? '' : vietTien(b.tienPhong),
+    trangThai: chuTrangThaiTien(b.trangThaiTien, b.tienCoc),
+  };
 }
