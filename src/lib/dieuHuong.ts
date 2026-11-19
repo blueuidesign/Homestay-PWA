@@ -17,6 +17,12 @@ export function maLinkMoi(duongDan: string): string | null {
   return m ? m[1]! : null;
 }
 
+/** YC6.5, pwa.md P4: mã của link xin lịch /x/<mã>; địa chỉ khác (kể cả link mời /l/) thì null. */
+export function maLinkXinLich(duongDan: string): string | null {
+  const m = /^\/x\/([A-Za-z0-9_-]+)\/?$/.exec(duongDan);
+  return m ? m[1]! : null;
+}
+
 /**
  * YC1.2-NT1: chưa đăng nhập thì mọi địa chỉ về A1, trừ link mời, link xin lịch.
  * YC1 Quy tắc "Chưa đăng ký xong thì chưa vào app": hồ sơ thiếu tên hoặc số thì về màn nhập số.

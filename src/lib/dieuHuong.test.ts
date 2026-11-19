@@ -68,3 +68,14 @@ describe('YC6.3 · địa chỉ link mời', () => {
     expect(maLinkMoi('/lich')).toBeNull();
   });
 });
+
+describe('YC6.5 · mã link xin lịch', () => {
+  it('YC6.5 pwa.md P4 /x/<mã> là link xin lịch; /l/<mã> và địa chỉ khác không phải', async () => {
+    const { maLinkXinLich } = await import('./dieuHuong');
+    expect(maLinkXinLich('/x/kQmZpRtw')).toBe('kQmZpRtw');
+    expect(maLinkXinLich('/x/kQmZpRtw/')).toBe('kQmZpRtw');
+    expect(maLinkXinLich('/l/kQmZpRtw')).toBeNull();
+    expect(maLinkXinLich('/x/')).toBeNull();
+    expect(maLinkXinLich('/sale')).toBeNull();
+  });
+});

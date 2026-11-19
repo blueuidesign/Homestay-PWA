@@ -3,7 +3,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { KhungXam } from './chung/dangTai';
 import { ToastProvider } from './chung/Toast';
 import { useToast } from './chung/Toast';
-import { chonMan, maLinkMoi, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
+import { chonMan, maLinkMoi, maLinkXinLich, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
+import { cauDaChoXem } from './lib/dichVuXinLich';
 import { cauDaThemLich } from './lib/dichVuLinkMoi';
 import type { DichVuCan } from './lib/dichVuCan';
 import { dichVuCanMacDinh, dichVuMacDinh } from './lib/supabase';
@@ -13,6 +14,8 @@ import { HoanTatDangKy } from './man/HoanTatDangKy';
 import { LuongDangNhap } from './man/LuongDangNhap';
 import { A3ChonVai } from './man/A3ChonVai';
 import { ManLinkMoi } from './man/A10ThemLich';
+import { A4ChuaCoCan } from './man/A4ChuaCoCan';
+import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
 
@@ -39,6 +42,9 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   const hienToast = useToast();
   // YC6.3 bước 3, QD8: đã chọn sẵn vai sale cho lần vào từ link mời này (không gọi lại khi lỗi).
   const [daChonVaiLink, datDaChonVaiLink] = useState(false);
+  // YC6.5 bước 2: vừa đồng ý cho sale này xem lịch mà chưa có căn thì tab Lịch là A4-01 (rời tab Lịch thì thôi).
+  const [vuaChoXem, datVuaChoXem] = useState<string | null>(null);
+  useEffect(() => { if (duongDan !== '/') datVuaChoXem(null); }, [duongDan]);
 
   const taiLai = useCallback(async () => {
     if (!dichVu) return;
@@ -72,16 +78,19 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
 
   const man = chonMan({ duongDan, phien: tt.phien, hoSo: tt.hoSo });
   const maLink = maLinkMoi(duongDan);
+  const maXin = maLinkXinLich(duongDan);
   // YC6.3 bước 3, YC6.3-NT1, QD8: đăng ký hay đăng nhập từ link mời mà chưa chọn vai thì chọn sẵn vai sale, sang thẳng A10.
-  const canChonVaiSale = man === 'xem-truoc-link' && maLink !== null && tt.phien === 'co' && !!tt.hoSo && tt.hoSo.vaiChon === null
+  // YC6.5 (YC6.5 r8): từ link xin lịch mà chưa chọn vai thì chọn sẵn vai chủ nhà rồi mới hiện A8.
+  const vaiLink = maLink !== null ? 'sale' as const : maXin !== null ? 'chu_nha' as const : null;
+  const canChonVaiLink = man === 'xem-truoc-link' && vaiLink !== null && tt.phien === 'co' && !!tt.hoSo && tt.hoSo.vaiChon === null
     && !daChonVaiLink && !!dichVu;
   useEffect(() => {
-    if (!canChonVaiSale || !dichVu) return;
+    if (!canChonVaiLink || !dichVu || !vaiLink) return;
     datDaChonVaiLink(true);
-    void dichVu.chonVai('sale').catch(() => undefined).then(() => taiLai());
-  }, [canChonVaiSale, dichVu, taiLai]);
+    void dichVu.chonVai(vaiLink).catch(() => undefined).then(() => taiLai());
+  }, [canChonVaiLink, vaiLink, dichVu, taiLai]);
 
-  if (man === 'dang-tai' || canChonVaiSale) return <KhungXam />;
+  if (man === 'dang-tai' || canChonVaiLink) return <KhungXam />;
 
   if (tt.phien === 'chua' && luong && dichVu) {
     return (
@@ -123,6 +132,20 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
                       onDaThem={(soCan, tenChu) => { den('/'); hienToast(cauDaThemLich(soCan, tenChu)); }} />
         );
       }
+      if (maXin !== null) {
+        // YC6.5 bước 1, YC6.5-NT5: link xin lịch cần đăng nhập trước (A1, YC1); địa chỉ giữ nguyên nên đăng nhập xong vào A8.
+        if (tt.phien !== 'co') return <A1Chao onTaoTaiKhoan={() => datLuong('A2')} onDangNhap={() => datLuong('A11')} />;
+        // YC6.5 bước 2, 3: đồng ý thì về tab Sale với toast (chưa có căn thì A4-01); từ chối thì về tab Sale, không ghi gì.
+        return (
+          <ManLinkXinLich key={maXin} ma={maXin} dv={dichVuCan?.xinLich} onVeLich={() => den('/')} onTuChoi={() => den('/sale')}
+                          onDaDongY={async (kq) => {
+                            await taiLai(); // vai có thể vừa đổi sang chủ nhà
+                            if (kq.coCan) { den('/sale'); hienToast(cauDaChoXem(kq.tenSale)); return; }
+                            den('/');
+                            datVuaChoXem(kq.tenSale);
+                          }} />
+        );
+      }
       return <XemTruocLink daDangNhap={tt.phien === 'co'} onBatDau={() => datLuong('A2')} onVeLich={() => den('/')} />;
     case 'hoan-tat':
       return (
@@ -135,6 +158,10 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
     case 'lich':
       // YC3.1, YC1.1 bước 5: chủ nhà vào các tab của chủ (A4 khi chưa có căn). Sale: tab Lịch tạm tới YC7.1.
       if (tt.hoSo?.vaiChon === 'chu_nha') {
+        if (vuaChoXem && duongDan === '/') {
+          // YC6.5 bước 2, YC3.1: A4-01 sau khi đồng ý cho sale xem lịch mà chưa có căn.
+          return <A4ChuaCoCan tenSaleVuaChoXem={vuaChoXem} onThemCan={() => { datVuaChoXem(null); den('/can/moi'); }} />;
+        }
         return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
       }
       // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch).
