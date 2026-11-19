@@ -47,7 +47,7 @@ YC3-can.md#Dữ liệu
 YC3-can.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US14-man-dau-tien-va-danh.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US14-man-dau-tien-va-danh.md (KB1, KB2).
 
 ## Task
 - [ ] US14-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC3.1-NT2
@@ -58,5 +58,6 @@ Kịch bản test tay: tests/kb/US14-man-dau-tien-va-danh.md, chưa viết. Vi�
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC3.1@1 (QD21)
+- 2026-11-19 · Claude · viết kịch bản test tay
 
 ## Bằng chứng
