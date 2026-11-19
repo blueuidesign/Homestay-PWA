@@ -126,3 +126,27 @@ describe('YC7.2 · mở tìm phòng từ S1', () => {
     expect(screen.queryByRole('heading', { name: 'Tìm phòng' })).toBeNull();
   });
 });
+
+describe('YC7.4 · chạm căn ở S1 (US46)', () => {
+  it('YC7.4 YC7-H6 chạm căn của chủ nhà mở S3 với ngày đầu đang xem, 1 đêm, không thanh tab; HV5 "Về Lịch" về S1', async () => {
+    const chiTietCan = {
+      doc: vi.fn(async () => ({ khongConQuyen: true as const, lyDo: 'Chủ nhà đã ngừng chia sẻ lịch' })),
+      datMuc: vi.fn(async () => undefined),
+    };
+    ve({ dvLich: { ...dvLich(), chiTietCan } });
+    fireEvent.click(await screen.findByRole('button', { name: /^3402/ }));
+    const nay = homNay();
+    const mai = new Date(Date.parse(nay + 'T00:00:00Z') + 86_400_000).toISOString().slice(0, 10);
+    expect(chiTietCan.doc).toHaveBeenCalledWith('c1', nay, mai);
+    expect(document.querySelector('[data-man="S3"]')).not.toBeNull();
+    expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
+    fireEvent.click(await screen.findByRole('button', { name: 'Về Lịch' }));
+    expect(await screen.findByText('Nguồn phòng · 1')).toBeInTheDocument();
+  });
+
+  it('YC7 Quy tắc "Chạm căn mở đâu" chưa có dịch vụ chi tiết căn thì chạm căn chủ nhà không mở S3', async () => {
+    ve({ dvLich: dvLich() });
+    fireEvent.click(await screen.findByRole('button', { name: /^3402/ }));
+    expect(document.querySelector('[data-man="S3"]')).toBeNull();
+  });
+});
