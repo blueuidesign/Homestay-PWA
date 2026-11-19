@@ -2,7 +2,7 @@
 id: US37
 tieu_de: "Link mời của chủ nhà và sale thêm lịch"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC6.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [44]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md.
 
 ## Task
-- [x] US37-TA1 Code · test database tests/db/53_us37_link_moi.sql · nhánh US37-link-moi
-- [x] US37-TA2 Code · migration 20261119320000_us37_link_moi.sql, 6 phép thử làm hỏng · nhánh US37-link-moi
-- [x] US37-TA3 Code · A1-link, A1-link-01, A10, A10-01, A10-02, CN7 link mời; unit, e2e · nhánh US37-link-moi
+- [x] US37-TA1 Code · test database tests/db/53_us37_link_moi.sql · nhánh US37-link-moi · PR #44
+- [x] US37-TA2 Code · migration 20261119320000_us37_link_moi.sql, 6 phép thử làm hỏng · nhánh US37-link-moi · PR #44
+- [x] US37-TA3 Code · A1-link, A1-link-01, A10, A10-01, A10-02, CN7 link mời; unit, e2e · nhánh US37-link-moi · PR #44
 - [ ] US37-TA4 Test tay · Đức: chạy tests/kb/US37-link-moi-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US37-link-moi-cua-chu-nha.md.
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · tự chốt YC6-H14, H15, H5, H10, H3, H6 (QD25, YC6 r6, thêm NT9, NT10); viết kịch bản test tay; giao agent code
 - 2026-11-19 · Claude (agent code) · TA1–TA3 trên nhánh US37-link-moi, chưa mở PR · ảnh xem trước cần policy kho theo header x-link-moi · ~2 giờ
+- 2026-11-19 · Claude (QD25) · Gộp PR #44, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - DB: `scripts/test-db.sh` trước migration 56 hỏng (đúng ý); sau migration 1 vòng: 1361 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC6.3`: 6/6 đạt. `scripts/bang-cot.sh` đã chạy.
