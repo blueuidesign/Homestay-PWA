@@ -370,9 +370,10 @@ Lọc "Giá mỗi đêm" ở màn tìm phòng làm gì?
 Gắn ở: YC7.2.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có lọc "Giá mỗi đêm". Kết quả đã sắp được theo "Giá tăng dần" (YC7.1), đủ để sale tìm căn rẻ; thêm lọc giá làm màn dày hơn với người lớn tuổi. Ghi vào YC7.2 r3.
 
-### YC7-H4 · mo
+### YC7-H4 · da-tra-loi
 Kết quả tìm phòng: lịch tuần S4 bắt đầu từ ngày nào?
 Gắn ở: YC7.3. Tới khi có câu trả lời: từ ngày nhận.
+Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Từ ngày nhận. Bảng 7 cột bắt đầu ở đêm khách hỏi nên các đêm được tô nằm bên trái, sale thấy ngay; khoảng dài hơn 7 đêm thì bấm › như S1. Ghi vào YC7.3 r4.
 
 ### YC7-H5 · da-tra-loi
 "Tìm gần đây": tìm hai lần cùng điều kiện thì ghi hai dòng hay một?
