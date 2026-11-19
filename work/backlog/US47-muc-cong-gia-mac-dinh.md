@@ -2,7 +2,7 @@
 id: US47
 tieu_de: "Mức cộng giá mặc định"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC7.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [55]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -53,9 +53,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US47-muc-cong-gia-mac-dinh.md.
 
 ## Task
-- [x] US47-TA1 Code: tests/db/63_us47_muc_cong_mac_dinh.sql (nhánh US47-muc-cong-mac-dinh)
-- [x] US47-TA2 Code: migration 20261119410000, 6 phép thử làm hỏng (nhánh US47-muc-cong-mac-dinh)
-- [x] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5
+- [x] US47-TA1 Code: tests/db/63_us47_muc_cong_mac_dinh.sql (nhánh US47-muc-cong-mac-dinh) · PR #55
+- [x] US47-TA2 Code: migration 20261119410000, 6 phép thử làm hỏng (nhánh US47-muc-cong-mac-dinh) · PR #55
+- [x] US47-TA3 Code · Claude Code (sonnet, CL14.6a): màn P10 theo canvas, test unit, e2e cho YC7.5-NT1, YC7.5-NT2, YC7.5-NT5 · PR #55
 - [ ] US47-TA4 Test tay · Đức: chạy tests/kb/US47-muc-cong-gia-mac-dinh.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -68,6 +68,7 @@ Kịch bản test tay: tests/kb/US47-muc-cong-gia-mac-dinh.md.
 - 2026-11-19 · Claude (QD25) · tự chốt YC7-H10, H11 (YC7 r6, thêm NT6); viết kịch bản test tay
 - 2026-11-19 · Claude · TA1, TA2 xong; TA3 code xong, chờ nối src/lib/dichVuCan.ts (ngoài Được sửa) · chưa PR
 - 2026-11-19 · Claude (QD25) · nối dịch vụ mức cộng vào src/lib/dichVuCan.ts, gộp main (US46); test lại đủ
+- 2026-11-19 · Claude (QD25) · Gộp PR #55, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC7.5`: lần đầu 38 đỏ, 10 xanh (danh mục quyền đã có). TA2 xanh vòng đầu: 48/48; cả bộ `scripts/test-db.sh` 1854 qua, 0 hỏng.
