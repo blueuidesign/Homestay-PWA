@@ -37,7 +37,8 @@ test('YC1.1-NT5 chọn "Tôi là chủ nhà" và bấm "Tiếp tục" thì hồ 
   await page.getByRole('radio', { name: /Tôi là chủ nhà/ }).click();
   await page.getByRole('button', { name: 'Tiếp tục' }).click();
   await expect(page.getByRole('heading', { name: 'Lịch' })).toBeVisible();
-  await expect(page.getByText('Chủ nhà', { exact: true })).toBeVisible();
+  // US14: tab Lịch của chủ nhà chưa có căn là A4 (YC1.1 bước 5, YC3.1), thay dòng vai của màn tạm US1.
+  await expect(page.getByText('Chưa có căn nào')).toBeVisible();
   expect(hoSo(email, `p.vai_chon || '|' || (p.dong_y_dieu_khoan_luc is not null)::text`)).toBe('chu_nha|true');
   // YC1.1 bước 6: mở lại app thì vào thẳng tab Lịch, không qua A1, A3.
   await page.reload();
