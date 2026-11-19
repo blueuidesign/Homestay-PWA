@@ -410,6 +410,38 @@
    "dang_cho": "Đức test tay"
   },
   {
+   "id": "EN12",
+   "loai": "EN",
+   "tieu_de": "\"Thử làm hỏng chạy nhanh hơn trên CI\"",
+   "trang_thai": "moi",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN12-thu-lam-hong-nhanh-hon.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "–"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
