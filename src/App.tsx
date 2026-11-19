@@ -2,7 +2,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { KhungXam } from './chung/dangTai';
 import { ToastProvider } from './chung/Toast';
-import { chonMan, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
+import { useToast } from './chung/Toast';
+import { chonMan, maLinkMoi, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
+import { cauDaThemLich } from './lib/dichVuLinkMoi';
 import type { DichVuCan } from './lib/dichVuCan';
 import { dichVuCanMacDinh, dichVuMacDinh } from './lib/supabase';
 import type { DichVuXacThuc } from './lib/xacThuc';
@@ -10,6 +12,7 @@ import { A1Chao } from './man/A1Chao';
 import { HoanTatDangKy } from './man/HoanTatDangKy';
 import { LuongDangNhap } from './man/LuongDangNhap';
 import { A3ChonVai } from './man/A3ChonVai';
+import { ManLinkMoi } from './man/A10ThemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
 
@@ -33,6 +36,9 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   const [duongDan, datDuongDan] = useState(() => window.location.pathname);
   // Đang trong lúc xác nhận mã: bỏ qua báo đổi phiên, luồng tự gọi taiLai khi xong (tránh nháy màn nhập số).
   const dangXacNhan = useRef(false);
+  const hienToast = useToast();
+  // YC6.3 bước 3, QD8: đã chọn sẵn vai sale cho lần vào từ link mời này (không gọi lại khi lỗi).
+  const [daChonVaiLink, datDaChonVaiLink] = useState(false);
 
   const taiLai = useCallback(async () => {
     if (!dichVu) return;
@@ -65,8 +71,17 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   const hetPhien = async () => { await dichVu?.dangXuat().catch(() => undefined); datLuong('A11'); await taiLai(); };
 
   const man = chonMan({ duongDan, phien: tt.phien, hoSo: tt.hoSo });
+  const maLink = maLinkMoi(duongDan);
+  // YC6.3 bước 3, YC6.3-NT1, QD8: đăng ký hay đăng nhập từ link mời mà chưa chọn vai thì chọn sẵn vai sale, sang thẳng A10.
+  const canChonVaiSale = man === 'xem-truoc-link' && maLink !== null && tt.phien === 'co' && !!tt.hoSo && tt.hoSo.vaiChon === null
+    && !daChonVaiLink && !!dichVu;
+  useEffect(() => {
+    if (!canChonVaiSale || !dichVu) return;
+    datDaChonVaiLink(true);
+    void dichVu.chonVai('sale').catch(() => undefined).then(() => taiLai());
+  }, [canChonVaiSale, dichVu, taiLai]);
 
-  if (man === 'dang-tai') return <KhungXam />;
+  if (man === 'dang-tai' || canChonVaiSale) return <KhungXam />;
 
   if (tt.phien === 'chua' && luong && dichVu) {
     return (
@@ -100,6 +115,14 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
     case 'A1':
       return <A1Chao onTaoTaiKhoan={() => datLuong('A2')} onDangNhap={() => datLuong('A11')} />;
     case 'xem-truoc-link':
+      if (maLink !== null) {
+        // YC6.3: A1-link, A1-link-01 khi chưa đăng nhập; A10, A10-01 khi đã đăng nhập. Thêm xong về lịch với toast A10-02.
+        return (
+          <ManLinkMoi key={maLink} ma={maLink} daDangNhap={tt.phien === 'co'} dv={dichVuCan?.linkMoi}
+                      onBatDau={() => datLuong('A2')} onVeLich={() => den('/')}
+                      onDaThem={(soCan, tenChu) => { den('/'); hienToast(cauDaThemLich(soCan, tenChu)); }} />
+        );
+      }
       return <XemTruocLink daDangNhap={tt.phien === 'co'} onBatDau={() => datLuong('A2')} onVeLich={() => den('/')} />;
     case 'hoan-tat':
       return (

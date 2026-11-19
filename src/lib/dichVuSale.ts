@@ -45,6 +45,10 @@ export interface DichVuSale {
   datXemCoc(ketNoiId: string, bat: boolean): Promise<boolean>;
   /** YC6.2 bước 7: bỏ dòng sale đã xóa tài khoản. */
   boDong(ketNoiId: string): Promise<void>;
+  /** YC6.3 bước 1 (US37): link mời đang dùng hay link mới; mỗi lần gọi tính một lần gửi. Thiếu thì CN7 báo chưa có link. */
+  layLinkMoi?(): Promise<{ ma: string; soLanGui: number }>;
+  /** YC6.3, YC6-H10: thu hồi link mời đang dùng. */
+  doiLinkMoi?(): Promise<void>;
 }
 
 type DongRpc = {
@@ -84,6 +88,14 @@ export function taoDichVuSaleSupabase(sb: SupabaseClient): DichVuSale {
     async ngungChoXem(ketNoiId) { await goi('fn_ngung_cho_xem', { p_ket_noi_id: ketNoiId }); },
     datXemCoc: (ketNoiId, bat) => goi<boolean>('fn_dat_xem_coc', { p_ket_noi_id: ketNoiId, p_bat: bat }),
     async boDong(ketNoiId) { await goi('fn_bo_dong_sale', { p_ket_noi_id: ketNoiId }); },
+    // YC6.3 (US37): fn_lay_link_moi, fn_doi_link_moi.
+    async layLinkMoi() {
+      const ds = await goi<{ ma: string; so_lan_gui: number }[] | null>('fn_lay_link_moi');
+      const d = ds?.[0];
+      if (!d) throw new Error('Không có link mời');
+      return { ma: d.ma, soLanGui: d.so_lan_gui };
+    },
+    async doiLinkMoi() { await goi('fn_doi_link_moi'); },
   };
 }
 

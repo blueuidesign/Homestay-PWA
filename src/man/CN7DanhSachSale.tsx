@@ -1,24 +1,26 @@
 // CN7 · Sale của tôi, CN7-00 · chưa có sale nào (YC6.2 bước 1 đến 4, 7, YC6 quy tắc "Nhóm kết nối", PQ17.CHU, PQ23.CHU, QD13).
 // Đọc qua fn_ds_sale_cua_toi. Ba nhóm "Đã kết nối", "Chưa kết nối", "Đã ngừng" (YC6-H16); không có nút "Nhắc lại" (YC6-H13).
 // Chạm dòng mở CN7-04 (CN704ChiTietSale); "Thêm sale" mở CN7-05 (CN705ThemSale). Sale đã xóa tài khoản: tên kèm chữ đỏ nhỏ
-// "Đã xoá tài khoản", không số, không mở được, chỉ "Bỏ dòng" (YC6-H1). "Chia sẻ link mời", "Sao chép link": link mời thuộc US37,
-// bản này báo tạm. Trạng thái: HV1 khung xám, HV2 Thử lại, HV3 quay lại từ nền đọc lại, HV8 toast.
+// "Đã xoá tài khoản", không số, không mở được, chỉ "Bỏ dòng" (YC6-H1). "Chia sẻ link mời", "Sao chép link", "Đổi link mời":
+// YC6.3 bước 1, YC6-H10, pwa.md P3 (US37). Trạng thái: HV1 khung xám, HV2 Thử lại, HV3 quay lại từ nền đọc lại, HV8 toast.
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, ManChuaTai } from '../chung/matKetNoi';
+import { CAU_DA_SAO_CHEP, CAU_THIEU_TINH_NANG, guiChu } from '../chung/chiaSe';
 import { useQuayLaiTuNen } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
 import { chiaNhom, dongPhuSale, type DichVuSale, type DongSale } from '../lib/dichVuSale';
 import { vietTien } from '../lib/tien';
-import { CN704ChiTietSale, chuDau } from './CN704ChiTietSale';
+import { CAU_HOI_DOI_LINK, duongDanLinkMoi, tinMoi } from '../lib/dichVuLinkMoi';
+import { CN704ChiTietSale, chuDau, HoiLai } from './CN704ChiTietSale';
 import { CN705ThemSale } from './CN705ThemSale';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
 import './CN7DanhSachSale.css';
 
-/** US37 làm link mời; US36 chỉ có nút. */
+/** Dịch vụ không có link mời (bản thử không nối database) thì báo tạm. */
 export const CAU_LINK_SE_CO = 'Link mời sẽ có ở bản sau';
 
-function MoiSale(props: { trong: boolean; onBam: () => void }) {
+function MoiSale(props: { trong: boolean; onChiaSe: () => void; onSaoChep: () => void; onDoi?: () => void }) {
   return (
     <section className="cn7-the" aria-label="Mời sale">
       <div className="cn7-moi-chu">
@@ -34,8 +36,9 @@ function MoiSale(props: { trong: boolean; onBam: () => void }) {
           </>
         )}
       </div>
-      <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onBam}>Chia sẻ link mời</button>
-      <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onBam}>Sao chép link</button>
+      <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onChiaSe}>Chia sẻ link mời</button>
+      <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onSaoChep}>Sao chép link</button>
+      {props.onDoi && <button type="button" className="hh-btn hh-btn--text" onClick={props.onDoi}>Đổi link mời</button>}
     </section>
   );
 }
@@ -108,6 +111,7 @@ export function CN7DanhSachSale(props: {
   const [ds, datDs] = useState<DongSale[] | undefined>(undefined);
   const [loi, datLoi] = useState(false);
   const [man, datMan] = useState<{ ten: 'ds' } | { ten: 'chi-tiet'; dong: DongSale } | { ten: 'them' }>({ ten: 'ds' });
+  const [hoiDoiLink, datHoiDoiLink] = useState(false);
 
   const tai = useCallback(async () => {
     if (!dv) { datLoi(true); return; }
@@ -144,7 +148,43 @@ export function CN7DanhSachSale(props: {
     }
     await tai();
   };
-  const baoLink = () => hienToast(CAU_LINK_SE_CO);
+  // YC6.3 bước 1: mỗi lần bấm lấy link (database tăng số lần gửi), link là https trên tên miền đang chạy app (pwa.md P4).
+  const layLink = async (): Promise<string | null> => {
+    if (!dv?.layLinkMoi) { hienToast(CAU_LINK_SE_CO); return null; }
+    try {
+      const { ma } = await dv.layLinkMoi();
+      return duongDanLinkMoi(window.location.origin, ma);
+    } catch (e) {
+      hienToast(cauBaoLoi(e), 'loi');
+      return null;
+    }
+  };
+  const chiaSe = async () => {
+    const link = await layLink();
+    if (link) await guiChu(tinMoi(link), hienToast);
+  };
+  const saoChep = async () => {
+    const link = await layLink();
+    if (!link) return;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(link);
+        hienToast(CAU_DA_SAO_CHEP);
+        return;
+      }
+    } catch { /* xuống nhánh báo */ }
+    hienToast(CAU_THIEU_TINH_NANG, 'loi');
+  };
+  const doiLink = async () => {
+    if (!dv?.doiLinkMoi) return;
+    try {
+      await dv.doiLinkMoi();
+      datHoiDoiLink(false);
+      hienToast('Đã đổi link mời');
+    } catch (e) {
+      hienToast(cauBaoLoi(e), 'loi');
+    }
+  };
 
   let than;
   if (ds === undefined) {
@@ -154,7 +194,8 @@ export function CN7DanhSachSale(props: {
     const mo = (d: DongSale) => datMan({ ten: 'chi-tiet', dong: d });
     than = (
       <>
-        <MoiSale trong={ds.length === 0} onBam={baoLink} />
+        <MoiSale trong={ds.length === 0} onChiaSe={() => void chiaSe()} onSaoChep={() => void saoChep()}
+                 onDoi={dv?.doiLinkMoi ? () => datHoiDoiLink(true) : undefined} />
         {ds.length === 0 && <SaleSeThay />}
         <Nhom ten="Đã kết nối" ds={n.daKetNoi} onMo={mo} onBo={boDong} />
         <Nhom ten="Chưa kết nối" ds={n.chuaKetNoi} onMo={mo} onBo={boDong} />
@@ -171,6 +212,10 @@ export function CN7DanhSachSale(props: {
     <>
       <KhungTabChu tieuDe="Sale">{than}</KhungTabChu>
       {props.thanhTab}
+      {hoiDoiLink && (
+        <HoiLai cau={CAU_HOI_DOI_LINK} chuLam="Đổi link" chuDangLam="Đang đổi…" nhan="Đổi link mời"
+                onLam={doiLink} onKhong={() => datHoiDoiLink(false)} />
+      )}
     </>
   );
 }

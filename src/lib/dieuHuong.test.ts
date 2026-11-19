@@ -57,3 +57,14 @@ describe('YC4.6 bước 1 · đường dẫn P6', () => {
     expect(chonManChu('/ca-nhan')).toEqual({ tab: 'ca-nhan' });
   });
 });
+
+describe('YC6.3 · địa chỉ link mời', () => {
+  it('YC6.3 pwa.md P4 /l/<mã> là link mời; /x/<mã> và địa chỉ khác không phải', async () => {
+    const { maLinkMoi } = await import('./dieuHuong');
+    expect(maLinkMoi('/l/Ab3xYz9k')).toBe('Ab3xYz9k');
+    expect(maLinkMoi('/l/Ab3xYz9k/')).toBe('Ab3xYz9k');
+    expect(maLinkMoi('/x/Ab3xYz9k')).toBeNull();
+    expect(maLinkMoi('/l/')).toBeNull();
+    expect(maLinkMoi('/lich')).toBeNull();
+  });
+});

@@ -5,6 +5,7 @@
 // Sửa căn: đọc căn và ảnh qua RLS (can_doc, anh_can_doc), ghi qua fn_sua_can (YC3.5 bước 35, 39, PQ3.CHU).
 // Xóa căn (ẩn căn) qua fn_xoa_can (YC3.6 bước 42 đến 44, PQ3.CHU, QT5.5).
 import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
+import { taoDichVuLinkMoiSupabase, type DichVuLinkMoi } from './dichVuLinkMoi';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -92,6 +93,8 @@ export interface DichVuCan {
   datPhong?: DichVuDatPhong;
   /** YC6.2: danh sách sale của chủ nhà (src/lib/dichVuSale.ts). Thiếu thì tab Sale báo chưa tải được. */
   sale?: DichVuSale;
+  /** YC6.3: xem trước, thêm lịch từ link mời (src/lib/dichVuLinkMoi.ts). Thiếu thì màn link báo chưa tải được. */
+  linkMoi?: DichVuLinkMoi;
 }
 
 function maNgauNhien(): string {
@@ -142,6 +145,8 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     lich: taoDichVuLichSupabase(sb), // YC2.1
     datPhong: taoDichVuDatPhongSupabase(sb), // YC5.1
     sale: taoDichVuSaleSupabase(sb), // YC6.2
+    // YC6.3: ảnh xem trước xin từ kho bằng khóa anon (công khai) kèm mã link.
+    linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
 
     async layCanCuaToi() {
       const { data, error } = await sb.from('v_can_cua_toi')

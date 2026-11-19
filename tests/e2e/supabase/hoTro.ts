@@ -101,3 +101,21 @@ export function taoDatPhongCuaSale(canId: string, chuId: string, saleId: string,
              from b, n, generate_series('${nhan}'::date, '${tra}'::date - 1, interval '1 day') g)
        select id from b`).split('\n')[0]!;
 }
+
+/** US37: tạo một căn có lịch của chủ (tòa tạo nếu chưa có), kèm một dòng ảnh đại diện trong kho (không cần file thật). Trả id căn. */
+export function taoCanCoAnh(chuId: string, maCan: string, toa: string, pn: number, giuong: number, view: string): string {
+  sql(`insert into public.toa_nha (ten, home247_dat_san) values ('${toa}', true) on conflict do nothing`);
+  const id = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu, so_giuong, loai_view, toa_nha_id)
+                  select '${chuId}', '${maCan}', ${pn}, ${giuong}, '${view}', t.id from public.toa_nha t
+                  where lower(btrim(t.ten)) = lower('${toa}') returning id`).split('\n')[0]!;
+  const duongDan = `${chuId}/${id}.jpg`;
+  sql(`insert into storage.objects (bucket_id, name, metadata) values ('anh-can', '${duongDan}', '{"mimetype":"image/jpeg","size":1}')`);
+  sql(`insert into public.anh_can (can_id, nguoi_tai, duong_dan, thu_tu) values ('${id}', '${chuId}', '${duongDan}', 0)`);
+  return id;
+}
+
+/** US37: tạo sẵn link mời đang dùng của chủ (như fn_lay_link_moi tạo). Trả mã link. */
+export function taoLinkMoi(chuId: string): string {
+  return sql(`insert into public.link_moi (ma, loai, chu_id) values (replace(gen_random_uuid()::text, '-', ''), 'moi_sale', '${chuId}')
+              returning ma`).split('\n')[0]!;
+}
