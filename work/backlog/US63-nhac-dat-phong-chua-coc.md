@@ -2,7 +2,7 @@
 id: US63
 tieu_de: "Nhắc đặt phòng chưa cọc"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC12.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 85
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -63,3 +63,4 @@ Kịch bản test tay: tests/kb/US63-nhac-dat-phong-chua-coc.md (3 kịch bản,
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC12.3`: lần đầu đỏ (chưa có hàm); sau đó 3 vòng sửa test (đêm trùng giữa các đặt phòng thử, thiếu dòng cài đặt của Chị Hoa, ép jsonb sang text) 22 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC12.3`: 3 đạt. `npx vitest run src/lib/thongBao.test.ts`: qua. e2e: không (NT chỉ ở lớp database).
+- 2026-11-20 Claude: PR #85 đã gộp (CI xanh). Cụm 4 xong. Cần chạy migration 20261120210000, 20261120220000, 20261120230000 lên staging.
