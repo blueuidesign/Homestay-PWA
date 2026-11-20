@@ -98,3 +98,9 @@ describe('YC1.7 · đường dẫn P9', () => {
     expect(chonManChu('/ca-nhan/huong-dan')).toEqual({ tab: 'huong-dan' });
   });
 });
+
+describe('YC12.4 · đường dẫn P3', () => {
+  it('YC12.4 bước 1 /ca-nhan/thong-bao là P3 Cài đặt thông báo', () => {
+    expect(chonManChu('/ca-nhan/thong-bao')).toEqual({ tab: 'cai-dat-thong-bao' });
+  });
+});

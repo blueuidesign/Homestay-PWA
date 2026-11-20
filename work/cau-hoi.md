@@ -608,9 +608,10 @@ Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC12
 
-### YC12-H2 · mo
+### YC12-H2 · da-tra-loi
 Báo chủ nhà khi sale gửi link xin xem lịch thế nào, khi link đi ngoài app và database chưa biết gì cho tới khi chủ nhà mở link? Công tắc "Sale xin xem lịch" ở P3 làm gì?
 Gắn ở: YC12, YC12.4.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết, QD25, giả định GD32): Bản 1 không báo chủ nhà khi sale gửi link, vì database chưa biết gì trước khi chủ nhà mở link. Công tắc "Sale xin xem lịch" vẫn hiện ở P3 theo hình và lưu được, nhưng chưa có nguồn sinh thông báo loại đó; có nguồn thì công tắc chặn ghi đã sẵn (trigger thong_bao_cong_tac). Chờ Tùng duyệt lại.
 
 ### YC12-H3 · mo
 Đặt phòng tạo khi đã còn dưới 3 ngày tới ngày nhận thì có nhắc không?

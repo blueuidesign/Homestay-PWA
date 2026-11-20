@@ -185,7 +185,7 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         <>
           {tt.hoSo?.vaiChon === 'sale'
             // YC7.1: các tab của sale; tab Lịch là A5, A7 hay S1.
-            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} dvCaNhan={dichVuCan?.caNhan} dvHoSo={dichVuCan?.hoSo} onDangXuat={dangXuat} />
+            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} dvCaNhan={dichVuCan?.caNhan} dvHoSo={dichVuCan?.hoSo} dvCaiDatThongBao={dichVuCan?.caiDatThongBao} onDangXuat={dangXuat} />
             : <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />}
           {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
             <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />
