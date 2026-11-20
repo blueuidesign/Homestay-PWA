@@ -56,7 +56,8 @@ export function NoiDungThongKeSale(props: {
 }) {
   const { tk, thang } = props;
   if (laThangTrong(tk)) {
-    // YC11.2 bước 7, S7-00. Có yêu cầu chờ thì vẫn có thẻ chờ chủ (Claude tự chọn; canvas S7-00 không có yêu cầu chờ).
+    // YC11.2 bước 7, S7-00. Vẫn có thẻ chờ chủ với dòng "Xem tất cả đặt phòng và yêu cầu" (YC11-H5: dòng đó hiện cả khi không
+    // có yêu cầu chờ; US60 để sale chưa có gì mở được S7-03-00). Claude tự chọn; canvas S7-00 không có thẻ này.
     return (
       <>
         <section className="hh-stat hh-stat--md hh-stat--action s7-o" aria-label={tieuDeTienChenh(thang)}>
@@ -68,7 +69,7 @@ export function NoiDungThongKeSale(props: {
           <span className="s7-trong-phu">{CAU_THANG_TRONG_PHU}</span>
           <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onTimPhong}>{CHU_TIM_PHONG}</button>
         </section>
-        {tk.soChoChu > 0 && <TheChoChu tk={tk} homNay={props.homNay} onCham={props.onChoChu} onXemTatCa={props.onXemTatCa} />}
+        <TheChoChu tk={tk} homNay={props.homNay} onCham={props.onChoChu} onXemTatCa={props.onXemTatCa} />
       </>
     );
   }
