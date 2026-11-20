@@ -2,10 +2,13 @@
 // Không đánh dấu đã đọc (việc của YC12).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { docThongBaoKetNoi, type DongThongBao, type ThongBaoKetNoi } from './toastKetNoi';
+import { docDongThongBao, type DongThongBaoDb, type ThongBao } from './thongBao';
 
 export interface DichVuThongBao {
   /** YC6.8: dòng "chủ đồng ý kết nối" chưa đọc, mới trước. */
   layKetNoiChuaDoc(): Promise<ThongBaoKetNoi[]>;
+  /** YC12.1 bước 1: lệnh mở app, trả thông báo mới (mới trước) và ghi mốc lần mở mới trong một lần. */
+  moApp?(): Promise<ThongBao[]>;
 }
 
 export function taoDichVuThongBaoSupabase(sb: SupabaseClient): DichVuThongBao {
@@ -16,6 +19,11 @@ export function taoDichVuThongBaoSupabase(sb: SupabaseClient): DichVuThongBao {
         .order('tao_luc', { ascending: false }).limit(20);
       if (error) throw Object.assign(new Error((error as { message?: string }).message ?? 'Lỗi'), error);
       return ((data ?? []) as DongThongBao[]).map(docThongBaoKetNoi);
+    },
+    async moApp() {
+      const { data, error } = await sb.rpc('fn_mo_app');
+      if (error) throw Object.assign(new Error((error as { message?: string }).message ?? 'Lỗi'), error);
+      return ((data ?? []) as DongThongBaoDb[]).map(docDongThongBao);
     },
   };
 }

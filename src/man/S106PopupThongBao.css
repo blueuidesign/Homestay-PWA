@@ -1,0 +1,27 @@
+/* YC12.1 · S1-06, S1-06-01 (canvas): lớp tối, hộp nổi cách đỉnh 112 px, không phủ toàn màn. Vùng bấm 44 px, chữ 14 px. */
+.s106-nen { position: fixed; inset: 0; background: rgba(17, 24, 39, 0.55); z-index: 60; }
+.s106-hop {
+  position: fixed; left: 16px; right: 16px; top: 112px; z-index: 61; max-width: 420px; margin: 0 auto;
+  max-height: calc(100dvh - 144px); display: flex; flex-direction: column;
+  background: var(--surface); border-radius: var(--radius-lg); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25); overflow: hidden;
+}
+.s106-dau { display: flex; align-items: center; gap: 10px; padding: 12px 8px 12px 16px; border-bottom: 1px solid var(--border); }
+.s106-chuong { flex: 0 0 auto; width: 36px; height: 36px; border-radius: 50%; background: var(--action-tint); color: var(--action); display: flex; align-items: center; justify-content: center; }
+.s106-tieu-de { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.s106-ten { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.s106-phu { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.s106-dong { flex: 0 0 auto; width: 44px; height: 44px; border: 0; background: transparent; font-size: 22px; color: var(--ink-secondary); cursor: pointer; }
+.s106-ds { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+.s106-dong-tb {
+  width: 100%; min-height: 64px; display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; text-align: left;
+  background: transparent; border: 0; border-bottom: 1px solid var(--border-subtle); font: inherit; cursor: pointer;
+}
+.s106-cham { flex: 0 0 auto; width: 10px; height: 10px; margin-top: 7px; border-radius: 50%; background: var(--ink-muted); }
+.s106-cham--xanh { background: var(--action); }
+.s106-cham--do { background: var(--danger); }
+.s106-cham--cam { background: #d97706; }
+.s106-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.s106-chinh { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s106-phu-dong { font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-wrap: pretty; }
+.s106-gio { flex: 0 0 auto; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.s106-chan { padding: 12px 16px 16px; }
