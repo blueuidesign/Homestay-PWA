@@ -2,7 +2,7 @@
 id: US58
 tieu_de: "Thống kê của chủ nhà"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC11.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [67]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 
 ## Task
-- [x] US58-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT4, YC11.1-NT7, YC11.1-NT8, YC11.1-NT9, YC11.1-NT10, YC11.1-NT12, YC11.1-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US58-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US58-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN8, CN8-00 theo canvas, test unit, e2e cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT3, YC11.1-NT5, YC11.1-NT6, YC11.1-NT7, YC11.1-NT9, YC11.1-NT11
+- [x] US58-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT4, YC11.1-NT7, YC11.1-NT8, YC11.1-NT9, YC11.1-NT10, YC11.1-NT12, YC11.1-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #67
+- [x] US58-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #67
+- [x] US58-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN8, CN8-00 theo canvas, test unit, e2e cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT3, YC11.1-NT5, YC11.1-NT6, YC11.1-NT7, YC11.1-NT9, YC11.1-NT11 · PR #67
 - [ ] US58-TA4 Test tay · Đức: chạy tests/kb/US58-thong-ke-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
 - 2026-11-20 · Claude · TA1–TA3 trên nhánh US58-thong-ke-chu: fn_thong_ke_chu, CN8, CN8-00 · bất ngờ: B1 đã cọc lệch DLM.5, sửa theo YC11 r3 · 1 phiên
 - 2026-11-20 · Claude (QD25) · YC11 r3: sửa YC11-H9 (chưa thu chỉ gồm chưa cọc) cho khớp DLM.5, CN8 và NT9; sửa NT13.
+- 2026-11-20 · Claude (QD25) · Gộp PR #67 khi CI xanh cả 4 việc; trạng thái chờ test; migration 20261119520000 gửi thread staging.
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.1`: lần đầu 49 hỏng, 3 qua (chưa có hàm).
