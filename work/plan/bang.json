@@ -2587,7 +2587,7 @@
    "id": "US58",
    "loai": "US",
    "tieu_de": "\"Thống kê của chủ nhà\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2597,7 +2597,7 @@
     "US2"
    ],
    "file": "work/backlog/US58-thong-ke-cua-chu-nha.md",
-   "pr": "",
+   "pr": "[67]",
    "task": {
     "Code": {
      "xong": 3,
@@ -2618,7 +2618,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US59",
