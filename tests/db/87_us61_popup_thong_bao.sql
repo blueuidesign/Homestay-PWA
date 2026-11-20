@@ -76,10 +76,10 @@ select pg_temp.them_tb(t.id('hung'), 'chu_sua_dat_phong', clock_timestamp(), 'C�
 select t.bang(pg_temp.mo(t.id('lan')), '{}'::text[], 'YC12.1 PQ19.SALE Sale Lan mở app không thấy dòng của Hùng');
 select t.bang(pg_temp.mo(t.id('hung')), array['Của Hùng'], 'YC12.1 PQ19 mốc của Lan không làm mất dòng của Hùng');
 
--- Mốc trống (lần mở đầu tiên): popup chỉ gồm thông báo chưa đọc, rồi ghi mốc.
+-- Mốc trống (lần mở đầu tiên): không có popup (chưa có "lần trước" để so), rồi ghi mốc; dòng chưa đọc vẫn ở P13.
 select pg_temp.dat_moc(t.id('nga'), null);
 select pg_temp.them_tb(t.id('nga'), 'chu_dong_y_ket_noi', now() - interval '3 days', 'Cũ chưa đọc');
-select t.bang(pg_temp.mo(t.id('nga')), array['Cũ chưa đọc'], 'YC12.1 (giả định GD33) lần mở đầu chưa có mốc: popup gồm thông báo chưa đọc');
+select t.bang(pg_temp.mo(t.id('nga')), '{}'::text[], 'YC12.1 (giả định GD33) lần mở đầu chưa có mốc: không có popup, chỉ ghi mốc');
 select t.ok(pg_temp.moc(t.id('nga')) is not null, 'YC12.1 lần mở đầu ghi mốc');
 
 -- ===== YC12.1-NT6: Lan bị từ chối vì Chị Hoa nhận yêu cầu của Hùng trùng đêm =====

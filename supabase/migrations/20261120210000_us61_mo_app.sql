@@ -16,7 +16,7 @@ begin
   return query
   select tb.id, tb.loai, tb.noi_dung, tb.doi_tuong_loai, tb.doi_tuong_id, tb.tao_luc, tb.doc_luc
   from public.thong_bao tb
-  where tb.nguoi_nhan = v_nguoi and tb.doc_luc is null and (v_moc is null or tb.tao_luc > v_moc)
+  where tb.nguoi_nhan = v_nguoi and tb.doc_luc is null and v_moc is not null and tb.tao_luc > v_moc
   order by tb.tao_luc desc, tb.id
   limit 100;
 end $$;

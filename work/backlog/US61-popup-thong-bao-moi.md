@@ -59,7 +59,8 @@ Kịch bản test tay: tests/kb/US61-popup-thong-bao-moi.md (5 kịch bản, 3 [
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC12.1@1 (QD21)
-- 2026-11-20 · Claude (tự chạy, QD25) · test database trước, fn_mo_app, popup S1-06, tests/kb, tự chốt GD33 (lần mở đầu chưa có mốc) · khoảng 40 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · test database trước, fn_mo_app, popup S1-06, tests/kb, tự chốt GD33 (lần mở đầu chưa có mốc: không popup) · khoảng 40 phút
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC12.1`: lần đầu đỏ (chưa có hàm), sau hai vòng sửa test (đồng hồ trong một giao dịch, mốc dùng clock_timestamp) 24 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC12.1`: 3 đạt. `npx vitest run src/man/S106PopupThongBao.test.tsx src/lib/thongBao.test.ts`: qua. `npm run typecheck`: qua. `python3 scripts/kiem.py --diff origin/main`: không lỗi. e2e: CI chạy.
+- CI e2e đỏ lần 1 (9 test của sale): popup che màn khi test có sẵn thông báo trước lần đăng nhập đầu, và khi test quay lại từ nền sau khi có thông báo mới. Sửa: GD33 đổi thành lần mở đầu không popup; test quay lại từ nền đóng popup trước khi bấm.

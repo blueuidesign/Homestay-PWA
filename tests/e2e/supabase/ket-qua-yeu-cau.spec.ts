@@ -62,6 +62,8 @@ function laChu(chuId: string, cau: string) {
 /** HV3: rời app rồi quay lại. */
 async function quayLaiTuNen(page: Page) {
   await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+  // YC12.1-NT4: quay lại từ nền có thông báo mới thì popup nổi lên; đóng để bấm tiếp màn bên dưới.
+  await page.getByRole('dialog').getByRole('button', { name: 'Đóng' }).click();
 }
 
 test('YC9.4-NT1 HV3-NT3 Chị Hoa chấp nhận: Sale Hùng quay lại app thấy S3-04', async ({ page }) => {
