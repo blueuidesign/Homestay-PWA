@@ -1,0 +1,47 @@
+/* US54 · S6, S6-00, S6-08 tab Căn của sale (canvas home247-canvas.html). Vùng bấm 44 px, chữ 14 px ở màn đọc,
+   13 px ở chữ phụ, không dưới 12 px. Chừa chỗ thanh tab ở dưới. */
+.s6-than { display: flex; flex-direction: column; gap: 16px; padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+.s6-nhom { display: flex; flex-direction: column; gap: 8px; }
+.s6-muc-dong { display: flex; align-items: center; justify-content: space-between; padding-right: 4px; }
+.s6-muc { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.s6-muc--lon { margin-bottom: -8px; }
+.s6-than .hh-btn--inline { min-height: 44px; padding: 0 8px; font-size: 14px; }
+.s6-the, .s6-ds { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.s6-ds { list-style: none; margin: 0; padding: 0; }
+.s6-ds > li + li { border-top: 1px solid var(--border-subtle); }
+.s6-ds--trong-the { border: 0; border-radius: 0; border-top: 1px solid var(--border-subtle); }
+.s6-can { width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: none; border: 0;
+  text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.s6-anh { flex: 0 0 auto; width: 48px; height: 36px; border-radius: var(--radius-sm); object-fit: cover; display: block; }
+.s6-anh--trong { background: var(--border-subtle); }
+.s6-can-chu, .s6-chu-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.s6-can-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+.s6-can-phu, .s6-chu-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s6-tinh-trang { flex: 0 0 auto; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s6-tinh-trang--trong { color: var(--action); }
+.s6-toi { flex: 0 0 auto; display: inline-flex; color: var(--ink-faint); }
+.s6-chu-dau { min-height: 64px; display: flex; align-items: center; gap: 12px; padding: 10px 16px; }
+.s6-chu-mo { flex: 1 1 0; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 0; background: none;
+  border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.s6-tron { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink);
+  display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.s6-tron--xoa { background: var(--border-subtle); color: var(--ink-muted); }
+.s6-cap-nhat { font-size: 13px; line-height: 18px; color: var(--action); }
+.s6-goi { flex: 0 0 auto; min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; color: var(--action); }
+/* YC10.1 bước 9: nhãn đỏ "đã xóa tài khoản". */
+.s6-da-xoa { display: inline-block; margin-left: 6px; font-size: 13px; line-height: 18px; font-weight: 600; color: var(--danger-text);
+  border: 1px solid var(--danger); padding: 0 8px; border-radius: 9999px; }
+.s6-bo { padding: 0 16px 12px 68px; }
+.s6-bo-nut { min-height: 44px; padding: 0 16px; border: 1px solid var(--border); border-radius: 9999px; background: var(--surface);
+  font: inherit; font-size: 14px; font-weight: 700; color: var(--ink-secondary); cursor: pointer; }
+.s6-goi-y { background: var(--warning-tint); border: 1px solid var(--warning-border); border-radius: var(--radius-md); padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.s6-goi-y-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--warning-ink); }
+.s6-goi-y .hh-btn--inline { padding: 0; }
+/* S6-00 */
+.s6-trong { padding: 32px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.s6-trong-icon { width: 72px; height: 72px; border-radius: 9999px; background: var(--border-subtle); color: var(--ink-secondary);
+  display: flex; align-items: center; justify-content: center; }
+.s6-trong-tieu-de { margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.s6-trong-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s6-trong-nut { width: 100%; padding-top: 4px; display: flex; flex-direction: column; gap: 8px; }

@@ -52,7 +52,7 @@ Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md.
 
 ## Task
 - [x] US54-TA1 Code · migration fn_tab_can_sale, fn_chi_tiet_can_cua_toi, fn_sale_bo_dong_chu, test database (nhánh US54-tab-can-sale)
-- [ ] US54-TA2 Code · Claude Code (sonnet, CL14.6a): màn S6, S6-00, S6-07, S6-08 theo canvas, test unit, e2e cho YC10.1-NT1, YC10.1-NT2, YC10.1-NT3, YC10.1-NT4, YC10.1-NT5, YC10.1-NT7, YC10.1-NT8, YC10.1-NT9, YC10.1-NT10
+- [x] US54-TA2 Code · màn S6, S6-00, S6-07, S6-08, test unit, e2e (nhánh US54-tab-can-sale)
 - [ ] US54-TA3 Test tay · Đức: chạy tests/kb/US54-tab-can-cua-sale.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -63,6 +63,8 @@ Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md.
 - 2026-11-18 · Claude · tạo item từ YC10.1@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-20 · Claude (QD25) · YC10 r4 tự chốt câu mở, thêm NT
+- 2026-11-20 · Claude · TA1, TA2 trên nhánh US54-tab-can-sale; S6-07 từ S2 vẫn tạm (S2KetQua không có id căn) · ~2 giờ
 
 ## Bằng chứng
 - TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC10.1` lần đầu 32 hỏng (chưa có hàm), sau migration 51/51 qua, 1 vòng; cả bộ `scripts/test-db.sh` 2277 qua. `scripts/thu-lam-hong.sh YC10.1` 5/5 đạt (1 vòng sửa nhãn có dấu nháy). `kiem.py --diff origin/main` không lỗi.
+- TA2: `npx vitest run` 901 qua (test mới US54 lần đầu đỏ 2 vì tên nút chủ nhà trong test, sửa 1 vòng). e2e `tab-can-sale.spec.ts` 1 qua lần đầu; chạy lại lich-sale, ket-qua-tim, gui-khach, chi-tiet-can-sale: 5 qua. `typecheck`, `build` qua, `kiem.py` không lỗi.
