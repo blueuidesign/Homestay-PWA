@@ -10,13 +10,23 @@ type Rpc = Record<string, unknown>;
 const so = (x: unknown): number | null => (x == null ? null : Number(x));
 const chu = (x: unknown): string | null => (typeof x === 'string' ? x : null);
 const dsTen = (x: unknown): string[] => (Array.isArray(x) ? x.filter((t): t is string => typeof t === 'string') : []);
+/** YC9.3 bước 1, 2, YC9 "Dữ liệu" cờ trùng: một yêu cầu chờ khác cùng căn có đêm chồng. */
+export type TrungYeuCau = { yeuCauId: string; tenSale: string; ngayNhan: Ngay; ngayTra: Ngay; demTrung: Ngay[] };
+/** YC9.3 bước 3: một yêu cầu bị từ chối vì đặt phòng vừa nhận (CN9-02). */
+export type YeuCauTuChoiTheo = { yeuCauId: string; tenSale: string; ngayNhan: Ngay; ngayTra: Ngay };
+const ds = (x: unknown): Rpc[] => (Array.isArray(x) ? x.filter((e): e is Rpc => e != null && typeof e === 'object') : []);
+const docTuChoiTheo = (e: Rpc): YeuCauTuChoiTheo => ({
+  yeuCauId: String(e.yeu_cau_id), tenSale: String(e.ten_sale ?? ''), ngayNhan: String(e.ngay_nhan), ngayTra: String(e.ngay_tra),
+});
+const docTrung = (x: unknown): TrungYeuCau[] =>
+  ds(x).map((e) => ({ ...docTuChoiTheo(e), demTrung: Array.isArray(e.dem_trung) ? e.dem_trung.map(String) : [] }));
 const TRANG_THAI: readonly TrangThaiYeuCau[] = ['cho', 'da_chot', 'bi_tu_choi', 'da_huy', 'het_han'];
 const trangThai = (x: unknown): TrangThaiYeuCau => (TRANG_THAI.includes(x as TrangThaiYeuCau) ? (x as TrangThaiYeuCau) : 'cho');
 
 /** YC9.2 bước 1: một dòng của khối "YÊU CẦU ĐẶT PHÒNG" ở CN1-03. */
 export type DongYeuCauCho = {
   id: string; canId: string; maCan: string; tenSale: string; ngayNhan: Ngay; ngayTra: Ngay; tongGiaChu: number | null;
-  guiLuc: string; trungVoi: string[];
+  guiLuc: string; trungVoi: string[]; trung?: TrungYeuCau[];
 };
 
 /** YC9.2 bước 2: một yêu cầu ở CN9. Đã hủy (YC9-H6) thì chỉ có id và trạng thái, các trường khác để trống. */
@@ -24,6 +34,8 @@ export type YeuCauChoChu = {
   id: string; canId: string; maCan: string; tenToa: string | null; saleId: string; tenSale: string; sdtSale: string | null;
   soDatPhong: number; conKetNoi: boolean; ngayNhan: Ngay; ngayTra: Ngay; tongGiaChu: number | null; loiNhan: string | null;
   trangThai: TrangThaiYeuCau; lyDoTuChoi: string | null; guiLuc: string; bookingId: string | null; trungVoi: string[];
+  /** YC9.3: cảnh báo trùng ở CN9, các yêu cầu bị từ chối theo ở CN9-02. */
+  trung?: TrungYeuCau[]; daTuChoiTheo?: YeuCauTuChoiTheo[];
 };
 
 /** Kết quả lệnh chấp nhận, từ chối: doiTrangThai khi yêu cầu không còn chờ lúc bấm (HV3, YC9.2-NT5, NT10). */
@@ -34,7 +46,7 @@ export function docDongYeuCauCho(d: Rpc): DongYeuCauCho {
   return {
     id: String(d.id), canId: String(d.can_id), maCan: String(d.ma_can ?? ''), tenSale: String(d.ten_sale ?? ''),
     ngayNhan: String(d.ngay_nhan), ngayTra: String(d.ngay_tra), tongGiaChu: so(d.tong_gia_chu), guiLuc: String(d.gui_luc ?? ''),
-    trungVoi: dsTen(d.trung_voi),
+    trungVoi: dsTen(d.trung_voi), trung: docTrung(d.trung),
   };
 }
 
@@ -46,6 +58,7 @@ export function docYeuCauChoChu(d: Rpc): YeuCauChoChu {
     conKetNoi: d.con_ket_noi !== false, ngayNhan: String(d.ngay_nhan ?? ''), ngayTra: String(d.ngay_tra ?? ''),
     tongGiaChu: so(d.tong_gia_chu), loiNhan: chu(d.loi_nhan), trangThai: trangThai(d.trang_thai), lyDoTuChoi: chu(d.ly_do_tu_choi),
     guiLuc: String(d.gui_luc ?? ''), bookingId: chu(d.booking_id), trungVoi: dsTen(d.trung_voi),
+    trung: docTrung(d.trung), daTuChoiTheo: ds(d.da_tu_choi_theo).map(docTuChoiTheo),
   };
 }
 
@@ -81,6 +94,20 @@ export function dongPhuYeuCau(d: Pick<DongYeuCauCho, 'ngayNhan' | 'ngayTra' | 'g
   const ngay = `${ngayThang(d.ngayNhan)} → ${ngayThang(d.ngayTra)}`;
   if (d.trungVoi.length) return `${ngay} · trùng ngày với ${d.trungVoi.join(', ')}`;
   return `${ngay} · gửi ${chuGuiTruoc(d.guiLuc, bay)}`;
+}
+
+/** YC9.3 bước 2, YC9.3-NT1: cảnh báo ở CN9 "Trùng 18/10 với yêu cầu của Sale Lan. Chấp nhận yêu cầu này thì yêu cầu của Sale
+ * Lan bị từ chối và Sale Lan được báo." Nhiều yêu cầu thì gộp đêm và tên. Không trùng thì null. */
+export function cauCanhBaoTrung(trung: readonly TrungYeuCau[] | undefined): string | null {
+  if (!trung?.length) return null;
+  const dem = [...new Set(trung.flatMap((t) => t.demTrung))].sort().map(ngayThang).join(', ');
+  const ten = [...new Set(trung.map((t) => t.tenSale))].join(', ');
+  return `Trùng ${dem} với yêu cầu của ${ten}. Chấp nhận yêu cầu này thì yêu cầu của ${ten} bị từ chối và ${ten} được báo.`;
+}
+
+/** YC9.3 bước 3, YC9.3-NT2: dòng thêm ở CN9-02 "Yêu cầu của Sale Lan (18/10 → 19/10) đã bị từ chối. Sale Lan được báo." */
+export function cauDaTuChoiTheo(d: YeuCauTuChoiTheo): string {
+  return `Yêu cầu của ${d.tenSale} (${ngayThang(d.ngayNhan)} → ${ngayThang(d.ngayTra)}) đã bị từ chối. ${d.tenSale} được báo.`;
 }
 
 /** CN9: chữ trong vòng tròn, chữ đầu của tên riêng ("Sale Hùng" là "H"). */

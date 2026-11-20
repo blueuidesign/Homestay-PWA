@@ -10,7 +10,7 @@ import { duongDanGoi } from '../lib/chiTietCanSale';
 import type { DichVuTraLoiYeuCau } from '../lib/dichVuTraLoiYeuCau';
 import { vietTien } from '../lib/tien';
 import {
-  CAU_DA_DOI_TRANG_THAI, CHU_TRANG_THAI_CN9, LY_DO_TU_CHOI, cauDaNhan, cauDaTuChoi, cauDaVaoLich, cauTuChoiPhu, chuCaiDau, chuNgayO,
+  CAU_DA_DOI_TRANG_THAI, CHU_TRANG_THAI_CN9, LY_DO_TU_CHOI, cauCanhBaoTrung, cauDaNhan, cauDaTuChoiTheo, cauDaTuChoi, cauDaVaoLich, cauTuChoiPhu, chuCaiDau, chuNgayO,
   dongSaleCN9, type LyDoTuChoi, type YeuCauChoChu,
 } from '../lib/traLoiYeuCau';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
@@ -139,6 +139,8 @@ export function CN9TraLoiYeuCau(props: {
           <section className="cn9-xong cn9-xong--nhan" role="status">
             <span className="cn9-xong-tieu-de">✓ {cauDaNhan(y.maCan)}</span>
             <span className="cn9-xong-chu">{cauDaVaoLich(y.tenSale)}</span>
+            {/* YC9.3 bước 3, YC9.3-NT2: các yêu cầu chồng đêm đã bị từ chối theo. */}
+            {y.daTuChoiTheo?.map((d) => <span key={d.yeuCauId} className="cn9-xong-chu" data-testid="cn9-tu-choi-theo">{cauDaTuChoiTheo(d)}</span>)}
           </section>
           <section className="cn9-the"><CacHang y={y} coSale /></section>
         </div>
@@ -197,6 +199,12 @@ export function CN9TraLoiYeuCau(props: {
               <section className="cn9-the cn9-nhan">
                 <span className="cn9-nhan-tieu-de">Sale nhắn</span>
                 <span className="cn9-chu">{y.loiNhan}</span>
+              </section>
+            )}
+            {/* YC9.3 bước 2, YC9.3-NT1: cảnh báo trùng đêm với yêu cầu chờ khác. */}
+            {cho && cauCanhBaoTrung(y.trung) && (
+              <section className="cn9-the cn9-trung" role="status" data-testid="cn9-trung">
+                <span className="cn9-chu">{cauCanhBaoTrung(y.trung)}</span>
               </section>
             )}
             {!cho && <section className="cn9-the" role="status"><span className="cn9-chu">{CHU_TRANG_THAI_CN9[y.trangThai]}</span></section>}

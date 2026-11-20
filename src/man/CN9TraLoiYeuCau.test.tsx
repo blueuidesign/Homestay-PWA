@@ -150,3 +150,35 @@ describe('YC9.2 · CN9 Yêu cầu đặt phòng', () => {
     expect(dv.doc).toHaveBeenCalledTimes(2);
   });
 });
+
+describe('YC9.3 · CN9 yêu cầu trùng đêm (US52)', () => {
+  const TRUNG = [{ yeuCauId: 'y2', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19', demTrung: ['2026-10-18'] }];
+  const CAU = 'Trùng 18/10 với yêu cầu của Sale Lan. Chấp nhận yêu cầu này thì yêu cầu của Sale Lan bị từ chối và Sale Lan được báo.';
+
+  it('YC9.3-NT1 CN9 của yêu cầu chồng đêm có cảnh báo trùng', async () => {
+    ve(dichVu({ ...Y1, ngayNhan: '2026-10-17', ngayTra: '2026-10-19', trungVoi: ['Sale Lan'], trung: TRUNG }));
+    const canh = await screen.findByTestId('cn9-trung');
+    expect(canh).toHaveTextContent(CAU);
+    expect(screen.getByRole('button', { name: 'Chấp nhận đặt phòng' })).toBeInTheDocument();
+  });
+
+  it('YC9.3-NT1 CN9 không trùng thì không có cảnh báo', async () => {
+    ve();
+    await screen.findByText('Sale Hùng');
+    expect(screen.queryByTestId('cn9-trung')).toBeNull();
+    expect(screen.queryByText(/Trùng /)).toBeNull();
+  });
+
+  it('YC9.3-NT2 chấp nhận xong CN9-02 thêm dòng yêu cầu của Sale Lan đã bị từ chối', async () => {
+    const y = { ...Y1, ngayNhan: '2026-10-17', ngayTra: '2026-10-19', trungVoi: ['Sale Lan'], trung: TRUNG };
+    const dv = dichVu(y);
+    dv.chapNhan.mockResolvedValueOnce({ y: { ...y, trangThai: 'da_chot', bookingId: 'b1', trungVoi: [], trung: [],
+      daTuChoiTheo: [{ yeuCauId: 'y2', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19' }] }, doiTrangThai: false });
+    ve(dv);
+    const nut = await screen.findByRole('button', { name: 'Chấp nhận đặt phòng' });
+    await act(async () => { fireEvent.click(nut); });
+    expect(await screen.findByTestId('cn9')).toHaveAttribute('data-man', 'CN9-02');
+    expect(screen.getByText('Đặt phòng đã vào lịch. Sale Hùng được báo.')).toBeInTheDocument();
+    expect(screen.getByText('Yêu cầu của Sale Lan (18/10 → 19/10) đã bị từ chối. Sale Lan được báo.')).toBeInTheDocument();
+  });
+});

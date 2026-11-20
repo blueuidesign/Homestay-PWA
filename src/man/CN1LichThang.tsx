@@ -171,7 +171,7 @@ export function CN1LichThang(props: {
                 <span className="cn1-yc-cham" style={{ background: mau.get(d.canId) }} aria-hidden="true" />
                 <div className="cn1-yc-giua">
                   <span className="cn1-yc-chinh">{dongChinhYeuCau(d)}</span>
-                  <span className="cn1-yc-phu">{dongPhuYeuCau(d, props.bay)}</span>
+                  <span className="cn1-yc-phu" data-trung={d.trungVoi.length ? 'co' : undefined}>{dongPhuYeuCau(d, props.bay)}</span>
                 </div>
                 <span className="cn1-yc-nhan">Chờ bạn</span>
               </div>
