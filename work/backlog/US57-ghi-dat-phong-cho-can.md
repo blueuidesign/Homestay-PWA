@@ -53,7 +53,7 @@ Kịch bản test tay: tests/kb/US57-ghi-dat-phong-cho-can.md.
 ## Task
 - [x] US57-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.4-NT2 đến NT9, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [x] US57-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US57-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-05, S6-06 theo canvas, test unit, e2e cho YC10.4-NT1, YC10.4-NT2, YC10.4-NT3, YC10.4-NT4, YC10.4-NT7, YC10.4-NT8, YC10.4-NT9
+- [x] US57-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-05, S6-06 theo canvas, test unit, e2e cho YC10.4-NT1, YC10.4-NT2, YC10.4-NT3, YC10.4-NT4, YC10.4-NT7, YC10.4-NT8, YC10.4-NT9
 - [ ] US57-TA4 Test tay · Đức: chạy tests/kb/US57-ghi-dat-phong-cho-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -66,5 +66,9 @@ Kịch bản test tay: tests/kb/US57-ghi-dat-phong-cho-can.md.
 - 2026-11-18 · Claude · tạo item từ YC10.4@1 (QD21)
 - 2026-11-19 · Claude · nhận HV1-NT1, HV2-NT1, HV2-NT2 từ EN4 (QD27)
 - 2026-11-20 · Claude (QD25) · YC10 r4 tự chốt câu mở, thêm NT
+- 2026-11-20 · Claude (agent code) · TA1, TA2, TA3 xong trên nhánh US57-dat-phong-tu-ghi, chưa mở PR
 
 ## Bằng chứng
+- TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC10.4`: lần đầu 61 hỏng (chưa có hàm), 14 qua.
+- TA2 cùng lệnh sau migration: 75 qua, 0 hỏng, xanh ngay vòng đầu. `scripts/test-db.sh` cả bộ: 2501 qua, 0 hỏng. `scripts/thu-lam-hong.sh`: 321 đạt trên 321 (thêm 17 dòng US57; vòng đầu 4 dòng không chạy vì chuỗi có ngoặc kép và một dòng bị phép khác che, sửa chuỗi một vòng).
+- TA3 `npx vitest run`: 103 file, 982 test qua. `npm run -s typecheck`, `npm run -s build`: qua. e2e `tests/e2e/supabase/dat-phong-tu-ghi.spec.ts`: 1 qua lần đầu; chạy lại can-tu-nhap, lich-sale, tab-can-sale: 4 qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi.
