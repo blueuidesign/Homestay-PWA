@@ -52,12 +52,15 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 
 ## Task
-- [ ] US58-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT4, YC11.1-NT7, YC11.1-NT8, YC11.1-NT9, YC11.1-NT10, YC11.1-NT12, YC11.1-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US58-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT4, YC11.1-NT7, YC11.1-NT8, YC11.1-NT9, YC11.1-NT10, YC11.1-NT12, YC11.1-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US58-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
 - [ ] US58-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN8, CN8-00 theo canvas, test unit, e2e cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT3, YC11.1-NT5, YC11.1-NT6, YC11.1-NT7, YC11.1-NT9, YC11.1-NT11
 - [ ] US58-TA4 Test tay · Đức: chạy tests/kb/US58-thong-ke-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/74_us58_thong_ke_chu.sql theo DLM.4 (thêm Sale Minh, "hôm nay" 07/10), hợp đồng fn_thong_ke_chu(p_thang, p_so_thang = 6) → jsonb; viết trước, đỏ.
+- TA2: migration 20261119520000_us58_thong_ke_chu.sql cộng từ booking_dem, mẫu số theo can.tao_luc/an_luc (giờ VN), chưa thu theo tháng ngày nhận; phép làm hỏng.
+- TA3: src/lib/thongKeChu.ts (tính chữ, %), dichVuThongKeChu.ts (rpc), CN8ThongKe.tsx thay bản tạm ở ManChu; unit, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.1@1 (QD21)
