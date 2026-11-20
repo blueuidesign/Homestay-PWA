@@ -19,6 +19,6 @@ test('YC1.7-NT1 YC1.7-NT2 luồng chính: Cá nhân mở P9, mở "Đặt giá t
   const dichDen: string[] = [];
   await context.route('https://zalo.me/**', (r) => { dichDen.push(r.request().url()); void r.fulfill({ status: 200, body: 'ok' }); });
   const [tab] = await Promise.all([context.waitForEvent('page'), p9.getByRole('button', { name: 'Nhắn Zalo cho Home247' }).click()]);
-  await tab.waitForLoadState('commit').catch(() => undefined);
+  await tab.waitForLoadState('domcontentloaded').catch(() => undefined);
   expect(tab.url()).toMatch(/^https:\/\/zalo\.me\//);
 });
