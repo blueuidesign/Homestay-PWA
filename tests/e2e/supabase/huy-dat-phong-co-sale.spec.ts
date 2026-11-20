@@ -30,16 +30,17 @@ test('YC5.8-NT1 YC5.8-NT2 luồng chính: sale xin hủy ở S3-10, chủ nhà �
   const chuPage = await browser.newPage();
   await dangNhapBangMa(chuPage, chu.email);
   await chuPage.goto(`/dat-phong/${b}`);
-  await expect(chuPage.getByText('Sale Xin Hủy xin hủy đặt phòng này')).toBeVisible();
+  await expect(chuPage.getByRole('heading', { name: 'Đặt phòng · Sale Xin Hủy' })).toBeVisible({ timeout: 15000 });
+  await expect(chuPage.getByText('Sale Xin Hủy xin hủy đặt phòng này')).toBeVisible({ timeout: 15000 });
   await chuPage.getByRole('button', { name: 'Đồng ý hủy' }).click();
   await expect(chuPage.getByText('Đã hủy', { exact: true })).toBeVisible();
   expect(sql(`select trang_thai from public.booking where id = '${b}'`)).toBe('da_huy');
 
-  // Sale mở lại thấy "Đã hủy".
+  // Sale mở lại thấy "Đã hủy" (YC11.3: dòng đặt phòng đã hủy ghi "Đặt phòng đã hủy").
   await page.reload();
   await page.getByRole('navigation', { name: 'Tab' }).getByRole('button', { name: 'Thống kê' }).click();
   await page.getByRole('button', { name: 'Xem tất cả đặt phòng và yêu cầu' }).click();
-  await page.getByRole('button', { name: /Chủ Đồng Ý Hủy đã ghi giúp bạn/ }).click();
+  await page.getByRole('button', { name: /Đặt phòng đã hủy/ }).click();
   await expect(page.getByText('Đã hủy', { exact: true }).first()).toBeVisible();
   await chuPage.close();
 });
