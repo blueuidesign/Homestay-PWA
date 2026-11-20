@@ -444,3 +444,17 @@ YC5.4-NT1 QT5.4 GD13 Lan | do $h$ begin execute replace(pg_get_functiondef('publ
 YC5.4-NT1 QT4.2 QT5.4 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'public.gia_ban_tu_tien_dem(p_sale_id, p_can_id, v_tien_dem)', 'public.gia_ban_tu_tien_dem(p_sale_id, p_can_id, public.tien_cac_dem(p_can_id, p_ngay_nhan, p_ngay_tra, null))'); end $h$
 YC5.4-NT3 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'case when p_sale_id is null then p_ten_khach end', 'p_ten_khach'); end $h$
 YC5.4-NT5 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'and k.trang_thai = ''da_ket_noi''', ''); end $h$
+# US60 · đặt phòng và yêu cầu của sale (YC11.3)
+YC11.3-NT7 Sale Lan đọc danh sách | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'where y.sale_id = v_nguoi and', 'where'); end $h$
+YC11.3-NT7 PQ10.SALE PQ14.SALE | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'where b.sale_id = v_nguoi and', 'where b.sale_id is not null and'); end $h$
+YC11.3-NT8 YC11-H3 V2 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), ' and b.nguon <> ''sale_tu_ghi''', ' or (b.nguon = ''sale_tu_ghi'' and b.tao_boi = v_nguoi)'); end $h$
+YC11.3-NT8 YC11-H1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'and c.nguoi_giu <> v_nguoi and', 'and'); end $h$
+YC11.3-NT4 Y7 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'case when public.yeu_cau_qua_han(y) then ''het_han'' else y.trang_thai end', 'y.trang_thai'); end $h$
+YC11.3-NT2 B1 đã chấp nhận | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'r.booking_id = b.id and r.nguoi_id = v_nguoi', 'r.booking_id = b.id and r.nguoi_id = b.tao_boi'); end $h$
+YC11.3-NT2 yêu cầu đã chốt không có dòng riêng | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), ' and y.trang_thai <> ''da_chot''', ''); end $h$
+YC11.3-NT2 QD12 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'and b.nguon <> ''sale_tu_ghi''', 'and b.nguon <> ''sale_tu_ghi'' and b.trang_thai <> ''da_huy'''); end $h$
+YC11.3-NT3 Y8 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), '''dat_phong_khac''', '''khong_nhan'''); end $h$
+YC11.3-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'coalesce(y.gui_luc, b.tao_luc) as moc', 'b.tao_luc as moc'); end $h$
+YC11.3-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), '(select count(*) from so) > 50', 'false'); end $h$
+YC11.3-NT6 Chị Hoa ghi giúp | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'case when b.nguon = ''chu_ghi'' then', 'case when false then'); end $h$
+YC11.3-NT7 PQ15.LINK người chưa đăng nhập không có quyền | grant execute on function public.fn_danh_sach_sale(int) to anon
