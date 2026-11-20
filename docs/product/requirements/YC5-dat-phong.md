@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -75,7 +75,7 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 - Một lệnh trả giá chủ nhà từng đêm của căn cho một khoảng ngày (đêm chưa có giá trả "chưa có giá"), chỉ người giữ căn gọi được. Dùng chung với YC2.
 - Phần mọi bên cùng thấy (căn, ngày, người đặt, tiền phòng, trạng thái tiền) tách khỏi phần riêng của từng người (khách người đó nhập; với sale còn có giá bán). Mỗi người chỉ đọc được phần riêng của mình (QD11).
 - Kiểm dữ liệu một chỗ dùng chung cho ghi và sửa, trả câu ở bảng luật kiểm. Căn không phải của người gọi thì trả lỗi quyền chung, không lộ căn có tồn tại hay không.
-- Ghi giúp sale: kiểm sale đang kết nối và được xem căn đó (kết nối "chỉ vài căn"); phần riêng của sale có giá bán điền sẵn = tiền phòng + mức cộng của sale cho căn × số đêm (QT3.1; làm tròn: [MỞ: YC5-H13]).
+- Ghi giúp sale: kiểm sale đang kết nối và được xem căn đó (kết nối "chỉ vài căn"); phần riêng của sale có giá bán điền sẵn = tiền phòng + mức cộng của sale cho căn × số đêm (QT3.1); sale bật làm tròn thì làm tròn lên 50.000đ từng đêm (QT5.4, YC5-H13 Claude tự chốt) [r5 · sửa].
 - Sửa: từ chối khi đặt phòng đã bị sửa ở máy khác kể từ lúc app đọc. `[r4 · sửa]` Đổi trạng thái tiền bằng tay thì bỏ trạng thái nhớ để hoàn tác (YC5-H6, Claude tự chốt).
 - Mọi lệnh sửa, xóa ghi nhật ký thay đổi (QD2): ai, lúc nào, giá trị cũ và mới.
 - Ghi, sửa, xóa đặt phòng thì cập nhật lúc lịch đổi của căn (YC7 dùng); yêu cầu đang chờ trùng đêm thành bị từ chối (QT1.4, giả định GD11).
@@ -226,7 +226,7 @@ Chủ nhà ghi giúp một đặt phòng cho sale đã kết nối, ví dụ khi
 | 14 | Chọn chip "Sale Hùng" (bước 6c) và bấm "Thêm đặt phòng" | Như bước 9 đến 13. Toast "Đã thêm đặt phòng Sale Hùng · 1509" | Như bước 9, thêm: kiểm Sale Hùng đang kết nối với chủ nhà và được chia sẻ căn này; phần riêng của Sale Hùng có giá bán điền sẵn = tiền phòng + mức cộng của Hùng cho căn đó × số đêm (QT5.4, QT3.1); trigger ghi thông báo "chủ ghi đặt phòng cho bạn" cho Hùng |
 | 15 | (Sale không còn kết nối, hay không được chia sẻ căn này) | Ở lại form, toast đỏ là câu database trả về | Từ chối với câu "Sale này không đang kết nối với bạn" hoặc "Sale này không được xem căn này" |
 
-Giá bán điền sẵn có làm tròn lên 50.000đ khi sale bật làm tròn không: [MỞ: YC5-H13]. Database đang làm tròn.
+[r5 · sửa] Giá bán điền sẵn: từng đêm lấy tiền đêm của đặt phòng (QT4.2) cộng mức cộng, sale bật làm tròn thì làm tròn lên 50.000đ từng đêm rồi mới cộng (QT5.4, GD13; YC5-H13 Claude tự chốt, QD25, chờ Tùng duyệt lại).
 
 Tiêu chí:
 - **YC5.4-NT1** Khi Chị Hoa ghi 1509 từ 20/10 tới 22/10, tiền phòng 1.800.000đ, người đặt Sale Hùng, và mức cộng của Hùng cho 1509 là +200k (DLM.3), thì Hùng có đặt phòng đó với giá bán 2.200.000đ và tiền chênh 400.000đ (QT3.1). · database
@@ -391,3 +391,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r2 | 2026-11-19 | Claude | US27-nguoi-dat | YC5.2 bản 2: ô tên, số điện thoại khách lẻ, không ô khách khi chọn sale, cọc không bắt buộc (trả lời YC5-H1, H2, H12, H19, Claude tự chốt, QD25) | YC5.2, YC5.3 Luật kiểm |
 | r3 | 2026-11-19 | Claude | US30-chi-tiet-dat-phong | YC5.5 bản 2: khách lẻ có số thì hiện số và nút Gọi khách (Claude tự quyết, QD25, theo YC5-H2) | YC5.5 |
 | r4 | 2026-11-19 | Claude | US31 chuẩn bị | YC5.6 bản 2: trả lời YC5-H3, H4, H5, H6, H8, H9 (Claude tự chốt, QD25); thêm NT9, NT10, NT11 | YC5.6 |
+| r5 | 2026-11-20 | Claude (QD25) | US29-ghi-dat-phong-cho-sale | Trả lời YC5-H13: giá bán điền sẵn làm tròn như QT5.4 (Claude tự chốt) | YC5.4 |
