@@ -49,8 +49,10 @@ import type { DongYeuCauCho } from '../lib/traLoiYeuCau';
 import { CAU_DA_GUI_LICH } from '../lib/dichVuGuiLich';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
+import { CaNhan } from './CaNhan';
+import { CAU_SE_CO, type KhoaDong } from '../lib/caNhan';
+import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
 
-const TIEU_DE_TAM: Record<'ca-nhan', string> = { 'ca-nhan': 'Cá nhân' };
 
 /** HV1: lần đầu khung xám; có dữ liệu cũ thì hiện ngay kèm "Đang cập nhật…". HV2: chưa tải được thì Thử lại. */
 function useDanhSachCan(dv: DichVuCan | null) {
@@ -315,12 +317,13 @@ export function ManChu(props: {
     than = <CN8ThongKe dv={props.dichVuCan?.thongKe} boNho={boNhoThongKe.current}
                        mau={(canId) => { const i = theoLich.findIndex((c) => c.id === canId); return i < 0 ? undefined : mauCan(i); }} />;
   } else if (man.tab === 'ca-nhan') {
-    than = (
-      <KhungTabChu tieuDe={TIEU_DE_TAM[man.tab]}>
-        <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => props.den('/ca-nhan/dem-cuoi-tuan')}>Ngày tính giá cuối tuần</button>
-        <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onDangXuat}>Đăng xuất</button>
-      </KhungTabChu>
-    );
+    // YC1.3 (US3): P1. Chạm dòng mở màn của dòng; màn chưa làm (US sau) báo tạm.
+    const moDong = (khoa: KhoaDong) => {
+      if (khoa === 'dem-cuoi-tuan') props.den('/ca-nhan/dem-cuoi-tuan'); // YC4.6: P6
+      else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4
+      else hienToast(CAU_SE_CO);
+    };
+    than = <CaNhan vai="chu_nha" dv={props.dichVuCan?.caNhan} onMo={moDong} onDangXuat={props.onDangXuat} />;
   } else if (ds === undefined) {
     than = (
       <KhungTabChu tieuDe={man.tab === 'lich' ? 'Lịch' : 'Căn của tôi'}>

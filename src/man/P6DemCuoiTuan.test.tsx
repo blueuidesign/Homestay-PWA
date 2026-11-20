@@ -172,8 +172,8 @@ describe('YC4.6 bước 1, 4 · nối vào app', () => {
       layPhien: vi.fn(async () => ({ email: 'chu1@vidu.test' })),
       layHoSo: vi.fn(async () => ({ ten: 'Chị Hoa', soDienThoai: '0900000001', vaiChon: 'chu_nha' as const })),
     });
-    render(<App dichVu={hoSo} dichVuCan={{ layCanCuaToi: vi.fn(async () => []), gia: dv }} />);
-    fireEvent.click(await screen.findByRole('button', { name: 'Ngày tính giá cuối tuần' }));
+    render(<App dichVu={hoSo} dichVuCan={{ layCanCuaToi: vi.fn(async () => []), gia: dv, caNhan: { doc: vi.fn(async () => ({ ten: 'Chị Hoa', tenHienThi: null, soDienThoai: '0900000001', email: 'chu1@vidu.test', soChuaDoc: 0, gioNhan: '14:00', gioTra: '12:00', demCuoiTuan: [5, 6], mucCong: 0, thongBaoTat: [] })) } }} />);
+    fireEvent.click(await screen.findByRole('button', { name: /Ngày tính giá cuối tuần/ }));
     expect(await screen.findByText('Đêm cuối tuần')).toBeInTheDocument();
     expect(window.location.pathname).toBe('/ca-nhan/dem-cuoi-tuan');
     fireEvent.click(chip('CN'));

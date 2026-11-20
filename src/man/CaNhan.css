@@ -1,0 +1,23 @@
+/* US3 · Tab Cá nhân P1, P4 (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.cn { display: flex; flex-direction: column; gap: 12px; }
+.cn-dau { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; align-items: center; gap: 12px; }
+.cn-anh { flex: 0 0 auto; width: 56px; height: 56px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; }
+.cn-ten-khoi { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn-ten { font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cn-phu { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cn-nhom { display: flex; flex-direction: column; gap: 8px; }
+.cn-nhom-ten { margin: 0; padding: 0 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.cn-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.cn-ds li + li { border-top: 1px solid var(--border-subtle); }
+.cn-dong { width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 4px 16px; border: 0; background: none; font: inherit; text-align: left; color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+div.cn-dong { cursor: default; }
+button.cn-dong:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.cn-dong-ten { flex: 1 1 0; min-width: 0; font-size: 16px; line-height: 24px; }
+.cn-dong-phu { flex: 0 1 auto; min-width: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); text-align: right; }
+.cn-dong-phu--email { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 55%; }
+.cn-so { flex: 0 0 auto; min-width: 22px; height: 22px; box-sizing: border-box; padding: 0 7px; border-radius: 9999px; background: var(--danger); color: var(--on-action); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.cn-toi { display: inline-flex; flex: 0 0 auto; color: var(--ink-faint); }
+.cn-chan { display: flex; flex-direction: column; gap: 6px; }
+.cn-hoi { display: flex; flex-direction: column; gap: 6px; }
+.cn-hoi-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-body); text-align: center; }
+.cn-phien-ban { margin: 0; font-size: 12px; line-height: 16px; color: var(--ink-muted); text-align: center; }
