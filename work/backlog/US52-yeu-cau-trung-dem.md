@@ -2,7 +2,7 @@
 id: US52
 tieu_de: "Yêu cầu trùng đêm"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC9.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
