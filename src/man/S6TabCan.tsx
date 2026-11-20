@@ -1,6 +1,7 @@
 // S6 · Tab Căn của sale, S6-00 · chưa có căn nào, S6-08 · chủ nhà đã xóa tài khoản (YC10.1 bước 1 đến 11, YC10 "Quy tắc của
 // nhóm", QT6.4, PQ2.SALE, PQ3.SALE, PQ13, PQ14.SALE, PQ17.SALE, PQ23.SALE, QD13). Đọc qua fn_tab_can_sale.
 // Chạm căn của tôi mở S6-07, căn chủ nhà mở S3, căn tự nhập mở S6-03, tên chủ nhà mở S6-04 (ManSale nối).
+// US55 (YC10.2-NT6, YC10-H1): dòng chủ nhà đã ngừng cho xem ghi "đã ngừng cho bạn xem lịch", không căn, có "Bỏ khỏi danh sách".
 // "Chia sẻ lời mời": bảng chia sẻ của máy, không có thì sao chép (pwa.md P3, HV6). "Bỏ khỏi danh sách": dòng biến ngay,
 // không hỏi lại. Trạng thái: HV1 khung xám, HV2 Thử lại, HV3 quay lại từ nền đọc lại, HV8 toast.
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
@@ -9,6 +10,7 @@ import { CAU_THIEU_TINH_NANG, guiChu } from '../chung/chiaSe';
 import { cauBaoLoi, ManChuaTai } from '../chung/matKetNoi';
 import { useQuayLaiTuNen } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
+import { NHAN_DA_NGUNG, type CoChuNgung } from '../lib/chiTietChuNha';
 import type { DichVuTabCanSale } from '../lib/dichVuTabCanSale';
 import {
   cauMoiChuCan, chuCaiDau, chuCapNhat, soChuNha, tabTrong, tinMoiDungApp,
@@ -46,6 +48,23 @@ function DongCan(props: { c: TheCanTab; phai?: ReactNode; onCham: () => void }) 
 /** YC10.1 bước 2, 5, 6, 9, 10, S6-08. */
 function ChuNha(props: { n: NhomChuNha; onMoChu: () => void; onCham: (c: TheCanTab) => void; onBo: () => void }) {
   const n = props.n;
+  if (!n.daXoa && (n as NhomChuNha & CoChuNgung).chuNgung) {
+    // YC10.2-NT6, YC10-H1: tên và nhãn, không căn, không giá, không số; "Bỏ khỏi danh sách" không hỏi lại.
+    return (
+      <section className="s6-the s6-chu s6-chu--xoa" aria-label={n.ten}>
+        <div className="s6-chu-dau">
+          <span className="s6-tron s6-tron--xoa" aria-hidden="true">{chuCaiDau(n.ten)}</span>
+          <span className="s6-chu-chu">
+            <span className="s6-can-ten">{n.ten}</span>
+            <span className="s6-chu-phu">{NHAN_DA_NGUNG}</span>
+          </span>
+        </div>
+        <div className="s6-bo">
+          <button type="button" className="s6-bo-nut" onClick={props.onBo}>Bỏ khỏi danh sách</button>
+        </div>
+      </section>
+    );
+  }
   if (n.daXoa) {
     // YC10.1-NT7, QD13: tên cũ và nhãn đỏ, không số, không căn, không "Cập nhật"; chạm không mở gì.
     return (
@@ -130,7 +149,7 @@ export function S6TabCan(props: {
   useEffect(() => { void tai(); }, [tai]);
   useQuayLaiTuNen(() => { void tai(); });
 
-  // YC10.1 bước 10, YC10.1-NT8, YC10 "Bấm hai lần": bỏ ngay khỏi màn, không hỏi lại; lỗi thì trả dòng về và báo.
+  // YC10.1 bước 10, YC10.1-NT8, YC10.2-NT6, YC10 "Bấm hai lần": bỏ ngay khỏi màn, không hỏi lại; lỗi thì trả dòng về và báo.
   const boDong = async (n: NhomChuNha) => {
     if (!dv) return;
     datTab((t) => (t ? { ...t, chuNha: t.chuNha.filter((x) => x.ketNoiId !== n.ketNoiId) } : t));
@@ -153,6 +172,8 @@ export function S6TabCan(props: {
     than = <ChuaCoCan onThemCan={props.onThemCan} onXinLich={props.onXinLich} onThemTuNhap={props.onThemTuNhap} />;
   } else {
     const tuNhapDau = tab.tuNhap[0];
+    // YC10.2-NT6: chủ đã ngừng cho xem không còn tính là đã kết nối.
+    const soKetNoi = soChuNha(tab) - tab.chuNha.filter((n) => !n.daXoa && (n as NhomChuNha & CoChuNgung).chuNgung).length;
     than = (
       <>
         <section className="s6-nhom" aria-label={`Căn của tôi · ${tab.cuaToi.length}`}>
@@ -171,8 +192,8 @@ export function S6TabCan(props: {
           )}
         </section>
         <h2 className="s6-muc s6-muc--lon">Nguồn phòng</h2>
-        <section className="s6-nhom" aria-label={`Chủ nhà đã kết nối · ${soChuNha(tab)}`}>
-          <h2 className="s6-muc">Chủ nhà đã kết nối · {soChuNha(tab)}</h2>
+        <section className="s6-nhom" aria-label={`Chủ nhà đã kết nối · ${soKetNoi}`}>
+          <h2 className="s6-muc">Chủ nhà đã kết nối · {soKetNoi}</h2>
           {tab.chuNha.map((n) => (
             <ChuNha key={n.ketNoiId} n={n} onMoChu={() => props.onMoChuNha(n)} onBo={() => void boDong(n)}
                     onCham={(c) => props.onCham({ canId: c.canId, nhom: 'nguon', ten: c.ten })} />
