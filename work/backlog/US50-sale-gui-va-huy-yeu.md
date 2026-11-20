@@ -2,7 +2,7 @@
 id: US50
 tieu_de: "Sale gửi và hủy yêu cầu"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC9.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [58]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US50-sale-gui-va-huy-yeu.md.
 
 ## Task
-- [x] US50-TA1 Code: test database tests/db/66_us50_gui_yeu_cau.sql · nhánh US50-gui-yeu-cau
-- [x] US50-TA2 Code: migration 20261119440000_us50_gui_yeu_cau.sql, 15 phép thử làm hỏng · nhánh US50-gui-yeu-cau
-- [x] US50-TA3 Code: S3-02, S3-03, S3-07, S3-08 (src/man/S3GuiYeuCau.tsx), unit, e2e gui-yeu-cau.spec.ts · nhánh US50-gui-yeu-cau
+- [x] US50-TA1 Code: test database tests/db/66_us50_gui_yeu_cau.sql · nhánh US50-gui-yeu-cau · PR #58
+- [x] US50-TA2 Code: migration 20261119440000_us50_gui_yeu_cau.sql, 15 phép thử làm hỏng · nhánh US50-gui-yeu-cau · PR #58
+- [x] US50-TA3 Code: S3-02, S3-03, S3-07, S3-08 (src/man/S3GuiYeuCau.tsx), unit, e2e gui-yeu-cau.spec.ts · nhánh US50-gui-yeu-cau · PR #58
 - [ ] US50-TA4 Test tay · Đức: chạy tests/kb/US50-sale-gui-va-huy-yeu.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -67,6 +67,7 @@ Kịch bản test tay: tests/kb/US50-sale-gui-va-huy-yeu.md.
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude (QD25) · YC9 r3 tự chốt câu mở, thêm NT
 - 2026-11-20 · Claude · TA1–TA3 trên nhánh US50-gui-yeu-cau, chưa PR · bất ngờ: chủ căn đọc được dòng yêu cầu đã hủy, đổi policy · ~2 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #58, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - DB: `scripts/test-db.sh` (lọc YC9.1). Lần đầu đỏ: 4 hỏng + file dừng ở NT1 (chưa có hàm). Sau migration: 1 hỏng do test gọi hủy khi chưa đăng nhập, sửa test (thêm vai Hùng, không nới), 1 vòng. Cuối: cả bộ 2003 qua, 0 hỏng.
