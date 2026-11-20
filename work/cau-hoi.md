@@ -52,9 +52,10 @@ Gắn ở: YC1.6.
 P4 có "Hướng dẫn sử dụng" nhưng P9 chỉ có phần "CHỦ NHÀ". Sale chưa có hướng dẫn.
 Gắn ở: YC1.7.
 
-### YC1-H11 · mo
+### YC1-H11 · da-tra-loi
 Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn).
 Gắn ở: YC1.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết, QD25): Không đổi đặt phòng đã ghi (YC1.5-NT2; giờ chép vào đặt phòng lúc tạo, US27). Sale đã gửi khách thì tin đã gửi giữ nguyên, lần soạn sau lấy giờ mới. Căn không có giờ riêng ở bản 1: một giờ chung cho mọi căn của chủ nhà (P5). Chờ Tùng duyệt lại.
 
 ### YC1-H12 · da-tra-loi
 Mã đăng nhập gửi về email: mấy chữ số, còn hạn bao lâu, bao lâu mới được bấm "Gửi lại mã", nhập sai mấy lần thì phải xin mã mới? Đề xuất theo mặc định của Supabase: 6 chữ số, hạn 1 giờ, gửi lại sau 60 giây.

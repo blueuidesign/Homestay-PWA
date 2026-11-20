@@ -86,3 +86,9 @@ describe('YC1.4 · đường dẫn P2', () => {
     expect(chonManChu('/ca-nhan/ho-so/')).toEqual({ tab: 'ho-so' });
   });
 });
+
+describe('YC1.5 · đường dẫn P5', () => {
+  it('YC1.5 bước 1 /ca-nhan/gio là P5 Giờ nhận, trả phòng', () => {
+    expect(chonManChu('/ca-nhan/gio')).toEqual({ tab: 'gio' });
+  });
+});
