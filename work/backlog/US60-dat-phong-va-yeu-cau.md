@@ -34,7 +34,7 @@ S7-03, S7-03-00
 PQ7, PQ9, PQ10, PQ11, PQ14, PQ15, PQ16 và các test vi phạm ở mục "Ai được làm gì" của YC11-thong-ke.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-supabase/migrations/20261120100000_us60_ds_dat_phong_sale.sql, tests/db/76_us60_ds_dat_phong_sale.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md, src/lib/danhSachSale.ts (+test), src/lib/dichVuDanhSachSale.ts, src/lib/dichVuCan.ts, src/man/S703DanhSach.tsx (+css, test), src/man/ManSale.tsx, src/man/S7ThongKe.test.tsx (đổi kỳ vọng tạm của US59), tests/e2e/supabase/dat-phong-cua-sale.spec.ts, docs/product/requirements/YC11-thong-ke.md (r4).
+supabase/migrations/20261120100000_us60_ds_dat_phong_sale.sql, tests/db/76_us60_ds_dat_phong_sale.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md, src/lib/danhSachSale.ts (+test), src/lib/dichVuDanhSachSale.ts, src/lib/dichVuCan.ts, src/man/S703DanhSach.tsx (+css, test), src/man/ManSale.tsx, src/man/S7ThongKe.tsx (S7-00 luôn có dòng "Xem tất cả", YC11-H5), src/man/S7ThongKe.test.tsx (đổi kỳ vọng tạm của US59), tests/e2e/supabase/dat-phong-cua-sale.spec.ts, docs/product/requirements/YC11-thong-ke.md (r4).
 
 ## Ngoài phạm vi
 - YC11-H5, YC11-H3 đã có lời đáp (Claude tự chốt, QD25), xem YC11 r2.
