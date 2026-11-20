@@ -18,12 +18,13 @@ select t.fixture();
 -- Hùng kết nối Chị Hoa từ 02/08/2026 (S6-04). B1 của Hùng ở 1509 đã chốt: thu khách 2.600.000đ, trả chủ 2.200.000đ (QT3.1-VD1).
 update public.ket_noi set tao_luc = '2026-08-02 10:00:00+07' where id = t.kn('hoa', 'hung');
 update public.can set loai_view = 'bien' where id in (t.can('1509'), t.can('3402'));
-update public.can set lich_doi_luc = now() - interval '2 hours' where id = t.can('1509');
-update public.can set lich_doi_luc = now() - interval '5 hours' where id = t.can('3402');
 select t.tao_booking('B1', t.can('1509'), '2026-10-10', '2026-10-12', 2200000, t.id('hung'), 'tu_yeu_cau');
 insert into public.booking_rieng (booking_id, nguoi_id, tien_thu_khach) values (t.b('B1'), t.id('hung'), 2600000);
 -- Đặt phòng chủ ghi cho khách lẻ không phải của Hùng, không tính.
 select t.tao_booking('H1', t.can('3402'), '2026-10-14', '2026-10-15', 800000);
+-- Lần đổi lịch, giá đặt sau khi ghi đặt phòng (ghi đặt phòng cũng đổi lần cập nhật).
+update public.can set lich_doi_luc = now() - interval '2 hours' where id = t.can('1509');
+update public.can set lich_doi_luc = now() - interval '5 hours' where id = t.can('3402');
 -- Yêu cầu chờ: Y1 của Hùng tới 1509, Y2 của Lan tới 1509.
 select t.tao_yeu_cau('Y1', t.can('1509'), t.id('hung'), public.local_today() + 10, public.local_today() + 12,
                      array[900000, 900000]::bigint[]);
@@ -183,6 +184,10 @@ select t.bang((select count(*) from public.thong_bao where nguoi_nhan = t.id('ho
 select t.dang_nhap(t.id('hung'));
 select t.ok(t.gt($$select count(*) from public.fn_sale_lich('2026-10-07', '2026-10-13') where ten_chu = 'Chị Hoa'$$)::int > 0,
             'YC10.2-NT4 trước khi bỏ: lịch của Hùng có căn của Chị Hoa');
+select t.bang(t.gt($$select string_agg(c ->> 'ma_can', ',' order by c ->> 'ma_can')
+                     from jsonb_array_elements(public.fn_sale_tim(public.local_today() + 40, public.local_today() + 41) -> 'can') c
+                     where c ->> 'ma_can' in ('1509', '3402')$$), '1509,3402',
+              'YC10.2-NT4 trước khi bỏ: tìm phòng của Hùng có 1509, 3402');
 select t.khong_loi($$select public.fn_sale_bo_nguon(t.kn('hoa', 'hung'))$$, 'YC10.2-NT4 Hùng bỏ nguồn Chị Hoa');
 select t.bang(t.gt($$select count(*) from public.fn_tab_can_sale() where chu_id = t.id('hoa')$$), '0',
               'YC10.2-NT4 Chị Hoa biến khỏi nguồn phòng của Hùng');
@@ -192,11 +197,11 @@ select t.ok(coalesce(t.so($$select * from public.fn_sale_lich('2026-10-07', '202
                              or can_id in (t.can('1509'), t.can('3402'))$$), 0) = 0,
             'YC10.2-NT4 lịch của Hùng không còn căn của Chị Hoa');
 select t.bang(t.gt($$select coalesce(string_agg(c ->> 'ma_can', ','), '')
-                     from jsonb_array_elements(public.fn_sale_tim('2026-10-20', '2026-10-21') -> 'can') c
+                     from jsonb_array_elements(public.fn_sale_tim(public.local_today() + 40, public.local_today() + 41) -> 'can') c
                      where c ->> 'ma_can' in ('1509', '3402')$$), '',
               'YC10.2-NT4 tìm phòng của Hùng không còn căn của Chị Hoa');
-select t.loi($$select public.fn_sale_chi_tiet_can(t.can('1509'), '2026-10-07', '2026-10-13')$$, '42501',
-             'YC10.2-NT4 PQ3.SALE Hùng không mở được chi tiết 1509 nữa');
+select t.bang(t.gt($$select public.fn_sale_chi_tiet_can(t.can('1509'), '2026-10-07', '2026-10-13') ->> 'khong_con_quyen'$$),
+              'true', 'YC10.2-NT4 PQ3.SALE HV5 chi tiết 1509 của Hùng chỉ còn "không còn xem được"');
 select t.loi($$select public.fn_chi_tiet_chu_nha(t.kn('hoa', 'hung'))$$, '42501',
              'YC10.2-NT4 S6-04 của Chị Hoa không mở lại được sau khi bỏ nguồn');
 select t.bang(t.gt($$select count(*) from public.v_booking_cua_sale where id = t.b('B1')$$), '1',
