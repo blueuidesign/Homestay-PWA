@@ -455,7 +455,7 @@
    "pr": "",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -473,7 +473,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi EN11"
+   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
   },
   {
    "id": "US1",

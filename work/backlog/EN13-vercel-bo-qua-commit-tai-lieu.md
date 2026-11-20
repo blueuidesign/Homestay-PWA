@@ -26,7 +26,7 @@ Không có NT. Kiểm bằng tay: đẩy một commit chỉ đổi work/ thì Ve
 - vercel.json: thêm `ignoreCommand` chạy `git diff --quiet HEAD^ HEAD --` trên các đường dẫn làm nên app (src, public, index.html, package.json, package-lock.json, vite.config.ts, tsconfig*.json, vercel.json). Không đổi thì thoát 0 (Vercel bỏ qua), có đổi thì thoát 1 (deploy).
 
 ## Task
-- [ ] EN13-TA1 Code
+- [x] EN13-TA1 Code
 
 ## Nhật ký
 - 2026-11-20 · Claude (QD25) · tạo item: Tùng hỏi có chạm giới hạn deploy Vercel không; main bị chặn 24 giờ do khoảng 240 commit tài liệu trong 24 giờ
