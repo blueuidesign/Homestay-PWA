@@ -14,6 +14,9 @@
 // mở S3 (hôm nay, 1 đêm), căn tự nhập mở S6-03 tạm, tên chủ nhà mở S6-04 tạm. "Gửi tin nhắn xin lịch cho chủ nhà" mở A6.
 // S6-07 "Gửi cho khách" mở S5 (hôm nay, 1 đêm); "Đặt phòng", "Sửa căn và giá", "Thêm căn", "Thêm căn tự nhập" báo tạm.
 // YC10.2 (US55): tên chủ nhà mở S6-04 thật (S604ChiTietChuNha); chạm căn ở S6-04 mở S3 (hôm nay, 1 đêm); bỏ nguồn xong về S6.
+// YC10.3 (US56): "Thêm căn tự nhập" mở S6-02, thêm xong về S6 (tab Căn đọc lại). Căn tự nhập mở S6-03 thật (qua S6Tam,
+// KhungCanTuNhap): "Gửi cho khách" mở S5 (hôm nay, 1 đêm), "Sửa thông tin căn" mở S6-02 điền sẵn (GD23), lưu xong về S6-03,
+// xóa xong về S6; "Đặt phòng" báo tạm (US57).
 import { useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useToast } from '../chung/Toast';
 import { khoangTuLich, tieuDeCan } from '../lib/chiTietCanSale';
@@ -28,6 +31,7 @@ import type { DichVuTimPhong } from '../lib/dichVuTimPhong';
 import type { DichVuYeuCau } from '../lib/dichVuYeuCau';
 import { congNgay, homNay } from '../lib/ngay';
 import type { DichVuTabCanSale } from '../lib/dichVuTabCanSale';
+import type { ChiTietCanTuNhap, DichVuCanTuNhap } from '../lib/dichVuCanTuNhap';
 import type { NhomChuNha } from '../lib/tabCanSale';
 import type { DichVuXinLich } from '../lib/dichVuXinLich';
 import { A6XinLich } from './A6XinLich';
@@ -41,7 +45,9 @@ import type { CanTuongTu } from '../lib/ketQuaYeuCau';
 import { KhungGuiKhach, MoGuiKhach } from './S5GuiKhach';
 import { S607CanCuaToi } from './S607CanCuaToi';
 import { S6TabCan, type ChamCanTab } from './S6TabCan';
-import { KhungCanCuaToi, S6Tam } from './S6Tam';
+import { KhungCanCuaToi, KhungCanTuNhap, S6Tam } from './S6Tam';
+import { S602ThemCanTuNhap } from './S602ThemCanTuNhap';
+import { S603CanTuNhap } from './S603CanTuNhap';
 import { S604ChiTietChuNha } from './S604ChiTietChuNha';
 import { ManTimPhong } from './S102TimPhong';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
@@ -89,7 +95,7 @@ function ManSaleTrong(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap };
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
   dvTim?: DichVuTimPhong;
   /** YC7.5: mức cộng mặc định (P10). Thiếu thì dùng dvLich.mucCong. */
@@ -133,6 +139,19 @@ function ManSaleTrong(props: {
                      else hienToast(CAU_SE_CO);
                    }} />
   ) : null, [dvTab, hienToast, moGuiKhach]);
+  // YC10.3: S6-02 thêm (them) hay sửa (sua, điền sẵn); lanDoc đổi thì S6-03 đọc lại sau khi sửa.
+  const dvTuNhap = props.dvLich?.canTuNhap;
+  const [moTuNhap, datMoTuNhap] = useState<{ them: true } | { sua: ChiTietCanTuNhap } | null>(null);
+  const [lanDoc, datLanDoc] = useState(0);
+  const veCanTuNhap = useCallback((m: { canId: string; ten: string; onQuayLai: () => void }) => dvTuNhap ? (
+    <S603CanTuNhap key={`${m.canId}|${lanDoc}`} canId={m.canId} tenTam={m.ten} dv={dvTuNhap} onQuayLai={m.onQuayLai}
+                   onDaXoa={m.onQuayLai} onSua={(c) => datMoTuNhap({ sua: c })} onDatPhong={() => hienToast(CAU_SE_CO)}
+                   onGuiKhach={(c) => {
+                     const nay = homNay();
+                     if (moGuiKhach) moGuiKhach({ canIds: [c.canId], tu: nay, den: congNgay(nay, 1) });
+                     else hienToast(CAU_SE_CO);
+                   }} />
+  ) : null, [dvTuNhap, lanDoc, hienToast, moGuiKhach]);
   const [moP10, datMoP10] = useState(false);
   const [moP11, datMoP11] = useState(false);
   const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
@@ -171,10 +190,19 @@ function ManSaleTrong(props: {
     const dong = () => { datMoP11(false); datTab('ca-nhan'); };
     return <P11MauTin dv={props.dvMauTin ?? props.dvLich?.mauTin} tenSale={props.ten} onQuayLai={dong} onDaLuu={dong} />;
   }
+  if (moTuNhap) {
+    const sua = 'sua' in moTuNhap ? moTuNhap.sua : undefined;
+    return (
+      <S602ThemCanTuNhap dv={dvTuNhap} dau={sua} onQuayLai={() => datMoTuNhap(null)}
+                         onXong={() => { datMoTuNhap(null); if (sua) datLanDoc((n) => n + 1); else { datMoCan(null); datTab('can'); } }} />
+    );
+  }
   if (moCan && 's6' in moCan) {
     return (
       <KhungCanCuaToi.Provider value={dvTab ? veCanCuaToi : undefined}>
-        <S6Tam man={moCan.s6} tenCan={moCan.ten} canId={moCan.canId} onQuayLai={() => datMoCan(null)} />
+        <KhungCanTuNhap.Provider value={dvTuNhap ? veCanTuNhap : undefined}>
+          <S6Tam man={moCan.s6} tenCan={moCan.ten} canId={moCan.canId} onQuayLai={() => datMoCan(null)} />
+        </KhungCanTuNhap.Provider>
       </KhungCanCuaToi.Provider>
     );
   }
@@ -211,7 +239,7 @@ function ManSaleTrong(props: {
     // YC10.1: căn chủ nhà mở S3 từ hôm nay, 1 đêm (như chạm ở S1 với ngày đầu là hôm nay).
     than = (
       <S6TabCan dv={dvTab} onCham={(h) => chamCan(h, homNay())} onMoChuNha={datMoChuNha}
-                onThemCan={() => hienToast(CAU_THEM_CAN_CUA_TOI_SE_CO)} onThemTuNhap={() => hienToast(CAU_THEM_CAN_SE_CO)}
+                onThemCan={() => hienToast(CAU_THEM_CAN_CUA_TOI_SE_CO)} onThemTuNhap={() => (dvTuNhap ? datMoTuNhap({ them: true }) : hienToast(CAU_THEM_CAN_SE_CO))}
                 onXinLich={() => (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO))} />
     );
   } else {

@@ -51,14 +51,19 @@ YC10-can-tu-nhap-va-nguon-phong.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US56-can-tu-nhap.md.
 
 ## Task
-- [ ] US56-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC10.3-NT1, YC10.3-NT2, YC10.3-NT3, YC10.3-NT4, YC10.3-NT7, YC10.3-NT8, YC10.3-NT9, YC10.3-NT10
-- [ ] US56-TA2 Code · Claude Code (sonnet, CL14.6a): màn S6-02, S6-03, S6-03-00 theo canvas, test unit, e2e cho YC10.3-NT1, YC10.3-NT2, YC10.3-NT3, YC10.3-NT4, YC10.3-NT5, YC10.3-NT6, YC10.3-NT8, YC10.3-NT9
+- [x] US56-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC10.3-NT1, YC10.3-NT2, YC10.3-NT3, YC10.3-NT4, YC10.3-NT7, YC10.3-NT8, YC10.3-NT9, YC10.3-NT10
+- [x] US56-TA2 Code · Claude Code (sonnet, CL14.6a): màn S6-02, S6-03, S6-03-00 theo canvas, test unit, e2e cho YC10.3-NT1, YC10.3-NT2, YC10.3-NT3, YC10.3-NT4, YC10.3-NT5, YC10.3-NT6, YC10.3-NT8, YC10.3-NT9
 - [ ] US56-TA3 Test tay · Đức: chạy tests/kb/US56-can-tu-nhap.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+- TA1: tests/db/72 trước (đỏ), rồi migration 20261119500000: fn_tao_can_tu_nhap (chỉ sale, ô bắt buộc, trùng mã theo người + tòa, ảnh qua gan_anh_can), fn_sua_can_tu_nhap (jsonb, xóa được số), fn_xoa_can_tu_nhap (xóa thật căn, ảnh, đặt phòng tự ghi), fn_can_tu_nhap (S6-03). Đổi chỉ mục mã căn: căn có lịch giữ như cũ, căn tự nhập theo tòa.
+- TA2: lib canTuNhap (Còn thiếu, thẻ, che số), dichVuCanTuNhap, màn S602, S603 (+ S6-03-00), nối S6TabCan, ManSale; unit, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC10.3@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC10 r4 tự chốt câu mở, thêm NT
+- 2026-11-20 · Claude · TA1, TA2 xong trên nhánh US56-can-tu-nhap, chưa mở PR · tòa trống tính là một nhóm khi chặn trùng mã
 
 ## Bằng chứng
+- TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC10.3`: lần đầu 13 hỏng + 1 file lỗi (chưa có hàm); sửa 3 vòng; cuối 88 qua. `scripts/test-db.sh` cả bộ 2424 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC10.3` 13/13 đạt (sửa 2 vòng chuỗi mã).
+- TA2 `npx vitest run` 4 file mới 28 qua lần đầu; cả bộ 954 qua. e2e `can-tu-nhap.spec.ts` lần đầu đỏ 1 (ép kiểu trong SQL dàn dựng), sửa 1 vòng, qua; tab-can-sale, them-can, sua-can, ket-qua-tim, chi-tiet-chu-nha 9 qua. typecheck, build, `kiem.py --diff origin/main` sạch.
