@@ -205,9 +205,9 @@ describe('YC4.2 · CN6 tab Giá', () => {
     expect(await screen.findByRole('button', { name: 'Thử lại' })).toBeInTheDocument();
   });
 
-  it('YC4.5 chưa làm: bấm "Sao chép giá sang căn khác" thì toast "Sẽ có ở bản sau"', async () => {
+  it('YC4-H2 chưa làm: chạm một dải đã lưu thì toast "Sẽ có ở bản sau"', async () => {
     await ve(dichVu(GIA_3402));
-    fireEvent.click(screen.getByRole('button', { name: /Sao chép giá sang căn khác/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Lễ hội Carnaval/ }));
     expect(await screen.findByText(CAU_SE_CO)).toBeInTheDocument();
   });
 });

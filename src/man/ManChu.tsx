@@ -217,6 +217,7 @@ export function ManChu(props: {
     const c = ds?.find((x) => x.id === man.id);
     return (
       <CN6GiaCan key={man.id} canId={man.id} maCan={c?.maCan ?? null} dv={props.dichVuCan?.gia}
+                 dsCan={ds?.map((x) => ({ id: x.id, maCan: x.maCan }))}
                  onQuayLai={() => props.den('/can')} onThongTin={() => props.den(`/can/${man.id}`)} />
     );
   }

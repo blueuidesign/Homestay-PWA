@@ -3,7 +3,7 @@ id: YC4
 tieu_de: Giá
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC4 · Giá
@@ -196,7 +196,7 @@ Bản 1 · rủi ro: cao · Màn: CN6-07, CN6-08
 | 4 | Chưa chọn căn nào | Dòng cảnh báo "Giá đang có của căn được chọn sẽ được thay bằng giá của Phòng 3402."; nút ghi "Chọn căn để sao chép", không bấm được | Không |
 | 5 | Chọn căn và bấm sao chép | Có chỗ giữ lại: popup liệt kê từng căn, tháng và dịp đã giữ giá cũ, nút "Tôi đã hiểu". Sau đó về tab Giá, toast "Đã sao chép giá sang 1 căn" (CN6-08) | Thay giá có sẵn của căn đích theo từng phần đã chọn, theo quy tắc Sao chép thay giá có sẵn, trong một giao dịch; trả danh sách chỗ đã giữ |
 
-Sao chép chép năm nào (năm đang xem hay mọi năm có giá): [MỞ: YC4-H1]. Tới khi có câu trả lời, chép năm đang xem ở tab Giá.
+`[r5 · sửa]` Sao chép chép năm đang xem ở tab Giá (trả lời YC4-H1, Claude tự quyết QD25). Popup "Tôi đã hiểu" mỗi chỗ giữ lại một dòng, ví dụ "1509 · Tháng 1".
 
 Tiêu chí:
 - **YC4.5-NT1** Khi chưa chọn căn đích, thì nút ghi "Chọn căn để sao chép" và không bấm được. · unit
@@ -242,3 +242,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | US21-gia-thang | Trả lời YC4-H5: ở lại tab Giá (Claude tự quyết, QD25) | YC4.2 |
 | r3 | 2026-11-19 | Claude | US25-dem-cuoi-tuan | Trả lời YC4-H4 (Claude tự quyết, QD25) | YC4.6 |
 | r4 | 2026-11-20 | Claude | US22-gia-ngay-le | Trả lời YC4-H6: tên tự đặt khi bật "Là ngày lễ" (Claude tự quyết, QD25) | YC4.3 |
+| r5 | 2026-11-20 | Claude | US24-sao-chep-gia | Trả lời YC4-H1: chép năm đang xem (Claude tự quyết, QD25) | YC4.5 |
