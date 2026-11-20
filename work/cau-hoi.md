@@ -704,9 +704,10 @@ Gắn ở: PQ1.
 
 ## PQ2
 
-### PQ2-H1 · mo
+### PQ2-H1 · da-tra-loi
 Sale bị ngừng còn thấy số điện thoại của chủ nhà không?
 Gắn ở: PQ2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không. Chủ nhà ngừng cho xem là rút quyền, nên database không trả số chủ nhà cho sale đó nữa (YC10-H6, YC10.2-NT7). Đặt phòng cũ vẫn xem được theo PQ7, nhưng không kèm số chủ nhà. Ghi vào PQ r4.
 
 ## PQ6
 
@@ -735,9 +736,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## PQ17
 
-### PQ17-H1 · mo
+### PQ17-H1 · da-tra-loi
 Sale bị ngừng: chủ nhà đó còn hiện ở Nguồn phòng của sale không?
 Gắn ở: PQ17.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Còn hiện, theo YC10-H1: dòng ghi "đã ngừng cho bạn xem lịch", không căn, không giá, không số, có nút "Bỏ khỏi danh sách"; không tính vào số đếm nhóm. Ghi vào PQ r4.
 
 ## PQ18
 
