@@ -2,7 +2,7 @@
 id: US60
 tieu_de: "Đặt phòng và yêu cầu của sale"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC11.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -37,7 +37,7 @@ PQ7, PQ9, PQ10, PQ11, PQ14, PQ15, PQ16 và các test vi phạm ở mục "Ai đ�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC11-H5, YC11-H3.
+- YC11-H5, YC11-H3 đã có lời đáp (Claude tự chốt, QD25), xem YC11 r2.
 - Phần đầu YC11-thong-ke.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
