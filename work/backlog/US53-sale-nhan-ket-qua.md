@@ -2,7 +2,7 @@
 id: US53
 tieu_de: "Sale nhận kết quả"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC9.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [61]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,8 +51,8 @@ YC9-yeu-cau-dat-phong.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md.
 
 ## Task
-- [x] US53-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC9.4-NT1, YC9.4-NT4, YC9.4-NT5, YC9.4-NT6, YC9.4-NT7
-- [x] US53-TA2 Code · Claude Code (sonnet, CL14.6a): màn S3-04, S3-04-01, S3-05, S3-09 theo canvas, test unit, e2e cho YC9.4-NT1 đến NT5, NT8
+- [x] US53-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC9.4-NT1, YC9.4-NT4, YC9.4-NT5, YC9.4-NT6, YC9.4-NT7 · PR #61
+- [x] US53-TA2 Code · Claude Code (sonnet, CL14.6a): màn S3-04, S3-04-01, S3-05, S3-09 theo canvas, test unit, e2e cho YC9.4-NT1 đến NT5, NT8 · PR #61
 - [ ] US53-TA3 Test tay · Đức: chạy tests/kb/US53-sale-nhan-ket-qua.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md.
 - 2026-11-19 · Claude · nhận HV3-NT3 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · YC9 r3 tự chốt câu mở, thêm NT
 - 2026-11-20 · Claude · US53 TA1, TA2 trên nhánh US53-ket-qua-yeu-cau, chưa mở PR · e2e mở S3 từ tìm phòng cần nối thêm · ~2 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #61, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA3. Còn thiếu: "Xem tất cả căn trống" ở S3-05, S3-09 chưa điền sẵn ngày của yêu cầu vào S1-02.
 
 ## Bằng chứng
 - TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC9.4` lần đầu 35 hỏng / 12 qua (chưa có migration), sau migration 47 qua, 1 vòng. `scripts/test-db.sh` cả bộ 2226 qua. `scripts/thu-lam-hong.sh YC9.4` 9/9 đạt. `kiem.py --diff origin/main` không lỗi.
