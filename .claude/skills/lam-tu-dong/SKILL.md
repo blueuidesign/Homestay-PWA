@@ -21,6 +21,7 @@ Quyền gộp: Tùng ra lệnh làm tự động có phạm vi rõ trong phiên 
 6. **Kiểm trước khi gộp.** Không tin lời báo:
    - CI của PR xanh. Hook trước khi gộp tự chặn nếu chưa (CL4.9).
    - Nhánh không xung đột với main. Xung đột thì gộp main vào nhánh, chờ CI chạy lại.
+   - Phiên chính không chạy lại cả bộ test trên máy; cả bộ là việc của CI (EN14). Chỉ đọc kết quả CI, mở log khi đỏ.
    - Item có màn: chạy skill kiem-luong-chinh, các kịch bản luồng chính phải đạt.
    - Không có file test bị sửa sau bước viết test trước (task rủi ro cao). PR không chứa file ở mục 8.
    Không đạt thì giao lại agent sửa, tối đa hai lần. Vẫn không đạt thì để PR mở, ghi vào báo cáo, sang item khác.

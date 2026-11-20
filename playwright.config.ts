@@ -13,7 +13,8 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : 'list',
+  // EN14: trên máy (kể cả khi đặt CI=1) chỉ in chấm và test hỏng; trên GitHub Actions giữ list và html.
+  reporter: process.env.GITHUB_ACTIONS ? [['list'], ['html', { open: 'never' }]] : 'dot',
   use: {
     baseURL: diaChiNgoai ?? diaChiMay,
     trace: 'off',

@@ -17,6 +17,7 @@ React, Vite, TypeScript, gọi thẳng Supabase (QD4). Bản Zalo Mini App làm 
 ## Đọc ít mà đúng
 - Đọc tài liệu bằng `python3 scripts/trich.py <mã>...` (YC5.3, QT1.1, QD21, HV4, PQ7, YC5-H6, "thiet-ke-db.md#3. Bất biến"). Chỉ mở cả file khi trích không đủ, hoặc khi task chạm tiền, quyền, chặn trùng, dữ liệu người dùng.
 - Canvas (2,6 MB) đọc bằng `scripts/trich-man.py <mã màn>`, không mở cả file.
+- Trong phiên chỉ chạy test của item; cả bộ test, build, e2e để CI chạy (EN14, docs/dev/chay-va-test.md).
 - Agent phụ làm code là agent `code`, chỉ đọc gói việc work/goi/<mã item>.md (soạn bằng scripts/goi.py) và code.
 
 ## Cách trả lời

@@ -3,7 +3,7 @@ id: DEV
 tieu_de: Chạy, test, build và deploy
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 7
+rev: 8
 ---
 # Chạy, test, build và deploy
 
@@ -128,6 +128,17 @@ CI chạy cả ba lệnh ở job `database` của `.github/workflows/kiem.yml`, 
 
 Giới hạn: test chạy trên Postgres trần với phần Supabase giả lập, không phải Supabase thật. Lần đầu chạy migration lên staging phải chạy lại test trên staging (thiet-ke-db.md mục 6, QD16 mục 10).
 
+## Test trong phiên và trên CI
+`[r8 · thêm]` (EN14) Trong phiên Claude Code, kể cả agent phụ, chỉ chạy test của item đang làm:
+- Test database của item: `CHI_FILE_CO_MA=1 scripts/test-db.sh <mã YC>`. Chạy một lần trước khi có code (phải đỏ), rồi chạy lại khi sửa tới lúc xanh.
+- Phép thử làm hỏng của item: `scripts/thu-lam-hong.sh <mã YC>`.
+- Test unit của file item đổi: `npx vitest run <đường dẫn file test>`. E2E của item: `npx playwright test <file spec của item>`.
+- `npm run typecheck`, `python3 scripts/kiem.py --diff origin/main`.
+
+Cả bộ test database, cả bộ test unit, build, cả bộ e2e và phép thử làm hỏng toàn bộ thì không chạy trong phiên. CI chạy chúng ở mỗi lần đẩy nhánh (`.github/workflows/kiem.yml`). Phiên chỉ đọc CI đạt hay không, và chỉ mở log khi có việc đỏ.
+
+Đầu ra gọn: trên máy, Vitest và Playwright chỉ in chấm và test hỏng; `scripts/test-db.sh` và `scripts/thu-lam-hong.sh` chỉ in dòng hỏng và dòng tổng. Muốn xem cả dòng qua thì đặt `CHI_TIET=1`. Trên GitHub Actions vẫn in bản đầy đủ.
+
 ## Build
 ```sh
 npm run typecheck                        # kiểm kiểu TypeScript, không sinh file
@@ -165,9 +176,8 @@ Trả `{}` là Supabase đã nhận và gửi thư. Trả 429 `over_email_send_r
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
-| r2 | 2026-11-18 | Claude | EN2-database-nen | Điền phần database: cài Postgres, dựng database thử và dữ liệu mẫu, lệnh test database | Cài trên máy, Chạy app với database thử trên máy, Test |
-| r3 | 2026-11-19 | Claude | EN1-dung-nen-app (#6) | Điền phần app: cài, cấu trúc thư mục, test unit và e2e, build, bản Preview | Cài trên máy, Cấu trúc thư mục app, Test, Build, Staging và bản Preview |
 | r4 | 2026-11-19 | Claude | EN4-hanh-vi-chung (#14) | Thêm thư mục src/chung/ | Cấu trúc thư mục app |
 | r5 | 2026-11-19 | Claude | #15 | Ghi cấu hình đăng nhập bằng mã email trên staging (QD22) | Đăng nhập bằng mã email trên staging (thêm) |
 | r6 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Thêm Supabase chạy trên máy, biến build, e2e trên Supabase, thư mục src/man/ | Cấu trúc thư mục app, Chạy app với database thử trên máy, Test |
 | r7 | 2026-11-19 | Claude | US16-anh-can | Bật storage-api trong lệnh chạy Supabase trên máy (kho ảnh căn) | Supabase chạy trên máy |
+| r8 | 2026-11-20 | Claude | EN14-giam-test-trong-phien | Trong phiên chỉ chạy test của item, cả bộ để CI; đầu ra test gọn | Test trong phiên và trên CI (thêm) |
