@@ -2,7 +2,7 @@
 id: US55
 tieu_de: "Chi tiết chủ nhà và bỏ nguồn"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC10.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
