@@ -18,6 +18,9 @@ export type DongThongBaoDb = {
   doi_tuong_loai: string | null; doi_tuong_id: string | null; tao_luc: string; doc_luc: string | null;
 };
 
+/** YC12.2: một trang danh sách thông báo. */
+export type TrangThongBao = { chuaDoc: number; conNua: boolean; dong: ThongBao[] };
+
 export function docDongThongBao(d: DongThongBaoDb): ThongBao {
   return {
     id: d.id, loai: d.loai, noiDung: d.noi_dung ?? {}, doiTuongLoai: d.doi_tuong_loai, doiTuongId: d.doi_tuong_id,
@@ -126,4 +129,44 @@ export function gioThongBao(taoLuc: string, bayGio: Date = new Date()): string {
 /** YC12.2 bước 1: nhóm "Hôm nay" và "Trước đó" (giờ Việt Nam). */
 export function laHomNay(taoLuc: string, bayGio: Date = new Date()): boolean {
   return phanVN(new Date(taoLuc)).ngay === phanVN(bayGio).ngay;
+}
+
+export type Vai = 'chu_nha' | 'sale';
+
+/**
+ * Màn mở khi chạm một thông báo (YC12 "Các loại thông báo", cột "Chạm mở"). null: loại chưa có màn, chỉ đánh dấu đã đọc.
+ * Đối tượng không còn xem được thì màn đích tự báo theo HV5 (database không trả dữ liệu, chỉ lý do).
+ */
+export type DiemMo =
+  | { kieu: 'cn9'; yeuCauId: string }
+  | { kieu: 'dat-phong-chu'; id: string }
+  | { kieu: 's3-ket-qua'; yeuCauId: string }
+  | { kieu: 's3-dat-phong'; id: string }
+  | { kieu: 's3-can'; canId: string; tenTam: string; tu: string | null; den: string | null }
+  | { kieu: 's7-03' }
+  | { kieu: 'lich' }
+  | { kieu: 'can' };
+
+export function diemMoTuThongBao(tb: Pick<ThongBao, 'loai' | 'noiDung' | 'doiTuongId'>, vai: Vai): DiemMo | null {
+  const id = tb.doiTuongId;
+  const nd = tb.noiDung;
+  switch (tb.loai) {
+    case 'yeu_cau_moi': return id ? { kieu: 'cn9', yeuCauId: id } : null;
+    case 'yeu_cau_da_chot': case 'yeu_cau_bi_tu_choi': case 'yeu_cau_het_han': return id ? { kieu: 's3-ket-qua', yeuCauId: id } : null;
+    case 'chu_ghi_dat_phong_cho_sale': case 'chu_sua_dat_phong': return id ? { kieu: 's3-dat-phong', id } : null;
+    case 'dat_phong_chua_coc': return id ? { kieu: 'dat-phong-chu', id } : null;
+    case 'xin_huy': case 'tra_loi_huy':
+      if (!id) return null;
+      return vai === 'chu_nha' ? { kieu: 'dat-phong-chu', id } : { kieu: 's3-dat-phong', id };
+    case 'can_da_gui_co_nguoi_dat': case 'chu_them_can': {
+      if (!id) return null;
+      const tu = chu(nd['ngay_nhan']);
+      const den = chu(nd['ngay_tra']);
+      return { kieu: 's3-can', canId: id, tenTam: canText(nd), tu: tu || null, den: den || null };
+    }
+    case 'chu_ngung_cho_xem': return { kieu: 's7-03' };
+    case 'chu_dong_y_ket_noi': return { kieu: 'lich' };
+    case 'chu_xoa_tai_khoan': return { kieu: 'can' };
+    default: return null;
+  }
 }

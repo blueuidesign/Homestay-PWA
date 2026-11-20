@@ -2,13 +2,17 @@
 // Không đánh dấu đã đọc (việc của YC12).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { docThongBaoKetNoi, type DongThongBao, type ThongBaoKetNoi } from './toastKetNoi';
-import { docDongThongBao, type DongThongBaoDb, type ThongBao } from './thongBao';
+import { docDongThongBao, type DongThongBaoDb, type ThongBao, type TrangThongBao } from './thongBao';
 
 export interface DichVuThongBao {
   /** YC6.8: dòng "chủ đồng ý kết nối" chưa đọc, mới trước. */
   layKetNoiChuaDoc(): Promise<ThongBaoKetNoi[]>;
   /** YC12.1 bước 1: lệnh mở app, trả thông báo mới (mới trước) và ghi mốc lần mở mới trong một lần. */
   moApp?(): Promise<ThongBao[]>;
+  /** YC12.2 bước 1, 2: 50 dòng mỗi lần, mới trước; trang sau truyền dòng cuối trang trước. Kèm số chưa đọc của cả hộp. */
+  layDs?(sau?: { taoLuc: string; id: string }): Promise<TrangThongBao>;
+  /** YC12.2 bước 3, 4: đánh dấu đã đọc theo mã (1 đến 100), hay tất cả khi không truyền mã. Trả số dòng vừa đổi. */
+  danhDauDaDoc?(ids?: string[]): Promise<number>;
 }
 
 export function taoDichVuThongBaoSupabase(sb: SupabaseClient): DichVuThongBao {
@@ -24,6 +28,17 @@ export function taoDichVuThongBaoSupabase(sb: SupabaseClient): DichVuThongBao {
       const { data, error } = await sb.rpc('fn_mo_app');
       if (error) throw Object.assign(new Error((error as { message?: string }).message ?? 'Lỗi'), error);
       return ((data ?? []) as DongThongBaoDb[]).map(docDongThongBao);
+    },
+    async layDs(sau) {
+      const { data, error } = await sb.rpc('fn_ds_thong_bao', { p_truoc_luc: sau?.taoLuc ?? null, p_truoc_id: sau?.id ?? null });
+      if (error) throw Object.assign(new Error((error as { message?: string }).message ?? 'Lỗi'), error);
+      const d = data as { chua_doc: number; con_nua: boolean; dong: DongThongBaoDb[] };
+      return { chuaDoc: Number(d.chua_doc), conNua: !!d.con_nua, dong: (d.dong ?? []).map(docDongThongBao) };
+    },
+    async danhDauDaDoc(ids) {
+      const { data, error } = await sb.rpc('fn_danh_dau_da_doc', { p_ids: ids ?? null });
+      if (error) throw Object.assign(new Error((error as { message?: string }).message ?? 'Lỗi'), error);
+      return Number(data ?? 0);
     },
   };
 }

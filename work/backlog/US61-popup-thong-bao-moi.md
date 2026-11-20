@@ -2,7 +2,7 @@
 id: US61
 tieu_de: "Popup thông báo mới"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC12.1@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 83
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -64,3 +64,4 @@ Kịch bản test tay: tests/kb/US61-popup-thong-bao-moi.md (5 kịch bản, 3 [
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC12.1`: lần đầu đỏ (chưa có hàm), sau hai vòng sửa test (đồng hồ trong một giao dịch, mốc dùng clock_timestamp) 24 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC12.1`: 3 đạt. `npx vitest run src/man/S106PopupThongBao.test.tsx src/lib/thongBao.test.ts`: qua. `npm run typecheck`: qua. `python3 scripts/kiem.py --diff origin/main`: không lỗi. e2e: CI chạy.
 - CI e2e đỏ lần 1 (9 test của sale): popup che màn khi test có sẵn thông báo trước lần đăng nhập đầu, và khi test quay lại từ nền sau khi có thông báo mới. Sửa: GD33 đổi thành lần mở đầu không popup; test quay lại từ nền đóng popup trước khi bấm.
+- 2026-11-20 · Claude (tự chạy, QD25) · gộp PR #83 (CI xanh sau 3 vòng e2e: popup che màn ở test cũ, một lần cổng máy CI bận); chuyển cho-test, chờ Đức TA3

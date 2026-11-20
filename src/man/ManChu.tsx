@@ -54,6 +54,8 @@ import { P2HoSo } from './P2HoSo';
 import { P5GioNhanTra } from './P5GioNhanTra';
 import { P9HuongDan } from './P9HuongDan';
 import { P3CaiDatThongBao } from './P3CaiDatThongBao';
+import { P13ThongBao } from './P13ThongBao';
+import { diemMoTuThongBao, type ThongBao } from '../lib/thongBao';
 import { CAU_SE_CO, type KhoaDong } from '../lib/caNhan';
 import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
 
@@ -113,6 +115,8 @@ export function ManChu(props: {
   onHetPhien?: () => void;
   /** YC9.2-NT1: chạm thông báo "yêu cầu mới" (manTuThongBao) thì mở CN9 của yêu cầu này. */
   moYeuCau?: string;
+  /** YC12.1 bước 3: chạm một dòng ở popup thì mở màn của thông báo như chạm ở P13 (lan đổi là một lần chạm mới). */
+  tuThongBao?: { tb: ThongBao; lan: number } | null;
 }) {
   const man = chonManChu(props.duongDan);
   const { ds, dangTai, loi, tai } = useDanhSachCan(props.dichVuCan);
@@ -163,6 +167,20 @@ export function ManChu(props: {
   const [yeuCauMo, datYeuCauMo] = useState<string | null>(props.moYeuCau ?? null);
   useEffect(() => { if (props.moYeuCau) datYeuCauMo(props.moYeuCau); }, [props.moYeuCau]);
   const yeuCau = useYeuCauCho(props.dichVuCan, man.tab === 'lich' && !yeuCauMo && !guiLich);
+  // YC12.2 bước 3: CN9 mở từ P13 thì quay lại về P13, không về lịch.
+  const [cn9TuThongBao, datCn9TuThongBao] = useState(false);
+  // YC12 cột "Chạm mở": màn mở khi chạm một thông báo của chủ nhà. Loại không có màn của chủ thì ở lại.
+  const moTuThongBao = useCallback((tb: ThongBao) => {
+    const d = diemMoTuThongBao(tb, 'chu_nha');
+    if (!d) return;
+    if (d.kieu === 'cn9') { datCn9TuThongBao(true); datYeuCauMo(d.yeuCauId); }
+    else if (d.kieu === 'dat-phong-chu') props.den(duongDanDatPhong(d.id));
+    else if (d.kieu === 'can') props.den('/can');
+    else if (d.kieu === 'lich') props.den('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.den]);
+  const lanTb = props.tuThongBao?.lan;
+  useEffect(() => { if (props.tuThongBao) moTuThongBao(props.tuThongBao.tb); }, [lanTb]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const themCan = () => props.den('/can/moi');
   const chonTab = (t: TabChuTen) => {
@@ -172,7 +190,10 @@ export function ManChu(props: {
 
   if (yeuCauMo) {
     // YC9.2 bước 2 đến 5: CN9, CN9-02, CN9-03. Trả lời xong thì lịch tháng đọc lại (đặt phòng mới vào lịch).
-    const veLich = () => { boNhoLich.current.clear(); datYeuCauMo(null); yeuCau.taiLai(); props.den('/'); };
+    const veLich = () => {
+      boNhoLich.current.clear(); datYeuCauMo(null); yeuCau.taiLai();
+      if (cn9TuThongBao) { datCn9TuThongBao(false); props.den('/thong-bao'); } else props.den('/');
+    };
     return (
       <CN9TraLoiYeuCau key={yeuCauMo} id={yeuCauMo} dv={props.dichVuCan?.traLoiYeuCau}
                        onQuayLai={veLich} onVeLich={veLich}
@@ -287,6 +308,11 @@ export function ManChu(props: {
     );
   }
 
+  if (man.tab === 'thong-bao') {
+    // YC12.2 bước 1: P13 mở từ Cá nhân > Thông báo hay "Xem tất cả thông báo" ở popup.
+    return <P13ThongBao dv={props.dichVuCan?.thongBao} onQuayLai={() => props.den('/ca-nhan')} onCham={moTuThongBao} />;
+  }
+
   if (man.tab === 'cai-dat-thong-bao') {
     // YC12.4 bước 1, 4: P3 mở từ tab Cá nhân; lưu xong về Cá nhân.
     return <P3CaiDatThongBao vai="chu_nha" dv={props.dichVuCan?.caiDatThongBao} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
@@ -343,7 +369,8 @@ export function ManChu(props: {
   } else if (man.tab === 'ca-nhan') {
     // YC1.3 (US3): P1. Chạm dòng mở màn của dòng; màn chưa làm (US sau) báo tạm.
     const moDong = (khoa: KhoaDong) => {
-      if (khoa === 'dem-cuoi-tuan') props.den('/ca-nhan/dem-cuoi-tuan'); // YC4.6: P6
+      if (khoa === 'thong-bao') props.den('/thong-bao'); // YC12.2: P13
+      else if (khoa === 'dem-cuoi-tuan') props.den('/ca-nhan/dem-cuoi-tuan'); // YC4.6: P6
       else if (khoa === 'ho-so') props.den('/ca-nhan/ho-so'); // YC1.4: P2
       else if (khoa === 'gio') props.den('/ca-nhan/gio'); // YC1.5: P5
       else if (khoa === 'cai-dat-thong-bao') props.den('/ca-nhan/thong-bao'); // YC12.4: P3

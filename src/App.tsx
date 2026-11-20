@@ -18,6 +18,7 @@ import { ManLinkMoi } from './man/A10ThemLich';
 import { A4ChuaCoCan } from './man/A4ChuaCoCan';
 import { A9ToastKetNoi } from './man/A9ToastKetNoi';
 import { S106PopupThongBao } from './man/S106PopupThongBao';
+import type { ThongBao } from './lib/thongBao';
 import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
@@ -51,6 +52,8 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   useEffect(() => { if (duongDan !== '/') datVuaChoXem(null); }, [duongDan]);
   // YC6.8 bước 3: bấm "Xem" ở toast A9 thì dựng lại tab Lịch của sale (Nguồn phòng làm ở YC10.1).
   const [lanXem, datLanXem] = useState(0);
+  // YC12.1 bước 3, 5: chạm một dòng (tb) hay "Xem tất cả thông báo" (tb null) ở popup; các shell mở màn tương ứng.
+  const [chamTb, datChamTb] = useState<{ tb: ThongBao | null; lan: number } | null>(null);
 
   const taiLai = useCallback(async () => {
     if (!dichVu) return;
@@ -76,6 +79,13 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
     return () => window.removeEventListener('popstate', doi);
   }, []);
 
+  // YC12.1 bước 3: chạm dòng ở popup đánh dấu dòng đã đọc rồi mở màn của nó.
+  // Shell đọc chamTb ở lượt vẽ đầu (hiệu ứng con chạy trước hiệu ứng cha), rồi xóa để dựng lại shell không mở lại màn.
+  useEffect(() => { if (chamTb) datChamTb(null); }, [chamTb]);
+  const chamDongPopup = (tb: ThongBao) => {
+    void dichVuCan?.thongBao?.danhDauDaDoc?.([tb.id]).catch(() => undefined);
+    datChamTb((c) => ({ tb, lan: (c?.lan ?? 0) + 1 }));
+  };
   const den = (d: string) => { window.history.pushState(null, '', d); datDuongDan(d); };
   // YC1.3 bước 7, YC1.3-NT4: đăng xuất thì hủy phiên, xóa dữ liệu app giữ trên máy, về A1 (địa chỉ về "/", nên nút quay lại
   // của trình duyệt chỉ gặp A1, không thấy lại dữ liệu cũ).
@@ -180,8 +190,11 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         }
         return (
           <>
-            <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />
-            {dichVuCan?.thongBao?.moApp && <S106PopupThongBao dv={dichVuCan.thongBao} />}
+            <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()}
+                    tuThongBao={chamTb?.tb ? { tb: chamTb.tb, lan: chamTb.lan } : null} />
+            {dichVuCan?.thongBao?.moApp && (
+              <S106PopupThongBao dv={dichVuCan.thongBao} onChamDong={chamDongPopup} onXemTatCa={() => den('/thong-bao')} />
+            )}
           </>
         );
       }
@@ -191,12 +204,14 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         <>
           {tt.hoSo?.vaiChon === 'sale'
             // YC7.1: các tab của sale; tab Lịch là A5, A7 hay S1.
-            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} dvCaNhan={dichVuCan?.caNhan} dvHoSo={dichVuCan?.hoSo} dvCaiDatThongBao={dichVuCan?.caiDatThongBao} onDangXuat={dangXuat} />
+            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} dvCaNhan={dichVuCan?.caNhan} dvHoSo={dichVuCan?.hoSo} dvCaiDatThongBao={dichVuCan?.caiDatThongBao} dvThongBao={dichVuCan?.thongBao} tuThongBao={chamTb} onDangXuat={dangXuat} />
             : <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />}
           {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
             <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />
           )}
-          {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao?.moApp && <S106PopupThongBao dv={dichVuCan.thongBao} />}
+          {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao?.moApp && (
+            <S106PopupThongBao dv={dichVuCan.thongBao} onChamDong={chamDongPopup} onXemTatCa={() => datChamTb((c) => ({ tb: null, lan: (c?.lan ?? 0) + 1 }))} />
+          )}
         </>
       );
   }
