@@ -1,0 +1,28 @@
+# EN10: mỗi giờ xóa file ảnh tạm quá 24 giờ và ảnh bị bỏ khỏi căn khỏi kho anh-can của Supabase (YC3 "Dữ liệu").
+# Cần hai secret: SUPABASE_URL (địa chỉ project) và SUPABASE_SERVICE_ROLE_KEY (khóa service_role, chỉ ở đây, không bao giờ trong app).
+# Thiếu secret thì script in nhắc và thoát 0.
+name: don-anh-tam
+
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  don:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node scripts/don-anh-tam.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
