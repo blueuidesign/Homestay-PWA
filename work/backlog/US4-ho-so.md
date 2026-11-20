@@ -2,7 +2,7 @@
 id: US4
 tieu_de: "Hồ sơ"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC1.4@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -34,7 +34,7 @@ P2
 PQ1, PQ2, PQ6, PQ9, PQ11, PQ20, PQ23 và các test vi phạm ở mục "Ai được làm gì" của YC1-tai-khoan.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261120180000_us4_ho_so.sql, supabase/bang-va-cot.md, tests/db/84_us4_ho_so.sql, scripts/thu-lam-hong.txt, src/lib/dichVuHoSo.ts (mới), src/lib/dichVuCan.ts, src/lib/dieuHuong.ts, src/man/P2HoSo.tsx và .css (mới), src/man/ManChu.tsx, src/man/ManSale.tsx, src/App.tsx, unit test kèm, tests/e2e/supabase/ho-so.spec.ts, tests/kb/US4-ho-so.md.
 
 ## Ngoài phạm vi
 - Chỗ chưa quyết trong mục: không còn.
@@ -48,11 +48,11 @@ YC1-tai-khoan.md#Dữ liệu
 YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US4-ho-so.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US4-ho-so.md (3 kịch bản, 1 [Chính]).
 
 ## Task
-- [ ] US4-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.4-NT1, YC1.4-NT2, YC1.4-NT4, YC1.4-NT5
-- [ ] US4-TA2 Code · Claude Code (sonnet, CL14.6a): màn P2 theo canvas, test unit, e2e cho YC1.4-NT1, YC1.4-NT2
+- [x] US4-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC1.4-NT1, YC1.4-NT2, YC1.4-NT4, YC1.4-NT5
+- [x] US4-TA2 Code · Claude Code (sonnet, CL14.6a): màn P2 theo canvas, test unit, e2e cho YC1.4-NT1, YC1.4-NT2
 - [ ] US4-TA3 Test tay · Đức: chạy tests/kb/US4-ho-so.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -62,4 +62,7 @@ Kịch bản test tay: tests/kb/US4-ho-so.md, chưa viết. Viết trước khi 
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
 
+- 2026-11-20 · Claude (tự chạy, QD25) · viết test database và tests/kb, migration fn_sua_ho_so, màn P2, mở PR · khoảng 40 phút
+
 ## Bằng chứng
+- `CHI_FILE_CO_MA=1 scripts/test-db.sh YC1.4`: 24 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC1.4`: 2 đạt. `npx vitest run src/man/P2HoSo.test.tsx src/lib/dieuHuong.test.ts`: 20 qua. `npm run typecheck`: qua. Ảnh đại diện (kho anh-dai-dien) tự quyết, xem PR. Bộ đầy đủ, e2e: CI chạy.

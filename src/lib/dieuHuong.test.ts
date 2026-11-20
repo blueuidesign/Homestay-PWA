@@ -79,3 +79,10 @@ describe('YC6.5 · mã link xin lịch', () => {
     expect(maLinkXinLich('/sale')).toBeNull();
   });
 });
+
+describe('YC1.4 · đường dẫn P2', () => {
+  it('YC1.4 bước 1 /ca-nhan/ho-so là P2 Thông tin cá nhân', () => {
+    expect(chonManChu('/ca-nhan/ho-so')).toEqual({ tab: 'ho-so' });
+    expect(chonManChu('/ca-nhan/ho-so/')).toEqual({ tab: 'ho-so' });
+  });
+});

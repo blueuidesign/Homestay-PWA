@@ -1,0 +1,14 @@
+/* US4 · P2 Thông tin cá nhân (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.p2 { background: var(--surface-page); }
+.p2-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 16px 4px 8px; display: flex; align-items: center; gap: 8px; }
+.p2-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.p2-than { flex: 1 1 auto; padding: 16px 16px 100px; display: flex; flex-direction: column; gap: 16px; }
+.p2-anh-khoi { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.p2-anh { width: 88px; height: 88px; border-radius: 9999px; object-fit: cover; }
+.p2-anh--chu { display: flex; align-items: center; justify-content: center; background: var(--action-soft); color: var(--action-ink); font-size: 32px; font-weight: 700; }
+.p2-file { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.p2-dang-nhap { display: flex; flex-direction: column; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px 16px; }
+.p2-dang-nhap h2 { margin: 0; }
+.p2-email { margin: 0; font-size: 16px; line-height: 24px; color: var(--ink); overflow-wrap: anywhere; }
+.p2-xoa { align-self: center; color: var(--danger-text); }
+.p2-chan { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); }
