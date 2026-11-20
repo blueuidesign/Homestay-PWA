@@ -28,6 +28,8 @@ describe('YC1.3 · tab Cá nhân (hàm thuần)', () => {
   it('YC1.3-NT2 chủ nhà bật 3 loại thì "Cài đặt thông báo" ghi "3 loại đang bật"; tắt một loại thì còn 2', () => {
     expect(dong('chu_nha', 'cai-dat-thong-bao')?.phu).toBe('3 loại đang bật');
     expect(dong('chu_nha', 'cai-dat-thong-bao', { ...TQ, thongBaoTat: ['yeu_cau_moi'] })?.phu).toBe('2 loại đang bật');
+    expect(dong('sale', 'cai-dat-thong-bao')?.phu).toBe('4 loại đang bật');
+    expect(dong('sale', 'cai-dat-thong-bao', { ...TQ, thongBaoTat: ['can_da_gui_co_nguoi_dat'] })?.phu).toBe('3 loại đang bật');
     expect(soLoaiDangBat('sale', ['can_da_gui_co_nguoi_dat'])).toBe(3);
     expect(soLoaiDangBat('chu_nha', ['chu_dong_y_ket_noi'])).toBe(3); // loại của vai khác không tính
   });

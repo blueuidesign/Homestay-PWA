@@ -127,7 +127,7 @@ export function nhomMenu(vai: Vai, tq: TongQuanCaNhan): NhomMenu[] {
         { khoa: 'mau-tin', nhan: 'Mẫu tin gửi khách' },
       ],
     },
-    { tieuDe: 'Cài đặt', dong: [loai] },
+    { tieuDe: 'Cài đặt', dong: [{ ...loai, phu: `${soLoaiDangBat(vai, tq.thongBaoTat)} loại đang bật` }] },
     hoTro,
   ];
 }
