@@ -1,7 +1,7 @@
 ---
 id: US58-KB
 us: US58
-rev: 1
+rev: 2
 ---
 # Kịch bản test tay US58 · Thống kê của chủ nhà
 
@@ -24,8 +24,8 @@ Cách ghi kết quả: đánh dấu ☑ OK hoặc ☑ NG, ngày, tên. NG thì g
 - **Nếu NG, thấy gì:**
 
 ### US58-KB3 · Tháng trống, đặt phòng vắt tháng, căn mới `[Biên]`
-- **Làm:** chạm tới tháng chưa có đặt phòng. Ghi một đặt phòng 31/10 → 02/11 rồi xem tháng 10 và 11. Ghi một đặt phòng đã cọc một phần rồi xem "CHƯA THU TIỀN". Thêm một căn giữa tháng rồi xem công suất. Tắt mạng rồi mở tab.
-- **Mong đợi:** tháng trống ghi 0đ, không có dòng so sánh, có "Chưa có đặt phòng trong tháng." và "Không có khoản nào chưa thu.". Tiền đêm 31/10 vào tháng 10, đêm 01/11 vào tháng 11. Đặt phòng đã cọc ghi "Đã cọc" với số còn lại. Căn mới chỉ tính số đêm từ ngày thêm vào mẫu số. Mất mạng có báo và nút thử lại.
+- **Làm:** chạm tới tháng chưa có đặt phòng. Ghi một đặt phòng 31/10 → 02/11 rồi xem tháng 10 và 11. Xem "CHƯA THU TIỀN" khi có đặt phòng đã cọc (B1). Thêm một căn giữa tháng rồi xem công suất. Tắt mạng rồi mở tab.
+- **Mong đợi:** tháng trống ghi 0đ, không có dòng so sánh, có "Chưa có đặt phòng trong tháng." và "Không có khoản nào chưa thu.". Tiền đêm 31/10 vào tháng 10, đêm 01/11 vào tháng 11. Đặt phòng đã cọc không có trong "CHƯA THU TIỀN". Căn mới chỉ tính số đêm từ ngày thêm vào mẫu số. Mất mạng có báo và nút thử lại.
 - **Nguồn:** YC11.1-NT4, YC11.1-NT11, YC11.1-NT12, YC11.1-NT13, HV1-NT1, HV2-NT1
 - **Kết quả:** ☐ OK ☐ NG · Ngày: · Người:
 - **Nếu NG, thấy gì:**
