@@ -2,7 +2,7 @@
 id: US52
 tieu_de: "Yêu cầu trùng đêm"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC9.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [60]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,9 +51,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US52-yeu-cau-trung-dem.md.
 
 ## Task
-- [x] US52-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC9.3-NT1 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US52-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US52-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1-03, CN9, CN9-02, S3-05 theo canvas, test unit, e2e cho YC9.3-NT1
+- [x] US52-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC9.3-NT1 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #60
+- [x] US52-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #60
+- [x] US52-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN1-03, CN9, CN9-02, S3-05 theo canvas, test unit, e2e cho YC9.3-NT1 · PR #60
 - [ ] US52-TA4 Test tay · Đức: chạy tests/kb/US52-yeu-cau-trung-dem.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US52-yeu-cau-trung-dem.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC9.3@1 (QD21)
 - 2026-11-20 · Claude · TA1–TA3: test db, migration, CN9 cảnh báo trùng, CN9-02 dòng bị từ chối, e2e; chưa mở PR · NT4 đã xanh trước migration nhờ khóa căn của US51
+- 2026-11-20 · Claude (QD25) · Gộp PR #60, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4.
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC9.3`: lần đầu 17 đỏ (1 do test đọc kết quả dblink hai lần, sửa trong TA1), còn 16 đỏ trước migration. NT4 (hai phiên dblink thật: phiên B chờ khóa, sau commit A nhận Bị từ chối) xanh ngay vì khóa căn của US51.
