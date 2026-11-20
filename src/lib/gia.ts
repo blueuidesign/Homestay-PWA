@@ -265,3 +265,33 @@ export function kiemDip(tu: Ngay, den: Ngay, ten: string, gia: string): string |
   if (g > GIA_TOI_DA) return CAU_GIA_TOI_DA;
   return null;
 }
+
+// ===== YC4.5 · Sao chép giá sang căn khác =====
+
+/** YC4.5 bước 5: chỗ giữ lại ở một căn đích (fn_sao_chep_gia). */
+export type DaiGiu = { ten: string | null; tuNgay: Ngay; denNgay: Ngay; laNgayLe: boolean };
+export type KetQuaSaoChep = { canId: string; maCan: string; thangGiu: number[]; dipGiu: DaiGiu[]; dipBo: DaiGiu[] };
+
+/** YC4.5 bước 1: "Giá 7 tháng · 0 ngày lễ · 1 dịp đặc biệt" của căn nguồn trong năm đang xem. */
+export function tomTatGiaNguon(thang: readonly (GiaThang | null)[], dip: readonly DipGia[]): string {
+  const soThang = thang.filter(Boolean).length;
+  const le = dip.filter((d) => d.laNgayLe).length;
+  return `Giá ${soThang} tháng · ${le} ngày lễ · ${dip.length - le} dịp đặc biệt`;
+}
+
+/** YC4.5 bước 4, YC4.5-NT1: chữ nút sao chép. */
+export function chuNutSaoChep(soCan: number): string {
+  return soCan === 0 ? 'Chọn căn để sao chép' : `Sao chép sang ${soCan} căn`;
+}
+
+/** YC4.5 bước 5, YC4.5-NT3, NT5: các dòng popup "Tôi đã hiểu", mỗi chỗ giữ lại một dòng. Không có thì mảng rỗng. */
+export function dongGiuLai(kq: readonly KetQuaSaoChep[]): string[] {
+  const ds: string[] = [];
+  const tenDai = (d: DaiGiu) => `${d.ten?.trim() || (d.laNgayLe ? 'Ngày lễ' : 'Dịp đặc biệt')} ${chuDai(d.tuNgay, d.denNgay)}`;
+  for (const c of kq) {
+    for (const t of c.thangGiu) ds.push(`${c.maCan} · Tháng ${t} (nguồn chưa có giá, giữ giá cũ)`);
+    for (const d of c.dipGiu) ds.push(`${c.maCan} · giữ ${tenDai(d)}`);
+    for (const d of c.dipBo) ds.push(`${c.maCan} · bỏ ${tenDai(d)} (trùng ngày với dịp đã có)`);
+  }
+  return ds;
+}

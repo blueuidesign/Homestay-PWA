@@ -1,6 +1,6 @@
 // CN6 · Tab Giá của một căn (YC4.2): CN6 giá theo tháng, CN6-00 chưa đặt giá, CN6-04 áp dụng giá xong, CN6-09 chọn năm.
 // Trạng thái: HV1 khung xám, HV2 chưa tải được thì Thử lại và giữ giá đang nhập, HV3 quay lại từ nền đọc lại giá, HV5 căn mất quyền
-// thì câu "Không tìm thấy căn" của database, HV8 toast. Đặt giá dịp (YC4.3) mở CN6-02 (CN6GiaDip). Sao chép giá (YC4.5) làm ở US sau.
+// thì câu "Không tìm thấy căn" của database, HV8 toast. Đặt giá dịp (YC4.3) mở CN6-02 (CN6GiaDip). Sao chép giá (YC4.5) mở CN6-07 (CN6SaoChepGia).
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { DongDangCapNhat, KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
@@ -15,9 +15,10 @@ import { homNay as homNayVN, laDemCuoiTuan, type Ngay } from '../lib/ngay';
 import { vietTien, vietTienGon } from '../lib/tien';
 import { Icon } from './TabChu';
 import { CN6GiaDip } from './CN6GiaDip';
+import { CN6SaoChepGia } from './CN6SaoChepGia';
 import './CN6GiaCan.css';
 
-/** Nút của YC4.5 (US sau) bấm thì báo câu này. */
+/** Chạm một dải đã lưu (sửa, xóa: [MỞ: YC4-H2]) thì báo câu này. */
 export const CAU_SE_CO = 'Sẽ có ở bản sau';
 
 const ICON_QUAY_LAI = <path d="m15 18-6-6 6-6" />;
@@ -170,6 +171,8 @@ export function CN6GiaCan(props: {
   dv: DichVuGia | undefined;
   onQuayLai: () => void;
   onThongTin: () => void;
+  /** Căn chưa xóa của chủ nhà, cho danh sách căn đích khi sao chép giá (YC4.5 bước 3). */
+  dsCan?: { id: string; maCan: string }[];
   /** Hôm nay theo giờ Việt Nam; test truyền ngày cố định. */
   homNay?: Ngay;
 }) {
@@ -183,6 +186,7 @@ export function CN6GiaCan(props: {
   const [cuoiTuan, datCuoiTuan] = useState('');
   const [loiO, datLoiO] = useState<string | null>(null);
   const [moDip, datMoDip] = useState<Ngay | null>(null); // CN6-02 đang mở, với ngày điền sẵn
+  const [moSaoChep, datMoSaoChep] = useState(false); // CN6-07 đang mở
   const [lichThang, datLichThang] = useState<[number, number]>([namNay, Number(homNay.slice(5, 7))]);
   const { bang, dangTai, loi, tai } = useBangGia(props.dv, props.canId, nam);
   const lich = useLichGia(props.dv, props.canId, dauThang(lichThang[0], lichThang[1]));
@@ -202,6 +206,15 @@ export function CN6GiaCan(props: {
       <CN6GiaDip canId={props.canId} tieuDe={tieuDe} dv={props.dv} nam={nam} dip={bang.dip} ngayDau={moDip}
                  onQuayLai={() => datMoDip(null)}
                  onDaLuu={(tenDai) => { datMoDip(null); hienToast(`Đã lưu giá ${tenDai}`); void tai(); void lich.tai(); }} />
+    );
+  }
+
+  // YC4.5: màn CN6-07. Sao chép xong về tab Giá, toast "Đã sao chép giá sang 1 căn" (CN6-08).
+  if (moSaoChep && bang) {
+    return (
+      <CN6SaoChepGia canId={props.canId} tieuDe={tieuDe} nam={nam} thang={bang.thang} dip={bang.dip} dsCan={props.dsCan ?? []} dv={props.dv}
+                     onQuayLai={() => datMoSaoChep(false)}
+                     onDaChep={(n) => { datMoSaoChep(false); hienToast(`Đã sao chép giá sang ${n} căn`); }} />
     );
   }
 
@@ -298,7 +311,7 @@ export function CN6GiaCan(props: {
           <LichGia nam={lichThang[0]} thang={lichThang[1]} dem={lich.lich} loi={lich.loi} homNay={homNay} demCuoiTuan={bang.demCuoiTuan} onThuLai={() => void lich.tai()}
                    onDoiThang={(b) => datLichThang(congThang(lichThang[0], lichThang[1], b))} onChamNgay={(n) => datMoDip(n)} />
           <div className="cn6-sao-chep">
-            <button type="button" className="hh-btn hh-btn--text" onClick={seCo}><Icon>{ICON_SAO_CHEP}</Icon>Sao chép giá sang căn khác</button>
+            <button type="button" className="hh-btn hh-btn--text" onClick={() => datMoSaoChep(true)}><Icon>{ICON_SAO_CHEP}</Icon>Sao chép giá sang căn khác</button>
           </div>
         </>
       )}

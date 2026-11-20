@@ -2,7 +2,7 @@
 // ở hồ sơ của mình (profiles_doc). Ghi giá tháng qua fn_dat_gia_thang; lịch giá một tháng qua fn_lich_gia_thang (QT5.3).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
-import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang, type NgayLeChung } from './gia';
+import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang, type KetQuaSaoChep, type NgayLeChung } from './gia';
 import type { GiaTuan } from './can';
 import { congNgay, thuTrongTuan, type Ngay } from './ngay';
 
@@ -25,11 +25,16 @@ export interface DichVuGia {
   layGiaTuan?(tu: Ngay): Promise<Record<string, GiaTuan>>;
   /** YC4.4 bước 4: ghi giá tháng cho mọi căn đã chọn trong một giao dịch (fn_dat_gia_thang_nhieu). */
   datGiaThangNhieu?(canIds: string[], thang: Ngay[], thuong: number, cuoiTuan: number): Promise<void>;
+  /** YC4.5 bước 5: sao chép giá năm `nam` của căn nguồn sang các căn đích (fn_sao_chep_gia); trả chỗ đã giữ của từng căn. */
+  saoChepGia?(tuCan: string, denCan: string[], phan: PhanSaoChep, nam: number): Promise<KetQuaSaoChep[]>;
   /** YC4.3 bước 1: dải ngày lễ chung của Home247 cho năm `nam` (ngay_le_doc, PQ21). */
   layNgayLe?(nam: number): Promise<NgayLeChung[]>;
   /** YC4.3 bước 7: lưu một dải giá dịp (fn_luu_gia_dip). Database từ chối thì LoiNguoiDung (QT5.5). */
   luuGiaDip?(canId: string, dai: DaiMoi): Promise<void>;
 }
+
+/** YC4.5 bước 2: ba phần bật tắt "Giá theo tháng", "Giá ngày lễ", "Dịp đặc biệt". */
+export type PhanSaoChep = { thang: boolean; ngayLe: boolean; dip: boolean };
 
 /** YC4.3 bước 7: dải giá dịp mới. ten rỗng thì database đặt tên tự động. */
 export type DaiMoi = { tuNgay: Ngay; denNgay: Ngay; ten: string; gia: number; laNgayLe: boolean };
@@ -124,6 +129,18 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
         p_can_ids: canIds, p_thang: thang, p_gia_thuong: thuong, p_gia_cuoi_tuan: cuoiTuan,
       });
       if (error) throw loiGia(error);
+    },
+
+    // YC4.5 bước 5, PQ5.CHU: database kiểm nguồn và đích là căn của mình; sai một căn thì không căn nào đổi.
+    async saoChepGia(tuCan, denCan, phan, nam) {
+      const { data, error } = await sb.rpc('fn_sao_chep_gia', {
+        p_tu_can: tuCan, p_den_can: denCan, p_thang: phan.thang, p_ngay_le: phan.ngayLe, p_dip: phan.dip, p_nam: nam,
+      });
+      if (error) throw loiGia(error);
+      type Dai = { ten: string | null; tu_ngay: string; den_ngay: string; la_ngay_le: boolean };
+      const dai = (d: Dai) => ({ ten: d.ten, tuNgay: d.tu_ngay, denNgay: d.den_ngay, laNgayLe: d.la_ngay_le });
+      return ((data ?? []) as { can_id: string; ma_can: string; thang_giu: number[]; dip_giu: Dai[]; dip_bo: Dai[] }[])
+        .map((c) => ({ canId: c.can_id, maCan: c.ma_can, thangGiu: c.thang_giu.map(Number), dipGiu: c.dip_giu.map(dai), dipBo: c.dip_bo.map(dai) }));
     },
 
     // YC4.3 bước 1, PQ21.CHU: mọi người đã đăng nhập đọc dải ngày lễ chung.

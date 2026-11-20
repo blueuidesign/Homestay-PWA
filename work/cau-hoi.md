@@ -137,9 +137,10 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC4
 
-### YC4-H1 · mo
+### YC4-H1 · da-tra-loi
 Sao chép giá sang căn khác: chép giá của năm đang xem, hay mọi năm có giá?
 Gắn ở: YC4.5. Tới khi có câu trả lời: chép năm đang xem ở tab Giá.
+Trả lời (Claude tự chốt, 20/11/2026, chờ Tùng duyệt lại, theo QD25): chép năm đang xem ở tab Giá. Chủ nhà thấy đúng thứ mình đang xem (dòng tóm tắt ghi năm), muốn chép năm sau thì đổi năm rồi chép lại. Ghi vào YC4.5 r5.
 
 ### YC4-H2 · mo
 Giá ngày lễ, dịp đặc biệt: sửa, xóa một dải đã lưu thế nào?

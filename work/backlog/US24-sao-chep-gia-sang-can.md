@@ -2,7 +2,7 @@
 id: US24
 tieu_de: "Sao chép giá sang căn khác"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC4.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -34,10 +34,10 @@ CN6-07, CN6-08
 PQ5, PQ6, PQ21 và các test vi phạm ở mục "Ai được làm gì" của YC4-gia.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261120160000_us24_sao_chep_gia.sql, supabase/bang-va-cot.md, tests/db/82_us24_sao_chep_gia.sql, scripts/thu-lam-hong.txt, src/lib/gia.ts, src/lib/dichVuGia.ts, src/man/CN6SaoChepGia.tsx (mới), src/man/CN6GiaCan.tsx, src/man/ManChu.tsx, src/man/CN6GiaCan.css, unit test kèm, tests/kb/US24-sao-chep-gia-sang-can.md.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC4-H1.
+- YC4-H1 đã tự chốt 20/11 (QD25): chép năm đang xem.
 - Phần đầu YC4-gia.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,17 +49,24 @@ YC4-gia.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US24-sao-chep-gia-sang-can.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US24-sao-chep-gia-sang-can.md (3 kịch bản, 1 [Chính]).
 
 ## Task
-- [ ] US24-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.5-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US24-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US24-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6-07, CN6-08 theo canvas, test unit, e2e cho YC4.5-NT1, YC4.5-NT3, YC4.5-NT5, YC4.5-NT7
+- [x] US24-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.5-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US24-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US24-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6-07, CN6-08 theo canvas, test unit, e2e cho YC4.5-NT1, YC4.5-NT3, YC4.5-NT5, YC4.5-NT7
 - [ ] US24-TA4 Test tay · Đức: chạy tests/kb/US24-sao-chep-gia-sang-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+1. TA1: tests/db/82_us24_sao_chep_gia.sql (NT2 đến NT6, luật lệnh, HV5), viết trước migration.
+2. TA2: fn_sao_chep_gia(nguồn, đích[], tháng, ngày lễ, dịp, năm): kiểm mọi căn, khóa theo id, thay giá tháng có ở nguồn, chép dải không trùng, trả thang_giu, dip_giu, dip_bo từng căn; 3 phép thử làm hỏng.
+3. TA3: màn CN6SaoChepGia (CN6-07), popup "Tôi đã hiểu", toast CN6-08; unit NT1, NT3, NT5, NT7.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.5@1 (QD21)
+- 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC4-H1, viết tests/kb, code TA1 đến TA3 trên nhánh US24-sao-chep-gia, mở PR · khoảng 30 phút
 
 ## Bằng chứng
+- `CHI_FILE_CO_MA=1 scripts/test-db.sh YC4.5`: 27 qua, 0 hỏng (một vòng). `scripts/thu-lam-hong.sh YC4.5`: 3 đạt.
+- `npx vitest run src/man/CN6SaoChepGia.test.tsx src/man/CN6GiaCan.test.tsx src/man/CN6GiaDip.test.tsx`: 27 qua. Test cũ "YC4.5 chưa làm" của CN6 đổi thành chạm dải đã lưu (YC4-H2 còn mở).
+- `npm run typecheck`: qua. `python3 scripts/kiem.py --diff origin/main`: không có lỗi. Bộ đầy đủ, build, e2e: CI chạy (EN14).

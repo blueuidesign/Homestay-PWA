@@ -97,3 +97,4 @@
 .cn6-mau--cuoi { background: var(--border-subtle); }
 .cn6-day { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px 16px; }
 .cn6-dong-can { min-height: 48px; width: 100%; border-top: 1px solid var(--border-subtle); }
+.cn6-giu-lai { margin: 0 0 12px; padding-left: 18px; font-size: 14px; line-height: 20px; color: var(--ink); }
