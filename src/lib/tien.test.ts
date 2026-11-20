@@ -1,6 +1,6 @@
 // Test unit cho tiền số nguyên đồng và cách viết đầy đủ (QT5.2, glossary.md mục Viết số tiền).
 import { describe, expect, it } from 'vitest';
-import { docSoTienGo, laTienNguyen, vietKhoangGia, vietSo, vietTien, vietTienGon } from './tien';
+import { docSoTienGo, laTienNguyen, vietKhoangGia, vietSo, vietTien, vietTienBieuDo, vietTienGon } from './tien';
 
 describe('QT5.2 · tiền là số nguyên đồng', () => {
   it('QT5.2: số nguyên là tiền hợp lệ', () => {
@@ -62,5 +62,21 @@ describe('YC5.2 bước 7 · ô tiền nhận số nguyên đồng, có dấu ch
     expect(docSoTienGo('-500')).toBeUndefined();
     expect(docSoTienGo('2,5')).toBeUndefined();
     expect(docSoTienGo('9'.repeat(20))).toBeUndefined();
+  });
+});
+
+describe('YC11.1 · số rút gọn trên biểu đồ thống kê', () => {
+  it('YC11.1-NT6: doanh thu một tháng 13.400.000đ thì cột ghi "13.4tr"', () => {
+    expect(vietTienBieuDo(13_400_000)).toBe('13.4tr');
+  });
+  it.each([
+    [9_600_000, '9.6tr'], [11_800_000, '11.8tr'], [7_200_000, '7.2tr'], [14_100_000, '14.1tr'], [13_000_000, '13.0tr'],
+    [800_000, '0.8tr'], [1_250_000, '1.3tr'], [1_249_999, '1.2tr'],
+  ])('YC11.1 bước 5: %i ghi "%s"', (dong, chu) => {
+    expect(vietTienBieuDo(dong)).toBe(chu);
+  });
+  it('YC11.1 bước 5: số âm, có phần lẻ thì báo lỗi', () => {
+    expect(() => vietTienBieuDo(-1)).toThrow(RangeError);
+    expect(() => vietTienBieuDo(1.5)).toThrow(RangeError);
   });
 });

@@ -1,0 +1,42 @@
+/* US58 · CN8, CN8-00 Thống kê (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.cn8-thang { flex: 0 0 auto; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 8px; display: flex; align-items: center; justify-content: space-between; }
+.cn8-chuyen { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; gap: 6px; padding: 0 4px; border: 0; background: none; cursor: pointer; font: inherit; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); -webkit-tap-highlight-color: transparent; }
+.cn8-chuyen .hh-icon { color: var(--ink-body); }
+.cn8-ten-thang { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.cn8-than { display: flex; flex-direction: column; gap: 12px; padding-bottom: 88px; }
+.cn8-luoi { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.cn8-toan { grid-column: 1 / -1; }
+.cn8-luoi .hh-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; min-width: 0; }
+.cn8-luoi .hh-stat__label { font-size: 13px; line-height: 18px; font-weight: 600; text-transform: uppercase; color: var(--ink-muted); }
+.cn8-luoi .hh-stat__value { margin-top: 4px; font-size: 18px; line-height: 26px; font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+.cn8-luoi .hh-stat--lg .hh-stat__value { font-size: 24px; line-height: 32px; }
+.cn8-luoi .hh-stat--action .hh-stat__value { color: var(--action); }
+.cn8-luoi .hh-stat__hint { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cn8-can { border-left: 4px solid var(--mau-can, var(--border)) !important; }
+.cn8-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.cn8-the--chua-thu { padding: 12px 16px 4px; gap: 0; }
+.cn8-muc { margin: 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.cn8-trong { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.cn8-trong--chua-thu { padding: 8px 0 12px; }
+.hh-bars { display: flex; align-items: flex-end; gap: 8px; height: 140px; }
+.hh-bars__col { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+.hh-bars__val { font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-secondary); min-height: 16px; }
+.hh-bars__bar { width: 100%; max-height: calc(100% - 40px); border-radius: 6px 6px 2px 2px; background: var(--action-soft, #bfdbfe); }
+.hh-bars__bar--current { background: var(--action); }
+.hh-bars__label { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.cn8-ds-ban { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.cn8-ban { display: grid; grid-template-columns: 76px minmax(0, 1fr) 96px; align-items: center; gap: 8px; }
+.cn8-ban-ten { font-size: 13px; line-height: 18px; color: var(--ink-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cn8-ban-ray { height: 12px; display: flex; border-radius: 9999px; overflow: hidden; background: var(--border-subtle); }
+.cn8-ban-thanh { background: var(--ink-faint, #cbd5e1); border-radius: 9999px; }
+.cn8-ban-thanh--dau { background: var(--action); }
+.cn8-ban-tien { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); text-align: right; }
+.cn8-chua-thu-dau { display: flex; align-items: center; justify-content: space-between; min-height: 28px; }
+.cn8-chua-thu-tong { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--danger); }
+.cn8-chua-thu-dong { min-height: 56px; display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--border-subtle); }
+.cn8-cham { width: 10px; height: 10px; border-radius: 9999px; background: var(--ink-faint, #cbd5e1); flex: 0 0 auto; }
+.cn8-chua-thu-giua { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.cn8-chua-thu-chinh { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn8-chua-thu-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn8-chua-thu-phu[data-gap] { color: var(--danger); }
+.cn8-chua-thu-tien { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
