@@ -2,7 +2,7 @@
 id: US58
 tieu_de: "Thống kê của chủ nhà"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC11.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
