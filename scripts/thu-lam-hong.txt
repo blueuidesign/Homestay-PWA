@@ -451,3 +451,13 @@ YC11.3-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sac
 YC11.3-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), '(select count(*) from so) > 50', 'false'); end $h$
 YC11.3-NT6 Chị Hoa ghi giúp | do $h$ begin execute replace(pg_get_functiondef('public.fn_danh_sach_sale(int)'::regprocedure), 'case when b.nguon = ''chu_ghi'' then', 'case when false then'); end $h$
 YC11.3-NT7 PQ15.LINK người chưa đăng nhập không có quyền | grant execute on function public.fn_danh_sach_sale(int) to anon
+# US34 · phía sale: đặt phòng chủ nhà ghi giúp (YC5.9)
+YC5.9-NT2 PQ8.SALE | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_xem_dat_phong(uuid)'::regprocedure), 'where b.id = p_booking_id and b.sale_id = v_nguoi and', 'where b.id = p_booking_id and'); end $h$
+YC5.9-NT2 Sale Lan sửa | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_sua_gia_ban(uuid, bigint)'::regprocedure), 'where b.id = p_booking_id and b.sale_id = v_nguoi and', 'where b.id = p_booking_id and'); end $h$
+YC5.9-NT2 Chị Hoa ghi | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_sua_gia_ban(uuid, bigint)'::regprocedure), 'b.sale_id = v_nguoi and c.nguoi_giu <> v_nguoi', '(b.sale_id = v_nguoi or c.nguoi_giu = v_nguoi)'); end $h$
+YC5.9-NT1 QD7 chủ tắt xem cọc | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_xem_dat_phong(uuid)'::regprocedure), 'k.trang_thai = ''da_ket_noi'' and k.xem_coc', 'true'); end $h$
+YC5.9-NT1 QD7 QD11 PQ9.SALE | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_xem_dat_phong(uuid)'::regprocedure), '''tien_phong'', b.tien_phong,', '''tien_phong'', b.tien_phong, ''tien_coc'', b.tien_coc,'); end $h$
+YC5.9-NT1 QD7 chủ ngừng | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_xem_dat_phong(uuid)'::regprocedure), 'case when k.trang_thai = ''da_ket_noi'' and chu.da_xoa_luc is null then chu.so_dien_thoai end', 'chu.so_dien_thoai'); end $h$
+YC5.9-NT1 giá bán 0đ | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_sua_gia_ban(uuid, bigint)'::regprocedure), 'p_gia_ban is null or p_gia_ban <= 0', 'p_gia_ban is null'); end $h$
+YC5.9-NT1 đặt phòng đã hủy không sửa | do $h$ begin execute replace(pg_get_functiondef('public.fn_sale_sua_gia_ban(uuid, bigint)'::regprocedure), 'if v_b.trang_thai = ''da_huy'' then', 'if false then'); end $h$
+YC5.9-NT2 PQ15.LINK | grant execute on function public.fn_sale_sua_gia_ban(uuid, bigint) to anon
