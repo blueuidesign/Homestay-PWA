@@ -411,8 +411,10 @@ select t.thoat();
 select t.bang(pg_temp.so_tb(t.id('hoa')), current_setting('t.tb_hoa')::bigint, 'YC9.1-NT13 YC9-H6 Chị Hoa không có thông báo mới khi Hùng hủy');
 select t.bang((select count(*) from public.thong_bao where nguoi_nhan = t.id('hoa') and doi_tuong_id = current_setting('t.y1')::uuid),
               1::bigint, 'YC9.1-NT13 thông báo "yêu cầu mới" cũ của Chị Hoa vẫn giữ');
+select t.dang_nhap(t.id('hung'));
 select t.bang(pg_temp.loi(format('select public.fn_huy_yeu_cau(%L)', pg_temp.khong_co())), current_setting('t.loi_yc_khong_co'),
               'YC9.1-NT9 hủy yêu cầu không có: cùng lỗi');
+select t.thoat();
 
 -- Yêu cầu chờ đã quá hạn đọc ra Hết hạn và không hủy được.
 select t.dang_nhap(t.id('hung'));
