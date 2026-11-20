@@ -2,7 +2,7 @@
 id: US34
 tieu_de: "Phía sale: đặt phòng chủ nhà ghi giúp"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.9@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [72]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -73,6 +73,7 @@ Database: fn_sale_xem_dat_phong (đọc phần đặt phòng dành cho sale, kh�
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.9@1 (QD21)
 - 2026-11-20 · Claude (QD25) · database, màn S3-10 phía sale, nối S7-03; tự chốt YC5-H10, H11 · PR mở · ~1,5 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #72, CI xanh 4/4; chờ test; migration 20261120120000 đã lên staging.
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC5.9`: lần đầu đỏ 1 test (fn_chi_tiet_dat_phong trả bảng, sửa cách gọi trong test), cuối 28 qua, 0 hỏng.

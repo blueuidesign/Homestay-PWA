@@ -241,9 +241,10 @@ Gắn ở: YC5.8.
 Bên kia của đặt phòng đã xóa tài khoản thì xin hủy thế nào (không ai đồng ý được)?
 Gắn ở: YC5.8.
 
-### YC5-H17 · mo
+### YC5-H17 · da-tra-loi
 Vị trí nút "Xin hủy" và khối trả lời ở chi tiết đặt phòng của chủ nhà (CN3-02) và của sale: chưa có hình?
 Gắn ở: YC5.8.
+Trả lời 2026-11-20 (Claude tự chốt, QD25, chờ Tùng duyệt lại): cuối chi tiết đặt phòng, chỗ nút "Xóa đặt phòng" của khách lẻ, hỏi lại bằng hộp từ dưới lên. Ghi ở YC5 r7.
 
 ### YC5-H18 · mo
 Xin hủy hết hạn sau bao lâu, và hết hạn thì đặt phòng thành gì?

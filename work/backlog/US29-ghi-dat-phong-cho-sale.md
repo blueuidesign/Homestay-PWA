@@ -2,7 +2,7 @@
 id: US29
 tieu_de: "Ghi đặt phòng cho sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [71]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US29-ghi-dat-phong-cho-sale.md.
 - 2026-11-18 · Claude · tạo item từ YC5.4@1 (QD21)
 
 - 2026-11-20 · Claude (Tùng giao, QD25) · TA1–TA3; tự chốt YC5-H13; bất ngờ: kiểm kết nối, thông báo đã có từ US27, US28 · ~30 phút
+- 2026-11-20 · Claude (QD25) · Gộp PR #71, CI xanh 4/4; chờ test; migration 20261120110000 đã lên staging.
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC5.4`: lần đầu 9 hỏng (2 do test thiếu tiền phòng, sửa trong file test trước khi có code), sau đó 5 hỏng đúng phần chưa code; cuối 22 qua, 0 hỏng.
