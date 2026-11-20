@@ -2,7 +2,7 @@
 id: US51
 tieu_de: "Chủ nhà trả lời yêu cầu"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC9.2@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []

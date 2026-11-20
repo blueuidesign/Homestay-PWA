@@ -1,7 +1,7 @@
 {
  "tu_sinh": "scripts/plan.py",
  "ghi_chu": "[tự sinh] File này do scripts/plan.py sinh từ item backlog. Không sửa tay.",
- "ngay_sinh": "2026-11-19",
+ "ngay_sinh": "2026-11-20",
  "item": [
   {
    "id": "BG1",
@@ -2294,7 +2294,7 @@
    "id": "US51",
    "loai": "US",
    "tieu_de": "\"Chủ nhà trả lời yêu cầu\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
