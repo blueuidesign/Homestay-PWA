@@ -596,6 +596,7 @@ RLS: bật
 | tra_loi_luc | timestamp with time zone | có |  |
 | booking_id | uuid | có |  |
 | client_id | uuid | có |  |
+| tu_choi_vi_booking | uuid | có |  |
 
 Ràng buộc:
 - yeu_cau_booking: FOREIGN KEY (booking_id) REFERENCES booking(id)
@@ -736,6 +737,7 @@ Policy:
 - tg_booking_sau_khi_ghi() → trigger · security definer
 - tg_booking_sau_khi_sua() → trigger · security definer
 - tg_booking_sau_khi_xoa() → trigger · security definer
+- tg_booking_tu_choi_yeu_cau_trung() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
 - tg_yeu_cau_can_chua_an() → trigger · security definer
@@ -746,4 +748,6 @@ Policy:
 - yeu_cau_cho_chu(p_id uuid) → jsonb · security definer
 - yeu_cau_cho_sale(p_id uuid) → jsonb · security definer
 - yeu_cau_qua_han(p_y yeu_cau_dat_phong) → boolean · security definer
+- yeu_cau_trung_chi_tiet(p_id uuid) → jsonb · security definer
 - yeu_cau_trung_voi(p_id uuid) → jsonb · security definer
+- yeu_cau_tu_choi_theo(p_id uuid) → jsonb · security definer
