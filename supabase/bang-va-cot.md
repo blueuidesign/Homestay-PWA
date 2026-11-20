@@ -657,6 +657,7 @@ Policy:
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
+- fn_dat_mau_tin(p_mau text) → void · security definer · gọi được: authenticated
 - fn_dat_muc_cong(p_can_id uuid, p_muc bigint) → void · security definer · gọi được: authenticated
 - fn_dat_muc_cong_mac_dinh(p_muc bigint, p_lam_tron boolean) → void · security definer · gọi được: authenticated
 - fn_dat_phong_cua_sale(p_sale_id uuid) → TABLE(id uuid, can_id uuid, ma_can text, ngay_nhan date, ngay_tra date, tien_phong bigint, trang_thai text, trang_thai_tien text) · security definer · gọi được: authenticated
@@ -678,6 +679,7 @@ Policy:
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_lay_link_xin_lich() → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
+- fn_mau_tin() → text · security definer · gọi được: authenticated
 - fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated
@@ -714,6 +716,7 @@ Policy:
 - ly_do_mat_quyen_can(p_sale uuid, p_can_id uuid) → text · security definer
 - ma_link_chu_cai() → text
 - ma_view(p text) → text · security definer
+- mau_tin_mac_dinh() → text
 - my_own_can_ids() → SETOF uuid · security definer · gọi được: authenticated
 - my_shared_can_ids() → SETOF uuid · security definer · gọi được: authenticated
 - o_lich(p_can_id uuid, p_dem date) → text · security definer · gọi được: authenticated

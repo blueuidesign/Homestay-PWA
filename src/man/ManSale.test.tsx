@@ -178,3 +178,35 @@ describe('YC7.5 · dòng "Mức cộng giá mặc định" ở tab Cá nhân (US
     expect(screen.getByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
   });
 });
+
+describe('YC8.2 · dòng "Mẫu tin gửi khách" ở tab Cá nhân (US49)', () => {
+  it('YC8.2 bước 1 tab Cá nhân có "Mẫu tin gửi khách", chạm mở P11 toàn màn; lưu xong về Cá nhân', async () => {
+    const mauTin = { doc: vi.fn(async () => 'Mẫu cũ [Danh sách căn]'), luu: vi.fn(async () => undefined) };
+    ve({ dvMauTin: mauTin });
+    await screen.findByText('Chưa có nguồn phòng');
+    fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
+    expect(screen.getByRole('button', { name: 'Mức cộng giá mặc định' })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Mẫu tin gửi khách' }));
+    expect(await screen.findByRole('heading', { name: 'Mẫu tin gửi khách' })).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
+    // Bản xem trước dùng tên trong hồ sơ.
+    fireEvent.click(screen.getByRole('button', { name: '[Tên sale]' }));
+    expect(screen.getByTestId('xem-truoc').textContent).toContain('Sale Hùng');
+    fireEvent.click(screen.getByRole('button', { name: 'Lưu thay đổi' }));
+    await waitFor(() => expect(mauTin.luu).toHaveBeenCalledWith('Mẫu cũ [Danh sách căn][Tên sale]'));
+    expect(await screen.findByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
+    expect(screen.getByText('Đã lưu mẫu tin')).toBeInTheDocument();
+  });
+
+  it('YC8.2 P11 Quay lại về tab Cá nhân; thiếu dịch vụ riêng thì dùng dvLich.mauTin', async () => {
+    const mauTin = { doc: vi.fn(async () => 'Mẫu [Danh sách căn]'), luu: vi.fn() };
+    ve({ dvLich: { ...dvLich(true), mauTin } });
+    await screen.findByText('Chưa có nguồn phòng');
+    fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Mẫu tin gửi khách' }));
+    await screen.findByRole('heading', { name: 'Mẫu tin gửi khách' });
+    expect(mauTin.doc).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
+    expect(screen.getByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
+  });
+});
