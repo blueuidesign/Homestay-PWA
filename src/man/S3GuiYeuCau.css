@@ -1,0 +1,31 @@
+/* US50 · S3-02, S3-03, S3-07, S3-08 (canvas home247-canvas.html). Màn đọc: chữ thân 14 px, nhãn 12–13 px; vùng bấm 44 px. */
+.s3yc { position: relative; }
+.s3yc-than { padding-bottom: calc(140px + env(safe-area-inset-bottom)); }
+.s3yc-the { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.s3yc-ten { font-size: 18px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.s3yc-dong { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.s3yc-dong-dam { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s3yc-hang { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.s3yc-nhan { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s3yc-gia-ban { font-size: 20px; line-height: 26px; font-weight: 700; color: var(--ink); }
+.s3yc-gia-chu { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s3yc-o-nhap { display: flex; flex-direction: column; gap: 6px; }
+.s3yc-o-nhap textarea { width: 100%; min-height: 88px; border: 1px solid var(--border-input); border-radius: 8px; padding: 10px 12px; font: inherit; font-size: 16px; line-height: 22px; color: var(--ink); resize: vertical; box-sizing: border-box; }
+.s3yc-loi { margin: 0; font-size: 14px; line-height: 20px; color: var(--danger-text); }
+.s3yc-bao { border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; background: var(--surface); border: 1px solid var(--border); }
+.s3yc-bao--cho { background: var(--warning-tint); border-color: var(--warning-border); }
+.s3yc-bao--loi { background: var(--warning-tint); border-color: var(--warning-border); }
+.s3yc-bao-tieu-de { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--ink); }
+.s3yc-bao-chu { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.s3yc-nut { min-height: 44px; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+.s3yc-huy { min-height: 44px; color: var(--danger-text); }
+.s3yc-huy--xac-nhan { font-weight: 700; }
+.s3yc-o-hang { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.s3yc-o { min-height: 60px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.s3yc-o-thu { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.s3yc-o-so { font-size: 14px; line-height: 18px; font-weight: 700; color: var(--ink); }
+.s3yc-o-chu { font-size: 12px; line-height: 16px; color: var(--action); min-height: 16px; }
+.s3yc-o--kin { background: var(--border-subtle); }
+.s3yc-o--kin .s3yc-o-chu { color: var(--ink-faint); }
+.s3yc-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+.s3yc-ghi { font-size: 13px; line-height: 18px; color: var(--ink-muted); text-align: center; }
