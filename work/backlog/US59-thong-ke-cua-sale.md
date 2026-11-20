@@ -52,15 +52,19 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US59-thong-ke-cua-sale.md.
 
 ## Task
-- [ ] US59-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.2-NT1, YC11.2-NT3, YC11.2-NT4, YC11.2-NT5, YC11.2-NT6, YC11.2-NT7, YC11.2-NT9, YC11.2-NT10, YC11.2-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US59-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.2-NT1, YC11.2-NT3, YC11.2-NT4, YC11.2-NT5, YC11.2-NT6, YC11.2-NT7, YC11.2-NT9, YC11.2-NT10, YC11.2-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US59-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
 - [ ] US59-TA3 Code · Claude Code (sonnet, CL14.6a): màn S7, S7-00 theo canvas, test unit, e2e cho YC11.2-NT1, YC11.2-NT2, YC11.2-NT3, YC11.2-NT8
 - [ ] US59-TA4 Test tay · Đức: chạy tests/kb/US59-thong-ke-cua-sale.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/75_us59_thong_ke_sale.sql, hợp đồng `fn_thong_ke_sale(p_thang date, p_so_thang int default 2)` → jsonb của người gọi (không nhận mã sale): số tháng, tháng trước, cac_thang, theo_chu, cho_chu. Số theo DLM.6; tháng 9 chỉ có tổng nên ba đặt phòng tháng 9 ngoài V1 là dàn dựng.
+- TA2: migration 20261119530000_us59_thong_ke_sale.sql theo mẫu fn_thong_ke_chu; giá bán chia theo đêm (YC11-H2), đếm theo ngày nhận (H6), bỏ căn của tôi (H1); phép làm hỏng trong scripts/thu-lam-hong.txt.
+- TA3: src/lib/thongKeSale.ts, dichVuThongKeSale.ts, src/man/S7ThongKe.tsx (S7, S7-00) thay bản tạm trong ManSale.tsx; unit NT1, NT2, NT3, NT8; e2e thong-ke-sale.spec.ts.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.2@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
 
 ## Bằng chứng
+- TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.2` trước migration: 3 qua, 46 hỏng (đỏ đúng chờ).
