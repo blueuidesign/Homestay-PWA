@@ -380,11 +380,9 @@ select t.bang((select tien_phong from public.booking where yeu_cau_id = t.b('y11
               'YC9.2-NT10 đặt phòng hôm nay mang giá đã chốt 800.000đ');
 
 -- ===== QD6: chặn trùng cuối cùng là ràng buộc của đặt phòng =====
--- Yêu cầu chờ mà đêm đã có đặt phòng (ghi thẳng, không qua trigger từ chối): chấp nhận bị chặn, không lưu.
-select t.tao_yeu_cau('y12', t.can('3402'), t.id('hung'), pg_temp.d(49), pg_temp.d(51), array[1100000, 800000]::bigint[]);
-alter table public.booking disable trigger booking_sau_khi_ghi;
+-- Yêu cầu chờ mà đêm đã có đặt phòng (yêu cầu ghi thẳng sau đặt phòng, không qua lệnh gửi): chấp nhận bị chặn, không lưu.
 select t.tao_booking('b_chan', t.can('3402'), pg_temp.d(50), pg_temp.d(52), 1900000);
-alter table public.booking enable trigger booking_sau_khi_ghi;
+select t.tao_yeu_cau('y12', t.can('3402'), t.id('hung'), pg_temp.d(49), pg_temp.d(51), array[1100000, 800000]::bigint[]);
 select t.dang_nhap(t.id('hoa'));
 select t.ok(pg_temp.loi(format('select public.fn_chap_nhan_yeu_cau(%L)', t.b('y12'))) like 'P0001:%',
             'YC9.2 QD6 QT1.1 chấp nhận yêu cầu có đêm đã kín: ràng buộc đặt phòng chặn');
