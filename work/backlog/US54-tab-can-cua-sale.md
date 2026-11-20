@@ -2,7 +2,7 @@
 id: US54
 tieu_de: "Tab Căn của sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC10.1@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [62]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,8 +51,8 @@ YC10-can-tu-nhap-va-nguon-phong.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md.
 
 ## Task
-- [x] US54-TA1 Code · migration fn_tab_can_sale, fn_chi_tiet_can_cua_toi, fn_sale_bo_dong_chu, test database (nhánh US54-tab-can-sale)
-- [x] US54-TA2 Code · màn S6, S6-00, S6-07, S6-08, test unit, e2e (nhánh US54-tab-can-sale)
+- [x] US54-TA1 Code · migration fn_tab_can_sale, fn_chi_tiet_can_cua_toi, fn_sale_bo_dong_chu, test database (nhánh US54-tab-can-sale) · PR #62
+- [x] US54-TA2 Code · màn S6, S6-00, S6-07, S6-08, test unit, e2e (nhánh US54-tab-can-sale) · PR #62
 - [ ] US54-TA3 Test tay · Đức: chạy tests/kb/US54-tab-can-cua-sale.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -64,6 +64,7 @@ Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md.
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 - 2026-11-20 · Claude (QD25) · YC10 r4 tự chốt câu mở, thêm NT
 - 2026-11-20 · Claude · TA1, TA2 trên nhánh US54-tab-can-sale; S6-07 từ S2 vẫn tạm (S2KetQua không có id căn) · ~2 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #62, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA3. Còn thiếu: S6-07 "Đặt phòng", "Sửa căn và giá" và tab Căn "+ Thêm căn" mới báo tạm; chạm căn của tôi từ S2 vẫn mở S6-07 tạm.
 
 ## Bằng chứng
 - TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC10.1` lần đầu 32 hỏng (chưa có hàm), sau migration 51/51 qua, 1 vòng; cả bộ `scripts/test-db.sh` 2277 qua. `scripts/thu-lam-hong.sh YC10.1` 5/5 đạt (1 vòng sửa nhãn có dấu nháy). `kiem.py --diff origin/main` không lỗi.
