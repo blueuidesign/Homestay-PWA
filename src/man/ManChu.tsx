@@ -3,7 +3,8 @@
 // Căn mở từ CN5 có hai tab; tab Giá là CN6 (YC4.2, US21). Tab Lịch khi đã có căn là CN1 (YC2.1, US9).
 // Tab Thông tin là Sửa căn CN5-02 (YC3.5, US18): lưu được thì về CN5 với toast "Đã lưu phòng 1509".
 // Xóa căn ở CN5-02 (YC3.6, US19): xóa được thì về CN5 với toast "Đã xóa phòng 3402" (toast do CN5-02 hiện).
-// Tab Sale là CN7 Danh sách sale (YC6.2, US36): CN7-04, CN7-05 mở trong tab, không đổi địa chỉ. Thống kê, Cá nhân: khung tạm, US sau thay.
+// Tab Sale là CN7 Danh sách sale (YC6.2, US36): CN7-04, CN7-05 mở trong tab, không đổi địa chỉ. Cá nhân: khung tạm, US sau thay.
+// Tab Thống kê là CN8, CN8-00 (YC11.1, US58): màu căn theo thứ tự tab Lịch; tháng đã xem giữ trong phiên.
 // Thêm đặt phòng CN4 (YC5.1, US26): mở từ nút "Đặt phòng" ở CN1 hay dòng căn trống ở CN3. Lưu được (YC5.2, YC5.3, US27)
 // thì về tab Lịch với toast; CN4-03 (YC5.3 bước 10, US28): lịch mở ở tháng của ngày nhận, chi tiết ngày đó mở sẵn.
 // Chi tiết đặt phòng CN3-02 (YC5.5, US30): mở từ dòng có khách ở CN3.
@@ -41,12 +42,14 @@ import { CN6GiaCan } from './CN6GiaCan';
 import { CN7DanhSachSale } from './CN7DanhSachSale';
 import { CN10GuiLich } from './CN10GuiLich';
 import { CN9TraLoiYeuCau } from './CN9TraLoiYeuCau';
+import { CN8ThongKe } from './CN8ThongKe';
+import type { ThongKeThang } from '../lib/thongKeChu';
 import type { DongYeuCauCho } from '../lib/traLoiYeuCau';
 import { CAU_DA_GUI_LICH } from '../lib/dichVuGuiLich';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 
-const TIEU_DE_TAM: Record<'thong-ke' | 'ca-nhan', string> = { 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
+const TIEU_DE_TAM: Record<'ca-nhan', string> = { 'ca-nhan': 'Cá nhân' };
 
 /** HV1: lần đầu khung xám; có dữ liệu cũ thì hiện ngay kèm "Đang cập nhật…". HV2: chưa tải được thì Thử lại. */
 function useDanhSachCan(dv: DichVuCan | null) {
@@ -110,6 +113,8 @@ export function ManChu(props: {
   const giaTuan = useGiaTuan(props.dichVuCan, man.tab === 'can');
   // HV1-NT2: tháng lịch đã xem giữ trong phiên, mở lại tab Lịch thấy ngay.
   const boNhoLich = useRef(new Map<string, ThangLich>());
+  // YC11.1, HV1-NT2: tháng thống kê đã xem giữ trong phiên.
+  const boNhoThongKe = useRef(new Map<string, ThongKeThang>());
   // CN5-A4, CN5-A4b: vừa thêm căn thì nút dưới danh sách là "Thêm căn khác"; rời tab Căn thì thôi.
   const [vuaThem, datVuaThem] = useState(false);
   useEffect(() => { if (man.tab !== 'can' && man.tab !== 'can-moi') datVuaThem(false); }, [man.tab]);
@@ -138,7 +143,9 @@ export function ManChu(props: {
   const suaTuChiTiet = useRef(false);
   const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
   // CN3-02 cần thứ tự căn cho màu; CN4-02 cần danh sách căn cho hàng chip.
-  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong' || man.tab === 'dat-phong-sua';
+  // CN8 cần thứ tự căn cho màu (YC11.1 bước 3, 7).
+  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong' || man.tab === 'dat-phong-sua'
+    || man.tab === 'thong-ke';
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
   useEffect(() => { if (canDanhSach) void tai(); }, [canDanhSach, man.tab, tai]);
@@ -293,15 +300,16 @@ export function ManChu(props: {
   }
 
   let than;
-  if (man.tab === 'thong-ke' || man.tab === 'ca-nhan') {
+  if (man.tab === 'thong-ke') {
+    // YC11.1 bước 1: CN8; màu căn theo thứ tự tab Lịch (căn thêm trước đứng trước), căn đã ẩn không có màu riêng.
+    const theoLich = ds ? [...ds].reverse() : [];
+    than = <CN8ThongKe dv={props.dichVuCan?.thongKe} boNho={boNhoThongKe.current}
+                       mau={(canId) => { const i = theoLich.findIndex((c) => c.id === canId); return i < 0 ? undefined : mauCan(i); }} />;
+  } else if (man.tab === 'ca-nhan') {
     than = (
       <KhungTabChu tieuDe={TIEU_DE_TAM[man.tab]}>
-        {man.tab === 'ca-nhan' && (
-          <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => props.den('/ca-nhan/dem-cuoi-tuan')}>Ngày tính giá cuối tuần</button>
-        )}
-        {man.tab === 'ca-nhan' && (
-          <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onDangXuat}>Đăng xuất</button>
-        )}
+        <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => props.den('/ca-nhan/dem-cuoi-tuan')}>Ngày tính giá cuối tuần</button>
+        <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onDangXuat}>Đăng xuất</button>
       </KhungTabChu>
     );
   } else if (ds === undefined) {

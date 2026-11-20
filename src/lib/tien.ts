@@ -55,3 +55,14 @@ export function docSoTienGo(chu: string): number | null | undefined {
   const n = Number(so);
   return laTienNguyen(n) ? n : undefined;
 }
+
+/**
+ * YC11.1 bước 5, YC11.1-NT6: số trên đầu cột biểu đồ thống kê, triệu với một số lẻ và dấu chấm: 13400000 thành "13.4tr".
+ * glossary.md mục Viết số tiền ("Trên biểu đồ thống kê ghi một số lẻ với dấu chấm"). Làm tròn tới trăm nghìn gần nhất
+ * (từ 50.000đ lên); dưới một triệu vẫn ghi triệu ("0.8tr") để các cột cùng một đơn vị.
+ */
+export function vietTienBieuDo(dong: number): string {
+  if (!laTienNguyen(dong) || dong < 0) throw new RangeError(`Tiền phải là số nguyên đồng không âm: ${dong}`);
+  const tramNghin = Math.floor((dong + 50_000) / 100_000);
+  return `${Math.floor(tramNghin / 10)}.${tramNghin % 10}tr`;
+}

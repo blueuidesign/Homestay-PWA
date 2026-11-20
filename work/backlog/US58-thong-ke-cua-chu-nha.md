@@ -54,7 +54,7 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 ## Task
 - [x] US58-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT4, YC11.1-NT7, YC11.1-NT8, YC11.1-NT9, YC11.1-NT10, YC11.1-NT12, YC11.1-NT13, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [x] US58-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US58-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN8, CN8-00 theo canvas, test unit, e2e cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT3, YC11.1-NT5, YC11.1-NT6, YC11.1-NT7, YC11.1-NT9, YC11.1-NT11
+- [x] US58-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN8, CN8-00 theo canvas, test unit, e2e cho YC11.1-NT1, YC11.1-NT2, YC11.1-NT3, YC11.1-NT5, YC11.1-NT6, YC11.1-NT7, YC11.1-NT9, YC11.1-NT11
 - [ ] US58-TA4 Test tay · Đức: chạy tests/kb/US58-thong-ke-cua-chu-nha.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -65,5 +65,11 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.1@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
+- 2026-11-20 · Claude · TA1–TA3 trên nhánh US58-thong-ke-chu: fn_thong_ke_chu, CN8, CN8-00 · bất ngờ: B1 đã cọc làm chưa thu T10 thành 4,9tr (lệch DLM.5) · 1 phiên
 
 ## Bằng chứng
+- TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.1`: lần đầu 49 hỏng, 3 qua (chưa có hàm).
+- TA2 cùng lệnh sau migration: 52 qua, 0 hỏng, 0 vòng sửa. `scripts/test-db.sh` cả bộ: 2476 qua, 0 hỏng. `supabase db reset`, `scripts/bang-cot.sh` qua.
+- `scripts/thu-lam-hong.sh YC11.1`: 8/8 đạt (1 phép sửa lại vì phép đầu không phá được).
+- TA3 `npx vitest run`: 987 qua (test mới xanh lần đầu); `npm run typecheck`, `npm run build` qua.
+- e2e `thong-ke-chu.spec.ts`: 1 qua lần đầu; `lich-thang`, `dem-cuoi-tuan` vẫn qua. `kiem.py --diff origin/main`: không có lỗi.
