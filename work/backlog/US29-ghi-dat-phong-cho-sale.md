@@ -2,7 +2,7 @@
 id: US29
 tieu_de: "Ghi đặt phòng cho sale"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC5.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -34,10 +34,10 @@ CN4
 PQ4, PQ7, PQ8, PQ9, PQ11, PQ17 và các test vi phạm ở mục "Ai được làm gì" của YC5-dat-phong.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261120110000_us29_ghi_cho_sale.sql, tests/db/77_us29_ghi_cho_sale.sql, scripts/thu-lam-hong.txt, supabase/bang-va-cot.md, tests/kb/US29-ghi-dat-phong-cho-sale.md, docs/product/requirements/YC5-dat-phong.md (r5), work/cau-hoi.md (YC5-H13).
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC5-H13.
+- YC5-H13 đã có lời đáp (Claude tự chốt, QD25), xem YC5 r5.
 - Phần đầu YC5-dat-phong.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -49,17 +49,25 @@ YC5-dat-phong.md#Trạng thái màn (mọi mục)
 thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 
 ## Test case
-Kịch bản test tay: tests/kb/US29-ghi-dat-phong-cho-sale.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US29-ghi-dat-phong-cho-sale.md.
 
 ## Task
-- [ ] US29-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.4-NT1 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US29-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [ ] US29-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4 theo canvas
+- [x] US29-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC5.4-NT1 đến NT5, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US29-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US29-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN4 theo canvas (chip sale, toast, lỗi đã có từ US27, US28; không đổi)
 - [ ] US29-TA4 Test tay · Đức: chạy tests/kb/US29-ghi-dat-phong-cho-sale.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/77_us29_ghi_cho_sale.sql, chủ gọi fn_tao_booking với p_sale_id như YC5.3.
+- TA2: migration thay fn_tao_booking (bản US31) thêm phần riêng của sale có giá bán điền sẵn qua gia_ban_tu_tien_dem (QT5.4, làm tròn theo GD13, YC5-H13 tự chốt). Không dùng trigger vì test và dữ liệu mẫu tự chèn phần riêng.
+- TA3: CN4 đã có chip sale, toast và lỗi (US27, US28): chỉ kiểm.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.4@1 (QD21)
 
+- 2026-11-20 · Claude (Tùng giao, QD25) · TA1–TA3; tự chốt YC5-H13; bất ngờ: kiểm kết nối, thông báo đã có từ US27, US28 · ~30 phút
+
 ## Bằng chứng
+- `CHI_FILE_CO_MA=1 scripts/test-db.sh YC5.4`: lần đầu 9 hỏng (2 do test thiếu tiền phòng, sửa trong file test trước khi có code), sau đó 5 hỏng đúng phần chưa code; cuối 22 qua, 0 hỏng.
+- Chạy riêng mọi file tests/db gọi fn_tao_booking: không có test hỏng.
+- `scripts/thu-lam-hong.sh YC5.4`: 6/6 đạt.
