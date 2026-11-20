@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 - 2026-11-18 · Claude · tạo item từ YC11.1@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
 - 2026-11-20 · Claude · TA1–TA3 trên nhánh US58-thong-ke-chu: fn_thong_ke_chu, CN8, CN8-00 · bất ngờ: B1 đã cọc lệch DLM.5, sửa theo YC11 r3 · 1 phiên
+- 2026-11-20 · Claude (QD25) · YC11 r3: sửa YC11-H9 (chưa thu chỉ gồm chưa cọc) cho khớp DLM.5, CN8 và NT9; sửa NT13.
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.1`: lần đầu 49 hỏng, 3 qua (chưa có hàm).

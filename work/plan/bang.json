@@ -442,6 +442,40 @@
    "dang_cho": "–"
   },
   {
+   "id": "EN13",
+   "loai": "EN",
+   "tieu_de": "\"Vercel bỏ qua commit chỉ đổi tài liệu\"",
+   "trang_thai": "cho-test",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN11"
+   ],
+   "file": "work/backlog/EN13-vercel-bo-qua-commit-tai-lieu.md",
+   "pr": "[66]",
+   "task": {
+    "Code": {
+     "xong": 1,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Đức test tay"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
@@ -2516,7 +2550,7 @@
    "id": "US57",
    "loai": "US",
    "tieu_de": "\"Ghi đặt phòng cho căn tự nhập\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2526,10 +2560,10 @@
     "US2"
    ],
    "file": "work/backlog/US57-ghi-dat-phong-cho-can.md",
-   "pr": "",
+   "pr": "[65]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -2547,7 +2581,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US58",
@@ -2566,7 +2600,7 @@
    "pr": "",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -2584,7 +2618,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
   },
   {
    "id": "US59",

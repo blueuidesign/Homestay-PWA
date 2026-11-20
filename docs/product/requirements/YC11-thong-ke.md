@@ -3,7 +3,7 @@ id: YC11
 tieu_de: Thống kê
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ban: 1
 ---
 # YC11 · Thống kê
@@ -38,7 +38,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Công suất | Số đêm có khách chia (số căn × số đêm của tháng), làm tròn một số lẻ. Mẫu số là tổng số đêm của tháng mà từng căn đã có và chưa ẩn hay xóa (từ ngày tạo căn); đêm có khách của căn đã ẩn vẫn tính ở tử số (YC11-H7) [r2 · sửa] | 13 / (2 × 31) = 21.0%; căn thêm ngày 16/10 góp 16 đêm |
 | So với tháng trước | (tháng này − tháng trước) / tháng trước, làm tròn một số lẻ, có dấu + hay −. Tháng trước bằng 0 thì không có dòng so sánh | (11.800.000 − 9.600.000) / 9.600.000 = +22.9% |
 | Khách lẻ | Đặt phòng chủ nhà ghi không gắn sale vào dòng "Khách lẻ" | B5, B6: 2.600.000đ |
-| Chưa thu tiền | Đặt phòng chưa hủy, trạng thái tiền "Chưa cọc". Số tiền là tiền phòng. Đặt phòng "Đã cọc" có tiền cọc nhỏ hơn tiền phòng cũng có dòng, số tiền là tiền phòng trừ tiền cọc (YC11-H9) [r2 · sửa] | 1.900.000đ + 1.800.000đ = 3.700.000đ |
+| Chưa thu tiền | Đặt phòng chưa hủy, trạng thái tiền "Chưa cọc". Số tiền là tiền phòng. Đặt phòng đã cọc không có dòng; phần còn thu xem ở chi tiết đặt phòng (YC5.5) (YC11-H9) [r3 · sửa] | 1.900.000đ + 1.800.000đ = 3.700.000đ |
 | Đặt phòng của sale | Đặt phòng có sale đứng tên: thành từ yêu cầu, chủ nhà ghi cho sale (YC5.2), sale tự ghi cho căn tự nhập (YC10.4). Yêu cầu chưa được chấp nhận không tính (QT3.1). Đặt phòng ở căn của tôi (QD5) không tính, và bản 1 không có thống kê riêng cho căn của tôi (YC11-H1) [r2 · sửa] | 6 đặt phòng |
 | Đếm số đặt phòng | Mỗi đặt phòng đếm một lần, ở tháng của ngày nhận phòng (YC11-H6) [r2 · thêm] | 30/09 → 02/10 đếm ở tháng 9 |
 | Giá bán chia theo đêm | Mỗi đêm lấy phần giá bán theo tỉ lệ tiền đêm đó trong tiền phòng, làm tròn xuống tới đồng, phần dư dồn vào đêm cuối; tiền phòng bằng 0 thì chia đều. Tiền chênh tháng = phần giá bán các đêm của tháng trừ giá chủ các đêm đó (YC11-H2) [r2 · thêm] | Giá chủ 1.000.000đ + 1.000.000đ, giá bán 2.500.000đ: mỗi đêm 1.250.000đ |
@@ -94,7 +94,7 @@ Tiêu chí:
 - **YC11.1-NT10** Khi chủ nhà đánh dấu đã thu đủ B2 (YC5.5), thì B2 không còn ở "CHƯA THU TIỀN". · database
 - **YC11.1-NT11** Khi tháng chưa có đặt phòng, thì mọi số ghi 0, không có dòng so sánh, và có hai dòng "Chưa có đặt phòng trong tháng.", "Không có khoản nào chưa thu." · unit
 - **YC11.1-NT12** Khi chủ nhà có 1509 từ trước và thêm căn mới ngày 16/10, thì mẫu số công suất tháng 10 là 31 + 16 = 47 đêm. [r2 · thêm] · database
-- **YC11.1-NT13** Khi một đặt phòng mới B20 tiền phòng 2.000.000đ đã cọc 500.000đ, thì "CHƯA THU TIỀN" có dòng B20 "Đã cọc" 1.500.000đ; đánh dấu đã thu đủ thì dòng B20 không còn. [r2 · thêm] · database
+- **YC11.1-NT13** Khi B1 đã cọc 1.000.000đ còn thu 1.200.000đ, thì "CHƯA THU TIỀN" không có dòng B1 và tháng 10 vẫn ghi 3.700.000đ. [r3 · sửa] · database
 
 ## YC11.2 · Thống kê của sale
 
@@ -164,3 +164,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US18 và US19 (QD21) | Cả file |
 | r2 | 2026-11-20 | Claude (QD25) | main | Claude tự chốt YC11-H1, H2, H3, H5, H6, H7, H8, H9; thêm YC11.1-NT12, NT13, YC11.2-NT9 đến NT11, YC11.3-NT8, NT9 | Quy tắc của nhóm, YC11.1, YC11.2, YC11.3 |
+| r3 | 2026-11-20 | Claude (QD25) | main | Sửa YC11-H9: chưa thu tiền chỉ gồm đặt phòng chưa cọc, khớp DLM.5 và CN8; sửa YC11.1-NT13 | Quy tắc của nhóm, YC11.1 |

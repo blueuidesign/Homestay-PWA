@@ -161,7 +161,7 @@ describe('YC7.5 · dòng "Mức cộng giá mặc định" ở tab Cá nhân (US
     fireEvent.click(screen.getByRole('button', { name: 'Mức cộng giá mặc định' }));
     expect(await screen.findByRole('heading', { name: 'Mức cộng giá mặc định' })).toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
-    fireEvent.click(screen.getByRole('button', { name: '+200k' }));
+    fireEvent.click(await screen.findByRole('button', { name: '+200k' }));
     fireEvent.click(screen.getByRole('button', { name: 'Lưu thay đổi' }));
     await waitFor(() => expect(mucCong.luu).toHaveBeenCalledWith(200_000, false));
     expect(await screen.findByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
