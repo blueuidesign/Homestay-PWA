@@ -62,5 +62,6 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.1@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
+- 2026-11-20 · Claude (QD25) · YC11 r3: sửa YC11-H9 (chưa thu chỉ gồm chưa cọc) cho khớp DLM.5, CN8 và NT9; sửa NT13.
 
 ## Bằng chứng

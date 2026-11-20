@@ -596,7 +596,7 @@ Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết:
 ### YC11-H9 · da-tra-loi
 "Chưa thu tiền" gồm chỉ đặt phòng chưa cọc, hay cả phần còn thu của đặt phòng đã cọc?
 Gắn ở: YC11.
-Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Gồm cả phần còn lại của đặt phòng đã cọc. Chủ nhà mở mục này để biết còn phải thu bao nhiêu; đặt phòng đã cọc vẫn còn tiền chưa thu. Dòng đã cọc ghi "Đã cọc · nhận phòng sau N ngày" và số tiền là tiền phòng trừ tiền cọc; tiền cọc không có hay không nhỏ hơn tiền phòng thì không có dòng. Đã thanh toán thì không có dòng. Ghi vào YC11 r2, thêm YC11.1-NT13.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chỉ đặt phòng "Chưa cọc", như quy tắc gốc, DLM.5 và hình CN8 (3.700.000đ). Sửa lại ngày 20/11/2026: lần chốt đầu (gồm cả phần còn lại của đặt phòng đã cọc) làm số tháng 10 thành 4.900.000đ vì B1 đã cọc, trái DLM.5, canvas và YC11.1-NT9. Phần còn thu của đặt phòng đã cọc xem ở chi tiết đặt phòng (YC5.5). Ghi vào YC11 r3, sửa YC11.1-NT13.
 
 ## YC12
 
