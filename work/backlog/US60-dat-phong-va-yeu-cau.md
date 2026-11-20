@@ -2,7 +2,7 @@
 id: US60
 tieu_de: "Đặt phòng và yêu cầu của sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC11.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [70]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -65,6 +65,7 @@ Kịch bản test tay: tests/kb/US60-dat-phong-va-yeu-cau.md.
 - 2026-11-20 · Claude · lập kế hoạch TA1, TA2, chưa code (tạm dừng). Chỗ hở cần tự chốt trước khi code: booking hủy theo QD12 (và yêu cầu đã chốt mà booking bị hủy) có hiện trong danh sách không; NT6 chênh 400.000đ cần dòng booking_rieng của sale (US29 chưa làm); câu "Hết hạn" giống nhau dù hết 2 tuần hay qua ngày nhận.
 
 - 2026-11-20 · Claude (Tùng giao, QD25) · code TA1, TA2; tự chốt 3 chỗ hở vào YC11 r4; chạm đặt phòng báo tạm tới US34 · ~1 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #70, CI xanh 4/4; chờ test; migration 20261120100000 đã lên staging.
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.3`: lần đầu (chưa có hàm) 21 hỏng; sửa 2 vòng lỗi gõ ở kỳ vọng của chính file test (thừa dấu |, trigger chặn xóa booking có sale); cuối 31 qua, 0 hỏng.

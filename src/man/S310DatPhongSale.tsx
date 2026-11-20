@@ -11,9 +11,11 @@ import {
   CAU_DA_HUY, CAU_DA_LUU_GIA, CAU_GHI_GIUP, chenhTam, chuCoc, dongChuVaNgay, theChuSua, vietChenh, type DatPhongSale,
 } from '../lib/datPhongSale';
 import type { DichVuDatPhongSale } from '../lib/dichVuDatPhongSale';
+import type { DichVuHuyDatPhong } from '../lib/dichVuHuyDatPhong';
 import { homNay as layHomNay, type Ngay } from '../lib/ngay';
 import { docSoTienGo, vietSo, vietTien } from '../lib/tien';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
+import { KhoiHuyDatPhong } from './KhoiHuyDatPhong';
 import { Icon } from './TabChu';
 import './S3GuiYeuCau.css';
 import './S3KetQuaYeuCau.css';
@@ -21,8 +23,6 @@ import './S3KetQuaYeuCau.css';
 export function S310DatPhongSale(props: {
   id: string; dv: DichVuDatPhongSale | undefined; homNay?: Ngay; tenTam?: string;
   onQuayLai: () => void; onVeLich?: () => void;
-  /** US33: nút xin hủy (đặt phòng còn hiệu lực). */
-  chanTrang?: (dp: DatPhongSale, docLai: () => void) => ReactNode;
 }) {
   const nay = props.homNay ?? layHomNay();
   const { id, dv } = props;
@@ -125,7 +125,11 @@ export function S310DatPhongSale(props: {
         ) : dp.ghiGiup ? (
           <section className="s3yc-bao" role="status"><span className="s3yc-bao-chu">{CAU_GHI_GIUP(dp.tenChu)}</span></section>
         ) : null}
-        {props.chanTrang?.(dp, () => void doc())}
+        {/* YC5.8 (US33): xin hủy, trả lời xin hủy, nhãn hủy ở cả hai bên (QD12). */}
+        {dv?.tinhTrangHuy && (
+          <KhoiHuyDatPhong bookingId={dp.id} dv={dv as DichVuHuyDatPhong} maCan={dp.maCan} ngayNhan={dp.ngayNhan}
+                           ngayTra={dp.ngayTra} tenBenKia={dp.tenChu} onDoi={() => void doc()} />
+        )}
         {dp.sdtChu && (
           <a className="hh-btn hh-btn--secondary hh-btn--block s3yc-nut" href={`tel:${dp.sdtChu}`}>Gọi {dp.tenChu}</a>
         )}

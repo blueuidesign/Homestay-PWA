@@ -3,8 +3,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { docDatPhongSale, type DatPhongSale } from './datPhongSale';
+import { taoDichVuHuySupabase, type DichVuHuyDatPhong } from './dichVuHuyDatPhong';
 
-export interface DichVuDatPhongSale {
+export interface DichVuDatPhongSale extends Partial<DichVuHuyDatPhong> {
   /** YC5.9 bước 38. */
   xem(bookingId: string): Promise<DatPhongSale>;
   /** YC5.9 bước 39: lưu giá bán của mình. */
@@ -19,6 +20,7 @@ function loiRpc(error: { message?: string; code?: string }): Error {
 
 export function taoDichVuDatPhongSaleSupabase(sb: SupabaseClient): DichVuDatPhongSale {
   return {
+    ...taoDichVuHuySupabase(sb), // YC5.8 (US33): xin hủy, trả lời xin hủy
     async xem(bookingId) {
       const { data, error } = await sb.rpc('fn_sale_xem_dat_phong', { p_booking_id: bookingId });
       if (error) throw loiRpc(error);

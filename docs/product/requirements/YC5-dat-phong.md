@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 6
+rev: 7
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -331,9 +331,9 @@ Tiêu chí:
 
 ## YC5.8 · Hủy đặt phòng có sale
 
-Bản 1 · rủi ro: cao · Màn: chưa có hình
+Bản 1 · rủi ro: cao · Màn: CN3-02, S3-10 (khối hủy ở cuối chi tiết đặt phòng)
 
-Đặt phòng có sale đứng tên (thành từ yêu cầu của sale, hay chủ nhà ghi giúp sale) không ai tự bỏ được: một bên xin hủy, bên kia đồng ý (QD12). Vị trí nút "Xin hủy" và khối trả lời ở chi tiết đặt phòng của chủ nhà (CN3-02) và của sale: chưa có hình ([MỞ: YC5-H17]).
+Đặt phòng có sale đứng tên (thành từ yêu cầu của sale, hay chủ nhà ghi giúp sale) không ai tự bỏ được: một bên xin hủy, bên kia đồng ý (QD12). [r7 · sửa] Nút "Xin hủy" và khối trả lời nằm ở cuối chi tiết đặt phòng của chủ nhà (CN3-02) và của sale (S3-10), chỗ nút "Xóa đặt phòng" của khách lẻ; nhãn "Chờ đồng ý hủy", "Bị từ chối hủy", "Đã hủy" ngay trên đó; hỏi lại bằng hộp xác nhận từ dưới lên như hộp xóa (YC5-H17 Claude tự chốt, QD25, chờ Tùng duyệt lại).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
@@ -393,3 +393,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r4 | 2026-11-19 | Claude | US31 chuẩn bị | YC5.6 bản 2: trả lời YC5-H3, H4, H5, H6, H8, H9 (Claude tự chốt, QD25); thêm NT9, NT10, NT11 | YC5.6 |
 | r5 | 2026-11-20 | Claude (QD25) | US29-ghi-dat-phong-cho-sale | Trả lời YC5-H13: giá bán điền sẵn làm tròn như QT5.4 (Claude tự chốt) | YC5.4 |
 | r6 | 2026-11-20 | Claude (QD25) | US34-sale-xem-dat-phong | Trả lời YC5-H10, YC5-H11: chênh âm được, sale bị ngừng vẫn sửa giá bán, màn theo khung S3-10 (Claude tự chốt) | YC5.9 |
+| r7 | 2026-11-20 | Claude (QD25) | US33-huy-dat-phong-co-sale | Trả lời YC5-H17: vị trí nút xin hủy và khối trả lời (Claude tự chốt) | YC5.8 |
