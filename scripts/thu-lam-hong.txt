@@ -497,3 +497,7 @@ EN10 danh mục: chỉ service_role | grant execute on function public.fn_file_c
 # US4 · hồ sơ
 YC1.4-NT4 | grant update on public.profiles to authenticated; create policy thu_lam_hong on public.profiles for update to authenticated using (true)
 YC1.4-NT5 | create or replace function public.fn_sua_ho_so(p_ten text, p_ten_hien_thi text, p_so text, p_anh text default null) returns void language plpgsql volatile security definer set search_path = '' as $$ begin update public.profiles set ten = p_ten, ten_hien_thi = p_ten_hien_thi, so_dien_thoai = p_so where id = auth.uid(); end $$
+
+# US5 · giờ nhận, trả mặc định
+YC1.5-NT3 | grant update on public.profiles to authenticated; create policy thu_lam_hong5 on public.profiles for update to authenticated using (true)
+YC1.5-NT1 | create or replace function public.fn_dat_gio_nhan_tra(p_nhan time, p_tra time) returns void language plpgsql volatile security definer set search_path = '' as $$ begin update public.profiles set gio_nhan = '14:00', gio_tra = '12:00' where id = auth.uid(); end $$
