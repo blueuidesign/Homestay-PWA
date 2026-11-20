@@ -5,7 +5,7 @@ import { LoiNguoiDung } from '../chung/matKetNoi';
 import { manTuThongBao } from './dichVuThongBao';
 import { taoDichVuTraLoiYeuCauSupabase } from './dichVuTraLoiYeuCau';
 import {
-  cauDaNhan, cauDaTuChoi, cauDaVaoLich, cauLyDoChoSale, cauTuChoiPhu, chuCaiDau, chuGuiTruoc, docDongYeuCauCho, docKetQuaTraLoi,
+  cauCanhBaoTrung, cauDaNhan, cauDaTuChoi, cauDaTuChoiTheo, cauDaVaoLich, cauLyDoChoSale, cauTuChoiPhu, chuCaiDau, chuGuiTruoc, docDongYeuCauCho, docKetQuaTraLoi,
   docYeuCauChoChu, dongChinhYeuCau, dongPhuYeuCau, dongSaleCN9, tieuDeKhoiYeuCau,
 } from './traLoiYeuCau';
 
@@ -95,5 +95,50 @@ describe('YC9.2 · mở từ thông báo, dịch vụ', () => {
     expect(rpc).toHaveBeenCalledWith('fn_tu_choi_yeu_cau', { p_yeu_cau_id: 'y1', p_ly_do: null });
     await expect(dv.chapNhan('y1')).rejects.toBeInstanceOf(LoiNguoiDung);
     expect(rpc).toHaveBeenCalledWith('fn_chap_nhan_yeu_cau', { p_yeu_cau_id: 'y1' });
+  });
+});
+
+describe('YC9.3 · yêu cầu trùng đêm (US52)', () => {
+  const TRUNG_RPC = [{ yeu_cau_id: 'y2', ten_sale: 'Sale Lan', ngay_nhan: '2026-10-18', ngay_tra: '2026-10-19',
+                       dem_trung: ['2026-10-18'], tong_gia_ban: 1500000 }];
+
+  it('YC9.3-NT1 dòng CN1-03 và CN9 đọc cờ trùng có đêm chồng, không chép giá bán lọt vào', () => {
+    const d = docDongYeuCauCho({ id: 'y1', can_id: 'c1509', ma_can: '1509', ten_sale: 'Sale Hùng', ngay_nhan: '2026-10-17',
+      ngay_tra: '2026-10-19', tong_gia_chu: 2200000, gui_luc: '2026-10-06T07:20:00Z', trung_voi: ['Sale Lan'], trung: TRUNG_RPC });
+    expect(d.trung).toEqual([{ yeuCauId: 'y2', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19', demTrung: ['2026-10-18'] }]);
+    const y = docYeuCauChoChu({ ...CN9_RPC, trung_voi: ['Sale Lan'], trung: TRUNG_RPC });
+    expect(y.trung).toHaveLength(1);
+    expect(JSON.stringify(y)).not.toMatch(/1500000|gia_ban|giaBan/);
+    expect(docYeuCauChoChu(CN9_RPC).trung).toEqual([]);
+  });
+
+  it('YC9.3-NT1 dòng CN1-03 của cả hai yêu cầu chồng đêm có "trùng ngày với ..."', () => {
+    const bay = Date.parse('2026-10-07T03:00:00Z');
+    expect(dongPhuYeuCau({ ngayNhan: '2026-10-17', ngayTra: '2026-10-19', guiLuc: '2026-10-07T02:50:00Z', trungVoi: ['Sale Lan'] }, bay))
+      .toBe('17/10 → 19/10 · trùng ngày với Sale Lan');
+    expect(dongPhuYeuCau({ ngayNhan: '2026-10-18', ngayTra: '2026-10-19', guiLuc: '2026-10-07T02:55:00Z', trungVoi: ['Sale Hùng'] }, bay))
+      .toBe('18/10 → 19/10 · trùng ngày với Sale Hùng');
+  });
+
+  it('YC9.3-NT1 cảnh báo CN9 đúng câu của YC9.3 bước 2', () => {
+    expect(cauCanhBaoTrung([{ yeuCauId: 'y2', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19', demTrung: ['2026-10-18'] }]))
+      .toBe('Trùng 18/10 với yêu cầu của Sale Lan. Chấp nhận yêu cầu này thì yêu cầu của Sale Lan bị từ chối và Sale Lan được báo.');
+    expect(cauCanhBaoTrung([])).toBeNull();
+  });
+
+  it('YC9.3-NT1 cảnh báo CN9 gộp đêm và tên khi trùng nhiều yêu cầu', () => {
+    expect(cauCanhBaoTrung([
+      { yeuCauId: 'y3', tenSale: 'Sale Lan', ngayNhan: '2026-10-17', ngayTra: '2026-10-18', demTrung: ['2026-10-17'] },
+      { yeuCauId: 'y2', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19', demTrung: ['2026-10-18'] },
+      { yeuCauId: 'y4', tenSale: 'Sale Nga', ngayNhan: '2026-10-18', ngayTra: '2026-10-20', demTrung: ['2026-10-18'] },
+    ])).toBe('Trùng 17/10, 18/10 với yêu cầu của Sale Lan, Sale Nga. Chấp nhận yêu cầu này thì yêu cầu của Sale Lan, Sale Nga bị từ chối '
+             + 'và Sale Lan, Sale Nga được báo.');
+  });
+
+  it('YC9.3-NT2 CN9-02 thêm dòng "Yêu cầu của Sale Lan (18/10 → 19/10) đã bị từ chối. Sale Lan được báo."', () => {
+    const y = docYeuCauChoChu({ ...CN9_RPC, trang_thai: 'da_chot', booking_id: 'b1',
+      da_tu_choi_theo: [{ yeu_cau_id: 'y2', ten_sale: 'Sale Lan', ngay_nhan: '2026-10-18', ngay_tra: '2026-10-19' }] });
+    expect(y.daTuChoiTheo).toHaveLength(1);
+    expect(cauDaTuChoiTheo(y.daTuChoiTheo![0]!)).toBe('Yêu cầu của Sale Lan (18/10 → 19/10) đã bị từ chối. Sale Lan được báo.');
   });
 });

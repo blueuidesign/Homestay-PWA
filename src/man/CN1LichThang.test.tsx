@@ -516,3 +516,25 @@ describe('YC9.2 · CN1-03 khối yêu cầu đặt phòng (US51)', () => {
     expect(screen.queryByText(/Xem và trả lời/)).toBeNull();
   });
 });
+
+describe('YC9.3 · CN1-03 nhãn trùng ngày (US52)', () => {
+  it('YC9.3-NT1 hai yêu cầu chờ chồng đêm: mỗi dòng có nhãn trùng ngày', async () => {
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu()} homNay="2026-10-07" onDatPhong={vi.fn()} onMoYeuCau={vi.fn()}
+                      bay={Date.parse('2026-10-07T03:00:00Z')}
+                      yeuCau={[
+                        { id: 'y1', canId: 'c1509', maCan: '1509', tenSale: 'Sale Hùng', ngayNhan: '2026-10-17', ngayTra: '2026-10-19',
+                          tongGiaChu: 2_200_000, guiLuc: '2026-10-07T02:50:00Z', trungVoi: ['Sale Lan'] },
+                        { id: 'y2', canId: 'c1509', maCan: '1509', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19',
+                          tongGiaChu: 900_000, guiLuc: '2026-10-07T02:55:00Z', trungVoi: ['Sale Hùng'] },
+                      ]} />
+      </ToastProvider>,
+    );
+    const khoi = await screen.findByRole('region', { name: 'Yêu cầu đặt phòng · 2' });
+    expect(within(khoi).getByText('Sale Lan đặt phòng 1509')).toBeInTheDocument();
+    expect(within(khoi).getByText('18/10 → 19/10 · trùng ngày với Sale Hùng')).toBeInTheDocument();
+    expect(within(khoi).getByText('17/10 → 19/10 · trùng ngày với Sale Lan')).toBeInTheDocument();
+    expect(khoi.querySelectorAll('[data-trung="co"]')).toHaveLength(2);
+  });
+});

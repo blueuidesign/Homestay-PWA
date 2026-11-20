@@ -13,6 +13,9 @@
 .cn9-hang { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
 .cn9-hang-gia-tri { font-weight: 700; color: var(--ink); text-align: right; }
 .cn9-nhan { gap: 8px; }
+/* US52 · YC9.3 bước 2: cảnh báo trùng đêm, màu cảnh báo như nhãn "Chờ bạn" của CN1-03. */
+.cn9-trung { background: var(--warning-tint); border-color: var(--warning-border); }
+.cn9-trung .cn9-chu { color: var(--warning-ink); }
 .cn9-nhan-tieu-de { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; }
 .cn9-chu { font-size: 14px; line-height: 20px; color: var(--ink-body); }
 .cn9-bao { margin: 0; font-size: 14px; line-height: 20px; color: var(--danger-text); }
