@@ -53,7 +53,7 @@ Kịch bản test tay: tests/kb/US59-thong-ke-cua-sale.md.
 
 ## Task
 - [x] US59-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC11.2-NT1, YC11.2-NT3, YC11.2-NT4, YC11.2-NT5, YC11.2-NT6, YC11.2-NT7, YC11.2-NT9, YC11.2-NT10, YC11.2-NT11, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US59-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US59-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
 - [ ] US59-TA3 Code · Claude Code (sonnet, CL14.6a): màn S7, S7-00 theo canvas, test unit, e2e cho YC11.2-NT1, YC11.2-NT2, YC11.2-NT3, YC11.2-NT8
 - [ ] US59-TA4 Test tay · Đức: chạy tests/kb/US59-thong-ke-cua-sale.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
@@ -68,3 +68,4 @@ Kịch bản test tay: tests/kb/US59-thong-ke-cua-sale.md.
 
 ## Bằng chứng
 - TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.2` trước migration: 3 qua, 46 hỏng (đỏ đúng chờ).
+- TA2: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.2` 49 qua sau vòng 1; `scripts/test-db.sh` 2601 qua, 0 hỏng; `scripts/thu-lam-hong.sh YC11.2` lần đầu 16/21 (5 phép thử đặt nhãn test không bắt được), sửa nhãn 2 vòng, cuối 21/21 đạt.

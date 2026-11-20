@@ -714,6 +714,7 @@ Policy:
 - fn_them_sale_tay(p_ten text, p_so text) → uuid · security definer · gọi được: authenticated
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated
 - fn_thong_ke_chu(p_thang date, p_so_thang integer) → jsonb · security definer · gọi được: authenticated
+- fn_thong_ke_sale(p_thang date, p_so_thang integer) → jsonb · security definer · gọi được: authenticated
 - fn_tu_choi_yeu_cau(p_yeu_cau_id uuid, p_ly_do text) → jsonb · security definer · gọi được: authenticated
 - fn_xem_link_moi(p_ma text) → jsonb · security definer · gọi được: anon, authenticated
 - fn_xem_link_xin_lich(p_ma text) → jsonb · security definer · gọi được: authenticated
