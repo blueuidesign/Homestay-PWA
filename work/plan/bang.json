@@ -476,6 +476,38 @@
    "dang_cho": "Đức test tay"
   },
   {
+   "id": "EN14",
+   "loai": "EN",
+   "tieu_de": "\"Trong phiên chỉ chạy test của item, cả bộ để CI\"",
+   "trang_thai": "dang-lam",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [],
+   "file": "work/backlog/EN14-giam-test-trong-phien.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Đang code"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
@@ -2661,7 +2693,7 @@
    "id": "US60",
    "loai": "US",
    "tieu_de": "\"Đặt phòng và yêu cầu của sale\"",
-   "trang_thai": "moi",
+   "trang_thai": "dang-lam",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [

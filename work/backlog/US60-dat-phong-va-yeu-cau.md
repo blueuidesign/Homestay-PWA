@@ -2,7 +2,7 @@
 id: US60
 tieu_de: "Đặt phòng và yêu cầu của sale"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC11.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -37,7 +37,7 @@ PQ7, PQ9, PQ10, PQ11, PQ14, PQ15, PQ16 và các test vi phạm ở mục "Ai đ�
 Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC11-H5, YC11-H3.
+- YC11-H5, YC11-H3 đã có lời đáp (Claude tự chốt, QD25), xem YC11 r2.
 - Phần đầu YC11-thong-ke.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -56,9 +56,12 @@ Kịch bản test tay: tests/kb/US60-dat-phong-va-yeu-cau.md.
 - [ ] US60-TA3 Test tay · Đức: chạy tests/kb/US60-dat-phong-va-yeu-cau.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+- TA1: `fn_danh_sach_sale(p_bo_qua int default 0)` → `{dong, con_nua}`, 50 dòng, mới nhất trước (mốc: giờ gửi yêu cầu, đặt phòng ghi giúp theo lúc tạo). Dòng đặt phòng: sale_id là người gọi, bỏ căn của mình, bỏ `sale_tu_ghi`, bỏ đã hủy; chênh = giá bán − tiền phòng như US59. Dòng yêu cầu: mọi yêu cầu của người gọi trừ đã chốt (hiện ở dòng đặt phòng); quá hạn đọc ra het_han; bị từ chối kèm `tu_choi` khong_nhan/dat_phong_khac. Test trước ở tests/db/76, phép thử làm hỏng, bang-cot.
+- TA2: `src/lib/danhSachSale.ts` (nhãn, câu), `dichVuDanhSachSale.ts`, màn `S703DanhSach.tsx` (S7-03, S7-03-00), nối từ S7 ở ManSale; unit NT1–NT6, NT9; e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.3@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
+- 2026-11-20 · Claude · lập kế hoạch TA1, TA2, chưa code (tạm dừng). Chỗ hở cần tự chốt trước khi code: booking hủy theo QD12 (và yêu cầu đã chốt mà booking bị hủy) có hiện trong danh sách không; NT6 chênh 400.000đ cần dòng booking_rieng của sale (US29 chưa làm); câu "Hết hạn" giống nhau dù hết 2 tuần hay qua ngày nhận.
 
 ## Bằng chứng
