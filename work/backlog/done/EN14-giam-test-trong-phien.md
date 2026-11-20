@@ -2,7 +2,7 @@
 id: EN14
 tieu_de: "Trong phiên chỉ chạy test của item, cả bộ để CI"
 loai: EN
-trang_thai: dang-lam
+trang_thai: xong
 thuc_hien: []
 truoc: []
 lien_quan: [EN12]
@@ -13,7 +13,7 @@ uoc_luong: 1 giờ
 thuc_te:
 can_duyet: [CL4.3.6]
 based_on:
-pr:
+pr: [68]
 ngay_tao: 2026-11-20
 ---
 ## Mục tiêu
@@ -28,11 +28,12 @@ Không có NT. Kiểm: gói việc mới (scripts/goi.py) ghi lệnh kiểm mớ
 - docs/dev/chay-va-test.md: mục "Test trong phiên và trên CI".
 
 ## Task
-- [x] EN14-TA1 Code
+- [x] EN14-TA1 Code · PR #68
 
 ## Nhật ký
 - 2026-11-20 · Claude · tạo item theo lời Tùng ("phan 5 khong can nhe, lam 1-4"), gộp sau 19:00 vì đang tạm dừng deploy
 - 2026-11-20 · Claude · TA1 trên nhánh EN14-giam-test-trong-phien: skill, agent code, goi.py, chay-va-test r8, reporter gọn · chưa đẩy (tạm dừng tới 19:00)
+- 2026-11-20 · Claude (QD25) · Gộp PR #68, CI xanh 4/4. Không cần test tay.
 
 ## Bằng chứng
 - `npx vitest run src/lib/tien.test.ts`: in gọn (reporter dot), 35 qua. `npm run typecheck` qua.

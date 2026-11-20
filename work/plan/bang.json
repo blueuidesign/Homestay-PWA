@@ -479,15 +479,15 @@
    "id": "EN14",
    "loai": "EN",
    "tieu_de": "\"Trong phiên chỉ chạy test của item, cả bộ để CI\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "xong",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [],
-   "file": "work/backlog/EN14-giam-test-trong-phien.md",
-   "pr": "",
+   "file": "work/backlog/done/EN14-giam-test-trong-phien.md",
+   "pr": "[68]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -505,7 +505,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Đang code"
+   "dang_cho": "–"
   },
   {
    "id": "US1",
