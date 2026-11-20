@@ -27,3 +27,4 @@ Chỗ ghi "(giả định GD<số>)" trong YC hay luật chung là lựa chọn 
 | GD30 | Tên file CSV "home247-dat-phong-<từ ngày>-<đến ngày>.csv" (YC1.6) | dang-dung |
 | GD31 | Địa chỉ Zalo OA của Home247 tạm là https://zalo.me/home247, đổi bằng biến VITE_ZALO_HOME247 (YC1.7); Tùng cần cho địa chỉ thật, xem work/cho-tung.md | dang-dung |
 | GD32 | Công tắc "Sale xin xem lịch" ở P3 vẫn hiện và lưu được dù bản 1 chưa có nguồn sinh thông báo loại đó (YC12.4, YC12-H2) | dang-dung |
+| GD33 | Lần mở app đầu tiên của một người (chưa có mốc lần mở) thì popup gồm mọi thông báo chưa đọc, rồi mới ghi mốc (YC12.1) | dang-dung |

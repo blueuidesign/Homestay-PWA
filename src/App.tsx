@@ -17,6 +17,7 @@ import { A3ChonVai } from './man/A3ChonVai';
 import { ManLinkMoi } from './man/A10ThemLich';
 import { A4ChuaCoCan } from './man/A4ChuaCoCan';
 import { A9ToastKetNoi } from './man/A9ToastKetNoi';
+import { S106PopupThongBao } from './man/S106PopupThongBao';
 import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
@@ -177,7 +178,12 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
           // YC6.5 bước 2, YC3.1: A4-01 sau khi đồng ý cho sale xem lịch mà chưa có căn.
           return <A4ChuaCoCan tenSaleVuaChoXem={vuaChoXem} onThemCan={() => { datVuaChoXem(null); den('/can/moi'); }} />;
         }
-        return <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />;
+        return (
+          <>
+            <ManChu duongDan={duongDan} den={den} dichVuCan={dichVuCan} onDangXuat={dangXuat} onHetPhien={() => void hetPhien()} />
+            {dichVuCan?.thongBao?.moApp && <S106PopupThongBao dv={dichVuCan.thongBao} />}
+          </>
+        );
       }
       // YC6.4: sale chưa có nguồn phòng thấy A5, A7 (dịch vụ link xin lịch). YC7.1: có căn thì S1.
       // YC6.8: sale đang mở app thấy toast A9, A9-02 khi chủ nhà đồng ý; "Xem" về lịch của sale.
@@ -190,6 +196,7 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
           {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
             <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />
           )}
+          {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao?.moApp && <S106PopupThongBao dv={dichVuCan.thongBao} />}
         </>
       );
   }
