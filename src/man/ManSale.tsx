@@ -65,6 +65,9 @@ import { CaNhan } from './CaNhan';
 import { P2HoSo } from './P2HoSo';
 import { P9HuongDan } from './P9HuongDan';
 import { P3CaiDatThongBao } from './P3CaiDatThongBao';
+import { P13ThongBao } from './P13ThongBao';
+import { diemMoTuThongBao, type ThongBao } from '../lib/thongBao';
+import type { DichVuThongBao } from '../lib/dichVuThongBao';
 import type { DichVuCaiDatThongBao } from '../lib/dichVuCaiDatThongBao';
 import type { DichVuHoSo } from '../lib/dichVuHoSo';
 import type { KhoaDong } from '../lib/caNhan';
@@ -132,6 +135,10 @@ function ManSaleTrong(props: {
   moKetQua?: string;
   /** YC9.4 S3-04-01: quay lại về Thông báo. Thiếu thì về tab Lịch. */
   onVeThongBao?: () => void;
+  /** YC12.2: thông báo của sale (P13). */
+  dvThongBao?: DichVuThongBao;
+  /** YC12.1 bước 3, 5: chạm một dòng ở popup (tb) hay "Xem tất cả thông báo" (tb null); lan đổi là một lần chạm mới. */
+  tuThongBao?: { tb: ThongBao | null; lan: number } | null;
 }) {
   const [tab, datTab] = useState<TabSaleTen>('lich');
   const [ngang, datNgang] = useState(false);
@@ -183,9 +190,38 @@ function ManSaleTrong(props: {
   const [moP2, datMoP2] = useState(false);
   const [moP9, datMoP9] = useState(false);
   const [moP12, datMoP12] = useState(false);
+  const [moP13, datMoP13] = useState(false);
+  // YC5.9, YC12 "Chạm mở": chi tiết đặt phòng phía sale mở từ P13 (quay lại về P13).
+  const [dpThongBao, datDpThongBao] = useState<string | null>(null);
   const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
   useEffect(() => { if (props.moKetQua) datKetQuaMo(props.moKetQua); }, [props.moKetQua]);
   const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datKetQuaMo(null); datTab('lich'); }, []);
+  // YC12 "Chạm mở": màn mở khi chạm một thông báo của sale. P13 giữ mở phía sau để quay lại.
+  const moTuThongBao = useCallback((tb: ThongBao) => {
+    const d = diemMoTuThongBao(tb, 'sale');
+    if (!d) return;
+    switch (d.kieu) {
+      case 's3-ket-qua': datKetQuaMo(d.yeuCauId); break;
+      case 's3-dat-phong': datDpThongBao(d.id); break;
+      case 's3-can': {
+        if (!dvCt) break;
+        const k = d.tu ? { tu: d.tu, den: d.den ?? congNgay(d.tu, 1), khachHoi: false as const } : khoangTuLich(homNay());
+        datMoCan({ s3: { canId: d.canId, tenTam: d.tenTam, ...k } });
+        break;
+      }
+      case 's7-03': datMoP13(false); datTab('thong-ke'); datMoDs(true); break;
+      case 'lich': datMoP13(false); veLich(); break;
+      case 'can': datMoP13(false); datTab('can'); break;
+      default: break;
+    }
+  }, [dvCt, veLich]);
+  const lanTb = props.tuThongBao?.lan;
+  useEffect(() => {
+    const t = props.tuThongBao;
+    if (!t) return;
+    if (t.tb) moTuThongBao(t.tb); // popup: chạm dòng
+    datMoP13(!t.tb); // "Xem tất cả thông báo" mở P13; chạm dòng thì không
+  }, [lanTb]); // eslint-disable-line react-hooks/exhaustive-deps
   const moCanTuongTu = useCallback((c: CanTuongTu) => {
     datKetQuaMo(null);
     datMoCan({ s3: { canId: c.canId, tenTam: tieuDeCan(c), tu: c.tu, den: c.den, khachHoi: true } });
@@ -230,6 +266,17 @@ function ManSaleTrong(props: {
         </MoCanTuongTu.Provider>
       </VeLichSale.Provider>
     );
+  }
+  if (dpThongBao && !moCan && !moTim) {
+    // YC5.9, YC12 "Chạm mở": chi tiết đặt phòng phía sale mở từ P13; quay lại về P13.
+    return (
+      <S310DatPhongSale key={dpThongBao} id={dpThongBao} tenTam="" dv={props.dvLich?.datPhongSale}
+                        onQuayLai={() => datDpThongBao(null)} onVeLich={() => { datDpThongBao(null); datMoP13(false); veLich(); }} />
+    );
+  }
+  if (moP13 && !moCan && !moTim) {
+    // YC12.2: P13 mở từ Cá nhân > Thông báo hay từ popup; thoát về tab Cá nhân.
+    return <P13ThongBao dv={props.dvThongBao} onQuayLai={() => { datMoP13(false); datTab('ca-nhan'); }} onCham={moTuThongBao} />;
   }
   if (moP10) {
     const dong = () => { datMoP10(false); datTab('ca-nhan'); };
@@ -317,7 +364,8 @@ function ManSaleTrong(props: {
   } else {
     // YC1.3 (US3): P4. Chạm dòng mở màn của dòng; màn chưa làm (US sau) báo tạm.
     const moDong = (khoa: KhoaDong) => {
-      if (khoa === 'ho-so') datMoP2(true); // YC1.4
+      if (khoa === 'thong-bao') datMoP13(true); // YC12.2: P13
+      else if (khoa === 'ho-so') datMoP2(true); // YC1.4
       else if (khoa === 'muc-cong') datMoP10(true); // YC7.5
       else if (khoa === 'mau-tin') datMoP11(true); // YC8.2
       else if (khoa === 'link-xin-lich') (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO)); // YC6.4: A6
