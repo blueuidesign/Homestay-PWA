@@ -1,7 +1,7 @@
 // S3 · Chi tiết căn của chủ nhà cho sale (YC7.4 bước 1 đến 8, US46). PQ2.SALE, PQ5.SALE, PQ11.SALE, QD7, QT2.1, QT5.4, GD13.
 // Bộ ảnh "1/N", tên căn, dòng phòng ngủ · giường · view · khu vực (không số khách, không tiện ích: YC7.4-NT4), độ tươi lịch,
 // chủ nhà và nút "Gọi" (tel:, chỉ khi có số), giá chủ, chip mức cộng ("Mặc định" đầu hàng, YC7-H7) và giá bán đổi ngay,
-// "Lịch 2 tuần tới" tô ngày khách hỏi (YC7-H6), giờ nhận trả, "Gửi yêu cầu đặt phòng" (S3-02 tạm, YC9 ở US50),
+// "Lịch 2 tuần tới" tô ngày khách hỏi (YC7-H6), giờ nhận trả, "Gửi yêu cầu đặt phòng" mở S3-02 (YC9.1, US50),
 // "Gửi cho khách" mở S5 (YC8.1, US48). HV1 khung xám, HV2 Thử lại, HV3 đọc lại khi quay lại, HV5 không còn quyền, HV8 toast.
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { KhungXam, DongDangCapNhat } from '../chung/dangTai';
@@ -14,12 +14,13 @@ import {
   oHaiTuan, THU_LUOI, tieuDeCan, type ChiTietCanSale, type ChonMuc, type KetQuaChiTiet,
 } from '../lib/chiTietCanSale';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
+import type { DichVuYeuCau } from '../lib/dichVuYeuCau';
 import { CAU_GUI_KHACH_SE_CO, chuDoTuoi } from '../lib/ketQuaTim';
 import type { Ngay } from '../lib/ngay';
 import { docSoTienGo, vietSo, vietTien } from '../lib/tien';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
 import { NutGuiKhach } from './S5GuiKhach';
-import { S302Tam } from './S6Tam';
+import { S3GuiYeuCau } from './S3GuiYeuCau';
 import { Icon } from './TabChu';
 import './S3ChiTietCan.css';
 
@@ -203,7 +204,10 @@ function ThanS3(props: {
 }
 
 export function S3ChiTietCan(props: MoS3 & {
-  dv: DichVuChiTietCanSale; homNay: Ngay; onQuayLai: () => void; onVeLich?: () => void;
+  /** yeuCau: YC9.1 gửi yêu cầu (S3-02); thiếu thì nút gửi ở S3-02 báo câu tạm. */
+  dv: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; homNay: Ngay; onQuayLai: () => void; onVeLich?: () => void;
+  /** YC9.1 bước 3a "Tìm căn khác cùng ngày"; thiếu thì về màn đã mở S3. */
+  onTimCanKhac?: (tu: Ngay, den: Ngay) => void;
 }) {
   const veLich = useContext(VeLichSale);
   const [kq, datKq] = useState<KetQuaChiTiet | undefined>(undefined);
@@ -230,7 +234,11 @@ export function S3ChiTietCan(props: MoS3 & {
   useQuayLaiTuNen(() => { void doc(); }); // HV3
 
   if (kq && !kq.khongConQuyen && moYeuCau) {
-    return <S302Tam tenCan={tieuDeCan(kq)} canId={kq.canId} tu={kq.tu} den={kq.den} onQuayLai={() => datMoYeuCau(false)} />;
+    return (
+      <S3GuiYeuCau ct={kq} dv={dv.yeuCau} dvCt={dv} onQuayLai={() => { datMoYeuCau(false); void doc(); }}
+                   onVeLich={props.onVeLich ?? veLich ?? props.onQuayLai}
+                   onTimCanKhac={props.onTimCanKhac ?? (() => props.onQuayLai())} />
+    );
   }
   if (kq && !kq.khongConQuyen) {
     return <ThanS3 ct={kq} homNay={props.homNay} khachHoi={props.khachHoi} dangTai={dangTai} dv={dv}
