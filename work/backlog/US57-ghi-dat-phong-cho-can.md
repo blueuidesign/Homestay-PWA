@@ -52,7 +52,7 @@ Kịch bản test tay: tests/kb/US57-ghi-dat-phong-cho-can.md.
 
 ## Task
 - [x] US57-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.4-NT2 đến NT9, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [ ] US57-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
+- [x] US57-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
 - [ ] US57-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-05, S6-06 theo canvas, test unit, e2e cho YC10.4-NT1, YC10.4-NT2, YC10.4-NT3, YC10.4-NT4, YC10.4-NT7, YC10.4-NT8, YC10.4-NT9
 - [ ] US57-TA4 Test tay · Đức: chạy tests/kb/US57-ghi-dat-phong-cho-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
