@@ -29,3 +29,4 @@ Chỗ ghi "(giả định GD<số>)" trong YC hay luật chung là lựa chọn 
 | GD32 | Công tắc "Sale xin xem lịch" ở P3 vẫn hiện và lưu được dù bản 1 chưa có nguồn sinh thông báo loại đó (YC12.4, YC12-H2) | dang-dung |
 | GD33 | Lần mở app đầu tiên của một người (chưa có mốc lần mở) thì không có popup (chưa có lần trước để so), chỉ ghi mốc; thông báo chưa đọc vẫn ở P13 (YC12.1) | dang-dung |
 | GD34 | Đặt phòng chưa cọc tạo khi đã còn dưới 3 ngày tới ngày nhận (chưa qua ngày nhận) vẫn được nhắc một lần ở lần chạy kế tiếp; đã hủy, đã qua ngày nhận, căn sale tự nhập thì không nhắc (YC12.3, YC12-H3) | dang-dung |
+| GD35 | Xuất CSV (YC1.6): "3 tháng gần nhất" là từ ngày 1 của hai tháng trước tới hết tháng này; file có BOM UTF-8, dấu phẩy, ngày YYYY-MM-DD, số điện thoại ghi ="0..." để giữ số 0; chữ bắt đầu bằng = + - @ thêm dấu nháy; trình duyệt không gửi được file thì tải về và báo "Đã tải file về máy" | dang-dung |

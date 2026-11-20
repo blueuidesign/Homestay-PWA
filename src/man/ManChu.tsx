@@ -52,6 +52,7 @@ import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 import { CaNhan } from './CaNhan';
 import { P2HoSo } from './P2HoSo';
 import { P5GioNhanTra } from './P5GioNhanTra';
+import { P8XuatCsv } from './P8XuatCsv';
 import { P9HuongDan } from './P9HuongDan';
 import { P3CaiDatThongBao } from './P3CaiDatThongBao';
 import { P13ThongBao } from './P13ThongBao';
@@ -328,6 +329,11 @@ export function ManChu(props: {
     return <P5GioNhanTra dv={props.dichVuCan?.gio} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
   }
 
+  if (man.tab === 'xuat-csv') {
+    // YC1.6 bước 1: P8 mở từ tab Cá nhân > Xuất file Excel (CSV).
+    return <P8XuatCsv dv={props.dichVuCan?.xuatCsv} onQuayLai={() => props.den('/ca-nhan')} />;
+  }
+
   if (man.tab === 'ho-so') {
     // YC1.4 bước 1: P2 mở từ tab Cá nhân; lưu xong ở lại màn, Quay lại về Cá nhân.
     return <P2HoSo dv={props.dichVuCan?.hoSo} onQuayLai={() => props.den('/ca-nhan')} onDaXoa={props.onDangXuat} />; // YC1.8 bước 3: xóa xong về A1
@@ -373,6 +379,7 @@ export function ManChu(props: {
       else if (khoa === 'dem-cuoi-tuan') props.den('/ca-nhan/dem-cuoi-tuan'); // YC4.6: P6
       else if (khoa === 'ho-so') props.den('/ca-nhan/ho-so'); // YC1.4: P2
       else if (khoa === 'gio') props.den('/ca-nhan/gio'); // YC1.5: P5
+      else if (khoa === 'xuat-csv') props.den('/ca-nhan/xuat-csv'); // YC1.6: P8
       else if (khoa === 'cai-dat-thong-bao') props.den('/ca-nhan/thong-bao'); // YC12.4: P3
       else if (khoa === 'huong-dan') props.den('/ca-nhan/huong-dan'); // YC1.7: P9
       else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4

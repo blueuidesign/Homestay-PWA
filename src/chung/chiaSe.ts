@@ -75,3 +75,37 @@ export async function guiAnh(files: File[], hienToast: (s: string) => void): Pro
   hienToast(CAU_THIEU_TINH_NANG);
   return 'khong-lam-duoc';
 }
+
+/** YC1.6 bước 6: báo sau khi tải file về máy. */
+export const CAU_DA_TAI_FILE = 'Đã tải file về máy';
+
+/**
+ * YC1.6 bước 6, pwa.md P3: mở bảng chia sẻ với file khi trình duyệt cho gửi file; không cho thì tải file về máy và báo;
+ * không làm được gì thì báo HV6 bước 2.
+ */
+export async function guiFile(file: File, hienToast: (s: string) => void): Promise<KetQuaChiaSe> {
+  try {
+    if (typeof navigator.share === 'function' && typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file] });
+      return 'da-chia-se';
+    }
+  } catch (e) {
+    if ((e as Error)?.name === 'AbortError') return 'da-chia-se';
+  }
+  try {
+    if (typeof URL.createObjectURL === 'function') {
+      const url = URL.createObjectURL(file);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 10_000);
+      hienToast(CAU_DA_TAI_FILE);
+      return 'da-tai-ve';
+    }
+  } catch { /* xuống nhánh báo */ }
+  hienToast(CAU_THIEU_TINH_NANG);
+  return 'khong-lam-duoc';
+}
