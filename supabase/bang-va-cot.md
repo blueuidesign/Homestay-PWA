@@ -529,6 +529,7 @@ Ràng buộc:
 - thong_bao_nguoi_nhan_fkey: FOREIGN KEY (nguoi_nhan) REFERENCES profiles(id)
 - thong_bao_pkey: PRIMARY KEY (id)
 - thong_bao_nguoi_nhan: CREATE INDEX thong_bao_nguoi_nhan ON public.thong_bao USING btree (nguoi_nhan, tao_luc DESC)
+- thong_bao_nhac_coc_mot_lan: CREATE UNIQUE INDEX thong_bao_nhac_coc_mot_lan ON public.thong_bao USING btree (doi_tuong_id) WHERE (loai = 'dat_phong_chua_coc'::text)
 
 Policy:
 - thong_bao_doc (SELECT, authenticated): (nguoi_nhan = ( SELECT auth.uid() AS uid))
