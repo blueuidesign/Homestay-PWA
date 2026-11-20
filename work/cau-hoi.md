@@ -511,37 +511,45 @@ Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết:
 
 ## YC10
 
-### YC10-H1 · mo
+### YC10-H1 · da-tra-loi
 Sale bỏ dòng của chủ nhà đã ngừng mình được không?
 Gắn ở: YC10.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Được. Dòng chủ nhà đã ngừng cho sale xem hiện nhãn "đã ngừng cho bạn xem lịch", không căn, không giá, và có nút "Bỏ khỏi danh sách" như dòng chủ nhà đã xóa tài khoản (S6-08). Giữ dòng đó mãi chỉ làm rối danh sách. Ghi vào YC10.2 r4, thêm YC10.2-NT6.
 
-### YC10-H2 · mo
+### YC10-H2 · da-tra-loi
 Dòng chủ nhà ở Nguồn phòng ghi "Cập nhật … trước" tính theo mốc nào (lần đổi lịch hay giá gần nhất của bất kỳ căn nào của chủ nhà đó)?
 Gắn ở: YC10.1, YC10.4.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mốc là lần đổi lịch hay giá gần nhất của bất kỳ căn nào chủ nhà đó chia sẻ cho sale này (lấy lúc đổi mới nhất). Sale cần biết những gì mình đang thấy mới tới đâu; căn chủ nhà không chia sẻ thì sale không thấy, nên không tính. Ghi vào YC10.1 r4.
 
-### YC10-H3 · mo
+### YC10-H3 · da-tra-loi
 Mã căn tự nhập trùng thì trùng với căn nào (căn tự nhập khác của chính sale, hay mọi căn của sale)?
 Gắn ở: YC10.3.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Trùng khi cùng tòa và cùng mã căn với một căn tự nhập khác của chính sale đó (không phân biệt hoa thường, bỏ khoảng trắng hai đầu); căn không có tòa thì so mã giữa các căn tự nhập không có tòa. Không so với căn của chủ nhà hay căn tự nhập của sale khác (QT1.3-VD2: Lan có Villa Tuần Châu riêng). Mã "1509" ở hai tòa khác nhau là chuyện thường. Ghi vào YC10.3 r4, thêm YC10.3-NT10.
 
-### YC10-H4 · mo
+### YC10-H4 · da-tra-loi
 Chủ căn tự nhập sau này dùng app thì căn tự nhập và đặt phòng cũ làm gì: ghép, giữ riêng hay xóa?
 Gắn ở: YC10.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không ghép. Căn tự nhập và đặt phòng sale đã ghi giữ nguyên, riêng của sale; khi đã kết nối chủ căn thật, sale tự xóa căn tự nhập nếu muốn. Ghép đòi biết hai căn là một, dễ ghép nhầm và làm sai thống kê. Ghi vào YC10 r4 mục Phạm vi.
 
-### YC10-H5 · mo
+### YC10-H5 · da-tra-loi
 Sale đã bấm "Bỏ khỏi danh sách" dòng chủ nhà đã xóa tài khoản; sau đó chủ nhà nhập lại số thì kết nối có nối lại không?
 Gắn ở: YC10.1.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không tự nối lại. Bấm "Bỏ khỏi danh sách" là sale tự bỏ, như bỏ nguồn; muốn xem lại thì xin link mới (YC6.4). Ghi vào YC10.1 r4, thêm YC10.1-NT11.
 
-### YC10-H6 · mo
+### YC10-H6 · da-tra-loi
 Màn chi tiết chủ nhà (S6-04) khi sale không còn quyền xem chủ nhà đó trông thế nào?
 Gắn ở: YC10.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Theo HV5: màn ghi "Bạn không còn xem được mục này" kèm lý do (chủ nhà đã ngừng cho bạn xem lịch, hay chủ nhà đã xóa tài khoản) và nút về tab Căn; database không trả chi tiết kết nối, căn, giá. Ghi vào YC10.2 r4, thêm YC10.2-NT7.
 
-### YC10-H7 · mo
+### YC10-H7 · da-tra-loi
 Sửa thông tin căn tự nhập và sửa booking đã ghi chưa có màn. Xóa booking sale đã ghi cũng chưa có màn.
 Gắn ở: YC10, YC10.3.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Sửa căn tự nhập dùng lại S6-02 điền sẵn, nút "Lưu thay đổi" (giả định GD23, giữ). Chạm một đặt phòng ở "ĐẶT PHÒNG BẠN ĐÃ GHI" mở S6-05 điền sẵn ngày và tiền, nút "Lưu thay đổi"; có nút "Xóa đặt phòng", bấm một lần đổi thành "Xác nhận xóa đặt phòng?", bấm lần nữa thì xóa và về S6-03. Đây là dữ liệu riêng của sale, không có bên kia phải đồng ý (khác QD12). Ghi vào YC10.4 r4, thêm YC10.4-NT8, NT9.
 
-### YC10-H8 · mo
+### YC10-H8 · da-tra-loi
 Sale đã bỏ nguồn của một chủ nhà: có còn xem lại đặt phòng cũ với chủ nhà đó không, và yêu cầu đặt phòng đang chờ giữa hai bên xử lý thế nào?
 Gắn ở: YC10.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đặt phòng đã chốt với chủ nhà đó vẫn ở danh sách đặt phòng của sale, như khi chủ nhà xóa tài khoản (YC10.1 bước 10). Yêu cầu đang chờ giữa hai bên chuyển Đã hủy ngay lúc bỏ nguồn, vì sale đã tự bỏ thì không còn đặt qua chủ nhà đó; chủ nhà không có thông báo mới (giống YC9-H6). Ghi vào YC10.2 r4, thêm YC10.2-NT8.
 
 ## YC11
 
