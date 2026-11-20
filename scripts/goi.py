@@ -220,7 +220,10 @@ def main(argv=None):
         'Theo lớp ghi sau dấu · ở cuối mỗi NT (database, unit, e2e; CL14.5). ' + TAY + ' task test trước thì ghi file test agent sau không được sửa',
         '',
         '## Lệnh kiểm',
-        'Theo docs/dev/chay-va-test.md: test của gói bị đổi, `python3 scripts/kiem.py --diff origin/main`. '
+        'Theo docs/dev/chay-va-test.md mục "Test trong phiên và trên CI" (EN14): chỉ chạy test của item '
+        '(`CHI_FILE_CO_MA=1 scripts/test-db.sh <mã YC>`, `npx vitest run <file test của item>`, e2e của item), '
+        '`scripts/thu-lam-hong.sh <mã YC>`, `npm run typecheck`, `python3 scripts/kiem.py --diff origin/main`. '
+        'Không chạy cả bộ test database, unit, build, e2e: CI chạy. '
         'Ghi vào mục Bằng chứng của item: lệnh đã chạy, lần đầu đỏ mấy test, sửa mấy vòng, kết quả cuối.',
         '',
         '## Xong khi',

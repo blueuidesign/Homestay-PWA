@@ -12,5 +12,7 @@ export default defineConfig({
     include: ['src/**/*.test.{ts,tsx}'],
     setupFiles: ['src/test/setup.ts'],
     restoreMocks: true,
+    // EN14: trên máy chỉ in chấm và test hỏng cho gọn; trên GitHub Actions giữ bản đầy đủ.
+    reporters: process.env.GITHUB_ACTIONS ? ['default'] : ['dot'],
   },
 });

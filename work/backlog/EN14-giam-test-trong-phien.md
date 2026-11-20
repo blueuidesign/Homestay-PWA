@@ -28,9 +28,13 @@ Không có NT. Kiểm: gói việc mới (scripts/goi.py) ghi lệnh kiểm mớ
 - docs/dev/chay-va-test.md: mục "Test trong phiên và trên CI".
 
 ## Task
-- [ ] EN14-TA1 Code
+- [x] EN14-TA1 Code
 
 ## Nhật ký
 - 2026-11-20 · Claude · tạo item theo lời Tùng ("phan 5 khong can nhe, lam 1-4"), gộp sau 19:00 vì đang tạm dừng deploy
+- 2026-11-20 · Claude · TA1 trên nhánh EN14-giam-test-trong-phien: skill, agent code, goi.py, chay-va-test r8, reporter gọn · chưa đẩy (tạm dừng tới 19:00)
 
 ## Bằng chứng
+- `npx vitest run src/lib/tien.test.ts`: in gọn (reporter dot), 35 qua. `npm run typecheck` qua.
+- `scripts/thu-lam-hong.sh YC11.1`: chỉ in dòng tổng, 8/8 đạt.
+- `python3 scripts/kiem.py --diff origin/main` không lỗi; `python3 -m unittest discover -s scripts/tests` OK; `scripts/goi.py US60` in ô Lệnh kiểm mới.

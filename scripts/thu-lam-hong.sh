@@ -8,6 +8,7 @@
 # Cách dùng: scripts/thu-lam-hong.sh            chạy mọi dòng
 #            scripts/thu-lam-hong.sh KT-DB.3.2  chỉ các dòng có chuỗi này
 # Biến kết nối giống scripts/test-db.sh. Database thử: home247_thu_hong.
+# CHI_TIET=1 in cả phép thử đạt (mặc định chỉ in phép thử không đạt và dòng tổng, EN14).
 set -uo pipefail
 
 GOC="$(cd "$(dirname "$0")/.." && pwd)"
@@ -34,7 +35,7 @@ while IFS= read -r dong || [ -n "$dong" ]; do
   echo "$cau" > "$TMP/hong.sql"
   ra="$(TEST_DB=home247_thu_hong TU_MAU="$MAU" CHI_FILE_CO_MA=1 SAU_MIGRATION="$TMP/hong.sql" "$GOC/scripts/test-db.sh" "$ma" 2>&1)"
   if echo "$ra" | grep -q '^HỎNG '; then
-    DAT=$((DAT+1)); echo "đạt  [$ma] test đỏ khi phá:$cau"
+    DAT=$((DAT+1)); if [ -n "${CHI_TIET:-}" ]; then echo "đạt  [$ma] test đỏ khi phá:$cau"; fi
   else
     KHONG_DAT=$((KHONG_DAT+1)); echo "HỎNG [$ma] test vẫn xanh (hoặc không chạy) khi phá:$cau"
     echo "$ra" | grep -E '^(LỖI|Test database)' | head -5 | sed 's/^/      /'
