@@ -33,9 +33,12 @@ test('YC4.1-NT1 YC4.1-NT2 tab Căn: căn có giá ghi khoảng giá tuần này,
   await expect(theGb.getByText('Chưa đặt giá')).toBeVisible();
   await expect(page.getByRole('button', { name: 'Đặt giá cho căn này' })).toHaveCount(1);
 
-  // YC4.1 bước 3: nút "Đặt giá nhiều căn" báo "Sẽ có ở bản sau".
+  // YC4.1 bước 3, YC4.4 bước 1: nút "Đặt giá nhiều căn" mở màn chọn căn CN6-05; quay lại về tab Căn.
   await page.getByRole('button', { name: 'Đặt giá nhiều căn' }).click();
-  await expect(page.getByRole('status').filter({ hasText: 'Sẽ có ở bản sau' })).toBeVisible();
+  await expect(page).toHaveURL(/\/can\/gia-nhieu$/);
+  await expect(page.getByText('Chọn căn · đã chọn 0/2')).toBeVisible();
+  await page.getByRole('button', { name: 'Quay lại' }).click();
+  await expect(page.getByText('2 căn')).toBeVisible();
 
   // YC4.1 bước 2: bấm "Đặt giá cho căn này" mở tab Giá của căn đó.
   await theGb.getByRole('button', { name: 'Đặt giá cho căn này' }).click();

@@ -139,7 +139,7 @@ function LichGia(props: { nam: number; thang: number; dem: DemGia[] | undefined;
 }
 
 /** CN6-09: chọn năm nay hoặc năm sau (YC4.2 bước 5). */
-function ChonNam(props: { namNay: number; dangChon: number; onChon: (n: number) => void; onDong: () => void }) {
+export function ChonNam(props: { namNay: number; dangChon: number; onChon: (n: number) => void; onDong: () => void }) {
   return (
     <>
       <div className="cn6-man-toi" onClick={props.onDong} aria-hidden="true" />
