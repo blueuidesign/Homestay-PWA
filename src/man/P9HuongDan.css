@@ -1,0 +1,16 @@
+/* US7 · P9 Hướng dẫn sử dụng. Vùng bấm 44 px, chữ không dưới 12 px. */
+.p9 { background: var(--surface-page); }
+.p9-dau { flex: 0 0 auto; min-height: 52px; background: var(--surface); border-bottom: 1px solid var(--border); padding: 4px 16px 4px 8px; display: flex; align-items: center; gap: 8px; }
+.p9-tieu-de { flex: 1 1 0; min-width: 0; margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.p9-than { flex: 1 1 auto; padding: 12px 12px 32px; display: flex; flex-direction: column; gap: 16px; }
+.p9-nhom { margin: 0 0 8px; padding: 0 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.p9-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.p9-ds > li + li { border-top: 1px solid var(--border-subtle); }
+.p9-muc { width: 100%; min-height: 52px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; padding: 4px 16px; border: 0; background: none; font: inherit; text-align: left; color: var(--ink); cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.p9-muc:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.p9-muc-ten { flex: 1 1 0; min-width: 0; font-size: 16px; line-height: 24px; }
+.p9-mui { display: inline-flex; color: var(--ink-faint); transition: transform 0.15s; }
+.p9-mui--mo { transform: rotate(180deg); }
+.p9-buoc { margin: 0; padding: 0 16px 16px 40px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.p9-zalo { display: flex; flex-direction: column; gap: 12px; }
+.p9-zalo-cau { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); text-align: center; text-wrap: pretty; }

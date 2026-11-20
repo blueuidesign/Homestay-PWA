@@ -52,6 +52,7 @@ import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
 import { CaNhan } from './CaNhan';
 import { P2HoSo } from './P2HoSo';
 import { P5GioNhanTra } from './P5GioNhanTra';
+import { P9HuongDan } from './P9HuongDan';
 import { CAU_SE_CO, type KhoaDong } from '../lib/caNhan';
 import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
 
@@ -285,6 +286,11 @@ export function ManChu(props: {
     );
   }
 
+  if (man.tab === 'huong-dan') {
+    // YC1.7 bước 1: P9 mở từ tab Cá nhân.
+    return <P9HuongDan vai="chu_nha" onQuayLai={() => props.den('/ca-nhan')} />;
+  }
+
   if (man.tab === 'gio') {
     // YC1.5 bước 1, 3: P5 mở từ tab Cá nhân; lưu xong về Cá nhân.
     return <P5GioNhanTra dv={props.dichVuCan?.gio} onQuayLai={() => props.den('/ca-nhan')} onDaLuu={() => props.den('/ca-nhan')} />;
@@ -334,6 +340,7 @@ export function ManChu(props: {
       if (khoa === 'dem-cuoi-tuan') props.den('/ca-nhan/dem-cuoi-tuan'); // YC4.6: P6
       else if (khoa === 'ho-so') props.den('/ca-nhan/ho-so'); // YC1.4: P2
       else if (khoa === 'gio') props.den('/ca-nhan/gio'); // YC1.5: P5
+      else if (khoa === 'huong-dan') props.den('/ca-nhan/huong-dan'); // YC1.7: P9
       else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4
       else hienToast(CAU_SE_CO);
     };

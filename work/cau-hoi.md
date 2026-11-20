@@ -48,9 +48,10 @@ Gắn ở: YC1.8.
 File xuất CSV có cột "Khách", "SĐT" (chỉ khách chủ nhà tự nhập, QD11): giữ hai cột này hay bỏ?
 Gắn ở: YC1.6.
 
-### YC1-H10 · mo
+### YC1-H10 · da-tra-loi
 P4 có "Hướng dẫn sử dụng" nhưng P9 chỉ có phần "CHỦ NHÀ". Sale chưa có hướng dẫn.
 Gắn ở: YC1.7.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết, QD25): Sale thấy nhóm "SALE" với 6 mục (xin chủ nhà cho xem lịch, tìm phòng trống, gửi ảnh và giá cho khách, cộng giá bán, gửi yêu cầu đặt phòng, thêm căn tự nhập); chủ nhà chỉ thấy nhóm "CHỦ NHÀ", mỗi vai thấy nhóm của mình. Nội dung các mục chủ nhà còn lại viết theo màn hiện có (src/lib/huongDan.ts). Chờ Tùng duyệt lại chữ.
 
 ### YC1-H11 · da-tra-loi
 Đổi giờ nhận, trả mặc định có đổi booking đã ghi không, và sale đã gửi khách thì thế nào. Ngoài ra căn có giờ riêng không (P5 nói áp dụng cho tất cả căn).

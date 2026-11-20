@@ -63,6 +63,7 @@ import type { DichVuDatPhongSale } from '../lib/dichVuDatPhongSale';
 import { Icon, ICON_LICH } from './TabChu';
 import { CaNhan } from './CaNhan';
 import { P2HoSo } from './P2HoSo';
+import { P9HuongDan } from './P9HuongDan';
 import type { DichVuHoSo } from '../lib/dichVuHoSo';
 import type { KhoaDong } from '../lib/caNhan';
 import type { DichVuCaNhan } from '../lib/dichVuCaNhan';
@@ -176,6 +177,7 @@ function ManSaleTrong(props: {
   const [moP10, datMoP10] = useState(false);
   const [moP11, datMoP11] = useState(false);
   const [moP2, datMoP2] = useState(false);
+  const [moP9, datMoP9] = useState(false);
   const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
   useEffect(() => { if (props.moKetQua) datKetQuaMo(props.moKetQua); }, [props.moKetQua]);
   const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datKetQuaMo(null); datTab('lich'); }, []);
@@ -227,6 +229,10 @@ function ManSaleTrong(props: {
   if (moP10) {
     const dong = () => { datMoP10(false); datTab('ca-nhan'); };
     return <P10MucCong dv={props.dvMucCong ?? props.dvLich?.mucCong} onQuayLai={dong} onDaLuu={dong} />;
+  }
+  if (moP9) {
+    const dong = () => { datMoP9(false); datTab('ca-nhan'); };
+    return <P9HuongDan vai="sale" onQuayLai={dong} />;
   }
   if (moP2) {
     const dong = () => { datMoP2(false); datTab('ca-nhan'); };
@@ -306,6 +312,7 @@ function ManSaleTrong(props: {
       else if (khoa === 'muc-cong') datMoP10(true); // YC7.5
       else if (khoa === 'mau-tin') datMoP11(true); // YC8.2
       else if (khoa === 'link-xin-lich') (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO)); // YC6.4: A6
+      else if (khoa === 'huong-dan') datMoP9(true); // YC1.7: P9
       else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4
       else hienToast(CAU_SE_CO);
     };
