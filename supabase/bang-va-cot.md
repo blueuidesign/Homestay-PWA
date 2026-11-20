@@ -222,6 +222,20 @@ Ràng buộc:
 Policy:
 - can_doc (SELECT, authenticated): ((nguoi_giu = ( SELECT auth.uid() AS uid)) OR (id IN ( SELECT my_shared_can_ids() AS my_shared_can_ids)))
 
+## file_cho_xoa
+
+RLS: bật
+
+| Cột | Kiểu | Null | Mặc định |
+|---|---|---|---|
+| duong_dan | text | không |  |
+| them_luc | timestamp with time zone | không | now() |
+
+Ràng buộc:
+- file_cho_xoa_pkey: PRIMARY KEY (duong_dan)
+
+Policy:
+
 ## gia_dip
 
 RLS: bật
@@ -642,6 +656,7 @@ Policy:
 
 ## Hàm
 
+- anh_can_vao_hang_xoa() → trigger · security definer
 - can_chia_se_cho_sale(p_sale uuid, p_can uuid) → boolean · security definer
 - can_cua_link(p_link link_moi) → SETOF uuid · security definer
 - can_dang_nhap() → uuid · security definer · gọi được: authenticated
@@ -662,6 +677,7 @@ Policy:
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
 - fn_chu_xem_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_da_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
+- fn_da_xoa_file(p_duong_dan text[]) → void · security definer
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - fn_danh_sach_sale(p_bo_qua integer) → jsonb · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
@@ -677,6 +693,7 @@ Policy:
 - fn_don_anh_tam() → SETOF text · security definer
 - fn_dong_y_xin_lich(p_ma text, p_xem_coc boolean) → jsonb · security definer · gọi được: authenticated
 - fn_ds_sale_cua_toi() → TABLE(id uuid, loai text, sale_id uuid, ten text, so_dien_thoai text, nhom text, da_xoa_tai_khoan boolean, xem_coc boolean, so_dat_phong integer, tong_tien_phong bigint, ket_noi_luc timestamp with time zone, ngung_luc timestamp with time zone) · security definer · gọi được: authenticated
+- fn_file_cho_xoa(p_so integer) → SETOF text · security definer
 - fn_ghi_dat_phong_tu_ghi(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tra_chu bigint, p_thu_khach bigint, p_client_id uuid) → uuid · security definer · gọi được: authenticated
 - fn_ghi_lan_gui(p_can_ids uuid[], p_tu date, p_den date) → integer · security definer · gọi được: authenticated
 - fn_gia_chu_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date) → TABLE(dem date, gia bigint) · security definer · gọi được: authenticated
