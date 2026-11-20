@@ -23,6 +23,7 @@ Main vẫn bị chặn deploy ("Deployment rate limited — retry in 24 hours") 
 Không có NT. Kiểm bằng tay: đẩy một commit chỉ đổi work/ thì Vercel ghi "Canceled · Ignored Build Step"; gộp một PR có đổi src/ thì có deploy production.
 
 ## Phạm vi
+- docs/process/CL4-quyen-han.md r3: CL4.7 mục 3 thêm quy ước gom lần đẩy main (Tùng hỏi vì sao không giảm số lần đẩy).
 - vercel.json: thêm `ignoreCommand` chạy `git diff --quiet HEAD^ HEAD --` trên các đường dẫn làm nên app (src, public, index.html, package.json, package-lock.json, vite.config.ts, tsconfig*.json, vercel.json). Không đổi thì thoát 0 (Vercel bỏ qua), có đổi thì thoát 1 (deploy).
 
 ## Task
@@ -30,5 +31,6 @@ Không có NT. Kiểm bằng tay: đẩy một commit chỉ đổi work/ thì Ve
 
 ## Nhật ký
 - 2026-11-20 · Claude (QD25) · tạo item: Tùng hỏi có chạm giới hạn deploy Vercel không; main bị chặn 24 giờ do khoảng 240 commit tài liệu trong 24 giờ
+- 2026-11-20 · Claude (QD25) · thêm CL4 r3: gom lần đẩy main, theo câu hỏi của Tùng
 
 ## Bằng chứng

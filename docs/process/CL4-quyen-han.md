@@ -3,7 +3,7 @@ id: CL4
 tieu_de: Quyền hạn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ---
 # CL4 · Quyền hạn
 
@@ -40,6 +40,7 @@ Theo QD21.
 1. **Luôn qua nhánh <mã>-<tên-ngắn> và PR:** mọi thay đổi trong src/, supabase/, tests/ (trừ dòng kết quả trong tests/kb), .github/, kể cả sửa lỗi nhỏ; mọi việc thuộc CL4.3, vì lời duyệt chính là việc gộp PR (CL4.5, CL4.6). Lý do: code đẩy thẳng main thì CI và review không bao giờ thấy nó.
 2. **Đẩy thẳng main:** tài liệu không thuộc CL4.3.1, item, nhật ký, trạng thái, review, kế hoạch, câu hỏi mở, điểm cải tiến CT, kết quả test tay ghi trong tests/kb.
 3. Cách đẩy thẳng: kéo main mới nhất trước, commit nhỏ, tiếng Việt, mở đầu bằng mã item. Vẫn tăng rev, thêm dòng Lịch sử sửa đổi và thẻ rev theo CL12. Không đẩy ép. Đẩy bị từ chối vì main đã đổi thì kéo về và gộp, không ép.
+   Gom lần đẩy `[r3 · thêm]`: commit trên máy khi xong từng phần, nhưng đẩy main gom một lần, thường là cùng lúc ghi việc gộp xong một PR, và không quá một lần mỗi giờ. Lý do: mỗi lần đẩy main là một lần deploy Vercel; ngày 20/11/2026 khoảng 240 commit đẩy lẻ làm main bị chặn deploy 24 giờ (EN13). Việc cần người khác thấy ngay (câu hỏi cho Tùng, kết quả test tay của Đức) thì đẩy ngay.
 4. Nghi việc có thuộc CL4.3 không thì coi là có, dùng nhánh và PR.
 5. Hook trước khi đẩy chặn commit lên main chạm src/, supabase/, tests/ (trừ tests/kb/), docs/process/, CLAUDE.md, .claude/, .github/ hay đổi trạng_thai của YC, QT, QD (CL4.9).
 Không có bảo vệ nhánh trên GitHub. Hook thay cho nó.
@@ -66,3 +67,4 @@ Hook chặn sai thì báo lại nguyên văn lỗi của hook cho người dùng
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Chép từ bản Zalo r9, sửa cho bản PWA (QD21). Lịch sử cũ ở repo zalo-miniapp | Cả file |
 | r2 | 2026-11-19 | Claude | QD25-tu-gop-pr | Tùng cho tự gộp PR khi CI xanh tới 26/11 (QD25) | CL4.4, CL4.6 |
+| r3 | 2026-11-20 | Claude (QD25) | EN13 | Gom lần đẩy main, theo góp ý của Tùng sau khi Vercel chặn deploy (EN13) | CL4.7 |
