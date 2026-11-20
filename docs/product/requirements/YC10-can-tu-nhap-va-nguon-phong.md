@@ -3,7 +3,7 @@ id: YC10
 tieu_de: Nguồn phòng và căn tự nhập
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 2
 ---
 # YC10 · Nguồn phòng và căn tự nhập
@@ -28,8 +28,7 @@ Không thuộc YC này (dễ tưởng là có):
 - Lịch 7 ngày, tìm phòng, chi tiết căn của chủ nhà (S3): YC7. Ô "?" và "Bạn" của căn tự nhập trên lịch: YC7.1.
 - Thêm, sửa căn của tôi, giá theo tháng: YC3, YC4 (sale làm như chủ nhà). Ghi đặt phòng cho căn của tôi: YC5.
 - Gửi khách: YC8. Xin lịch chủ nhà (A6): YC6.4. Thống kê, danh sách đặt phòng của sale: YC11.
-- Ghép căn tự nhập với căn thật khi chủ căn dùng app: chưa làm ([MỞ: YC10-H4]).
-- Sửa, xóa đặt phòng sale đã ghi cho căn tự nhập: chưa có màn ([MỞ: YC10-H7]).
+- Ghép căn tự nhập với căn thật khi chủ căn dùng app: bản 1 không làm; căn tự nhập và đặt phòng cũ giữ riêng của sale, sale tự xóa nếu muốn (YC10-H4, Claude tự chốt QD25). `[r4 · sửa]`
 
 ## Quy tắc của nhóm
 
@@ -75,7 +74,7 @@ Bản 2 · rủi ro: tb · Màn: S6, S6-00, S6-07, S6-08
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 1 | Mở tab Căn | Nhóm "CĂN CỦA TÔI · 2" kèm nút "+ Thêm căn" (YC3.2). Mỗi căn: tên, "2PN · view biển", tình trạng hôm nay ("Trống hôm nay ✓", "Có khách 12/10") | Căn của người gọi, tình trạng hôm nay |
-| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước" ([MỞ: YC10-H2]), các căn ("ICON40 1509 · 2PN · 3 giường", "view biển"), không có số khách | Căn trong phạm vi các kết nối đang dùng |
+| 2 | Xem nguồn phòng | Nhóm "CHỦ NHÀ ĐÃ KẾT NỐI · 2". Mỗi chủ nhà: chữ cái đầu, tên, "✓ Cập nhật 2 giờ trước" (lần đổi lịch hay giá gần nhất của các căn chủ nhà chia sẻ cho sale này, YC10-H2) `[r4 · sửa]`, các căn ("ICON40 1509 · 2PN · 3 giường", "view biển"), không có số khách | Căn trong phạm vi các kết nối đang dùng |
 | 3 | Xem căn tự nhập | Nhóm "CĂN TỰ NHẬP · 1": "Villa Tuần Châu", "Chú Bình · chưa dùng app · gọi hỏi lịch", không có "Trống hôm nay". Dòng gợi ý "Mời chú Bình dùng app để lịch tự cập nhật, không cần gọi hỏi.", nút "Chia sẻ lời mời" | Căn tự nhập của người gọi |
 | 4 | Bấm "Chia sẻ lời mời" | Mở bảng chia sẻ với tin mời chung có link mở app (pwa.md P3). App không tự gửi tin | Không |
 | 5 | Chạm tên chủ nhà | S6-04 (YC10.2) | Không |
@@ -86,7 +85,7 @@ Bản 2 · rủi ro: tb · Màn: S6, S6-00, S6-07, S6-08
 | 10 | Bấm "Bỏ khỏi danh sách" | Dòng biến ngay, không hỏi lại. Đặt phòng đã chốt với chủ nhà đó vẫn ở danh sách đặt phòng của sale (YC11) | Bỏ dòng khỏi danh sách của sale này |
 | 11 | Chưa có căn nào | S6-00: "Chưa có căn nào", "Thêm căn của bạn, xin lịch chủ nhà, hoặc tự nhập căn của chủ chưa dùng app.", nút "+ Thêm căn của tôi" (YC3.2), "Gửi tin nhắn xin lịch cho chủ nhà" (YC6.4), "Thêm căn tự nhập" (YC10.3) | Không |
 
-Chủ nhà đã xóa tài khoản cho lại tên và số thì dòng trở lại như trước và kết nối tự nối lại (QD13). Đã bỏ dòng ở bước 10 rồi thì có nối lại không: [MỞ: YC10-H5].
+Chủ nhà đã xóa tài khoản cho lại tên và số thì dòng trở lại như trước và kết nối tự nối lại (QD13). `[r4 · sửa]` Đã bỏ dòng ở bước 10 rồi thì không tự nối lại; muốn xem lại phải xin link mới (YC10-H5, Claude tự chốt QD25).
 
 Tiêu chí:
 - **YC10.1-NT1** Khi Sale Hùng mở tab Căn, thì thấy ba nhóm với số đếm 2, 2 và 1. · unit, database
@@ -99,6 +98,7 @@ Tiêu chí:
 - **YC10.1-NT8** Khi Hùng bấm "Bỏ khỏi danh sách" ở dòng Chị Hoa, thì dòng biến ngay, không hỏi lại, và B1 vẫn ở danh sách đặt phòng của Hùng. · database, unit
 - **YC10.1-NT9** Khi Hùng bấm "Chia sẻ lời mời", thì bảng chia sẻ mở; app không tự gửi tin. · unit
 - **YC10.1-NT10** Khi sale chưa có căn nào, thì tab Căn hiện S6-00 với ba nút. · unit
+- **YC10.1-NT11** `[r4 · thêm]` Khi Hùng đã bỏ dòng Chị Hoa (đã xóa tài khoản) rồi Chị Hoa đăng ký lại với cùng số, thì Chị Hoa không trở lại nguồn phòng của Hùng. · database
 
 ## YC10.2 · Chi tiết chủ nhà và bỏ nguồn
 
@@ -113,7 +113,7 @@ Bản 1 · rủi ro: cao · Màn: S6-04
 | 5 | Bấm "Bỏ nguồn phòng này" | Nút đổi thành "Xác nhận bỏ Chị Hoa?", "Bạn không thấy lịch của Chị Hoa nữa. Muốn xem lại phải xin link mới." | Không |
 | 6 | Bấm xác nhận | Về S6, Chị Hoa không còn ở nguồn phòng (giả định GD23) | Kết nối sang "sale bỏ". Không báo chủ nhà |
 
-Màn S6-04 khi không còn quyền: [MỞ: YC10-H6]. Sale bỏ dòng của chủ nhà đã ngừng mình được không: [MỞ: YC10-H1]. Sau khi bỏ nguồn, đặt phòng cũ và yêu cầu đang chờ giữa hai bên thế nào: [MỞ: YC10-H8].
+`[r4 · sửa]` Các câu sau Claude tự chốt (QD25). S6-04 khi không còn quyền theo HV5: "Bạn không còn xem được mục này" kèm lý do, nút về tab Căn; database không trả chi tiết (YC10-H6). Dòng chủ nhà đã ngừng cho sale xem hiện nhãn "đã ngừng cho bạn xem lịch", không căn, không giá, có nút "Bỏ khỏi danh sách" như S6-08 (YC10-H1). Sau khi bỏ nguồn, đặt phòng đã chốt vẫn ở danh sách đặt phòng của sale; yêu cầu đang chờ giữa hai bên sang Đã hủy, chủ nhà không có thông báo mới (YC10-H8).
 
 Tiêu chí:
 - **YC10.2-NT1** Khi Chị Hoa đã đặt giá tháng 10 cho 1509 và 3402, thì S6-04 của Hùng ghi giá đêm của cả hai căn; căn nào chưa đặt giá thì không có giá. · database, unit
@@ -121,6 +121,9 @@ Tiêu chí:
 - **YC10.2-NT3** Khi sale bấm "Bỏ nguồn phòng này" một lần, thì chưa bỏ gì, chỉ hiện nút xác nhận. · unit
 - **YC10.2-NT4** Khi sale bấm xác nhận, thì chủ nhà đó biến khỏi nguồn phòng, lịch và tìm phòng của sale không còn căn của chủ nhà đó. · database, unit
 - **YC10.2-NT5** Khi Sale Lan bỏ nguồn trên kết nối của Sale Hùng, thì không được; khi sale chưa kết nối đọc chi tiết chủ nhà, thì không có số điện thoại. · database
+- **YC10.2-NT6** `[r4 · thêm]` Khi Chị Hoa đã ngừng cho Hùng xem lịch, thì dòng Chị Hoa ở nguồn phòng ghi "đã ngừng cho bạn xem lịch", không căn, không giá; Hùng bấm "Bỏ khỏi danh sách" thì dòng biến ngay. · database, unit
+- **YC10.2-NT7** `[r4 · thêm]` Khi Hùng mở S6-04 của Chị Hoa sau khi Chị Hoa ngừng cho Hùng xem, thì màn ghi "Bạn không còn xem được mục này" kèm lý do và dữ liệu trả về không có căn, giá, số điện thoại. · database, unit
+- **YC10.2-NT8** `[r4 · thêm]` Khi Hùng có yêu cầu chờ tới 1509 và B1 đã chốt với Chị Hoa rồi bỏ nguồn Chị Hoa, thì yêu cầu chờ sang "Đã hủy", Chị Hoa không có thông báo mới, và B1 vẫn ở danh sách đặt phòng của Hùng. · database
 
 ## YC10.3 · Căn tự nhập
 
@@ -134,7 +137,7 @@ Bản 1 · rủi ro: tb · Màn: S6-02, S6-03, S6-03-00
 | 4 | Nhập giá chủ | "Ngày thường", "Cuối tuần", ghi chú "Giá chủ báo qua điện thoại. Không bắt buộc. Dùng để điền sẵn khi đặt phòng." | Không |
 | 5 | Thêm ảnh | "ẢNH (0)", "Tối đa 12 ảnh", nút "Thêm ảnh" (như YC3.3) | Ảnh tải lên ngay khi chọn |
 | 6 | Thiếu ô bắt buộc | Dòng "Còn thiếu: tên chủ nhà, số điện thoại, mã căn, số phòng ngủ" (chỉ ô đang thiếu); nút "Thêm căn" mờ | Không |
-| 7 | Bấm "Thêm căn" | Về S6, căn ở nhóm "CĂN TỰ NHẬP" | Tạo căn tự nhập; mã căn trùng thì từ chối (trùng với căn nào: [MỞ: YC10-H3]) |
+| 7 | Bấm "Thêm căn" | Về S6, căn ở nhóm "CĂN TỰ NHẬP" | Tạo căn tự nhập; mã căn trùng thì từ chối: trùng là cùng tòa và cùng mã với một căn tự nhập khác của chính sale đó, không phân biệt hoa thường, bỏ khoảng trắng hai đầu (YC10-H3) `[r4 · sửa]` |
 | 8 | Chạm căn tự nhập | S6-03: tên căn, tên chủ, số điện thoại che ba số giữa, "chưa dùng app", nút "Gọi hỏi lịch", "Căn này không có lịch trống. Khách hỏi ngày nào, bạn gọi chú Bình hỏi ngày đó." | Căn tự nhập của người gọi |
 | 9 | Xem đặt phòng đã ghi | "ĐẶT PHÒNG BẠN ĐÃ GHI · 1", "Chỉ bạn thấy", "20/09 → 22/09", "Trả chủ 2.800.000đ · Thu khách 3.400.000đ", "+600.000đ" (V1), ghi chú "Đây là đặt phòng của bạn, không phải lịch của căn. Ngày không có đặt phòng chưa chắc còn trống." Chưa có thì S6-03-00 "Chưa có đặt phòng nào cho căn này" | Đặt phòng tự ghi của căn |
 | 10 | Bấm "Gửi cho khách" | S5 với căn này (YC8) | Không |
@@ -142,7 +145,7 @@ Bản 1 · rủi ro: tb · Màn: S6-02, S6-03, S6-03-00
 | 12 | Bấm "Sửa thông tin căn" | Sửa ảnh, giá chủ, số phòng ngủ, tên và số chủ căn; xóa được số (QD11) | Ghi thay đổi; xóa số thì không còn giữ số |
 | 13 | Bấm "Xóa căn tự nhập" | Nút đổi thành "Xác nhận xóa Villa Tuần Châu?", "Chỉ xóa khỏi Nguồn phòng của bạn."; bấm lần nữa về S6 (giả định GD23) | Xóa căn, ảnh, đặt phòng tự ghi của căn |
 
-Màn sửa căn tự nhập chưa thiết kế ([MỞ: YC10-H7]): tới khi có màn, dùng lại S6-02 điền sẵn dữ liệu, nút "Lưu thay đổi" (giả định GD23).
+Màn sửa căn tự nhập chưa thiết kế: dùng lại S6-02 điền sẵn dữ liệu, nút "Lưu thay đổi" (giả định GD23, YC10-H7). `[r4 · sửa]`
 
 Tiêu chí:
 - **YC10.3-NT1** Khi còn thiếu một trong bốn ô bắt buộc, thì dòng "Còn thiếu" liệt kê đúng ô thiếu và nút "Thêm căn" chưa dùng được; database cũng từ chối khi thiếu. · unit, database
@@ -154,6 +157,7 @@ Tiêu chí:
 - **YC10.3-NT7** Khi Sale Lan đọc, sửa, xóa Villa Tuần Châu của Hùng, hay ghi đặt phòng vào đó, hay đọc V1, V2; hoặc Chị Hoa đọc hay tạo căn tự nhập, thì không được và dữ liệu không đổi. · database
 - **YC10.3-NT8** Khi sale xóa số điện thoại chủ căn rồi lưu, thì database không còn số đó và nút "Gọi hỏi lịch" không dùng được. · database, unit
 - **YC10.3-NT9** Khi sale bấm "Xóa căn tự nhập" một lần, thì chưa xóa; bấm xác nhận thì căn, ảnh và V1, V2 không còn. · unit, database
+- **YC10.3-NT10** `[r4 · thêm]` Khi Hùng đã có căn tự nhập "1509" ở tòa ICON40, thì thêm căn tự nhập cùng tòa với mã " 1509 " bị từ chối; thêm "1509" ở tòa khác, hay Lan thêm "1509" ở ICON40, thì được. · database
 
 ## YC10.4 · Ghi đặt phòng cho căn tự nhập
 
@@ -184,13 +188,15 @@ Tiêu chí:
 - **YC10.4-NT5** Khi Hùng đã có V2 08/10 → 09/10 và ghi tiếp 08/10 → 10/10 cho Villa Tuần Châu, thì bị từ chối, không lưu (QT1.3-VD1). · database
 - **YC10.4-NT6** Khi Sale Lan ghi căn tự nhập Villa Tuần Châu của Lan cùng đêm với V2, thì lưu được (QT1.3-VD2). · database
 - **YC10.4-NT7** Khi Hùng đã ghi V2, thì lịch 7 ngày ghi "Bạn" ở 08/10, các ô khác vẫn "?". · database, unit
+- **YC10.4-NT8** `[r4 · thêm]` Khi Hùng chạm V2 ở "ĐẶT PHÒNG BẠN ĐÃ GHI" và đổi "Thu khách" thành 1.800.000đ rồi bấm "Lưu thay đổi", thì V2 lưu 1.800.000đ và các đêm không đổi; đổi sang đêm trùng V1 thì bị từ chối (QT1.3). · database, unit
+- **YC10.4-NT9** `[r4 · thêm]` Khi Hùng bấm "Xóa đặt phòng" ở V2 một lần, thì chưa xóa; bấm xác nhận thì V2 không còn và ô 08/10 trên lịch 7 ngày về "?"; Lan xóa V2 của Hùng thì không được. · database, unit
 
 ## Màn hình
 `[r2 · sửa]`
 
 Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch YC thì YC đúng.
 
-- **S6 · Căn của sale.** Dòng "Cập nhật 2 giờ trước" của chủ nhà: [MỞ: YC10-H2].
+- **S6 · Căn của sale.** Dòng "Cập nhật 2 giờ trước" của chủ nhà theo YC10-H2. `[r4 · sửa]`
 - **S6-00, S6-02, S6-03, S6-03-00, S6-05, S6-07, S6-08.** Đúng bố cục.
 - **S6-04 · Chi tiết chủ nhà.** Canvas chưa có hình chi tiết; làm theo YC10.2.
 - **S6-06 · Đã lưu.** Toast theo HV8.
@@ -202,3 +208,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US16 trừ phần "Lịch phòng 7 ngày" (đã vào YC7.1) (QD21) | Cả file |
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi mời chủ căn tự nhập | YC10.1, Màn hình |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Nút "Chia sẻ lời mời" theo canvas PWA | YC10.1 |
+| r4 | 2026-11-20 | Claude (QD25) | main | Claude tự chốt YC10-H1 đến H8; thêm YC10.1-NT11, YC10.2-NT6 đến NT8, YC10.3-NT10, YC10.4-NT8, NT9 | Phạm vi, YC10.1, YC10.2, YC10.3, YC10.4, Màn hình |
