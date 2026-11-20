@@ -3,7 +3,7 @@ id: YC12
 tieu_de: Thông báo
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 1
 ---
 # YC12 · Thông báo
@@ -134,7 +134,7 @@ Bản 1 · rủi ro: tb · Màn: P13
 | 1 | (tự động) Đặt phòng chưa hủy, "Chưa cọc", còn 3 ngày tới ngày nhận (giờ Việt Nam) | Chủ nhà có thông báo "Đặt phòng chưa cọc" | Việc định kỳ ghi một thông báo cho chủ nhà; mỗi đặt phòng một lần |
 | 2 | Chủ nhà đánh dấu đã cọc trước hạn đó | Không có thông báo | Không ghi |
 
-Ghi lúc mấy giờ trong ngày: giả định GD28 (08:00 giờ Việt Nam). Đặt phòng tạo khi đã còn dưới 3 ngày tới ngày nhận thì có nhắc không: [MỞ: YC12-H3].
+Ghi lúc mấy giờ trong ngày: giả định GD28 (08:00 giờ Việt Nam). `[r5 · sửa]` Đặt phòng tạo khi đã còn dưới 3 ngày tới ngày nhận (chưa qua ngày nhận) vẫn được nhắc một lần ở lần chạy kế tiếp (Claude tự chốt, QD25, trả lời YC12-H3, giả định GD34, chờ Tùng duyệt lại). Đặt phòng đã hủy, đã qua ngày nhận hay ở căn sale tự nhập thì không nhắc.
 
 Tiêu chí:
 - **YC12.3-NT1** Khi B2 (Sale Lan, 17/10 → 19/10) còn "Chưa cọc" ngày 14/10, thì Chị Hoa có đúng một thông báo "Đặt phòng chưa cọc" cho B2; việc chạy lại không ghi thêm. · database
@@ -175,3 +175,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | US15-them-can | Trả lời YC3-H1: có báo sale khi chủ nhà thêm căn (Claude tự quyết, QD25) | Các loại thông báo |
 | r3 | 2026-11-19 | Claude (QD25) | main | Theo YC9-H6: không báo chủ nhà khi sale hủy yêu cầu | Các loại thông báo |
 | r4 | 2026-11-20 | Claude (QD25) | US64-cai-dat-thong-bao | Trả lời YC12-H2 (Claude tự chốt, giả định GD32, chờ Tùng duyệt lại): công tắc "Sale xin xem lịch" hiện nhưng chưa có nguồn thông báo | YC12.4, Các loại thông báo |
+| r5 | 2026-11-20 | Claude (QD25) | US63-nhac-dat-phong-chua-coc | Trả lời YC12-H3 (Claude tự chốt, giả định GD34, chờ Tùng duyệt lại): đặt phòng tạo muộn vẫn được nhắc một lần | YC12.3 |

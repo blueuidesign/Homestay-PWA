@@ -61,3 +61,13 @@ describe('màn mở khi chạm thông báo (YC12 cột "Chạm mở")', () => {
     expect(diemMoTuThongBao({ loai: 'yeu_cau_moi', noiDung: {}, doiTuongId: null }, 'chu_nha')).toBeNull();
   });
 });
+
+describe('nhắc đặt phòng chưa cọc (YC12.3)', () => {
+  it('chạm "Đặt phòng chưa cọc" mở chi tiết đặt phòng của chủ nhà (YC5.5)', () => {
+    expect(diemMoTuThongBao({ loai: 'dat_phong_chua_coc', noiDung: {}, doiTuongId: 'b2' }, 'chu_nha')).toEqual({ kieu: 'dat-phong-chu', id: 'b2' });
+  });
+  it('đặt phòng khách lẻ (không có sale) ghi "Khách lẻ", không tên khách', () => {
+    const c = chuCuaThongBao({ loai: 'dat_phong_chua_coc', noiDung: { ngay_nhan: '2026-10-17', ngay_tra: '2026-10-19', con_ngay: 2 } });
+    expect(c.phu).toBe('Khách lẻ · 17/10 → 19/10 · nhận phòng sau 2 ngày');
+  });
+});

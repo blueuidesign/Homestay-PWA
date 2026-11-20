@@ -529,6 +529,7 @@ Ràng buộc:
 - thong_bao_nguoi_nhan_fkey: FOREIGN KEY (nguoi_nhan) REFERENCES profiles(id)
 - thong_bao_pkey: PRIMARY KEY (id)
 - thong_bao_nguoi_nhan: CREATE INDEX thong_bao_nguoi_nhan ON public.thong_bao USING btree (nguoi_nhan, tao_luc DESC)
+- thong_bao_nhac_coc_mot_lan: CREATE UNIQUE INDEX thong_bao_nhac_coc_mot_lan ON public.thong_bao USING btree (doi_tuong_id) WHERE (loai = 'dat_phong_chua_coc'::text)
 
 Policy:
 - thong_bao_doc (SELECT, authenticated): (nguoi_nhan = ( SELECT auth.uid() AS uid))
@@ -719,6 +720,7 @@ Policy:
 - fn_mo_app() → TABLE(id uuid, loai text, noi_dung jsonb, doi_tuong_loai text, doi_tuong_id uuid, tao_luc timestamp with time zone, doc_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
+- fn_nhac_chua_coc() → integer · security definer
 - fn_sale_bo_dong_chu(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_nguon(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated

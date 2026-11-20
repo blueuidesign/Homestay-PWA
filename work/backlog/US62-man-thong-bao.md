@@ -2,7 +2,7 @@
 id: US62
 tieu_de: "Màn Thông báo"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC12.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 84
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -62,3 +62,4 @@ Kịch bản test tay: tests/kb/US62-man-thong-bao.md (6 kịch bản, 3 [Chính
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC12.2`: 32 qua, 0 hỏng (viết test và migration cùng lượt nên không có lần chạy đỏ trước). `scripts/thu-lam-hong.sh YC12.2`: 3 đạt. `npx vitest run` các file P13, thongBao, App, ManChu, ManSale, dieuHuong, caNhan: 105 qua. `npm run typecheck`: qua. `python3 scripts/kiem.py --diff origin/main`: không lỗi. e2e: CI chạy.
+- 2026-11-20 · Claude (tự chạy, QD25) · gộp PR #84 (CI xanh ngay lần đầu); chuyển cho-test, chờ Đức TA3

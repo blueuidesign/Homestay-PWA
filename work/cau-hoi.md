@@ -613,9 +613,10 @@ Báo chủ nhà khi sale gửi link xin xem lịch thế nào, khi link đi ngo�
 Gắn ở: YC12, YC12.4.
 Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết, QD25, giả định GD32): Bản 1 không báo chủ nhà khi sale gửi link, vì database chưa biết gì trước khi chủ nhà mở link. Công tắc "Sale xin xem lịch" vẫn hiện ở P3 theo hình và lưu được, nhưng chưa có nguồn sinh thông báo loại đó; có nguồn thì công tắc chặn ghi đã sẵn (trigger thong_bao_cong_tac). Chờ Tùng duyệt lại.
 
-### YC12-H3 · mo
+### YC12-H3 · da-tra-loi
 Đặt phòng tạo khi đã còn dưới 3 ngày tới ngày nhận thì có nhắc không?
 Gắn ở: YC12.3.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết, QD25, giả định GD34): Có, nhắc một lần ở lần chạy kế tiếp, miễn còn chưa qua ngày nhận. Lý do: mục đích của nhắc là chủ nhà không quên đòi cọc trước khi khách tới; đặt phòng tạo muộn càng cần nhắc, và nếu không nhắc thì loại đặt phòng này không bao giờ được nhắc. Mỗi đặt phòng vẫn chỉ một lần. Chờ Tùng duyệt lại.
 
 ### YC12-H4 · mo
 Tắt một loại thì thông báo loại đó đã ghi trước còn ở P13 không?
