@@ -28,3 +28,4 @@ Chỗ ghi "(giả định GD<số>)" trong YC hay luật chung là lựa chọn 
 | GD31 | Địa chỉ Zalo OA của Home247 tạm là https://zalo.me/home247, đổi bằng biến VITE_ZALO_HOME247 (YC1.7); Tùng cần cho địa chỉ thật, xem work/cho-tung.md | dang-dung |
 | GD32 | Công tắc "Sale xin xem lịch" ở P3 vẫn hiện và lưu được dù bản 1 chưa có nguồn sinh thông báo loại đó (YC12.4, YC12-H2) | dang-dung |
 | GD33 | Lần mở app đầu tiên của một người (chưa có mốc lần mở) thì không có popup (chưa có lần trước để so), chỉ ghi mốc; thông báo chưa đọc vẫn ở P13 (YC12.1) | dang-dung |
+| GD34 | Đặt phòng chưa cọc tạo khi đã còn dưới 3 ngày tới ngày nhận (chưa qua ngày nhận) vẫn được nhắc một lần ở lần chạy kế tiếp; đã hủy, đã qua ngày nhận, căn sale tự nhập thì không nhắc (YC12.3, YC12-H3) | dang-dung |

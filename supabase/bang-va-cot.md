@@ -719,6 +719,7 @@ Policy:
 - fn_mo_app() → TABLE(id uuid, loai text, noi_dung jsonb, doi_tuong_loai text, doi_tuong_id uuid, tao_luc timestamp with time zone, doc_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
+- fn_nhac_chua_coc() → integer · security definer
 - fn_sale_bo_dong_chu(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_nguon(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated
