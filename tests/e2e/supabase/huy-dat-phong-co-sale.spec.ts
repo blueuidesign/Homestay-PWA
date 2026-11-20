@@ -45,6 +45,7 @@ test('YC5.8-NT1 YC5.8-NT2 luồng chính: sale xin hủy ở S3-10, chủ nhà �
 
   // Sale mở lại thấy "Đã hủy" (YC11.3: dòng đặt phòng đã hủy ghi "Đặt phòng đã hủy").
   await page.reload();
+  await page.getByRole('dialog').getByRole('button', { name: 'Đóng' }).click(); // YC12.1: popup "đã đồng ý hủy" của lần mở lại, đóng để bấm tab
   await page.getByRole('navigation', { name: 'Tab' }).getByRole('button', { name: 'Thống kê' }).click();
   await page.getByRole('button', { name: 'Xem tất cả đặt phòng và yêu cầu' }).click();
   await page.getByRole('button', { name: /Đặt phòng đã hủy/ }).click();

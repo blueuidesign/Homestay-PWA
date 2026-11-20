@@ -60,7 +60,6 @@ test('YC10.2-NT1 YC10.2-NT2 YC10.2-NT3 YC10.2-NT4 YC10.2-NT6 YC10.2-NT7 sale m�
   await expect(s604.getByRole('button', { name: /^Sapphire 1103/ })).toBeVisible();
   sql(`update public.ket_noi set trang_thai = 'chu_ngung', ngung_luc = now() where chu_id = '${tuanId}' and sale_id = '${hungId}'`);
   await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange'))); // HV3 quay lại từ nền
-  await page.getByRole('dialog').getByRole('button', { name: 'Đóng' }).click(); // YC12.1-NT4: popup thông báo mới, đóng để bấm màn bên dưới
   await expect(s604.getByText('Bạn không còn xem được mục này')).toBeVisible();
   await expect(s604.getByText('Chủ nhà đã ngừng chia sẻ lịch')).toBeVisible();
   await expect(s604).not.toContainText('1103');
