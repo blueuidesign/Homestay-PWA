@@ -1,6 +1,6 @@
 -- US58 · Thống kê của chủ nhà (YC11.1). Lệnh đọc số liệu tháng của chủ nhà fn_thong_ke_chu. Chỉ thêm, không sửa migration cũ.
 
--- YC11.1 bước 1 đến 9, YC11 "Quy tắc của nhóm", YC11 "Dữ liệu", QT2.1, QT2.2, QT4.2, QT6.1, QD10, QD12, YC11-H7, YC11-H9,
+-- YC11.1 bước 1 đến 9, YC11 "Quy tắc của nhóm", YC11 "Dữ liệu", QT2.1, QT2.2, QT4.2, QT6.1, QD10, QD12, YC11-H7, YC11-H9 (r3),
 -- PQ7.CHU, PQ9.CHU, PQ11.CHU, PQ15.CHU, PQ16, KT-DB.3.11.
 -- Chỉ căn có lịch người gọi giữ, kể cả đã ẩn; cộng từ booking_dem lúc đọc, bỏ đặt phòng đã hủy. Không đọc booking_rieng
 -- (giá bán, khách của sale), không trả tiền cọc. Chưa thu: đặt phòng có ngày nhận trong tháng.
@@ -64,18 +64,17 @@ begin
                      where d.dem >= g::date and d.dem < (g + interval '1 month')::date), 0)::bigint as doanh_thu
     from generate_series((v_dau - make_interval(months => p_so_thang - 1))::date, v_dau, interval '1 month') g
   ),
-  -- YC11 "Chưa thu tiền", QT6.1, YC11-H9: chưa cọc thì cả tiền phòng; đã cọc thì tiền phòng trừ tiền cọc khi còn dư.
+  -- YC11 "Chưa thu tiền", QT6.1, YC11-H9 (r3): chỉ đặt phòng chưa cọc, số tiền là tiền phòng; đã cọc không có dòng.
   chua_thu as (
     select b.id as booking_id, b.can_id, c.ma_can, b.sale_id, b.ngay_nhan, b.ngay_tra, b.trang_thai_tien,
-           case when b.trang_thai_tien = 'chua_coc' then b.tien_phong else b.tien_phong - b.tien_coc end as so_tien,
+           b.tien_phong as so_tien,
            (b.ngay_nhan - v_hom_nay) as con_ngay,
            case when b.sale_id is not null then (select coalesce(p.ten_hien_thi, p.ten) from public.profiles p
                                                  where p.id = b.sale_id) end as ten
     from public.booking b
     join can_chu c on c.id = b.can_id
     where b.trang_thai <> 'da_huy' and b.ngay_nhan >= v_dau and b.ngay_nhan < v_sau
-      and (b.trang_thai_tien = 'chua_coc'
-           or (b.trang_thai_tien = 'da_coc' and b.tien_coc is not null and b.tien_coc < b.tien_phong))
+      and b.trang_thai_tien = 'chua_coc'
   )
   select jsonb_build_object(
     'thang', v_dau,

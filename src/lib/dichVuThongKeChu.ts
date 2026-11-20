@@ -29,7 +29,7 @@ export function docThongKe(r: Json): ThongKeThang {
       bookingId: String(d.booking_id), canId: String(d.can_id), maCan: String(d.ma_can),
       saleId: (d.sale_id as string | null) ?? null, ten: (d.ten as string | null) ?? null, khachLe: !!d.khach_le,
       ngayNhan: String(d.ngay_nhan), ngayTra: String(d.ngay_tra),
-      trangThaiTien: d.trang_thai_tien === 'da_coc' ? 'da_coc' : 'chua_coc', soTien: so(d.so_tien), conNgay: so(d.con_ngay),
+      trangThaiTien: 'chua_coc', soTien: so(d.so_tien), conNgay: so(d.con_ngay),
     } satisfies DongChuaThu)),
     tongChuaThu: so(r.tong_chua_thu),
   };

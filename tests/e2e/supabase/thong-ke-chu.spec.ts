@@ -33,7 +33,7 @@ test('YC11.1-NT1 YC11.1-NT2 YC11.1-NT5 YC11.1-NT7 YC11.1-NT9 luồng chính: ch�
 
   taoBooking(chuId, c1509, ng(2), ng(4), 2200000, { saleId }); // Sale Hùng, 2 đêm, đã thanh toán
   taoBooking(chuId, c3402, ng(10), ng(11), 800000, { trangThaiTien: 'chua_coc' }); // khách lẻ, chưa cọc
-  taoBooking(chuId, c1509, ng(20), ng(22), 1800000, { trangThaiTien: 'da_coc', tienCoc: 500000 }); // khách lẻ, đã cọc
+  taoBooking(chuId, c1509, ng(20), ng(22), 1800000, { trangThaiTien: 'da_coc', tienCoc: 500000 }); // khách lẻ, đã cọc: không có dòng chưa thu (YC11.1-NT13)
   taoBooking(chuId, c3402, ng(5, thangSau, namSau), ng(6, thangSau, namSau), 1200000, { saleId }); // tháng sau
 
   await dangNhapBangMa(page, chu.email);
@@ -55,13 +55,13 @@ test('YC11.1-NT1 YC11.1-NT2 YC11.1-NT5 YC11.1-NT7 YC11.1-NT9 luồng chính: ch�
   const ban = page.getByRole('region', { name: 'Doanh thu theo người bán' }).getByRole('listitem');
   await expect(ban).toHaveText(['Khách lẻ2.600.000đ', 'Sale Hùng2.200.000đ']);
 
-  // YC11.1 bước 7, YC11-H9: chưa cọc 800.000đ và đã cọc còn 1.300.000đ.
+  // YC11.1 bước 7, YC11-H9 (r3): chỉ dòng chưa cọc 800.000đ; đặt phòng đã cọc không có dòng.
   const ct = page.getByRole('region', { name: 'Chưa thu tiền' });
-  await expect(ct.getByText('2.100.000đ')).toBeVisible();
   await expect(ct.getByText(`Khách lẻ · ${ng(10).slice(8)}/${ng(10).slice(5, 7)} → ${ng(11).slice(8)}/${ng(11).slice(5, 7)}`)).toBeVisible();
   await expect(ct.getByText(/^Chưa cọc · /)).toBeVisible();
-  await expect(ct.getByText(/^Đã cọc · /)).toBeVisible();
-  await expect(ct.getByText('1.300.000đ')).toBeVisible();
+  await expect(ct.getByText(/^Đã cọc/)).toHaveCount(0);
+  await expect(ct.getByText('800.000đ')).toHaveCount(2); // tổng và một dòng
+  await expect(ct.getByText(/ · \d\d\/\d\d → /)).toHaveCount(1);
 
   // YC11.1 bước 5: cột tháng đang xem đậm.
   const bd = page.getByRole('region', { name: 'Doanh thu 6 tháng' });

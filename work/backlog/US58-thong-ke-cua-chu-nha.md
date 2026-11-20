@@ -65,7 +65,7 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC11.1@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC11 r2: Claude tự chốt YC11-H1 đến H9 (trừ H4), cập nhật NT và task.
-- 2026-11-20 · Claude · TA1–TA3 trên nhánh US58-thong-ke-chu: fn_thong_ke_chu, CN8, CN8-00 · bất ngờ: B1 đã cọc làm chưa thu T10 thành 4,9tr (lệch DLM.5) · 1 phiên
+- 2026-11-20 · Claude · TA1–TA3 trên nhánh US58-thong-ke-chu: fn_thong_ke_chu, CN8, CN8-00 · bất ngờ: B1 đã cọc lệch DLM.5, sửa theo YC11 r3 · 1 phiên
 
 ## Bằng chứng
 - TA1 `CHI_FILE_CO_MA=1 scripts/test-db.sh YC11.1`: lần đầu 49 hỏng, 3 qua (chưa có hàm).
@@ -73,3 +73,4 @@ Kịch bản test tay: tests/kb/US58-thong-ke-cua-chu-nha.md.
 - `scripts/thu-lam-hong.sh YC11.1`: 8/8 đạt (1 phép sửa lại vì phép đầu không phá được).
 - TA3 `npx vitest run`: 987 qua (test mới xanh lần đầu); `npm run typecheck`, `npm run build` qua.
 - e2e `thong-ke-chu.spec.ts`: 1 qua lần đầu; `lich-thang`, `dem-cuoi-tuan` vẫn qua. `kiem.py --diff origin/main`: không có lỗi.
+- YC11 r3 (H9 chỉ chưa cọc): sửa NT13 trước, đỏ 4; sửa migration thì `test-db.sh YC11.1` 48 qua, cả bộ 2472 qua; thu-lam-hong 8/8; vitest 987, e2e thong-ke-chu, kiem.py qua.

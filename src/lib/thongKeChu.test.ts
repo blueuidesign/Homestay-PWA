@@ -62,8 +62,7 @@ describe('YC11.1 · chữ trên CN8', () => {
     expect(chuaThuGap(B2)).toBe(false);
     expect(chuaThuGap({ ...B2, conNgay: 6 })).toBe(true);
   });
-  it('YC11-H9 dòng đã cọc ghi "Đã cọc"; nhận hôm nay, đã qua ngày nhận', () => {
-    expect(dongPhuChuaThu({ ...B2, trangThaiTien: 'da_coc', conNgay: 3 })).toBe('Đã cọc · nhận phòng sau 3 ngày');
+  it('YC11.1 bước 7: nhận hôm nay, đã qua ngày nhận', () => {
     expect(dongPhuChuaThu({ ...B2, conNgay: 0 })).toBe('Chưa cọc · nhận phòng hôm nay');
     expect(dongPhuChuaThu({ ...B2, conNgay: -2 })).toBe('Chưa cọc · đã nhận phòng');
     expect(dongChinhChuaThu({ ...B2, saleId: null, ten: null, khachLe: true })).toBe('Khách lẻ · 17/10 → 19/10');

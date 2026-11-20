@@ -388,7 +388,7 @@ YC11.1-NT8 PQ16.SALE Sale Hùng gọi thống kê chủ nhà | do $h$ begin exec
 YC11.1-NT4 QD12 hủy N4 | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), 'b.trang_thai <> ''da_huy''', 'true'); end $h$
 YC11.1-NT12 YC11-H7 có 1103 từ trước | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), 'greatest(v_dau, c.tao_ngay)', 'v_dau'); end $h$
 YC11.1-NT12 YC11-H7 có 1103 từ trước | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), '(c.tao_luc at time zone ''Asia/Ho_Chi_Minh'')::date', '(c.tao_luc at time zone ''UTC'')::date'); end $h$
-YC11.1-NT13 tháng 11: dòng B20 | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), 'or (b.trang_thai_tien = ''da_coc''', 'or (false'); end $h$
+YC11.1-NT13 tháng 10: không có dòng B1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), 'and b.trang_thai_tien = ''chua_coc''', 'and b.trang_thai_tien in (''chua_coc'', ''da_coc'')'); end $h$
 YC11.1-NT8 KT-DB.3.11 | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), '''so_tien'', so_tien,', '''so_tien'', so_tien, ''tien_coc'', 0,'); end $h$
 YC11.1-NT10 thu đủ B2 thì B2 | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_chu(date, int)'::regprocedure), '''chua_coc''', '''chua_coc'' or b.trang_thai_tien = ''da_thanh_toan'''); end $h$
 YC11.1-NT8 PQ16.LINK người chưa đăng nhập không có quyền | grant execute on function public.fn_thong_ke_chu(date, int) to anon

@@ -9,10 +9,10 @@ export type CanThongKe = { canId: string; maCan: string; doanhThu: number; soDem
 export type ThangBieuDo = { thang: Ngay; doanhThu: number };
 /** YC11.1 bước 6, YC11 "Khách lẻ": một dòng người bán; khách lẻ không có saleId. */
 export type NguoiBan = { saleId: string | null; ten: string | null; khachLe: boolean; doanhThu: number };
-/** YC11.1 bước 7, YC11 "Chưa thu tiền" (YC11-H9): soTien là tiền phòng (chưa cọc) hay tiền phòng trừ tiền cọc (đã cọc). */
+/** YC11.1 bước 7, YC11 "Chưa thu tiền" (YC11-H9, r3): chỉ đặt phòng chưa cọc; soTien là tiền phòng. */
 export type DongChuaThu = {
   bookingId: string; canId: string; maCan: string; saleId: string | null; ten: string | null; khachLe: boolean;
-  ngayNhan: Ngay; ngayTra: Ngay; trangThaiTien: 'chua_coc' | 'da_coc'; soTien: number; conNgay: number;
+  ngayNhan: Ngay; ngayTra: Ngay; trangThaiTien: 'chua_coc'; soTien: number; conNgay: number;
 };
 /** YC11.1 bước 1: số liệu một tháng (fn_thong_ke_chu). Không có giá bán, tiền chênh, mức cộng (PQ11.CHU, PQ15.CHU). */
 export type ThongKeThang = {
@@ -91,14 +91,13 @@ export function dongChinhChuaThu(d: DongChuaThu): string {
 }
 
 /**
- * YC11.1 bước 7, YC11-H9: dòng phụ "Chưa cọc · nhận phòng sau 10 ngày", "Đã cọc · nhận phòng sau 3 ngày".
+ * YC11.1 bước 7: dòng phụ "Chưa cọc · nhận phòng sau 10 ngày".
  * Số ngày tính theo hôm nay giờ Việt Nam (database trả). Hôm nay nhận thì "nhận phòng hôm nay"; đã qua ngày nhận thì
  * "đã nhận phòng" (Claude tự chọn: YC chỉ có ví dụ ngày nhận sau hôm nay).
  */
 export function dongPhuChuaThu(d: DongChuaThu): string {
-  const tt = d.trangThaiTien === 'da_coc' ? 'Đã cọc' : 'Chưa cọc';
   const khi = d.conNgay > 0 ? `nhận phòng sau ${d.conNgay} ngày` : d.conNgay === 0 ? 'nhận phòng hôm nay' : 'đã nhận phòng';
-  return `${tt} · ${khi}`;
+  return `Chưa cọc · ${khi}`;
 }
 
 /** Canvas CN8: dòng sắp nhận phòng (trong 7 ngày) ghi màu cảnh báo (Claude tự chọn ngưỡng theo hình: 6 ngày đỏ, 10 ngày xám). */

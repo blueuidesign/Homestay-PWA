@@ -8,7 +8,7 @@
 --    chua_thu: [{booking_id, can_id, ma_can, sale_id, ten, khach_le, ngay_nhan, ngay_tra, trang_thai_tien, so_tien,
 --                con_ngay}] (đặt phòng có ngày nhận trong tháng, ngày nhận tăng dần), tong_chua_thu}.
 -- Số theo DLM.4, DLM.5 (tháng 10 của Chị Hoa), tháng 9 như 48_us11_doanh_thu_thang.sql. QT2.1, QT2.2, QT4.2, QT6.1, QD10,
--- QD12, YC11-H7, YC11-H9, PQ11.CHU, PQ15.CHU, PQ16.
+-- QD12, YC11-H7, YC11-H9 (r3), PQ11.CHU, PQ15.CHU, PQ16.
 select t.fixture();
 
 -- DLM.1: "hôm nay" là 07/10/2026 (thay local_today() trong giao dịch của file này, như 61_us45_ket_qua_tim.sql).
@@ -148,12 +148,12 @@ select t.bang((select string_agg(x, ';') from unnest(string_to_array(pg_temp.chu
 select t.bang((select sum((e ->> 'so_tien')::bigint) from jsonb_array_elements(pg_temp.j10() -> 'chua_thu') e
                where e ->> 'trang_thai_tien' = 'chua_coc'), 3700000::numeric,
               'YC11.1-NT9 tháng 10: B2 và B5 chưa cọc cộng 3.700.000đ');
--- YC11-H9: B1 đã cọc 1.000.000đ trên 2.200.000đ (DLM.4) còn 1.200.000đ cũng là một dòng; đã thanh toán, đã hủy không có.
+-- YC11.1-NT13, YC11-H9 (YC11 r3): B1 đã cọc 1.000.000đ còn thu 1.200.000đ (DLM.4) không có dòng; đã thanh toán, đã hủy cũng không.
 select t.bang(pg_temp.chua_thu(pg_temp.j10()),
-              'B1|Sale Hùng|da_coc|1200000|3;B5|Khách lẻ|chua_coc|1800000|6;B2|Sale Lan|chua_coc|1900000|10',
-              'YC11.1-NT9 YC11-H9 tháng 10: B1 đã cọc còn 1.200.000đ có dòng; ngày nhận tăng dần; không có đặt phòng đã thanh toán, đã hủy H1');
-select t.bang(pg_temp.j10() ->> 'tong_chua_thu', '4900000',
-              'YC11.1-NT9 YC11-H9 tháng 10: tổng chưa thu = 1.200.000đ + 1.800.000đ + 1.900.000đ');
+              'B5|Khách lẻ|chua_coc|1800000|6;B2|Sale Lan|chua_coc|1900000|10',
+              'YC11.1-NT13 tháng 10: không có dòng B1 đã cọc; chỉ B5, B2 chưa cọc, ngày nhận tăng dần; không có H1 đã hủy');
+select t.bang(pg_temp.j10() ->> 'tong_chua_thu', '3700000',
+              'YC11.1-NT13 YC11.1-NT9 tháng 10: "CHƯA THU TIỀN" vẫn ghi 3.700.000đ');
 select t.bang(pg_temp.j10() ->> 'hom_nay', '2026-10-07',
               'YC11.1-NT9 số ngày tính theo hôm nay giờ Việt Nam (local_today)');
 
@@ -242,30 +242,19 @@ select t.thoat();
 select t.dang_nhap(t.id('hoa'));
 select t.khong_loi($$select public.fn_da_thu_du(t.b('B2'))$$, 'YC11.1-NT10 Chị Hoa đánh dấu đã thu đủ B2');
 select t.bang(pg_temp.chua_thu(pg_temp.tk('2026-10-01')),
-              'B1|Sale Hùng|da_coc|1200000|3;B5|Khách lẻ|chua_coc|1800000|6',
+              'B5|Khách lẻ|chua_coc|1800000|6',
               'YC11.1-NT10 thu đủ B2 thì B2 không còn ở chưa thu tiền');
 select t.bang(pg_temp.tk('2026-10-01') ->> 'doanh_thu', '11800000',
               'YC11.1-NT10 thu đủ B2 không đổi doanh thu tháng 10');
 select t.thoat();
 
--- ===== YC11.1-NT13: đặt phòng mới B20 đã cọc 500.000đ trên 2.000.000đ =====
+-- ===== YC11.1-NT13: đặt phòng đã cọc ở tháng khác cũng không có dòng (B20, 2.000.000đ, cọc 500.000đ) =====
 select t.tao_booking('B20', t.can('1509'), '2026-11-15', '2026-11-17', 2000000);
 update public.booking set trang_thai_tien = 'da_coc', tien_coc = 500000 where id = t.b('B20');
 select t.dang_nhap(t.id('hoa'));
-select t.bang(pg_temp.chua_thu(pg_temp.tk('2026-11-01')),
-              'B20|Khách lẻ|da_coc|1500000|39',
-              'YC11.1-NT13 tháng 11: dòng B20 "Đã cọc" 2.000.000đ − 500.000đ = 1.500.000đ, nhận phòng sau 39 ngày');
-select t.bang(pg_temp.tk('2026-11-01') ->> 'tong_chua_thu', '1500000', 'YC11.1-NT13 tháng 11: tổng chưa thu 1.500.000đ');
-select t.khong_loi($$select public.fn_da_thu_du(t.b('B20'))$$, 'YC11.1-NT13 Chị Hoa đánh dấu đã thu đủ B20');
 select t.bang(coalesce(jsonb_array_length(pg_temp.tk('2026-11-01') -> 'chua_thu'), -1) || '|'
               || (pg_temp.tk('2026-11-01') ->> 'tong_chua_thu'), '0|0',
-              'YC11.1-NT13 thu đủ B20 thì dòng B20 không còn');
-select t.thoat();
--- YC11-H9: tiền cọc bằng tiền phòng thì không có dòng.
-update public.booking set trang_thai_tien = 'da_coc', tien_coc = 2000000 where id = t.b('B20');
-select t.dang_nhap(t.id('hoa'));
-select t.bang(jsonb_array_length(pg_temp.tk('2026-11-01') -> 'chua_thu'), 0,
-              'YC11.1-NT13 YC11-H9 đã cọc mà tiền cọc không nhỏ hơn tiền phòng thì không có dòng');
+              'YC11.1-NT13 tháng 11: B20 đã cọc còn thu 1.500.000đ không có dòng, chưa thu 0đ');
 select t.thoat();
 
 -- ===== YC11.1-NT12, YC11-H7: mẫu số công suất khi thêm, ẩn căn giữa tháng =====
