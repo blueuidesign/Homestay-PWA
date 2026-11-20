@@ -15,21 +15,25 @@ Cách ghi:
 Gắn ở: YC1.4. Tới khi có câu trả lời: chỉ xem.
 Trả lời: Claude tự chốt, 19/11/2026 (QD25, Tùng: "những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): sửa được, luật kiểm như ở A2. Canvas PWA vẽ ô sửa được ở P2.
 
-### YC1-H2 · mo
+### YC1-H2 · da-tra-loi
 Xuất CSV: đặt phòng thuộc khoảng thời gian đã chọn theo ngày nhận, hay theo có đêm nằm trong khoảng?
 Gắn ở: YC1.6. Tới khi có câu trả lời: theo ngày nhận (khớp DLM.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Theo ngày nhận, như câu tạm đã ghi và khớp DLM.8 ("Tháng này" tháng 10 ra 8 đặt phòng B1 đến B8). Lý do: mỗi đặt phòng chỉ nằm ở một file, không bị đếm hai lần khi xuất hai tháng liền nhau. Chờ Tùng duyệt lại.
 
-### YC1-H3 · mo
+### YC1-H3 · da-tra-loi
 Xuất CSV: file có gồm đặt phòng đã hủy không (QD12)?
 Gắn ở: YC1.6.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Không gồm đặt phòng đã hủy. Lý do: đã hủy thì không chiếm đêm, không tính doanh thu (QT2), file dùng để tính tiền. Chờ Tùng duyệt lại.
 
-### YC1-H4 · mo
+### YC1-H4 · da-tra-loi
 Xuất CSV: chọn "Tất cả" có gồm căn đã xóa không (hàng chip chỉ có căn chưa xóa)?
 Gắn ở: YC1.6.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Có. "Tất cả" gồm đặt phòng của căn đã xóa, dù hàng chip chỉ hiện căn chưa xóa. Lý do: xóa căn giữ đặt phòng (YC3.6), file dùng để đối soát tiền đã thu nên không được mất dòng. Chờ Tùng duyệt lại.
 
-### YC1-H5 · mo
+### YC1-H5 · da-tra-loi
 Xuất CSV: sale có căn của tôi (QD5) xuất được file cho căn đó không?
 Gắn ở: YC1.6.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Không. Sale không xuất được file, kể cả căn tự nhập của mình, theo PQ20.SALE và mục "Ai được làm gì" của YC1; tab Cá nhân của sale cũng không có dòng xuất file (YC1.3). Chờ Tùng duyệt lại.
 
 ### YC1-H6 · da-tra-loi
 Người dùng xóa tài khoản trên PWA ở đâu, xác nhận thế nào? Bản Zalo nhận sự kiện người dùng gỡ quyền của app từ Zalo, PWA không có.
@@ -44,9 +48,10 @@ Gắn ở: YC1.8.
 Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không?
 Gắn ở: YC1.8.
 
-### YC1-H9 · mo
+### YC1-H9 · da-tra-loi
 File xuất CSV có cột "Khách", "SĐT" (chỉ khách chủ nhà tự nhập, QD11): giữ hai cột này hay bỏ?
 Gắn ở: YC1.6.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Giữ hai cột. Chỉ điền khách do chính chủ nhà nhập (PQ20.CHU); khách do sale nhập để trống (QD11, YC1.6-NT4). Chờ Tùng duyệt lại.
 
 ### YC1-H10 · da-tra-loi
 P4 có "Hướng dẫn sử dụng" nhưng P9 chỉ có phần "CHỦ NHÀ". Sale chưa có hướng dẫn.

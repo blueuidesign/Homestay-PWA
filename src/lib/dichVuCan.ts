@@ -11,6 +11,7 @@ import { taoDichVuThongBaoSupabase, type DichVuThongBao } from './dichVuThongBao
 import { taoDichVuCaNhanSupabase, type DichVuCaNhan } from './dichVuCaNhan';
 import { taoDichVuHoSoSupabase, type DichVuHoSo } from './dichVuHoSo';
 import { taoDichVuGioSupabase, type DichVuGio } from './dichVuGio';
+import { taoDichVuXuatCsvSupabase, type DichVuXuatCsv } from './dichVuXuatCsv';
 import { taoDichVuCaiDatThongBaoSupabase, type DichVuCaiDatThongBao } from './dichVuCaiDatThongBao';
 import { taoDichVuLichSaleSupabase, type DichVuLichSale } from './dichVuLichSale';
 import { taoDichVuMucCongSupabase, type DichVuMucCong } from './dichVuMucCong';
@@ -125,6 +126,8 @@ export interface DichVuCan {
   hoSo?: DichVuHoSo;
   /** YC1.5: giờ nhận, trả mặc định P5 (src/lib/dichVuGio.ts). Thiếu thì màn báo chưa tải được. */
   gio?: DichVuGio;
+  /** YC1.6: xuất file CSV P8 (src/lib/dichVuXuatCsv.ts). Thiếu thì màn báo chưa tải được. */
+  xuatCsv?: DichVuXuatCsv;
   /** YC12.4: cài đặt thông báo P3, P12 (src/lib/dichVuCaiDatThongBao.ts). Thiếu thì màn báo chưa tải được. */
   caiDatThongBao?: DichVuCaiDatThongBao;
   /** YC9.2: khối yêu cầu chờ ở CN1-03 và trả lời ở CN9 (src/lib/dichVuTraLoiYeuCau.ts). Thiếu thì không có khối. */
@@ -191,6 +194,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     caNhan: taoDichVuCaNhanSupabase(sb), // YC1.3: P1, P4
     hoSo: taoDichVuHoSoSupabase(sb), // YC1.4: P2
     gio: taoDichVuGioSupabase(sb), // YC1.5: P5
+    xuatCsv: taoDichVuXuatCsvSupabase(sb), // YC1.6: P8
     caiDatThongBao: taoDichVuCaiDatThongBaoSupabase(sb), // YC12.4: P3, P12
     traLoiYeuCau: taoDichVuTraLoiYeuCauSupabase(sb), // YC9.2: CN1-03, CN9
     thongKe: taoDichVuThongKeChuSupabase(sb), // YC11.1: CN8

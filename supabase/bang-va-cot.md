@@ -692,6 +692,7 @@ Policy:
 - fn_dat_muc_cong_mac_dinh(p_muc bigint, p_lam_tron boolean) → void · security definer · gọi được: authenticated
 - fn_dat_phong_cua_sale(p_sale_id uuid) → TABLE(id uuid, can_id uuid, ma_can text, ngay_nhan date, ngay_tra date, tien_phong bigint, trang_thai text, trang_thai_tien text) · security definer · gọi được: authenticated
 - fn_dat_xem_coc(p_ket_noi_id uuid, p_bat boolean) → boolean · security definer · gọi được: authenticated
+- fn_dem_xuat_csv(p_tu date, p_den date, p_can_ids uuid[]) → integer · security definer · gọi được: authenticated
 - fn_doanh_thu_thang(p_thang date) → TABLE(doanh_thu bigint, so_dem integer, doanh_thu_thang_truoc bigint) · security definer · gọi được: authenticated
 - fn_doi_link_moi() → void · security definer · gọi được: authenticated
 - fn_don_anh_tam() → SETOF text · security definer
@@ -758,6 +759,7 @@ Policy:
 - fn_xoa_can_tu_nhap(p_can_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_dat_phong_tu_ghi(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_sale_tay(p_id uuid) → void · security definer · gọi được: authenticated
+- fn_xuat_csv(p_tu date, p_den date, p_can_ids uuid[]) → TABLE(ma_can text, ngay_nhan date, ngay_tra date, so_dem integer, ten_khach text, sdt_khach text, ten_sale text, sale_da_xoa boolean, tong_tien bigint, da_coc bigint, con_lai bigint, ghi_chu text) · security definer · gọi được: authenticated
 - fn_yeu_cau_cua_toi(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_yeu_cau_dang_cho() → jsonb · security definer · gọi được: authenticated
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer

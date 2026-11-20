@@ -43,7 +43,7 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
 export type ManChu =
   | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string } | { tab: 'can-gia'; id: string }
   | { tab: 'can-gia-nhieu' }
-  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' } | { tab: 'ho-so' } | { tab: 'gio' } | { tab: 'huong-dan' } | { tab: 'cai-dat-thong-bao' } | { tab: 'thong-bao' }
+  | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' } | { tab: 'ho-so' } | { tab: 'gio' } | { tab: 'xuat-csv' } | { tab: 'huong-dan' } | { tab: 'cai-dat-thong-bao' } | { tab: 'thong-bao' }
   | { tab: 'dat-phong-moi'; canId?: string; ngay?: string } | { tab: 'dat-phong'; id: string } | { tab: 'dat-phong-sua'; id: string };
 
 export const DUONG_DAN_TAB = { lich: '/', can: '/can', sale: '/sale', 'thong-ke': '/thong-ke', 'ca-nhan': '/ca-nhan' } as const;
@@ -80,6 +80,7 @@ export function chonManChu(duongDan: string): ManChu {
   if (d === '/thong-bao') return { tab: 'thong-bao' }; // YC12.2: P13
   if (d === '/ca-nhan/huong-dan') return { tab: 'huong-dan' }; // YC1.7: P9
   if (d === '/ca-nhan/gio') return { tab: 'gio' }; // YC1.5: P5
+  if (d === '/ca-nhan/xuat-csv') return { tab: 'xuat-csv' }; // YC1.6: P8
   if (d === '/ca-nhan/ho-so') return { tab: 'ho-so' }; // YC1.4: P2
   if (d === '/ca-nhan/dem-cuoi-tuan') return { tab: 'dem-cuoi-tuan' }; // YC4.6 bước 1: P6
   // YC5.1 bước 1a: /dat-phong/moi mở CN4; bước 1b: /dat-phong/moi/<mã căn>/<ngày nhận> từ chi tiết ngày CN3.
