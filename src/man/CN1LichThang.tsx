@@ -8,6 +8,8 @@
 // không có dòng nào thì CN1-01. Chưa có đặt phòng nào (CN1-00) thì không hiện khối.
 // CN4-03 (YC5.3 bước 10, US28): vừa lưu đặt phòng thì mở ở tháng của ngày nhận, ngày nhận đang chọn, chi tiết ngày mở sẵn.
 // Cặp nút "Tháng" "Tuần" dưới tiêu đề (YC2.5, YC2-H4, US13): "Tuần" mở tuần chứa ngày đang chọn, chưa chọn thì tuần có hôm nay.
+// CN1-03 (YC9.2 bước 1, YC9.2-NT1, NT2, NT7, US51, PQ10.CHU): khối "YÊU CẦU ĐẶT PHÒNG" trên lưới khi có yêu cầu chờ;
+// "Xem và trả lời" mở CN9 của đúng yêu cầu đó. Không có yêu cầu chờ thì không có khối.
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { DongDangCapNhat, KhungXam } from '../chung/dangTai';
 import { CAU_CHUA_TAI, ManChuaTai } from '../chung/matKetNoi';
@@ -25,6 +27,8 @@ import { thuHaiTuan } from '../lib/lichTuan';
 import { CN3ChiTietNgay } from './CN3ChiTietNgay';
 import { NutThangTuan } from './CN2LichTuan';
 import { Icon, ICON_THEM, KhungTabChu } from './TabChu';
+import { dongChinhYeuCau, dongPhuYeuCau, tieuDeKhoiYeuCau, type DongYeuCauCho } from '../lib/traLoiYeuCau';
+import './CN9TraLoiYeuCau.css';
 import './CN1LichThang.css';
 import './CN10GuiLich.css';
 
@@ -101,6 +105,12 @@ export function CN1LichThang(props: {
   thangDau?: Ngay;
   /** YC6.6 bước 1: ô "Gửi lịch cho sale" cạnh khối doanh thu mở CN10. Không truyền thì không có ô. */
   onGuiLich?: () => void;
+  /** YC9.2 bước 1: yêu cầu chờ tới căn của chủ nhà (CN1-03). Trống hay không truyền thì không có khối. */
+  yeuCau?: DongYeuCauCho[];
+  /** YC9.2 bước 2, YC9.2-NT1: "Xem và trả lời" mở CN9 của yêu cầu này. */
+  onMoYeuCau?: (id: string) => void;
+  /** Giờ hiện tại cho "gửi 10 phút trước"; test truyền giờ cố định. */
+  bay?: number;
 }) {
   const homNay = props.homNay ?? homNayVN();
   const ngayDau = props.ngayMoSan ?? props.thangDau ?? homNay;
@@ -152,6 +162,24 @@ export function CN1LichThang(props: {
     <KhungTabChu tieuDe="Lịch" phai={nutDatPhong}
                  dai={props.onXemTuan && <NutThangTuan dangXem="thang" onThang={() => {}} onTuan={() => props.onXemTuan!(thuHaiTuan(chon ?? homNay))} />}>
       {dangTai && hien && <DongDangCapNhat />}
+      {props.yeuCau && props.yeuCau.length > 0 && (
+        <section className="cn1-yc" aria-label={tieuDeKhoiYeuCau(props.yeuCau.length)}>
+          <h2 className="cn1-yc-tieu-de">{tieuDeKhoiYeuCau(props.yeuCau.length)}</h2>
+          {props.yeuCau.map((d) => (
+            <div key={d.id} className="cn1-yc-the" data-yeu-cau={d.id}>
+              <div className="cn1-yc-dong">
+                <span className="cn1-yc-cham" style={{ background: mau.get(d.canId) }} aria-hidden="true" />
+                <div className="cn1-yc-giua">
+                  <span className="cn1-yc-chinh">{dongChinhYeuCau(d)}</span>
+                  <span className="cn1-yc-phu">{dongPhuYeuCau(d, props.bay)}</span>
+                </div>
+                <span className="cn1-yc-nhan">Chờ bạn</span>
+              </div>
+              <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => props.onMoYeuCau?.(d.id)}>Xem và trả lời</button>
+            </div>
+          ))}
+        </section>
+      )}
       <section className="cn1-lich" aria-label="Lịch tháng">
         <div className="cn1-thang">
           <button type="button" className="cn1-chuyen" aria-label={tenThangNgan(thangTruoc)} onClick={() => doiThang(-1)}>

@@ -474,3 +474,45 @@ describe('YC2.4 · Đặt phòng sắp tới dưới lịch CN1', () => {
     expect(screen.queryByRole('region', { name: 'Đặt phòng sắp tới' })).toBeNull();
   });
 });
+
+describe('YC9.2 · CN1-03 khối yêu cầu đặt phòng (US51)', () => {
+  const YC = [
+    { id: 'y1', canId: 'c1509', maCan: '1509', tenSale: 'Sale Hùng', ngayNhan: '2026-10-17', ngayTra: '2026-10-19',
+      tongGiaChu: 2_200_000, guiLuc: '2026-10-07T02:50:00Z', trungVoi: [] },
+    { id: 'y2', canId: 'c1509', maCan: '1509', tenSale: 'Sale Lan', ngayNhan: '2026-10-18', ngayTra: '2026-10-19',
+      tongGiaChu: 900_000, guiLuc: '2026-10-07T02:55:00Z', trungVoi: ['Sale Hùng'] },
+  ];
+  const veYc = (yeuCau: typeof YC, onMoYeuCau = vi.fn()) => {
+    render(
+      <ToastProvider>
+        <CN1LichThang ds={HAI_CAN} dv={dichVu()} homNay="2026-10-07" onDatPhong={vi.fn()} yeuCau={yeuCau} onMoYeuCau={onMoYeuCau}
+                      bay={Date.parse('2026-10-07T03:00:00Z')} />
+      </ToastProvider>,
+    );
+    return onMoYeuCau;
+  };
+
+  it('YC9.2 bước 1 có yêu cầu chờ: khối "Yêu cầu đặt phòng · 2", mỗi dòng tên sale, căn, ngày, "gửi 10 phút trước", "Chờ bạn"', async () => {
+    veYc(YC);
+    const khoi = await screen.findByRole('region', { name: 'Yêu cầu đặt phòng · 2' });
+    expect(within(khoi).getByText('Sale Hùng đặt phòng 1509')).toBeInTheDocument();
+    expect(within(khoi).getByText('17/10 → 19/10 · gửi 10 phút trước')).toBeInTheDocument();
+    expect(within(khoi).getByText('18/10 → 19/10 · trùng ngày với Sale Hùng')).toBeInTheDocument();
+    expect(within(khoi).getAllByText('Chờ bạn')).toHaveLength(2);
+    expect(khoi.textContent).not.toMatch(/Giá bán|2\.600\.000/);
+  });
+
+  it('YC9.2-NT1 bấm "Xem và trả lời" mở đúng yêu cầu đó', async () => {
+    const onMo = veYc(YC);
+    const nut = await screen.findAllByRole('button', { name: 'Xem và trả lời' });
+    fireEvent.click(nut[1]!);
+    expect(onMo).toHaveBeenCalledWith('y2');
+  });
+
+  it('YC9.2-NT7 không có yêu cầu chờ thì CN1 không có khối "Yêu cầu đặt phòng"', async () => {
+    veYc([]);
+    await screen.findByRole('grid');
+    expect(screen.queryByRole('region', { name: /Yêu cầu đặt phòng/ })).toBeNull();
+    expect(screen.queryByText(/Xem và trả lời/)).toBeNull();
+  });
+});
