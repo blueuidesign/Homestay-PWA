@@ -445,14 +445,14 @@
    "id": "EN13",
    "loai": "EN",
    "tieu_de": "\"Vercel bỏ qua commit chỉ đổi tài liệu\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
     "EN11"
    ],
    "file": "work/backlog/EN13-vercel-bo-qua-commit-tai-lieu.md",
-   "pr": "",
+   "pr": "[66]",
    "task": {
     "Code": {
      "xong": 1,
@@ -473,7 +473,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US1",
