@@ -436,3 +436,11 @@ YC11.2-NT7 Chị Hoa đã ngừng chia sẻ | do $h$ begin execute replace(pg_ge
 YC11.2-NT3 YC11.2 bước 4 có cả chủ căn tự nhập | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_sale(date, int)'::regprocedure), 'case when bk.loai = ''tu_nhap'' then null else bk.nguoi_giu end as chu_id', 'bk.nguoi_giu as chu_id'); end $h$
 YC11.2-NT6 KT-DB.3.11 PQ9.SALE | do $h$ begin execute replace(pg_get_functiondef('public.fn_thong_ke_sale(date, int)'::regprocedure), '''ten_chu'', ten_chu)', '''ten_chu'', ten_chu, ''tien_coc'', 0)'); end $h$
 YC11.2-NT6 PQ15.LINK người chưa đăng nhập không có quyền | grant execute on function public.fn_thong_ke_sale(date, int) to anon
+
+# US29 · ghi đặt phòng cho sale (YC5.4)
+YC5.4-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'select v_id, p_sale_id, public.gia_ban_tu_tien_dem(p_sale_id, p_can_id, v_tien_dem);', 'select v_id, p_sale_id, p_tien_phong;'); end $h$
+YC5.4-NT1 | do $h$ begin execute replace(pg_get_functiondef('public.gia_ban_tu_tien_dem(uuid, uuid, bigint[])'::regprocedure), 'coalesce(m.muc, cd.muc_cong_mac_dinh, 0)', 'coalesce(cd.muc_cong_mac_dinh, 0)'); end $h$
+YC5.4-NT1 QT5.4 GD13 Lan | do $h$ begin execute replace(pg_get_functiondef('public.gia_ban_tu_tien_dem(uuid, uuid, bigint[])'::regprocedure), 'when v_tron then', 'when false then'); end $h$
+YC5.4-NT1 QT4.2 QT5.4 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'public.gia_ban_tu_tien_dem(p_sale_id, p_can_id, v_tien_dem)', 'public.gia_ban_tu_tien_dem(p_sale_id, p_can_id, public.tien_cac_dem(p_can_id, p_ngay_nhan, p_ngay_tra, null))'); end $h$
+YC5.4-NT3 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'case when p_sale_id is null then p_ten_khach end', 'p_ten_khach'); end $h$
+YC5.4-NT5 | do $h$ begin execute replace(pg_get_functiondef('public.fn_tao_booking(uuid, date, date, bigint, uuid, uuid, text, text, text, bigint, int, time, time, text)'::regprocedure), 'and k.trang_thai = ''da_ket_noi''', ''); end $h$

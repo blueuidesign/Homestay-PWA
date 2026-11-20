@@ -222,9 +222,10 @@ Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu?
 Gắn ở: YC5.2. Tới khi có câu trả lời: chọn sale thì không nhập được tên khách.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Chọn sale thì chủ nhà không nhập tên, số điện thoại khách: khách của đặt phòng có sale do sale giữ (QD11). Chủ nhà cần ghi gì thì dùng ô "Ghi chú". Ghi vào YC5 r2.
 
-### YC5-H13 · mo
+### YC5-H13 · da-tra-loi
 Giá bán điền sẵn khi chủ nhà ghi giúp sale có làm tròn lên 50.000đ khi sale bật làm tròn không?
 Gắn ở: YC5, YC5.4.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Có. Giá bán của sale ở mọi chỗ theo một luật QT5.4: từng đêm lấy tiền đêm của đặt phòng (QT4.2) cộng mức cộng của sale cho căn, sale bật làm tròn thì làm tròn lên 50.000đ từng đêm rồi mới cộng (GD13). Nếu không làm tròn, cùng một căn cùng ngày sale thấy giá bán ở S3 khác giá bán của đặt phòng chủ ghi giúp. Ghi vào YC5 r5.
 
 ### YC5-H14 · mo
 Có xin hủy được đặt phòng đã qua ngày trả không?

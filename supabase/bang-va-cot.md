@@ -728,6 +728,7 @@ Policy:
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer
 - ghi_thong_bao_dong_y(p_chu uuid, p_sale uuid, p_ket_noi uuid) → void · security definer
 - gia_ban_dem(p_sale_id uuid, p_can_id uuid, p_dem date) → bigint · security definer
+- gia_ban_tu_tien_dem(p_sale_id uuid, p_can_id uuid, p_tien_dem bigint[]) → bigint · security definer
 - gia_chu_dem(p_can_id uuid, p_dem date) → bigint · security definer
 - gia_gui_khach_dem(p_nguoi uuid, p_can_id uuid, p_dem date) → bigint · security definer
 - het_han_vi(p_y yeu_cau_dat_phong) → text · security definer
