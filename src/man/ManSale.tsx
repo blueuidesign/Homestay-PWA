@@ -62,6 +62,8 @@ import type { DichVuDanhSachSale } from '../lib/dichVuDanhSachSale';
 import type { DichVuDatPhongSale } from '../lib/dichVuDatPhongSale';
 import { Icon, ICON_LICH } from './TabChu';
 import { CaNhan } from './CaNhan';
+import { P2HoSo } from './P2HoSo';
+import type { DichVuHoSo } from '../lib/dichVuHoSo';
 import type { KhoaDong } from '../lib/caNhan';
 import type { DichVuCaNhan } from '../lib/dichVuCaNhan';
 import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
@@ -118,6 +120,8 @@ function ManSaleTrong(props: {
   dvMauTin?: DichVuMauTin;
   /** YC1.3: tab Cá nhân (P4). Thiếu thì tab báo chưa tải được, vẫn đăng xuất được. */
   dvCaNhan?: DichVuCaNhan;
+  /** YC1.4: hồ sơ (P2). */
+  dvHoSo?: DichVuHoSo;
   onDangXuat: () => void;
   /** YC9.4: chạm thông báo kết quả yêu cầu (manTuThongBao 'S3-KQ') thì mở màn kết quả của yêu cầu này. */
   moKetQua?: string;
@@ -171,6 +175,7 @@ function ManSaleTrong(props: {
   const boNhoThongKe = useRef(new Map<string, ThongKeSale>()); // YC11.2, HV1-NT2: số đã xem giữ trong phiên
   const [moP10, datMoP10] = useState(false);
   const [moP11, datMoP11] = useState(false);
+  const [moP2, datMoP2] = useState(false);
   const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
   useEffect(() => { if (props.moKetQua) datKetQuaMo(props.moKetQua); }, [props.moKetQua]);
   const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datKetQuaMo(null); datTab('lich'); }, []);
@@ -222,6 +227,10 @@ function ManSaleTrong(props: {
   if (moP10) {
     const dong = () => { datMoP10(false); datTab('ca-nhan'); };
     return <P10MucCong dv={props.dvMucCong ?? props.dvLich?.mucCong} onQuayLai={dong} onDaLuu={dong} />;
+  }
+  if (moP2) {
+    const dong = () => { datMoP2(false); datTab('ca-nhan'); };
+    return <P2HoSo dv={props.dvHoSo} onQuayLai={dong} />;
   }
   if (moP11) {
     const dong = () => { datMoP11(false); datTab('ca-nhan'); };
@@ -293,7 +302,8 @@ function ManSaleTrong(props: {
   } else {
     // YC1.3 (US3): P4. Chạm dòng mở màn của dòng; màn chưa làm (US sau) báo tạm.
     const moDong = (khoa: KhoaDong) => {
-      if (khoa === 'muc-cong') datMoP10(true); // YC7.5
+      if (khoa === 'ho-so') datMoP2(true); // YC1.4
+      else if (khoa === 'muc-cong') datMoP10(true); // YC7.5
       else if (khoa === 'mau-tin') datMoP11(true); // YC8.2
       else if (khoa === 'link-xin-lich') (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO)); // YC6.4: A6
       else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4

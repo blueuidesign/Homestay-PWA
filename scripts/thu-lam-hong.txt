@@ -493,3 +493,7 @@ YC4.5-NT5 | alter table public.gia_dip drop constraint gia_dip_khong_chong; crea
 # EN10 · xóa file ảnh
 EN10 YC3 Dữ liệu ảnh bị bỏ khỏi căn | drop trigger anh_can_xoa_file on public.anh_can
 EN10 danh mục: chỉ service_role | grant execute on function public.fn_file_cho_xoa(integer) to authenticated
+
+# US4 · hồ sơ
+YC1.4-NT4 | grant update on public.profiles to authenticated; create policy thu_lam_hong on public.profiles for update to authenticated using (true)
+YC1.4-NT5 | create or replace function public.fn_sua_ho_so(p_ten text, p_ten_hien_thi text, p_so text, p_anh text default null) returns void language plpgsql volatile security definer set search_path = '' as $$ begin update public.profiles set ten = p_ten, ten_hien_thi = p_ten_hien_thi, so_dien_thoai = p_so where id = auth.uid(); end $$
