@@ -3,7 +3,7 @@ id: YC11
 tieu_de: Thống kê
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC11 · Thống kê
@@ -138,7 +138,7 @@ Bản 1 · rủi ro: tb · Màn: S7-03, S7-03-00
 | 5 | Xem chú thích | "Chờ chủ → Đã chốt. Chủ từ chối hoặc nhận đặt phòng khác: Bị từ chối. Quá 2 tuần: Hết hạn. Bạn tự hủy: Đã hủy." | Không |
 | 6 | Chưa có yêu cầu nào | S7-03-00: "Chưa có yêu cầu nào", "Tìm phòng trống, gửi khách và đặt phòng với chủ nhà. Yêu cầu bạn gửi hiện ở đây.", nút "Tìm phòng" | Không |
 
-Đặt phòng sale tự ghi cho căn tự nhập không có trong danh sách; xem ở S6-03 của căn đó (YC11-H3) [r2 · sửa]. Câu trạng thái của đặt phòng chủ nhà ghi giúp chưa có trên hình (giả định GD25: "Chị Hoa đã ghi giúp bạn").
+Đặt phòng sale tự ghi cho căn tự nhập không có trong danh sách; xem ở S6-03 của căn đó (YC11-H3) [r2 · sửa]. Câu trạng thái của đặt phòng chủ nhà ghi giúp chưa có trên hình (giả định GD25: "Chị Hoa đã ghi giúp bạn"). [r4 · thêm] Đặt phòng đã hủy theo QD12 vẫn hiện, nhãn "Đã hủy", câu "Đặt phòng đã hủy"; yêu cầu đã chốt không có dòng riêng, hiện ở dòng đặt phòng của nó. Yêu cầu hết hạn vì đã qua ngày nhận (YC9-H5) ghi "Đã qua ngày nhận phòng, chủ chưa trả lời". Mốc xếp mới nhất trước: yêu cầu theo giờ gửi, đặt phòng thành từ yêu cầu theo giờ gửi yêu cầu đó, đặt phòng chủ ghi theo lúc ghi (Claude tự chốt US60, QD25, chờ Tùng duyệt lại).
 
 Tiêu chí:
 - **YC11.3-NT1** Khi Y1 chờ, thì nhãn "Chờ chủ", có giờ gửi, không có tiền chênh. · unit
@@ -165,3 +165,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US18 và US19 (QD21) | Cả file |
 | r2 | 2026-11-20 | Claude (QD25) | main | Claude tự chốt YC11-H1, H2, H3, H5, H6, H7, H8, H9; thêm YC11.1-NT12, NT13, YC11.2-NT9 đến NT11, YC11.3-NT8, NT9 | Quy tắc của nhóm, YC11.1, YC11.2, YC11.3 |
 | r3 | 2026-11-20 | Claude (QD25) | main | Sửa YC11-H9: chưa thu tiền chỉ gồm đặt phòng chưa cọc, khớp DLM.5 và CN8; sửa YC11.1-NT13 | Quy tắc của nhóm, YC11.1 |
+| r4 | 2026-11-20 | Claude (QD25) | US60-dat-phong-cua-sale | Claude tự chốt ba chỗ hở của YC11.3: đặt phòng đã hủy, câu hết hạn vì qua ngày nhận, mốc xếp | YC11.3 |

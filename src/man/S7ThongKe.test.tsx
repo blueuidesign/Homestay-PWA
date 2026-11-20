@@ -105,11 +105,12 @@ describe('YC11.2 · tab Thống kê của ManSale', () => {
     expect(screen.getByRole('heading', { name: 'Tìm phòng' })).toBeInTheDocument();
     await waitFor(() => expect(tim.docGanDay).toHaveBeenCalled());
   });
-  it('YC11.2-NT1 tab Thống kê đọc số của sale; chạm yêu cầu chờ báo tạm (S3-03 làm ở US60)', async () => {
+  it('YC11.2-NT1 tab Thống kê đọc số của sale; chạm yêu cầu chờ mở màn kết quả của yêu cầu (S3-03, US60)', async () => {
     render(<ToastProvider><ManSale ten="Sale Hùng" dvLich={{ ...dvLich(), thongKeSale: dv(THANG10) }} onDangXuat={vi.fn()} /></ToastProvider>);
     fireEvent.click(within(screen.getByRole('navigation', { name: 'Tab' })).getByRole('button', { name: 'Thống kê' }));
     const the = await screen.findByRole('region', { name: 'Chờ chủ nhà chấp nhận' });
     fireEvent.click(within(the).getAllByRole('button')[0]!);
-    expect(await screen.findByText('Sẽ có ở bản sau')).toBeInTheDocument();
+    expect(await screen.findByRole('button', { name: 'Quay lại' })).toBeInTheDocument();
+    expect(screen.queryByText('Sẽ có ở bản sau')).not.toBeInTheDocument();
   });
 });

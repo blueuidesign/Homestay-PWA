@@ -662,6 +662,7 @@ Policy:
 - fn_chu_xem_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_da_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
+- fn_danh_sach_sale(p_bo_qua integer) → jsonb · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
 - fn_dat_mau_tin(p_mau text) → void · security definer · gọi được: authenticated
