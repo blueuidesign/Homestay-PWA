@@ -20,11 +20,17 @@ export function taoDichVuThongBaoSupabase(sb: SupabaseClient): DichVuThongBao {
   };
 }
 
-/** Màn mở khi chạm một thông báo. YC12 "Sale gửi yêu cầu đặt phòng", YC9.2-NT1: mở đúng yêu cầu đó ở CN9. */
-export type ManTuThongBao = { man: 'CN9'; yeuCauId: string };
+/**
+ * Màn mở khi chạm một thông báo. YC12 "Sale gửi yêu cầu đặt phòng", YC9.2-NT1: mở đúng yêu cầu đó ở CN9.
+ * YC9.4 bước 1 đến 4: thông báo kết quả cho sale mở màn kết quả (S3-04-01, S3-05, S3-09), quay lại về Thông báo.
+ */
+export type ManTuThongBao = { man: 'CN9' | 'S3-KQ'; yeuCauId: string };
+
+const LOAI_KET_QUA = ['yeu_cau_da_chot', 'yeu_cau_bi_tu_choi', 'yeu_cau_het_han'];
 
 /** YC12 cột "Chạm mở": loại chưa có màn thì null. */
 export function manTuThongBao(tb: { loai: string; doi_tuong_loai?: string | null; doi_tuong_id?: string | null }): ManTuThongBao | null {
   if (tb.loai === 'yeu_cau_moi' && tb.doi_tuong_id) return { man: 'CN9', yeuCauId: tb.doi_tuong_id };
+  if (LOAI_KET_QUA.includes(tb.loai) && tb.doi_tuong_id) return { man: 'S3-KQ', yeuCauId: tb.doi_tuong_id };
   return null;
 }

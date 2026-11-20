@@ -1,7 +1,7 @@
 // US42 · YC6.8: đọc thông báo "chủ đồng ý kết nối" chưa đọc của chính sale qua RLS.
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { describe, expect, it, vi } from 'vitest';
-import { taoDichVuThongBaoSupabase } from './dichVuThongBao';
+import { manTuThongBao, taoDichVuThongBaoSupabase } from './dichVuThongBao';
 
 function sbGia(ket: { data: unknown; error: unknown }) {
   const goi: Record<string, unknown[]> = {};
@@ -30,5 +30,14 @@ describe('YC6.8 · dịch vụ thông báo', () => {
   it('YC6.8 HV2 lỗi đọc thì ném lỗi', async () => {
     const { sb } = sbGia({ data: null, error: { message: 'mất mạng' } });
     await expect(taoDichVuThongBaoSupabase(sb).layKetNoiChuaDoc()).rejects.toBeTruthy();
+  });
+});
+
+describe('YC9.4 · chạm thông báo kết quả yêu cầu', () => {
+  it('YC9.4 bước 1 thông báo đã chấp nhận, bị từ chối, hết hạn mở màn kết quả của yêu cầu (S3-04-01)', () => {
+    for (const loai of ['yeu_cau_da_chot', 'yeu_cau_bi_tu_choi', 'yeu_cau_het_han']) {
+      expect(manTuThongBao({ loai, doi_tuong_loai: 'yeu_cau', doi_tuong_id: 'y1' })).toEqual({ man: 'S3-KQ', yeuCauId: 'y1' });
+    }
+    expect(manTuThongBao({ loai: 'yeu_cau_da_chot', doi_tuong_id: null })).toBeNull();
   });
 });

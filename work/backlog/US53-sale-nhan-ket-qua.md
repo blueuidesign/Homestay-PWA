@@ -51,15 +51,20 @@ YC9-yeu-cau-dat-phong.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US53-sale-nhan-ket-qua.md.
 
 ## Task
-- [ ] US53-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC9.4-NT1, YC9.4-NT4, YC9.4-NT5, YC9.4-NT6, YC9.4-NT7
-- [ ] US53-TA2 Code · Claude Code (sonnet, CL14.6a): màn S3-04, S3-04-01, S3-05, S3-09 theo canvas, test unit, e2e cho YC9.4-NT1 đến NT5, NT8
+- [x] US53-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC9.4-NT1, YC9.4-NT4, YC9.4-NT5, YC9.4-NT6, YC9.4-NT7
+- [x] US53-TA2 Code · Claude Code (sonnet, CL14.6a): màn S3-04, S3-04-01, S3-05, S3-09 theo canvas, test unit, e2e cho YC9.4-NT1 đến NT5, NT8
 - [ ] US53-TA3 Test tay · Đức: chạy tests/kb/US53-sale-nhan-ket-qua.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
+- TA1: test tests/db/69 trước (đỏ), rồi migration 20261119470000: fn_ket_qua_yeu_cau (S3-04/05/09, thêm het_han_vi, con_xem_can, không số chủ nhà), fn_can_tuong_tu (dựa can_tim, chỉ căn nguồn, không giá chủ), fn_het_han_yeu_cau + pg_cron 10 phút. Phép làm hỏng.
+- TA2: src/lib/ketQuaYeuCau.ts (chữ, lý do), dichVuYeuCau.ts thêm hai lệnh đọc, S3KetQuaYeuCau.tsx thay nhãn ở S3GuiYeuCau, nối ManSale và manTuThongBao; unit, e2e.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC9.4@1 (QD21)
 - 2026-11-19 · Claude · nhận HV3-NT3 từ EN4 (QD27)
 - 2026-11-19 · Claude (QD25) · YC9 r3 tự chốt câu mở, thêm NT
+- 2026-11-20 · Claude · US53 TA1, TA2 trên nhánh US53-ket-qua-yeu-cau, chưa mở PR · e2e mở S3 từ tìm phòng cần nối thêm · ~2 giờ
 
 ## Bằng chứng
+- TA1: `CHI_FILE_CO_MA=1 scripts/test-db.sh YC9.4` lần đầu 35 hỏng / 12 qua (chưa có migration), sau migration 47 qua, 1 vòng. `scripts/test-db.sh` cả bộ 2226 qua. `scripts/thu-lam-hong.sh YC9.4` 9/9 đạt. `kiem.py --diff origin/main` không lỗi.
+- TA2: test unit viết cùng lúc với màn (không đỏ trước): `npx vitest run` 88 file, 870 qua. e2e `ket-qua-yeu-cau.spec.ts` lần đầu 1 đỏ (thẻ căn tương tự không bấm được khi S3 mở từ tìm phòng), sửa 1 vòng ở ManSale, 2 qua; chạy lại gui-yeu-cau, yeu-cau-trung-dem, chi-tiet-can-sale, tim-phong: 4 qua. `typecheck`, `build` qua, `kiem.py` không lỗi.

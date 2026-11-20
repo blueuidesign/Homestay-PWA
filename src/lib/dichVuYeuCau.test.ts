@@ -57,3 +57,31 @@ describe('YC9.1 · dịch vụ yêu cầu', () => {
     expect(g.rpc).toHaveBeenLastCalledWith('fn_yeu_cau_cua_toi', { p_yeu_cau_id: 'y1' });
   });
 });
+
+describe('YC9.4 · dịch vụ kết quả yêu cầu', () => {
+  it('YC9.4-NT2 đọc kết quả qua fn_ket_qua_yeu_cau kèm lý do từ chối', async () => {
+    const g = sbGia({ ...Y1, trang_thai: 'bi_tu_choi', ly_do_tu_choi: 'Đã có khách đặt', het_han_vi: null, con_xem_can: true });
+    const kq = await taoDichVuYeuCauSupabase(g.sb).ketQua!('y1');
+    expect(g.rpc).toHaveBeenCalledWith('fn_ket_qua_yeu_cau', { p_yeu_cau_id: 'y1' });
+    expect(kq).toMatchObject({ trangThai: 'bi_tu_choi', lyDoTuChoi: 'Đã có khách đặt', hetHanVi: null, conXemCan: true });
+  });
+
+  it('YC9.4-NT4 kết quả Hết hạn mang lý do hết hạn', async () => {
+    const g = sbGia({ ...Y1, trang_thai: 'het_han', het_han_vi: 'qua_14_ngay', con_xem_can: false });
+    expect(await taoDichVuYeuCauSupabase(g.sb).ketQua!('y1')).toMatchObject({ trangThai: 'het_han', hetHanVi: 'qua_14_ngay', conXemCan: false });
+  });
+
+  it('YC9.4-NT5 căn tương tự qua fn_can_tuong_tu: giá bán của sale, không mang giá chủ nhà', async () => {
+    const g = sbGia([{ can_id: 'c1103', ma_can: '1103', ten_toa: 'Sapphire', so_phong_ngu: 3, ten_chu: 'Anh Tuấn',
+                       tong_gia_ban: 1600000, tu: '2026-10-10', den: '2026-10-12', tong_gia_chu: 1400000 }]);
+    const ds = await taoDichVuYeuCauSupabase(g.sb).canTuongTu!('y1');
+    expect(g.rpc).toHaveBeenCalledWith('fn_can_tuong_tu', { p_yeu_cau_id: 'y1' });
+    expect(ds).toEqual([{ canId: 'c1103', maCan: '1103', tenToa: 'Sapphire', soPhongNgu: 3, tenChu: 'Anh Tuấn',
+                          tongGiaBan: 1600000, tu: '2026-10-10', den: '2026-10-12' }]);
+  });
+
+  it('YC9.4 HV5 yêu cầu không phải của mình (42501) là lỗi có câu cho người dùng', async () => {
+    const g = sbGia(null, { code: '42501', message: 'Không tìm thấy yêu cầu' });
+    await expect(taoDichVuYeuCauSupabase(g.sb).ketQua!('y9')).rejects.toBeInstanceOf(LoiNguoiDung);
+  });
+});

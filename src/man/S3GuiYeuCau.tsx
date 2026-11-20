@@ -1,5 +1,6 @@
 // S3-02 Gửi yêu cầu đặt phòng, S3-03 Chờ chủ nhà trả lời, S3-07 Lỗi khi gửi: căn đã được đặt, S3-08 Sale đã hủy yêu cầu
 // (YC9.1 bước 1 đến 4, US50). YC9-H7, H8, QT1.4, QT5.6, PQ10.SALE, QD7, pwa.md P5, HV1, HV2, HV3, HV8.
+// YC9.4 (US53): S3-03 đọc lại ra Đã chốt, Bị từ chối, Hết hạn thì sang S3-04, S3-05, S3-09 (S3KetQuaYeuCau).
 // Mở từ nút "Gửi yêu cầu đặt phòng" ở S3 với căn và ngày đang xem; giá do database tính lúc gửi (không gửi giá).
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cauBaoLoi, DaiMatKetNoi, LoiNguoiDung } from '../chung/matKetNoi';
@@ -15,6 +16,7 @@ import {
   oQuanhKhoang, type OQuanh, type TrangThaiYeuCau, type YeuCauCuaToi,
 } from '../lib/yeuCau';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
+import { S3KetQuaYeuCau } from './S3KetQuaYeuCau';
 import { Icon } from './TabChu';
 import './S3GuiYeuCau.css';
 
@@ -67,7 +69,13 @@ function DauMan(props: { tieuDe: string; onQuayLai?: () => void }) {
   );
 }
 
-type Buoc = { loai: 'soan' } | { loai: 'cho'; y: YeuCauCuaToi } | { loai: 'da-huy'; y: YeuCauCuaToi } | { loai: 'da-dat'; dem: Ngay[] };
+type Buoc = { loai: 'soan' } | { loai: 'cho'; y: YeuCauCuaToi } | { loai: 'da-huy'; y: YeuCauCuaToi } | { loai: 'da-dat'; dem: Ngay[] }
+  | { loai: 'ket-qua'; y: YeuCauCuaToi };
+
+/** YC9.4: trạng thái đọc lại quyết định màn kế tiếp. */
+function buocTheo(y: YeuCauCuaToi): Buoc {
+  return y.trangThai === 'cho' ? { loai: 'cho', y } : y.trangThai === 'da_huy' ? { loai: 'da-huy', y } : { loai: 'ket-qua', y };
+}
 
 /** S3-03 (YC9.1 bước 3, 4): chờ chủ nhà; "Hủy yêu cầu" bấm hai lần. HV3: quay lại từ nền thì đọc lại trạng thái. */
 function ManCho(props: { y: YeuCauCuaToi; dv?: DichVuYeuCau; onDaHuy: (y: YeuCauCuaToi) => void; onDoi: (y: YeuCauCuaToi) => void;
@@ -192,7 +200,11 @@ export function S3GuiYeuCau(props: {
 
   if (buoc.loai === 'cho') {
     return <ManCho y={buoc.y} dv={dv} onQuayLai={props.onQuayLai}
-                   onDaHuy={(y) => datBuoc({ loai: 'da-huy', y })} onDoi={(y) => datBuoc({ loai: 'cho', y })} />;
+                   onDaHuy={(y) => datBuoc({ loai: 'da-huy', y })} onDoi={(y) => datBuoc(buocTheo(y))} />;
+  }
+  if (buoc.loai === 'ket-qua') {
+    return <S3KetQuaYeuCau id={buoc.y.id} dv={dv} ban={buoc.y} onQuayLai={props.onQuayLai} onVeLich={props.onVeLich}
+                           onXemTatCa={props.onTimCanKhac} />;
   }
   if (buoc.loai === 'da-huy') return <ManDaHuy y={buoc.y} onVeLich={props.onVeLich} />;
 
@@ -204,7 +216,7 @@ export function S3GuiYeuCau(props: {
     datDangGui(true);
     try {
       const y = await dv.gui({ canId: ct.canId, tu: ct.tu, den: ct.den, loiNhan, clientId: ma.current });
-      datBuoc({ loai: 'cho', y });
+      datBuoc(buocTheo(y));
     } catch (e) {
       if (e instanceof LoiDaDat) datBuoc({ loai: 'da-dat', dem: e.dem });
       else datLoi(cauBaoLoi(e));
