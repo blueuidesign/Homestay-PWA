@@ -2,6 +2,8 @@
 // PQ14.SALE, pwa.md P3, P5). Đọc qua fn_can_tu_nhap. Không bao giờ ghi "trống" cho ngày nào. "Gọi hỏi lịch" là link tel:;
 // không còn số chủ căn thì không dùng được. "Xóa căn tự nhập" bấm hai lần (YC10 "Bấm hai lần", giả định GD23).
 // Trạng thái: HV1 khung xám, HV2 Thử lại, HV3 quay lại từ nền đọc lại, HV5 căn không còn, HV8 toast.
+// US57 (YC10.4): có dv.datPhong thì "Đặt phòng" mở S6-05 phủ trên màn, chạm một đặt phòng mở form sửa, xóa (S606SuaDatPhong);
+// lưu xong đọc lại và toast S6-06.
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { CAU_THIEU_TINH_NANG, guiChu } from '../chung/chiaSe';
 import { KhungXam } from '../chung/dangTai';
@@ -13,6 +15,11 @@ import {
   mucDatPhong, nutMoiChu, phuTheTuNhap, tenCanTuNhap,
 } from '../lib/canTuNhap';
 import type { ChiTietCanTuNhap, DichVuCanTuNhap } from '../lib/dichVuCanTuNhap';
+import { cauDaLuu, cauDaSua, cauDaXoa } from '../lib/datPhongTuGhi';
+import type { DatPhongTuGhi } from '../lib/canTuNhap';
+import { homNay as homNayVN } from '../lib/ngay';
+import { S605GhiDatPhong } from './S605GhiDatPhong';
+import { S606SuaDatPhong } from './S606SuaDatPhong';
 import { chuCaiDau, tenGiuaCau, tinMoiDungApp } from '../lib/tabCanSale';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
 import { Icon, ICON_THEM, ICON_TOI } from './TabChu';
@@ -40,13 +47,15 @@ export function S603CanTuNhap(props: {
   canId: string;
   /** Tiêu đề khi chưa đọc xong (HV1). */
   tenTam: string;
-  dv: Pick<DichVuCanTuNhap, 'doc' | 'xoa'>;
+  dv: Pick<DichVuCanTuNhap, 'doc' | 'xoa' | 'datPhong'>;
+  /** Ngày hôm nay giờ Việt Nam (chip "Hôm nay", "Mai" ở S6-05). Thiếu thì lấy theo đồng hồ máy. */
+  homNay?: string;
   onQuayLai: () => void;
   /** YC10.3 bước 10: S5 với căn này. */
   onGuiKhach: (c: ChiTietCanTuNhap) => void;
   /** YC10.3 bước 12: form sửa (S6-02 điền sẵn). */
   onSua: (c: ChiTietCanTuNhap) => void;
-  /** Ghi đặt phòng tự ghi (US57). */
+  /** Ghi đặt phòng tự ghi khi không có dv.datPhong. */
   onDatPhong: (c: ChiTietCanTuNhap) => void;
   /** YC10.3 bước 13: xóa xong về S6. */
   onDaXoa: () => void;
@@ -57,6 +66,7 @@ export function S603CanTuNhap(props: {
   const [loi, datLoi] = useState<string | true | null>(null);
   const [hoiXoa, datHoiXoa] = useState(false);
   const [dangXoa, datDangXoa] = useState(false);
+  const [moDp, datMoDp] = useState<{ ghi: true } | { sua: DatPhongTuGhi } | null>(null);
   const tai = useCallback(async () => {
     datLoi(null);
     try {
@@ -69,6 +79,7 @@ export function S603CanTuNhap(props: {
   useQuayLaiTuNen(() => { void tai(); });
 
   const ten = ct ? tenCanTuNhap(ct) : props.tenTam;
+  const ngayNay = props.homNay ?? homNayVN();
 
   // YC10.3 bước 13, YC10.3-NT9: lần một chỉ đổi chữ nút; lần hai mới xóa.
   const xoa = async () => {
@@ -130,10 +141,18 @@ export function S603CanTuNhap(props: {
             <ul className="s603-ds-dp">
               {ct.datPhong.map((d) => {
                 const x = dongDatPhong(d);
-                return (
-                  <li key={d.id} className="s603-dp" data-testid="dat-phong">
+                const noiDung = (
+                  <>
                     <span className="s603-dp-chu"><span className="s603-dp-ngay">{x.ngay}</span><span className="s603-dp-tien">{x.tien}</span></span>
                     {x.chenh && <span className="s603-dp-chenh">{x.chenh}</span>}
+                  </>
+                );
+                // YC10.4-NT8: chạm một đặt phòng mở form sửa.
+                return (
+                  <li key={d.id} className={dv.datPhong ? 's603-dp s603-dp--cham' : 's603-dp'} data-testid="dat-phong">
+                    {dv.datPhong ? (
+                      <button type="button" className="s603-dp-nut" aria-label={`Sửa đặt phòng ${x.ngay}`} onClick={() => datMoDp({ sua: d })}>{noiDung}</button>
+                    ) : noiDung}
                   </li>
                 );
               })}
@@ -179,11 +198,21 @@ export function S603CanTuNhap(props: {
       <div className="chu-than s603-than">{than}</div>
       {ct && (
         <div className="s603-duoi">
-          <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={() => props.onDatPhong(ct)}>
+          <button type="button" className="hh-btn hh-btn--primary hh-btn--block"
+                  onClick={() => (dv.datPhong ? datMoDp({ ghi: true }) : props.onDatPhong(ct))}>
             <Icon>{ICON_THEM}</Icon>Đặt phòng
           </button>
         </div>
       )}
+      {ct && dv.datPhong && moDp && ('ghi' in moDp ? (
+        <S605GhiDatPhong canId={canId} tenCan={ten} tenChu={ct.tenChu} homNay={ngayNay} dv={dv.datPhong} onDong={() => datMoDp(null)}
+                         onDaLuu={(g) => { datMoDp(null); hienToast(cauDaLuu(g.ngayNhan, g.ngayTra)); void tai(); }} />
+      ) : (
+        <S606SuaDatPhong key={moDp.sua.id} canId={canId} tenCan={ten} tenChu={ct.tenChu} homNay={ngayNay} datPhong={moDp.sua}
+                         dv={dv.datPhong} onDong={() => datMoDp(null)}
+                         onDaLuu={(g) => { datMoDp(null); hienToast(cauDaSua(g.ngayNhan, g.ngayTra)); void tai(); }}
+                         onDaXoa={(d) => { datMoDp(null); hienToast(cauDaXoa(d.ngayNhan, d.ngayTra)); void tai(); }} />
+      ))}
     </div>
   );
 }

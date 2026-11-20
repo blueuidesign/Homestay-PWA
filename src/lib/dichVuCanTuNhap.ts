@@ -6,6 +6,7 @@ import { LoiNguoiDung } from '../chung/matKetNoi';
 import type { DatPhongTuGhi } from './canTuNhap';
 import type { AnhCoSan, TaiAnh } from './dichVuCan';
 import type { DanhSachToa } from './toaNha';
+import { taoDichVuDatPhongTuGhiSupabase, type DichVuDatPhongTuGhi } from './dichVuDatPhongTuGhi';
 
 export const KHO_ANH_TU_NHAP = 'anh-can';
 export const HAN_ANH_TU_NHAP_GIAY = 60 * 60;
@@ -38,6 +39,8 @@ export interface DichVuCanTuNhap {
   taiAnh?: TaiAnh;
   layToa?: () => Promise<DanhSachToa>;
   themToa?: (ten: string) => Promise<string>;
+  /** YC10.4 (US57): ghi, sửa, xóa đặt phòng tự ghi. */
+  datPhong?: DichVuDatPhongTuGhi;
 }
 
 type Rpc = Record<string, unknown>;
@@ -82,6 +85,7 @@ function loiRpc(error: { message?: string; code?: string }): Error {
 export function taoDichVuCanTuNhapSupabase(sb: SupabaseClient, chung: Pick<DichVuCanTuNhap, 'taiAnh' | 'layToa' | 'themToa'> = {}): DichVuCanTuNhap {
   return {
     ...chung,
+    datPhong: taoDichVuDatPhongTuGhiSupabase(sb),
     async tao(c) {
       const { data, error } = await sb.rpc('fn_tao_can_tu_nhap', {
         p_chu_can_ten: c.tenChu, p_chu_can_sdt: c.soDienThoai, p_ma_can: c.maCan, p_so_phong_ngu: c.soPhongNgu,

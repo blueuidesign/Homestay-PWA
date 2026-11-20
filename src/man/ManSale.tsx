@@ -16,7 +16,7 @@
 // YC10.2 (US55): tên chủ nhà mở S6-04 thật (S604ChiTietChuNha); chạm căn ở S6-04 mở S3 (hôm nay, 1 đêm); bỏ nguồn xong về S6.
 // YC10.3 (US56): "Thêm căn tự nhập" mở S6-02, thêm xong về S6 (tab Căn đọc lại). Căn tự nhập mở S6-03 thật (qua S6Tam,
 // KhungCanTuNhap): "Gửi cho khách" mở S5 (hôm nay, 1 đêm), "Sửa thông tin căn" mở S6-02 điền sẵn (GD23), lưu xong về S6-03,
-// xóa xong về S6; "Đặt phòng" báo tạm (US57).
+// xóa xong về S6; "Đặt phòng" mở S6-05, chạm đặt phòng mở form sửa, xóa (YC10.4, US57; dịch vụ canTuNhap.datPhong).
 import { useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useToast } from '../chung/Toast';
 import { khoangTuLich, tieuDeCan } from '../lib/chiTietCanSale';
@@ -144,7 +144,7 @@ function ManSaleTrong(props: {
   const [moTuNhap, datMoTuNhap] = useState<{ them: true } | { sua: ChiTietCanTuNhap } | null>(null);
   const [lanDoc, datLanDoc] = useState(0);
   const veCanTuNhap = useCallback((m: { canId: string; ten: string; onQuayLai: () => void }) => dvTuNhap ? (
-    <S603CanTuNhap key={`${m.canId}|${lanDoc}`} canId={m.canId} tenTam={m.ten} dv={dvTuNhap} onQuayLai={m.onQuayLai}
+    <S603CanTuNhap key={`${m.canId}|${lanDoc}`} canId={m.canId} tenTam={m.ten} dv={dvTuNhap} homNay={homNay()} onQuayLai={m.onQuayLai}
                    onDaXoa={m.onQuayLai} onSua={(c) => datMoTuNhap({ sua: c })} onDatPhong={() => hienToast(CAU_SE_CO)}
                    onGuiKhach={(c) => {
                      const nay = homNay();
