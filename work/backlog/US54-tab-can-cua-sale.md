@@ -48,7 +48,7 @@ YC10-can-tu-nhap-va-nguon-phong.md#Dữ liệu
 YC10-can-tu-nhap-va-nguon-phong.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US54-tab-can-cua-sale.md.
 
 ## Task
 - [ ] US54-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC10.1-NT1, YC10.1-NT4, YC10.1-NT6, YC10.1-NT7, YC10.1-NT8, YC10.1-NT11
