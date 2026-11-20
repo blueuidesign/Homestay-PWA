@@ -551,6 +551,11 @@ Sale đã bỏ nguồn của một chủ nhà: có còn xem lại đặt phòng 
 Gắn ở: YC10.2.
 Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đặt phòng đã chốt với chủ nhà đó vẫn ở danh sách đặt phòng của sale, như khi chủ nhà xóa tài khoản (YC10.1 bước 10). Yêu cầu đang chờ giữa hai bên chuyển Đã hủy ngay lúc bỏ nguồn, vì sale đã tự bỏ thì không còn đặt qua chủ nhà đó; chủ nhà không có thông báo mới (giống YC9-H6). Ghi vào YC10.2 r4, thêm YC10.2-NT8.
 
+### YC10-H9 · da-tra-loi
+Căn tự nhập có giá chủ ngày thường mà không có giá cuối tuần thì đêm cuối tuần lấy giá nào?
+Gắn ở: YC10.4.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Lấy giá ngày thường. Giá cuối tuần không bắt buộc, nên để trống nghĩa là chú căn lấy một giá cho mọi đêm (DLM: Villa Tuần Châu "1.400.000đ mỗi đêm"). Để trống ô tiền ở đêm cuối tuần sẽ bắt sale gõ lại một số đã lưu. Ghi vào YC10 r5, thêm YC10.4-NT10.
+
 ## YC11
 
 ### YC11-H1 · da-tra-loi
