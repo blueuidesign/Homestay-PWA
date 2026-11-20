@@ -3,7 +3,7 @@ id: YC1
 tieu_de: Tài khoản
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 6
+rev: 7
 ban: 3
 ---
 # YC1 · Tài khoản
@@ -283,7 +283,7 @@ Bản 3 · rủi ro: cao · Màn: P2, P14, P14-01
 | 5 | Đăng nhập lại cùng email | Hồ sơ không còn số nên vào màn nhập lại số (YC1.2, đăng nhập bước 5) | Hồ sơ cũ |
 | 6 | Nhập lại số | Thấy lại căn, lịch, giá, đặt phòng của mình. Dùng như trước; người khác không còn thấy "Đã xoá tài khoản" | Bỏ dấu đã xóa |
 
-Phía người còn lại theo quy tắc QT6.5 Người đã xóa tài khoản; tiêu chí ở từng YC: YC5.5-NT4, YC6.2-NT7, YC7.1-NT6, YC9.1-NT8, YC9.4-NT6, YC10.1-NT7, YC10.1-NT8, YC11.2-NT7. Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không: [MỞ: YC1-H8]. Chính sách quyền riêng tư nói giữ gì, bao lâu: [MỞ: YC1-H7].
+Phía người còn lại theo quy tắc QT6.5 Người đã xóa tài khoản; tiêu chí ở từng YC: YC5.5-NT4, YC6.2-NT7, YC7.1-NT6, YC9.1-NT8, YC9.4-NT6, YC10.1-NT7, YC10.1-NT8, YC11.2-NT7. `[r7 · sửa]` Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập giữ nguyên, chỉ số điện thoại của chính người đó bị xóa (QD13); khách do người đó nhập vốn chỉ người đó thấy (QD11), đăng nhập lại là thấy lại (Claude tự chốt, QD25, trả lời YC1-H8, chờ Tùng duyệt lại). Thông báo "chủ nhà đã xóa tài khoản" chỉ gửi sale đang kết nối với người đó ở phía chủ nhà, sale đã xóa tài khoản không nhận. Chủ nhà không đổi phạm vi, quyền xem, trạng thái kết nối với sale đã xóa tài khoản; database chặn bằng trigger (YC1.8-NT9). Chính sách quyền riêng tư nói giữ gì, bao lâu: [MỞ: YC1-H7].
 
 Tiêu chí:
 - **YC1.8-NT1** Khi Chị Hoa xóa tài khoản, thì database không còn số của Chị Hoa, còn 1509, 3402, ảnh, lịch, giá và B1 đến B8 như trước; Chị Hoa về A1. · database, e2e
@@ -317,3 +317,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r4 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Bỏ YC1.2-NT9 vì trùng YC6.3-NT1 (QD25) | YC1.2 |
 | r5 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Kiểm email đã có tài khoản bằng Supabase Auth, bỏ hàm cho người chưa đăng nhập (KT-DB.3.1) | Dữ liệu |
 | r6 | 2026-11-20 | Claude (QD25) | US5-gio-nhan-tra | Trả lời YC1-H10, YC1-H11 (Claude tự chốt, chờ Tùng duyệt lại): nhóm hướng dẫn riêng cho sale; đổi giờ mặc định không đổi đặt phòng đã ghi | YC1.5, YC1.7 |
+| r7 | 2026-11-21 | Claude (QD25) | US8-xoa-tai-khoan | Trả lời YC1-H8 (Claude tự chốt, chờ Tùng duyệt lại): xóa tài khoản chỉ bỏ số; ai nhận thông báo; chặn đổi kết nối với sale đã xóa | YC1.8 |

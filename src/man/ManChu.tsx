@@ -330,7 +330,7 @@ export function ManChu(props: {
 
   if (man.tab === 'ho-so') {
     // YC1.4 bước 1: P2 mở từ tab Cá nhân; lưu xong ở lại màn, Quay lại về Cá nhân.
-    return <P2HoSo dv={props.dichVuCan?.hoSo} onQuayLai={() => props.den('/ca-nhan')} />;
+    return <P2HoSo dv={props.dichVuCan?.hoSo} onQuayLai={() => props.den('/ca-nhan')} onDaXoa={props.onDangXuat} />; // YC1.8 bước 3: xóa xong về A1
   }
 
   if (man.tab === 'dem-cuoi-tuan') {

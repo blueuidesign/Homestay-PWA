@@ -758,6 +758,7 @@ Policy:
 - fn_xoa_can_tu_nhap(p_can_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_dat_phong_tu_ghi(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_sale_tay(p_id uuid) → void · security definer · gọi được: authenticated
+- fn_xoa_tai_khoan() → void · security definer · gọi được: authenticated
 - fn_yeu_cau_cua_toi(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_yeu_cau_dang_cho() → jsonb · security definer · gọi được: authenticated
 - gan_anh_can(p_can_id uuid, p_nguoi uuid, p_anh uuid[], p_chi_kiem boolean) → void · security definer
@@ -799,6 +800,8 @@ Policy:
 - tg_booking_sau_khi_sua() → trigger · security definer
 - tg_booking_sau_khi_xoa() → trigger · security definer
 - tg_booking_tu_choi_yeu_cau_trung() → trigger · security definer
+- tg_ket_noi_can_sale_da_xoa() → trigger · security definer
+- tg_ket_noi_sale_da_xoa() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
 - tg_thong_bao_cong_tac() → trigger · security definer
