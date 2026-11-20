@@ -8,8 +8,10 @@
 // YC9.1 (US50): S3-07 "Tìm căn khác cùng ngày" mở S1-02 (mở S3 từ S1).
 // YC7.5 (US47): tab Cá nhân có dòng "Mức cộng giá mặc định" mở P10 toàn màn; lưu xong hay Quay lại thì về Cá nhân.
 // YC8.2 (US49): dòng "Mẫu tin gửi khách" mở P11 toàn màn, cùng cách với P10.
-import { useCallback, useState, type ReactNode } from 'react';
-import { khoangTuLich } from '../lib/chiTietCanSale';
+// YC9.4 (US53): chạm căn tương tự ở S3-05, S3-09 (mở từ S1 hay từ tìm phòng) mở S3 của căn đó với ngày của yêu cầu; moKetQua (từ thông báo) mở
+// S3-04-01, S3-05, S3-09, quay lại về Thông báo (onVeThongBao).
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { khoangTuLich, tieuDeCan } from '../lib/chiTietCanSale';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
 import type { DichVuGuiKhach } from '../lib/dichVuGuiKhach';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
@@ -25,6 +27,8 @@ import { P10MucCong } from './P10MucCong';
 import { P11MauTin } from './P11MauTin';
 import { MoCanSale, MoTimPhong } from './S1LichSale';
 import { S3ChiTietCan, VeLichSale, type MoS3 } from './S3ChiTietCan';
+import { MoCanTuongTu, S3KetQuaYeuCau } from './S3KetQuaYeuCau';
+import type { CanTuongTu } from '../lib/ketQuaYeuCau';
 import { KhungGuiKhach } from './S5GuiKhach';
 import { S6Tam } from './S6Tam';
 import { ManTimPhong } from './S102TimPhong';
@@ -77,6 +81,10 @@ function ManSaleTrong(props: {
   /** YC8.2: mẫu tin gửi khách (P11). Thiếu thì dùng dvLich.mauTin. */
   dvMauTin?: DichVuMauTin;
   onDangXuat: () => void;
+  /** YC9.4: chạm thông báo kết quả yêu cầu (manTuThongBao 'S3-KQ') thì mở màn kết quả của yêu cầu này. */
+  moKetQua?: string;
+  /** YC9.4 S3-04-01: quay lại về Thông báo. Thiếu thì về tab Lịch. */
+  onVeThongBao?: () => void;
 }) {
   const [tab, datTab] = useState<TabSaleTen>('lich');
   const [ngang, datNgang] = useState(false);
@@ -96,13 +104,31 @@ function ManSaleTrong(props: {
   }, [dvCt]);
   const [moP10, datMoP10] = useState(false);
   const [moP11, datMoP11] = useState(false);
-  const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datTab('lich'); }, []);
+  const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
+  useEffect(() => { if (props.moKetQua) datKetQuaMo(props.moKetQua); }, [props.moKetQua]);
+  const veLich = useCallback(() => { datMoCan(null); datMoTim(false); datKetQuaMo(null); datTab('lich'); }, []);
+  const moCanTuongTu = useCallback((c: CanTuongTu) => {
+    datKetQuaMo(null);
+    datMoCan({ s3: { canId: c.canId, tenTam: tieuDeCan(c), tu: c.tu, den: c.den, khachHoi: true } });
+  }, []);
 
+  if (ketQuaMo && !moCan && !moTim) {
+    const veThongBao = () => { datKetQuaMo(null); props.onVeThongBao?.(); };
+    return (
+      <MoCanTuongTu.Provider value={dvCt ? moCanTuongTu : undefined}>
+        <S3KetQuaYeuCau key={ketQuaMo} id={ketQuaMo} dv={props.dvLich?.chiTietCan?.yeuCau} tuThongBao onQuayLai={veThongBao} onVeLich={veLich}
+                        onXemTatCa={dvTim ? () => { datKetQuaMo(null); datMoTim(true); } : undefined} />
+      </MoCanTuongTu.Provider>
+    );
+  }
   if (moCan && 's3' in moCan && dvCt) {
     return (
       <VeLichSale.Provider value={veLich}>
-        <S3ChiTietCan {...moCan.s3} dv={dvCt} homNay={homNay()} onQuayLai={() => datMoCan(null)}
-                      onTimCanKhac={dvTim ? () => { datMoCan(null); datMoTim(true); } : undefined} />
+        <MoCanTuongTu.Provider value={moCanTuongTu}>
+          <S3ChiTietCan key={`${moCan.s3.canId}|${moCan.s3.tu}|${moCan.s3.den}`} {...moCan.s3} dv={dvCt} homNay={homNay()}
+                        onQuayLai={() => datMoCan(null)}
+                        onTimCanKhac={dvTim ? () => { datMoCan(null); datMoTim(true); } : undefined} />
+        </MoCanTuongTu.Provider>
       </VeLichSale.Provider>
     );
   }
@@ -118,7 +144,9 @@ function ManSaleTrong(props: {
   if (moTim && dvTim) {
     return (
       <VeLichSale.Provider value={veLich}>
-        <ManTimPhong dv={dvTim} homNay={homNay()} onQuayLai={() => datMoTim(false)} />
+        <MoCanTuongTu.Provider value={dvCt ? moCanTuongTu : undefined}>
+          <ManTimPhong dv={dvTim} homNay={homNay()} onQuayLai={() => datMoTim(false)} />
+        </MoCanTuongTu.Provider>
       </VeLichSale.Provider>
     );
   }

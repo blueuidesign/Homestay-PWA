@@ -1,0 +1,19 @@
+/* US53 · S3-04, S3-04-01, S3-05, S3-09 (canvas home247-canvas.html). Màn đọc: chữ thân 14 px, nhãn 12–13 px; vùng bấm 44 px. */
+.kqyc-than { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+.kqyc-bao { border-radius: var(--radius-lg); padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border); background: var(--surface); }
+.kqyc-bao--chot { background: var(--action-tint); border-color: var(--action-bright); }
+.kqyc-bao--tu-choi { background: var(--danger-tint); border-color: var(--danger-border); }
+.kqyc-bao--tu-choi .kqyc-bao-tieu-de, .kqyc-bao--tu-choi .kqyc-bao-chu { color: var(--danger-text); }
+.kqyc-bao--het-han { background: var(--warning-tint); border-color: var(--warning-border); }
+.kqyc-bao-tieu-de { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--ink); }
+.kqyc-bao-chu { font-size: 14px; line-height: 20px; color: var(--ink-body); text-wrap: pretty; }
+.kqyc-tuong-tu { display: flex; flex-direction: column; gap: 8px; }
+.kqyc-nhom { margin: 0; padding: 0 4px; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; }
+.kqyc-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.kqyc-dong + .kqyc-dong { border-top: 1px solid var(--border-subtle); }
+.kqyc-mo { width: 100%; min-height: 56px; padding: 10px 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; border: 0; background: none; font: inherit; text-align: left; cursor: pointer; color: inherit; }
+.kqyc-mo:disabled { cursor: default; }
+.kqyc-mo:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.kqyc-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.kqyc-phu { font-size: 13px; line-height: 18px; color: var(--ink-secondary); }
+.kqyc-trong { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted); }
