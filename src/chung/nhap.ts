@@ -36,6 +36,18 @@ export function xoaNhap(khoa: string): void {
   try { localStorage.removeItem(TIEN_TO + khoa); } catch { /* bỏ qua */ }
 }
 
+/** YC1.3 bước 7: đăng xuất thì xóa mọi nháp và dữ liệu app giữ trên máy (localStorage, sessionStorage). Bọc try/catch. */
+export function xoaDuLieuTrenMay(): void {
+  for (const kho of ['localStorage', 'sessionStorage'] as const) {
+    try {
+      const k = window[kho];
+      const khoa: string[] = [];
+      for (let i = 0; i < k.length; i++) { const t = k.key(i); if (t && t.startsWith('h247.')) khoa.push(t); }
+      khoa.forEach((t) => k.removeItem(t));
+    } catch { /* không xóa được thì thôi */ }
+  }
+}
+
 export const CAU_KHOI_PHUC = 'Đã khôi phục nội dung bạn đang nhập';
 
 /** HV3 bước 2: chạy hàm khi app từ nền trở lại (visibilitychange sang visible). */

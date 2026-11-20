@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { KhungXam } from './chung/dangTai';
 import { ToastProvider } from './chung/Toast';
+import { xoaDuLieuTrenMay } from './chung/nhap';
 import { useToast } from './chung/Toast';
 import { chonMan, maLinkMoi, maLinkXinLich, type HoSo, type TrangThaiPhien } from './lib/dieuHuong';
 import { cauDaChoXem } from './lib/dichVuXinLich';
@@ -75,7 +76,17 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   }, []);
 
   const den = (d: string) => { window.history.pushState(null, '', d); datDuongDan(d); };
-  const dangXuat = async () => { await dichVu?.dangXuat(); datLuong(null); await taiLai(); };
+  // YC1.3 bước 7, YC1.3-NT4: đăng xuất thì hủy phiên, xóa dữ liệu app giữ trên máy, về A1 (địa chỉ về "/", nên nút quay lại
+  // của trình duyệt chỉ gặp A1, không thấy lại dữ liệu cũ).
+  const dangXuat = async () => {
+    await dichVu?.dangXuat();
+    xoaDuLieuTrenMay();
+    window.history.replaceState(null, '', '/');
+    datDuongDan('/');
+    datLuong(null);
+    datVuaChoXem(null);
+    await taiLai();
+  };
   // HV7 bước 2: làm mới phiên không được thì bỏ phiên trên máy, mở thẳng màn đăng nhập (A11, YC1.2). Địa chỉ giữ nguyên
   // nên đăng nhập xong bộ chọn màn quay lại đúng màn cũ; form tự điền lại từ nháp (HV3).
   const hetPhien = async () => { await dichVu?.dangXuat().catch(() => undefined); datLuong('A11'); await taiLai(); };
@@ -174,7 +185,7 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
         <>
           {tt.hoSo?.vaiChon === 'sale'
             // YC7.1: các tab của sale; tab Lịch là A5, A7 hay S1.
-            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} onDangXuat={dangXuat} />
+            ? <ManSale key={lanXem} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} dvLich={dichVuCan?.lichSale} dvCaNhan={dichVuCan?.caNhan} onDangXuat={dangXuat} />
             : <ManLich key={lanXem} vai={tt.hoSo?.vaiChon ?? null} ten={tt.hoSo?.ten} dv={dichVuCan?.xinLich} onDangXuat={dangXuat} />}
           {tt.hoSo?.vaiChon === 'sale' && dichVuCan?.thongBao && (
             <A9ToastKetNoi dv={dichVuCan.thongBao} onXem={() => { den('/'); datLanXem((n) => n + 1); }} />

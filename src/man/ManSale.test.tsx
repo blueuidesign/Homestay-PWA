@@ -28,9 +28,14 @@ const dvLich = (rong = false): DichVuLichSale & { doc: ReturnType<typeof vi.fn> 
 
 const tab = () => within(screen.getByRole('navigation', { name: 'Tab' })).getAllByRole('button').map((b) => b.textContent);
 
+const DV_CA_NHAN = { doc: vi.fn(async () => ({
+  ten: 'Sale Hùng', tenHienThi: null, soDienThoai: '0900000011', email: 'hung@vidu.test', soChuaDoc: 0, gioNhan: '14:00', gioTra: '12:00',
+  demCuoiTuan: [5, 6], mucCong: 0, thongBaoTat: [],
+})) };
+
 function ve(p: Partial<Parameters<typeof ManSale>[0]> = {}) {
   const onDangXuat = vi.fn();
-  render(<ToastProvider><ManSale ten="Sale Hùng" dv={dvXin()} dvLich={dvLich(true)} onDangXuat={onDangXuat} {...p} /></ToastProvider>);
+  render(<ToastProvider><ManSale ten="Sale Hùng" dv={dvXin()} dvLich={dvLich(true)} dvCaNhan={DV_CA_NHAN} onDangXuat={onDangXuat} {...p} /></ToastProvider>);
   return { onDangXuat };
 }
 
@@ -99,7 +104,8 @@ describe('YC7.1 · khung tab của sale', () => {
     await screen.findByText('Chưa có nguồn phòng');
     fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
     expect(screen.getByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Đăng xuất' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Đăng xuất' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Xác nhận đăng xuất' }));
     expect(onDangXuat).toHaveBeenCalledOnce();
     fireEvent.click(screen.getByRole('button', { name: 'Lịch' }));
     expect(await screen.findByText('Chưa có nguồn phòng')).toBeInTheDocument();
@@ -158,8 +164,8 @@ describe('YC7.5 · dòng "Mức cộng giá mặc định" ở tab Cá nhân (US
     await screen.findByText('Chưa có nguồn phòng');
     fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
     expect(screen.getByRole('button', { name: 'Đăng xuất' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Mức cộng giá mặc định' }));
-    expect(await screen.findByRole('heading', { name: 'Mức cộng giá mặc định' })).toBeInTheDocument();
+    fireEvent.click(await screen.findByRole('button', { name: /Mức cộng giá mặc định/ }));
+    expect(await screen.findByRole('heading', { name: /Mức cộng giá mặc định/ })).toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
     fireEvent.click(await screen.findByRole('button', { name: '+200k' }));
     fireEvent.click(screen.getByRole('button', { name: 'Lưu thay đổi' }));
@@ -172,8 +178,8 @@ describe('YC7.5 · dòng "Mức cộng giá mặc định" ở tab Cá nhân (US
     ve({ dvMucCong: { doc: vi.fn(async () => ({ muc: 0, lamTron: false })), luu: vi.fn() } });
     await screen.findByText('Chưa có nguồn phòng');
     fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Mức cộng giá mặc định' }));
-    await screen.findByRole('heading', { name: 'Mức cộng giá mặc định' });
+    fireEvent.click(await screen.findByRole('button', { name: /Mức cộng giá mặc định/ }));
+    await screen.findByRole('heading', { name: /Mức cộng giá mặc định/ });
     fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
     expect(screen.getByRole('heading', { name: 'Cá nhân' })).toBeInTheDocument();
   });
@@ -185,8 +191,8 @@ describe('YC8.2 · dòng "Mẫu tin gửi khách" ở tab Cá nhân (US49)', () 
     ve({ dvMauTin: mauTin });
     await screen.findByText('Chưa có nguồn phòng');
     fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
-    expect(screen.getByRole('button', { name: 'Mức cộng giá mặc định' })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'Mẫu tin gửi khách' }));
+    expect(await screen.findByRole('button', { name: /Mức cộng giá mặc định/ })).toBeInTheDocument();
+    fireEvent.click(await screen.findByRole('button', { name: /Mẫu tin gửi khách/ }));
     expect(await screen.findByRole('heading', { name: 'Mẫu tin gửi khách' })).toBeInTheDocument();
     expect(screen.queryByRole('navigation', { name: 'Tab' })).toBeNull();
     // Bản xem trước dùng tên trong hồ sơ.
@@ -203,7 +209,7 @@ describe('YC8.2 · dòng "Mẫu tin gửi khách" ở tab Cá nhân (US49)', () 
     ve({ dvLich: { ...dvLich(true), mauTin } });
     await screen.findByText('Chưa có nguồn phòng');
     fireEvent.click(screen.getByRole('button', { name: 'Cá nhân' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Mẫu tin gửi khách' }));
+    fireEvent.click(await screen.findByRole('button', { name: /Mẫu tin gửi khách/ }));
     await screen.findByRole('heading', { name: 'Mẫu tin gửi khách' });
     expect(mauTin.doc).toHaveBeenCalled();
     fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));

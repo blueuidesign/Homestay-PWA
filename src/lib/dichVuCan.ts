@@ -8,6 +8,7 @@ import { taoDichVuSaleSupabase, type DichVuSale } from './dichVuSale';
 import { taoDichVuLinkMoiSupabase, type DichVuLinkMoi } from './dichVuLinkMoi';
 import { taoDichVuXinLichSupabase, type DichVuXinLich } from './dichVuXinLich';
 import { taoDichVuThongBaoSupabase, type DichVuThongBao } from './dichVuThongBao';
+import { taoDichVuCaNhanSupabase, type DichVuCaNhan } from './dichVuCaNhan';
 import { taoDichVuLichSaleSupabase, type DichVuLichSale } from './dichVuLichSale';
 import { taoDichVuMucCongSupabase, type DichVuMucCong } from './dichVuMucCong';
 import { taoDichVuMauTinSupabase, type DichVuMauTin } from './dichVuMauTin';
@@ -115,6 +116,8 @@ export interface DichVuCan {
   xinLich?: DichVuXinLich;
   /** YC6.8: thông báo "chủ đồng ý kết nối" của sale cho toast A9 (src/lib/dichVuThongBao.ts). Thiếu thì không có toast. */
   thongBao?: DichVuThongBao;
+  /** YC1.3: tab Cá nhân P1, P4 (src/lib/dichVuCaNhan.ts). Thiếu thì tab báo chưa tải được, vẫn đăng xuất được. */
+  caNhan?: DichVuCaNhan;
   /** YC9.2: khối yêu cầu chờ ở CN1-03 và trả lời ở CN9 (src/lib/dichVuTraLoiYeuCau.ts). Thiếu thì không có khối. */
   traLoiYeuCau?: DichVuTraLoiYeuCau;
   /** YC11.1: thống kê tháng của chủ nhà CN8 (src/lib/dichVuThongKeChu.ts). Thiếu thì tab Thống kê báo chưa tải được. */
@@ -176,6 +179,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
     xinLich: taoDichVuXinLichSupabase(sb), // YC6.4
     thongBao: taoDichVuThongBaoSupabase(sb), // YC6.8
+    caNhan: taoDichVuCaNhanSupabase(sb), // YC1.3: P1, P4
     traLoiYeuCau: taoDichVuTraLoiYeuCauSupabase(sb), // YC9.2: CN1-03, CN9
     thongKe: taoDichVuThongKeChuSupabase(sb), // YC11.1: CN8
     // YC7.1, YC7.2, YC7.4: lịch sale, tìm phòng, chi tiết căn của chủ nhà (S3) dùng chung một dịch vụ.

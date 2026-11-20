@@ -60,7 +60,11 @@ import { S310DatPhongSale } from './S310DatPhongSale';
 import { S703DanhSach } from './S703DanhSach';
 import type { DichVuDanhSachSale } from '../lib/dichVuDanhSachSale';
 import type { DichVuDatPhongSale } from '../lib/dichVuDatPhongSale';
-import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
+import { Icon, ICON_LICH } from './TabChu';
+import { CaNhan } from './CaNhan';
+import type { KhoaDong } from '../lib/caNhan';
+import type { DichVuCaNhan } from '../lib/dichVuCaNhan';
+import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
 
 export type TabSaleTen = 'lich' | 'can' | 'thong-ke' | 'ca-nhan';
 
@@ -89,8 +93,6 @@ export function ThanhTabSale(props: { dangMo: TabSaleTen; onChon: (t: TabSaleTen
   );
 }
 
-const TIEU_DE_TAM: Record<Exclude<TabSaleTen, 'lich' | 'can' | 'thong-ke'>, string> = { 'ca-nhan': 'Cá nhân' };
-
 /** YC10.1: việc chưa có màn ở phía sale (US sau) báo tạm. */
 export const CAU_SE_CO = 'Sẽ có ở bản sau';
 export const CAU_THEM_CAN_CUA_TOI_SE_CO = 'Thêm căn của tôi sẽ có ở bản sau';
@@ -114,6 +116,8 @@ function ManSaleTrong(props: {
   dvMucCong?: DichVuMucCong;
   /** YC8.2: mẫu tin gửi khách (P11). Thiếu thì dùng dvLich.mauTin. */
   dvMauTin?: DichVuMauTin;
+  /** YC1.3: tab Cá nhân (P4). Thiếu thì tab báo chưa tải được, vẫn đăng xuất được. */
+  dvCaNhan?: DichVuCaNhan;
   onDangXuat: () => void;
   /** YC9.4: chạm thông báo kết quả yêu cầu (manTuThongBao 'S3-KQ') thì mở màn kết quả của yêu cầu này. */
   moKetQua?: string;
@@ -287,18 +291,15 @@ function ManSaleTrong(props: {
       );
     }
   } else {
-    than = (
-      <KhungTabChu tieuDe={TIEU_DE_TAM[tab]}>
-        {tab === 'ca-nhan' ? (
-          <>
-            <p className="dong-phu">Sale</p>
-            <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP10(true)}>Mức cộng giá mặc định</button>
-            <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP11(true)}>Mẫu tin gửi khách</button>
-            <button type="button" className="hh-btn hh-btn--text" onClick={props.onDangXuat}>Đăng xuất</button>
-          </>
-        ) : null}
-      </KhungTabChu>
-    );
+    // YC1.3 (US3): P4. Chạm dòng mở màn của dòng; màn chưa làm (US sau) báo tạm.
+    const moDong = (khoa: KhoaDong) => {
+      if (khoa === 'muc-cong') datMoP10(true); // YC7.5
+      else if (khoa === 'mau-tin') datMoP11(true); // YC8.2
+      else if (khoa === 'link-xin-lich') (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO)); // YC6.4: A6
+      else if (khoa === 'zalo') moLinkNgoai(LINK_ZALO_HOME247); // YC1.7 bước 4
+      else hienToast(CAU_SE_CO);
+    };
+    than = <CaNhan vai="sale" dv={props.dvCaNhan} onMo={moDong} onDangXuat={props.onDangXuat} />;
   }
   return (
     <>
