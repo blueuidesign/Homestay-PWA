@@ -651,6 +651,7 @@ Policy:
 - dem_can_trong(p_nguoi uuid, p_tu date, p_den date, p_pn smallint[], p_toa uuid[], p_view text[], OUT so integer, OUT ten_toa jsonb) → record · security definer
 - fn_bo_dong_sale(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_bo_muc_cong(p_can_id uuid) → void · security definer · gọi được: authenticated
+- fn_can_tuong_tu(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_chap_nhan_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_chi_tiet_dat_phong(p_booking_id uuid) → TABLE(id uuid, can_id uuid, ma_can text, ngay_nhan date, ngay_tra date, gio_nhan time without time zone, gio_tra time without time zone, tien_phong bigint, tien_coc bigint, trang_thai_tien text, co_hoan_tac boolean, trang_thai text, nguon text, ghi_chu text, sale_id uuid, ten_sale text, sdt_sale text, sale_da_xoa boolean, ten_khach text, sdt_khach text, so_khach integer, sua_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_chon_vai(p_vai text) → void · security definer · gọi được: authenticated
@@ -676,8 +677,10 @@ Policy:
 - fn_gui_lich(p_can_ids uuid[]) → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_gui_link_xin_lich() → TABLE(ma text, so_lan_gui integer, gui_cuoi_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_gui_yeu_cau(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_loi_nhan text, p_client_id uuid) → jsonb · security definer · gọi được: authenticated
+- fn_het_han_yeu_cau() → integer · security definer
 - fn_hoan_tac_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_huy_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
+- fn_ket_qua_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_lay_link_xin_lich() → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
@@ -711,6 +714,7 @@ Policy:
 - gia_ban_dem(p_sale_id uuid, p_can_id uuid, p_dem date) → bigint · security definer
 - gia_chu_dem(p_can_id uuid, p_dem date) → bigint · security definer
 - gia_gui_khach_dem(p_nguoi uuid, p_can_id uuid, p_dem date) → bigint · security definer
+- het_han_vi(p_y yeu_cau_dat_phong) → text · security definer
 - ket_qua_tra_loi(p_id uuid, p_doi boolean) → jsonb · security definer
 - khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
 - khoa_yeu_cau_cua_chu(p_yeu_cau_id uuid) → yeu_cau_dat_phong · security definer
