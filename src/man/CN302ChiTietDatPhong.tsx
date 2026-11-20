@@ -3,7 +3,7 @@
 // Ghi qua fn_da_thu_du, fn_hoan_tac_thu_du (QT6.1). Trạng thái: HV1 khung xám, HV2 chưa tải được thì Thử lại, HV3 quay lại từ
 // nền đọc lại, HV5 đặt phòng không còn thì về màn trước với toast, HV8 toast. Nút Sửa mở CN4-02 (YC5.6 bước 24, US31).
 // Xóa đặt phòng khách lẻ (YC5.7, US32): hỏi lại rồi gọi fn_xoa_booking (quy tắc "Xóa phải bấm hai lần", PQ7.CHU); đặt phòng
-// có sale không có nút Xóa, chỉ Sửa và Xin hủy (quy tắc "Không xóa đặt phòng của sale", QD12). Xin hủy (YC5.8): US sau.
+// có sale không có nút Xóa, chỉ Sửa và Xin hủy (quy tắc "Không xóa đặt phòng của sale", QD12). Xin hủy (YC5.8): KhoiHuyDatPhong (US33).
 import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
@@ -14,8 +14,10 @@ import {
   cauKhachCuaSale, cauSaleDaXoa, dongGioNhanTra, nhanTrangThaiTien, tienConLai, tieuDeChiTiet, type ChiTietDatPhong,
 } from '../lib/datPhong';
 import type { DichVuDatPhong } from '../lib/dichVuDatPhong';
+import type { DichVuHuyDatPhong } from '../lib/dichVuHuyDatPhong';
 import { khoangNgay, vietSoDienThoai } from '../lib/lich';
 import { vietTien } from '../lib/tien';
+import { KhoiHuyDatPhong } from './KhoiHuyDatPhong';
 import { Icon } from './TabChu';
 import './CN302ChiTietDatPhong.css';
 
@@ -132,6 +134,7 @@ export function CN302ChiTietDatPhong(props: {
   const { onKhongCon } = props;
   useQuayLaiTuNen(() => { void tai(); }); // HV3: quay lại từ nền thì đọc lại
   const [hoiXoa, datHoiXoa] = useState(false);
+  const dvHuy = props.dv?.tinhTrangHuy ? (props.dv as DichVuHuyDatPhong) : undefined;
 
   useEffect(() => {
     if (ct === null) { hienToast(CAU_KHONG_CON, 'loi'); onKhongCon(); }
@@ -193,8 +196,12 @@ export function CN302ChiTietDatPhong(props: {
             <p className="cn302-ghi-chu">{ct.ghiChu}</p>
           </section>
         )}
-        {!ct.daHuy && (ct.saleId ? (
-          // YC5.7-NT3, NT5: đặt phòng có sale chỉ Sửa hay Xin hủy. Xin hủy (YC5.8) làm ở US sau.
+        {ct.saleId && dvHuy ? (
+          // YC5.8 (US33): xin hủy, trả lời xin hủy, nhãn "Chờ đồng ý hủy", "Bị từ chối hủy", "Đã hủy" (QD12).
+          <KhoiHuyDatPhong bookingId={ct.id} dv={dvHuy} maCan={ct.maCan} ngayNhan={ct.ngayNhan} ngayTra={ct.ngayTra}
+                           tenBenKia={ct.tenSale ?? 'Sale'} onDoi={() => void tai()} />
+        ) : !ct.daHuy && (ct.saleId ? (
+          // YC5.7-NT3, NT5: đặt phòng có sale chỉ Sửa hay Xin hủy.
           <button type="button" className="hh-btn hh-btn--text cn302-nut-phu" onClick={() => hienToast(CAU_SE_CO)}>Xin hủy</button>
         ) : (
           <button type="button" className="hh-btn hh-btn--text cn302-nut-phu cn302-nut-phu--xoa" onClick={() => datHoiXoa(true)}>Xóa đặt phòng</button>

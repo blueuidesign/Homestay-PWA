@@ -10,6 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { LoiHetPhien } from '../chung/phien';
 import type { ChiTietDatPhong, GiaDem, SaleKetNoi, TrangThaiTienForm } from './datPhong';
+import { taoDichVuHuySupabase, type DichVuHuyDatPhong } from './dichVuHuyDatPhong';
 import type { DatPhongLich, NguoiDat, TrangThaiTien } from './lich';
 
 /** YC5.3 bước 9: dữ liệu form gửi lệnh ghi. Tiền là số nguyên đồng. */
@@ -37,7 +38,7 @@ export function laLoiHetPhien(e: { code?: string; message?: string } | null | un
   return e.code === 'PGRST301' || e.code === 'PGRST303' || /jwt expired/i.test(e.message ?? '');
 }
 
-export interface DichVuDatPhong {
+export interface DichVuDatPhong extends Partial<DichVuHuyDatPhong> {
   /** YC5.1 bước 1a: đặt phòng chưa hủy (QT2.1) của các căn `canIds`, có tên người đặt để hiện ở dòng trùng (bước 4). */
   layDatPhong(canIds: string[]): Promise<DatPhongLich[]>;
   /** YC5.2 bước 7, QT5.3: giá chủ nhà từng đêm của căn trong [nhận, trả). */
@@ -96,6 +97,7 @@ async function goiLenhGhi(sb: SupabaseClient, ten: string, thamSo: Record<string
 
 export function taoDichVuDatPhongSupabase(sb: SupabaseClient): DichVuDatPhong {
   return {
+    ...taoDichVuHuySupabase(sb), // YC5.8 (US33)
     async layDatPhong(canIds) {
       if (!canIds.length) return [];
       const { data, error } = await sb.from('booking').select('id, can_id, ngay_nhan, ngay_tra, sale_id')
