@@ -203,3 +203,25 @@ grant execute on function public.fn_gia_dien_san_tu_ghi(uuid, date, date),
   public.fn_sua_dat_phong_tu_ghi(uuid, date, date, bigint, bigint),
   public.fn_xoa_dat_phong_tu_ghi(uuid)
   to authenticated;
+
+-- YC10.4-NT10, YC10-H9 (YC10 r5): căn tự nhập chưa lưu giá cuối tuần thì đêm cuối tuần dùng giá ngày thường.
+-- Thay gia_chu_dem của US43; căn có lịch giữ nguyên cách tính (QT5.3, QT5.5, PQ5). Hàm nội bộ, app không gọi.
+create or replace function public.gia_chu_dem(p_can_id uuid, p_dem date) returns bigint
+language sql stable security definer set search_path = ''
+as $$
+  select coalesce(
+    (select g.gia from public.gia_dip g where g.can_id = c.id and p_dem between g.tu_ngay and g.den_ngay limit 1),
+    case
+      when c.loai = 'tu_nhap' then
+        case when extract(isodow from p_dem)::smallint = any (coalesce(p.dem_cuoi_tuan, '{5,6}'))
+             then coalesce(c.gia_chu_cuoi_tuan, c.gia_chu_thuong) else c.gia_chu_thuong end
+      else
+        (select case when extract(isodow from p_dem)::smallint = any (coalesce(p.dem_cuoi_tuan, '{5,6}'))
+                     then gt.gia_cuoi_tuan else gt.gia_thuong end
+         from public.gia_thang gt where gt.can_id = c.id and gt.thang = date_trunc('month', p_dem)::date)
+    end)
+  from public.can c
+  join public.profiles p on p.id = c.nguoi_giu
+  where c.id = p_can_id
+$$;
+revoke execute on function public.gia_chu_dem(uuid, date) from public, anon, authenticated;
