@@ -2,7 +2,7 @@
 id: US55
 tieu_de: "Chi tiết chủ nhà và bỏ nguồn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC10.2@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [63]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,9 +52,9 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US55-chi-tiet-chu-nha-va.md.
 
 ## Task
-- [x] US55-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.2-NT1, YC10.2-NT4, YC10.2-NT5, YC10.2-NT6, YC10.2-NT7, YC10.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US55-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US55-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-04 theo canvas, test unit, e2e cho YC10.2-NT1 đến NT4, NT6, NT7
+- [x] US55-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.2-NT1, YC10.2-NT4, YC10.2-NT5, YC10.2-NT6, YC10.2-NT7, YC10.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5) · PR #63
+- [x] US55-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng · PR #63
+- [x] US55-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-04 theo canvas, test unit, e2e cho YC10.2-NT1 đến NT4, NT6, NT7 · PR #63
 - [ ] US55-TA4 Test tay · Đức: chạy tests/kb/US55-chi-tiet-chu-nha-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
@@ -66,6 +66,7 @@ Kịch bản test tay: tests/kb/US55-chi-tiet-chu-nha-va.md.
 - 2026-11-18 · Claude · tạo item từ YC10.2@1 (QD21)
 - 2026-11-20 · Claude (QD25) · YC10 r4 tự chốt câu mở, thêm NT
 - 2026-11-20 · Claude Code (agent code, Tùng giao qua làm tự động) · TA1, TA2, TA3 trên nhánh US55-chi-tiet-chu-nha, chưa mở PR
+- 2026-11-20 · Claude (QD25) · Gộp PR #63, CI xanh 4/4. Chuyển cho-test, chờ Đức test tay TA4 (rủi ro cao: iPhone và Android, thử vi phạm quyền).
 
 ## Bằng chứng
 - Test database `PGHOST=localhost PGUSER=postgres PGPASSWORD=postgres scripts/test-db.sh`: lần đầu (TA1, chưa có migration) 29 hỏng trên file 71; sau migration 3 hỏng do dàn dựng test (lần cập nhật đặt trước khi ghi đặt phòng, tìm phòng ngày đã qua, chi tiết căn trả khong_con_quyen chứ không báo lỗi), sửa 1 vòng; cuối: 2336 qua, 0 hỏng.

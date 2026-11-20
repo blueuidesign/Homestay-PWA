@@ -61,7 +61,7 @@ Kịch bản test tay: tests/kb/US46-chi-tiet-can-cua-chu.md.
 ## Kế hoạch
 - DB: fn_sale_chi_tiet_can(căn, từ, đến) trả jsonb (căn, ảnh, chủ, giá chủ và giá bán từng đêm, mức cộng, lịch 14 ngày, giờ) hoặc chỉ {khong_con_quyen, ly_do} (HV5); fn_dat_muc_cong, fn_bo_muc_cong (chip "Mặc định"). Chỉ căn trong my_shared_can_ids().
 - App: S3ChiTietCan, ảnh qua createSignedUrls 3600 giây; chạm căn chủ nhà ở S2/S4 (ngày đang tìm, tô ngày hỏi) và S1 (ngày đầu đang xem, 1 đêm) mở S3; S3-02 tạm trong S6Tam.
-- Claude tự chọn (ghi ở PR): lịch 14 ngày bắt đầu thứ Hai của tuần có ngày nhận (theo lưới canvas); ngày đã qua không ghi "Trống"; mức cộng tối đa 50.000.000đ mỗi đêm; căn đã xóa, ngoài phạm vi không có lý do; chạm căn của tôi, tự nhập ở S1 mở S6-07, S6-03 tạm như S2. Không làm [MỞ: PQ2-H1].
+- Claude tự chọn (ghi ở PR): lịch 14 ngày bắt đầu thứ Hai của tuần có ngày nhận (theo lưới canvas); ngày đã qua không ghi "Trống"; mức cộng tối đa 50.000.000đ mỗi đêm; căn đã xóa, ngoài phạm vi không có lý do; chạm căn của tôi, tự nhập ở S1 mở S6-07, S6-03 tạm như S2. Không làm phần PQ2-H1 (lúc đó còn mở, đã chốt 20/11: sale bị ngừng không thấy số chủ nhà).
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC7.4@1 (QD21)

@@ -3,7 +3,7 @@ id: PQ
 tieu_de: Ma trận quyền
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ---
 > Luật chung, sống. Ma trận quyền: nguồn duy nhất cho câu hỏi "ai được thấy, được sửa gì". YC ghi mã ô (PQ5.SALE) ở mục Quyền. Đổi một ô là đổi phân quyền: cần Tùng duyệt và một QD.
 
@@ -44,7 +44,7 @@ Họ tên, tên hiển thị, ảnh đại diện, cài đặt thông báo.
 ## PQ2 · Số điện thoại người dùng
 Ai cũng chỉ ghi được số của chính mình. Bản Zalo: số lấy từ Zalo, không sửa trong app (YC1.4); app chỉ gửi token số điện thoại lên máy chủ, máy chủ đổi token một lần trong 2 phút, app không chứa App Secret (`docs/_lich-su/zalo/rang-buoc.md`). Bản PWA: số lấy theo cách đăng nhập ở QD22.
 - PQ2.CHU: xem số của mình. Thấy số sale đã kết nối và sale đang xin ở A8, CN7-04, nếu sale đã cho số (YC6).
-- PQ2.SALE: xem số của mình. Thấy số của chủ nhà đã kết nối (QD7). Bị ngừng: [MỞ: PQ2-H1].
+- PQ2.SALE: xem số của mình. Thấy số của chủ nhà đã kết nối (QD7). Bị ngừng: không còn thấy số chủ nhà đó (PQ2-H1) [r4 · sửa].
 - PQ2.LINK: không thấy số chủ nhà (QD8, YC6).
 - PQ2.CTV: không áp dụng ở bản đầu (YC14).
 - PQ2.KHACH: không bao giờ (YC6).
@@ -174,7 +174,7 @@ Căn tự nhập, tên và số điện thoại chủ căn tự nhập, đặt p
 ## PQ17 · Kết nối và quyền xem
 Danh sách sale của chủ nhà, phạm vi chia sẻ (tất cả căn hoặc chọn căn), quyền "Tình trạng cọc", ngừng cho xem.
 - PQ17.CHU: xem danh sách sale của mình và đặt phòng của từng sale; thêm sale bằng tay; bật tắt hai quyền cho từng sale; ngừng cho xem (YC6.5, YC6.2). Sale vào qua link mời hay CN10 nhận mặc định: giá bật, cọc bật (QD7). Không xem, không đổi, không ngừng sale của chủ nhà khác.
-- PQ17.SALE: xem danh sách chủ nhà đã kết nối ở Nguồn phòng, bỏ nguồn (YC10.2). Không thấy các sale khác của chủ nhà (YC6). Không tự đổi quyền của mình. Bị ngừng: nhận thông báo (YC12.4); chủ nhà còn hiện ở Nguồn phòng không: [MỞ: PQ17-H1].
+- PQ17.SALE: xem danh sách chủ nhà đã kết nối ở Nguồn phòng, bỏ nguồn (YC10.2). Không thấy các sale khác của chủ nhà (YC6). Không tự đổi quyền của mình. Bị ngừng: nhận thông báo (YC12.4); chủ nhà vẫn hiện ở Nguồn phòng với nhãn "đã ngừng cho bạn xem lịch", không căn, giá, số, sale bỏ dòng được (PQ17-H1) [r4 · sửa].
 - PQ17.LINK: bấm Thêm lịch ở A10 thì thành SALE (QD8). Đã thêm rồi mà mở lại link thì thấy A10-01, không thêm lần nữa (QD8).
 - PQ17.CTV: không áp dụng ở bản đầu (YC14).
 - PQ17.KHACH: không.
@@ -238,3 +238,4 @@ Người dùng xóa tài khoản, server xóa số điện thoại và đánh d�
 |---|---|---|---|
 | 2 | 2026-11-19 | Claude (QD25) | PQ18.LINK: trả lời PQ18-H1, link xin lịch không hết hạn ở bản 1. |
 | 3 | 2026-11-19 | Claude (QD25) | PQ10.SALE: trả lời PQ10-H1 theo YC9-H3, YC9-H4. |
+| 4 | 2026-11-20 | Claude (QD25) | PQ2.SALE, PQ17.SALE: trả lời PQ2-H1, PQ17-H1 theo YC10-H1, YC10-H6. |
