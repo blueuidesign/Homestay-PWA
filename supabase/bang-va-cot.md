@@ -699,7 +699,9 @@ Policy:
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated
 - fn_sale_da_coc(p_booking_id uuid) → boolean · security definer · gọi được: authenticated
 - fn_sale_lich(p_tu date, p_den date) → TABLE(can_id uuid, nhom text, ma_can text, ten_toa text, ten_chu text, so_phong_ngu smallint, loai_view text, lich_doi_luc timestamp with time zone, so_ban integer, dem date, o text, gia_ban bigint) · security definer · gọi được: authenticated
+- fn_sale_sua_gia_ban(p_booking_id uuid, p_gia_ban bigint) → void · security definer · gọi được: authenticated
 - fn_sale_tim(p_tu date, p_den date, p_so_phong_ngu smallint[], p_toa_nha uuid[], p_view text[]) → jsonb · security definer · gọi được: authenticated
+- fn_sale_xem_dat_phong(p_booking_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_soan_tin_gui_khach(p_can_ids uuid[], p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated
 - fn_sua_booking(p_booking_id uuid, p_sua_luc timestamp with time zone, p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tien_phong bigint, p_trang_thai_tien text, p_tien_coc bigint, p_ten_khach text, p_sdt_khach text, p_so_khach integer, p_gio_nhan time without time zone, p_gio_tra time without time zone, p_ghi_chu text) → timestamp with time zone · security definer · gọi được: authenticated
 - fn_sua_can(p_can_id uuid, p_sua jsonb) → void · security definer · gọi được: authenticated

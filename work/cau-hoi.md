@@ -209,13 +209,15 @@ Chỉ sửa ghi chú hay khách thì sale có được báo không?
 Gắn ở: YC5.6.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không báo. Sale chỉ được báo khi chủ nhà đổi căn, ngày hay tiền phòng, vì đó là điều sale đã báo khách. Ghi chú, khách, số khách, giờ, trạng thái tiền của chủ nhà không báo. Ghi vào YC5.6 bản 2.
 
-### YC5-H10 · mo
+### YC5-H10 · da-tra-loi
 Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không?
 Gắn ở: YC5.9.
+Trả lời 2026-11-20 (Claude tự chốt, QD25, chờ Tùng duyệt lại): chênh âm được, giá bán phải lớn hơn 0; sale bị ngừng vẫn sửa giá bán đặt phòng cũ; đặt phòng đã hủy thì không sửa. Ghi ở YC5 r6.
 
-### YC5-H11 · mo
+### YC5-H11 · da-tra-loi
 Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình?
 Gắn ở: YC5.9.
+Trả lời 2026-11-20 (Claude tự chốt, QD25, chờ Tùng duyệt lại): dựng theo khung S3-10, mở từ S7-03; thông báo nối khi làm YC12. Ghi ở YC5 r6.
 
 ### YC5-H12 · da-tra-loi
 Chủ nhà ghi tên, số khách cho đặt phòng có sale ở đâu?

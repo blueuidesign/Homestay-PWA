@@ -56,8 +56,10 @@ import { S603CanTuNhap } from './S603CanTuNhap';
 import { S604ChiTietChuNha } from './S604ChiTietChuNha';
 import { ManTimPhong } from './S102TimPhong';
 import { S7ThongKe } from './S7ThongKe';
+import { S310DatPhongSale } from './S310DatPhongSale';
 import { S703DanhSach } from './S703DanhSach';
 import type { DichVuDanhSachSale } from '../lib/dichVuDanhSachSale';
+import type { DichVuDatPhongSale } from '../lib/dichVuDatPhongSale';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
 
 export type TabSaleTen = 'lich' | 'can' | 'thong-ke' | 'ca-nhan';
@@ -103,7 +105,7 @@ function ManSaleTrong(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap; thongKeSale?: DichVuThongKeSale; danhSachSale?: DichVuDanhSachSale };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap; thongKeSale?: DichVuThongKeSale; danhSachSale?: DichVuDanhSachSale; datPhongSale?: DichVuDatPhongSale };
   /** YC11.2: thống kê của sale (S7). Thiếu thì dùng dvLich.thongKeSale; cả hai thiếu thì tab báo chưa tải được. */
   dvThongKe?: DichVuThongKeSale;
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
@@ -176,6 +178,14 @@ function ManSaleTrong(props: {
   // YC11.3: S7-03 và màn kết quả mở từ S7, S7-03 (tu: nơi quay lại).
   const [moDs, datMoDs] = useState(false);
   const [kqThongKe, datKqThongKe] = useState<string | null>(null);
+  // YC5.9 (US34): chạm đặt phòng ở S7-03 mở chi tiết đặt phòng phía sale (S3-10).
+  const [dpThongKe, datDpThongKe] = useState<{ id: string; tenTam: string } | null>(null);
+  if (tab === 'thong-ke' && dpThongKe && !moCan && !moTim) {
+    return (
+      <S310DatPhongSale key={dpThongKe.id} id={dpThongKe.id} tenTam={dpThongKe.tenTam} dv={props.dvLich?.datPhongSale}
+                        onQuayLai={() => datDpThongKe(null)} onVeLich={() => { datDpThongKe(null); datMoDs(false); veLich(); }} />
+    );
+  }
   if (tab === 'thong-ke' && kqThongKe && !moCan && !moTim) {
     return (
       <MoCanTuongTu.Provider value={dvCt ? moCanTuongTu : undefined}>
@@ -273,7 +283,7 @@ function ManSaleTrong(props: {
     if (moDs) {
       than = (
         <S703DanhSach dv={props.dvLich?.danhSachSale} onQuayLai={() => datMoDs(false)} onTimPhong={dvTim ? mo : undefined}
-                      onChamYeuCau={(d) => datKqThongKe(d.id)} onChamDatPhong={() => hienToast(CAU_SE_CO)} />
+                      onChamYeuCau={(d) => datKqThongKe(d.id)} onChamDatPhong={(d) => datDpThongKe({ id: d.id, tenTam: [d.tenToa, d.maCan].filter(Boolean).join(' ') })} />
       );
     }
   } else {
@@ -293,7 +303,7 @@ function ManSaleTrong(props: {
   return (
     <>
       {than}
-      {!(tab === 'lich' && ngang) && <ThanhTabSale dangMo={tab} onChon={(t) => { datNgang(false); datMoDs(false); datKqThongKe(null); datTab(t); }} />}
+      {!(tab === 'lich' && ngang) && <ThanhTabSale dangMo={tab} onChon={(t) => { datNgang(false); datMoDs(false); datKqThongKe(null); datDpThongKe(null); datTab(t); }} />}
     </>
   );
 }

@@ -3,7 +3,7 @@ id: YC5
 tieu_de: Đặt phòng
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ban: 1
 ---
 # YC5 · Đặt phòng
@@ -355,16 +355,16 @@ Tiêu chí:
 
 ## YC5.9 · Phía sale: đặt phòng chủ nhà ghi giúp
 
-Bản 1 · rủi ro: cao · Màn: chưa có hình
+Bản 1 · rủi ro: cao · Màn: S3-10 (dựng theo khung S3-10)
 
-Màn phía sale (thông báo, chi tiết đặt phòng, sửa giá bán) chưa có hình: [MỞ: YC5-H11]. Phần database làm được ngay.
+[r6 · sửa] Chi tiết đặt phòng và sửa giá bán phía sale dựng theo khung S3-10: tiêu đề căn, chủ nhà và ngày ở, giá bán, giá chủ, tiền chênh, tình trạng cọc, nút gọi chủ nhà khi còn kết nối; mở từ "Đặt phòng của tôi" (S7-03). Thông báo "ghi đặt phòng cho bạn" mở màn này khi làm YC12 (YC5-H11 Claude tự chốt, QD25, chờ Tùng duyệt lại).
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
 | 38 | Sale Hùng mở thông báo "Chị Hoa ghi đặt phòng cho bạn" | Mở chi tiết đặt phòng phía sale: căn, ngày ở, giá chủ nhà, giá bán cho khách, tiền chênh, tình trạng cọc (nếu chủ nhà bật) | Sale đọc phần đặt phòng dành cho sale, không có tiền cọc, không có khách chủ nhà nhập |
 | 39 | Sale Hùng sửa giá bán rồi lưu | Giá bán và tiền chênh đổi theo | Lệnh ghi giá bán: chỉ sale của đặt phòng ghi được giá bán của mình. Chủ nhà không thấy giá bán |
 
-Giá bán nhỏ hơn tiền phòng (tiền chênh âm) được không, và sale đã bị ngừng có sửa giá bán không: [MỞ: YC5-H10].
+[r6 · sửa] Giá bán phải lớn hơn 0; nhỏ hơn tiền phòng vẫn lưu được, tiền chênh hiện số âm. Sale đã bị ngừng cho xem vẫn sửa được giá bán của đặt phòng cũ (QD7 giữ đặt phòng cũ của sale). Đặt phòng đã hủy thì không sửa được giá bán (YC5-H10 Claude tự chốt, QD25, chờ Tùng duyệt lại).
 
 Tiêu chí:
 - **YC5.9-NT1** Khi Sale Hùng sửa giá bán của đặt phòng ở YC5.4-NT1 thành 2.400.000đ, thì tiền chênh là 600.000đ, và Chị Hoa vẫn chỉ thấy tiền phòng 1.800.000đ, không thấy giá bán. · database
@@ -392,3 +392,4 @@ Hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệch Y
 | r3 | 2026-11-19 | Claude | US30-chi-tiet-dat-phong | YC5.5 bản 2: khách lẻ có số thì hiện số và nút Gọi khách (Claude tự quyết, QD25, theo YC5-H2) | YC5.5 |
 | r4 | 2026-11-19 | Claude | US31 chuẩn bị | YC5.6 bản 2: trả lời YC5-H3, H4, H5, H6, H8, H9 (Claude tự chốt, QD25); thêm NT9, NT10, NT11 | YC5.6 |
 | r5 | 2026-11-20 | Claude (QD25) | US29-ghi-dat-phong-cho-sale | Trả lời YC5-H13: giá bán điền sẵn làm tròn như QT5.4 (Claude tự chốt) | YC5.4 |
+| r6 | 2026-11-20 | Claude (QD25) | US34-sale-xem-dat-phong | Trả lời YC5-H10, YC5-H11: chênh âm được, sale bị ngừng vẫn sửa giá bán, màn theo khung S3-10 (Claude tự chốt) | YC5.9 |
