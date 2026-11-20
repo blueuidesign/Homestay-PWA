@@ -442,6 +442,40 @@
    "dang_cho": "–"
   },
   {
+   "id": "EN13",
+   "loai": "EN",
+   "tieu_de": "\"Vercel bỏ qua commit chỉ đổi tài liệu\"",
+   "trang_thai": "dang-lam",
+   "nguoi": "Tùng",
+   "cha": "",
+   "truoc": [
+    "EN11"
+   ],
+   "file": "work/backlog/EN13-vercel-bo-qua-commit-tai-lieu.md",
+   "pr": "",
+   "task": {
+    "Code": {
+     "xong": 0,
+     "tong": 1
+    },
+    "Test tay": {
+     "xong": 0,
+     "tong": 0
+    },
+    "Nghiệm thu": {
+     "xong": 0,
+     "tong": 0
+    },
+    "khác": {
+     "xong": 0,
+     "tong": 0
+    }
+   },
+   "co_code": true,
+   "nghiem_thu": "",
+   "dang_cho": "Bị chặn bởi EN11"
+  },
+  {
    "id": "US1",
    "loai": "US",
    "tieu_de": "\"Màn đầu và chọn vai\"",
