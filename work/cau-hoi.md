@@ -551,39 +551,52 @@ Sale đã bỏ nguồn của một chủ nhà: có còn xem lại đặt phòng 
 Gắn ở: YC10.2.
 Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đặt phòng đã chốt với chủ nhà đó vẫn ở danh sách đặt phòng của sale, như khi chủ nhà xóa tài khoản (YC10.1 bước 10). Yêu cầu đang chờ giữa hai bên chuyển Đã hủy ngay lúc bỏ nguồn, vì sale đã tự bỏ thì không còn đặt qua chủ nhà đó; chủ nhà không có thông báo mới (giống YC9-H6). Ghi vào YC10.2 r4, thêm YC10.2-NT8.
 
+### YC10-H9 · da-tra-loi
+Căn tự nhập có giá chủ ngày thường mà không có giá cuối tuần thì đêm cuối tuần lấy giá nào?
+Gắn ở: YC10.4.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Lấy giá ngày thường. Giá cuối tuần không bắt buộc, nên để trống nghĩa là chú căn lấy một giá cho mọi đêm (DLM: Villa Tuần Châu "1.400.000đ mỗi đêm"). Để trống ô tiền ở đêm cuối tuần sẽ bắt sale gõ lại một số đã lưu. Ghi vào YC10 r5, thêm YC10.4-NT10.
+
 ## YC11
 
-### YC11-H1 · mo
+### YC11-H1 · da-tra-loi
 Sale có căn của tôi (QD5) xem thống kê căn đó ở đâu, và đặt phòng ở căn đó có tính vào thống kê sale không?
 Gắn ở: YC11.1, YC11.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 không có thống kê riêng cho căn của tôi, và đặt phòng ở căn của tôi không tính vào thống kê sale. Thống kê sale đo việc bán qua chủ nhà (doanh số, tiền chênh giữa giá bán và giá chủ); đặt phòng ở căn của mình không có giá chủ nên không có tiền chênh, cộng vào sẽ làm sai số. Cần thì làm ở bản sau. Ghi vào YC11 r2, thêm YC11.2-NT11.
 
-### YC11-H2 · mo
+### YC11-H2 · da-tra-loi
 Đặt phòng vắt qua hai tháng chia giá bán cho các đêm thế nào?
 Gắn ở: YC11.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mỗi đêm lấy phần giá bán theo tỉ lệ tiền đêm đó trong tiền phòng (giá chủ từng đêm), làm tròn xuống tới đồng, phần dư dồn vào đêm cuối. Tiền phòng bằng 0 thì chia đều theo số đêm. Tiền chênh của một tháng là phần giá bán của các đêm trong tháng trừ giá chủ các đêm đó. Như vậy cộng hai tháng luôn ra đúng tổng giá bán, không tính trùng. Ghi vào YC11 r2, thêm YC11.2-NT9.
 
-### YC11-H3 · mo
+### YC11-H3 · da-tra-loi
 Đặt phòng sale tự ghi cho căn tự nhập có trong danh sách không?
-Gắn ở: YC11.3. Tới khi có câu trả lời: không có.
+Gắn ở: YC11.3.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Không có. Danh sách S7-03 là để theo dõi việc với chủ nhà dùng app (yêu cầu, đặt phòng chủ nhà chốt hay ghi giúp). Đặt phòng tự ghi đã xem ở S6-03 của từng căn tự nhập, và vẫn tính vào số liệu ở S7 theo quy tắc Đặt phòng của sale. Ghi vào YC11 r2, thêm YC11.3-NT8.
 
-### YC11-H5 · mo
+### YC11-H5 · da-tra-loi
 S7 mở danh sách S7-03 bằng cách nào; chạm dòng chờ chủ ở S7 mở S7-03 (hình) hay S3-03 (story cũ); chạm dòng yêu cầu ở S7-03 mở đâu?
 Gắn ở: YC11.2, YC11.3.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Thẻ "CHỜ CHỦ NHÀ CHẤP NHẬN" ở S7 có dòng cuối "Xem tất cả đặt phòng và yêu cầu" mở S7-03; nếu không có yêu cầu chờ thì dòng đó vẫn hiện dưới thẻ. Chạm một dòng chờ chủ ở S7 mở S3-03 của yêu cầu đó (như story cũ, màn trạng thái của YC9). Chạm dòng yêu cầu ở S7-03 mở màn kết quả theo trạng thái: chờ S3-03, bị từ chối S3-05, hết hạn S3-09, đã hủy S3-03 ở trạng thái đã hủy. Quay lại về chỗ vừa mở. Ghi vào YC11 r2, thêm YC11.3-NT9.
 
-### YC11-H6 · mo
+### YC11-H6 · da-tra-loi
 Số booking trong thống kê tháng đếm theo tháng của ngày nhận, hay đếm ở mọi tháng có đêm của booking?
 Chặn: Màn thống kê. Đang tạm làm: Chưa làm thống kê. Hỏi ngày 18/11/2026.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Đếm theo tháng của ngày nhận phòng. Mỗi đặt phòng chỉ đếm một lần, nên cộng số đặt phòng các tháng không bị trùng; doanh số và tiền chênh vẫn cộng theo đêm. Ghi vào YC11 r2, thêm YC11.2-NT10.
 
-### YC11-H7 · mo
+### YC11-H7 · da-tra-loi
 Giữa tháng thêm hay xóa căn thì mẫu số công suất tính thế nào?
 Gắn ở: YC11, YC3.6.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Mẫu số là tổng, trên mọi căn, số đêm của tháng mà căn đã có và chưa ẩn: đêm từ ngày tạo căn (giờ Việt Nam), tới trước ngày ẩn hay xóa. Đêm có khách của căn đã ẩn vẫn tính ở tử số. Căn thêm ngày 16/10 góp 16 đêm tháng 10, không phải 31. Như vậy công suất không bị kéo xuống vì đêm căn chưa tồn tại. Ghi vào YC11 r2, thêm YC11.1-NT12.
 
-### YC11-H8 · mo
+### YC11-H8 · da-tra-loi
 Thống kê của sale có chọn tháng khác không?
-Gắn ở: YC11.2. Tới khi có câu trả lời: chỉ tháng hiện tại.
+Gắn ở: YC11.2.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Bản 1 chỉ tháng hiện tại, theo hình S7 (chỉ có nhãn tháng, không có nút chọn). Lệnh đọc số liệu ở database vẫn nhận tháng như của chủ nhà, để bản sau thêm nút không phải đổi database. Ghi vào YC11 r2.
 
-### YC11-H9 · mo
+### YC11-H9 · da-tra-loi
 "Chưa thu tiền" gồm chỉ đặt phòng chưa cọc, hay cả phần còn thu của đặt phòng đã cọc?
 Gắn ở: YC11.
+Trả lời (Claude tự chốt, 20/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Gồm cả phần còn lại của đặt phòng đã cọc. Chủ nhà mở mục này để biết còn phải thu bao nhiêu; đặt phòng đã cọc vẫn còn tiền chưa thu. Dòng đã cọc ghi "Đã cọc · nhận phòng sau N ngày" và số tiền là tiền phòng trừ tiền cọc; tiền cọc không có hay không nhỏ hơn tiền phòng thì không có dòng. Đã thanh toán thì không có dòng. Ghi vào YC11 r2, thêm YC11.1-NT13.
 
 ## YC12
 

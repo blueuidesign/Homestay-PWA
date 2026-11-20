@@ -3,7 +3,7 @@ id: YC3
 tieu_de: Căn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ban: 1
 ---
 # YC3 · Căn
@@ -234,7 +234,7 @@ Xóa căn là ẩn căn (quy tắc "Xóa căn là ẩn căn"). [r5 · sửa] Nú
 | 44 | (không còn) | Căn biến khỏi CN5, lịch CN1 và CN2, chip "Phòng" ở form đặt phòng (CN4), danh sách chọn căn khi đặt giá nhiều căn và sao chép giá (CN6-05, CN6-07) | Lệnh xóa căn ghi lúc ẩn. Đặt phòng, tiền từng đêm, thống kê giữ nguyên. Từ lúc đó căn không còn trong danh sách căn sale được xem (PQ17) nên sale không còn thấy căn ở lịch, tìm phòng, chi tiết căn |
 | 45 | Thêm căn mới cùng mã với căn đã xóa | Thêm được | Mã của căn đã ẩn không tính khi kiểm trùng |
 
-Không báo cho sale khi căn bị xóa. Bản đầu không có cách hiện lại căn đã xóa. Đặt phòng cũ của sale với căn đã xóa vẫn ở danh sách và thống kê của sale (YC11). Căn đã xóa có tính vào mẫu số công suất không: [MỞ: YC11-H7] (YC11).
+Không báo cho sale khi căn bị xóa. Bản đầu không có cách hiện lại căn đã xóa. Đặt phòng cũ của sale với căn đã xóa vẫn ở danh sách và thống kê của sale (YC11). Căn đã xóa chỉ tính vào mẫu số công suất các đêm trước ngày xóa (YC11-H7) [r6 · sửa].
 
 Xóa căn: "Căn còn đặt phòng sắp tới". Căn không có, đã xóa, hay của người khác: lỗi quyền (mã 42501), app hiện "Có lỗi xảy ra. Bạn thử lại sau ít phút." để không lộ căn có tồn tại hay không.
 
@@ -271,3 +271,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r3 | 2026-11-19 | Claude | US17-toa-nha | Trả lời YC3-H5, YC3-H7 (Claude tự quyết, QD25) | YC3.4 |
 | r4 | 2026-11-19 | Claude | US18 chuẩn bị | Bỏ ảnh ở CN5-02 không hỏi lại, trả lời YC3-H4 (Claude tự chốt, QD25); không đổi nghĩa so với cách tạm | YC3.5 |
 | r5 | 2026-11-19 | Claude | US19 chuẩn bị | Nút "Xóa phòng" ở CN5-02, xóa xong về CN5 (YC3-H3); hỏi lại một lần (YC3-H8); Claude tự chốt, QD25 | YC3.6 |
+| r6 | 2026-11-20 | Claude (QD25) | main | Mẫu số công suất của căn đã xóa theo YC11-H7 | YC3.6 |

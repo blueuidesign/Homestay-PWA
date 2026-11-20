@@ -3,7 +3,7 @@ id: YC10
 tieu_de: Nguồn phòng và căn tự nhập
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ban: 2
 ---
 # YC10 · Nguồn phòng và căn tự nhập
@@ -38,7 +38,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Căn tự nhập chỉ sale đó thấy | Căn tự nhập, tên và số chủ căn, đặt phòng sale ghi cho nó chỉ sale tạo đọc và sửa được. Không chia cho chủ nhà, sale khác, đội nhóm, không vào file xuất (QD11) | "Chỉ bạn thấy" |
 | Đặt phòng tự ghi không phải lịch | Đặt phòng sale ghi cho căn tự nhập là ghi chép để tính thống kê, không làm ngày khác thành trống hay kín. Không có trạng thái tiền (chưa cọc, đã cọc, đã thanh toán) | "Ngày không có đặt phòng chưa chắc còn trống." |
 | Chặn trùng trong căn tự nhập | Đặt phòng tự ghi chồng đêm với đặt phòng tự ghi khác của cùng căn thì bị từ chối. Căn tự nhập của hai sale là hai căn khác nhau, không so với nhau (QT1.3) | QT1.3-VD1, QT1.3-VD2 |
-| Giá điền sẵn | Khi ghi đặt phòng, "Trả chủ" điền từ giá chủ sale đã lưu (đêm cuối tuần theo cài đặt của sale, YC4.6), "Thu khách" điền từ giá bán của sale cho căn (YC7.5). Sửa được. Chênh = thu khách trừ trả chủ (QT3) | 1.400.000đ, 1.600.000đ, +200.000đ |
+| Giá điền sẵn | Khi ghi đặt phòng, "Trả chủ" điền từ giá chủ sale đã lưu (đêm cuối tuần theo cài đặt của sale, YC4.6; chưa lưu giá cuối tuần thì dùng giá ngày thường, YC10-H9 `[r5 · sửa]`), "Thu khách" điền từ giá bán của sale cho căn (YC7.5). Sửa được. Chênh = thu khách trừ trả chủ (QT3) | 1.400.000đ, 1.600.000đ, +200.000đ |
 | Bấm hai lần | Bỏ nguồn và xóa căn tự nhập cần bấm xác nhận lần hai; "Bỏ khỏi danh sách" dòng chủ nhà đã xóa tài khoản thì không hỏi lại | "Xác nhận bỏ Chị Hoa?" |
 
 Quy tắc dùng chung: QT6.4 Căn tự nhập không có lịch, QT6.3 Tòa nhà dùng chung, Phòng ngủ và số giường, Loại view (`docs/product/glossary.md`), Đêm và tiền QT1.1, QT3, chia sẻ pwa.md P3, gọi pwa.md P5.
@@ -190,6 +190,7 @@ Tiêu chí:
 - **YC10.4-NT7** Khi Hùng đã ghi V2, thì lịch 7 ngày ghi "Bạn" ở 08/10, các ô khác vẫn "?". · database, unit
 - **YC10.4-NT8** `[r4 · thêm]` Khi Hùng chạm V2 ở "ĐẶT PHÒNG BẠN ĐÃ GHI" và đổi "Thu khách" thành 1.800.000đ rồi bấm "Lưu thay đổi", thì V2 lưu 1.800.000đ và các đêm không đổi; đổi sang đêm trùng V1 thì bị từ chối (QT1.3). · database, unit
 - **YC10.4-NT9** `[r4 · thêm]` Khi Hùng bấm "Xóa đặt phòng" ở V2 một lần, thì chưa xóa; bấm xác nhận thì V2 không còn và ô 08/10 trên lịch 7 ngày về "?"; Lan xóa V2 của Hùng thì không được. · database, unit
+- **YC10.4-NT10** `[r5 · thêm]` Khi Villa Tuần Châu chỉ có giá chủ ngày thường 1.400.000đ và sale ghi 2 đêm có một đêm cuối tuần, thì "Trả chủ" điền sẵn 2.800.000đ. · database
 
 ## Màn hình
 `[r2 · sửa]`
@@ -209,3 +210,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r2 | 2026-11-19 | Claude | QD22-chot-dang-nhap | Theo QD22: bỏ bước xin số trước khi mời chủ căn tự nhập | YC10.1, Màn hình |
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Nút "Chia sẻ lời mời" theo canvas PWA | YC10.1 |
 | r4 | 2026-11-20 | Claude (QD25) | main | Claude tự chốt YC10-H1 đến H8; thêm YC10.1-NT11, YC10.2-NT6 đến NT8, YC10.3-NT10, YC10.4-NT8, NT9 | Phạm vi, YC10.1, YC10.2, YC10.3, YC10.4, Màn hình |
+| r5 | 2026-11-20 | Claude (QD25) | main | Claude tự chốt YC10-H9: căn tự nhập thiếu giá cuối tuần dùng giá ngày thường; thêm YC10.4-NT10 | Quy tắc của nhóm, YC10.4 |

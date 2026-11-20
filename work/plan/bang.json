@@ -2479,7 +2479,7 @@
    "id": "US56",
    "loai": "US",
    "tieu_de": "\"Căn tự nhập\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2489,7 +2489,7 @@
     "US2"
    ],
    "file": "work/backlog/US56-can-tu-nhap.md",
-   "pr": "",
+   "pr": "[64]",
    "task": {
     "Code": {
      "xong": 2,
@@ -2510,7 +2510,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US57",
@@ -2529,7 +2529,7 @@
    "pr": "",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -2547,7 +2547,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Code đã xong, chưa đổi trạng thái (CL2.9)"
   },
   {
    "id": "US58",
