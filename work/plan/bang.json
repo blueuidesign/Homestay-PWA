@@ -347,17 +347,17 @@
    "id": "EN10",
    "loai": "EN",
    "tieu_de": "\"Xóa file ảnh tạm quá 24 giờ và ảnh bị bỏ khỏi căn trong kho ảnh\"",
-   "trang_thai": "moi",
+   "trang_thai": "xong",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
     "US16"
    ],
-   "file": "work/backlog/EN10-xoa-file-anh-tam.md",
-   "pr": "",
+   "file": "work/backlog/done/2026-11/EN10-xoa-file-anh-tam.md",
+   "pr": "76",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -375,7 +375,7 @@
    },
    "co_code": true,
    "nghiem_thu": "",
-   "dang_cho": "Bị chặn bởi US16"
+   "dang_cho": "–"
   },
   {
    "id": "EN11",
@@ -1287,7 +1287,7 @@
    "id": "US22",
    "loai": "US",
    "tieu_de": "\"Giá ngày lễ và dịp đặc biệt\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1297,10 +1297,10 @@
     "US2"
    ],
    "file": "work/backlog/US22-gia-ngay-le-va-dip.md",
-   "pr": "",
+   "pr": "74",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1318,13 +1318,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US23",
    "loai": "US",
    "tieu_de": "\"Đặt giá nhiều căn\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1334,10 +1334,10 @@
     "US2"
    ],
    "file": "work/backlog/US23-dat-gia-nhieu-can.md",
-   "pr": "",
+   "pr": "75",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1355,13 +1355,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US24",
    "loai": "US",
    "tieu_de": "\"Sao chép giá sang căn khác\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1371,10 +1371,10 @@
     "US2"
    ],
    "file": "work/backlog/US24-sao-chep-gia-sang-can.md",
-   "pr": "",
+   "pr": "77",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1392,7 +1392,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US25",
@@ -1546,7 +1546,7 @@
    "id": "US29",
    "loai": "US",
    "tieu_de": "\"Ghi đặt phòng cho sale\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1556,10 +1556,10 @@
     "US2"
    ],
    "file": "work/backlog/US29-ghi-dat-phong-cho-sale.md",
-   "pr": "",
+   "pr": "[71]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1577,7 +1577,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US30",
@@ -1694,7 +1694,7 @@
    "id": "US33",
    "loai": "US",
    "tieu_de": "\"Hủy đặt phòng có sale\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1704,10 +1704,10 @@
     "US2"
    ],
    "file": "work/backlog/US33-huy-dat-phong-co-sale.md",
-   "pr": "",
+   "pr": "[73]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1719,19 +1719,19 @@
      "tong": 0
     },
     "khác": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     }
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US34",
    "loai": "US",
    "tieu_de": "\"Phía sale: đặt phòng chủ nhà ghi giúp\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -1741,10 +1741,10 @@
     "US2"
    ],
    "file": "work/backlog/US34-phia-sale-dat-phong-chu.md",
-   "pr": "",
+   "pr": "[72]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 3,
      "tong": 3
     },
     "Test tay": {
@@ -1756,13 +1756,13 @@
      "tong": 0
     },
     "khác": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     }
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US35",
@@ -2693,7 +2693,7 @@
    "id": "US60",
    "loai": "US",
    "tieu_de": "\"Đặt phòng và yêu cầu của sale\"",
-   "trang_thai": "dang-lam",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2703,10 +2703,10 @@
     "US2"
    ],
    "file": "work/backlog/US60-dat-phong-va-yeu-cau.md",
-   "pr": "",
+   "pr": "[70]",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -2724,7 +2724,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US61",

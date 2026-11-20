@@ -2,7 +2,7 @@
 id: US24
 tieu_de: "Sao chép giá sang căn khác"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC4.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 77
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,19 +52,15 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US24-sao-chep-gia-sang-can.md (3 kịch bản, 1 [Chính]).
 
 ## Task
-- [x] US24-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.5-NT2 đến NT6, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US24-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US24-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6-07, CN6-08 theo canvas, test unit, e2e cho YC4.5-NT1, YC4.5-NT3, YC4.5-NT5, YC4.5-NT7
+- [x] US24-TA1 Code · PR #77
+- [x] US24-TA2 Code · PR #77
+- [x] US24-TA3 Code · PR #77
 - [ ] US24-TA4 Test tay · Đức: chạy tests/kb/US24-sao-chep-gia-sang-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
-
-## Kế hoạch
-1. TA1: tests/db/82_us24_sao_chep_gia.sql (NT2 đến NT6, luật lệnh, HV5), viết trước migration.
-2. TA2: fn_sao_chep_gia(nguồn, đích[], tháng, ngày lễ, dịp, năm): kiểm mọi căn, khóa theo id, thay giá tháng có ở nguồn, chép dải không trùng, trả thang_giu, dip_giu, dip_bo từng căn; 3 phép thử làm hỏng.
-3. TA3: màn CN6SaoChepGia (CN6-07), popup "Tôi đã hiểu", toast CN6-08; unit NT1, NT3, NT5, NT7.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.5@1 (QD21)
 - 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC4-H1, viết tests/kb, code TA1 đến TA3 trên nhánh US24-sao-chep-gia, mở PR · khoảng 30 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · gộp PR #77 khi CI xanh, chạy migration lên staging, sang chờ test
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC4.5`: 27 qua, 0 hỏng (một vòng). `scripts/thu-lam-hong.sh YC4.5`: 3 đạt.

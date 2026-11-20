@@ -2,7 +2,7 @@
 id: US23
 tieu_de: "Đặt giá nhiều căn"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC4.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 75
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -52,19 +52,15 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US23-dat-gia-nhieu-can.md (2 kịch bản, 1 [Chính]).
 
 ## Task
-- [x] US23-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC4.4-NT4 đến NT7, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
-- [x] US23-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
-- [x] US23-TA3 Code · Claude Code (sonnet, CL14.6a): màn CN6-05, CN6-05-00, CN6-06 theo canvas, test unit, e2e cho YC4.4-NT1 đến NT3
+- [x] US23-TA1 Code · PR #75
+- [x] US23-TA2 Code · PR #75
+- [x] US23-TA3 Code · PR #75
 - [ ] US23-TA4 Test tay · Đức: chạy tests/kb/US23-dat-gia-nhieu-can.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
-
-## Kế hoạch
-1. TA1: tests/db/81_us23_gia_nhieu_can.sql (NT4 đến NT7, luật kiểm, lúc lịch đổi), viết trước migration.
-2. TA2: fn_dat_gia_thang_nhieu: kiểm mọi căn là căn chưa xóa của người gọi, khóa theo thứ tự id, ghi từng căn bằng fn_dat_gia_thang trong một giao dịch; 3 phép thử làm hỏng.
-3. TA3: đường /can/gia-nhieu, màn CN6DatGiaNhieu (CN6-05, CN6-05-00, CN6-06), nút ở tab Căn; áp dụng xong về tab Căn với toast. Không làm nút giá dịp nhiều căn (YC4-H3).
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC4.4@1 (QD21)
 - 2026-11-20 · Claude (tự chạy, QD25) · viết tests/kb, code TA1 đến TA3 trên nhánh US23-dat-gia-nhieu-can (dựa trên nhánh US22), mở PR · khoảng 20 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · gộp PR #75 khi CI xanh, chạy migration lên staging, sang chờ test
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC4.4`: 16 qua, 0 hỏng (một vòng). `scripts/thu-lam-hong.sh YC4.4`: 3 đạt.

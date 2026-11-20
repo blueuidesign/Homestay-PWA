@@ -2,7 +2,7 @@
 id: EN10
 tieu_de: "Xóa file ảnh tạm quá 24 giờ và ảnh bị bỏ khỏi căn trong kho ảnh"
 loai: EN
-trang_thai: dang-lam
+trang_thai: xong
 thuc_hien: []
 truoc: [US16]
 lien_quan: [US16]
@@ -13,7 +13,7 @@ uoc_luong: 3 giờ
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 76
 ngay_tao: 2026-11-19
 ---
 ## Mục tiêu
@@ -36,14 +36,12 @@ supabase/functions/ hoặc việc định kỳ gọi Storage API bằng khóa ch
 Cần tiền (dịch vụ trả phí) hay khóa bí mật mới: ghi vào work/cho-tung.md.
 
 ## Task
-- [x] EN10-TA1 Code · Claude Code (sonnet, CL14.6a): chọn cách chạy định kỳ (Edge Function có lịch, hoặc GitHub Actions gọi Storage API), test trên Supabase máy
-
-## Kế hoạch
-Chọn GitHub Actions có lịch (không cần dịch vụ trả phí, khóa service_role chỉ ở secret GitHub). Migration: hàng đợi file_cho_xoa, trigger khi xóa dòng anh_can, fn_file_cho_xoa (hàng đợi cộng file mồ côi quá 24 giờ), fn_da_xoa_file, chỉ service_role. scripts/don-anh-tam.mjs và workflow don-anh-tam.yml mỗi giờ.
+- [x] EN10-TA1 Code · PR #76
 
 ## Nhật ký
 - 2026-11-19 · Claude · tạo từ báo cáo US16: fn_don_anh_tam chỉ xóa dòng, file còn trong kho
 - 2026-11-20 · Claude (tự chạy, QD25) · code TA1 trên nhánh EN10-xoa-file-anh-tam, mở PR; cần secret ở work/cho-tung.md · khoảng 25 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · gộp PR #76 khi CI xanh, chạy migration lên staging, xong; chạy thật chờ secret ở work/cho-tung.md
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh EN10`: 8 qua. `scripts/thu-lam-hong.sh EN10`: lần đầu 1 phép thử không đạt (file b.jpg cũ nên vẫn bị bắt theo luật mồ côi), sửa dữ liệu test thành file mới tải, 2 đạt. `scripts/test-db.sh KT-DB`: 339 qua.
