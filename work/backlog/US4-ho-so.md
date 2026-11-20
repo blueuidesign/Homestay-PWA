@@ -2,7 +2,7 @@
 id: US4
 tieu_de: "Hồ sơ"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.4@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 79
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -63,6 +63,8 @@ Kịch bản test tay: tests/kb/US4-ho-so.md (3 kịch bản, 1 [Chính]).
 - 2026-11-19 · Claude · thuc_hien lên bản 3 theo canvas PWA (PR #10)
 
 - 2026-11-20 · Claude (tự chạy, QD25) · viết test database và tests/kb, migration fn_sua_ho_so, màn P2, mở PR · khoảng 40 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · CI xanh, gộp PR #79, chuyển cho-test · gộp main nhiều lần vì nhánh chồng nhau
+
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC1.4`: 24 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC1.4`: 2 đạt. `npx vitest run src/man/P2HoSo.test.tsx src/lib/dieuHuong.test.ts`: 20 qua. `npm run typecheck`: qua. Ảnh đại diện (kho anh-dai-dien) tự quyết, xem PR. Bộ đầy đủ, e2e: CI chạy.

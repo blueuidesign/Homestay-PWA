@@ -2,7 +2,7 @@
 id: US3
 tieu_de: "Tab Cá nhân và đăng xuất"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.3@2]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 78
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -51,7 +51,7 @@ YC1-tai-khoan.md#Trạng thái màn (mọi mục)
 Kịch bản test tay: tests/kb/US3-tab-ca-nhan-va-dang.md (3 kịch bản, 3 [Chính]).
 
 ## Task
-- [x] US3-TA1 Code · PR chờ số
+- [x] US3-TA1 Code · PR #78
 - [ ] US3-TA2 Test tay · Đức: chạy tests/kb/US3-tab-ca-nhan-va-dang.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -61,6 +61,8 @@ Kịch bản test tay: tests/kb/US3-tab-ca-nhan-va-dang.md (3 kịch bản, 3 [C
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22
 
 - 2026-11-20 · Claude (tự chạy, QD25) · viết tests/kb, code TA1 trên nhánh US3-tab-ca-nhan, mở PR · khoảng 40 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · CI xanh, gộp PR #78, chuyển cho-test · gộp main nhiều lần vì nhánh chồng nhau
+
 
 ## Bằng chứng
 - `npx vitest run src/lib/caNhan.test.ts src/man/CaNhan.test.tsx src/man/ManSale.test.tsx`: qua. `npm run typecheck`: qua. Dòng chưa có màn (Thông báo, Thông tin cá nhân, giờ, cài đặt thông báo, xuất CSV, hướng dẫn) báo "Sẽ có ở bản sau" tới khi US4, US5, US64, US6, US7 xong. Bộ đầy đủ, e2e: CI chạy (EN14).

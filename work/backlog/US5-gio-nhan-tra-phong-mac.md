@@ -2,7 +2,7 @@
 id: US5
 tieu_de: "Giờ nhận, trả phòng mặc định"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.5@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 80
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -60,6 +60,8 @@ Kịch bản test tay: tests/kb/US5-gio-nhan-tra-phong-mac.md (2 kịch bản, 1
 - 2026-11-18 · Claude · tạo item từ YC1.5@1 (QD21)
 
 - 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC1-H11, viết test database và tests/kb, migration fn_dat_gio_nhan_tra, màn P5, mở PR · khoảng 25 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · CI xanh, gộp PR #80, chuyển cho-test · gộp main nhiều lần vì nhánh chồng nhau
+
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC1.5`: 15 qua, 0 hỏng (một vòng sửa tên hàm trong test). `scripts/thu-lam-hong.sh YC1.5`: 2 đạt. `npx vitest run src/man/P5GioNhanTra.test.tsx src/lib/dieuHuong.test.ts`: 18 qua. `npm run typecheck`: qua. Bộ đầy đủ, e2e: CI chạy.

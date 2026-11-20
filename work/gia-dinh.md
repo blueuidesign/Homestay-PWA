@@ -25,3 +25,5 @@ Chỗ ghi "(giả định GD<số>)" trong YC hay luật chung là lựa chọn 
 | GD28 | Nhắc đặt phòng chưa cọc ghi lúc 08:00 giờ Việt Nam (YC12.3) | dang-dung |
 | GD29 | Tắt một loại thông báo không xóa thông báo cũ loại đó (YC12.4) | dang-dung |
 | GD30 | Tên file CSV "home247-dat-phong-<từ ngày>-<đến ngày>.csv" (YC1.6) | dang-dung |
+| GD31 | Địa chỉ Zalo OA của Home247 tạm là https://zalo.me/home247, đổi bằng biến VITE_ZALO_HOME247 (YC1.7); Tùng cần cho địa chỉ thật, xem work/cho-tung.md | dang-dung |
+| GD32 | Công tắc "Sale xin xem lịch" ở P3 vẫn hiện và lưu được dù bản 1 chưa có nguồn sinh thông báo loại đó (YC12.4, YC12-H2) | dang-dung |

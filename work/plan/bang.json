@@ -584,7 +584,7 @@
    "id": "US3",
    "loai": "US",
    "tieu_de": "\"Tab Cá nhân và đăng xuất\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -594,10 +594,10 @@
     "US2"
    ],
    "file": "work/backlog/US3-tab-ca-nhan-va-dang.md",
-   "pr": "",
+   "pr": "78",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -615,13 +615,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US4",
    "loai": "US",
    "tieu_de": "\"Hồ sơ\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -631,10 +631,10 @@
     "US2"
    ],
    "file": "work/backlog/US4-ho-so.md",
-   "pr": "",
+   "pr": "79",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -652,13 +652,13 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US5",
    "loai": "US",
    "tieu_de": "\"Giờ nhận, trả phòng mặc định\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -668,10 +668,10 @@
     "US2"
    ],
    "file": "work/backlog/US5-gio-nhan-tra-phong-mac.md",
-   "pr": "",
+   "pr": "80",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -689,7 +689,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US6",
@@ -732,7 +732,7 @@
    "id": "US7",
    "loai": "US",
    "tieu_de": "\"Hướng dẫn và nhắn Home247\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -742,10 +742,10 @@
     "US2"
    ],
    "file": "work/backlog/US7-huong-dan-va-nhan-home247.md",
-   "pr": "",
+   "pr": "81",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 1,
      "tong": 1
     },
     "Test tay": {
@@ -763,7 +763,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   },
   {
    "id": "US8",
@@ -2841,7 +2841,7 @@
    "id": "US64",
    "loai": "US",
    "tieu_de": "\"Cài đặt thông báo\"",
-   "trang_thai": "moi",
+   "trang_thai": "cho-test",
    "nguoi": "Tùng",
    "cha": "",
    "truoc": [
@@ -2851,10 +2851,10 @@
     "US2"
    ],
    "file": "work/backlog/US64-cai-dat-thong-bao.md",
-   "pr": "",
+   "pr": "82",
    "task": {
     "Code": {
-     "xong": 0,
+     "xong": 2,
      "tong": 2
     },
     "Test tay": {
@@ -2872,7 +2872,7 @@
    },
    "co_code": true,
    "nghiem_thu": "khong",
-   "dang_cho": "Bị chặn bởi EN1, EN2, EN4, US2"
+   "dang_cho": "Đức test tay"
   }
  ]
 }

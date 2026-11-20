@@ -3,7 +3,7 @@ id: YC1
 tieu_de: Tài khoản
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 5
+rev: 6
 ban: 3
 ---
 # YC1 · Tài khoản
@@ -42,7 +42,7 @@ Không thuộc YC này (dễ tưởng là có):
 | Vai chỉ chọn màn mở đầu | Vai quyết định tab và màn đầu; quyền với căn tính theo quan hệ người với căn (QD5). Bản đầu không có màn đổi vai | Sale có căn của tôi vẫn ghi lịch căn đó |
 | Menu theo vai | Chủ nhà thấy nhóm TÀI KHOẢN, CÀI ĐẶT, DỮ LIỆU, HỖ TRỢ; sale thấy TÀI KHOẢN, BÁN PHÒNG, CÀI ĐẶT, HỖ TRỢ | |
 | Số điện thoại do người dùng nhập | Nhập lúc tạo tài khoản (YC1.2), sửa được ở P2 (YC1.4). Database kiểm định dạng (pwa.md P2) và không cho trùng số của tài khoản khác chưa xóa (YC1-H13) rồi mới ghi | Sửa số ở P2 thì sale đã kết nối thấy số mới |
-| Giờ nhận trả mặc định | Một giờ nhận và một giờ trả cho mọi căn của chủ nhà, mặc định 14:00 và 12:00. Đổi giờ không đổi đặt phòng đã có ([MỞ: YC1-H11] với sale đã gửi khách) | "Khách nhận phòng từ 14:00, trả phòng trước 12:00 hôm sau." |
+| Giờ nhận trả mặc định | Một giờ nhận và một giờ trả cho mọi căn của chủ nhà, mặc định 14:00 và 12:00. Đổi giờ không đổi đặt phòng đã có (sale đã gửi khách thì tin đã gửi giữ nguyên, lần soạn sau lấy giờ mới; Claude tự chốt, QD25, trả lời YC1-H11) `[r6 · sửa]` | "Khách nhận phòng từ 14:00, trả phòng trước 12:00 hôm sau." |
 | File của chủ nhà | File xuất chỉ có đặt phòng ở căn của chủ nhà, tiền là số nguyên đồng không dấu chấm, khách chỉ do chính chủ nhà nhập (QD11), không có giá bán, tiền chênh; UTF-8 có BOM để Excel đọc đúng tiếng Việt | 2200000 |
 
 Quy tắc dùng chung: QT6.5 Người đã xóa tài khoản; HV4, HV5; pwa.md P1, P2, P5, P8.
@@ -263,7 +263,7 @@ Bản 1 · rủi ro: thấp · Màn: P9
 | 3 | Cuối màn | "Vẫn chưa rõ? Home247 trả lời qua Zalo trong giờ hành chính.", nút "Nhắn Zalo cho Home247" | Không |
 | 4 | Bấm "Nhắn Zalo cho Home247" | Mở chat Zalo với Home247 (pwa.md P5) | Không |
 
-Nội dung các mục khác và phần cho sale: [MỞ: YC1-H10].
+Nội dung các mục khác viết theo màn hiện có; sale thấy nhóm "SALE" riêng, chủ nhà chỉ thấy nhóm "CHỦ NHÀ" (Claude tự chốt, QD25, trả lời YC1-H10). `[r6 · sửa]`
 
 Tiêu chí:
 - **YC1.7-NT1** Khi người dùng chạm "Đặt giá theo tháng", thì thấy 3 bước theo thứ tự ở bước 2. · unit
@@ -316,3 +316,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r3 | 2026-11-19 | Claude | TKE-canvas-pwa-sua-yc | Khớp canvas bản PWA: YC1.2 hai luồng tạo tài khoản (A2) và đăng nhập (A11), YC1.4 sửa được số và họ tên, YC1.8 nút xóa ở P2 và P14. YC1.1, YC1.2, YC1.3, YC1.4, YC1.8 lên bản 3. Trả lời YC1-H1, YC1-H6 | Luồng chính, Quy tắc của nhóm, Dữ liệu, YC1.1, YC1.2, YC1.3, YC1.4, YC1.8, Màn hình |
 | r4 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Bỏ YC1.2-NT9 vì trùng YC6.3-NT1 (QD25) | YC1.2 |
 | r5 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Kiểm email đã có tài khoản bằng Supabase Auth, bỏ hàm cho người chưa đăng nhập (KT-DB.3.1) | Dữ liệu |
+| r6 | 2026-11-20 | Claude (QD25) | US5-gio-nhan-tra | Trả lời YC1-H10, YC1-H11 (Claude tự chốt, chờ Tùng duyệt lại): nhóm hướng dẫn riêng cho sale; đổi giờ mặc định không đổi đặt phòng đã ghi | YC1.5, YC1.7 |

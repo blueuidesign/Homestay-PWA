@@ -2,7 +2,7 @@
 id: US7
 tieu_de: "Hướng dẫn và nhắn Home247"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.7@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 81
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -60,6 +60,8 @@ Kịch bản test tay: tests/kb/US7-huong-dan-va-nhan-home247.md (2 kịch bản
 - 2026-11-18 · Claude · tạo item từ YC1.7@1 (QD21)
 
 - 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC1-H10, viết tests/kb, màn P9, mở PR · khoảng 20 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · CI xanh, gộp PR #81, chuyển cho-test · gộp main nhiều lần vì nhánh chồng nhau
+
 
 ## Bằng chứng
 - `npx vitest run src/man/P9HuongDan.test.tsx src/lib/dieuHuong.test.ts`: 20 qua. `npm run typecheck`: qua. Bộ đầy đủ, e2e: CI chạy.

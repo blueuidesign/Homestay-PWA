@@ -2,7 +2,7 @@
 id: US64
 tieu_de: "Cài đặt thông báo"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC12.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 82
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -61,6 +61,8 @@ Kịch bản test tay: tests/kb/US64-cai-dat-thong-bao.md (2 kịch bản, 2 [Ch
 - 2026-11-18 · Claude · tạo item từ YC12.4@1 (QD21)
 
 - 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC12-H2, viết test database và tests/kb, migration fn_dat_cai_dat_thong_bao và trigger công tắc, màn P3, P12, mở PR · khoảng 35 phút
+- 2026-11-20 · Claude (tự chạy, QD25) · CI xanh, gộp PR #82, chuyển cho-test · gộp main nhiều lần vì nhánh chồng nhau
+
 
 ## Bằng chứng
 - `scripts/test-db.sh` (cả bộ, vì thêm trigger trên thong_bao): 2890 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC12.4`: 3 đạt (một vòng sửa tên test để phép thử bắt được trigger). `npx vitest run src/man/P3CaiDatThongBao.test.tsx`: qua. `npm run typecheck`: qua. e2e: CI chạy.
