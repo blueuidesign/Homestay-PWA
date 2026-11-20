@@ -190,3 +190,78 @@ export function mauMotTuan(homNay: Ngay, giaThang: Readonly<Record<Ngay, GiaThan
     return { thu, ten: TEN_THU[thu], dem, gia: g ? (laCuoiTuan ? g.cuoiTuan : g.thuong) : null, laCuoiTuan };
   });
 }
+
+// ===== YC4.3 · Giá ngày lễ và dịp đặc biệt =====
+
+/** YC4.3 bước 1: bốn dịp chọn nhanh, theo tên dải ngày lễ chung Home247 đặt (bảng ngay_le). */
+export const DIP_CHON_NHANH = ['Lễ 30/4 – 1/5', 'Quốc khánh 2/9', 'Tết Dương lịch', 'Tết Âm lịch'] as const;
+/** YC4 Quy tắc "Dải tối đa 10 ngày". */
+export const SO_NGAY_DIP_TOI_DA = 10;
+export const CAU_CAN_NHAP_GIA_DEM = 'Cần nhập giá mỗi đêm';
+export const CAU_TEN_DIP_DAI = 'Tên dịp dài tối đa 60 ký tự';
+export const CAU_DEN_TRUOC_TU = 'Đến ngày không được trước từ ngày';
+
+/** Một dải ngày lễ chung của Home247 (YC4.3 bước 1, PQ21). */
+export type NgayLeChung = { ten: string; tuNgay: Ngay; denNgay: Ngay };
+
+const THU_NGAN = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'] as const;
+const ngayThang = (d: Ngay) => `${Number(d.slice(8, 10))}/${Number(d.slice(5, 7))}`;
+
+/** Số ngày của dải, tính cả hai đầu. Đến ngày trước từ ngày thì 0. */
+export function soNgayDai(tu: Ngay, den: Ngay): number {
+  if (den < tu) return 0;
+  return Math.round((Date.parse(den + 'T00:00:00Z') - Date.parse(tu + 'T00:00:00Z')) / 86_400_000) + 1;
+}
+
+/** YC4.3 bước 2: "4 ngày · T5 30/4 → CN 3/5". */
+export function dongDaiNgay(tu: Ngay, den: Ngay): string {
+  const n = soNgayDai(tu, den);
+  return `${n} ngày · ${THU_NGAN[thuTrongTuan(tu)]} ${ngayThang(tu)} → ${THU_NGAN[thuTrongTuan(den)]} ${ngayThang(den)}`;
+}
+
+/** YC4.3 bước 3: lưới tuần tròn từ thứ Hai của tuần chứa `tu` tới Chủ nhật của tuần chứa `den`. */
+export function luoiTuanDai(tu: Ngay, den: Ngay): { ngay: Ngay; thu: string; nhan: string }[] {
+  const dau = congNgay(tu, -((thuTrongTuan(tu) + 6) % 7));
+  const cuoi = congNgay(den < tu ? tu : den, (7 - thuTrongTuan(den < tu ? tu : den)) % 7);
+  const n = soNgayDai(dau, cuoi);
+  return Array.from({ length: n }, (_, i) => {
+    const d = congNgay(dau, i);
+    return { ngay: d, thu: THU_NGAN[thuTrongTuan(d)], nhan: ngayThang(d) };
+  });
+}
+
+/** YC4.3 bước 3: chạm một ô để nới dải. Trước từ ngày thì thành từ ngày; còn lại thành đến ngày. */
+export function noiDai(tu: Ngay, den: Ngay, cham: Ngay): [Ngay, Ngay] {
+  if (cham < tu) return [cham, den];
+  return [tu, cham];
+}
+
+/** YC4 Quy tắc "Tên dịp tự đặt", YC4-H6 (Claude tự chốt): tên khi bỏ trống ô tên. */
+export function tenTuDat(tu: Ngay, den: Ngay, laNgayLe: boolean): string {
+  return `${laNgayLe ? 'Ngày lễ' : 'Dịp đặc biệt'} ${chuDai(tu, den)}`;
+}
+
+/** YC4.3 bước 6: câu cảnh báo khi quá 10 ngày. */
+export function cauQuaMuoiNgay(soNgay: number): string {
+  return `Tối đa ${SO_NGAY_DIP_TOI_DA} ngày. Đang chọn ${soNgay} ngày, hãy rút ngắn ngày kết thúc.`;
+}
+
+/** YC4.3 bước 8: dải đã có của căn chồng ngày với dải mới thì câu báo trùng, không thì null. */
+export function cauTrungDip(dip: readonly DipGia[], tu: Ngay, den: Ngay): string | null {
+  const d = dip.find((x) => x.tuNgay <= den && tu <= x.denNgay);
+  return d ? `Trùng ngày với ${tenDip(d)} (${chuDai(d.tuNgay, d.denNgay)}). Đổi ngày rồi lưu lại.` : null;
+}
+
+/** YC4.3 Luật kiểm. Trả câu lỗi theo bảng, hoặc null khi hợp lệ. Trùng ngày kiểm riêng (cauTrungDip). */
+export function kiemDip(tu: Ngay, den: Ngay, ten: string, gia: string): string | null {
+  if (!tu || !den) return 'Cần chọn từ ngày và đến ngày';
+  if (den < tu) return CAU_DEN_TRUOC_TU;
+  const n = soNgayDai(tu, den);
+  if (n > SO_NGAY_DIP_TOI_DA) return cauQuaMuoiNgay(n);
+  if (ten.trim().length > 60) return CAU_TEN_DIP_DAI;
+  const g = docSoTien(gia);
+  if (g === null) return CAU_CAN_NHAP_GIA_DEM;
+  if (Number.isNaN(g) || g <= 0) return CAU_GIA_LON_HON_0;
+  if (g > GIA_TOI_DA) return CAU_GIA_TOI_DA;
+  return null;
+}

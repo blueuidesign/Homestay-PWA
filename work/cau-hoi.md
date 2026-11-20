@@ -159,9 +159,10 @@ Sau khi lưu giá ở tab Giá của căn, ở lại tab Giá hay quay về màn
 Gắn ở: YC4.2. Tới khi có câu trả lời: ở lại tab Giá.
 Trả lời (Claude tự chốt, 19/11/2026, theo lời Tùng giao tự quyết: "Theo tôi những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): Ở lại tab Giá. Chủ nhà thường đặt giá nhiều nhóm tháng liền nhau, ở lại thì không phải mở lại; toast và ô tháng đổi theo đã cho biết lưu xong. Ghi vào YC4.2 r2.
 
-### YC4-H6 · mo
+### YC4-H6 · da-tra-loi
 Bỏ trống tên khi bật "Là ngày lễ" thì tên tự đặt là gì?
 Gắn ở: YC4.3.
+Trả lời (Claude tự chốt, 20/11/2026, chờ Tùng duyệt lại, theo QD25): "Ngày lễ <ngày đầu> – <ngày cuối>", ví dụ "Ngày lễ 01/01". Cùng khuôn với "Dịp đặc biệt <ngày đầu> – <ngày cuối>" để chủ nhà nhận ra dải nằm ở mục Giá ngày lễ. Ghi vào YC4.3 r4.
 
 ## YC5
 

@@ -1,6 +1,6 @@
 // CN6 · Tab Giá của một căn (YC4.2): CN6 giá theo tháng, CN6-00 chưa đặt giá, CN6-04 áp dụng giá xong, CN6-09 chọn năm.
 // Trạng thái: HV1 khung xám, HV2 chưa tải được thì Thử lại và giữ giá đang nhập, HV3 quay lại từ nền đọc lại giá, HV5 căn mất quyền
-// thì câu "Không tìm thấy căn" của database, HV8 toast. Đặt giá dịp (YC4.3), sao chép giá (YC4.5) làm ở US sau.
+// thì câu "Không tìm thấy căn" của database, HV8 toast. Đặt giá dịp (YC4.3) mở CN6-02 (CN6GiaDip). Sao chép giá (YC4.5) làm ở US sau.
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { DongDangCapNhat, KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi, DaiMatKetNoi, ManChuaTai } from '../chung/matKetNoi';
@@ -14,9 +14,10 @@ import {
 import { homNay as homNayVN, laDemCuoiTuan, type Ngay } from '../lib/ngay';
 import { vietTien, vietTienGon } from '../lib/tien';
 import { Icon } from './TabChu';
+import { CN6GiaDip } from './CN6GiaDip';
 import './CN6GiaCan.css';
 
-/** Nút của YC4.3, YC4.5 (US sau) bấm thì báo câu này. */
+/** Nút của YC4.5 (US sau) bấm thì báo câu này. */
 export const CAU_SE_CO = 'Sẽ có ở bản sau';
 
 const ICON_QUAY_LAI = <path d="m15 18-6-6 6-6" />;
@@ -86,7 +87,7 @@ function useLichGia(dv: DichVuGia | undefined, canId: string, thang: Ngay) {
 
 /** YC4.2 bước 6: lịch giá một tháng, tuần bắt đầu thứ Hai, chuyển tháng bằng "T09", "T11". */
 function LichGia(props: { nam: number; thang: number; dem: DemGia[] | undefined; loi: boolean; homNay: Ngay; demCuoiTuan: number[];
-                          onDoiThang: (buoc: number) => void; onThuLai: () => void; onChamNgay: () => void }) {
+                          onDoiThang: (buoc: number) => void; onThuLai: () => void; onChamNgay: (ngay: Ngay) => void }) {
   const [, thangTruoc] = congThang(props.nam, props.thang, -1);
   const [, thangSau] = congThang(props.nam, props.thang, 1);
   const cuoiTuan = sangThu(props.demCuoiTuan);
@@ -118,7 +119,7 @@ function LichGia(props: { nam: number; thang: number; dem: DemGia[] | undefined;
             if (laDemCuoiTuan(ngay, cuoiTuan)) lop.push('cn6-ngay--cuoi');
             const gia = d && d.gia !== null ? vietTienGon(d.gia) : '';
             return (
-              <button key={ngay} type="button" role="gridcell" className={lop.join(' ')} data-ngay={ngay} onClick={props.onChamNgay}
+              <button key={ngay} type="button" role="gridcell" className={lop.join(' ')} data-ngay={ngay} onClick={() => props.onChamNgay(ngay)}
                       aria-label={`Ngày ${Number(ngay.slice(8))}: ${gia || 'chưa có giá'}${d?.coKhach ? ', có khách' : ''}`}>
                 <span className="cn6-ngay-so">{Number(ngay.slice(8))}</span>
                 <span className="cn6-ngay-gia">{gia}</span>
@@ -181,6 +182,7 @@ export function CN6GiaCan(props: {
   const [thuong, datThuong] = useState('');
   const [cuoiTuan, datCuoiTuan] = useState('');
   const [loiO, datLoiO] = useState<string | null>(null);
+  const [moDip, datMoDip] = useState<Ngay | null>(null); // CN6-02 đang mở, với ngày điền sẵn
   const [lichThang, datLichThang] = useState<[number, number]>([namNay, Number(homNay.slice(5, 7))]);
   const { bang, dangTai, loi, tai } = useBangGia(props.dv, props.canId, nam);
   const lich = useLichGia(props.dv, props.canId, dauThang(lichThang[0], lichThang[1]));
@@ -193,6 +195,15 @@ export function CN6GiaCan(props: {
   const khung = (than: ReactNode) => (
     <KhungCan tieuDe={tieuDe} tab="gia" onQuayLai={props.onQuayLai} onChonTab={(t) => { if (t === 'thong-tin') props.onThongTin(); }}>{than}</KhungCan>
   );
+
+  // YC4.3: màn CN6-02. Lưu xong về tab Giá, toast "Đã lưu giá <tên>", đọc lại giá (bước 7).
+  if (moDip && bang) {
+    return (
+      <CN6GiaDip canId={props.canId} tieuDe={tieuDe} dv={props.dv} nam={nam} dip={bang.dip} ngayDau={moDip}
+                 onQuayLai={() => datMoDip(null)}
+                 onDaLuu={(tenDai) => { datMoDip(null); hienToast(`Đã lưu giá ${tenDai}`); void tai(); void lich.tai(); }} />
+    );
+  }
 
   if (!bang) return khung(loi ? <ManChuaTai onThuLai={() => void tai()} /> : <KhungXam soDong={6} />);
 
@@ -270,7 +281,7 @@ export function CN6GiaCan(props: {
       </section>
 
       <div className="cn6-dat-dip">
-        <button type="button" className="hh-btn hh-btn--text" onClick={seCo}><Icon>{ICON_LICH_SAO}</Icon>Đặt giá ngày lễ, dịp đặc biệt</button>
+        <button type="button" className="hh-btn hh-btn--text" onClick={() => datMoDip(homNay)}><Icon>{ICON_LICH_SAO}</Icon>Đặt giá ngày lễ, dịp đặc biệt</button>
       </div>
       <section className="cn6-the cn6-ds" aria-label="Giá ngày lễ">
         <h2 className="cn6-nhan">Giá ngày lễ</h2>
@@ -285,7 +296,7 @@ export function CN6GiaCan(props: {
       {!chuaCoGia && (
         <>
           <LichGia nam={lichThang[0]} thang={lichThang[1]} dem={lich.lich} loi={lich.loi} homNay={homNay} demCuoiTuan={bang.demCuoiTuan} onThuLai={() => void lich.tai()}
-                   onDoiThang={(b) => datLichThang(congThang(lichThang[0], lichThang[1], b))} onChamNgay={seCo} />
+                   onDoiThang={(b) => datLichThang(congThang(lichThang[0], lichThang[1], b))} onChamNgay={(n) => datMoDip(n)} />
           <div className="cn6-sao-chep">
             <button type="button" className="hh-btn hh-btn--text" onClick={seCo}><Icon>{ICON_SAO_CHEP}</Icon>Sao chép giá sang căn khác</button>
           </div>

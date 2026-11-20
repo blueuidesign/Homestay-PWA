@@ -648,6 +648,7 @@ Policy:
 - can_gui_khach_duoc(p_nguoi uuid) → SETOF uuid · security definer
 - can_la_sale() → uuid · security definer
 - can_tim(p_nguoi uuid, p_tu date, p_den date, p_pn smallint[], p_toa uuid[], p_view text[]) → TABLE(can_id uuid, nhom text, ma_can text, toa_nha_id uuid, ten_toa text, ten_chu text, so_phong_ngu smallint, loai_view text, lich_doi_luc timestamp with time zone, tong_gia_chu bigint, tong_gia_ban bigint) · security definer
+- chu_dai_ngay(p_tu date, p_den date) → text · gọi được: authenticated
 - chuan_hoa_so(p_so text) → text · security definer
 - dem_can_trong(p_nguoi uuid, p_tu date, p_den date, p_pn smallint[], p_toa uuid[], p_view text[], OUT so integer, OUT ten_toa jsonb) → record · security definer
 - fn_bo_dong_sale(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
@@ -691,6 +692,7 @@ Policy:
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_lay_link_xin_lich() → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
+- fn_luu_gia_dip(p_can_id uuid, p_tu_ngay date, p_den_ngay date, p_ten text, p_gia bigint, p_la_ngay_le boolean) → uuid · security definer · gọi được: authenticated
 - fn_mau_tin() → text · security definer · gọi được: authenticated
 - fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated

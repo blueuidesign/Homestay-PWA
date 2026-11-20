@@ -2,7 +2,7 @@
 // ở hồ sơ của mình (profiles_doc). Ghi giá tháng qua fn_dat_gia_thang; lịch giá một tháng qua fn_lich_gia_thang (QT5.3).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
-import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang } from './gia';
+import { DEM_CUOI_TUAN_MAC_DINH_ISO, type DemGia, type DipGia, type GiaThang, type NgayLeChung } from './gia';
 import type { GiaTuan } from './can';
 import { congNgay, thuTrongTuan, type Ngay } from './ngay';
 
@@ -23,7 +23,14 @@ export interface DichVuGia {
   datDemCuoiTuan?(dem: number[]): Promise<void>;
   /** YC4.1 bước 1: giá thấp nhất, cao nhất của 7 đêm từ thứ Hai `tu`, theo mã căn, cho mọi căn có lịch của người gọi. */
   layGiaTuan?(tu: Ngay): Promise<Record<string, GiaTuan>>;
+  /** YC4.3 bước 1: dải ngày lễ chung của Home247 cho năm `nam` (ngay_le_doc, PQ21). */
+  layNgayLe?(nam: number): Promise<NgayLeChung[]>;
+  /** YC4.3 bước 7: lưu một dải giá dịp (fn_luu_gia_dip). Database từ chối thì LoiNguoiDung (QT5.5). */
+  luuGiaDip?(canId: string, dai: DaiMoi): Promise<void>;
 }
+
+/** YC4.3 bước 7: dải giá dịp mới. ten rỗng thì database đặt tên tự động. */
+export type DaiMoi = { tuNgay: Ngay; denNgay: Ngay; ten: string; gia: number; laNgayLe: boolean };
 
 /** Căn mẫu cho "Một tuần của phòng <mã>" và giá tháng theo khóa 'YYYY-MM-01'. */
 export type MauTuan = { maCan: string; giaThang: Record<Ngay, GiaThang | null> };
@@ -106,6 +113,22 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
 
     async datDemCuoiTuan(dem) {
       const { error } = await sb.rpc('fn_dat_dem_cuoi_tuan', { p_dem: dem });
+      if (error) throw loiGia(error);
+    },
+
+    // YC4.3 bước 1, PQ21.CHU: mọi người đã đăng nhập đọc dải ngày lễ chung.
+    async layNgayLe(nam) {
+      const { data, error } = await sb.from('ngay_le').select('ten, tu_ngay, den_ngay').eq('nam', nam).order('tu_ngay');
+      if (error) throw loiGia(error);
+      return ((data ?? []) as { ten: string; tu_ngay: string; den_ngay: string }[])
+        .map((r) => ({ ten: r.ten, tuNgay: r.tu_ngay, denNgay: r.den_ngay }));
+    },
+
+    // YC4.3 bước 7, PQ5.CHU: lệnh fn_luu_gia_dip tự kiểm người giữ căn, luật kiểm, trùng ngày.
+    async luuGiaDip(canId, dai) {
+      const { error } = await sb.rpc('fn_luu_gia_dip', {
+        p_can_id: canId, p_tu_ngay: dai.tuNgay, p_den_ngay: dai.denNgay, p_ten: dai.ten, p_gia: dai.gia, p_la_ngay_le: dai.laNgayLe,
+      });
       if (error) throw loiGia(error);
     },
 
