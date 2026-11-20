@@ -19,6 +19,7 @@ import { taoDichVuTabCanSaleSupabase, type DichVuTabCanSale } from './dichVuTabC
 import { taoDichVuCanTuNhapSupabase, type DichVuCanTuNhap } from './dichVuCanTuNhap';
 import { taoDichVuTraLoiYeuCauSupabase, type DichVuTraLoiYeuCau } from './dichVuTraLoiYeuCau';
 import { taoDichVuThongKeChuSupabase, type DichVuThongKeChu } from './dichVuThongKeChu';
+import { taoDichVuThongKeSaleSupabase, type DichVuThongKeSale } from './dichVuThongKeSale';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -118,7 +119,7 @@ export interface DichVuCan {
   thongKe?: DichVuThongKeChu;
   /** YC7.1: lịch 7 ngày của sale (src/lib/dichVuLichSale.ts). Thiếu thì sale đã có nguồn thấy tab Lịch bản tạm.
    *  YC7.2: kèm timPhong (src/lib/dichVuTimPhong.ts) cho ô "Tìm phòng trống theo ngày". */
-  lichSale?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap };
+  lichSale?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap; thongKeSale?: DichVuThongKeSale };
 }
 
 function maNgauNhien(): string {
@@ -184,6 +185,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
         mucCong: taoDichVuMucCongSupabase(sb), // YC7.5: P10
         mauTin: taoDichVuMauTinSupabase(sb), // YC8.2: P11
         tabCan: taoDichVuTabCanSaleSupabase(sb), // YC10.1: tab Căn S6, S6-07
+        thongKeSale: taoDichVuThongKeSaleSupabase(sb), // YC11.2: S7
       };
     })(),
 

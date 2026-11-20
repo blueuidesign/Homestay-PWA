@@ -17,7 +17,9 @@
 // YC10.3 (US56): "Thêm căn tự nhập" mở S6-02, thêm xong về S6 (tab Căn đọc lại). Căn tự nhập mở S6-03 thật (qua S6Tam,
 // KhungCanTuNhap): "Gửi cho khách" mở S5 (hôm nay, 1 đêm), "Sửa thông tin căn" mở S6-02 điền sẵn (GD23), lưu xong về S6-03,
 // xóa xong về S6; "Đặt phòng" mở S6-05, chạm đặt phòng mở form sửa, xóa (YC10.4, US57; dịch vụ canTuNhap.datPhong).
-import { useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+// YC11.2 (US59): tab Thống kê là S7, S7-00 (S7ThongKe, dịch vụ thongKeSale). "Tìm phòng" ở S7-00 mở S1-02 như ô tìm ở S1;
+// chạm yêu cầu chờ (S3-03) và "Xem tất cả đặt phòng và yêu cầu" (S7-03) báo tạm tới US60.
+import { useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { useToast } from '../chung/Toast';
 import { khoangTuLich, tieuDeCan } from '../lib/chiTietCanSale';
 import { tenCanChuNha } from '../lib/chiTietChuNha';
@@ -34,6 +36,8 @@ import type { DichVuTabCanSale } from '../lib/dichVuTabCanSale';
 import type { ChiTietCanTuNhap, DichVuCanTuNhap } from '../lib/dichVuCanTuNhap';
 import type { NhomChuNha } from '../lib/tabCanSale';
 import type { DichVuXinLich } from '../lib/dichVuXinLich';
+import type { DichVuThongKeSale } from '../lib/dichVuThongKeSale';
+import type { ThongKeSale } from '../lib/thongKeSale';
 import { A6XinLich } from './A6XinLich';
 import { CAU_THEM_CAN_SE_CO, ManLich } from './ManTam';
 import { P10MucCong } from './P10MucCong';
@@ -50,6 +54,7 @@ import { S602ThemCanTuNhap } from './S602ThemCanTuNhap';
 import { S603CanTuNhap } from './S603CanTuNhap';
 import { S604ChiTietChuNha } from './S604ChiTietChuNha';
 import { ManTimPhong } from './S102TimPhong';
+import { S7ThongKe } from './S7ThongKe';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
 
 export type TabSaleTen = 'lich' | 'can' | 'thong-ke' | 'ca-nhan';
@@ -79,7 +84,7 @@ export function ThanhTabSale(props: { dangMo: TabSaleTen; onChon: (t: TabSaleTen
   );
 }
 
-const TIEU_DE_TAM: Record<Exclude<TabSaleTen, 'lich' | 'can'>, string> = { 'thong-ke': 'Thống kê', 'ca-nhan': 'Cá nhân' };
+const TIEU_DE_TAM: Record<Exclude<TabSaleTen, 'lich' | 'can' | 'thong-ke'>, string> = { 'ca-nhan': 'Cá nhân' };
 
 /** YC10.1: việc chưa có màn ở phía sale (US sau) báo tạm. */
 export const CAU_SE_CO = 'Sẽ có ở bản sau';
@@ -95,7 +100,9 @@ function ManSaleTrong(props: {
   /** YC6.4: link xin lịch và số đếm. Thiếu thì tab Lịch là bản tạm. */
   dv?: DichVuXinLich;
   /** YC7.1: lịch 7 ngày của sale. */
-  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap };
+  dvLich?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap; thongKeSale?: DichVuThongKeSale };
+  /** YC11.2: thống kê của sale (S7). Thiếu thì dùng dvLich.thongKeSale; cả hai thiếu thì tab báo chưa tải được. */
+  dvThongKe?: DichVuThongKeSale;
   /** YC7.2: tìm phòng. Thiếu thì dùng dvLich.timPhong; cả hai thiếu thì ô tìm không làm gì. */
   dvTim?: DichVuTimPhong;
   /** YC7.5: mức cộng mặc định (P10). Thiếu thì dùng dvLich.mucCong. */
@@ -152,6 +159,7 @@ function ManSaleTrong(props: {
                      else hienToast(CAU_SE_CO);
                    }} />
   ) : null, [dvTuNhap, lanDoc, hienToast, moGuiKhach]);
+  const boNhoThongKe = useRef(new Map<string, ThongKeSale>()); // YC11.2, HV1-NT2: số đã xem giữ trong phiên
   const [moP10, datMoP10] = useState(false);
   const [moP11, datMoP11] = useState(false);
   const [ketQuaMo, datKetQuaMo] = useState<string | null>(props.moKetQua ?? null);
@@ -242,6 +250,11 @@ function ManSaleTrong(props: {
                 onThemCan={() => hienToast(CAU_THEM_CAN_CUA_TOI_SE_CO)} onThemTuNhap={() => (dvTuNhap ? datMoTuNhap({ them: true }) : hienToast(CAU_THEM_CAN_SE_CO))}
                 onXinLich={() => (props.dv ? datMoXinLich(true) : hienToast(CAU_SE_CO))} />
     );
+  } else if (tab === 'thong-ke') {
+    than = (
+      <S7ThongKe dv={props.dvThongKe ?? props.dvLich?.thongKeSale} boNho={boNhoThongKe.current}
+                 onTimPhong={dvTim ? mo : undefined} onChoChu={() => hienToast(CAU_SE_CO)} onXemTatCa={() => hienToast(CAU_SE_CO)} />
+    );
   } else {
     than = (
       <KhungTabChu tieuDe={TIEU_DE_TAM[tab]}>
@@ -252,7 +265,7 @@ function ManSaleTrong(props: {
             <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={() => datMoP11(true)}>Mẫu tin gửi khách</button>
             <button type="button" className="hh-btn hh-btn--text" onClick={props.onDangXuat}>Đăng xuất</button>
           </>
-        ) : <p className="dong-phu">Sẽ có ở bản sau</p>}
+        ) : null}
       </KhungTabChu>
     );
   }
