@@ -680,6 +680,7 @@ Policy:
 - fn_da_xoa_file(p_duong_dan text[]) → void · security definer
 - fn_dang_ky(p_ten text, p_so text) → void · security definer · gọi được: authenticated
 - fn_danh_sach_sale(p_bo_qua integer) → jsonb · security definer · gọi được: authenticated
+- fn_dat_cai_dat_thong_bao(p_tat text[]) → void · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang_nhieu(p_can_ids uuid[], p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
@@ -771,6 +772,8 @@ Policy:
 - kiem_lenh_gui_khach(p_nguoi uuid, p_can_ids uuid[], p_tu date, p_den date) → void · security definer
 - kiem_tien_dem(p_booking_id uuid) → void · security definer
 - link_xin_lich_dung_duoc(p_link link_xin_lich, p_nguoi uuid) → boolean · security definer
+- loai_thong_bao_chu() → text[]
+- loai_thong_bao_sale() → text[]
 - local_today() → date · security definer · gọi được: authenticated
 - ly_do_mat_quyen_can(p_sale uuid, p_can_id uuid) → text · security definer
 - ma_link_chu_cai() → text
@@ -793,6 +796,7 @@ Policy:
 - tg_booking_tu_choi_yeu_cau_trung() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
+- tg_thong_bao_cong_tac() → trigger · security definer
 - tg_yeu_cau_can_chua_an() → trigger · security definer
 - thong_bao_bat(p_nguoi uuid, p_loai text) → boolean · security definer
 - tien_cac_dem(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tong bigint) → bigint[] · security definer

@@ -2,7 +2,7 @@
 id: US64
 tieu_de: "Cài đặt thông báo"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC12.4@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -34,10 +34,10 @@ P3, P12
 PQ19 và các test vi phạm ở mục "Ai được làm gì" của YC12-thong-bao.md thuộc mục này. Mỗi ô chạm tới có test vi phạm ở lớp database (CL2.5).
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261120200000_us64_cai_dat_thong_bao.sql, supabase/bang-va-cot.md, tests/db/86_us64_cai_dat_thong_bao.sql, scripts/thu-lam-hong.txt, src/lib/caiDatThongBao.ts, src/lib/dichVuCaiDatThongBao.ts (mới), src/lib/dichVuCan.ts, src/lib/dieuHuong.ts, src/man/P3CaiDatThongBao.tsx và .css (mới), src/man/ManChu.tsx, src/man/ManSale.tsx, src/App.tsx, unit test kèm, tests/e2e/supabase/cai-dat-thong-bao.spec.ts, tests/kb/US64-cai-dat-thong-bao.md.
 
 ## Ngoài phạm vi
-- Chỗ chưa quyết trong mục, chưa code tới khi Tùng trả lời: YC12-H2, YC12-H4.
+- YC12-H2 đã tự chốt 20/11 (QD25, GD32). YC12-H4: giữ giả định GD29 (thông báo đã ghi trước vẫn còn).
 - Phần đầu YC12-thong-bao.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
 
 ## Đọc
@@ -48,11 +48,11 @@ YC12-thong-bao.md#Dữ liệu
 YC12-thong-bao.md#Trạng thái màn (mọi mục)
 
 ## Test case
-Kịch bản test tay: tests/kb/US64-cai-dat-thong-bao.md, chưa viết. Viết trước khi item sang san-sang (CL14.5a).
+Kịch bản test tay: tests/kb/US64-cai-dat-thong-bao.md (2 kịch bản, 2 [Chính]).
 
 ## Task
-- [ ] US64-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC12.4-NT2, YC12.4-NT3
-- [ ] US64-TA2 Code · Claude Code (sonnet, CL14.6a): màn P3, P12 theo canvas, test unit, e2e cho YC12.4-NT1
+- [x] US64-TA1 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy và test database cho YC12.4-NT2, YC12.4-NT3
+- [x] US64-TA2 Code · Claude Code (sonnet, CL14.6a): màn P3, P12 theo canvas, test unit, e2e cho YC12.4-NT1
 - [ ] US64-TA3 Test tay · Đức: chạy tests/kb/US64-cai-dat-thong-bao.md, chế độ nhanh rồi đủ.
 
 ## Kế hoạch
@@ -60,4 +60,7 @@ Kịch bản test tay: tests/kb/US64-cai-dat-thong-bao.md, chưa viết. Viết 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC12.4@1 (QD21)
 
+- 2026-11-20 · Claude (tự chạy, QD25) · tự chốt YC12-H2, viết test database và tests/kb, migration fn_dat_cai_dat_thong_bao và trigger công tắc, màn P3, P12, mở PR · khoảng 35 phút
+
 ## Bằng chứng
+- `scripts/test-db.sh` (cả bộ, vì thêm trigger trên thong_bao): 2890 qua, 0 hỏng. `scripts/thu-lam-hong.sh YC12.4`: 3 đạt (một vòng sửa tên test để phép thử bắt được trigger). `npx vitest run src/man/P3CaiDatThongBao.test.tsx`: qua. `npm run typecheck`: qua. e2e: CI chạy.

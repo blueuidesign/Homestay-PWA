@@ -501,3 +501,8 @@ YC1.4-NT5 | create or replace function public.fn_sua_ho_so(p_ten text, p_ten_hie
 # US5 · giờ nhận, trả mặc định
 YC1.5-NT3 | grant update on public.profiles to authenticated; create policy thu_lam_hong5 on public.profiles for update to authenticated using (true)
 YC1.5-NT1 | create or replace function public.fn_dat_gio_nhan_tra(p_nhan time, p_tra time) returns void language plpgsql volatile security definer set search_path = '' as $$ begin update public.profiles set gio_nhan = '14:00', gio_tra = '12:00' where id = auth.uid(); end $$
+
+# US64 · cài đặt thông báo
+YC12.4-NT3 | grant update on public.cai_dat_rieng to authenticated; create policy thu_lam_hong64 on public.cai_dat_rieng for update to authenticated using (true)
+YC12.4-NT2 | drop trigger thong_bao_cong_tac on public.thong_bao
+YC12.4-NT3 | create or replace function public.fn_dat_cai_dat_thong_bao(p_tat text[]) returns void language plpgsql volatile security definer set search_path = '' as $$ begin insert into public.cai_dat_rieng (nguoi_id, thong_bao_tat) values (auth.uid(), coalesce(p_tat, '{}')) on conflict (nguoi_id) do update set thong_bao_tat = excluded.thong_bao_tat; end $$
