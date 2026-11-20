@@ -16,6 +16,7 @@ import { taoDichVuGuiKhachSupabase, type DichVuGuiKhach } from './dichVuGuiKhach
 import { taoDichVuTimPhongSupabase, type DichVuTimPhong } from './dichVuTimPhong';
 import { taoDichVuYeuCauSupabase, type DichVuYeuCau } from './dichVuYeuCau';
 import { taoDichVuTabCanSaleSupabase, type DichVuTabCanSale } from './dichVuTabCanSale';
+import { taoDichVuCanTuNhapSupabase, type DichVuCanTuNhap } from './dichVuCanTuNhap';
 import { taoDichVuTraLoiYeuCauSupabase, type DichVuTraLoiYeuCau } from './dichVuTraLoiYeuCau';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
@@ -114,7 +115,7 @@ export interface DichVuCan {
   traLoiYeuCau?: DichVuTraLoiYeuCau;
   /** YC7.1: lịch 7 ngày của sale (src/lib/dichVuLichSale.ts). Thiếu thì sale đã có nguồn thấy tab Lịch bản tạm.
    *  YC7.2: kèm timPhong (src/lib/dichVuTimPhong.ts) cho ô "Tìm phòng trống theo ngày". */
-  lichSale?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale };
+  lichSale?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin; tabCan?: DichVuTabCanSale; canTuNhap?: DichVuCanTuNhap };
 }
 
 function maNgauNhien(): string {
@@ -160,7 +161,7 @@ type DongView = {
 };
 
 export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
-  return {
+  const dv: DichVuCan = {
     gia: taoDichVuGiaSupabase(sb), // YC4.2
     lich: taoDichVuLichSupabase(sb), // YC2.1
     datPhong: taoDichVuDatPhongSupabase(sb), // YC5.1
@@ -315,4 +316,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
       return data as string;
     },
   };
+  // YC10.3 (US56): căn tự nhập của sale dùng chung tải ảnh, danh sách tòa, thêm tòa với form Thêm căn.
+  if (dv.lichSale) dv.lichSale.canTuNhap = taoDichVuCanTuNhapSupabase(sb, { taiAnh: dv.taiAnh, layToa: dv.layToa, themToa: dv.themToa });
+  return dv;
 }

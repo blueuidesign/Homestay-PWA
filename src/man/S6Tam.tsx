@@ -1,6 +1,6 @@
 // S6-07, S6-03 bản tạm (YC7 Quy tắc "Chạm căn mở đâu", GD22, YC7.3-NT6). Ghi tên màn và tên căn, nút Quay lại.
 // US54 (YC10.1 bước 7): S6-07 thật (S607CanCuaToi) khi biết id căn và ManSale cho cách mở (KhungCanCuaToi); không thì bản tạm.
-// S6-03 vẫn tạm (US56).
+// US56 (YC10.3 bước 8): S6-03 thật (S603CanTuNhap) khi biết id căn và ManSale cho cách mở (KhungCanTuNhap); không thì bản tạm.
 import { createContext, useContext, type ReactNode } from 'react';
 import { DaiMatKetNoi } from '../chung/matKetNoi';
 import { ICON_QUAY_LAI } from './CN704ChiTietSale';
@@ -11,9 +11,14 @@ export const TEN_MAN_S6: Record<'S6-07' | 'S6-03', string> = { 'S6-07': 'Căn c�
 /** YC10.1 bước 7: ManSale cho hàm vẽ S6-07 thật của một căn. */
 export const KhungCanCuaToi = createContext<((m: { canId: string; ten: string; onQuayLai: () => void }) => ReactNode) | undefined>(undefined);
 
+/** YC10.3 bước 8: ManSale cho hàm vẽ S6-03 thật của một căn tự nhập. */
+export const KhungCanTuNhap = createContext<((m: { canId: string; ten: string; onQuayLai: () => void }) => ReactNode) | undefined>(undefined);
+
 export function S6Tam(props: { man: 'S6-07' | 'S6-03'; tenCan: string; canId?: string; onQuayLai: () => void }) {
   const ve = useContext(KhungCanCuaToi);
+  const veTuNhap = useContext(KhungCanTuNhap);
   if (props.man === 'S6-07' && props.canId && ve) return <>{ve({ canId: props.canId, ten: props.tenCan, onQuayLai: props.onQuayLai })}</>;
+  if (props.man === 'S6-03' && props.canId && veTuNhap) return <>{veTuNhap({ canId: props.canId, ten: props.tenCan, onQuayLai: props.onQuayLai })}</>;
   return (
     <div className="man man-chu" data-man={props.man}>
       <DaiMatKetNoi />
