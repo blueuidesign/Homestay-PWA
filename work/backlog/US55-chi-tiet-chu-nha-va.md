@@ -52,12 +52,15 @@ thiet-ke-db.md#3. Bất biến (sai là hỏng sản phẩm)
 Kịch bản test tay: tests/kb/US55-chi-tiet-chu-nha-va.md.
 
 ## Task
-- [ ] US55-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.2-NT1, YC10.2-NT4, YC10.2-NT5, YC10.2-NT6, YC10.2-NT7, YC10.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
+- [x] US55-TA1 Code · Claude Code (opus, CL14.6a): viết trước test database cho YC10.2-NT1, YC10.2-NT4, YC10.2-NT5, YC10.2-NT6, YC10.2-NT7, YC10.2-NT8, kể cả test vi phạm quyền ở mục "Ai được làm gì". Task sau không sửa file test này (CL14.5)
 - [ ] US55-TA2 Code · Claude Code (opus, CL14.6a): migration, hàm fn_*, policy cho tới khi test database xanh; thêm phép thử làm hỏng vào scripts/thu-lam-hong.sh nếu đổi quyền, tiền, chặn trùng
 - [ ] US55-TA3 Code · Claude Code (sonnet, CL14.6a): màn S6-04 theo canvas, test unit, e2e cho YC10.2-NT1 đến NT4, NT6, NT7
 - [ ] US55-TA4 Test tay · Đức: chạy tests/kb/US55-chi-tiet-chu-nha-va.md, chế độ nhanh rồi đủ. Rủi ro cao: chạy trên cả iPhone và Android, thử vi phạm quyền bằng tay (CL6.3).
 
 ## Kế hoạch
+- TA1: tests/db/71_us55_chi_tiet_chu_nha.sql viết trước, hợp đồng: fn_chi_tiet_chu_nha(p_ket_noi_id, p_ngay) trả jsonb (đang kết nối: tên, số, ngày kết nối, lần cập nhật, xem_coc, căn kèm giá chủ đêm p_ngay, số đặt phòng, tiền chênh; chủ ngừng hay xóa tài khoản: chỉ trạng thái 'khong_con_quyen', lý do, tên); fn_sale_bo_nguon(p_ket_noi_id) sang 'sale_bo', hủy yêu cầu chờ của sale tới căn chủ đó, không thông báo; fn_tab_can_sale thêm cột chu_ngung (dòng chủ ngừng: tên và cờ); fn_sale_bo_dong_chu bỏ được cả dòng chủ ngừng.
+- TA2: migration 20261119490000_us55_chi_tiet_chu_nha.sql (drop rồi tạo lại fn_tab_can_sale vì thêm cột), phép làm hỏng ở scripts/thu-lam-hong.txt.
+- TA3: src/lib/chiTietChuNha.ts (định dạng), dichVuChiTietChuNha.ts (gọi hàm), S604ChiTietChuNha.tsx thay màn tạm ở S6TabCan, dòng "đã ngừng cho bạn xem lịch" ở tab Căn; unit và e2e tests/e2e/supabase/chi-tiet-chu-nha.spec.ts.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC10.2@1 (QD21)
