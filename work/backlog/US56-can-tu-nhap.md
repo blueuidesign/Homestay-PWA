@@ -2,7 +2,7 @@
 id: US56
 tieu_de: "Căn tự nhập"
 loai: US
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC10.3@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
