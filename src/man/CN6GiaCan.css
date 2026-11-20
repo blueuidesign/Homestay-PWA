@@ -77,3 +77,22 @@
 .cn6-nam-ten--chon { font-weight: 700; }
 .cn6-nam-phu { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
 .cn6-nam-dau { font-size: 18px; font-weight: 700; color: var(--action); }
+
+/* CN6-02, CN6-03, CN6-03-01 · Giá ngày lễ, dịp đặc biệt (YC4.3) */
+.cn6-dip { padding-bottom: 100px; }
+.cn6-dip-can { margin: 0; padding: 0 4px; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn6-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.cn6-chips .hh-chip { min-height: 44px; }
+.cn6-dip-dong { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.cn6-canh-bao { margin: 0; font-size: 13px; line-height: 18px; color: var(--danger-ink, #b42318); }
+.cn6-dip-luoi { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.cn6-dip-o { min-height: 44px; aspect-ratio: 1 / 1; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: var(--surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; font: inherit; cursor: pointer; }
+.cn6-dip-o--cuoi { background: var(--border-subtle); }
+.cn6-dip-o--chon { border-color: var(--action-bright); background: var(--action-tint); color: var(--action-ink); }
+.cn6-dip-thu { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--ink-muted); }
+.cn6-dip-o--chon .cn6-dip-thu { color: var(--action-ink); }
+.cn6-dip-ngay { font-size: 13px; line-height: 18px; font-weight: 600; }
+.cn6-mau--chon { background: var(--action-tint); border: 1px solid var(--action-bright); }
+.cn6-mau--cuoi { background: var(--border-subtle); }
+.cn6-day { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px 16px; }

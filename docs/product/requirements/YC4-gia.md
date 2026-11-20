@@ -3,7 +3,7 @@ id: YC4
 tieu_de: Giá
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 3
+rev: 4
 ban: 1
 ---
 # YC4 · Giá
@@ -141,7 +141,7 @@ Bản 1 · rủi ro: cao · Màn: CN6-02, CN6-03, CN6-03-01
 | 7 | Bấm "Lưu giá" | Lưu được: về tab Giá, toast "Đã lưu giá Lễ 30/4 – 1/5", dải hiện ở mục tương ứng và trên lịch giá | Thêm dải cho căn; kiểm luật; tên trống thì đặt tên theo quy tắc Tên dịp tự đặt; cập nhật lúc lịch đổi |
 | 8 | (dải chồng ngày với dải đã có của cùng căn) | Ở lại, dòng đỏ "Trùng ngày với Lễ hội Carnaval (24/10 – 25/10). Đổi ngày rồi lưu lại.", không lưu | Từ chối, dữ liệu không đổi |
 
-Tên tự đặt khi bật "Là ngày lễ" mà bỏ trống tên: [MỞ: YC4-H6]. Sửa, xóa một dải đã lưu: [MỞ: YC4-H2]; bản đầu chưa làm.
+`[r4 · sửa]` Tên tự đặt khi bật "Là ngày lễ" mà bỏ trống tên: "Ngày lễ <ngày đầu> – <ngày cuối>", ví dụ "Ngày lễ 01/01" (trả lời YC4-H6, Claude tự quyết QD25). Sửa, xóa một dải đã lưu: [MỞ: YC4-H2]; bản đầu chưa làm.
 
 Luật kiểm:
 
@@ -241,3 +241,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ các story US4, US7, US8 và màn P6 của US11 (QD20, QD21); áp quyết định 5, 6, 12, 13 của Tùng ngày 04/11/2026 ở bản Zalo | Cả file |
 | r2 | 2026-11-19 | Claude | US21-gia-thang | Trả lời YC4-H5: ở lại tab Giá (Claude tự quyết, QD25) | YC4.2 |
 | r3 | 2026-11-19 | Claude | US25-dem-cuoi-tuan | Trả lời YC4-H4 (Claude tự quyết, QD25) | YC4.6 |
+| r4 | 2026-11-20 | Claude | US22-gia-ngay-le | Trả lời YC4-H6: tên tự đặt khi bật "Là ngày lễ" (Claude tự quyết, QD25) | YC4.3 |
