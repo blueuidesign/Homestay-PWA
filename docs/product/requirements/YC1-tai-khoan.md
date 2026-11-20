@@ -3,7 +3,7 @@ id: YC1
 tieu_de: Tài khoản
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 6
+rev: 7
 ban: 3
 ---
 # YC1 · Tài khoản
@@ -235,7 +235,7 @@ Bản 1 · rủi ro: cao · Màn: P8, P8-00
 | 5 | Xem số dòng | "8 đặt phòng"; đổi chip thì số đổi theo. Không có đặt phòng thì P8-00 | Lệnh đếm |
 | 6 | Bấm "Xuất file Excel (CSV)" | Tải file về máy, hay mở bảng chia sẻ nếu trình duyệt cho gửi file (pwa.md P3); tên file "home247-dat-phong-<từ ngày>-<đến ngày>.csv" (giả định GD30) | Lệnh xuất |
 
-Đặt phòng thuộc khoảng theo ngày nhận hay theo đêm: [MỞ: YC1-H2]; tới khi có câu trả lời, theo ngày nhận (khớp DLM.8). Có đặt phòng đã hủy không: [MỞ: YC1-H3]. Căn đã xóa có trong "Tất cả" không: [MỞ: YC1-H4]. Sale có căn của tôi xuất được không: [MỞ: YC1-H5]. Cột Khách, SĐT: [MỞ: YC1-H9].
+`[r7 · sửa]` Claude tự chốt (QD25, chờ Tùng duyệt lại): đặt phòng thuộc khoảng theo ngày nhận, khớp DLM.8 (YC1-H2). File không gồm đặt phòng đã hủy (YC1-H3). "Tất cả" gồm cả căn đã xóa, vì file dùng để đối soát tiền đã thu (YC1-H4). Sale không xuất được file, kể cả căn tự nhập, theo PQ20.SALE (YC1-H5). Giữ cột Khách, SĐT, chỉ điền khách do chính chủ nhà nhập; khách do sale nhập để trống (QD11, YC1-H9). Cột Sale ghi tên sale đứng tên, sale đã xóa tài khoản thì tên cũ kèm "(Đã xoá tài khoản)" (QT6.5). Đã cọc và Còn lại theo QT6.1; đã thanh toán thì Còn lại là 0. "3 tháng gần nhất" là tháng này và hai tháng trước (giả định GD35). File có BOM UTF-8, ngày dạng YYYY-MM-DD, số điện thoại giữ số 0 đầu; trình duyệt không gửi được file thì tải về máy và báo "Đã tải file về máy" (giả định GD35).
 
 Luật kiểm:
 
@@ -317,3 +317,4 @@ Xem hình: `python3 scripts/trich-man.py <mã>`. Chữ và số trên hình lệ
 | r4 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Bỏ YC1.2-NT9 vì trùng YC6.3-NT1 (QD25) | YC1.2 |
 | r5 | 2026-11-19 | Claude | US2-dang-ky-dang-nhap | Kiểm email đã có tài khoản bằng Supabase Auth, bỏ hàm cho người chưa đăng nhập (KT-DB.3.1) | Dữ liệu |
 | r6 | 2026-11-20 | Claude (QD25) | US5-gio-nhan-tra | Trả lời YC1-H10, YC1-H11 (Claude tự chốt, chờ Tùng duyệt lại): nhóm hướng dẫn riêng cho sale; đổi giờ mặc định không đổi đặt phòng đã ghi | YC1.5, YC1.7 |
+| r7 | 2026-11-21 | Claude (QD25) | US6-xuat-csv | Trả lời YC1-H2, H3, H4, H5, H9 (Claude tự chốt, giả định GD35, chờ Tùng duyệt lại): lọc, cột và định dạng file CSV | YC1.6 |

@@ -1,0 +1,12 @@
+/* US6 · P8, P8-00 Xuất file Excel (CSV) (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.p8-nhom { display: flex; flex-direction: column; gap: 8px; }
+.p8-nhan { margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink-secondary); }
+.p8-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.p8-chips .hh-chip { min-height: 44px; }
+.p8-tuy-chon { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.p8-cot { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px; }
+.p8-dem { display: flex; flex-direction: column; gap: 4px; }
+.p8-so { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.p8-trong { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.p8-loi { margin: 0; font-size: 14px; line-height: 20px; color: var(--danger-text); }
+.p8-chips .hh-chip--on { background: var(--action-soft); border-color: var(--action-ink); color: var(--action-ink); }
