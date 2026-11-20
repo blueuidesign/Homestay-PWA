@@ -1,0 +1,32 @@
+/* US59 · S7, S7-00 Thống kê của sale (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. Dùng lưới, ô số của CN8. */
+.s7-nhan-thang { flex: 0 0 auto; font-size: 14px; line-height: 20px; }
+.s7-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.s7-the-dau { display: flex; flex-direction: column; gap: 2px; }
+.s7-ghi-chu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s7-ds-chu { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.s7-chu { display: flex; flex-direction: column; gap: 4px; }
+.s7-chu-dong { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; line-height: 18px; color: var(--ink-secondary); }
+.s7-chu-ten { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.s7-chu-tien { flex: 0 0 auto; }
+.s7-ray { height: 12px; display: flex; border-radius: 9999px; overflow: hidden; background: var(--border-subtle); }
+.s7-ray-chu { background: var(--chart-muted, #cbd5e1); }
+.s7-ray-chenh { background: var(--action-bright, var(--action)); }
+.s7-chu-giai { display: flex; gap: 16px; font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s7-chu-giai > span { display: flex; align-items: center; gap: 6px; }
+.s7-cham { width: 10px; height: 10px; border-radius: 9999px; }
+.s7-cham--chu { background: var(--chart-muted, #cbd5e1); }
+.s7-cham--chenh { background: var(--action-bright, var(--action)); }
+.s7-the--cho { padding: 12px 16px 4px; gap: 0; }
+.s7-cho-dau { display: flex; align-items: center; justify-content: space-between; min-height: 28px; }
+.s7-cho-so { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--warning-ink); }
+.s7-dong { min-height: 60px; width: 100%; display: flex; align-items: center; gap: 10px; border: 0; border-top: 1px solid var(--border-subtle); background: none; padding: 0; text-align: left; font: inherit; cursor: pointer; color: var(--ink-faint); -webkit-tap-highlight-color: transparent; }
+.s7-dong--cuoi { min-height: 48px; }
+.s7-dong-giua { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.s7-dong-chinh { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.s7-dong-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.s7-o { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; }
+.s7-o .hh-stat__label { font-size: 13px; line-height: 18px; font-weight: 600; text-transform: uppercase; color: var(--ink-muted); }
+.s7-o .hh-stat__value { margin-top: 4px; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--action); }
+.s7-trong { gap: 12px; }
+.s7-trong-chinh { font-size: 16px; line-height: 24px; font-weight: 600; color: var(--ink); }
+.s7-trong-phu { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
