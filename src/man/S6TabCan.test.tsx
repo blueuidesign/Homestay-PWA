@@ -221,10 +221,14 @@ describe('YC10.1 · tab Căn trong khung của sale', () => {
     await waitFor(() => expect(guiKhach.soan).toHaveBeenCalledWith(['g0812'], nay, mai));
   });
 
-  it('YC10.1 bước 5 chạm tên chủ nhà mở S6-04 tạm; bước 11 "Gửi tin nhắn xin lịch" mở A6', async () => {
-    veSale(dvTab());
+  it('YC10.1 bước 5 chạm tên chủ nhà mở S6-04; bước 11 "Gửi tin nhắn xin lịch" mở A6', async () => {
+    // US55 thay màn tạm S6-04 bằng màn thật: kiểm mở đúng kết nối của Chị Hoa.
+    const tab = dvTab();
+    const chiTietChuNha = { doc: vi.fn(async () => ({ trangThai: 'khong_con_quyen' as const, lyDo: 'chu_ngung' as const, ketNoiId: 'kHoa', chuId: 'hoa', tenChu: 'Chị Hoa' })), boNguon: vi.fn() };
+    veSale({ ...tab, chiTietChuNha });
     fireEvent.click(await screen.findByRole('button', { name: /^Chị Hoa/ }));
-    expect(screen.getByText('S6-04 · Sẽ có ở bản sau')).toBeInTheDocument();
+    expect(document.querySelector('[data-man="S6-04"]')).not.toBeNull();
+    expect(chiTietChuNha.doc).toHaveBeenCalledWith('kHoa');
     fireEvent.click(screen.getByRole('button', { name: 'Quay lại' }));
     expect(await screen.findByRole('heading', { name: 'Căn của tôi · 2' })).toBeInTheDocument();
     cleanup();

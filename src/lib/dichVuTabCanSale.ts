@@ -1,8 +1,10 @@
 // Tab Căn của sale (YC10.1, YC10 "Dữ liệu", QD4, QD13, KT-DB.3.5): đọc qua fn_tab_can_sale, chi tiết căn của tôi qua
-// fn_chi_tiet_can_cua_toi, bỏ dòng chủ đã xóa tài khoản qua fn_sale_bo_dong_chu. Số chủ nhà đọc qua v_nguoi_ket_noi (PQ2.SALE).
+// fn_chi_tiet_can_cua_toi, bỏ dòng chủ đã xóa tài khoản hay đã ngừng cho xem qua fn_sale_bo_dong_chu. Số chủ nhà đọc qua v_nguoi_ket_noi (PQ2.SALE).
 // Ảnh đại diện đọc qua RLS (anh_can_doc), xin đường dẫn có hạn 1 giờ từ kho (QT5.7).
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
+import type { CoChuNgung } from './chiTietChuNha';
+import { taoDichVuChiTietChuNhaSupabase, type DichVuChiTietChuNha } from './dichVuChiTietChuNha';
 import { chiaTabCan, type ChiTietCanCuaToi, type DongTabCan, type TabCan } from './tabCanSale';
 import type { Ngay } from './ngay';
 
@@ -16,6 +18,8 @@ export interface DichVuTabCanSale {
   docCanCuaToi(canId: string, tu: Ngay): Promise<ChiTietCanCuaToi>;
   /** YC10.1 bước 10: bỏ dòng chủ nhà đã xóa tài khoản. */
   boDongChu(ketNoiId: string): Promise<void>;
+  /** YC10.2 (US55): S6-04 chi tiết chủ nhà, bỏ nguồn. */
+  chiTietChuNha?: DichVuChiTietChuNha;
 }
 
 type Rpc = Record<string, unknown>;
@@ -67,6 +71,8 @@ export function taoDichVuTabCanSaleSupabase(sb: SupabaseClient): DichVuTabCanSal
       const { data, error } = await sb.rpc('fn_tab_can_sale');
       if (error) throw loiRpc(error);
       const dong = ((data ?? []) as Rpc[]).map(docDong).filter((d): d is DongTabCan => d !== null);
+      // YC10-H1, YC10.2-NT6: kết nối chủ đã ngừng cho xem (cột chu_ngung, US55).
+      const ngung = new Set(((data ?? []) as Rpc[]).filter((d) => d.chu_ngung === true).map((d) => String(d.ket_noi_id)));
       const ids = dong.map((d) => d.canId).filter((x): x is string => !!x);
       // Ảnh đại diện và số chủ nhà: thiếu thì thẻ vẫn hiện (không phải dữ liệu chính của tab).
       const anh = new Map<string, string>();
@@ -80,6 +86,7 @@ export function taoDichVuTabCanSaleSupabase(sb: SupabaseClient): DichVuTabCanSal
       const url = await kyAnh(sb, [...anh.values()]);
       for (const d of dong) if (d.canId && anh.has(d.canId)) d.anh = url.get(anh.get(d.canId)!) ?? null;
       const tab = chiaTabCan(dong);
+      for (const n of tab.chuNha) if (ngung.has(n.ketNoiId)) (n as typeof n & CoChuNgung).chuNgung = true;
       try {
         const { data: so } = await sb.from('v_nguoi_ket_noi').select('id, so_dien_thoai');
         const sdt = new Map(((so ?? []) as { id: string; so_dien_thoai: string | null }[]).map((r) => [r.id, r.so_dien_thoai]));
@@ -94,6 +101,7 @@ export function taoDichVuTabCanSaleSupabase(sb: SupabaseClient): DichVuTabCanSal
       const url = await kyAnh(sb, ct.anh);
       return { ...ct, anh: ct.anh.map((p) => url.get(p)).filter((x): x is string => !!x) };
     },
+    chiTietChuNha: taoDichVuChiTietChuNhaSupabase(sb),
     async boDongChu(ketNoiId) {
       const { error } = await sb.rpc('fn_sale_bo_dong_chu', { p_ket_noi_id: ketNoiId });
       if (error) throw loiRpc(error);

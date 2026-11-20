@@ -13,9 +13,11 @@
 // YC10.1 (US54): tab Căn là S6, S6-00, S6-08 (S6TabCan). Chạm căn của tôi mở S6-07 thật (qua S6Tam, KhungCanCuaToi), căn chủ nhà
 // mở S3 (hôm nay, 1 đêm), căn tự nhập mở S6-03 tạm, tên chủ nhà mở S6-04 tạm. "Gửi tin nhắn xin lịch cho chủ nhà" mở A6.
 // S6-07 "Gửi cho khách" mở S5 (hôm nay, 1 đêm); "Đặt phòng", "Sửa căn và giá", "Thêm căn", "Thêm căn tự nhập" báo tạm.
+// YC10.2 (US55): tên chủ nhà mở S6-04 thật (S604ChiTietChuNha); chạm căn ở S6-04 mở S3 (hôm nay, 1 đêm); bỏ nguồn xong về S6.
 import { useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useToast } from '../chung/Toast';
 import { khoangTuLich, tieuDeCan } from '../lib/chiTietCanSale';
+import { tenCanChuNha } from '../lib/chiTietChuNha';
 import type { DichVuChiTietCanSale } from '../lib/dichVuChiTietCanSale';
 import type { DichVuGuiKhach } from '../lib/dichVuGuiKhach';
 import type { DichVuLichSale } from '../lib/dichVuLichSale';
@@ -39,7 +41,8 @@ import type { CanTuongTu } from '../lib/ketQuaYeuCau';
 import { KhungGuiKhach, MoGuiKhach } from './S5GuiKhach';
 import { S607CanCuaToi } from './S607CanCuaToi';
 import { S6TabCan, type ChamCanTab } from './S6TabCan';
-import { KhungCanCuaToi, S604Tam, S6Tam } from './S6Tam';
+import { KhungCanCuaToi, S6Tam } from './S6Tam';
+import { S604ChiTietChuNha } from './S604ChiTietChuNha';
 import { ManTimPhong } from './S102TimPhong';
 import { Icon, ICON_LICH, KhungTabChu } from './TabChu';
 
@@ -175,7 +178,13 @@ function ManSaleTrong(props: {
       </KhungCanCuaToi.Provider>
     );
   }
-  if (moChuNha) return <S604Tam tenChu={moChuNha.ten} onQuayLai={() => datMoChuNha(null)} />;
+  if (moChuNha) {
+    return (
+      <S604ChiTietChuNha key={moChuNha.ketNoiId} ketNoiId={moChuNha.ketNoiId} tenTam={moChuNha.ten} dv={dvTab?.chiTietChuNha}
+                         onQuayLai={() => datMoChuNha(null)} onDaBo={() => datMoChuNha(null)}
+                         onChamCan={dvCt ? (c) => chamCan({ canId: c.canId, nhom: 'nguon', ten: tenCanChuNha(c) }, homNay()) : undefined} />
+    );
+  }
   if (moXinLich && props.dv) {
     return <A6XinLich ten={props.ten} dv={props.dv} onQuayLai={() => datMoXinLich(false)} onDaGui={() => datMoXinLich(false)} />;
   }
