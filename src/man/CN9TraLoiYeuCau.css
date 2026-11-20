@@ -1,0 +1,36 @@
+/* US51 · CN9, CN9-02, CN9-03 (canvas home247-canvas.html). Màn đọc: chữ thân 14 px, nhãn 12–13 px; vùng bấm 44 px. */
+.cn9 { position: relative; }
+.cn9-than { padding: 12px 12px calc(170px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; }
+.cn9-the { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.cn9-sale { display: flex; align-items: center; gap: 12px; }
+.cn9-chu-dau { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 999px; background: var(--action-soft); color: var(--action-ink); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+.cn9-sale-giua { flex: 1 1 0%; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn9-sale-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.cn9-sale-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn9-goi { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+.cn9-ke { padding-top: 12px; border-top: 1px solid var(--border-subtle); }
+.cn9-cac-hang { display: flex; flex-direction: column; gap: 8px; }
+.cn9-hang { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.cn9-hang-gia-tri { font-weight: 700; color: var(--ink); text-align: right; }
+.cn9-nhan { gap: 8px; }
+.cn9-nhan-tieu-de { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; }
+.cn9-chu { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn9-bao { margin: 0; font-size: 14px; line-height: 20px; color: var(--danger-text); }
+.cn9-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cn9-chips .hh-chip { min-height: 44px; }
+.cn9-xong { border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); border: 1px solid var(--border); }
+.cn9-xong--nhan { background: var(--action-tint); border-color: var(--action-bright); }
+.cn9-xong-tieu-de { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--ink); }
+.cn9-xong--nhan .cn9-xong-tieu-de, .cn9-xong--nhan .cn9-xong-chu { color: var(--action-ink); }
+.cn9-xong-chu { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.cn9-chan { position: fixed; left: 0; right: 0; bottom: 0; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 8px; }
+/* CN1-03: khối "YÊU CẦU ĐẶT PHÒNG" trên lưới lịch (dùng ở CN1LichThang). */
+.cn1-yc { padding: 12px 12px 0; display: flex; flex-direction: column; gap: 8px; }
+.cn1-yc-tieu-de { margin: 0; padding: 0 4px; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; }
+.cn1-yc-the { background: var(--surface); border: 1px solid var(--warning-border); border-radius: 12px; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+.cn1-yc-dong { display: flex; align-items: center; gap: 10px; }
+.cn1-yc-cham { width: 10px; height: 10px; border-radius: 999px; flex: 0 0 auto; }
+.cn1-yc-giua { flex: 1 1 0%; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.cn1-yc-chinh { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.cn1-yc-phu { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+.cn1-yc-nhan { flex: 0 0 auto; font-size: 12px; line-height: 16px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--warning-tint); color: var(--warning-ink); border: 1px solid var(--warning-border); }

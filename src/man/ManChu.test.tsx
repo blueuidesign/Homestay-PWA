@@ -54,3 +54,62 @@ describe('YC6.6 · tab Lịch nối CN10', () => {
     expect(screen.queryByText('Đã gửi lịch')).toBeNull();
   });
 });
+
+describe('YC9.2 · tab Lịch nối khối yêu cầu và CN9 (US51)', () => {
+  const dong = { id: 'y1', canId: 'c1509', maCan: '1509', tenSale: 'Sale Hùng', ngayNhan: '2026-10-17', ngayTra: '2026-10-19',
+    tongGiaChu: 2_200_000, guiLuc: new Date().toISOString(), trungVoi: [] };
+  const yc = {
+    id: 'y1', canId: 'c1509', maCan: '1509', tenToa: 'ICON40', saleId: 'hung', tenSale: 'Sale Hùng', sdtSale: null, soDatPhong: 0,
+    conKetNoi: true, ngayNhan: '2026-10-17', ngayTra: '2026-10-19', tongGiaChu: 2_200_000, loiNhan: null, trangThai: 'cho' as const,
+    lyDoTuChoi: null, guiLuc: dong.guiLuc, bookingId: null, trungVoi: [],
+  };
+  function dvYc(ds = [dong]) {
+    const traLoi = {
+      layDangCho: vi.fn(async () => ds), doc: vi.fn(async () => yc),
+      chapNhan: vi.fn(async () => ({ y: { ...yc, trangThai: 'da_chot' as const, bookingId: 'b1' }, doiTrangThai: false })),
+      tuChoi: vi.fn(),
+    };
+    const { dv } = dichVu();
+    return { dv: { ...dv, traLoiYeuCau: traLoi } as DichVuCan, traLoi };
+  }
+
+  it('YC9.2-NT1 bấm "Xem và trả lời" ở CN1-03 mở CN9 của đúng yêu cầu đó', async () => {
+    const { dv, traLoi } = dvYc();
+    render(<ToastProvider><ManChu duongDan="/" den={vi.fn()} dichVuCan={dv} onDangXuat={vi.fn()} /></ToastProvider>);
+    fireEvent.click(await screen.findByRole('button', { name: 'Xem và trả lời' }));
+    expect(await screen.findByRole('heading', { name: 'Yêu cầu đặt phòng' })).toBeInTheDocument();
+    expect(traLoi.doc).toHaveBeenCalledWith('y1');
+  });
+
+  it('YC9.2-NT1 mở từ thông báo (moYeuCau) thì vào thẳng CN9 của yêu cầu đó', async () => {
+    const { dv, traLoi } = dvYc();
+    render(<ToastProvider><ManChu duongDan="/" den={vi.fn()} dichVuCan={dv} onDangXuat={vi.fn()} moYeuCau="y1" /></ToastProvider>);
+    expect(await screen.findByRole('heading', { name: 'Yêu cầu đặt phòng' })).toBeInTheDocument();
+    expect(traLoi.doc).toHaveBeenCalledWith('y1');
+  });
+
+  it('YC9.2 bước 3 chấp nhận rồi "Về lịch": về tab Lịch, khối yêu cầu đọc lại; "Xem đặt phòng" mở CN3-02', async () => {
+    const { dv, traLoi } = dvYc();
+    render(<ToastProvider><ManChu duongDan="/" den={vi.fn()} dichVuCan={dv} onDangXuat={vi.fn()} /></ToastProvider>);
+    fireEvent.click(await screen.findByRole('button', { name: 'Xem và trả lời' }));
+    const nutChap = await screen.findByRole('button', { name: 'Chấp nhận đặt phòng' });
+    await act(async () => { fireEvent.click(nutChap); });
+    traLoi.layDangCho.mockResolvedValue([]);
+    fireEvent.click(screen.getByRole('button', { name: 'Về lịch' }));
+    expect(await screen.findByRole('heading', { name: 'Lịch' })).toBeInTheDocument();
+    await act(async () => {});
+    expect(screen.queryByRole('region', { name: /Yêu cầu đặt phòng/ })).toBeNull();
+    expect(traLoi.layDangCho.mock.calls.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('YC9.2 bước 3 "Xem đặt phòng" ở CN9-02 mở chi tiết đặt phòng vừa tạo (YC5.5)', async () => {
+    const { dv } = dvYc();
+    const den = vi.fn();
+    render(<ToastProvider><ManChu duongDan="/" den={den} dichVuCan={dv} onDangXuat={vi.fn()} /></ToastProvider>);
+    fireEvent.click(await screen.findByRole('button', { name: 'Xem và trả lời' }));
+    const nutChap = await screen.findByRole('button', { name: 'Chấp nhận đặt phòng' });
+    await act(async () => { fireEvent.click(nutChap); });
+    fireEvent.click(screen.getByRole('button', { name: 'Xem đặt phòng' }));
+    expect(den).toHaveBeenCalledWith('/dat-phong/b1');
+  });
+});

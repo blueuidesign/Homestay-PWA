@@ -15,6 +15,7 @@ import { taoDichVuChiTietCanSaleSupabase, type DichVuChiTietCanSale } from './di
 import { taoDichVuGuiKhachSupabase, type DichVuGuiKhach } from './dichVuGuiKhach';
 import { taoDichVuTimPhongSupabase, type DichVuTimPhong } from './dichVuTimPhong';
 import { taoDichVuYeuCauSupabase, type DichVuYeuCau } from './dichVuYeuCau';
+import { taoDichVuTraLoiYeuCauSupabase, type DichVuTraLoiYeuCau } from './dichVuTraLoiYeuCau';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { LoiNguoiDung } from '../chung/matKetNoi';
 import { CAU_LOI_FILE, thuAnh } from './anh';
@@ -108,6 +109,8 @@ export interface DichVuCan {
   xinLich?: DichVuXinLich;
   /** YC6.8: thông báo "chủ đồng ý kết nối" của sale cho toast A9 (src/lib/dichVuThongBao.ts). Thiếu thì không có toast. */
   thongBao?: DichVuThongBao;
+  /** YC9.2: khối yêu cầu chờ ở CN1-03 và trả lời ở CN9 (src/lib/dichVuTraLoiYeuCau.ts). Thiếu thì không có khối. */
+  traLoiYeuCau?: DichVuTraLoiYeuCau;
   /** YC7.1: lịch 7 ngày của sale (src/lib/dichVuLichSale.ts). Thiếu thì sale đã có nguồn thấy tab Lịch bản tạm.
    *  YC7.2: kèm timPhong (src/lib/dichVuTimPhong.ts) cho ô "Tìm phòng trống theo ngày". */
   lichSale?: DichVuLichSale & { timPhong?: DichVuTimPhong; chiTietCan?: DichVuChiTietCanSale & { yeuCau?: DichVuYeuCau }; guiKhach?: DichVuGuiKhach; mucCong?: DichVuMucCong; mauTin?: DichVuMauTin };
@@ -165,6 +168,7 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     linkMoi: taoDichVuLinkMoiSupabase(sb, { url: import.meta.env.VITE_SUPABASE_URL, khoa: import.meta.env.VITE_SUPABASE_ANON_KEY }),
     xinLich: taoDichVuXinLichSupabase(sb), // YC6.4
     thongBao: taoDichVuThongBaoSupabase(sb), // YC6.8
+    traLoiYeuCau: taoDichVuTraLoiYeuCauSupabase(sb), // YC9.2: CN1-03, CN9
     // YC7.1, YC7.2, YC7.4: lịch sale, tìm phòng, chi tiết căn của chủ nhà (S3) dùng chung một dịch vụ.
     lichSale: (() => {
       const chiTietCan = { ...taoDichVuChiTietCanSaleSupabase(sb), yeuCau: taoDichVuYeuCauSupabase(sb) }; // YC9.1: S3-02

@@ -15,6 +15,8 @@
 // Bấm tab Lịch luôn mở lịch tháng (YC2-H4). Từ CN2 mở form đặt phòng hay chi tiết đặt phòng rồi quay về thì về lại tuần đang xem.
 // Gửi lịch cho sale CN10 (YC6.6, US40): mở từ ô "Gửi lịch cho sale" ở CN1, trong tab Lịch, không đổi địa chỉ. Gửi xong thì về
 // tab Lịch với toast "Đã gửi lịch" (CN10-02, HV8).
+// Yêu cầu đặt phòng (YC9.2, US51): khối CN1-03 đọc mỗi lần mở tab Lịch; "Xem và trả lời" hay thông báo (moYeuCau) mở CN9 trong
+// ManChu, không đổi địa chỉ. "Về lịch" về tab Lịch và đọc lại khối; "Xem đặt phòng" mở CN3-02 của đặt phòng vừa tạo.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToast } from '../chung/Toast';
 import { ManChuaTai } from '../chung/matKetNoi';
@@ -38,6 +40,8 @@ import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan } from './CN6GiaCan';
 import { CN7DanhSachSale } from './CN7DanhSachSale';
 import { CN10GuiLich } from './CN10GuiLich';
+import { CN9TraLoiYeuCau } from './CN9TraLoiYeuCau';
+import type { DongYeuCauCho } from '../lib/traLoiYeuCau';
 import { CAU_DA_GUI_LICH } from '../lib/dichVuGuiLich';
 import { P6DemCuoiTuan } from './P6DemCuoiTuan';
 import { KhungTabChu, ThanhTabChu, type TabChuTen } from './TabChu';
@@ -77,12 +81,28 @@ function useGiaTuan(dv: DichVuCan | null, mo: boolean) {
   return gia;
 }
 
+/** YC9.2 bước 1: yêu cầu chờ cho khối CN1-03, đọc khi mở tab Lịch. Lỗi thì không có khối (lịch vẫn là dữ liệu chính). */
+function useYeuCauCho(dv: DichVuCan | null, mo: boolean) {
+  const [ds, datDs] = useState<DongYeuCauCho[]>([]);
+  const [lan, datLan] = useState(0);
+  useEffect(() => {
+    const doc = dv?.traLoiYeuCau;
+    if (!mo || !doc) return;
+    let huy = false;
+    doc.layDangCho().then((d) => { if (!huy) datDs(d); }, () => { /* giữ khối cũ */ });
+    return () => { huy = true; };
+  }, [dv, mo, lan]);
+  return { ds, taiLai: () => datLan((n) => n + 1) };
+}
+
 export function ManChu(props: {
   duongDan: string; den: (d: string) => void; dichVuCan: DichVuCan | null; onDangXuat: () => void;
   /** YC6.2: danh sách sale (src/lib/dichVuSale.ts). Không truyền thì lấy dichVuCan.sale khi dịch vụ căn có gắn. */
   dichVuSale?: DichVuSale | null;
   /** HV7 bước 2: phiên hết mà làm mới không được. */
   onHetPhien?: () => void;
+  /** YC9.2-NT1: chạm thông báo "yêu cầu mới" (manTuThongBao) thì mở CN9 của yêu cầu này. */
+  moYeuCau?: string;
 }) {
   const man = chonManChu(props.duongDan);
   const { ds, dangTai, loi, tai } = useDanhSachCan(props.dichVuCan);
@@ -125,11 +145,26 @@ export function ManChu(props: {
   // Mở thẳng địa chỉ của một căn (chưa qua tab Căn) thì đọc danh sách để có mã căn cho tiêu đề "Phòng 3402".
   useEffect(() => { if (moCan && ds === undefined && !dangTai) void tai(); }, [moCan, ds, dangTai, tai]);
 
+  // YC9.2: CN9 đang mở (id yêu cầu); mở từ CN1-03 hay từ thông báo.
+  const [yeuCauMo, datYeuCauMo] = useState<string | null>(props.moYeuCau ?? null);
+  useEffect(() => { if (props.moYeuCau) datYeuCauMo(props.moYeuCau); }, [props.moYeuCau]);
+  const yeuCau = useYeuCauCho(props.dichVuCan, man.tab === 'lich' && !yeuCauMo && !guiLich);
+
   const themCan = () => props.den('/can/moi');
   const chonTab = (t: TabChuTen) => {
     if (t === 'lich') { datXemTuan(null); datThangTuTuan(null); } // YC2-H4: tab Lịch luôn mở lịch tháng
     props.den(DUONG_DAN_TAB[t]);
   };
+
+  if (yeuCauMo) {
+    // YC9.2 bước 2 đến 5: CN9, CN9-02, CN9-03. Trả lời xong thì lịch tháng đọc lại (đặt phòng mới vào lịch).
+    const veLich = () => { boNhoLich.current.clear(); datYeuCauMo(null); yeuCau.taiLai(); props.den('/'); };
+    return (
+      <CN9TraLoiYeuCau key={yeuCauMo} id={yeuCauMo} dv={props.dichVuCan?.traLoiYeuCau}
+                       onQuayLai={veLich} onVeLich={veLich}
+                       onXemDatPhong={(id) => { boNhoLich.current.clear(); datYeuCauMo(null); props.den(duongDanDatPhong(id)); }} />
+    );
+  }
 
   if (man.tab === 'can-moi') {
     const dv = props.dichVuCan;
@@ -303,6 +338,7 @@ export function ManChu(props: {
         <CN1LichThang key={`${ngayVuaLuu ?? ''}|${thangTuTuan ?? ''}`} ngayMoSan={ngayVuaLuu ?? undefined}
                       thangDau={thangTuTuan ?? undefined} onXemTuan={(t2) => { datThangTuTuan(null); datXemTuan(t2); }}
                       onGuiLich={() => datGuiLich(true)}
+                      yeuCau={yeuCau.ds} onMoYeuCau={datYeuCauMo}
                       ds={[...ds].reverse().map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.lich}
                       boNho={boNhoLich.current} onDatPhong={(c) => props.den(duongDanDatPhongMoi(c))}
                       onMoDatPhong={(id) => {
