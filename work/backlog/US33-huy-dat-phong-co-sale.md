@@ -2,7 +2,7 @@
 id: US33
 tieu_de: "Hủy đặt phòng có sale"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.8@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: [73]
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -74,6 +74,7 @@ Database: fn_xin_huy, fn_tra_loi_huy, fn_tinh_trang_huy (chủ nhà giữ căn h
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC5.8@1 (QD21)
 - 2026-11-20 · Claude (QD25) · database xin hủy, trả lời xin hủy; khối hủy ở CN3-02, S3-10; tự chốt YC5-H17 · PR mở · ~1,5 giờ
+- 2026-11-20 · Claude (QD25) · Gộp PR #73, CI xanh 4/4 (vòng 1 đỏ: quên sinh lại bảng cột, e2e mở thẳng đường dẫn trước khi đăng nhập xong; sửa 2 vòng); chờ test; migration 20261120130000 gửi thread staging.
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC5.8`: lần đầu 4 hỏng do test gọi sai vai (đọc bảng khi đang đăng nhập), sửa 1 vòng, cuối 53 qua, 0 hỏng.
