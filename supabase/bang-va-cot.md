@@ -718,9 +718,12 @@ Policy:
 - fn_them_toa(p_ten text) → uuid · security definer · gọi được: authenticated
 - fn_thong_ke_chu(p_thang date, p_so_thang integer) → jsonb · security definer · gọi được: authenticated
 - fn_thong_ke_sale(p_thang date, p_so_thang integer) → jsonb · security definer · gọi được: authenticated
+- fn_tinh_trang_huy(p_booking_id uuid) → jsonb · security definer · gọi được: authenticated
+- fn_tra_loi_huy(p_booking_id uuid, p_dong_y boolean) → void · security definer · gọi được: authenticated
 - fn_tu_choi_yeu_cau(p_yeu_cau_id uuid, p_ly_do text) → jsonb · security definer · gọi được: authenticated
 - fn_xem_link_moi(p_ma text) → jsonb · security definer · gọi được: anon, authenticated
 - fn_xem_link_xin_lich(p_ma text) → jsonb · security definer · gọi được: authenticated
+- fn_xin_huy(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_booking(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_can(p_can_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_can_tu_nhap(p_can_id uuid) → void · security definer · gọi được: authenticated
@@ -737,6 +740,7 @@ Policy:
 - het_han_vi(p_y yeu_cau_dat_phong) → text · security definer
 - ket_qua_tra_loi(p_id uuid, p_doi boolean) → jsonb · security definer
 - khoa_booking_cua_chu(p_booking_id uuid) → booking · security definer
+- khoa_booking_hai_ben(p_booking_id uuid, p_khoa boolean) → TABLE(b booking, chu_id uuid, ma_can text, ten_toa text, loai_can text) · security definer
 - khoa_yeu_cau_cua_chu(p_yeu_cau_id uuid) → yeu_cau_dat_phong · security definer
 - kiem_can_tu_nhap(p_nguoi uuid, p_can_id uuid, p_ten text, p_sdt text, p_ma text, p_so_pn integer, p_toa uuid, p_view text, p_so_giuong integer, p_gia_thuong bigint, p_gia_cuoi_tuan bigint, p_bat_buoc text[]) → void · security definer
 - kiem_dat_phong_tu_ghi(p_can_id uuid, p_bo_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tra_chu bigint, p_thu_khach bigint) → void · security definer
