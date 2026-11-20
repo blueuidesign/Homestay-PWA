@@ -1,0 +1,26 @@
+/* US54 · S6-07 Chi tiết căn của tôi (canvas home247-canvas.html). Vùng bấm 44 px, chữ không dưới 12 px. */
+.s607-than { display: flex; flex-direction: column; gap: 12px; }
+.s607-anh { width: 100%; height: 180px; object-fit: cover; border-radius: var(--radius-lg); display: block; }
+.s607-anh--trong { background: var(--border-subtle); }
+.s607-the { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.s607-ten-dong { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.s607-ten { font-size: 18px; line-height: 28px; font-weight: 700; color: var(--ink); }
+.s607-nhan { font-size: 14px; line-height: 18px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background: var(--action-soft); color: var(--action-ink); }
+.s607-phu { font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s607-cau { font-size: 14px; line-height: 20px; color: var(--ink-body); }
+.s607-cau-loi { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-secondary); }
+.s607-muc { margin: 0 0 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--ink-muted); text-transform: uppercase; }
+.s607-luoi { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.s607-o { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 0; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--border-subtle); }
+.s607-o--kin { background: var(--border-subtle); }
+.s607-o-thu { font-size: 12px; line-height: 16px; color: var(--ink-muted); }
+.s607-o-ngay { font-size: 14px; line-height: 20px; font-weight: 600; color: var(--ink); }
+.s607-o-gia { font-size: 13px; line-height: 18px; color: var(--ink-body); }
+.s607-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.s607-ds > li + li { border-top: 1px solid var(--border-subtle); }
+.s607-viec { width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.s607-viec-icon { flex: 0 0 auto; display: inline-flex; color: var(--ink-secondary); }
+.s607-viec-chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.s607-viec-ten { font-size: 14px; line-height: 20px; font-weight: 700; color: var(--ink); }
+.s607-viec-phu { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.s607-toi { flex: 0 0 auto; display: inline-flex; color: var(--ink-faint); }
