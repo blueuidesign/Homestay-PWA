@@ -39,6 +39,7 @@ import { CN502SuaCan } from './CN502SuaCan';
 import { CN5A1ThemCan } from './CN5A1ThemCan';
 import { CN5DanhSachCan } from './CN5DanhSachCan';
 import { CN6GiaCan } from './CN6GiaCan';
+import { CN6DatGiaNhieu } from './CN6DatGiaNhieu';
 import { CN7DanhSachSale } from './CN7DanhSachSale';
 import { CN10GuiLich } from './CN10GuiLich';
 import { CN9TraLoiYeuCau } from './CN9TraLoiYeuCau';
@@ -144,7 +145,7 @@ export function ManChu(props: {
   const canDanhSach = man.tab === 'lich' || man.tab === 'can' || man.tab === 'dat-phong-moi';
   // CN3-02 cần thứ tự căn cho màu; CN4-02 cần danh sách căn cho hàng chip.
   // CN8 cần thứ tự căn cho màu (YC11.1 bước 3, 7).
-  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'dat-phong' || man.tab === 'dat-phong-sua'
+  const moCan = man.tab === 'can-chi-tiet' || man.tab === 'can-gia' || man.tab === 'can-gia-nhieu' || man.tab === 'dat-phong' || man.tab === 'dat-phong-sua'
     || man.tab === 'thong-ke';
 
   // Tải lại mỗi lần mở tab Lịch hay tab Căn (vừa thêm căn ở màn khác thì thấy ngay).
@@ -202,6 +203,13 @@ export function ManChu(props: {
                    onDaLuu={(ma) => { hienToast(`Đã lưu ${tenCanGiuaCau(ma)}`); props.den('/can'); }}
                    xoaCan={dv?.xoaCan ? (id) => dv.xoaCan!(id) : undefined} // YC3.6 bước 42
                    onDaXoa={() => { boNhoLich.current.clear(); props.den('/can'); }} /> // lịch tháng đọc lại, không còn căn đã xóa
+    );
+  }
+  if (man.tab === 'can-gia-nhieu') {
+    // YC4.4: CN6-05 chọn căn, CN6-06 đặt giá. Áp dụng xong về tab Căn với toast.
+    return (
+      <CN6DatGiaNhieu ds={ds?.map((c) => ({ id: c.id, maCan: c.maCan }))} dv={props.dichVuCan?.gia}
+                      onQuayLai={() => props.den('/can')} onDaApDung={(n) => { hienToast(`Đã áp dụng giá cho ${n} căn`); props.den('/can'); }} />
     );
   }
   if (man.tab === 'can-gia') {
@@ -323,7 +331,7 @@ export function ManChu(props: {
   } else if (man.tab === 'can') {
     than = <CN5DanhSachCan ds={ds} onMoCan={(id) => props.den(`/can/${id}`)} onThemCan={themCan} vuaThem={vuaThem}
                     giaTuan={giaTuan} onDatGia={(id) => props.den(`/can/${id}/gia`)} // YC4.1 bước 1, 2
-                    onDatGiaNhieu={() => hienToast('Sẽ có ở bản sau')} /> // YC4.1 bước 3, YC4.4 làm ở US sau;
+                    onDatGiaNhieu={() => props.den('/can/gia-nhieu')} /> // YC4.1 bước 3, YC4.4 bước 1;
   } else if (xemTuan) {
     // YC2.5: CN2. Ô trống mở CN4 với căn và ngày (bước 23), thanh mở CN3-02. "Tháng" về CN1 tháng chứa thứ Hai của tuần.
     than = (

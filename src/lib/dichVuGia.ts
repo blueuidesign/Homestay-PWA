@@ -23,6 +23,8 @@ export interface DichVuGia {
   datDemCuoiTuan?(dem: number[]): Promise<void>;
   /** YC4.1 bước 1: giá thấp nhất, cao nhất của 7 đêm từ thứ Hai `tu`, theo mã căn, cho mọi căn có lịch của người gọi. */
   layGiaTuan?(tu: Ngay): Promise<Record<string, GiaTuan>>;
+  /** YC4.4 bước 4: ghi giá tháng cho mọi căn đã chọn trong một giao dịch (fn_dat_gia_thang_nhieu). */
+  datGiaThangNhieu?(canIds: string[], thang: Ngay[], thuong: number, cuoiTuan: number): Promise<void>;
   /** YC4.3 bước 1: dải ngày lễ chung của Home247 cho năm `nam` (ngay_le_doc, PQ21). */
   layNgayLe?(nam: number): Promise<NgayLeChung[]>;
   /** YC4.3 bước 7: lưu một dải giá dịp (fn_luu_gia_dip). Database từ chối thì LoiNguoiDung (QT5.5). */
@@ -113,6 +115,14 @@ export function taoDichVuGiaSupabase(sb: SupabaseClient): DichVuGia {
 
     async datDemCuoiTuan(dem) {
       const { error } = await sb.rpc('fn_dat_dem_cuoi_tuan', { p_dem: dem });
+      if (error) throw loiGia(error);
+    },
+
+    // YC4.4 bước 4, PQ5.CHU: một căn không hợp lệ thì database không ghi căn nào.
+    async datGiaThangNhieu(canIds, thang, thuong, cuoiTuan) {
+      const { error } = await sb.rpc('fn_dat_gia_thang_nhieu', {
+        p_can_ids: canIds, p_thang: thang, p_gia_thuong: thuong, p_gia_cuoi_tuan: cuoiTuan,
+      });
       if (error) throw loiGia(error);
     },
 

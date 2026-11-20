@@ -666,6 +666,7 @@ Policy:
 - fn_danh_sach_sale(p_bo_qua integer) → jsonb · security definer · gọi được: authenticated
 - fn_dat_dem_cuoi_tuan(p_dem smallint[]) → void · security definer · gọi được: authenticated
 - fn_dat_gia_thang(p_can_id uuid, p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
+- fn_dat_gia_thang_nhieu(p_can_ids uuid[], p_thang date[], p_gia_thuong bigint, p_gia_cuoi_tuan bigint) → void · security definer · gọi được: authenticated
 - fn_dat_mau_tin(p_mau text) → void · security definer · gọi được: authenticated
 - fn_dat_muc_cong(p_can_id uuid, p_muc bigint) → void · security definer · gọi được: authenticated
 - fn_dat_muc_cong_mac_dinh(p_muc bigint, p_lam_tron boolean) → void · security definer · gọi được: authenticated

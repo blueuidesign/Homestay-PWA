@@ -39,11 +39,12 @@ describe('YC4.1 · tab Căn nối giá tuần', () => {
     expect(window.location.pathname).toBe('/can/c2/gia');
   });
 
-  it('YC4.1 bước 3 bấm "Đặt giá nhiều căn" thì toast "Sẽ có ở bản sau"', async () => {
+  it('YC4.1 bước 3 YC4.4 bước 1 bấm "Đặt giá nhiều căn" thì mở màn chọn căn CN6-05', async () => {
     const dv: DichVuCan = { layCanCuaToi: vi.fn(async () => [can('c1', '1509')]) };
     render(<App dichVu={chuNha()} dichVuCan={dv} />);
     fireEvent.click(await screen.findByRole('button', { name: 'Đặt giá nhiều căn' }));
-    expect(await screen.findByText('Sẽ có ở bản sau')).toBeInTheDocument();
+    expect(window.location.pathname).toBe('/can/gia-nhieu');
+    expect(await screen.findByText('Chọn căn · đã chọn 0/1')).toBeInTheDocument();
   });
 
   it('YC4.1 đọc giá tuần lỗi thì thẻ vẫn hiện, chỗ giá để trống', async () => {

@@ -42,6 +42,7 @@ export function chonMan(v: { duongDan: string; phien: TrangThaiPhien; hoSo: HoSo
 /** Màn trong các tab của chủ nhà (YC3.1, canvas thanh tab A4, CN5). Đường dẫn khác thì về tab Lịch. */
 export type ManChu =
   | { tab: 'lich' } | { tab: 'can' } | { tab: 'can-moi' } | { tab: 'can-chi-tiet'; id: string } | { tab: 'can-gia'; id: string }
+  | { tab: 'can-gia-nhieu' }
   | { tab: 'sale' } | { tab: 'thong-ke' } | { tab: 'ca-nhan' } | { tab: 'dem-cuoi-tuan' }
   | { tab: 'dat-phong-moi'; canId?: string; ngay?: string } | { tab: 'dat-phong'; id: string } | { tab: 'dat-phong-sua'; id: string };
 
@@ -67,6 +68,7 @@ export function chonManChu(duongDan: string): ManChu {
   const d = duongDan.replace(/\/+$/, '') || '/';
   if (d === '/can') return { tab: 'can' };
   if (d === '/can/moi') return { tab: 'can-moi' };
+  if (d === '/can/gia-nhieu') return { tab: 'can-gia-nhieu' }; // YC4.4 bước 1: CN6-05
   const ct = /^\/can\/([A-Za-z0-9-]+)$/.exec(d);
   if (ct) return { tab: 'can-chi-tiet', id: ct[1]! };
   const gia = /^\/can\/([A-Za-z0-9-]+)\/gia$/.exec(d);
