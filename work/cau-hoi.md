@@ -40,9 +40,10 @@ Người dùng xóa tài khoản trên PWA ở đâu, xác nhận thế nào? B�
 Chặn: Màn Cá nhân. Đang tạm làm: `fn_xoa_tai_khoan` đã có, chưa có màn. Hỏi ngày 18/11/2026.
 Trả lời: Claude tự chốt, 19/11/2026 (QD25, Tùng: "những phần có thể suy luận bằng logic này thì bạn cứ tự làm nhé, tự nghiên cứu, tự quyết."): nút "Xóa tài khoản" ở cuối P2, mở P14 liệt kê điều gì mất và điều gì còn, bấm lần hai ở P14-01 mới xóa (canvas PWA, PR #10).
 
-### YC1-H7 · mo
+### YC1-H7 · da-tra-loi
 Chính sách quyền riêng tư phải nói giữ dữ liệu gì sau khi người dùng xóa tài khoản, giữ bao lâu, để làm gì?
 Gắn ở: YC1.8.
+Trả lời: Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026 (QD25): số điện thoại xóa ngay; tên, căn, lịch, giá, đặt phòng, khách giữ để đặt phòng đã có còn chiếm đêm, bên kia còn đối soát và người xóa đăng nhập lại dùng tiếp (QD13); bản sao lưu còn số tối đa 60 ngày; muốn xóa hẳn thì nhắn Zalo, làm trong 30 ngày. Nội dung ở trang Chính sách quyền riêng tư (EN7, src/man/TrangPhapLy.tsx).
 
 ### YC1-H8 · mo
 Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không?

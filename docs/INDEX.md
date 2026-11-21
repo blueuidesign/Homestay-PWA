@@ -31,7 +31,7 @@ Bản viết tay. Thêm file mới thì thêm một dòng ở đây (rules/docs.
 | design/README.md | Canvas thiết kế, cách xem một màn bằng trich-man.py | |
 | ha-tang/ | Bí mật để ở đâu, sao lưu và khôi phục, xử lý sự cố | de-xuat |
 | dev/chay-va-test.md | Cài, chạy, test, build, deploy. Điền khi làm EN dựng nền | nhap |
-| decisions/INDEX.md | Đã quyết gì, đang chờ quyết gì (QD1 đến QD28) | |
+| decisions/INDEX.md | Đã quyết gì, đang chờ quyết gì (QD1 đến QD29) | |
 | process/CL1 đến CL14 | Hai người và AI làm việc thế nào. CL2: item và task. CL3: mã. CL4: quyền, git, hook. CL5: mục lục lệnh. CL12: rev, lịch sử, vòng sửa thiết kế. CL14: viết US | de-xuat |
 | process/templates/ | Khuôn YC, QT, QD, item, US, gói việc, kịch bản test tay, bản kê thiết kế | |
 | _lich-su/ | Lịch sử sửa đổi cũ (CL12.3) và tài liệu đóng băng chép từ bản Zalo. Không đọc trừ khi cần | |

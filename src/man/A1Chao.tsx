@@ -1,4 +1,4 @@
-// A1 · Chào mừng (YC1.1 bước 1, 2). Không hỏi gì, không xin quyền gì (HV4, QD22). Điều khoản, chính sách ở YC15 (chưa làm: link để #).
+// A1 · Chào mừng (YC1.1 bước 1, 2). Không hỏi gì, không xin quyền gì (HV4, QD22). Điều khoản, chính sách: TrangPhapLy (YC15.3-NT2).
 import type { ReactNode } from 'react';
 
 function IconTron(props: { children: ReactNode }) {
@@ -36,8 +36,8 @@ export function A1Chao(props: { onTaoTaiKhoan: () => void; onDangNhap: () => voi
         <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onTaoTaiKhoan}>Tạo tài khoản</button>
         <button type="button" className="hh-btn hh-btn--secondary hh-btn--block" onClick={props.onDangNhap}>Tôi đã có tài khoản · Đăng nhập</button>
         <span className="dong-dieu-khoan">
-          Bằng việc tiếp tục, bạn đồng ý với <a href="#">Điều khoản</a> và{' '}
-          <a href="#">Chính sách quyền riêng tư</a>.
+          Bằng việc tiếp tục, bạn đồng ý với <a href="/dieu-khoan">Điều khoản</a> và{' '}
+          <a href="/chinh-sach-rieng-tu">Chính sách quyền riêng tư</a>.
         </span>
       </div>
     </main>

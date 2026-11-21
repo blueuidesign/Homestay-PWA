@@ -2,7 +2,7 @@
 id: EN7
 tieu_de: "Theo dõi lỗi và pháp lý"
 loai: EN
-trang_thai: moi
+trang_thai: dang-lam
 thuc_hien: [YC15.3@1]
 truoc: [EN1, EN2]
 lien_quan: []
@@ -32,7 +32,7 @@ Không có màn.
 Không chạm quyền.
 
 ## Phạm vi
-Điền khi lập kế hoạch, theo cấu trúc thư mục EN1 ghi ở docs/dev/chay-va-test.md. Database chỉ thêm migration mới ở supabase/migrations/.
+supabase/migrations/20261121020000_en7_loi_app.sql, tests/db/92_en7_loi_app.sql, scripts/thu-lam-hong.txt, src/chung/baoLoi.ts(+test), src/man/TrangPhapLy.tsx/.css(+test), src/App.tsx, src/lib/dichVuCan.ts, src/lib/thongBao.ts, link ở A1Chao, A1Link, khung, docs/decisions/QD29, work/cau-hoi.md (YC1-H7).
 
 ## Ngoài phạm vi
 - Phần đầu YC15-van-hanh.md và mục "Phạm vi" của nó nói phần nào thuộc YC khác.
@@ -47,12 +47,16 @@ YC15-van-hanh.md#Dữ liệu
 Không có kịch bản test tay riêng; NT thủ công ghi kết quả vào Bằng chứng.
 
 ## Task
-- [ ] EN7-TA1 Code · Claude Code (sonnet, CL14.6a): màn liên quan theo canvas, test unit, e2e cho YC15.3-NT2
+- [x] EN7-TA1 Code · Claude Code (sonnet, CL14.6a): màn liên quan theo canvas, test unit, e2e cho YC15.3-NT2
 - [ ] EN7-TA2 Kiểm thủ công · Đức: YC15.3-NT1, ghi kết quả vào Bằng chứng
 
 ## Kế hoạch
+Công cụ báo lỗi theo QD29 (Claude tự quyết): bảng loi_app, fn_ghi_loi làm sạch số, email; fn_bao_loi_hang_ngay ghi thông báo cho quản trị lúc 8 giờ sáng. Hai trang /dieu-khoan, /chinh-sach-rieng-tu xem được khi chưa đăng nhập; nội dung Claude soạn, chờ Tùng duyệt (work/cho-tung.md), nên YC15.3-NT2 chỉ xong hẳn khi Tùng duyệt chữ.
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC15.3@1 (QD21)
+- 2026-11-21 · Claude (thread tự chạy, QD25) · code báo lỗi và hai trang pháp lý, test db 14 đạt, unit 8 đạt, thử làm hỏng 2 đạt
 
 ## Bằng chứng
+- YC15.3-NT1 lớp database: tests/db/92_en7_loi_app.sql (làm sạch số, email; giới hạn 30/giờ; tóm tắt hằng ngày cho quản trị); unit src/chung/baoLoi.test.ts. Phần "Tùng biết trong ngày" Đức kiểm thủ công trên staging (EN7-TA2).
+- YC15.3-NT2 unit src/man/TrangPhapLy.test.tsx. Chữ chờ Tùng duyệt.
