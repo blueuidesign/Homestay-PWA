@@ -1,0 +1,5 @@
+/* EN7 · Điều khoản, Chính sách quyền riêng tư. Chữ đọc 14 px trở lên, vùng bấm 44 px. */
+.phap-ly-ngay { margin: 0; font-size: 13px; line-height: 20px; color: var(--ink-secondary); }
+.phap-ly-muc { display: flex; flex-direction: column; gap: 6px; }
+.phap-ly-muc h2 { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.phap-ly-muc p { margin: 0; font-size: 15px; line-height: 24px; color: var(--ink); }

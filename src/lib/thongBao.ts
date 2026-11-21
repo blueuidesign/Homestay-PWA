@@ -96,6 +96,8 @@ export function chuCuaThongBao(tb: Pick<ThongBao, 'loai' | 'noiDung'>): ChuThong
       return { chinh: `${chu(nd['ten_nguoi_xin']) || 'Người đặt'} xin hủy đặt phòng`, phu: `${canText(nd)} · ${khoangNgay(nd)}` };
     case 'tra_loi_huy':
       return { chinh: `${chu(nd['ten_nguoi_tra_loi']) || 'Bên kia'} ${nd['dong_y'] === true ? 'đã đồng ý hủy' : 'không đồng ý hủy'}`, phu: `${canText(nd)} · ${khoangNgay(nd)}` };
+    case 'loi_app_hang_ngay': // YC15.3-NT1: chỉ quản trị viên nhận
+      return { chinh: `App có ${so(nd['so_loi']) ?? 0} lỗi trong 24 giờ qua`, phu: `${so(nd['so_nguoi']) ?? 0} người gặp · hay gặp: ${chu(nd['hay_gap'])}` };
     default:
       return { chinh: 'Thông báo mới', phu: '' };
   }

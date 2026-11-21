@@ -11,6 +11,7 @@ import { taoDichVuThongBaoSupabase, type DichVuThongBao } from './dichVuThongBao
 import { taoDichVuCaNhanSupabase, type DichVuCaNhan } from './dichVuCaNhan';
 import { taoDichVuHoSoSupabase, type DichVuHoSo } from './dichVuHoSo';
 import { taoDichVuGioSupabase, type DichVuGio } from './dichVuGio';
+import type { GuiLoi } from '../chung/baoLoi';
 import { taoDichVuXuatCsvSupabase, type DichVuXuatCsv } from './dichVuXuatCsv';
 import { taoDichVuCaiDatThongBaoSupabase, type DichVuCaiDatThongBao } from './dichVuCaiDatThongBao';
 import { taoDichVuLichSaleSupabase, type DichVuLichSale } from './dichVuLichSale';
@@ -126,6 +127,8 @@ export interface DichVuCan {
   hoSo?: DichVuHoSo;
   /** YC1.5: giờ nhận, trả mặc định P5 (src/lib/dichVuGio.ts). Thiếu thì màn báo chưa tải được. */
   gio?: DichVuGio;
+  /** YC15.3-NT1: gửi một lỗi của app qua fn_ghi_loi (src/chung/baoLoi.ts). Thiếu thì không báo lỗi. */
+  ghiLoi?: GuiLoi;
   /** YC1.6: xuất file CSV P8 (src/lib/dichVuXuatCsv.ts). Thiếu thì màn báo chưa tải được. */
   xuatCsv?: DichVuXuatCsv;
   /** YC12.4: cài đặt thông báo P3, P12 (src/lib/dichVuCaiDatThongBao.ts). Thiếu thì màn báo chưa tải được. */
@@ -194,6 +197,11 @@ export function taoDichVuCanSupabase(sb: SupabaseClient): DichVuCan {
     caNhan: taoDichVuCaNhanSupabase(sb), // YC1.3: P1, P4
     hoSo: taoDichVuHoSoSupabase(sb), // YC1.4: P2
     gio: taoDichVuGioSupabase(sb), // YC1.5: P5
+    ghiLoi: async (b) => { // YC15.3-NT1
+      const { error } = await sb.rpc('fn_ghi_loi', { p_thong_diep: b.thongDiep, p_ngan_xep: b.nganXep, p_duong_dan: b.duongDan,
+        p_phien_ban: b.phienBan, p_trinh_duyet: b.trinhDuyet });
+      if (error) throw error;
+    },
     xuatCsv: taoDichVuXuatCsvSupabase(sb), // YC1.6: P8
     caiDatThongBao: taoDichVuCaiDatThongBaoSupabase(sb), // YC12.4: P3, P12
     traLoiYeuCau: taoDichVuTraLoiYeuCauSupabase(sb), // YC9.2: CN1-03, CN9

@@ -23,6 +23,8 @@ import { ManLinkXinLich } from './man/A8LoiMoiXemLich';
 import { ManChu } from './man/ManChu';
 import { ManLich, XemTruocLink } from './man/ManTam';
 import { ManSale } from './man/ManSale';
+import { TrangPhapLy, DUONG_CHINH_SACH, DUONG_DIEU_KHOAN } from './man/TrangPhapLy';
+import { caiBaoLoi } from './chung/baoLoi';
 
 type TrangThai = { phien: TrangThaiPhien; email: string; hoSo: HoSo | null | undefined };
 
@@ -101,6 +103,16 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   // HV7 bước 2: làm mới phiên không được thì bỏ phiên trên máy, mở thẳng màn đăng nhập (A11, YC1.2). Địa chỉ giữ nguyên
   // nên đăng nhập xong bộ chọn màn quay lại đúng màn cũ; form tự điền lại từ nháp (HV3).
   const hetPhien = async () => { await dichVu?.dangXuat().catch(() => undefined); datLuong('A11'); await taiLai(); };
+
+  // YC15.3-NT1: đã đăng nhập thì gắn bộ báo lỗi (fn_ghi_loi chỉ cho người đã đăng nhập, KT-DB.3.1).
+  const ghiLoi = dichVuCan?.ghiLoi;
+  useEffect(() => (tt.phien === 'co' && ghiLoi ? caiBaoLoi(ghiLoi) : undefined), [tt.phien, ghiLoi]);
+
+  // YC15.3-NT2: Điều khoản, Chính sách xem được khi chưa đăng nhập.
+  const trangPhapLy = duongDan === DUONG_DIEU_KHOAN ? 'dieu-khoan' as const : duongDan === DUONG_CHINH_SACH ? 'chinh-sach' as const : null;
+  if (trangPhapLy) {
+    return <TrangPhapLy loai={trangPhapLy} onQuayLai={() => { if (window.history.length > 1) window.history.back(); else den('/'); }} />;
+  }
 
   const man = chonMan({ duongDan, phien: tt.phien, hoSo: tt.hoSo });
   const maLink = maLinkMoi(duongDan);

@@ -61,7 +61,7 @@ export function O(props: {
 export function DongDieuKhoan() {
   return (
     <span className="dong-dieu-khoan">
-      Bằng việc tiếp tục, bạn đồng ý với <a href="#">Điều khoản</a> và <a href="#">Chính sách quyền riêng tư</a>.
+      Bằng việc tiếp tục, bạn đồng ý với <a href="/dieu-khoan">Điều khoản</a> và <a href="/chinh-sach-rieng-tu">Chính sách quyền riêng tư</a>.
     </span>
   );
 }

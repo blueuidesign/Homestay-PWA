@@ -77,8 +77,8 @@ export function A1Link(props: { xemTruoc?: XemTruocLink; onBatDau: () => void; o
       <div className="man-chan a1-chan">
         <button type="button" className="hh-btn hh-btn--primary hh-btn--block" onClick={props.onBatDau}>Bắt đầu ngay</button>
         <span className="dong-dieu-khoan">
-          Bằng việc tiếp tục, bạn đồng ý với <a href="#">Điều khoản</a> và{' '}
-          <a href="#">Chính sách quyền riêng tư</a>.
+          Bằng việc tiếp tục, bạn đồng ý với <a href="/dieu-khoan">Điều khoản</a> và{' '}
+          <a href="/chinh-sach-rieng-tu">Chính sách quyền riêng tư</a>.
         </span>
       </div>
     </main>
