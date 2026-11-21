@@ -10,6 +10,8 @@ export class LoiKhongQuyenQuanTri extends LoiNguoiDung {
 
 export type QuanTriVien = { email: string; laGoc: boolean; themLuc: string };
 /** YC13.2: một dải ngày lễ chung. Ngày dạng YYYY-MM-DD (giờ Việt Nam). */
+/** YC13.3: một tòa; home247 true là Home247 đặt sẵn, false là người dùng thêm. */
+export type ToaQuanTri = { id: string; ten: string; khuVuc: string | null; home247: boolean };
 export type DaiNgayLe = { id: string; nam: number; ten: string; tuNgay: string; denNgay: string };
 
 export interface DichVuQuanTri {
@@ -28,6 +30,12 @@ export interface DichVuQuanTri {
   /** YC13.2 bước 2: id null là thêm. Sai luật kiểm thì ném LoiNguoiDung với câu của database. */
   luuNgayLe(d: { id: string | null; nam: number; ten: string; tuNgay: string; denNgay: string }): Promise<void>;
   xoaNgayLe(id: string): Promise<void>;
+  /** YC13.3 bước 1: mọi tòa (đọc qua toa_nha_doc). */
+  toa(): Promise<ToaQuanTri[]>;
+  /** YC13.3 bước 2, 3: id null là thêm (Home247 đặt sẵn). */
+  luuToa(d: { id: string | null; ten: string; khuVuc: string }): Promise<void>;
+  /** YC13.3 bước 4: chuyển căn của `gop` sang `giu`, xóa `gop`. */
+  gopToa(giu: string, gop: string): Promise<void>;
 }
 
 type LoiPg = { code?: string; message?: string } | null;
@@ -83,5 +91,13 @@ export function taoDichVuQuanTriSupabase(sb: SupabaseClient): DichVuQuanTri {
       await goi('fn_quan_tri_luu_ngay_le', { p_id: d.id, p_nam: d.nam, p_ten: d.ten, p_tu_ngay: d.tuNgay, p_den_ngay: d.denNgay });
     },
     async xoaNgayLe(id) { await goi('fn_quan_tri_xoa_ngay_le', { p_id: id }); },
+    async toa() {
+      const { data, error } = await sb.from('toa_nha').select('id, ten, khu_vuc, home247_dat_san').order('ten');
+      if (error) throw doiLoi(error);
+      return ((data ?? []) as { id: string; ten: string; khu_vuc: string | null; home247_dat_san: boolean }[])
+        .map((t) => ({ id: t.id, ten: t.ten, khuVuc: t.khu_vuc, home247: t.home247_dat_san }));
+    },
+    async luuToa(d) { await goi('fn_quan_tri_luu_toa', { p_id: d.id, p_ten: d.ten, p_khu_vuc: d.khuVuc }); },
+    async gopToa(giu, gop) { await goi('fn_quan_tri_gop_toa', { p_giu: giu, p_gop: gop }); },
   };
 }

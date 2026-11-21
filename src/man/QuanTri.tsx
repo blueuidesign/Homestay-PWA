@@ -1,5 +1,5 @@
 // YC13 · Trang quản trị /quan-tri: Q1 đăng nhập bằng mã email, Q1-01 nhập mã, Q1-02 không có quyền, rồi các mục
-// quản trị (Q3 Ngày lễ, Q2 Quản trị viên). Quyền kiểm ở database mỗi lệnh (PQ21, YC13-H6). Trạng thái màn theo HV1, HV2 (YC13-H1).
+// quản trị (Q3 Ngày lễ, Q4 Tòa nhà, Q2 Quản trị viên). Quyền kiểm ở database mỗi lệnh (PQ21, YC13-H6). Trạng thái màn theo HV1, HV2 (YC13-H1).
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
 import { cauBaoLoi } from '../chung/matKetNoi';
@@ -9,6 +9,7 @@ import { KhungMan, O } from './khung';
 import { NhapMa } from './NhapMa';
 import { Q2QuanTriVien } from './Q2QuanTriVien';
 import { Q3NgayLe } from './Q3NgayLe';
+import { Q4ToaNha } from './Q4ToaNha';
 import './QuanTri.css';
 
 export const DUONG_QUAN_TRI = '/quan-tri';
@@ -105,6 +106,7 @@ function TrangQuanTri(props: {
 }) {
   const muc: MucQuanTri[] = [
     { ma: 'ngay-le', ten: 'Ngày lễ', noiDung: () => <Q3NgayLe dichVu={props.dichVu} onLoi={props.onLoi} /> },
+    { ma: 'toa-nha', ten: 'Tòa nhà', noiDung: () => <Q4ToaNha dichVu={props.dichVu} onLoi={props.onLoi} /> },
     ...props.mucThem,
     { ma: 'quan-tri-vien', ten: 'Quản trị viên',
       noiDung: ({ laGoc }) => <Q2QuanTriVien dichVu={props.dichVu} laGoc={laGoc} onLoi={props.onLoi} /> },

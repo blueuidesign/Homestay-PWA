@@ -22,6 +22,9 @@ const dv = (g: Partial<DichVuQuanTri> = {}): DichVuQuanTri => ({
   ngayLe: vi.fn(async () => []),
   luuNgayLe: vi.fn(async () => undefined),
   xoaNgayLe: vi.fn(async () => undefined),
+  toa: vi.fn(async () => []),
+  luuToa: vi.fn(async () => undefined),
+  gopToa: vi.fn(async () => undefined),
   ...g,
 });
 const mo = (d: DichVuQuanTri) => render(<ToastProvider><QuanTri dichVu={d} /></ToastProvider>);

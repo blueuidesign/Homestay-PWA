@@ -29,3 +29,4 @@
 .qt-ds > li:last-child { border-bottom: 0; }
 .qt-ds > li > .qt-dong { border-bottom: 0; }
 .qt-muc__tieu-de { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }
+.qt-dong--chon { background: var(--action-soft, #ecfdf5); }
