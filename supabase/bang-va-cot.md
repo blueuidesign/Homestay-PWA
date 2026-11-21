@@ -477,7 +477,9 @@ RLS: bật
 
 Ràng buộc:
 - ngay_le_check: CHECK ((den_ngay >= tu_ngay))
+- ngay_le_khong_chong: EXCLUDE USING gist (nam WITH =, daterange(tu_ngay, den_ngay, '[]'::text) WITH &&)
 - ngay_le_pkey: PRIMARY KEY (id)
+- ngay_le_toi_da_10_ngay: CHECK (((den_ngay - tu_ngay) <= 9))
 
 Policy:
 - ngay_le_doc (SELECT, authenticated): true
@@ -752,8 +754,10 @@ Policy:
 - fn_nhac_chua_coc() → integer · security definer
 - fn_quan_tri_danh_sach() → TABLE(email text, la_goc boolean, them_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_quan_tri_go(p_email text) → void · security definer · gọi được: authenticated
+- fn_quan_tri_luu_ngay_le(p_id uuid, p_nam integer, p_ten text, p_tu_ngay date, p_den_ngay date) → uuid · security definer · gọi được: authenticated
 - fn_quan_tri_them(p_email text) → void · security definer · gọi được: authenticated
 - fn_quan_tri_vao() → jsonb · security definer · gọi được: authenticated
+- fn_quan_tri_xoa_ngay_le(p_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_dong_chu(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_nguon(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated

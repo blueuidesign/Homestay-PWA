@@ -21,3 +21,11 @@
 .qt-bao { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--danger-text, var(--ink)); }
 .qt-loi-tai { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 14px; }
 .qt-trong { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted, var(--ink)); }
+.qt-nam { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.qt-nam .hh-iconbtn { min-width: 44px; min-height: 44px; font-size: 22px; }
+.qt-nam__chu { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); min-width: 96px; text-align: center; }
+.qt-dong--nut { width: 100%; border: 0; background: none; font: inherit; text-align: left; cursor: pointer; }
+.qt-ds > li { border-bottom: 1px solid var(--border); }
+.qt-ds > li:last-child { border-bottom: 0; }
+.qt-ds > li > .qt-dong { border-bottom: 0; }
+.qt-muc__tieu-de { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--ink); }

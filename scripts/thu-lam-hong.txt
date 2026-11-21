@@ -538,3 +538,5 @@ YC1.8-NT9 | drop trigger ket_noi_sale_da_xoa on public.ket_noi
 YC13.1-NT6 chủ nhà xem danh sách | create or replace function public.fn_doi_quan_tri() returns boolean language sql stable security definer set search_path = '' as $$ select coalesce((select a.la_goc from public.admins a where lower(a.email) = public.fn_email_nguoi_goi()), false) $$;
 # US65 · đồng quản trị không thêm được người (YC13.1-NT4): bỏ kiểm la_goc trong fn_quan_tri_them.
 YC13.1-NT4 đồng quản trị thêm | create or replace function public.fn_doi_quan_tri() returns boolean language plpgsql stable security definer set search_path = '' as $$ begin if not exists (select 1 from public.admins a where lower(a.email) = public.fn_email_nguoi_goi()) then raise exception 'x' using errcode = '42501'; end if; return true; end $$;
+# US66 · dải ngày lễ (YC13.2-NT4): bỏ kiểm quyền thì chủ nhà thêm được dải chung.
+YC13.2-NT4 chủ nhà thêm dải | create or replace function public.fn_doi_quan_tri() returns boolean language sql stable security definer set search_path = '' as $$ select true $$
