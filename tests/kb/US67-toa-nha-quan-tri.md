@@ -18,7 +18,7 @@ Dùng staging. Quản trị viên đầu tiên là email Tùng ghi bằng SQL (d
 ### US67-KB2 · Người không phải quản trị `[Biên]`
 - **Mục đích:** người ngoài danh sách không làm được gì.
 - **Làm:** đăng nhập /quan-tri bằng email chủ nhà thử.
-- **Mong đợi:** không nhận mã, hoặc có phiên thì thấy "Email này không có quyền quản trị".
-- **Nguồn:** YC13.1-NT3
+- **Mong đợi:** đăng nhập xong thấy "Email này không có quyền quản trị", không sửa được gì.
+- **Nguồn:** YC13.1-NT6
 - **Kết quả:** ☐ OK ☐ NG · Ngày: · Người:
 - **Nếu NG, thấy gì:**

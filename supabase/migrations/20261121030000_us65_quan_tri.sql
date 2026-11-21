@@ -8,19 +8,13 @@ language sql stable security definer set search_path = ''
 as $$ select lower(btrim(u.email)) from auth.users u where u.id = auth.uid() $$;
 revoke execute on function public.fn_email_nguoi_goi() from public, anon, authenticated;
 
--- YC13.1 bước 6, YC13-H6: quyền quản trị kiểm ở mỗi lệnh, người vừa bị gỡ mất quyền ngay.
+-- YC13.1 bước 2 và 6, NT6, NT7, YC13-H6: quyền quản trị kiểm ở mỗi lệnh, người vừa bị gỡ mất quyền ngay.
+-- Không có hàm nào cho anon hỏi email có là quản trị viên (PQ Luật chung 4, KT-DB.3.1): mã gửi như đăng nhập app.
 create or replace function public.fn_la_quan_tri() returns boolean
 language sql stable security definer set search_path = ''
 as $$ select exists (select 1 from public.admins a where lower(a.email) = public.fn_email_nguoi_goi()) $$;
 revoke execute on function public.fn_la_quan_tri() from public, anon;
 grant execute on function public.fn_la_quan_tri() to authenticated;
-
--- YC13.1-NT3, NT5: app chỉ gửi mã khi email trong danh sách. Màn luôn hiện cùng một câu (YC13.1 ghi chú).
-create or replace function public.fn_quan_tri_co_the_gui_ma(p_email text) returns boolean
-language sql stable security definer set search_path = ''
-as $$ select exists (select 1 from public.admins a where lower(a.email) = lower(btrim(coalesce(p_email, '')))) $$;
-revoke execute on function public.fn_quan_tri_co_the_gui_ma(text) from public;
-grant execute on function public.fn_quan_tri_co_the_gui_ma(text) to anon, authenticated;
 
 -- Dùng trong các hàm quản trị: không có quyền thì từ chối 42501.
 create or replace function public.fn_doi_quan_tri() returns boolean

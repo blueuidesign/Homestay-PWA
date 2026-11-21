@@ -3,7 +3,7 @@ id: US65
 tieu_de: "Đăng nhập trang quản trị và quản trị viên"
 loai: US
 trang_thai: dang-lam
-thuc_hien: [YC13.1@1]
+thuc_hien: [YC13.1@2]
 truoc: [EN2, US2]
 lien_quan: []
 thay_cho: []
@@ -48,7 +48,7 @@ supabase/migrations/20261121030000_us65_quan_tri.sql, tests/db/94_us65_quan_tri.
 - Thiết kế trên artifact canvas: chưa vẽ, chỉ có ảnh chụp màn đã code (ghi ở work/cho-tung.md).
 
 ## Đọc
-YC13.1 HV1, HV2, HV4 PQ21 và quyền vai ADMIN (KT-DB.3.12)
+YC13.1 HV1 HV2 HV4 PQ21
 YC13-quan-tri.md#Quy tắc của nhóm
 YC13-quan-tri.md#Ai được làm gì
 YC13-quan-tri.md#Dữ liệu
@@ -65,11 +65,11 @@ Kịch bản test tay: tests/kb/US65-dang-nhap-quan-tri.md.
 - [ ] US65-TA4 Test tay · Đức: chạy tests/kb/US65-dang-nhap-quan-tri.md
 
 ## Kế hoạch
-Bảng admins có từ EN2. Hàm fn_la_quan_tri() so email trong auth.users của người gọi với danh sách. fn_quan_tri_co_the_gui_ma(email) cho app biết có gửi mã không, màn luôn hiện cùng một câu. fn_quan_tri_vao ghi nguoi_id, fn_quan_tri_them, fn_quan_tri_go chỉ la_goc gọi được; không gỡ chính mình.
+Bảng admins có từ EN2. Hàm fn_la_quan_tri() so email trong auth.users của người gọi với danh sách. Mã gửi như đăng nhập app; người ngoài danh sách vào Q1-02 (YC13.1 bản 2, theo PQ Luật chung 4). fn_quan_tri_vao ghi nguoi_id, fn_quan_tri_them, fn_quan_tri_go chỉ la_goc gọi được; không gỡ chính mình.
 
 ## Nhật ký
 - 2026-11-21 · Claude (tự chạy, QD25) · test database trước (đỏ vì chưa có hàm), migration fn_quan_tri_*, trang /quan-tri Q1, Q1-01, Q1-02, Q2 · khoảng 40 phút
-- 2026-11-21 · Claude (tự chạy, QD25) · tạo item từ YC13.1@1
+- 2026-11-21 · Claude (tự chạy, QD25) · tạo item từ YC13.1@2
 
 ## Bằng chứng
 - `CHI_FILE_CO_MA=1 scripts/test-db.sh YC13.1`: lần đầu file lỗi (chưa có hàm), sau migration 26 qua, 0 hỏng. `KT-DB.3.12`: 11 qua. `scripts/thu-lam-hong.sh YC13.1`: 2 đạt. vitest QuanTri.test.tsx: 5 qua. typecheck qua. e2e quan-tri.spec.ts để CI chạy.
