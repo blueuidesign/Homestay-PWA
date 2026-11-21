@@ -18,8 +18,11 @@ end $$;
 SQL
 
 # 2. Chỉ nạp dữ liệu (bảng, hàm, policy đã có từ migration). Tắt trigger trong lúc nạp để thứ tự bảng không làm vỡ ràng buộc.
-PGOPTIONS='-c session_replication_role=replica' \
-  pg_restore --data-only --no-owner --no-privileges --exit-on-error --dbname="$DICH" "$FILE"
+#    pg_restore ra SQL rồi psql nạp trong một giao dịch: bỏ dòng SET tham số mà server đích cũ hơn không biết
+#    (pg_dump 17 ghi transaction_timeout, Postgres 16 báo lỗi).
+pg_restore --data-only --no-owner --no-privileges -f - "$FILE" \
+  | sed -E '/^SET (transaction_timeout|idle_in_transaction_session_timeout) /d' \
+  | PGOPTIONS='-c session_replication_role=replica -c client_min_messages=warning' psql -X -q -1 -v ON_ERROR_STOP=1 "$DICH" >/dev/null
 
 # 3. So số dòng từng bảng với gốc (nếu có).
 dem() {
