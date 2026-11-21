@@ -24,7 +24,7 @@ Ngày 21/11/2026. Người chạy: Claude (chế độ tự chạy QD25), thay m
 | 8 | Sale đang chờ yêu cầu → chủ tự ghi khách lẻ chồng đêm trên CN4 → khối yêu cầu biến mất, sale quay lại thấy S3-05 | Đạt |
 | 9 | Sale có yêu cầu chờ → chủ "Ngừng cho xem lịch" → chủ bấm chấp nhận yêu cầu cũ: bị chặn, báo "Sale này không còn kết nối với bạn, không nhận được đặt phòng.", không có đặt phòng → chủ từ chối được → sale không còn thấy 1509 | Đạt |
 | 10 | Chủ tắt "Tình trạng cọc" của sale → sale mở đặt phòng của mình không thấy chữ cọc nào → chủ bật lại → sale thấy "chưa cọc" | Đạt |
-| 11 | Đặt phòng từ yêu cầu (giá bán 3.000.000đ) → chủ mở thẳng địa chỉ đặt phòng, Sửa, đổi tiền phòng 2.200.000đ → 2.400.000đ → sale thấy popup "Chị Hoa đã sửa đặt phòng của bạn", giá chủ 2.400.000đ, giá bán giữ 3.000.000đ, chênh 600.000đ | Lỗi BG2, đã sửa |
+| 11 | Đặt phòng từ yêu cầu (giá bán 3.000.000đ) → chủ mở thẳng địa chỉ đặt phòng, Sửa, đổi tiền phòng 2.200.000đ → 2.400.000đ → sale thấy popup "Chị Hoa đã sửa đặt phòng của bạn", giá chủ 2.400.000đ, giá bán giữ 3.000.000đ, chênh 600.000đ | Lỗi BG2; sau PR #94 đạt |
 
 ## Lỗi tìm được
 - **BG2** (`work/backlog/BG2-mo-thang-dia-chi-ket-tai.md`, PR #94). Mở thẳng địa chỉ `/dat-phong/<id>/sua` (mở lại app ở màn đó, tải lại trang) thì form Sửa đặt phòng kẹt "Đang tải", không lưu được. Cùng gốc: `/can/gia-nhieu` kẹt khung xám, `/can/<id>/gia` thiếu mã căn, `/dat-phong/<id>` thiếu màu căn. Đã soát 18 địa chỉ của chủ nhà bằng cách mở thẳng từng địa chỉ: chỉ các màn trên bị. Mức độ trung bình, không lộ dữ liệu, không sai tiền.

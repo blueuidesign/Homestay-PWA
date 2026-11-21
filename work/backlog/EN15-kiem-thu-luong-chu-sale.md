@@ -43,4 +43,4 @@ Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền tr
 
 ## Bằng chứng
 - Báo cáo: work/bao-cao/EN15-kiem-thu-luong-chu-sale.md.
-- `E2E_SUPABASE=1 npx playwright test tests/e2e/supabase/luong-chu-sale.spec.ts --repeat-each=2`: Luồng 1 đến 10 đạt cả hai lượt (16 qua); Luồng 11 đỏ trước BG2, qua sau BG2.
+- `E2E_SUPABASE=1 npx playwright test tests/e2e/supabase/luong-chu-sale.spec.ts --repeat-each=2`: Luồng 1 đến 10 đạt cả hai lượt (16 qua); Luồng 11 đỏ trước BG2. Sau khi gộp #94 (main db27272): cả 11 luồng và sua-dat-phong.spec.ts 14 qua.
