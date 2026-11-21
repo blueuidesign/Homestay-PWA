@@ -2,7 +2,7 @@
 id: US8
 tieu_de: "Xóa tài khoản"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.8@3]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 87
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -70,6 +70,7 @@ Kịch bản test tay: tests/kb/US8-xoa-tai-khoan.md (KB1 đến KB4).
 fn_xoa_tai_khoan một giao dịch: bỏ số, ghi lúc xóa, báo sale đang kết nối ở phía chủ nhà. Trigger chặn đổi kết nối với sale đã xóa (NT9). P14 trong P2, bấm hai lần; xóa xong dùng luồng đăng xuất về A1.
 
 ## Nhật ký
+- 2026-11-21 · Claude (tự chạy, QD25) · gộp PR #87 khi CI xanh, chuyển chờ test
 - 2026-11-21 · Claude (tự chạy, QD25) · tự chốt YC1-H8; test database trước, fn_xoa_tai_khoan, trigger chặn đổi kết nối với sale đã xóa, màn P14, P14-01 · khoảng 35 phút
 - 2026-11-18 · Claude · tạo item từ YC1.8@1 (QD21)
 - 2026-11-19 · Claude · thuc_hien lên bản mới theo QD22

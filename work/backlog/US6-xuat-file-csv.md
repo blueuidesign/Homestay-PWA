@@ -2,7 +2,7 @@
 id: US6
 tieu_de: "Xuất file CSV"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC1.6@1]
 truoc: [EN1, EN2, EN4, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 86
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -61,6 +61,7 @@ Kịch bản test tay: tests/kb/US6-xuat-file-csv.md (KB1 đến KB5).
 Tự chốt 5 câu mở (GD35). Database: fn_xuat_csv lọc theo ngày nhận, bỏ đã hủy, chỉ căn có lịch của chủ nhà đang gọi; fn_dem_xuat_csv đếm trên chính fn_xuat_csv. App dựng file (BOM, CRLF), chia sẻ file hay tải về.
 
 ## Nhật ký
+- 2026-11-21 · Claude (tự chạy, QD25) · gộp PR #86 khi CI xanh, chuyển chờ test
 - 2026-11-21 · Claude (tự chạy, QD25) · tự chốt YC1-H2, H3, H4, H5, H9 (GD35); test database trước, fn_xuat_csv và fn_dem_xuat_csv, màn P8, P8-00 · khoảng 40 phút
 - 2026-11-18 · Claude · tạo item từ YC1.6@1 (QD21)
 
