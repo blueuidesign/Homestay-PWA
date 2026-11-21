@@ -49,7 +49,7 @@ export function QuanTri(props: { dichVu: DichVuQuanTri; mucThem?: MucQuanTri[] }
     const guiMa = async () => {
       datLoi(undefined);
       try {
-        if (!(await dv.guiMa(email))) { datLoi(CAU_KHONG_QUYEN); return; }
+        await dv.guiMa(email);
         datGuiLuc(Date.now());
         datBuoc('ma');
       } catch (e) { datLoi(cauBaoLoi(e)); }
@@ -57,7 +57,7 @@ export function QuanTri(props: { dichVu: DichVuQuanTri; mucThem?: MucQuanTri[] }
     return (
       <div data-man="Q1" className="qt-man">
         <KhungMan tieuDe="Quản trị Home247">
-          <p className="dong-phu">Chỉ email trong danh sách quản trị viên nhận được mã.</p>
+          <p className="dong-phu">Đăng nhập bằng mã gửi về email. Chỉ email trong danh sách quản trị viên vào được trang.</p>
           <O nhan="Email" kieu="email" tuDien="email" giaTri={email} onDoi={datEmail} loi={loi} viDu="ten@vidu.vn" />
           <div className="man-chan">
             <NutGhi chu="Gửi mã" chuDangGhi="Đang gửi…" disabled={!email.trim()} onGhi={guiMa} />

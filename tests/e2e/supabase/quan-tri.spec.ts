@@ -27,12 +27,11 @@ test('YC13.1-NT1 YC13.1-NT2 quản trị viên đầu tiên đăng nhập bằng
   await ctx.close();
 });
 
-test('YC13.1-NT3 email chưa được thêm thì không nhận mã', async ({ page }) => {
+test('YC13.1-NT6 email chưa được thêm đăng nhập được nhưng chỉ thấy Q1-02', async ({ page }) => {
   datQuanTriGoc();
   const ngoai = emailMoi('ngoai');
-  await page.goto('/quan-tri');
-  await page.getByLabel('Email').fill(ngoai);
-  await page.getByRole('button', { name: 'Gửi mã' }).click();
-  await expect(page.getByText('Email này không có quyền quản trị')).toBeVisible();
-  await expect(page.locator('[data-man="Q1-01"]')).toHaveCount(0);
+  await vaoQuanTri(page, ngoai);
+  await expect(page.locator('[data-man="Q1-02"]').getByText('Email này không có quyền quản trị')).toBeVisible();
+  await page.getByRole('button', { name: 'Đăng xuất' }).click();
+  await expect(page.locator('[data-man="Q1"]')).toBeVisible();
 });

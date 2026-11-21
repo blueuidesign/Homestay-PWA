@@ -40,7 +40,7 @@ Quy tắc dùng chung: QT6.3 Tòa nhà dùng chung; pwa.md P11.
 ## Ai được làm gì
 
 Theo `docs/security/PQ-ma-tran-quyen.md`: PQ21. Test vi phạm phải có, ở lớp database:
-- Người không trong danh sách quản trị viên đọc, thêm, sửa, xóa dải ngày lễ, tòa nhà, quản trị viên: bị từ chối, dữ liệu không đổi (YC13.1-NT3, YC13.2-NT4, YC13.3-NT4).
+- Người không trong danh sách quản trị viên đọc, thêm, sửa, xóa dải ngày lễ, tòa nhà, quản trị viên: bị từ chối, dữ liệu không đổi (YC13.1-NT6, YC13.2-NT4, YC13.3-NT4).
 - Người đồng quản trị thêm hay gỡ quản trị viên: bị từ chối (YC13.1-NT4).
 
 ## Dữ liệu
@@ -53,25 +53,25 @@ Mô hình chung: `docs/architecture/thiet-ke-db.md`. YC này cần database bả
 
 ## YC13.1 · Đăng nhập và quản trị viên
 
-Bản 1 · rủi ro: cao · Màn: Q1, Q1-01, Q1-02, Q2 `[r2 · sửa]`
+Bản 2 · rủi ro: cao · Màn: Q1, Q1-01, Q1-02, Q2 `[r2 · sửa]`
 
 | Bước | Người dùng | App | Database |
 |---|---|---|---|
-| 1 | Mở `/quan-tri`, nhập email | Ô nhập mã | Email trong danh sách thì gửi mã |
-| 2 | Nhập đúng mã còn hạn | Vào trang quản trị | Mở phiên quản trị |
+| 1 | Mở `/quan-tri`, nhập email | Ô nhập mã | Gửi mã như đăng nhập app (YC1.2) `[r2 · sửa]` |
+| 2 | Nhập đúng mã còn hạn | Email trong danh sách: vào trang quản trị. Không trong danh sách: Q1-02 `[r2 · sửa]` | Kiểm email của phiên với danh sách |
 | 3 | Mở mục quản trị viên | Danh sách email, lúc thêm. Nút thêm, gỡ chỉ có với quản trị viên đầu tiên | Danh sách |
 | 4 | Quản trị viên đầu tiên nhập email, bấm "Thêm" | Email vào danh sách | Kiểm người gọi, email đúng dạng, chưa có; ghi |
 | 5 | Quản trị viên đầu tiên gỡ một người | Người đó rời danh sách | Xóa khỏi danh sách |
 | 6 | Người không trong danh sách vẫn có phiên (ví dụ vừa bị gỡ) | Q1-02 "Email này không có quyền quản trị", nút "Đăng xuất" | Mọi lệnh quản trị từ chối `[r2 · thêm]` |
 
-`[r2 · sửa]` Phiên đang mở của người vừa bị gỡ không dùng được nữa: quyền kiểm ở mỗi lệnh, lệnh kế tiếp bị từ chối và trang chuyển sang Q1-02 (YC13-H6) (Claude tự chốt, chờ Tùng duyệt lại). Quản trị viên đầu tiên là dòng `la_goc` trong danh sách, Tùng ghi bằng SQL ở mỗi môi trường (docs/ha-tang/Phat_hanh.md mục 5), email không có trong repo. Email ngoài danh sách nhập ở `/quan-tri` thì app không gửi mã và báo dưới ô "Email này không có quyền quản trị" (Q1). Việc này cho người ngoài biết một email có là quản trị viên hay không; chấp nhận vì vẫn phải có mã gửi về đúng hộp thư mới vào được, và trang quản trị không có dữ liệu người dùng.
+`[r2 · sửa]` Phiên đang mở của người vừa bị gỡ không dùng được nữa: quyền kiểm ở mỗi lệnh, lệnh kế tiếp bị từ chối và trang chuyển sang Q1-02 (YC13-H6) (Claude tự chốt, chờ Tùng duyệt lại). Quản trị viên đầu tiên là dòng `la_goc` trong danh sách, Tùng ghi bằng SQL ở mỗi môi trường (docs/ha-tang/Phat_hanh.md mục 5), email không có trong repo. Mã gửi cho mọi email nhập ở `/quan-tri`, kể cả email ngoài danh sách: người đó đăng nhập được nhưng chỉ thấy Q1-02, mọi lệnh quản trị bị từ chối. Lý do: muốn "email ngoài danh sách không nhận mã" thì phải cho người chưa đăng nhập hỏi database email nào là quản trị viên, trái PQ Luật chung 4 (người chưa đăng nhập chỉ gọi được hàm xem link mời) và bất biến KT-DB.3.1, KT-DB.3.3. PQ đứng trên YC nên YC13.1 đổi theo, lên bản 2 (Claude tự chốt, chờ Tùng duyệt lại). `[r2 · sửa]`
 
 Tiêu chí:
 - **YC13.1-NT1** Khi quản trị viên đầu tiên nhập email của mình và đúng mã, thì vào được trang quản trị. · e2e
 - **YC13.1-NT2** Khi quản trị viên đầu tiên thêm một email, thì người đó đăng nhập bằng mã gửi tới email ấy và sửa được dải ngày lễ. · database, e2e
-- **YC13.1-NT3** Khi một email chưa được thêm, thì không nhận mã và mọi lệnh quản trị bị từ chối. · database
+- **YC13.1-NT6** Khi một email chưa được thêm đăng nhập ở `/quan-tri`, thì thấy Q1-02 "Email này không có quyền quản trị" và mọi lệnh quản trị bị từ chối. · database, e2e `[r2 · thêm, thay NT3]`
 - **YC13.1-NT4** Khi người đồng quản trị thêm hay gỡ quản trị viên, thì bị từ chối và danh sách không đổi. · database
-- **YC13.1-NT5** Khi quản trị viên đầu tiên gỡ một người, thì lần đăng nhập sau người đó không nhận được mã; quản trị viên đầu tiên không gỡ được chính mình. · database
+- **YC13.1-NT7** Khi quản trị viên đầu tiên gỡ một người, thì người đó mất quyền quản trị ngay ở lệnh kế tiếp và các lần đăng nhập sau; quản trị viên đầu tiên không gỡ được chính mình. · database `[r2 · thêm, thay NT5]`
 
 ## YC13.2 · Dải ngày lễ
 
@@ -134,4 +134,4 @@ Tiêu chí:
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r1 | 2026-11-18 | Claude | QD21-lam-lai-tai-lieu | Tạo từ story US23, US29, US34 (QD21) | Cả file |
-| r2 | 2026-11-21 | Claude (QD25) | US65-dang-nhap-quan-tri | Làm ở bản 1; tự chốt YC13-H1 đến H7; thêm bước 6 YC13.1, luật số ngày và chồng ngày YC13.2, gộp tòa YC13.3-NT5; mã màn Q1 đến Q4-02. Không đổi nghĩa tiêu chí cũ | YC13.1, YC13.2, YC13.3 (vẫn bản 1) |
+| r2 | 2026-11-21 | Claude (QD25) | US65-dang-nhap-quan-tri | Làm ở bản 1; tự chốt YC13-H1 đến H7; thêm bước 6 YC13.1, luật số ngày và chồng ngày YC13.2, gộp tòa YC13.3-NT5; mã màn Q1 đến Q4-02. YC13.1 lên bản 2: mã gửi cho mọi email, người ngoài danh sách thấy Q1-02 (theo PQ Luật chung 4); bỏ NT3, NT5, thay bằng NT6, NT7 | YC13.1 (bản 2), YC13.2, YC13.3 (vẫn bản 1) |

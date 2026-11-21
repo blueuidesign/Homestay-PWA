@@ -48,7 +48,7 @@ supabase/migrations/20261121040000_us66_dai_ngay_le.sql, tests/db/95_us66_dai_ng
 - Thiết kế trên artifact canvas: chưa vẽ, chỉ có ảnh chụp màn đã code (ghi ở work/cho-tung.md).
 
 ## Đọc
-YC13.2 HV1, HV2, HV4 PQ21
+YC13.2 HV1 HV2 HV4 PQ21
 YC13-quan-tri.md#Quy tắc của nhóm
 YC13-quan-tri.md#Ai được làm gì
 YC13-quan-tri.md#Dữ liệu

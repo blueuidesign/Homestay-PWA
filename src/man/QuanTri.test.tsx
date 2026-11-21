@@ -9,7 +9,7 @@ afterEach(cleanup);
 
 const dv = (g: Partial<DichVuQuanTri> = {}): DichVuQuanTri => ({
   layPhien: vi.fn(async () => ({ email: 'qt@vidu.test' })),
-  guiMa: vi.fn(async () => true),
+  guiMa: vi.fn(async () => undefined),
   xacNhanMa: vi.fn(async () => 'dung' as const),
   dangXuat: vi.fn(async () => undefined),
   vao: vi.fn(async () => ({ email: 'qt@vidu.test', laGoc: true })),
@@ -24,16 +24,7 @@ const dv = (g: Partial<DichVuQuanTri> = {}): DichVuQuanTri => ({
 const mo = (d: DichVuQuanTri) => render(<ToastProvider><QuanTri dichVu={d} /></ToastProvider>);
 
 describe('YC13.1 · Trang quản trị', () => {
-  it('YC13.1-NT3 email không trong danh sách: không sang màn nhập mã, báo dưới ô', async () => {
-    const d = dv({ layPhien: vi.fn(async () => null), guiMa: vi.fn(async () => false) });
-    mo(d);
-    fireEvent.change(await screen.findByLabelText('Email'), { target: { value: 'hoa@vidu.test' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Gửi mã' }));
-    expect(await screen.findByText(CAU_KHONG_QUYEN)).toBeTruthy();
-    expect(document.querySelector('[data-man="Q1-01"]')).toBeNull();
-  });
-
-  it('YC13.1 bước 6 có phiên mà không có quyền thì thấy Q1-02 và nút Đăng xuất', async () => {
+  it('YC13.1-NT6 có phiên mà không có quyền thì thấy Q1-02 và nút Đăng xuất', async () => {
     const d = dv({ vao: vi.fn(async () => { throw new LoiKhongQuyenQuanTri(); }) });
     mo(d);
     await screen.findByText(CAU_KHONG_QUYEN);

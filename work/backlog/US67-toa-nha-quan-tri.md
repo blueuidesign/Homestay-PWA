@@ -48,7 +48,7 @@ supabase/migrations/20261121050000_us67_toa_nha_quan_tri.sql, tests/db/96_us67_t
 - Thiết kế trên artifact canvas: chưa vẽ, chỉ có ảnh chụp màn đã code (ghi ở work/cho-tung.md).
 
 ## Đọc
-YC13.3 HV1, HV2, HV4 PQ21, QT6.3
+YC13.3 HV1 HV2 HV4 PQ21 QT6.3
 YC13-quan-tri.md#Quy tắc của nhóm
 YC13-quan-tri.md#Ai được làm gì
 YC13-quan-tri.md#Dữ liệu

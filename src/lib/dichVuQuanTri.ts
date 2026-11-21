@@ -12,8 +12,8 @@ export type QuanTriVien = { email: string; laGoc: boolean; themLuc: string };
 
 export interface DichVuQuanTri {
   layPhien(): Promise<{ email: string } | null>;
-  /** YC13.1-NT3: chỉ gửi mã khi email trong danh sách; trả false thì không gửi. */
-  guiMa(email: string): Promise<boolean>;
+  /** YC13.1 bước 1 (bản 2): gửi mã như đăng nhập app; quyền kiểm sau khi vào (vao). */
+  guiMa(email: string): Promise<void>;
   xacNhanMa(email: string, ma: string): Promise<'dung' | 'sai'>;
   dangXuat(): Promise<void>;
   /** YC13.1 bước 2: vào trang; không có quyền thì ném LoiKhongQuyenQuanTri. */
@@ -45,12 +45,9 @@ export function taoDichVuQuanTriSupabase(sb: SupabaseClient): DichVuQuanTri {
       return u ? { email: u.email ?? '' } : null;
     },
     async guiMa(email) {
-      const co = await goi<boolean>('fn_quan_tri_co_the_gui_ma', { p_email: email.trim() });
-      if (!co) return false;
       // Quản trị viên có thể chưa từng dùng app: cho Supabase Auth tạo tài khoản đăng nhập (không tạo hồ sơ app).
       const { error } = await sb.auth.signInWithOtp({ email: email.trim(), options: { shouldCreateUser: true } });
       if (error) throw error.status === 429 ? new LoiNguoiDung('Vừa gửi mã xong. Chờ một phút rồi bấm lại.') : error;
-      return true;
     },
     async xacNhanMa(email, ma) {
       const { error } = await sb.auth.verifyOtp({ email: email.trim(), token: ma, type: 'email' });
