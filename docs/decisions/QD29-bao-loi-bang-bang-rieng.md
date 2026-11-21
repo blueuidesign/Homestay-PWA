@@ -7,7 +7,7 @@ nguoi_chot: claude
 ngay_chot: 2026-11-21
 han_chot:
 thay_cho: []
-nguon: QD25 (Claude tự quyết), YC15.3 "Cách báo lỗi (công cụ nào): chọn khi làm, ghi vào docs/decisions/", 21/11/2026
+nguon: "QD25 (Claude tự quyết), YC15.3 dòng Cách báo lỗi: chọn khi làm, ghi vào docs/decisions, 21/11/2026"
 anh_huong: [YC15.3, EN7, supabase/migrations/20261121020000_en7_loi_app.sql, src/chung/baoLoi.ts]
 rev: 1
 ---
