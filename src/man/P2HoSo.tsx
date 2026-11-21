@@ -1,5 +1,5 @@
 // P2 · Thông tin cá nhân (YC1.4, US4): ảnh đại diện, họ và tên, tên hiển thị, số điện thoại, email đăng nhập (chỉ xem),
-// "Xóa tài khoản" (YC1.8, US8 làm sau), "Lưu thay đổi". Sai luật kiểm thì báo dưới ô (YC1.2 Luật kiểm), lưu xong ở lại màn (YC1.4 bước 3).
+// "Xóa tài khoản" mở P14 (YC1.8), "Lưu thay đổi". Sai luật kiểm thì báo dưới ô (YC1.2 Luật kiểm), lưu xong ở lại màn (YC1.4 bước 3).
 // HV1 khung xám, HV2 Thử lại và giữ chữ đang gõ khi lưu lỗi, HV3 nháp, HV8 toast, QT5.5 câu của database.
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
 import { KhungXam, NutGhi } from '../chung/dangTai';
@@ -7,9 +7,10 @@ import { cauBaoLoi, DaiMatKetNoi, LoiNguoiDung, ManChuaTai } from '../chung/matK
 import { luuNhap, docNhap, xoaNhap } from '../chung/nhap';
 import { useToast } from '../chung/Toast';
 import { ACCEPT_ANH, kiemFileAnh } from '../lib/anh';
-import { CAU_SE_CO, chuCaiDau } from '../lib/caNhan';
+import { chuCaiDau } from '../lib/caNhan';
 import { CAU_LOI_TEN_HIEN_THI, type DichVuHoSo, type HoSoForm } from '../lib/dichVuHoSo';
 import { CAU_LOI_SO, CAU_LOI_TEN, TEN_TOI_DA, chuanHoaSo } from '../lib/kiemDangKy';
+import { P14XoaTaiKhoan } from './P14XoaTaiKhoan';
 import { Icon } from './TabChu';
 import './P2HoSo.css';
 
@@ -40,7 +41,8 @@ function oCuaCau(cau: string): keyof Gia | null {
   return null;
 }
 
-export function P2HoSo(props: { dv?: DichVuHoSo; onQuayLai: () => void }) {
+export function P2HoSo(props: { dv?: DichVuHoSo; onQuayLai: () => void; onDaXoa?: () => void }) {
+  const [moXoa, datMoXoa] = useState(false);
   const hienToast = useToast();
   const [goc, datGoc] = useState<HoSoForm | undefined>(undefined);
   const [g, datG] = useState<Gia | undefined>(undefined);
@@ -86,6 +88,12 @@ export function P2HoSo(props: { dv?: DichVuHoSo; onQuayLai: () => void }) {
   );
 
   if (!goc || !g) return khung(hong ? <ManChuaTai onThuLai={() => void tai()} /> : <KhungXam soDong={4} />);
+
+  // YC1.8 bước 1 đến 4: P14, P14-01. "Giữ tài khoản" về P2 với chữ đang gõ còn nguyên.
+  if (moXoa) {
+    return <P14XoaTaiKhoan email={goc.email} xoa={dv?.xoaTaiKhoan ? () => dv.xoaTaiKhoan!() : undefined}
+                           onGiu={() => datMoXoa(false)} onDaXoa={() => props.onDaXoa?.()} />;
+  }
 
   const chonAnh = async (f: File | undefined) => {
     if (!f || !dv) return;
@@ -150,7 +158,7 @@ export function P2HoSo(props: { dv?: DichVuHoSo; onQuayLai: () => void }) {
         <p className="p2-email">{goc.email}</p>
         <p className="hh-field__hint">Mã đăng nhập gửi về email này. Không đổi email ở đây được.</p>
       </section>
-      <button type="button" className="hh-btn hh-btn--text p2-xoa" onClick={() => hienToast(CAU_SE_CO)}>Xóa tài khoản</button>
+      <button type="button" className="hh-btn hh-btn--text p2-xoa" onClick={() => datMoXoa(true)}>Xóa tài khoản</button>
     </>,
     <div className="p2-chan"><NutGhi chu="Lưu thay đổi" onGhi={luu} /></div>,
   );

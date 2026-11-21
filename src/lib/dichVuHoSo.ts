@@ -24,6 +24,8 @@ export interface DichVuHoSo {
   luu(s: SuaHoSo): Promise<void>;
   /** YC1.4 bước 2: tải ảnh lên kho, trả đường dẫn để gửi kèm lúc lưu. */
   taiAnh(f: File): Promise<string>;
+  /** YC1.8 bước 3: lệnh xóa tài khoản của chính người gọi (fn_xoa_tai_khoan). Thiếu thì P14 báo lỗi khi bấm lần hai. */
+  xoaTaiKhoan?(): Promise<void>;
 }
 
 export function taoDichVuHoSoSupabase(sb: SupabaseClient): DichVuHoSo {
@@ -62,6 +64,12 @@ export function taoDichVuHoSoSupabase(sb: SupabaseClient): DichVuHoSo {
       const { error } = await sb.storage.from('anh-dai-dien').upload(duongDan, d.blob, { contentType: d.loai });
       if (error) throw error;
       return duongDan;
+    },
+    async xoaTaiKhoan() {
+      const { error } = await sb.rpc('fn_xoa_tai_khoan');
+      if (!error) return;
+      if (error.code === '42501') throw new LoiNguoiDung(error.message);
+      throw error;
     },
   };
 }

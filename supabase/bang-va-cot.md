@@ -759,6 +759,7 @@ Policy:
 - fn_xoa_can_tu_nhap(p_can_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_dat_phong_tu_ghi(p_booking_id uuid) → void · security definer · gọi được: authenticated
 - fn_xoa_sale_tay(p_id uuid) → void · security definer · gọi được: authenticated
+- fn_xoa_tai_khoan() → void · security definer · gọi được: authenticated
 - fn_xuat_csv(p_tu date, p_den date, p_can_ids uuid[]) → TABLE(ma_can text, ngay_nhan date, ngay_tra date, so_dem integer, ten_khach text, sdt_khach text, ten_sale text, sale_da_xoa boolean, tong_tien bigint, da_coc bigint, con_lai bigint, ghi_chu text) · security definer · gọi được: authenticated
 - fn_yeu_cau_cua_toi(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_yeu_cau_dang_cho() → jsonb · security definer · gọi được: authenticated
@@ -801,6 +802,8 @@ Policy:
 - tg_booking_sau_khi_sua() → trigger · security definer
 - tg_booking_sau_khi_xoa() → trigger · security definer
 - tg_booking_tu_choi_yeu_cau_trung() → trigger · security definer
+- tg_ket_noi_can_sale_da_xoa() → trigger · security definer
+- tg_ket_noi_sale_da_xoa() → trigger · security definer
 - tg_kiem_tien_dem() → trigger · security definer
 - tg_tao_ho_so() → trigger · security definer
 - tg_thong_bao_cong_tac() → trigger · security definer
