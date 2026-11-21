@@ -2,7 +2,7 @@
 id: EN7
 tieu_de: "Theo dõi lỗi và pháp lý"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC15.3@1]
 truoc: [EN1, EN2]
 lien_quan: []
@@ -13,7 +13,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 89
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -55,6 +55,7 @@ Công cụ báo lỗi theo QD29 (Claude tự quyết): bảng loi_app, fn_ghi_lo
 
 ## Nhật ký
 - 2026-11-18 · Claude · tạo item từ YC15.3@1 (QD21)
+- 2026-11-21 · Claude (tự chạy, QD25) · gộp PR #89 khi CI xanh, chờ Đức kiểm NT1 trên staging
 - 2026-11-21 · Claude (thread tự chạy, QD25) · code báo lỗi và hai trang pháp lý, test db 14 đạt, unit 8 đạt, thử làm hỏng 2 đạt
 
 ## Bằng chứng
