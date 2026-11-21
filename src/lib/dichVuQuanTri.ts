@@ -9,6 +9,8 @@ export class LoiKhongQuyenQuanTri extends LoiNguoiDung {
 }
 
 export type QuanTriVien = { email: string; laGoc: boolean; themLuc: string };
+/** YC13.2: một dải ngày lễ chung. Ngày dạng YYYY-MM-DD (giờ Việt Nam). */
+export type DaiNgayLe = { id: string; nam: number; ten: string; tuNgay: string; denNgay: string };
 
 export interface DichVuQuanTri {
   layPhien(): Promise<{ email: string } | null>;
@@ -21,6 +23,11 @@ export interface DichVuQuanTri {
   danhSach(): Promise<QuanTriVien[]>;
   them(email: string): Promise<void>;
   go(email: string): Promise<void>;
+  /** YC13.2 bước 1: dải của năm, xếp theo ngày đầu (đọc qua ngay_le_doc, PQ21). */
+  ngayLe(nam: number): Promise<DaiNgayLe[]>;
+  /** YC13.2 bước 2: id null là thêm. Sai luật kiểm thì ném LoiNguoiDung với câu của database. */
+  luuNgayLe(d: { id: string | null; nam: number; ten: string; tuNgay: string; denNgay: string }): Promise<void>;
+  xoaNgayLe(id: string): Promise<void>;
 }
 
 type LoiPg = { code?: string; message?: string } | null;
@@ -69,5 +76,15 @@ export function taoDichVuQuanTriSupabase(sb: SupabaseClient): DichVuQuanTri {
     },
     async them(email) { await goi('fn_quan_tri_them', { p_email: email }); },
     async go(email) { await goi('fn_quan_tri_go', { p_email: email }); },
+    async ngayLe(nam) {
+      const { data, error } = await sb.from('ngay_le').select('id, nam, ten, tu_ngay, den_ngay').eq('nam', nam).order('tu_ngay');
+      if (error) throw doiLoi(error);
+      return ((data ?? []) as { id: string; nam: number; ten: string; tu_ngay: string; den_ngay: string }[])
+        .map((r) => ({ id: r.id, nam: r.nam, ten: r.ten, tuNgay: r.tu_ngay, denNgay: r.den_ngay }));
+    },
+    async luuNgayLe(d) {
+      await goi('fn_quan_tri_luu_ngay_le', { p_id: d.id, p_nam: d.nam, p_ten: d.ten, p_tu_ngay: d.tuNgay, p_den_ngay: d.denNgay });
+    },
+    async xoaNgayLe(id) { await goi('fn_quan_tri_xoa_ngay_le', { p_id: id }); },
   };
 }

@@ -19,9 +19,14 @@ const dv = (g: Partial<DichVuQuanTri> = {}): DichVuQuanTri => ({
   ]),
   them: vi.fn(async () => undefined),
   go: vi.fn(async () => undefined),
+  ngayLe: vi.fn(async () => []),
+  luuNgayLe: vi.fn(async () => undefined),
+  xoaNgayLe: vi.fn(async () => undefined),
   ...g,
 });
 const mo = (d: DichVuQuanTri) => render(<ToastProvider><QuanTri dichVu={d} /></ToastProvider>);
+// US66 thêm mục Ngày lễ đứng trước: mở mục Quản trị viên.
+const moQtv = async () => fireEvent.click(await screen.findByRole('tab', { name: 'Quản trị viên' }));
 
 describe('YC13.1 · Trang quản trị', () => {
   it('YC13.1-NT3 email không trong danh sách: không sang màn nhập mã, báo dưới ô', async () => {
@@ -45,6 +50,7 @@ describe('YC13.1 · Trang quản trị', () => {
   it('YC13.1 bước 3 đến 5 quản trị viên đầu tiên thấy ô thêm và nút gỡ bấm hai lần', async () => {
     const d = dv();
     mo(d);
+    await moQtv();
     await screen.findByText('dong@vidu.test');
     fireEvent.click(screen.getByRole('button', { name: 'Gỡ' }));
     expect(d.go).not.toHaveBeenCalled();
@@ -57,13 +63,15 @@ describe('YC13.1 · Trang quản trị', () => {
 
   it('YC13.1-NT4 đồng quản trị không thấy ô thêm, nút gỡ', async () => {
     mo(dv({ vao: vi.fn(async () => ({ email: 'dong@vidu.test', laGoc: false })) }));
-    await screen.findByText('dong@vidu.test');
+    await moQtv();
+    await screen.findByText('dong@vidu.test', { selector: '.qt-dong__ten' });
     expect(screen.queryByRole('button', { name: 'Gỡ' })).toBeNull();
     expect(screen.queryByLabelText('Email người đồng quản trị')).toBeNull();
   });
 
   it('YC13-H6 lệnh báo mất quyền thì chuyển sang Q1-02', async () => {
     mo(dv({ danhSach: vi.fn(async () => { throw new LoiKhongQuyenQuanTri(); }) }));
+    await moQtv();
     await screen.findByText(CAU_KHONG_QUYEN);
     expect(document.querySelector('[data-man="Q1-02"]')).not.toBeNull();
   });
