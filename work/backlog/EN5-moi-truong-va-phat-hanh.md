@@ -2,7 +2,7 @@
 id: EN5
 tieu_de: "Môi trường và phát hành"
 loai: EN
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC15.1@1]
 truoc: [EN1, EN2]
 lien_quan: []
@@ -13,7 +13,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 91
 ngay_tao: 2026-11-18
 ---
 ## Mục tiêu
@@ -54,6 +54,7 @@ Không có kịch bản test tay riêng; NT thủ công ghi kết quả vào B�
 Sổ tay phát hành docs/ha-tang/Phat_hanh.md cho Tùng làm khi QD23 chốt. NT2 e2e chạy trên bản build ở máy, đặt E2E_BASE_URL để chạy trên tên miền chính. NT3 cần trang quản trị của YC13, chưa có item.
 
 ## Nhật ký
+- 2026-11-21 · Claude (tự chạy, QD25) · gộp PR #91 (Tùng cho tự gộp cả phần production tới 26/11), chờ QD23 để làm sổ tay
 - 2026-11-18 · Claude · tạo item từ YC15.1@1 (QD21)
 - 2026-11-21 · Claude (tự chạy, QD25) · e2e YC15.1-NT2, sổ tay phát hành; production chờ QD23, PR không tự gộp · ~20 phút
 

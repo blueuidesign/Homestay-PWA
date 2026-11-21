@@ -458,7 +458,9 @@ def ds_nt(repo):
                     x = x.strip().lower().rstrip('.')
                     if x in LOP_THU_MUC:
                         lop.add(x)
-            out[code] = (code.rsplit('-', 1)[0], lop, bo)
+            # CL14: NT chỉ ghi lớp "thủ công" do người kiểm, kết quả ở mục Bằng chứng, không cần file test.
+            thu_cong = not lop and '·' in du and du.rsplit('·', 1)[1].strip().lower().rstrip('.') == 'thủ công'
+            out[code] = (code.rsplit('-', 1)[0], lop, bo, thu_cong)
     return out
 
 
@@ -466,7 +468,7 @@ def nt_cua_item(text, fm, nt):
     can = set()
     for x in as_list(fm.get('thuc_hien')):
         muc = str(x).split('@')[0].strip()
-        can |= {c for c, (cha, _, bo) in nt.items() if cha == muc and not bo}
+        can |= {c for c, (cha, _, bo, thu_cong) in nt.items() if cha == muc and not bo and not thu_cong}
     m = re.search(r'^## Làm tiêu chí nào\n(.*?)(?=^## |\Z)', text, re.S | re.M)
     if m:
         for g in RE_NT_TRONG_CAU.finditer(m.group(1)):
@@ -480,7 +482,7 @@ def nt_cua_item(text, fm, nt):
                     so.append(n)
             for n in so:
                 c = f'{goc}-NT{n}'
-                if c in nt and not nt[c][2]:
+                if c in nt and not nt[c][2] and not nt[c][3]:
                     can.add(c)
     return can
 
