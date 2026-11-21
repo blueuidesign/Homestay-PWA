@@ -29,7 +29,7 @@ Bản viết tay. Thêm file mới thì thêm một dòng ở đây (rules/docs.
 | architecture/thiet-ke-db.md | Mô hình dữ liệu, bất biến, ai đọc ai ghi, việc chạy định kỳ | de-xuat |
 | external/pwa.md | PWA cho và không cho làm gì trên điện thoại (P1 đến P13) | de-xuat |
 | design/README.md | Canvas thiết kế, cách xem một màn bằng trich-man.py | |
-| ha-tang/ | Bí mật để ở đâu, sao lưu và khôi phục, xử lý sự cố | de-xuat |
+| ha-tang/ | Bí mật để ở đâu, sao lưu và khôi phục, xử lý sự cố, phát hành | de-xuat |
 | dev/chay-va-test.md | Cài, chạy, test, build, deploy. Điền khi làm EN dựng nền | nhap |
 | decisions/INDEX.md | Đã quyết gì, đang chờ quyết gì (QD1 đến QD28) | |
 | process/CL1 đến CL14 | Hai người và AI làm việc thế nào. CL2: item và task. CL3: mã. CL4: quyền, git, hook. CL5: mục lục lệnh. CL12: rev, lịch sử, vòng sửa thiết kế. CL14: viết US | de-xuat |
