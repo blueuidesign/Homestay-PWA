@@ -2,7 +2,7 @@
 id: BG2
 tieu_de: "Mở thẳng địa chỉ màn sửa đặt phòng thì kẹt Đang tải"
 loai: BG
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC5.6@7, HV1@5]
 truoc: [US31]
 lien_quan: [EN15, US23, US21]
@@ -14,7 +14,7 @@ uoc_luong: 1 giờ
 thuc_te:
 can_duyet: []
 based_on: fd1d021
-pr:
+pr: [94]
 ngay_tao: 2026-11-21
 ---
 ## Mục tiêu
@@ -45,11 +45,12 @@ Cùng gốc: `/can/gia-nhieu` kẹt khung xám; `/can/<id>/gia` tiêu đề "Că
 Gốc: `useDanhSachCan` trong ManChu.tsx khởi tạo `dangTai = true`, nên effect "mở thẳng địa chỉ thì đọc danh sách" không chạy.
 
 ## Task
-- [x] BG2-TA1 Code · Claude Code (opus, CL14.6a): khởi tạo dangTai false để màn mở thẳng địa chỉ tự đọc danh sách căn; test unit YC5.6-NT1 mở thẳng /dat-phong/<id>/sua, e2e mở thẳng địa chỉ rồi sửa
+- [x] BG2-TA1 Code · PR #94
 
 ## Nhật ký
 - 2026-11-21 · Claude · tạo từ EN15 Luồng 11 (chủ sửa tiền đặt phòng của sale mở từ địa chỉ)
 - 2026-11-21 · Claude · useDanhSachCan khởi tạo dangTai false; test unit 5 ca, e2e mở thẳng rồi sửa · 30 phút
+- 2026-11-21 · Claude · gộp PR #94 theo QD25 (CI xanh), sang cho-test
 
 ## Bằng chứng
 - `npx vitest run src/man/ManChu.test.tsx`: lần đầu 5 test BG2 đỏ (layCanCuaToi không được gọi), sau sửa 11 qua.

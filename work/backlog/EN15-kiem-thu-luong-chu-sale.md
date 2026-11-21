@@ -35,9 +35,12 @@ Sửa code app trong item này (lỗi tìm được đi BG riêng). Sửa spec t
 Tài liệu không nói rõ. Cần sửa file ngoài phạm vi. Cần quyền trong CL4.
 
 ## Task
-- [ ] EN15-TA1 Code · Claude Code (opus, CL14.6a): spec e2e 11 luồng chủ nhà + sale; dò rò dữ liệu qua API bằng 6 tài khoản DLM; báo cáo
+- [x] EN15-TA1 Code · Claude Code (opus, CL14.6a): spec e2e 11 luồng chủ nhà + sale; dò rò dữ liệu qua API bằng 6 tài khoản DLM; báo cáo
 
 ## Nhật ký
 - 2026-11-21 · Claude · tạo item; chạy 11 luồng trên Supabase máy, tìm BG2
+- 2026-11-21 · Claude · spec 11 luồng, 10 đạt ngay, Luồng 11 chờ BG2 (#94); dò 40 lệnh sai quyền không rò · 2 giờ
 
 ## Bằng chứng
+- Báo cáo: work/bao-cao/EN15-kiem-thu-luong-chu-sale.md.
+- `E2E_SUPABASE=1 npx playwright test tests/e2e/supabase/luong-chu-sale.spec.ts --repeat-each=2`: Luồng 1 đến 10 đạt cả hai lượt (16 qua); Luồng 11 đỏ trước BG2. Sau khi gộp #94 (main db27272): cả 11 luồng và sua-dat-phong.spec.ts 14 qua.
