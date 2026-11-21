@@ -45,9 +45,13 @@ Cùng gốc: `/can/gia-nhieu` kẹt khung xám; `/can/<id>/gia` tiêu đề "Că
 Gốc: `useDanhSachCan` trong ManChu.tsx khởi tạo `dangTai = true`, nên effect "mở thẳng địa chỉ thì đọc danh sách" không chạy.
 
 ## Task
-- [ ] BG2-TA1 Code · Claude Code (opus, CL14.6a): khởi tạo dangTai false để màn mở thẳng địa chỉ tự đọc danh sách căn; test unit YC5.6-NT1 mở thẳng /dat-phong/<id>/sua, e2e mở thẳng địa chỉ rồi sửa
+- [x] BG2-TA1 Code · Claude Code (opus, CL14.6a): khởi tạo dangTai false để màn mở thẳng địa chỉ tự đọc danh sách căn; test unit YC5.6-NT1 mở thẳng /dat-phong/<id>/sua, e2e mở thẳng địa chỉ rồi sửa
 
 ## Nhật ký
 - 2026-11-21 · Claude · tạo từ EN15 Luồng 11 (chủ sửa tiền đặt phòng của sale mở từ địa chỉ)
+- 2026-11-21 · Claude · useDanhSachCan khởi tạo dangTai false; test unit 5 ca, e2e mở thẳng rồi sửa · 30 phút
 
 ## Bằng chứng
+- `npx vitest run src/man/ManChu.test.tsx`: lần đầu 5 test BG2 đỏ (layCanCuaToi không được gọi), sau sửa 11 qua.
+- `E2E_SUPABASE=1 npx playwright test tests/e2e/supabase/sua-dat-phong.spec.ts -g BG2`: lần đầu đỏ (không thấy chip 1509), sau sửa qua. Chạy thêm gia-nhieu-can, gia-thang, ds-can, chi-tiet-dat-phong: 7 qua.
+- `npm run typecheck` qua; `python3 scripts/kiem.py --diff origin/main` không lỗi.
