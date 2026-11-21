@@ -64,7 +64,8 @@ import { LINK_ZALO_HOME247, moLinkNgoai } from '../lib/home247';
 /** HV1: lần đầu khung xám; có dữ liệu cũ thì hiện ngay kèm "Đang cập nhật…". HV2: chưa tải được thì Thử lại. */
 function useDanhSachCan(dv: DichVuCan | null) {
   const [ds, datDs] = useState<CanTomTat[] | undefined>(dv ? undefined : []);
-  const [dangTai, datDangTai] = useState(!!dv);
+  // BG2, HV1: chưa đọc lần nào thì chưa "đang tải", để màn mở thẳng địa chỉ (không qua tab Lịch, tab Căn) tự đọc danh sách.
+  const [dangTai, datDangTai] = useState(false);
   const [loi, datLoi] = useState(false);
   const tai = useCallback(async () => {
     if (!dv) return;

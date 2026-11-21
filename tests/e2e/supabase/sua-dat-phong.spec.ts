@@ -63,3 +63,36 @@ test('YC5.6-NT1 YC5.6-NT7 YC5.6-NT11 mở sửa từ chi tiết ngày 13, đổi
   expect(sql(`select (noi_dung->>'ngay_nhan_cu') || '|' || (noi_dung->>'ngay_nhan') from public.thong_bao
               where nguoi_nhan = '${saleId}' and loai = 'chu_sua_dat_phong'`)).toBe(`${ng(13)}|${ng(16)}`);
 });
+
+// BG2: mở thẳng địa chỉ (mở lại app ở màn đó, tải lại trang) thì form sửa vẫn tải xong và lưu được.
+test('YC5.6-NT1 BG2 mở thẳng địa chỉ chi tiết đặt phòng rồi Sửa: mọi ô điền sẵn, lưu được', async ({ page }) => {
+  const chu = taoTaiKhoan('chu_nha', 'Chủ Mở Thẳng');
+  const sale = taoTaiKhoan('sale', 'Sale Hùng');
+  const nguoi = sql(`select id from auth.users where email = '${chu.email}'`);
+  const saleId = sql(`select id from auth.users where email = '${sale.email}'`);
+  const c1509 = sql(`insert into public.can (nguoi_giu, ma_can, so_phong_ngu) values ('${nguoi}', '1509', 2) returning id`).split('\n')[0]!;
+  sql(`insert into public.ket_noi (chu_id, sale_id, trang_thai, nguon) values ('${nguoi}', '${saleId}', 'da_ket_noi', 'link_moi')`);
+  const b = sql(`with b as (
+         insert into public.booking (can_id, ngay_nhan, ngay_tra, nguon, sale_id, tao_boi, tien_phong, trang_thai_tien)
+         values ('${c1509}', public.local_today() + 40, public.local_today() + 42, 'chu_ghi', '${saleId}', '${nguoi}', 2200000, 'chua_coc') returning id),
+       d as (insert into public.booking_dem (booking_id, dem, tien)
+             select b.id, public.local_today() + x, 1100000 from b, unnest(array[40, 41]) x)
+       select id from b`).split('\n')[0]!;
+
+  await dangNhapBangMa(page, chu.email);
+  await expect(page.getByRole('navigation', { name: 'Tab' })).toBeVisible();
+  await page.goto(`/dat-phong/${b}`);
+  await expect(page.getByRole('heading', { name: 'Đặt phòng · Sale Hùng' })).toBeVisible();
+  await page.getByRole('button', { name: 'Sửa đặt phòng' }).click();
+  await expect(page.getByRole('button', { name: '1509' })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByLabel('Tiền phòng (đ)')).toHaveValue('2.200.000');
+  await page.getByLabel('Tiền phòng (đ)').fill('2400000');
+  await page.getByRole('button', { name: 'Lưu thay đổi' }).click();
+  await expect(page.getByText('Đã lưu đặt phòng')).toBeVisible();
+  expect(sql(`select tien_phong from public.booking where id = '${b}'`)).toBe('2400000');
+
+  // Tải lại ngay ở màn sửa cũng vậy.
+  await page.goto(`/dat-phong/${b}/sua`);
+  await expect(page.getByLabel('Tiền phòng (đ)')).toHaveValue('2.400.000');
+  await expect(page.getByRole('button', { name: '1509' })).toHaveAttribute('aria-pressed', 'true');
+});

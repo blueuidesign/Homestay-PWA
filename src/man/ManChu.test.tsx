@@ -113,3 +113,19 @@ describe('YC9.2 · tab Lịch nối khối yêu cầu và CN9 (US51)', () => {
     expect(den).toHaveBeenCalledWith('/dat-phong/b1');
   });
 });
+
+describe('BG2 · mở thẳng địa chỉ màn cần danh sách căn (YC5.6, HV1)', () => {
+  it.each(['/dat-phong/b1/sua', '/dat-phong/b1', '/can/gia-nhieu', '/can/c1509/gia'])(
+    'YC5.6-NT1 HV1 mở thẳng %s (chưa qua tab Lịch, tab Căn) thì đọc danh sách căn một lần', async (duongDan) => {
+      const { dv } = dichVu();
+      render(<ToastProvider><ManChu duongDan={duongDan} den={vi.fn()} dichVuCan={dv} onDangXuat={vi.fn()} /></ToastProvider>);
+      await act(async () => { await Promise.resolve(); });
+      expect(dv.layCanCuaToi).toHaveBeenCalledTimes(1);
+    });
+
+  it('HV1 /can/c1509/gia mở thẳng thì tiêu đề có mã căn sau khi đọc danh sách', async () => {
+    const { dv } = dichVu();
+    render(<ToastProvider><ManChu duongDan="/can/c1509/gia" den={vi.fn()} dichVuCan={dv} onDangXuat={vi.fn()} /></ToastProvider>);
+    expect(await screen.findByRole('heading', { name: /1509/ })).toBeInTheDocument();
+  });
+});
