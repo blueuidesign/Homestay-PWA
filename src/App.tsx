@@ -25,6 +25,8 @@ import { ManLich, XemTruocLink } from './man/ManTam';
 import { ManSale } from './man/ManSale';
 import { TrangPhapLy, DUONG_CHINH_SACH, DUONG_DIEU_KHOAN } from './man/TrangPhapLy';
 import { caiBaoLoi } from './chung/baoLoi';
+import { DUONG_QUAN_TRI } from './man/QuanTri';
+import { TrangQuanTriApp } from './man/TrangQuanTriApp';
 
 type TrangThai = { phien: TrangThaiPhien; email: string; hoSo: HoSo | null | undefined };
 
@@ -107,6 +109,9 @@ function Goc({ dichVu, dichVuCan }: { dichVu: DichVuXacThuc | null; dichVuCan: D
   // YC15.3-NT1: đã đăng nhập thì gắn bộ báo lỗi (fn_ghi_loi chỉ cho người đã đăng nhập, KT-DB.3.1).
   const ghiLoi = dichVuCan?.ghiLoi;
   useEffect(() => (tt.phien === 'co' && ghiLoi ? caiBaoLoi(ghiLoi) : undefined), [tt.phien, ghiLoi]);
+
+  // YC13: trang quản trị riêng, không qua bộ chọn màn của app (không cần hồ sơ, vai).
+  if (duongDan === DUONG_QUAN_TRI || duongDan.startsWith(DUONG_QUAN_TRI + '/')) return <TrangQuanTriApp />;
 
   // YC15.3-NT2: Điều khoản, Chính sách xem được khi chưa đăng nhập.
   const trangPhapLy = duongDan === DUONG_DIEU_KHOAN ? 'dieu-khoan' as const : duongDan === DUONG_CHINH_SACH ? 'chinh-sach' as const : null;

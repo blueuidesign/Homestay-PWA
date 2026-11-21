@@ -119,3 +119,19 @@ export function taoLinkMoi(chuId: string): string {
   return sql(`insert into public.link_moi (ma, loai, chu_id) values (replace(gen_random_uuid()::text, '-', ''), 'moi_sale', '${chuId}')
               returning ma`).split('\n')[0]!;
 }
+
+/** YC13: đăng nhập trang quản trị /quan-tri bằng mã email. */
+export async function vaoQuanTri(page: Page, email: string, thuThu = 1): Promise<void> {
+  await page.goto('/quan-tri');
+  await page.getByLabel('Email').fill(email);
+  await page.getByRole('button', { name: 'Gửi mã' }).click();
+  await nhapMa(page, await layMa(email, thuThu));
+  await page.getByRole('button', { name: 'Đăng nhập' }).click();
+}
+
+/** YC13: ghi quản trị viên đầu tiên bằng SQL như Tùng làm ở mỗi môi trường (Phat_hanh.md mục 5). */
+export function datQuanTriGoc(): string {
+  const email = emailMoi('qt');
+  sql(`delete from public.admins; insert into public.admins (email, la_goc) values ('${email}', true)`);
+  return email;
+}

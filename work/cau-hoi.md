@@ -631,33 +631,40 @@ Gắn ở: YC12.4. Tới khi có câu trả lời: còn (giả định GD29).
 
 ## YC13
 
-### YC13-H1 · mo
+### YC13-H1 · da-tra-loi
 Trang quản trị hiện gì khi đang tải, mất mạng, không có quyền?
 Gắn ở: YC13.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Theo HV chung như mọi màn của app: đang tải HV1, mất mạng HV2. Đăng nhập được mà email không còn trong danh sách quản trị viên thì trang hiện "Email này không có quyền quản trị" với nút "Đăng xuất", không hiện dữ liệu (YC13.1 bước 6).
 
-### YC13-H2 · mo
+### YC13-H2 · da-tra-loi
 Hai dải ngày lễ cùng năm chồng ngày được không?
 Gắn ở: YC13.2.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Không. Hai dải cùng năm không được chồng ngày, database chặn; câu báo "Dải này trùng ngày với <tên dịp>". Lý do: "Chọn nhanh ngày lễ" (YC4.3) đặt giá dịp theo dải, mà giá dịp của một căn không được chồng ngày (gia_dip_khong_chong), nên hai dải chồng nhau sẽ không dùng được cùng lúc.
 
-### YC13-H3 · mo
+### YC13-H3 · da-tra-loi
 Sửa hoặc xóa một dải sau khi chủ nhà đã đặt giá theo dải đó: giá chủ nhà đã lưu giữ theo dải cũ hay đổi theo dải mới, có báo chủ nhà không.
 Gắn ở: YC13.2. Tới khi có câu trả lời: giá dịp của chủ nhà không đổi.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Giá dịp chủ nhà đã lưu giữ nguyên ngày cũ, không báo chủ nhà. Giá dịp là bản riêng của từng căn, chỉ lấy ngày từ dải lúc chủ nhà chọn; sửa hay xóa dải chỉ đổi "Chọn nhanh ngày lễ" từ lúc đó.
 
-### YC13-H4 · mo
+### YC13-H4 · da-tra-loi
 Giới hạn "một dải tối đa 10 ngày" (quy tắc Dải ngày lễ do Home247 đặt) có áp cho dải người quản trị nhập không, hay chỉ cho dải chủ nhà sửa.
 Gắn ở: YC13.2.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Có. Dải quản trị viên nhập tối đa 10 ngày, giống dải giá dịp (YC4.3), vì chủ nhà dùng dải này để đặt giá dịp; dải dài hơn sẽ không lưu được thành giá dịp. Câu báo "Một dải tối đa 10 ngày".
 
-### YC13-H5 · mo
+### YC13-H5 · da-tra-loi
 Hai người thêm cùng một tòa với tên khác nhau ("ICON 40", "Icon40"): người quản trị gộp hay xóa thế nào, căn đang gắn tòa bị xóa thì sao. Người dùng thêm thoải mái nên chuyện này sẽ xảy ra.
 Gắn ở: YC13.3.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Quản trị viên chọn tòa giữ lại và tòa gộp vào. Trong một lệnh: mọi căn của tòa gộp vào chuyển sang tòa giữ lại, rồi tòa gộp vào bị xóa. Tòa giữ lại giữ tên, khu vực và cờ của nó. Không gộp một tòa vào chính nó. Bấm hai lần (HV chung). Không có lệnh xóa tòa riêng ở bản này, vì xóa tòa đang có căn sẽ làm căn mất tòa; tòa trùng thì gộp.
 
-### YC13-H6 · mo
+### YC13-H6 · da-tra-loi
 Người đồng quản trị bị gỡ khi đang đăng nhập thì phiên đó còn dùng được không?
 Gắn ở: YC13.1.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Không. Quyền quản trị kiểm ở mỗi lệnh; người vừa bị gỡ bấm gì tiếp theo cũng bị từ chối, trang chuyển sang "Email này không có quyền quản trị".
 
-### YC13-H7 · mo
+### YC13-H7 · da-tra-loi
 Người quản trị có sửa được tên, khu vực của tòa do người dùng thêm không (ví dụ sửa lỗi chính tả).
 Gắn ở: YC13.3.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Được. Quản trị viên sửa tên, khu vực của mọi tòa, kể cả tòa người dùng thêm; cờ "người dùng thêm" giữ nguyên. Tên mới không được trùng tòa khác (không phân biệt hoa thường), trùng thì báo "Đã có tòa tên này, hãy gộp".
 
 ## YC14
 
@@ -786,9 +793,10 @@ Gắn ở: PQ20.
 
 ## PQ21
 
-### PQ21-H1 · mo
+### PQ21-H1 · da-tra-loi
 Sale có quyền gì ở trang quản trị (dải ngày lễ, tòa nhà) không?
 Gắn ở: PQ21.
+Trả lời (Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026, chế độ tự chạy QD25: "Toàn quyền quyết: việc gì suy luận được từ khung tài liệu hiện có thì tự nghiên cứu, tự quyết"): Sale không có quyền gì ở trang quản trị: không thêm, sửa, xóa dải ngày lễ hay tòa nhà ở đó. Sale vẫn đọc được dải ngày lễ và tòa nhà như mọi người đã đăng nhập (policy đọc chung), và vẫn thêm tòa mới ở form căn tự nhập theo YC3.4, YC10.3.
 
 ## PQ23
 

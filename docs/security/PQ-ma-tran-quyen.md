@@ -3,7 +3,7 @@ id: PQ
 tieu_de: Ma trận quyền
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 4
+rev: 5
 ---
 > Luật chung, sống. Ma trận quyền: nguồn duy nhất cho câu hỏi "ai được thấy, được sửa gì". YC ghi mã ô (PQ5.SALE) ở mục Quyền. Đổi một ô là đổi phân quyền: cần Tùng duyệt và một QD.
 
@@ -208,7 +208,7 @@ Xuất file Excel (CSV) ở P8. Sao lưu và khôi phục On Hold (bản sau, do
 
 ## PQ21 · Dải ngày lễ
 - PQ21.CHU: xem trong "Chọn nhanh ngày lễ"; sửa dải áp cho giá của mình (YC4.3). Không sửa dải chung của Home247.
-- PQ21.SALE: [MỞ: PQ21-H1].
+- PQ21.SALE: xem như mọi người đã đăng nhập; không thêm, sửa, xóa dải chung, không vào trang quản trị (PQ21-H1, Claude tự chốt, chờ Tùng duyệt lại). [r5 · sửa]
 - PQ21.LINK: không.
 - PQ21.CTV: không áp dụng ở bản đầu (YC14).
 - PQ21.KHACH: không.
@@ -239,3 +239,4 @@ Người dùng xóa tài khoản, server xóa số điện thoại và đánh d�
 | 2 | 2026-11-19 | Claude (QD25) | PQ18.LINK: trả lời PQ18-H1, link xin lịch không hết hạn ở bản 1. |
 | 3 | 2026-11-19 | Claude (QD25) | PQ10.SALE: trả lời PQ10-H1 theo YC9-H3, YC9-H4. |
 | 4 | 2026-11-20 | Claude (QD25) | PQ2.SALE, PQ17.SALE: trả lời PQ2-H1, PQ17-H1 theo YC10-H1, YC10-H6. |
+| 5 | 2026-11-21 | Claude (QD25) | PQ21.SALE: trả lời PQ21-H1, sale không có quyền ở trang quản trị. |
