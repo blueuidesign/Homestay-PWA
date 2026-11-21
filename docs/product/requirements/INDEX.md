@@ -18,7 +18,7 @@ YC là đặc tả: app phải làm gì. Mỗi nhóm chức năng một file, s�
 | [YC10](YC10-can-tu-nhap-va-nguon-phong.md) | Nguồn phòng và căn tự nhập | 2 | Tab Căn của sale, chi tiết chủ nhà, căn tự nhập, đặt phòng tự ghi |
 | [YC11](YC11-thong-ke.md) | Thống kê | 1 | Thống kê chủ nhà, thống kê sale, đặt phòng và yêu cầu của sale |
 | [YC12](YC12-thong-bao.md) | Thông báo | 1 | Các loại thông báo, popup, màn Thông báo, nhắc chưa cọc, cài đặt |
-| [YC13](YC13-quan-tri.md) | Quản trị Home247 | sau | Đăng nhập quản trị, dải ngày lễ, tòa nhà |
+| [YC13](YC13-quan-tri.md) | Quản trị Home247 | 1 | Đăng nhập quản trị, dải ngày lễ, tòa nhà |
 | [YC14](YC14-doi-nhom.md) | Đội nhóm sale | sau | Nhóm, mời, nguồn chung |
 | [YC15](YC15-van-hanh.md) | Vận hành | 1 | Môi trường, phát hành, sao lưu, theo dõi lỗi, pháp lý |
 

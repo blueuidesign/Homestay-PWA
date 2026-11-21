@@ -3,6 +3,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import { taoDichVuCanSupabase, type DichVuCan } from './dichVuCan';
 import { taoDichVuSupabase, type DichVuXacThuc } from './xacThuc';
+import { taoDichVuQuanTriSupabase, type DichVuQuanTri } from './dichVuQuanTri';
 
 let client: SupabaseClient | null | undefined;
 let daTao: DichVuXacThuc | null | undefined;
@@ -31,4 +32,13 @@ export function dichVuCanMacDinh(): DichVuCan | null {
   const sb = layClient();
   daTaoCan = sb ? taoDichVuCanSupabase(sb) : null;
   return daTaoCan;
+}
+
+let daTaoQuanTri: DichVuQuanTri | null | undefined;
+/** YC13: trang quản trị /quan-tri, cùng client Supabase với app. */
+export function dichVuQuanTriMacDinh(): DichVuQuanTri | null {
+  if (daTaoQuanTri !== undefined) return daTaoQuanTri;
+  const sb = layClient();
+  daTaoQuanTri = sb ? taoDichVuQuanTriSupabase(sb) : null;
+  return daTaoQuanTri;
 }

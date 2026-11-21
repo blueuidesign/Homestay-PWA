@@ -80,3 +80,8 @@ Bản dưới là **đề xuất của Claude** lúc tạo item (QD21, 18/11/202
 | 69 | [EN5](EN5-moi-truong-va-phat-hanh.md) | YC15.1 · Môi trường và phát hành | Tùng | Chờ QD23 |
 | 70 | [EN6](EN6-sao-luu-va-khoi-phuc.md) | YC15.2 · Sao lưu và khôi phục | Tùng |  |
 | 71 | [EN7](EN7-theo-doi-loi-va-phap.md) | YC15.3 · Theo dõi lỗi và pháp lý | Tùng |  |
+| 72 | [US65](US65-dang-nhap-quan-tri.md) | YC13.1 · Đăng nhập trang quản trị và quản trị viên | Tùng | Cụm 6 (21/11, Claude thêm khi đối chiếu YC với backlog) |
+| 73 | [US66](US66-dai-ngay-le.md) | YC13.2 · Dải ngày lễ | Tùng | Cụm 6 |
+| 74 | [US67](US67-toa-nha-quan-tri.md) | YC13.3 · Tòa nhà ở trang quản trị | Tùng | Cụm 6 |
+
+Đối chiếu 21/11/2026: mọi mục YC1 đến YC12, YC15 đã có item; mọi màn trên canvas đã có item, trừ S8 (đội nhóm) và P7 (sao lưu, bản sau). YC14 (đội nhóm) có item US68, US69 ở trạng thái on-hold vì canvas ghi "On Hold"; chờ Tùng (work/cho-tung.md).

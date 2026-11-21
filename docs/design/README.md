@@ -3,7 +3,7 @@ id: TKE
 tieu_de: Thiết kế, canvas và cách xem màn
 trang_thai: de-xuat
 nguoi_chu: tung
-rev: 2
+rev: 3
 ---
 # Thiết kế
 
@@ -26,7 +26,7 @@ grep -rln "CN4" docs/product/requirements/         # YC nào nói về màn này
 
 ## Mã màn
 
-A = vào app và kết nối · CN = chủ nhà · S = sale · P = tab Cá nhân. Hậu tố `-00` là trạng thái trống; `-01`, `-02`… là biến thể hay bước tiếp. Mỗi mã có đúng một hình trên canvas. Màn mới phải có mã mới và một dòng trong bảng dưới.
+A = vào app và kết nối · CN = chủ nhà · S = sale · P = tab Cá nhân · Q = trang quản trị /quan-tri (YC13, Claude dựng trong code 21/11/2026, chưa vẽ trên canvas) [r3 · thêm]. Hậu tố `-00` là trạng thái trống; `-01`, `-02`… là biến thể hay bước tiếp. Mỗi mã có đúng một hình trên canvas. Màn mới phải có mã mới và một dòng trong bảng dưới.
 
 ## Bản PWA khác canvas Zalo cũ ở đâu [r2 · sửa]
 
@@ -192,8 +192,18 @@ Chữ hay số trên hình lệch YC thì YC đúng. Ghi chỗ lệch vào PR.
 | CN3-02-03 | Chi tiết đặt phòng · đã thu đủ | chưa YC nào nhắc |
 | CN7-06 | Sale của tôi · vừa cho sale xem lịch | chưa YC nào nhắc |
 | P13-02 | Thông báo · chủ nhà ngừng cho xem lịch | YC12 |
+| Q1 | Quản trị · đăng nhập bằng email (dựng trong code, chưa có trên canvas) [r3 · thêm] | YC13 |
+| Q1-01 | Quản trị · nhập mã 6 số (dùng lại màn nhập mã A11-02) [r3 · thêm] | YC13 |
+| Q1-02 | Quản trị · email không có quyền quản trị [r3 · thêm] | YC13 |
+| Q2 | Quản trị · mục Quản trị viên [r3 · thêm] | YC13 |
+| Q3 | Quản trị · mục Ngày lễ, dải theo năm [r3 · thêm] | YC13 |
+| Q3-01 | Quản trị · thêm, sửa dải ngày lễ [r3 · thêm] | YC13 |
+| Q4 | Quản trị · mục Tòa nhà [r3 · thêm] | YC13 |
+| Q4-01 | Quản trị · thêm, sửa tòa [r3 · thêm] | YC13 |
+| Q4-02 | Quản trị · gộp tòa trùng [r3 · thêm] | YC13 |
 
 ## Lịch sử sửa đổi
 | Rev | Ngày | Người | Commit hoặc PR | Thay đổi | Mục bị đổi |
 |---|---|---|---|---|---|
 | r2 | 2026-11-19 | Claude (thread design, Tùng giao) | claude/project-thread-0kxyex | Canvas chuyển sang bản PWA; đăng ký, đăng nhập email; bỏ popup xin số, màn công tắc giá; thêm xóa tài khoản; ảnh từng màn | Đầu file (sửa), Bản PWA khác canvas Zalo cũ ở đâu (sửa), Danh sách màn (thêm, sửa, bỏ) |
+| r3 | 2026-11-21 | Claude (QD25) | US65-dang-nhap-quan-tri | Thêm nhóm mã Q cho trang quản trị YC13 | Mã màn, Danh sách màn (thêm) |

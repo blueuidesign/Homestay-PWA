@@ -1,0 +1,23 @@
+/* YC13 · Trang quản trị (Q1 đến Q4-02). Cột giữa tối đa 480 px như app; vùng bấm 44 px; chữ 13–16 px, không dưới 12 px. */
+.qt-trang { background: var(--surface-page); }
+.qt-dau { display: flex; align-items: center; gap: 8px; padding: 4px 8px 4px 16px; }
+.qt-dau .man-tieu-de { flex: 1 1 0; }
+.qt-dang-xuat { min-height: 44px; }
+.qt-ai { margin: 0; padding: 4px 16px 8px; font-size: 13px; line-height: 18px; color: var(--ink-muted, var(--ink)); overflow-wrap: anywhere; }
+.qt-tab { display: flex; gap: 4px; padding: 0 12px; border-bottom: 1px solid var(--border); background: var(--surface); overflow-x: auto; }
+.qt-tab__nut { min-height: 44px; padding: 0 12px; border: 0; background: none; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-muted, var(--ink)); border-bottom: 2px solid transparent; white-space: nowrap; cursor: pointer; }
+.qt-tab__nut--on { color: var(--action-ink, var(--ink)); border-bottom-color: var(--action, currentColor); }
+.qt-than { padding: 16px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
+.qt-muc { display: flex; flex-direction: column; gap: 16px; }
+.qt-ds { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.qt-dong { display: flex; align-items: center; gap: 8px; min-height: 56px; padding: 8px 12px 8px 16px; border-bottom: 1px solid var(--border); }
+.qt-dong:last-child { border-bottom: 0; }
+.qt-dong__chu { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.qt-dong__ten { font-size: 15px; line-height: 22px; font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.qt-dong__phu { font-size: 13px; line-height: 18px; color: var(--ink-muted, var(--ink)); }
+.qt-dong .hh-btn { min-height: 44px; flex: 0 0 auto; }
+.qt-nut-do { background: var(--danger, #c62828); border-color: var(--danger, #c62828); }
+.qt-them { display: flex; flex-direction: column; gap: 8px; }
+.qt-bao { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--danger-text, var(--ink)); }
+.qt-loi-tai { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; font-size: 14px; }
+.qt-trong { margin: 0; font-size: 14px; line-height: 20px; color: var(--ink-muted, var(--ink)); }
