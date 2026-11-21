@@ -477,7 +477,9 @@ RLS: bật
 
 Ràng buộc:
 - ngay_le_check: CHECK ((den_ngay >= tu_ngay))
+- ngay_le_khong_chong: EXCLUDE USING gist (nam WITH =, daterange(tu_ngay, den_ngay, '[]'::text) WITH &&)
 - ngay_le_pkey: PRIMARY KEY (id)
+- ngay_le_toi_da_10_ngay: CHECK (((den_ngay - tu_ngay) <= 9))
 
 Policy:
 - ngay_le_doc (SELECT, authenticated): true
@@ -719,10 +721,12 @@ Policy:
 - fn_dem_xuat_csv(p_tu date, p_den date, p_can_ids uuid[]) → integer · security definer · gọi được: authenticated
 - fn_doanh_thu_thang(p_thang date) → TABLE(doanh_thu bigint, so_dem integer, doanh_thu_thang_truoc bigint) · security definer · gọi được: authenticated
 - fn_doi_link_moi() → void · security definer · gọi được: authenticated
+- fn_doi_quan_tri() → boolean · security definer
 - fn_don_anh_tam() → SETOF text · security definer
 - fn_dong_y_xin_lich(p_ma text, p_xem_coc boolean) → jsonb · security definer · gọi được: authenticated
 - fn_ds_sale_cua_toi() → TABLE(id uuid, loai text, sale_id uuid, ten text, so_dien_thoai text, nhom text, da_xoa_tai_khoan boolean, xem_coc boolean, so_dat_phong integer, tong_tien_phong bigint, ket_noi_luc timestamp with time zone, ngung_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_ds_thong_bao(p_truoc_luc timestamp with time zone, p_truoc_id uuid) → jsonb · security definer · gọi được: authenticated
+- fn_email_nguoi_goi() → text · security definer
 - fn_file_cho_xoa(p_so integer) → SETOF text · security definer
 - fn_ghi_dat_phong_tu_ghi(p_can_id uuid, p_ngay_nhan date, p_ngay_tra date, p_tra_chu bigint, p_thu_khach bigint, p_client_id uuid) → uuid · security definer · gọi được: authenticated
 - fn_ghi_lan_gui(p_can_ids uuid[], p_tu date, p_den date) → integer · security definer · gọi được: authenticated
@@ -738,6 +742,7 @@ Policy:
 - fn_hoan_tac_thu_du(p_booking_id uuid) → text · security definer · gọi được: authenticated
 - fn_huy_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
 - fn_ket_qua_yeu_cau(p_yeu_cau_id uuid) → jsonb · security definer · gọi được: authenticated
+- fn_la_quan_tri() → boolean · security definer · gọi được: authenticated
 - fn_lay_link_moi() → TABLE(ma text, so_lan_gui integer, het_han_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_lay_link_xin_lich() → text · security definer · gọi được: authenticated
 - fn_lich_gia_thang(p_can_id uuid, p_thang date) → TABLE(dem date, gia bigint, loai text, co_khach boolean) · security definer · gọi được: authenticated
@@ -747,6 +752,12 @@ Policy:
 - fn_muc_cong_mac_dinh() → jsonb · security definer · gọi được: authenticated
 - fn_ngung_cho_xem(p_ket_noi_id uuid) → text · security definer · gọi được: authenticated
 - fn_nhac_chua_coc() → integer · security definer
+- fn_quan_tri_danh_sach() → TABLE(email text, la_goc boolean, them_luc timestamp with time zone) · security definer · gọi được: authenticated
+- fn_quan_tri_go(p_email text) → void · security definer · gọi được: authenticated
+- fn_quan_tri_luu_ngay_le(p_id uuid, p_nam integer, p_ten text, p_tu_ngay date, p_den_ngay date) → uuid · security definer · gọi được: authenticated
+- fn_quan_tri_them(p_email text) → void · security definer · gọi được: authenticated
+- fn_quan_tri_vao() → jsonb · security definer · gọi được: authenticated
+- fn_quan_tri_xoa_ngay_le(p_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_dong_chu(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_bo_nguon(p_ket_noi_id uuid) → void · security definer · gọi được: authenticated
 - fn_sale_chi_tiet_can(p_can_id uuid, p_tu date, p_den date) → jsonb · security definer · gọi được: authenticated

@@ -2,7 +2,7 @@
 id: US65
 tieu_de: "Đăng nhập trang quản trị và quản trị viên"
 loai: US
-trang_thai: dang-lam
+trang_thai: cho-test
 thuc_hien: [YC13.1@2]
 truoc: [EN2, US2]
 lien_quan: []
@@ -15,7 +15,7 @@ uoc_luong:
 thuc_te:
 can_duyet: []
 based_on:
-pr:
+pr: 93
 ngay_tao: 2026-11-21
 ---
 ## Mục tiêu
@@ -68,6 +68,7 @@ Kịch bản test tay: tests/kb/US65-dang-nhap-quan-tri.md.
 Bảng admins có từ EN2. Hàm fn_la_quan_tri() so email trong auth.users của người gọi với danh sách. Mã gửi như đăng nhập app; người ngoài danh sách vào Q1-02 (YC13.1 bản 2, theo PQ Luật chung 4). fn_quan_tri_vao ghi nguoi_id, fn_quan_tri_them, fn_quan_tri_go chỉ la_goc gọi được; không gỡ chính mình.
 
 ## Nhật ký
+- 2026-11-21 · Claude (tự chạy, QD25) · gộp PR #93 khi CI xanh, chuyển chờ test. Lần đẩy đầu CI đỏ: hàm cho anon trái KT-DB.3.1, KT-DB.3.3 (sửa YC13.1 lên bản 2), quên sinh lại bang-va-cot.md
 - 2026-11-21 · Claude (tự chạy, QD25) · test database trước (đỏ vì chưa có hàm), migration fn_quan_tri_*, trang /quan-tri Q1, Q1-01, Q1-02, Q2 · khoảng 40 phút
 - 2026-11-21 · Claude (tự chạy, QD25) · tạo item từ YC13.1@2
 
