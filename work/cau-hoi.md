@@ -45,9 +45,10 @@ Chính sách quyền riêng tư phải nói giữ dữ liệu gì sau khi ngư�
 Gắn ở: YC1.8.
 Trả lời: Claude tự chốt, chờ Tùng duyệt lại, 21/11/2026 (QD25): số điện thoại xóa ngay; tên, căn, lịch, giá, đặt phòng, khách giữ để đặt phòng đã có còn chiếm đêm, bên kia còn đối soát và người xóa đăng nhập lại dùng tiếp (QD13); bản sao lưu còn số tối đa 60 ngày; muốn xóa hẳn thì nhắn Zalo, làm trong 30 ngày. Nội dung ở trang Chính sách quyền riêng tư (EN7, src/man/TrangPhapLy.tsx).
 
-### YC1-H8 · mo
+### YC1-H8 · da-tra-loi
 Ảnh đại diện, tên và số chủ căn tự nhập, tên và số khách do người xóa nhập có bị xóa không?
 Gắn ở: YC1.8.
+Trả lời (Claude tự chốt, 21/11/2026, theo lời Tùng giao tự quyết, QD25): Không xóa. Chỉ số điện thoại của chính người đó bị xóa (QD13, P14 "Sẽ xóa" chỉ ghi số). Ảnh đại diện, tên giữ để người khác vẫn nhận ra (QT6.5) và để đăng nhập lại là dùng tiếp như cũ (YC1.8 bước 6). Tên, số chủ căn tự nhập và khách do người đó nhập là dữ liệu chỉ người đó thấy (QD11, PQ14.SALE), không ai khác đọc được, nên giữ cho lần quay lại. Chờ Tùng duyệt lại.
 
 ### YC1-H9 · da-tra-loi
 File xuất CSV có cột "Khách", "SĐT" (chỉ khách chủ nhà tự nhập, QD11): giữ hai cột này hay bỏ?

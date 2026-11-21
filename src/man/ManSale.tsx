@@ -292,7 +292,7 @@ function ManSaleTrong(props: {
   }
   if (moP2) {
     const dong = () => { datMoP2(false); datTab('ca-nhan'); };
-    return <P2HoSo dv={props.dvHoSo} onQuayLai={dong} />;
+    return <P2HoSo dv={props.dvHoSo} onQuayLai={dong} onDaXoa={props.onDangXuat} />; // YC1.8 bước 3: xóa xong về A1
   }
   if (moP11) {
     const dong = () => { datMoP11(false); datTab('ca-nhan'); };

@@ -1,4 +1,4 @@
-// Test unit màn S3 · Chi tiết căn của chủ nhà (YC7.4, HV5, US46).
+// Test unit màn S3 · Chi tiết căn của chủ nhà (YC7.4, HV5, US46). YC1.8-NT6 (sale mở căn của chủ nhà đã xóa tài khoản) kiểm ở test HV5-NT2.
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ToastProvider } from '../chung/Toast';
@@ -161,7 +161,7 @@ describe('YC7.4 · S3 chi tiết căn', () => {
     expect(onVeLich).toHaveBeenCalled();
   });
 
-  it('HV5-NT2 chủ nhà đã xóa tài khoản: lý do "Chủ nhà đã xóa tài khoản"; "Về Lịch" theo khung tab', async () => {
+  it('HV5-NT2 YC1.8-NT6 chủ nhà đã xóa tài khoản: lý do "Chủ nhà đã xóa tài khoản"; "Về Lịch" theo khung tab', async () => {
     const veLich = vi.fn();
     const d = dv({ khongConQuyen: true, lyDo: 'Chủ nhà đã xóa tài khoản' });
     render(
