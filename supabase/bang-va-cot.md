@@ -754,7 +754,9 @@ Policy:
 - fn_nhac_chua_coc() → integer · security definer
 - fn_quan_tri_danh_sach() → TABLE(email text, la_goc boolean, them_luc timestamp with time zone) · security definer · gọi được: authenticated
 - fn_quan_tri_go(p_email text) → void · security definer · gọi được: authenticated
+- fn_quan_tri_gop_toa(p_giu uuid, p_gop uuid) → void · security definer · gọi được: authenticated
 - fn_quan_tri_luu_ngay_le(p_id uuid, p_nam integer, p_ten text, p_tu_ngay date, p_den_ngay date) → uuid · security definer · gọi được: authenticated
+- fn_quan_tri_luu_toa(p_id uuid, p_ten text, p_khu_vuc text) → uuid · security definer · gọi được: authenticated
 - fn_quan_tri_them(p_email text) → void · security definer · gọi được: authenticated
 - fn_quan_tri_vao() → jsonb · security definer · gọi được: authenticated
 - fn_quan_tri_xoa_ngay_le(p_id uuid) → void · security definer · gọi được: authenticated
