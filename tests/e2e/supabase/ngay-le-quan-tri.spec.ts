@@ -11,7 +11,7 @@ test('YC13.1-NT2 người đồng quản trị vừa được thêm đăng nhậ
   await vaoQuanTri(page, dong);
   await page.getByRole('tab', { name: 'Ngày lễ' }).click();
   const q3 = page.locator('[data-man="Q3"]');
-  while (!(await q3.getByText('Năm 2031').isVisible())) await q3.getByRole('button', { name: 'Năm sau' }).click();
+  while (!(await q3.getByText('Năm 2031', { exact: true }).isVisible())) await q3.getByRole('button', { name: 'Năm sau' }).click();
   await q3.getByRole('button', { name: 'Thêm dải ngày lễ' }).click();
   await page.getByLabel('Tên dịp').fill('Tết Nguyên đán');
   await page.getByLabel('Ngày đầu').fill('2031-01-22');
