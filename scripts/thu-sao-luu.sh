@@ -28,9 +28,9 @@ if DB_URL="$U/hs_sl_thieu" OUT="$TMP/c" KHONG_DAY=1 MIN_KB=1 bash -c 'mkdir -p "
   hong "YC15.2-NT2 bản xuất thiếu bảng mà không báo lỗi"
 else ok "YC15.2-NT2 bản xuất thiếu bảng thì báo lỗi, không đẩy"; fi
 
-if "$GOC/scripts/khoi-phuc-thu.sh" "$(ls "$TMP"/a/*.dump | head -1)" "$U/hs_sl_dich" "$U/hs_sl_goc" >/dev/null 2>&1; then
+if "$GOC/scripts/khoi-phuc-thu.sh" "$(ls "$TMP"/a/*.dump | head -1)" "$U/hs_sl_dich" "$U/hs_sl_goc" >"$TMP/kp.txt" 2>&1; then
   ok "YC15.2-NT3 khôi phục vào database mới dựng từ migration ra cùng số dòng mọi bảng"
-else hong "YC15.2-NT3 khôi phục thử không khớp số dòng"; fi
+else hong "YC15.2-NT3 khôi phục thử không khớp số dòng"; tail -20 "$TMP/kp.txt"; fi
 
 for d in hs_sl_goc hs_sl_dich hs_sl_thieu; do psql -X -q -d postgres -c "drop database if exists $d with (force)" >/dev/null; done
 echo "Thử sao lưu: $DAT đạt, $HONG hỏng."
