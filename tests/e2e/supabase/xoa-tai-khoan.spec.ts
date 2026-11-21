@@ -25,6 +25,9 @@ test('YC1.8-NT1 YC1.8-NT8 luồng chính: xóa tài khoản về A1, database b�
   expect(sql(`select count(*) from public.can where nguoi_giu = '${id}'`)).toBe('1');
 
   // NT8: đăng nhập lại cùng email thì vào màn nhập lại số; nhập số thì thấy lại căn.
+  // Cho phép xin mã lần hai ngay (giới hạn 60 giây giữa hai lần gửi là của YC1.2, không phải của test này).
+  sql(`update auth.users set recovery_sent_at = now() - interval '2 minutes', confirmation_sent_at = now() - interval '2 minutes'
+       where id = '${id}'`);
   await page.getByRole('button', { name: 'Tôi đã có tài khoản · Đăng nhập' }).click();
   await page.getByLabel('Email').fill(chu.email);
   await page.getByRole('button', { name: 'Gửi mã đăng nhập' }).click();
