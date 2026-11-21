@@ -1,0 +1,55 @@
+# EN6 · Sao lưu đêm (YC15.2, docs/ha-tang/Sao_luu_khoi_phuc.md). 02:00 giờ Việt Nam (19:00 UTC) trên máy của GitHub, không cần máy ai bật.
+# Cần secret SUPABASE_DB_URL (chuỗi Session pooler của production) và RCLONE_CONF (có mục crypt gdrive-mahoa để mã hóa),
+# variable BACKUP_FOLDER. Thiếu secret thì in nhắc và thoát 0 (chưa có production, QD23). Chỉ đọc database, không ghi.
+name: backup
+
+on:
+  schedule:
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backup
+  cancel-in-progress: false
+
+jobs:
+  sao-luu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Kiểm đã có secret chưa
+        id: kiem
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        run: |
+          if [ -z "$DB_URL" ] || [ -z "$RCLONE_CONF" ]; then
+            echo "Chưa có SUPABASE_DB_URL hay RCLONE_CONF: bỏ qua (xem docs/ha-tang/Sao_luu_khoi_phuc.md mục 1)."
+            echo "co=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "co=1" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.kiem.outputs.co == '1'
+      - name: Cài pg_dump 17 và rclone
+        if: steps.kiem.outputs.co == '1'
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list >/dev/null
+          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client-17 rclone
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      - name: Sao lưu, kiểm, đẩy lên nơi cất đã mã hóa, xóa bản cũ hơn 60 ngày
+        if: steps.kiem.outputs.co == '1'
+        env:
+          DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+          REMOTE: 'gdrive-mahoa:'
+          FOLDER: ${{ vars.BACKUP_FOLDER }}
+        run: |
+          mkdir -p ~/.config/rclone && umask 077 && printf '%s\n' "$RCLONE_CONF" > ~/.config/rclone/rclone.conf
+          OUT="$RUNNER_TEMP/sao-luu" && mkdir -p "$OUT" && OUT="$OUT" scripts/sao-luu.sh
+          rm -rf "$RUNNER_TEMP/sao-luu" ~/.config/rclone/rclone.conf

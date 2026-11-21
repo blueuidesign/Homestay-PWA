@@ -97,6 +97,8 @@ jobs:
         run: scripts/test-db.sh
       - name: Thử làm hỏng (scripts/thu-lam-hong.sh)
         run: scripts/thu-lam-hong.sh
+      - name: Thử sao lưu và khôi phục (scripts/thu-sao-luu.sh, EN6)
+        run: scripts/thu-sao-luu.sh
       - name: Bảng cột đã sinh lại sau khi đổi migration (scripts/bang-cot.sh)
         run: |
           scripts/bang-cot.sh
